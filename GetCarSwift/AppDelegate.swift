@@ -15,7 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if !defaults.boolForKey("isLogin") {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            var loginController = storyboard.instantiateViewControllerWithIdentifier("login") as? UIViewController
+            window?.rootViewController = loginController
+        }
+        
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = UI_COLOR_RED
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(), NSFontAttributeName : UIFont.systemFontOfSize(20.0)]
+        
+        UITabBar.appearance().tintColor = UI_COLOR_RED
+        
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.whiteColor()
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.darkGrayColor()
+        
+        application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+        
+        MAMapServices.sharedServices().apiKey = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
         return true
     }
 
