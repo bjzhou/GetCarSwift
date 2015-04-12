@@ -813,7 +813,7 @@
 					"$(PROJECT_DIR)/GetCarSwift/Amap",
 				);
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
@@ -832,7 +832,7 @@
 					"$(PROJECT_DIR)/GetCarSwift/Amap",
 				);
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
