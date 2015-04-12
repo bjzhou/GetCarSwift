@@ -6,7 +6,9 @@
 //  Copyright (c) 2015年 周斌佳. All rights reserved.
 //
 
-import UIKit
+import Foundation
+
+let APP_VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 
 let UI_COLOR_RED = UIColorFromRGB(0xcc0007)
 
@@ -29,6 +31,11 @@ let IMAGE_CAR_IMAGE = "car_avator"
 let IMAGE_QRCODE = "qrcode"
 let IMAGE_POSITION_FEMALE_RED = "position_female_red"
 let IMAGE_POSITION_MALE_WHITE = "position_male_white"
+
+let FIR_APP_ID = "55082e72a02ddbb21f000956"
+let FIR_USER_TOKEN = "3af74030cca511e4a5e787e903cd690d43148e64"
+let FIR_URL_VERSION_CHECK = "http://fir.im/api/v2/app/version/" + FIR_APP_ID + "?token=" + FIR_USER_TOKEN
+let FIR_URL_DOWNLOAD = "itms-services://?action=download-manifest&url="
 
 func UIColorFromRGB(rgbValue: UInt) -> UIColor {
     return UIColor(

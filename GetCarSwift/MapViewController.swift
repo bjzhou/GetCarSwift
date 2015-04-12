@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class MapViewController: UIViewController, MAMapViewDelegate {
     
@@ -23,6 +25,26 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         super.viewDidLoad()
 
         initMapView()
+        checkNewVersion()
+    }
+    
+    func checkNewVersion() {
+        Alamofire.request(.GET, FIR_URL_VERSION_CHECK)
+            .responseJSON { (req, res, json, err) in
+                var json = JSON(json!)
+                if let latest = json["versionShort"].string {
+                    if APP_VERSION! != json["versionShort"].string {
+                        var alert = UIAlertController(title: "更新", message: "当前版本：" + APP_VERSION! + "\n最新版本：" + json["versionShort"].string! + "\n是否下载安装最新版本？", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
+                            if let update_url = json["update_url"].string {
+                                UIApplication.sharedApplication().openURL(NSURL(string: update_url)!)
+                            }
+                        }))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                }
+        }
     }
     
     func initMapView() {
@@ -30,8 +52,6 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         mapView.userTrackingMode = MAUserTrackingModeFollow
         mapView.showsCompass = false
         mapView.zoomLevel = 17
-        
-        //view.sendSubviewToBack(mapView)
     }
     
     override func viewDidAppear(animated: Bool) {

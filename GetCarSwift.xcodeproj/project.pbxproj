@@ -76,7 +76,7 @@
 		C867FD171AD8FDA400F99592 /* tab_map_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C867FCD11AD8FDA400F99592 /* tab_map_selected@2x.png */; };
 		C867FD181AD8FDA400F99592 /* tab_mine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C867FCD21AD8FDA400F99592 /* tab_mine@2x.png */; };
 		C867FD191AD8FDA400F99592 /* tab_mine_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C867FCD31AD8FDA400F99592 /* tab_mine_selected@2x.png */; };
-		C867FD1E1AD9071900F99592 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Res.swift */; };
+		C867FD1E1AD9071900F99592 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Globals.swift */; };
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
@@ -185,7 +185,7 @@
 		C867FCD11AD8FDA400F99592 /* tab_map_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_map_selected@2x.png"; sourceTree = "<group>"; };
 		C867FCD21AD8FDA400F99592 /* tab_mine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_mine@2x.png"; sourceTree = "<group>"; };
 		C867FCD31AD8FDA400F99592 /* tab_mine_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_mine_selected@2x.png"; sourceTree = "<group>"; };
-		C867FD1D1AD9071900F99592 /* Res.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Res.swift; sourceTree = "<group>"; };
+		C867FD1D1AD9071900F99592 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C8E2B8351AD9262F003B07FE /* GetCarSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetCarSwift-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 				C867FC741AD8FCAF00F99592 /* Images.xcassets */,
 				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
 				C867FC691AD8FCAF00F99592 /* Supporting Files */,
-				C867FD1D1AD9071900F99592 /* Res.swift */,
+				C867FD1D1AD9071900F99592 /* Globals.swift */,
 			);
 			path = GetCarSwift;
 			sourceTree = "<group>";
@@ -677,7 +677,7 @@
 				C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */,
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */,
-				C867FD1E1AD9071900F99592 /* Res.swift in Sources */,
+				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */,
@@ -874,6 +874,76 @@
 			};
 			name = Release;
 		};
+		C8AE9D501ADA69F900D02EA8 /* Adhoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Adhoc;
+		};
+		C8AE9D511ADA69F900D02EA8 /* Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA5016465B25C5FAE0F8AB81 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: binjia zhou";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GetCarSwift/Amap",
+				);
+				INFOPLIST_FILE = GetCarSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Adhoc;
+		};
+		C8AE9D521ADA69F900D02EA8 /* Adhoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GetCarSwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
+			};
+			name = Adhoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -882,6 +952,7 @@
 			buildConfigurations = (
 				C867FC851AD8FCB000F99592 /* Debug */,
 				C867FC861AD8FCB000F99592 /* Release */,
+				C8AE9D501ADA69F900D02EA8 /* Adhoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -891,6 +962,7 @@
 			buildConfigurations = (
 				C867FC881AD8FCB000F99592 /* Debug */,
 				C867FC891AD8FCB000F99592 /* Release */,
+				C8AE9D511ADA69F900D02EA8 /* Adhoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -900,6 +972,7 @@
 			buildConfigurations = (
 				C867FC8B1AD8FCB000F99592 /* Debug */,
 				C867FC8C1AD8FCB000F99592 /* Release */,
+				C8AE9D521ADA69F900D02EA8 /* Adhoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
