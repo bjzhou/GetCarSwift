@@ -32,7 +32,7 @@ let IMAGE_QRCODE = "qrcode"
 let IMAGE_POSITION_FEMALE_RED = "position_female_red"
 let IMAGE_POSITION_MALE_WHITE = "position_male_white"
 
-let FIR_APP_ID = "55082e72a02ddbb21f000956"
+let FIR_APP_ID = "552a3921ebc861d936002615"
 let FIR_USER_TOKEN = "3af74030cca511e4a5e787e903cd690d43148e64"
 let FIR_URL_VERSION_CHECK = "http://fir.im/api/v2/app/version/" + FIR_APP_ID + "?token=" + FIR_USER_TOKEN
 let FIR_URL_DOWNLOAD = "itms-services://?action=download-manifest&url="
