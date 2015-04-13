@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     @IBOutlet weak var zoomInButton: UIButton!
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var mapView: MAMapView!
-    
+
     var newCoordinate: CLLocationCoordinate2D?
 
     override func viewDidLoad() {
@@ -33,8 +33,8 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             .responseJSON { (req, res, json, err) in
                 var json = JSON(json!)
                 if let latest = json["versionShort"].string {
-                    if APP_VERSION! != json["versionShort"].string {
-                        var alert = UIAlertController(title: "更新", message: "当前版本：" + APP_VERSION! + "\n最新版本：" + json["versionShort"].string! + "\n是否下载安装最新版本？", preferredStyle: .Alert)
+                    if APP_VERSION! != latest {
+                        var alert = UIAlertController(title: "更新", message: "当前版本：" + APP_VERSION! + "\n最新版本：" + latest + "\n版本信息：" + json["changelog"].stringValue + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
                         alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
                         alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
                             if let update_url = json["update_url"].string {
