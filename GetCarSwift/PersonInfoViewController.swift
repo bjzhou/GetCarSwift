@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonInfoViewController: UITableViewController {
+class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     let titles = ["头像", "车形象", "用户名", "我的二维码", "我的地址", "性别", "地区", "个性签名"]
     let values = [IMAGE_AVATAR, IMAGE_CAR_IMAGE, "SURA", IMAGE_QRCODE, "", "女", "上海浦东新区", ""]
@@ -63,6 +63,43 @@ class PersonInfoViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tableView.sectionHeaderHeight;
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.row == 0 && indexPath.section == 0 {
+            showImagePickerAlertView()
+        }
+        
+    }
+    
+    func showImagePickerAlertView() {
+        var imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        var alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alertController.addAction(UIAlertAction(title: "拍照", style: UIAlertActionStyle.Default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            self.presentViewController(imagePicker, animated: true, completion: {() in
+            
+            })
+        }))
+        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: UIAlertActionStyle.Default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            self.presentViewController(imagePicker, animated: true, completion: {() in
+                
+            })
+            
+        }))
+        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        // TODO: set image and save
+    }
+    
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
     }
 
     /*
