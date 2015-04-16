@@ -71,6 +71,12 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             showImagePickerAlertView()
         }
         
+        if indexPath.section == 1 && indexPath.row == 0 {
+            //let navigationController = UINavigationController(rootViewController: InfoEditViewController())
+            //showViewController(navigationController, sender: self)
+            self.navigationController?.showViewController(InfoEditViewController(), sender: self)
+        }
+        
     }
     
     func showImagePickerAlertView() {

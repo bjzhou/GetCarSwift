@@ -78,6 +78,8 @@
 		C867FD191AD8FDA400F99592 /* tab_mine_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C867FCD31AD8FDA400F99592 /* tab_mine_selected@2x.png */; };
 		C867FD1E1AD9071900F99592 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Globals.swift */; };
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
+		C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */; };
+		C8C6B4291ADFEA8500059523 /* selected_accessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C6B4281ADFEA8500059523 /* selected_accessory@2x.png */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
@@ -187,6 +189,8 @@
 		C867FCD31AD8FDA400F99592 /* tab_mine_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_mine_selected@2x.png"; sourceTree = "<group>"; };
 		C867FD1D1AD9071900F99592 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoEditViewController.swift; sourceTree = "<group>"; };
+		C8C6B4281ADFEA8500059523 /* selected_accessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selected_accessory@2x.png"; sourceTree = "<group>"; };
 		C8E2B8351AD9262F003B07FE /* GetCarSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetCarSwift-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 		C867FC8D1AD8FDA300F99592 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C8C6B4281ADFEA8500059523 /* selected_accessory@2x.png */,
 				C8E2B8571AD9801A003B07FE /* map_layer_change@2x.png */,
 				C8E2B8581AD9801A003B07FE /* map_location@2x.png */,
 				C8E2B8591AD9801A003B07FE /* map_titlebg@2x.png */,
@@ -434,6 +439,7 @@
 				C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */,
 				C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */,
 				C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */,
+				C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				C867FCE11AD8FDA400F99592 /* btn_zhizun_seleted@2x.png in Resources */,
 				C867FCEC1AD8FDA400F99592 /* gz_keluzi_white@2x.png in Resources */,
 				C867FD0A1AD8FDA400F99592 /* position_male_gray@2x.png in Resources */,
+				C8C6B4291ADFEA8500059523 /* selected_accessory@2x.png in Resources */,
 				C867FD121AD8FDA400F99592 /* tab_carbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,6 +684,7 @@
 				C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */,
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */,
+				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,

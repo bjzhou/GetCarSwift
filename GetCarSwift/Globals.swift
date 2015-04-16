@@ -31,6 +31,7 @@ let IMAGE_CAR_IMAGE = "car_avator"
 let IMAGE_QRCODE = "qrcode"
 let IMAGE_POSITION_FEMALE_RED = "position_female_red"
 let IMAGE_POSITION_MALE_WHITE = "position_male_white"
+let IAMGE_SELECTED_ACCESSORY = "selected_accessory"
 
 let FIR_APP_ID = "552a3921ebc861d936002615"
 let FIR_USER_TOKEN = "3af74030cca511e4a5e787e903cd690d43148e64"

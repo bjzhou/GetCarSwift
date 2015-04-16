@@ -10,7 +10,7 @@
         <!--附近-->
         <scene sceneID="8jP-UW-97e">
             <objects>
-                <viewController id="e6H-8R-ir9" customClass="MapViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="e6H-8R-ir9" customClass="MapViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Hj-6O-L1V"/>
                         <viewControllerLayoutGuide type="bottom" id="PZU-b9-M31"/>
@@ -168,7 +168,7 @@
         <!--改装-->
         <scene sceneID="gtg-SL-Avs">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="28a-zw-A7j" customClass="IntroduceViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="28a-zw-A7j" customClass="IntroduceViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="icS-oX-u1g"/>
                         <viewControllerLayoutGuide type="bottom" id="aKG-Ka-iQO"/>
@@ -193,7 +193,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="vGp-kT-5id" secondAttribute="centerX" id="JaC-oJ-H5b"/>
                             <constraint firstItem="Ihr-I5-FvM" firstAttribute="top" secondItem="vGp-kT-5id" secondAttribute="bottom" constant="8" id="YdR-hr-169"/>
@@ -219,13 +219,13 @@
         <!--我的-->
         <scene sceneID="rCU-qb-IQa">
             <objects>
-                <tableViewController id="fF4-fl-DgU" customClass="MineViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="fF4-fl-DgU" customClass="MineViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="10" sectionFooterHeight="10" id="pXI-Gh-uw0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="account" rowHeight="118" id="NHl-SV-r7c" customClass="AccountCell" customModule="GetCar" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="account" rowHeight="118" id="NHl-SV-r7c" customClass="AccountCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NHl-SV-r7c" id="dKL-hz-Ce8">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -291,7 +291,7 @@
                                     <outlet property="avatar" destination="L43-bI-sgU" id="a9o-Ge-E4t"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="60" id="CcM-M2-PWc" customClass="CommonTableViewCell" customModule="GetCar" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="60" id="CcM-M2-PWc" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CcM-M2-PWc" id="2vV-yh-Z7g">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -328,13 +328,13 @@
         <!--个人信息-->
         <scene sceneID="2yt-Ea-3Hl">
             <objects>
-                <tableViewController storyboardIdentifier="person_info" id="E1v-cw-vnK" customClass="PersonInfoViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="person_info" id="E1v-cw-vnK" customClass="PersonInfoViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mOF-bm-RkA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="info_icon" rowHeight="60" id="TAy-lN-zC0" customClass="PersonInfoCell" customModule="GetCar" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="info_icon" rowHeight="60" id="TAy-lN-zC0" customClass="PersonInfoCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TAy-lN-zC0" id="IdB-wJ-KBb">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -345,7 +345,7 @@
                                                 <constraint firstAttribute="width" constant="150" id="37Z-jv-ibe"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avator.png" translatesAutoresizingMaskIntoConstraints="NO" id="xf4-Pd-q6S">
@@ -383,7 +383,7 @@
                                     <outlet property="title" destination="Ldh-B7-I4P" id="7pv-ry-vsM"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="info_text" rowHeight="60" id="qU5-b8-Sej" customClass="PersonInfoCell" customModule="GetCar" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="info_text" rowHeight="60" id="qU5-b8-Sej" customClass="PersonInfoCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qU5-b8-Sej" id="wzW-dB-w61">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -403,7 +403,7 @@
                                                 <constraint firstAttribute="width" constant="150" id="hbW-9H-jOL"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -442,7 +442,7 @@
         <!--我的小科-->
         <scene sceneID="hoy-9W-rfG">
             <objects>
-                <viewController storyboardIdentifier="mycar" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="MDc-hH-LxL" customClass="MyCarViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mycar" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="MDc-hH-LxL" customClass="MyCarViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LHs-fo-ZMa"/>
                         <viewControllerLayoutGuide type="bottom" id="HOD-AI-LBV"/>
@@ -455,7 +455,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="60" id="REg-HS-S4K" customClass="CommonTableViewCell" customModule="GetCar" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="60" id="REg-HS-S4K" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="REg-HS-S4K" id="ock-Zd-qns">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -520,7 +520,7 @@
         <!--Modify View Controller-->
         <scene sceneID="yQP-Cp-Zp6">
             <objects>
-                <viewController id="8T6-tL-6hY" customClass="ModifyViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8T6-tL-6hY" customClass="ModifyViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lml-QR-LBV"/>
                         <viewControllerLayoutGuide type="bottom" id="tgB-yB-HyW"/>
@@ -808,7 +808,7 @@
         <!--车吧-->
         <scene sceneID="uSz-uB-AUa">
             <objects>
-                <tableViewController id="rPP-33-3f1" customClass="CarBarViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="rPP-33-3f1" customClass="CarBarViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" id="LII-ds-FDF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -822,7 +822,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar" id="cYw-bA-eZu" customClass="PostCell" customModule="GetCar" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar" id="cYw-bA-eZu" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cYw-bA-eZu" id="vfd-37-N13">
@@ -837,13 +837,13 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkD-2H-Chl">
                                             <rect key="frame" x="107" y="26" width="485" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目前汽车车身清洗大致可分为洗衣粉洗车、洗洁精洗车、洗车液洗车、水蜡洗车、免划痕洗车几种，这里对这几种方法做个简单的比较。目前汽车车身清洗大致可分为洗衣粉洗车、洗洁精洗车、洗车液洗车、水蜡洗车、免划痕洗车几种，这里对这几种方法做个简单的比较。" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khi-iR-8Sf">
                                             <rect key="frame" x="107" y="47" width="485" height="51"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kq1-Qv-XB4">
@@ -861,13 +861,13 @@
                                                         <constraint firstAttribute="width" constant="10" id="NPG-wX-RE8"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loR-ef-K0H">
                                                     <rect key="frame" x="38" y="0.0" width="29" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -910,7 +910,7 @@
                                     <outlet property="title" destination="QkD-2H-Chl" id="Rt6-lk-RXY"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar_noicon" id="kSF-bV-lqM" customClass="PostCell" customModule="GetCar" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar_noicon" id="kSF-bV-lqM" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kSF-bV-lqM" id="7xt-M1-1tZ">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -918,7 +918,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exf-WM-12z">
                                             <rect key="frame" x="10" y="26" width="584" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gV4-CU-p1z">
@@ -936,13 +936,13 @@
                                                         <constraint firstAttribute="width" constant="10" id="AH7-zL-16S"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zj3-Ki-I9A">
                                                     <rect key="frame" x="38" y="0.0" width="29" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -963,7 +963,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpv-Ye-dng">
                                             <rect key="frame" x="12" y="47" width="582" height="51"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1070,7 +1070,7 @@
         <!--登陆-->
         <scene sceneID="PxA-Zu-fdG">
             <objects>
-                <viewController id="usn-tP-cKe" customClass="LoginViewController" customModule="GetCar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="usn-tP-cKe" customClass="LoginViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vQP-GC-9NY"/>
                         <viewControllerLayoutGuide type="bottom" id="Isv-OH-9pl"/>
