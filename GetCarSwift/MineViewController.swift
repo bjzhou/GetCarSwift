@@ -16,6 +16,10 @@ class MineViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -39,7 +43,9 @@ class MineViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             var cell = tableView.dequeueReusableCellWithIdentifier("account") as! AccountCell
-            cell.avatar.image = UIImage(named: IMAGE_AVATAR)
+            cell.avatar.layer.masksToBounds = true
+            cell.avatar.layer.cornerRadius = 8
+            cell.avatar.image = UIImage(contentsOfFile: getFilePath("avatar"))
             cell.accountName.text = "SURA"
             cell.accountDescription.text = "上海市浦东新区"
             return cell

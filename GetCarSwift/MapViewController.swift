@@ -107,7 +107,10 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             if annotationView == nil {
                 annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: userLocationStyleReuseIndetifier)
             }
-            annotationView.image = UIImage(named: IMAGE_POSITION_FEMALE_RED)
+            var sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
+            var color = NSUserDefaults.standardUserDefaults().integerForKey("color")
+            var icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+            annotationView.image = UIImage(named: getCarIconName(sex, color, icon))
             
             return annotationView
         }
@@ -123,8 +126,8 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             annotationView!.draggable = true        //设置标注可以拖动，默认为NO
             annotationView!.pinColor = UInt(MAPinAnnotationColorPurple)
             
-            annotationView!.image = UIImage(named: IMAGE_POSITION_MALE_WHITE)
-            
+            annotationView!.image = UIImage(named: "白2")
+
             return annotationView;
         }
         return nil;

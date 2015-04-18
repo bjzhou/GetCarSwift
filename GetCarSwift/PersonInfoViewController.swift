@@ -11,12 +11,23 @@ import UIKit
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     let titles = ["头像", "车形象", "用户名", "我的二维码", "我的地址", "性别", "地区", "个性签名"]
-    let values = [IMAGE_AVATAR, IMAGE_CAR_IMAGE, "SURA", IMAGE_QRCODE, "", "女", "上海浦东新区", ""]
+    var values = [IMAGE_AVATAR, getCarIconName(0, 0, 0), "SURA", IMAGE_QRCODE, "", "女", "上海浦东新区", ""]
+    
+    var avatarImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.clearsSelectionOnViewWillAppear = false
+        
+        avatarImage = UIImage(contentsOfFile: getFilePath("avatar"))
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
+        let colorTag = NSUserDefaults.standardUserDefaults().integerForKey("color")
+        let iconTag = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+        values[1] = getCarIconName(sex, colorTag, iconTag)
+        values[5] = getSexString(sex)
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -39,6 +50,9 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             cell = tableView.dequeueReusableCellWithIdentifier("info_icon", forIndexPath:indexPath) as! PersonInfoCell
             cell.title.text = titles[indexPath.row]
             cell.icon.image = UIImage(named: values[indexPath.row])
+            if indexPath.row == 0 && avatarImage != nil {
+                cell.icon.image = avatarImage
+            }
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("info_text", forIndexPath:indexPath) as! PersonInfoCell
             if indexPath.section == 0 {
@@ -67,14 +81,25 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.row == 0 && indexPath.section == 0 {
-            showImagePickerAlertView()
-        }
         
-        if indexPath.section == 1 && indexPath.row == 0 {
-            //let navigationController = UINavigationController(rootViewController: InfoEditViewController())
-            //showViewController(navigationController, sender: self)
-            self.navigationController?.showViewController(InfoEditViewController(), sender: self)
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                showImagePickerAlertView()
+            case 1:
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewControllerWithIdentifier("car_icon") as! UIViewController
+                self.navigationController?.showViewController(controller, sender: self)
+            default:
+                break
+            }
+        } else {
+            switch indexPath.row {
+            case 0:
+                self.navigationController?.showViewController(InfoEditViewController(), sender: self)
+            default:
+                break;
+            }
         }
         
     }
@@ -101,7 +126,10 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        // TODO: set image and save
+        avatarImage = scaleImage(image, CGSizeMake(254, 254))
+        saveImage(avatarImage!, "avatar")
+        self.tableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
