@@ -9,15 +9,24 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
+
+    @IBOutlet weak var phoneText: UITextField!
+    @IBOutlet weak var vcodeText: UITextField!
+    
+    var code: UInt32 = 0;
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tapRecognizer)
+        
+        phoneText.becomeFirstResponder()
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,17 +37,8 @@ class LoginViewController: UIViewController {
     // MARK: IBOutlet Actions
     
     @IBAction func onLoginAction(sender: UIButton) {
-        if count(username.text) == 0 {
-            UIAlertView(title: "用户名不能为空", message: nil, delegate: nil, cancelButtonTitle: "好").show()
-            return
-        }
-        
-        if count(password.text) < 6 {
-            UIAlertView(title: "密码必须是大于6位的任意数字或字母", message: nil, delegate: nil, cancelButtonTitle: "好").show()
-            return
-        }
-        
-        if username.text == "gaike" && password.text == "123456" {
+        if code == 0 {return}
+        if vcodeText.text == String(code) {
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(true, forKey: "isLogin")
             
@@ -48,7 +48,13 @@ class LoginViewController: UIViewController {
         }
     }
 
-    @IBAction func onRegisterAction(sender: UIButton) {
+    @IBAction func onVCodeAction(sender: UIButton) {
+        if count(phoneText.text) < 11 {
+            return
+        }
+        code = arc4random_uniform(900000) + 100000
+        var alert = UIAlertController(title: "验证码", message: String(code), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "好", style: .Cancel, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
-
 }

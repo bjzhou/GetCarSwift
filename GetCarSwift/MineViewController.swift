@@ -10,8 +10,8 @@ import UIKit
 
 class MineViewController: UITableViewController {
     
-    let titles = ["我的小科", "系统设置", "意见反馈"]
-    let images = [IMAGE_XIAO_KE, IMAGE_MINE_SETTINGS, IMAGE_MINE_FEEDBACK]
+    let titles = ["个人主页", "我的小科", "车辆信息", "系统设置", "意见反馈"]
+    let images = [IMAGE_MY_HOMEPAGE, IMAGE_XIAO_KE, IMAGE_CAR_INFO, IMAGE_MINE_SETTINGS, IMAGE_MINE_FEEDBACK]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class MineViewController: UITableViewController {
         case 0:
             return 1;
         case 1:
-            return 1;
+            return 3;
         case 2:
             return 2;
         default:
@@ -53,16 +53,11 @@ class MineViewController: UITableViewController {
             var cell = tableView.dequeueReusableCellWithIdentifier("common") as! CommonTableViewCell
             switch indexPath.section {
             case 1:
-                cell.icon.image = UIImage(named: images[0])
-                cell.title.text = titles[0]
+                cell.icon.image = UIImage(named: images[indexPath.row])
+                cell.title.text = titles[indexPath.row]
             case 2:
-                if indexPath.row == 0 {
-                    cell.icon.image = UIImage(named: images[1])
-                    cell.title.text = titles[1]
-                } else {
-                    cell.icon.image = UIImage(named: images[2])
-                    cell.title.text = titles[2]
-                }
+                cell.icon.image = UIImage(named: images[indexPath.row + 3])
+                cell.title.text = titles[indexPath.row + 3]
             default:
                 break
             }
@@ -82,18 +77,21 @@ class MineViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var toViewController: UIViewController?
+        var storyboardId = ""
         if indexPath.section == 0 {
-            toViewController = storyboard.instantiateViewControllerWithIdentifier("person_info") as? UIViewController
+            storyboardId = "person_info"
         } else if indexPath.section == 1 {
             if indexPath.row == 0 {
-                toViewController = storyboard.instantiateViewControllerWithIdentifier("mycar") as? UIViewController
+                storyboardId = "my_homepage"
+            } else if indexPath.row == 1 {
+                storyboardId = "mycar"
             }
         }
         
-        if toViewController != nil {
-            toViewController!.hidesBottomBarWhenPushed = true;
-            navigationController?.showViewController(toViewController!, sender: self)
+        if count(storyboardId) != 0 {
+            var toViewController = storyboard.instantiateViewControllerWithIdentifier(storyboardId) as! UIViewController
+            toViewController.hidesBottomBarWhenPushed = true;
+            navigationController?.showViewController(toViewController, sender: self)
         }
     }
     

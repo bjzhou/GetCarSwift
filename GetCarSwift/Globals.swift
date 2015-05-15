@@ -30,6 +30,8 @@ let IMAGE_MYCAR_XINPIN = "mycar_xinpin"
 let IMAGE_CAR_IMAGE = "car_avator"
 let IMAGE_QRCODE = "qrcode"
 let IAMGE_SELECTED_ACCESSORY = "selected_accessory"
+let IMAGE_MY_HOMEPAGE = "my_homepage"
+let IMAGE_CAR_INFO = "car_info"
 
 let FIR_APP_ID = "552a3921ebc861d936002615"
 let FIR_USER_TOKEN = "3af74030cca511e4a5e787e903cd690d43148e64"
@@ -104,3 +106,10 @@ func getIconString(icon: Int) -> String {
     return icon == 0 ? "1" : String(icon - 200)
 }
 
+func getSmallHomepageBg(index: Int) -> String {
+    return "homepage_bg" + String(index) + "_small"
+}
+
+func getHomepageBg(index: Int) -> String {
+    return "homepage_bg" + String(index)
+}
