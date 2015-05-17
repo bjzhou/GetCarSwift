@@ -52,11 +52,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textLabel?.text = "女"
         }
         
-        if indexPath.row == currentSex {
-            cell.accessoryView = UIImageView(image: UIImage(named: IAMGE_SELECTED_ACCESSORY))
-        } else {
-            cell.accessoryView = nil
-        }
+        cell.accessoryView = UIImageView(image: indexPath.row == currentSex ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
         return cell
     }
     
