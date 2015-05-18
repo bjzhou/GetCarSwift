@@ -10,19 +10,22 @@ import UIKit
 
 class ModifyViewController: UIViewController {
     
-    @IBOutlet weak var jichuButton: UIButton!
+    //@IBOutlet weak var jichuButton: UIButton!
     @IBOutlet weak var haohuaButton: UIButton!
-    @IBOutlet weak var baijinButton: UIButton!
+    //@IBOutlet weak var baijinButton: UIButton!
     @IBOutlet weak var zhizunButton: UIButton!
+    @IBOutlet weak var customButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
+
     
     var buttons = [UIButton]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        buttons = [jichuButton, haohuaButton, baijinButton, zhizunButton]
+        buttons = [haohuaButton, zhizunButton, customButton]
     }
+    
     
     @IBAction func onBackAction(sender: UIButton) {
         dismissViewControllerAnimated(false, completion: nil)
@@ -40,11 +43,11 @@ class ModifyViewController: UIViewController {
             }
         }
         
-        if sender == jichuButton {
-            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCurlUp, animations: {
-                self.imageView.image = UIImage(named: IMAGE_RED_CAR)
-            }, completion: nil)
-        }
+//        if sender == jichuButton {
+//            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCurlUp, animations: {
+//                self.imageView.image = UIImage(named: IMAGE_RED_CAR)
+//            }, completion: nil)
+//        }
         
         if sender == haohuaButton {
             UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {
@@ -52,16 +55,20 @@ class ModifyViewController: UIViewController {
                 }, completion: nil)
         }
         
-        if sender == baijinButton {
-            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-                self.imageView.image = UIImage(named: IMAGE_BLUE_CAR)
-                }, completion: nil)
-        }
+//        if sender == baijinButton {
+//            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+//                self.imageView.image = UIImage(named: IMAGE_BLUE_CAR)
+//                }, completion: nil)
+//        }
         
         if sender == zhizunButton {
             UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionFlipFromTop, animations: {
                 self.imageView.image = UIImage(named: IMAGE_GRAY_CAR)
                 }, completion: nil)
+        }
+        
+        if sender == customButton {
+
         }
     }
     
@@ -73,16 +80,12 @@ class ModifyViewController: UIViewController {
         return false;
     }
     
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Landscape.rawValue)
+    }
+    
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.LandscapeLeft
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
     }
 
 }

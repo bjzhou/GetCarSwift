@@ -19,6 +19,7 @@
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
+		C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */; };
 		C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* Utils.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
@@ -66,6 +67,7 @@
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
+		C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifyViewController.swift; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
 		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */,
 				C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */,
 				C8E2B8471AD95103003B07FE /* ModifyViewController.swift */,
+				C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */,
 			);
 			name = Modification;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 			files = (
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
 				C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */,
+				C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* IntroduceViewController.swift in Sources */,
