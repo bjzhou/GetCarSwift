@@ -10,29 +10,51 @@ import UIKit
 
 class CustomModifyViewController: UIViewController {
 
+    @IBOutlet weak var bgImage: UIImageView!
     @IBOutlet weak var lightButton: UIButton!
     @IBOutlet weak var glassButton: UIButton!
     @IBOutlet weak var lunguButton: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     override func viewDidAppear(animated: Bool) {
+        buttonAnimate(lightButton)
+        buttonAnimate(glassButton)
+    }
+    
+    func buttonAnimate(button: UIButton!) {
         var animateImages = [UIImage(named: "ani_press_1")!, UIImage(named: "ani_press_2")!, UIImage(named: "ani_press_3")!]
-        lightButton.imageView?.animationImages = animateImages
-        lightButton.imageView?.animationRepeatCount = 0
-        lightButton.imageView?.animationDuration = 1
-        lightButton.imageView?.startAnimating()
+        button.imageView?.animationImages = animateImages
+        button.imageView?.animationRepeatCount = 0
+        button.imageView?.animationDuration = 1
+        button.imageView?.startAnimating()
+    }
+    @IBAction func onSelectParts(sender: UIButton) {
+        sender.imageView?.stopAnimating()
+        sender.selected = true
+        
+        for button in [lightButton,glassButton,lunguButton] {
+            if sender != button {
+                button.selected = false
+                buttonAnimate(button)
+            }
+        }
     }
 
-    @IBAction func onLungu1Action(sender: AnyObject) {
+    @IBAction func onLunguAction(sender: UIButton) {
+        sender.selected = true
+        UIView.transitionWithView(bgImage, duration: 1.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            self.bgImage.image = UIImage(named: "keluzi_lungu_\(sender.tag)")
+            }, completion: nil)
+        var otherButton = self.view.viewWithTag(sender.tag == 1 ? 2 : 1) as? UIButton
+        otherButton?.selected = false
+    }
 
-    }
-    @IBAction func onLungu2Action(sender: AnyObject) {
-    }
     @IBAction func onBackAction(sender: AnyObject) {
-        dismissViewControllerAnimated(false, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func shouldAutorotate() -> Bool {

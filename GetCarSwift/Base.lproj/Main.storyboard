@@ -1985,7 +1985,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="keluzi_full" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-qd-nUX">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="keluzi_lungu_1" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-qd-nUX">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uma-zl-BEi">
@@ -2051,24 +2051,24 @@
                                     <rect key="frame" x="383" y="149" width="10" height="22"/>
                                 </variation>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mm5-Uv-hli">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mm5-Uv-hli">
                                 <rect key="frame" x="67" y="263" width="104" height="104"/>
                                 <state key="normal" image="btn_lungu_1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="btn_lungu_1_pressed"/>
                                 <connections>
-                                    <action selector="onLungu1Action:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="VaG-ac-Or7"/>
+                                    <action selector="onLunguAction:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="MLe-QP-CsL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqP-DT-e9q">
-                                <rect key="frame" x="179" y="277" width="77" height="77"/>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqP-DT-e9q">
+                                <rect key="frame" x="193" y="277" width="77" height="77"/>
                                 <state key="normal" image="btn_lungu_2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="btn_lungu_2_pressed"/>
                                 <connections>
-                                    <action selector="onLungu2Action:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="qzN-sQ-s6x"/>
+                                    <action selector="onLunguAction:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="iYm-ii-2cY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjT-hy-7L1">
@@ -2077,6 +2077,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="ani_press_selected"/>
+                                <connections>
+                                    <action selector="onSelectParts:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="My5-Oy-lCw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-gA-gA8">
                                 <rect key="frame" x="309" y="158" width="12" height="22"/>
@@ -2084,6 +2087,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="ani_press_selected"/>
+                                <connections>
+                                    <action selector="onSelectParts:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="M4n-w2-biw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odi-yD-wTh">
                                 <rect key="frame" x="389" y="222" width="15" height="22"/>
@@ -2091,6 +2097,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="ani_press_selected"/>
+                                <connections>
+                                    <action selector="onSelectParts:" destination="D0X-wJ-R3G" eventType="touchUpInside" id="s3d-yY-QJC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2110,7 +2119,7 @@
                             <constraint firstItem="uma-zl-BEi" firstAttribute="leading" secondItem="jFz-qd-nUX" secondAttribute="leading" id="MGF-Q1-Cmr"/>
                             <constraint firstItem="jFz-qd-nUX" firstAttribute="leading" secondItem="fgp-C1-P3a" secondAttribute="leadingMargin" constant="-16" id="Wk7-th-4ad"/>
                             <constraint firstItem="qjT-hy-7L1" firstAttribute="top" secondItem="1zV-Sg-06o" secondAttribute="bottom" constant="110" id="YW3-m3-m5B"/>
-                            <constraint firstItem="sqP-DT-e9q" firstAttribute="leading" secondItem="mm5-Uv-hli" secondAttribute="centerX" constant="60" id="Yfc-Hc-xxz"/>
+                            <constraint firstItem="sqP-DT-e9q" firstAttribute="centerX" secondItem="mm5-Uv-hli" secondAttribute="centerX" constant="112" id="Yfc-Hc-xxz"/>
                             <constraint firstItem="dmC-vK-jbD" firstAttribute="centerY" secondItem="jFz-qd-nUX" secondAttribute="centerY" constant="0.5" id="ZCb-LI-y5d"/>
                             <constraint firstItem="sqP-DT-e9q" firstAttribute="top" secondItem="jFz-qd-nUX" secondAttribute="bottom" constant="-97" id="ZOe-Hq-UbO"/>
                             <constraint firstItem="I7G-46-Fy4" firstAttribute="top" secondItem="jFz-qd-nUX" secondAttribute="bottom" id="aRP-f0-acO"/>
@@ -2138,6 +2147,7 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="bgImage" destination="jFz-qd-nUX" id="DUM-cx-hEu"/>
                         <outlet property="glassButton" destination="qjT-hy-7L1" id="e7d-xy-WGO"/>
                         <outlet property="lightButton" destination="DJl-gA-gA8" id="hW8-5E-C89"/>
                         <outlet property="lunguButton" destination="odi-yD-wTh" id="OBv-WJ-wmV"/>
@@ -2612,7 +2622,7 @@
         <image name="homepage_bg1" width="375" height="250"/>
         <image name="homepage_bg1_small" width="175" height="116"/>
         <image name="honda_logo_small" width="40" height="40"/>
-        <image name="keluzi_full" width="667" height="375"/>
+        <image name="keluzi_lungu_1" width="667" height="375"/>
         <image name="left" width="10" height="20"/>
         <image name="login_area" width="337" height="147"/>
         <image name="login_button" width="335" height="45"/>
