@@ -10,8 +10,7 @@ import UIKit
 
 class CarBarViewController: UITableViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    
+    @IBOutlet var searchController: UISearchDisplayController!
     var infos = []
 
     override func viewDidLoad() {
@@ -19,6 +18,10 @@ class CarBarViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         loadNewData()
+        
+        searchController.searchBar.tintColor = UIColor.whiteColor()
+        searchController.searchBar.barTintColor = UIColor.redColor()
+        //searchController.searchBar.setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Top, barMetrics: UIBarMetrics.Default)
     }
     
     func loadNewData() {
@@ -36,7 +39,7 @@ class CarBarViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return infos.count
+        return infos.count + 1
     }
 
  
@@ -44,29 +47,64 @@ class CarBarViewController: UITableViewController {
         if tableView != self.tableView {
             // TODO: search mode
         }
-        var cell: PostCell
-        let info = infos.objectAtIndex(indexPath.row) as! [String]
-        let iconName = info[0]
-        if count(iconName) <= 0 {
-            cell = self.tableView.dequeueReusableCellWithIdentifier("carbar_noicon") as! PostCell
-        } else {
-            cell = self.tableView.dequeueReusableCellWithIdentifier("carbar") as! PostCell
-            cell.icon.image = UIImage(named: iconName)
-        }
         
-        cell.title.text = info[1]
-        cell.message.text = info[2]
-        cell.time.text = info[3]
-        cell.reply.text = info[4]
+        if indexPath.row == 0 {
+            var cell = self.tableView.dequeueReusableCellWithIdentifier("tag") as! UITableViewCell
+            return cell
+        }
+        var postCell = self.tableView.dequeueReusableCellWithIdentifier("carbar") as! PostCell
+        let info = infos.objectAtIndex(indexPath.row - 1) as! [String]
+        let iconName = info[0]
+        if count(iconName) > 0 {
+            postCell.icon.image = UIImage(named: iconName)
+        } else {
+            postCell = self.tableView.dequeueReusableCellWithIdentifier("carbar_noicon") as! PostCell
+        }
+        postCell.title.text = info[1]
+        postCell.message.text = info[2]
+        postCell.time.text = info[3]
+        postCell.reply.text = info[4]
 
-        return cell
+        return postCell
     }
     
     // TODO: maybe can remove later
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 44
+        } else {
+            return 120
+        }
+    }
+    
+    @IBAction func onMoreAction(sender: UIButton) {
+        var tagCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+        UIView.transitionWithView(tagCell!, duration: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+            var frame = CGRectMake(tagCell!.frame.origin.x, tagCell!.frame.origin.y, tagCell!.frame.width, sender.selected ? 44 : 120)
+            tagCell!.frame = frame
+            for tag in [306,307] {
+                var button = self.view.viewWithTag(tag) as? UIButton
+                button?.hidden = sender.selected
+            }
+            }, completion: {(arg) in
+                sender.selected = !sender.selected
+        })
+    }
 
+    @IBAction func onTagAction(sender: UIButton) {
+        for tag in 301...307 {
+            var button = self.view.viewWithTag(tag) as? UIButton
+            if sender.tag == tag {
+                sender.selected = true
+            } else {
+                button?.selected = false
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
