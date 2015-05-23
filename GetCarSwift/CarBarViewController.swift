@@ -8,9 +8,11 @@
 
 import UIKit
 
-class CarBarViewController: UITableViewController {
+class CarBarViewController: UITableViewController, UISearchResultsUpdating, UISearchControllerDelegate {
     
-    @IBOutlet var searchController: UISearchDisplayController!
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    //@IBOutlet var searchController: UISearchDisplayController!
     var infos = []
 
     override func viewDidLoad() {
@@ -18,10 +20,14 @@ class CarBarViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         loadNewData()
-        
-        searchController.searchBar.tintColor = UIColor.whiteColor()
-        searchController.searchBar.barTintColor = UIColor.redColor()
-        //searchController.searchBar.setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Top, barMetrics: UIBarMetrics.Default)
+
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        searchController.delegate = self
+        searchController.searchBar.tintColor = UIColor.blackColor()
+        searchController.searchBar.setBackgroundImage(UIImageWithColor(UIColorFromRGB(0xe2e2e2)), forBarPosition: .Top, barMetrics: .Default)
+        tableView.tableHeaderView = searchController.searchBar
     }
     
     func loadNewData() {
@@ -86,10 +92,6 @@ class CarBarViewController: UITableViewController {
         UIView.transitionWithView(tagCell!, duration: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: {
             var frame = CGRectMake(tagCell!.frame.origin.x, tagCell!.frame.origin.y, tagCell!.frame.width, sender.selected ? 44 : 120)
             tagCell!.frame = frame
-            for tag in [306,307] {
-                var button = self.view.viewWithTag(tag) as? UIButton
-                button?.hidden = sender.selected
-            }
             }, completion: {(arg) in
                 sender.selected = !sender.selected
         })
@@ -105,14 +107,19 @@ class CarBarViewController: UITableViewController {
             }
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    
+    // MARK: UISearchController Delegate
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
     }
-    */
+    
+    func willPresentSearchController(searchController: UISearchController) {
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+    }
+
+    func willDismissSearchController(searchController: UISearchController) {
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+    }
 
 }

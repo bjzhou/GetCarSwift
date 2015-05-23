@@ -18,6 +18,12 @@
 #define COCOAPODS_VERSION_MINOR_Alamofire 2
 #define COCOAPODS_VERSION_PATCH_Alamofire 0
 
+// KMPlaceholderTextView
+#define COCOAPODS_POD_AVAILABLE_KMPlaceholderTextView
+#define COCOAPODS_VERSION_MAJOR_KMPlaceholderTextView 0
+#define COCOAPODS_VERSION_MINOR_KMPlaceholderTextView 1
+#define COCOAPODS_VERSION_PATCH_KMPlaceholderTextView 2
+
 // SwiftyJSON
 #define COCOAPODS_POD_AVAILABLE_SwiftyJSON
 #define COCOAPODS_VERSION_MAJOR_SwiftyJSON 2

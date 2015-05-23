@@ -35,15 +35,6 @@ let FIR_USER_TOKEN = "3af74030cca511e4a5e787e903cd690d43148e64"
 let FIR_URL_VERSION_CHECK = "http://fir.im/api/v2/app/version/" + FIR_APP_ID + "?token=" + FIR_USER_TOKEN
 let FIR_URL_DOWNLOAD = "itms-services://?action=download-manifest&url="
 
-func UIColorFromRGB(rgbValue: UInt) -> UIColor {
-    return UIColor(
-        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-        alpha: CGFloat(1.0)
-    )
-}
-
 /*
     获得地图界面定位图标名
     sex: 性别，0男/1女
