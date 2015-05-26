@@ -31,6 +31,9 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     func checkNewVersion() {
         Alamofire.request(.GET, FIR_URL_VERSION_CHECK)
             .responseJSON { (req, res, json, err) in
+                if err != nil {
+                    return
+                }
                 var json = JSON(json!)
                 if let latest = json["versionShort"].string {
                     if APP_VERSION! != latest {

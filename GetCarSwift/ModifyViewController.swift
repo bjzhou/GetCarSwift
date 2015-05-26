@@ -43,33 +43,14 @@ class ModifyViewController: UIViewController {
             }
         }
         
-//        if sender == jichuButton {
-//            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCurlUp, animations: {
-//                self.imageView.image = UIImage(named: IMAGE_RED_CAR)
-//            }, completion: nil)
-//        }
-        
-        if sender == haohuaButton {
-            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {
+        UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            if sender == self.haohuaButton {
                 self.imageView.image = UIImage(named: IMAGE_YELLOW_CAR)
-                }, completion: nil)
-        }
-        
-//        if sender == baijinButton {
-//            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-//                self.imageView.image = UIImage(named: IMAGE_BLUE_CAR)
-//                }, completion: nil)
-//        }
-        
-        if sender == zhizunButton {
-            UIView.transitionWithView(imageView, duration: 1.5, options: UIViewAnimationOptions.TransitionFlipFromTop, animations: {
+            } else if sender == self.zhizunButton {
                 self.imageView.image = UIImage(named: IMAGE_GRAY_CAR)
-                }, completion: nil)
-        }
-        
-        if sender == customButton {
+            }
+            }, completion: nil)
 
-        }
     }
     
     @IBAction func onSaveAction(sender: UIButton) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q2L-Xe-lUZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q2L-Xe-lUZ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1757,6 +1757,11 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="jhm-Q5-Elh" secondAttribute="height" multiplier="194:125" id="jUW-sP-r3b"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="jUW-sP-r3b"/>
+                                    </mask>
+                                </variation>
                                 <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="412" height="320"/>
                                 </variation>
@@ -2137,6 +2142,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="wrz-b2-gsl"/>
+                                <exclude reference="MGF-Q1-Cmr"/>
                                 <exclude reference="Ivw-Xc-Msk"/>
                                 <exclude reference="ZOe-Hq-UbO"/>
                                 <exclude reference="F3y-uW-rQX"/>
