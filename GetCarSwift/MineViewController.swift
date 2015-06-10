@@ -25,9 +25,9 @@ class MineViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as UITableViewCell
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as UITableViewCell
         if indexPath.section == 0 {
-            var accountCell = cell as! AccountCell
+            let accountCell = cell as! AccountCell
             accountCell.avatar.layer.masksToBounds = true
             accountCell.avatar.layer.cornerRadius = 8
             accountCell.avatar.image = UIImage(contentsOfFile: getFilePath("avatar"))

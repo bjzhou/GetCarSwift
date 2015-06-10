@@ -24,8 +24,8 @@ class MyHomepaeViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        var userDefaults = NSUserDefaults.standardUserDefaults()
-        var index = userDefaults.integerForKey("homepage_bg")
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let index = userDefaults.integerForKey("homepage_bg")
         if index == 1000 {
             homepageBg.image = UIImage(contentsOfFile: getFilePath("homepage_bg"))
         } else {

@@ -27,39 +27,39 @@ class CarIconEditViewController: UIViewController {
     
     func loadHighlightButton() {
         for tag in 101...109 {
-            var button = self.view.viewWithTag(tag) as! UIButton
-            var image = UIImage(named: getColorIconName(sex, tag))
+            let button = self.view.viewWithTag(tag) as! UIButton
+            let image = UIImage(named: getColorIconName(sex, color: tag))
             button.setImage(image, forState: UIControlState.Highlighted)
-            button.setImage(image, forState: UIControlState.Selected | UIControlState.Highlighted)
+            button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
             button.setImage(image, forState: UIControlState.Selected)
         }
     }
     
     func loadCurrentIcon() {
-        var colorButton = self.view.viewWithTag(colorTag) as! UIButton
+        let colorButton = self.view.viewWithTag(colorTag) as! UIButton
         colorButton.selected = true
         
         if prevColorTag != -1 && prevColorTag != colorTag {
-            var prevButton = self.view.viewWithTag(prevColorTag) as! UIButton
+            let prevButton = self.view.viewWithTag(prevColorTag) as! UIButton
             prevButton.selected = false
         }
         prevColorTag = colorTag
         
         for tag in 201...206 {
-            var button = self.view.viewWithTag(tag) as! UIButton
-            var noSexImage = UIImage(named: getNoSexCarIconName(colorTag, tag))
-            var image = UIImage(named: getCarIconName(sex, colorTag, tag))
+            let button = self.view.viewWithTag(tag) as! UIButton
+            let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, icon: tag))
+            let image = UIImage(named: getCarIconName(sex, color: colorTag, icon: tag))
             button.setImage(noSexImage, forState: UIControlState.Normal)
             button.setImage(image, forState: UIControlState.Highlighted)
-            button.setImage(image, forState: UIControlState.Selected | UIControlState.Highlighted)
+            button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
             button.setImage(image, forState: UIControlState.Selected)
         }
 
-        var iconButton = self.view.viewWithTag(iconTag) as! UIButton
+        let iconButton = self.view.viewWithTag(iconTag) as! UIButton
         iconButton.selected = true
         
         if prevIconTag != -1 && prevIconTag != iconTag {
-            var prevButton = self.view.viewWithTag(prevIconTag) as! UIButton
+            let prevButton = self.view.viewWithTag(prevIconTag) as! UIButton
             prevButton.selected = false
         }
         prevIconTag = iconTag

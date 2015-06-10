@@ -9,8 +9,8 @@
 import Foundation
 
 func saveImage(image: UIImage, filename: String) {
-    var data = UIImagePNGRepresentation(image)
-    data.writeToFile(getFilePath(filename), atomically: true)
+    let data = UIImagePNGRepresentation(image)
+    data!.writeToFile(getFilePath(filename), atomically: true)
 }
 
 func getFilePath(filename: String) -> String {
@@ -21,7 +21,7 @@ func getFilePath(filename: String) -> String {
 func scaleImage(image: UIImage, scale: CGFloat) -> UIImage {
     UIGraphicsBeginImageContext(CGSizeMake(image.size.width * scale, image.size.height * scale))
     image.drawInRect(CGRectMake(0, 0, image.size.width * scale, image.size.height * scale))
-    var newImage = UIGraphicsGetImageFromCurrentImageContext()
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return newImage
 }
@@ -29,19 +29,19 @@ func scaleImage(image: UIImage, scale: CGFloat) -> UIImage {
 func scaleImage(image: UIImage, size: CGSize) -> UIImage {
     UIGraphicsBeginImageContext(size)
     image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-    var newImage = UIGraphicsGetImageFromCurrentImageContext()
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return newImage
 }
 
 func UIImageWithColor(color: UIColor) -> UIImage {
-    var rect = CGRectMake(0, 0, 1.0, 1.0)
+    let rect = CGRectMake(0, 0, 1.0, 1.0)
     UIGraphicsBeginImageContext(rect.size)
-    var context = UIGraphicsGetCurrentContext()
+    let context = UIGraphicsGetCurrentContext()
     CGContextSetFillColorWithColor(context, color.CGColor)
     CGContextFillRect(context, rect)
     
-    var image = UIGraphicsGetImageFromCurrentImageContext()
+    let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return image
 }

@@ -61,8 +61,8 @@ class ModifyViewController: UIViewController {
         return false;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Landscape.rawValue)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Landscape
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {

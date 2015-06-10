@@ -26,7 +26,7 @@ class PostViewController: UIViewController {
     }
     @IBAction func onTagSelected(sender: UIButton) {
         for tag in 310...315 {
-            var button = self.view.viewWithTag(tag) as? UIButton
+            let button = self.view.viewWithTag(tag) as? UIButton
             if sender.tag == tag {
                 sender.selected = true
             } else {

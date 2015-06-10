@@ -20,28 +20,28 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     @IBAction func onCameraAction(sender: UIButton) {
-        var imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .Camera
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     @IBAction func onGalleryAction(sender: UIButton) {
-        var imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("bg_small", forIndexPath: indexPath) as! UICollectionViewCell
-        var imageView = cell.viewWithTag(401) as! UIImageView
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("bg_small", forIndexPath: indexPath) as UICollectionViewCell
+        let imageView = cell.viewWithTag(401) as! UIImageView
         imageView.image = UIImage(named: getSmallHomepageBg(indexPath.row + 1))
         cell.addSubview(imageView)
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var userDefaults = NSUserDefaults.standardUserDefaults();
+        let userDefaults = NSUserDefaults.standardUserDefaults();
         userDefaults.setInteger(indexPath.row + 1, forKey: "homepage_bg")
         navigationController?.popViewControllerAnimated(true)
     }
@@ -50,9 +50,9 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         return 10
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        saveImage(image, "homepage_bg")
-        var userDefaults = NSUserDefaults.standardUserDefaults();
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        saveImage(image, filename: "homepage_bg")
+        let userDefaults = NSUserDefaults.standardUserDefaults();
         userDefaults.setInteger(1000, forKey: "homepage_bg")
         dismissViewControllerAnimated(true, completion: nil)
         navigationController?.popViewControllerAnimated(true)

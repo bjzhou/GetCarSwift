@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         if !defaults.boolForKey("isLogin") {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            var loginController = storyboard.instantiateViewControllerWithIdentifier("login") as? UIViewController
+            let loginController = storyboard.instantiateViewControllerWithIdentifier("login")
             window?.rootViewController = loginController
         }
         

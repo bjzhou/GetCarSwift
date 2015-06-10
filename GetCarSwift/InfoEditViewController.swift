@@ -23,7 +23,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     
     func initSexView() {
         currentSex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
-        var tableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: UITableViewStyle.Grouped)
+        let tableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: UITableViewStyle.Grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "sex")
@@ -44,7 +44,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("sex", forIndexPath: indexPath) as! UITableViewCell
+        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("sex", forIndexPath: indexPath) as UITableViewCell
 
         if indexPath.row == 0 {
             cell.textLabel?.text = "男"

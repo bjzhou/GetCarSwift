@@ -32,8 +32,8 @@ class IntroduceViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
-        var subView = IntroduceCotentView(frame: CGRectMake(20 + CGFloat(view.bounds.size.width) * CGFloat(index), 20, view.bounds.size.width - 40, view.bounds.size.height - 270))
-        subView.translatesAutoresizingMaskIntoConstraints()
+        let subView = IntroduceCotentView(frame: CGRectMake(20 + CGFloat(view.bounds.size.width) * CGFloat(index), 20, view.bounds.size.width - 40, view.bounds.size.height - 270))
+        subView.translatesAutoresizingMaskIntoConstraints = true
         subView.title.text = title
         subView.icon.image = UIImage(named: iconName)
         subView.message.text = message

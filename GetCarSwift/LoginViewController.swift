@@ -43,24 +43,24 @@ class LoginViewController: UIViewController {
             defaults.setBool(true, forKey: "isLogin")
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            var controller = storyboard.instantiateInitialViewController() as! UIViewController
+            let controller = storyboard.instantiateInitialViewController()
             UIApplication.sharedApplication().keyWindow?.rootViewController = controller
         }
     }
 
     @IBAction func onVCodeAction(sender: UIButton) {
-        if count(phoneText.text) < 11 {
+        if phoneText.text!.characters.count < 11 {
             return
         }
         code = arc4random_uniform(900000) + 100000
-        var alert = UIAlertController(title: "验证码", message: String(code), preferredStyle: .Alert)
+        let alert = UIAlertController(title: "验证码", message: String(code), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "好", style: .Cancel, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
 
     @IBAction func oSkipAction(sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var controller = storyboard.instantiateInitialViewController() as! UIViewController
+        let controller = storyboard.instantiateInitialViewController()
         UIApplication.sharedApplication().keyWindow?.rootViewController = controller
     }
 

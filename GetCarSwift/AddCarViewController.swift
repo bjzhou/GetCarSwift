@@ -42,13 +42,13 @@ class AddCarViewController: UITableViewController, BrandsDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var brandsViewController = segue.destinationViewController as! BrandsViewController
+        let brandsViewController = segue.destinationViewController as! BrandsViewController
         brandsViewController.delegate = self
         brandsViewController.currentBrand = brand
     }
 
     @IBAction func onAddAction(sender: UIBarButtonItem) {
-        delegate?.onCarAdded(license.text, name: name.text, brandIndex: brand)
+        delegate?.onCarAdded(license.text ?? "", name: name.text ?? "", brandIndex: brand)
         navigationController?.popViewControllerAnimated(true)
     }
 }

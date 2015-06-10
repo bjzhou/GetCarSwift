@@ -29,7 +29,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     }
     
     func checkNewVersion() {
-        Alamofire.request(.GET, FIR_URL_VERSION_CHECK)
+        Alamofire.request(.GET, URLString: FIR_URL_VERSION_CHECK)
             .responseJSON { (req, res, json, err) in
                 if err != nil {
                     return
@@ -37,7 +37,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
                 var json = JSON(json!)
                 if let latest = json["versionShort"].string {
                     if APP_VERSION! != latest {
-                        var alert = UIAlertController(title: "更新", message: "当前版本：" + APP_VERSION! + "\n最新版本：" + latest + "\n版本信息：" + json["changelog"].stringValue + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
+                        let alert = UIAlertController(title: "更新", message: "当前版本：" + APP_VERSION! + "\n最新版本：" + latest + "\n版本信息：" + json["changelog"].stringValue + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
                         alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
                         alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
                             if let update_url = json["update_url"].string {
@@ -105,21 +105,21 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     
     func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
         if annotation.isKindOfClass(MAUserLocation) {
-            var userLocationStyleReuseIndetifier = "userLocationStyleReuseIndetifier"
+            let userLocationStyleReuseIndetifier = "userLocationStyleReuseIndetifier"
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(userLocationStyleReuseIndetifier)
             if annotationView == nil {
                 annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: userLocationStyleReuseIndetifier)
             }
-            var sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
-            var color = NSUserDefaults.standardUserDefaults().integerForKey("color")
-            var icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
-            annotationView.image = UIImage(named: getCarIconName(sex, color, icon))
+            let sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
+            let color = NSUserDefaults.standardUserDefaults().integerForKey("color")
+            let icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+            annotationView.image = UIImage(named: getCarIconName(sex, color: color, icon: icon))
             
             return annotationView
         }
         
         if annotation.isKindOfClass(MAPointAnnotation) {
-            var pointReuseIndetifier = "pointReuseIndetifier"
+            let pointReuseIndetifier = "pointReuseIndetifier"
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier) as?MAPinAnnotationView
             if annotationView == nil {
                 annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier) as MAPinAnnotationView
@@ -139,7 +139,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!, updatingLocation: Bool) {
         if (newCoordinate == nil) {
             newCoordinate = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude + 0.001)
-            var pointAnnotation = MAPointAnnotation()
+            let pointAnnotation = MAPointAnnotation()
             pointAnnotation.coordinate = newCoordinate!
             pointAnnotation.title = "测试"
             pointAnnotation.subtitle = "测试测试"

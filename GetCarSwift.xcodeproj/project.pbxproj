@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F89CDF53FF0F74A74327388 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
@@ -38,6 +37,8 @@
 		C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */; };
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
 		C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8551AD96F31003B07FE /* MapViewController.swift */; };
+		C8E96BBB1B28994800BA4E1A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; };
+		C8E96BBC1B28994800BA4E1A /* Pods.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,20 @@
 			remoteInfo = GetCarSwift;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C8E96BBD1B28994800BA4E1A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C8E96BBC1B28994800BA4E1A /* Pods.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		04AEEC4067984AC3FB0D501E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +103,8 @@
 		C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarViewController.swift; sourceTree = "<group>"; };
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
 		C8E2B8551AD96F31003B07FE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C8E96BB71B2898FE00BA4E1A /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
+		C8E96BB91B28991100BA4E1A /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		CA5016465B25C5FAE0F8AB81 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F89CDF53FF0F74A74327388 /* Pods.framework in Frameworks */,
+				C8E96BBB1B28994800BA4E1A /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +130,8 @@
 		2C2ECC4D086E66923F2F9980 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8E96BB91B28991100BA4E1A /* Pods.framework */,
+				C8E96BB71B2898FE00BA4E1A /* Pods.framework */,
 				04AEEC4067984AC3FB0D501E /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -271,6 +290,7 @@
 				C867FC641AD8FCAF00F99592 /* Resources */,
 				E429BE8D7B81680B2CAE4DC7 /* Copy Pods Resources */,
 				92A358D3148D7E3C6F9B8BDC /* Embed Pods Frameworks */,
+				C8E96BBD1B28994800BA4E1A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -305,7 +325,8 @@
 		C867FC5E1AD8FCAF00F99592 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "&#21608;&#25996;&#20339;";
 				TargetAttributes = {
 					C867FC651AD8FCAF00F99592 = {
@@ -496,7 +517,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -538,6 +561,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -568,6 +592,7 @@
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -587,6 +612,7 @@
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -607,6 +633,7 @@
 				);
 				INFOPLIST_FILE = GetCarSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
 			};
@@ -622,6 +649,7 @@
 				);
 				INFOPLIST_FILE = GetCarSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
 			};
