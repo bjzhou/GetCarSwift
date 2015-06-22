@@ -8,7 +8,8 @@
 
 import Foundation
 
-let APP_VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
 
 let UI_COLOR_RED = UIColorFromRGB(0xcc0007)
 

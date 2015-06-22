@@ -11,23 +11,21 @@ import UIKit
 class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var collection: UICollectionView!
 
+    let imagePicker = UIImagePickerController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collection.delegate = self
         collection.dataSource = self
-
+        imagePicker.delegate = self
     }
 
     @IBAction func onCameraAction(sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
         imagePicker.sourceType = .Camera
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     @IBAction func onGalleryAction(sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
         imagePicker.sourceType = .PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
     }
@@ -57,6 +55,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         dismissViewControllerAnimated(true, completion: nil)
         navigationController?.popViewControllerAnimated(true)
     }
+
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)

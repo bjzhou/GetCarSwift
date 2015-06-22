@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let titles = ["头像", "车形象", "用户名", "我的二维码", "我的地址", "性别", "地区", "个性签名"]
     var values = [IMAGE_AVATAR, getCarIconName(0, color: 0, icon: 0), "SURA", IMAGE_QRCODE, "", "女", "上海浦东新区", ""]
@@ -110,21 +110,15 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alertController.addAction(UIAlertAction(title: "拍照", style: UIAlertActionStyle.Default, handler: {(action) in
             imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            self.presentViewController(imagePicker, animated: true, completion: {() in
-            
-            })
+            self.presentViewController(imagePicker, animated: true, completion: nil)
         }))
         alertController.addAction(UIAlertAction(title: "从手机相册选择", style: UIAlertActionStyle.Default, handler: {(action) in
             imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: {() in
-                
-            })
-            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
         }))
         alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
     }
-
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         avatarImage = scaleImage(image, size: CGSizeMake(254, 254))
