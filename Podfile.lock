@@ -1,27 +1,33 @@
 PODS:
-  - Alamofire (1.2.0)
+  - Alamofire (1.2.3)
   - AMap3DMap (2.4.2)
   - KMPlaceholderTextView (0.1.2)
   - SwiftyJSON (2.2.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 1.2)
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
   - AMap3DMap
   - KMPlaceholderTextView (~> 0.1.2)
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `master`)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
 
 EXTERNAL SOURCES:
+  Alamofire:
+    :branch: swift-2.0
+    :git: https://github.com/Alamofire/Alamofire.git
   SwiftyJSON:
-    :branch: master
+    :branch: xcode7
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: fd71afb3a0af2042b9f05a6b9f29317ad4903703
+    :git: https://github.com/Alamofire/Alamofire.git
   SwiftyJSON:
-    :commit: 87fa9e2432187629aae80cf89027f2a615af2c31
+    :commit: fb9f6b43cd8d3684c3129793057eb2a2564e2430
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: d765c5c1713aa64106b0228aaa600a1e6851f68d
+  Alamofire: 5550bf0b575ed1a4bf9be572f9463e1015cc169e
   AMap3DMap: 6929b8f2191007dc9863553a582b9d7ba78ac1bf
   KMPlaceholderTextView: cd2ff604e9fad9b42d1e690de1060c98d3d129f2
   SwiftyJSON: 0b3e6c07af17ff745e77e8e9984097b55c956e5c
