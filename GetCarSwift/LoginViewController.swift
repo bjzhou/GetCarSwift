@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var vcodeText: UITextField!
     
     var code: UInt32 = 0;
+    var timerCount = 0;
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,8 @@ class LoginViewController: UIViewController {
         if phoneText.text!.characters.count < 11 {
             return
         }
+        timerCount = 0
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
         code = arc4random_uniform(900000) + 100000
         let alert = UIAlertController(title: "验证码", message: String(code), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "好", style: .Cancel, handler: nil))
@@ -62,6 +65,19 @@ class LoginViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateInitialViewController()
         UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+    }
+    
+    func onTimeUpdate(timer: NSTimer) {
+        timerCount++
+        let button = timer.userInfo as? UIButton
+        if timerCount==60 {
+            timer.invalidate()
+            button?.enabled = true
+            button?.setTitle("发送验证码", forState: .Normal)
+            return
+        }
+        button?.enabled = false
+        button?.setTitle(String(60-timerCount) + "秒后重新发送", forState: .Normal)
     }
 
 }

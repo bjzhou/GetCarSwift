@@ -70,10 +70,10 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     }
 
     @IBAction func layerButtonAction(sender: UIButton) {
-        if mapView.mapType == UInt(MAMapTypeStandard) {
-            mapView.mapType = UInt(MAMapTypeSatellite)
+        if mapView.mapType == MAMapType.Standard {
+            mapView.mapType = MAMapType.Satellite
         } else {
-            mapView.mapType = UInt(MAMapTypeStandard)
+            mapView.mapType = MAMapType.Standard
         }
     }
     
@@ -127,7 +127,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             annotationView!.canShowCallout = true       //设置气泡可以弹出，默认为NO
             annotationView!.animatesDrop = true        //设置标注动画显示，默认为NO
             annotationView!.draggable = true        //设置标注可以拖动，默认为NO
-            annotationView!.pinColor = UInt(MAPinAnnotationColorPurple)
+            annotationView!.pinColor = MAPinAnnotationColor.Purple
             
             annotationView!.image = UIImage(named: "白2")
 

@@ -64,5 +64,9 @@ class CustomModifyViewController: UIViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.LandscapeLeft
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 
 }
