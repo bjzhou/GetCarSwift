@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.17" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q2L-Xe-lUZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q2L-Xe-lUZ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1786,11 +1786,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gz_keluzi_red" translatesAutoresizingMaskIntoConstraints="NO" id="jhm-Q5-Elh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gz_keluzi_red" translatesAutoresizingMaskIntoConstraints="NO" id="jhm-Q5-Elh">
                                 <rect key="frame" x="0.0" y="0.0" width="582" height="375"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="jhm-Q5-Elh" secondAttribute="height" multiplier="194:125" id="jUW-sP-r3b"/>
-                                </constraints>
                                 <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="412" height="320"/>
                                 </variation>
@@ -1953,6 +1950,7 @@
                                     <constraint firstItem="A51-WR-n2a" firstAttribute="leading" secondItem="eeo-ll-8tS" secondAttribute="leading" id="Akr-Xq-pXF"/>
                                     <constraint firstItem="HR2-Br-lsG" firstAttribute="trailing" secondItem="A51-WR-n2a" secondAttribute="trailing" id="Nbt-de-WgR"/>
                                     <constraint firstAttribute="centerX" secondItem="aLT-us-maD" secondAttribute="centerX" id="UuV-c1-0An"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="VwL-SM-7vH"/>
                                     <constraint firstItem="HR2-Br-lsG" firstAttribute="top" secondItem="A51-WR-n2a" secondAttribute="bottom" constant="8" id="ZJT-pb-Xwg"/>
                                     <constraint firstItem="aLT-us-maD" firstAttribute="width" secondItem="aLT-us-maD" secondAttribute="height" multiplier="1:1" id="gS0-9V-bTX"/>
                                     <constraint firstItem="eeo-ll-8tS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aLT-us-maD" secondAttribute="bottom" constant="8" id="pY9-7l-6vq"/>
@@ -2218,10 +2216,10 @@
         <scene sceneID="uSz-uB-AUa">
             <objects>
                 <tableViewController id="rPP-33-3f1" customClass="CarBarViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" id="LII-ds-FDF">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" id="LII-ds-FDF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="tag" rowHeight="120" id="VPB-aB-f4W" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="375" height="120"/>
@@ -2356,7 +2354,7 @@
                                     </variation>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar" id="cYw-bA-eZu" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar" id="cYw-bA-eZu" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="206" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cYw-bA-eZu" id="vfd-37-N13">
@@ -2446,7 +2444,7 @@
                                     <outlet property="title" destination="QkD-2H-Chl" id="Rt6-lk-RXY"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar_noicon" id="of6-AX-8bi" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carbar_noicon" id="of6-AX-8bi" customClass="PostCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="326" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="of6-AX-8bi" id="WOp-Qw-GzT">
@@ -2552,7 +2550,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="l4u-01-jcb">
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="s0r-4f-Bt1">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                 </tableViewController>
@@ -2932,7 +2930,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jbw-Bm-CIU">
-                                <rect key="frame" x="154" y="463" width="68" height="29"/>
+                                <rect key="frame" x="160" y="463" width="56" height="29"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
                                         <fragment content="跳过此步">
