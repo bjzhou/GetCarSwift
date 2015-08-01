@@ -25,7 +25,7 @@ class PersonInfoCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         accessoryView = UIImageView(image: UIImage(named: IMAGE_ARROW))
     }

@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 
 class MapViewController: UIViewController, MAMapViewDelegate {
     
@@ -25,30 +24,9 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         super.viewDidLoad()
 
         initMapView()
-        checkNewVersion()
     }
     
-    func checkNewVersion() {
-        Alamofire.request(.GET, URLString: FIR_URL_VERSION_CHECK)
-            .responseJSON { (req, res, json, err) in
-                if err != nil {
-                    return
-                }
-                var json = JSON(json!)
-                if let latest = json["version"].string, latestShort = json["versionShort"].string {
-                    if VERSION != latest {
-                        let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + latestShort + "\n版本信息：" + json["changelog"].stringValue + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
-                        alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
-                            if let update_url = json["update_url"].string {
-                                UIApplication.sharedApplication().openURL(NSURL(string: update_url)!)
-                            }
-                        }))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    }
-                }
-        }
-    }
+
     
     func initMapView() {
         mapView.delegate = self

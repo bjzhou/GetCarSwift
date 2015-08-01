@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		04AEEC4067984AC3FB0D501E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591A49849DBEB4D222DB56B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C80881E01B6D2171002A1CE9 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				C80881E11B6D2190002A1CE9 /* FIRApi.swift */,
+			);
+			name = Api;
+			sourceTree = "<group>";
+		};
 		C867FC5D1AD8FCAF00F99592 = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +179,7 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
+				C80881E01B6D2171002A1CE9 /* Api */,
 				C8E2B8541AD96F19003B07FE /* Map */,
 				C8E2B8491AD95AB2003B07FE /* Mine */,
 				C8E2B83E1AD93412003B07FE /* Modification */,
@@ -437,6 +448,7 @@
 				C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
+				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
 				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* IntroduceViewController.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,

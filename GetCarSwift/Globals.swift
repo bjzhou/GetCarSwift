@@ -31,10 +31,6 @@ let IAMGE_ACCESSORY_SELECTED = "accessory_selected"
 let IMAGE_CAR_INFO_AREA = "car_info_area"
 let IMAGE_CAR_INFO_AREA_PRESSED = "car_info_area_pressed"
 
-let FIR_APP_ID = "552a3921ebc861d936002615"
-let FIR_USER_TOKEN = "3af74030cca511e4a5e787e903cd690d43148e64"
-let FIR_URL_VERSION_CHECK = "http://fir.im/api/v2/app/version/" + FIR_APP_ID + "?token=" + FIR_USER_TOKEN
-let FIR_URL_DOWNLOAD = "itms-services://?action=download-manifest&url="
 
 /*
     获得地图界面定位图标名

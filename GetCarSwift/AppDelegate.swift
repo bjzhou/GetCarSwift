@@ -33,7 +33,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.darkGrayColor()
         
         MAMapServices.sharedServices().apiKey = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
+        
+        checkNewVersion()
+        
         return true
+    }
+    
+    func checkNewVersion() {
+        checkUpdate().responseJSON { (req, res, data) in
+            guard let jsonValue = data.value else {
+                print(data.error?.description)
+                return
+            }
+            let fir = FIR(json: jsonValue)
+            if VERSION != fir.version {
+                let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
+                    UIApplication.sharedApplication().openURL(NSURL(string: fir.updateUrl)!)
+                }))
+                self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
