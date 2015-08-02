@@ -4,22 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>KMPlaceholderTextView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A20C85D56D67A213587EEC2B7A8802A6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AEC1AE4300FE93F158F0795584ECB61F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B9A04D3C9B208813656510FDA8ADAE02</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DCE99F8CB74193BF5BF98F30D824468D</key>
+		<key>1469924FC52F60B0068FA24EEFCB3EFC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

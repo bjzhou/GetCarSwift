@@ -7,9 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45D4033D07EB566AD926711B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAA0100C9601CD1277469EF /* libPods.a */; };
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
+		C852635F1B6E1FFB00E43FE0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */; };
+		C85263821B6E29AB00E43FE0 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263761B6E29AB00E43FE0 /* Alamofire.swift */; };
+		C85263831B6E29AB00E43FE0 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263771B6E29AB00E43FE0 /* Download.swift */; };
+		C85263841B6E29AB00E43FE0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263781B6E29AB00E43FE0 /* Error.swift */; };
+		C85263851B6E29AB00E43FE0 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263791B6E29AB00E43FE0 /* Manager.swift */; };
+		C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852637A1B6E29AB00E43FE0 /* MultipartFormData.swift */; };
+		C85263871B6E29AB00E43FE0 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852637B1B6E29AB00E43FE0 /* ParameterEncoding.swift */; };
+		C85263881B6E29AB00E43FE0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852637C1B6E29AB00E43FE0 /* Request.swift */; };
+		C85263891B6E29AB00E43FE0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852637D1B6E29AB00E43FE0 /* ResponseSerialization.swift */; };
+		C852638A1B6E29AB00E43FE0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852637E1B6E29AB00E43FE0 /* Result.swift */; };
+		C852638B1B6E29AB00E43FE0 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852637F1B6E29AB00E43FE0 /* ServerTrustPolicy.swift */; };
+		C852638C1B6E29AB00E43FE0 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263801B6E29AB00E43FE0 /* Upload.swift */; };
+		C852638D1B6E29AB00E43FE0 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263811B6E29AB00E43FE0 /* Validation.swift */; };
+		C852638F1B6E29E900E43FE0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */; };
+		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
@@ -22,6 +38,10 @@
 		C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */; };
 		C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* Utils.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
+		C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* ApiBase.swift */; };
+		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
+		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
+		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
 		C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */; };
 		C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */; };
@@ -38,7 +58,6 @@
 		C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */; };
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
 		C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8551AD96F31003B07FE /* MapViewController.swift */; };
-		C8E96BBB1B28994800BA4E1A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; };
 		C8E96BBC1B28994800BA4E1A /* Pods.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -69,9 +88,25 @@
 /* Begin PBXFileReference section */
 		04AEEC4067984AC3FB0D501E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2591A49849DBEB4D222DB56B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		5FAA0100C9601CD1277469EF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
+		C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C85263761B6E29AB00E43FE0 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		C85263771B6E29AB00E43FE0 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		C85263781B6E29AB00E43FE0 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		C85263791B6E29AB00E43FE0 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		C852637A1B6E29AB00E43FE0 /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		C852637B1B6E29AB00E43FE0 /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		C852637C1B6E29AB00E43FE0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		C852637D1B6E29AB00E43FE0 /* ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
+		C852637E1B6E29AB00E43FE0 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		C852637F1B6E29AB00E43FE0 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		C85263801B6E29AB00E43FE0 /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
+		C85263811B6E29AB00E43FE0 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +123,10 @@
 		C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifyViewController.swift; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
+		C89A05C21B6E058C00620C85 /* ApiBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiBase.swift; sourceTree = "<group>"; };
+		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
+		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
+		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
 		C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoEditViewController.swift; sourceTree = "<group>"; };
 		C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +154,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8E96BBB1B28994800BA4E1A /* Pods.framework in Frameworks */,
+				C852635F1B6E1FFB00E43FE0 /* CoreMotion.framework in Frameworks */,
+				45D4033D07EB566AD926711B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,9 +172,10 @@
 		2C2ECC4D086E66923F2F9980 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */,
 				C8E96BB91B28991100BA4E1A /* Pods.framework */,
 				C8E96BB71B2898FE00BA4E1A /* Pods.framework */,
-				04AEEC4067984AC3FB0D501E /* Pods.framework */,
+				5FAA0100C9601CD1277469EF /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,8 +193,28 @@
 			isa = PBXGroup;
 			children = (
 				C80881E11B6D2190002A1CE9 /* FIRApi.swift */,
+				C89A05C21B6E058C00620C85 /* ApiBase.swift */,
 			);
 			name = Api;
+			sourceTree = "<group>";
+		};
+		C85263601B6E282800E43FE0 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				C85263761B6E29AB00E43FE0 /* Alamofire.swift */,
+				C85263771B6E29AB00E43FE0 /* Download.swift */,
+				C85263781B6E29AB00E43FE0 /* Error.swift */,
+				C85263791B6E29AB00E43FE0 /* Manager.swift */,
+				C852637A1B6E29AB00E43FE0 /* MultipartFormData.swift */,
+				C852637B1B6E29AB00E43FE0 /* ParameterEncoding.swift */,
+				C852637C1B6E29AB00E43FE0 /* Request.swift */,
+				C852637D1B6E29AB00E43FE0 /* ResponseSerialization.swift */,
+				C852637E1B6E29AB00E43FE0 /* Result.swift */,
+				C852637F1B6E29AB00E43FE0 /* ServerTrustPolicy.swift */,
+				C85263801B6E29AB00E43FE0 /* Upload.swift */,
+				C85263811B6E29AB00E43FE0 /* Validation.swift */,
+			);
+			name = Alamofire;
 			sourceTree = "<group>";
 		};
 		C867FC5D1AD8FCAF00F99592 = {
@@ -179,8 +240,9 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
+				C89A05C81B6E162500620C85 /* ThirdParty */,
 				C80881E01B6D2171002A1CE9 /* Api */,
-				C8E2B8541AD96F19003B07FE /* Map */,
+				C8E2B8541AD96F19003B07FE /* Trace */,
 				C8E2B8491AD95AB2003B07FE /* Mine */,
 				C8E2B83E1AD93412003B07FE /* Modification */,
 				C8E2B8391AD92AFA003B07FE /* CarBar */,
@@ -229,6 +291,17 @@
 				C867FD201AD909E400F99592 /* LoginViewController.swift */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		C89A05C81B6E162500620C85 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				C85263601B6E282800E43FE0 /* Alamofire */,
+				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
+				C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */,
+				C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */,
+			);
+			name = ThirdParty;
 			sourceTree = "<group>";
 		};
 		C8E2B8361AD926C7003B07FE /* Common */ = {
@@ -280,12 +353,14 @@
 			name = Mine;
 			sourceTree = "<group>";
 		};
-		C8E2B8541AD96F19003B07FE /* Map */ = {
+		C8E2B8541AD96F19003B07FE /* Trace */ = {
 			isa = PBXGroup;
 			children = (
 				C8E2B8551AD96F31003B07FE /* MapViewController.swift */,
+				C89A05C61B6E125400620C85 /* TraceViewController.swift */,
+				C89A05CB1B6E195600620C85 /* DataViewController.swift */,
 			);
-			name = Map;
+			name = Trace;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,7 +375,6 @@
 				C867FC631AD8FCAF00F99592 /* Frameworks */,
 				C867FC641AD8FCAF00F99592 /* Resources */,
 				E429BE8D7B81680B2CAE4DC7 /* Copy Pods Resources */,
-				92A358D3148D7E3C6F9B8BDC /* Embed Pods Frameworks */,
 				C8E96BBD1B28994800BA4E1A /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -391,21 +465,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		92A358D3148D7E3C6F9B8BDC /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A39134E7639604D174AC67F4 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,31 +503,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
+				C85263831B6E29AB00E43FE0 /* Download.swift in Sources */,
 				C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */,
 				C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
+				C852638F1B6E29E900E43FE0 /* SwiftyJSON.swift in Sources */,
 				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* IntroduceViewController.swift in Sources */,
+				C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */,
+				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
+				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
+				C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */,
 				C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */,
 				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
 				C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */,
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
+				C85263871B6E29AB00E43FE0 /* ParameterEncoding.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
+				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
 				C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
+				C85263881B6E29AB00E43FE0 /* Request.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
+				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
+				C852638B1B6E29AB00E43FE0 /* ServerTrustPolicy.swift in Sources */,
+				C852638A1B6E29AB00E43FE0 /* Result.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
+				C85263841B6E29AB00E43FE0 /* Error.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */,
+				C852638D1B6E29AB00E43FE0 /* Validation.swift in Sources */,
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
+				C852638C1B6E29AB00E43FE0 /* Upload.swift in Sources */,
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
+				C85263891B6E29AB00E43FE0 /* ResponseSerialization.swift in Sources */,
+				C85263821B6E29AB00E43FE0 /* Alamofire.swift in Sources */,
+				C85263851B6E29AB00E43FE0 /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,16 +677,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/GetCarSwift/Amap",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -621,10 +696,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/GetCarSwift/Amap",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -633,6 +705,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d0aa3ed6-28ac-4d9d-a0a7-894b9ef4b92f";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -1,10 +1,7 @@
 ARCHS = $(ARCHS_STANDARD)
 FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AMap3DMap"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AMap3DMap" "${PODS_ROOT}/Headers/Public/AMap3DMap/MAMapKit"
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/KMPlaceholderTextView.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SwiftyJSON.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AMap3DMap" -isystem "${PODS_ROOT}/Headers/Public/AMap3DMap/MAMapKit"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"stdc++.6.0.9" -l"z" -framework "Alamofire" -framework "CoreLocation" -framework "CoreTelephony" -framework "KMPlaceholderTextView" -framework "MAMapKit" -framework "OpenGLES" -framework "QuartzCore" -framework "Security" -framework "SwiftyJSON" -framework "SystemConfiguration"
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AMap3DMap" "${PODS_ROOT}/Headers/Public/AMap3DMap/MAMapKit"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AMap3DMap" -isystem "${PODS_ROOT}/Headers/Public/AMap3DMap/MAMapKit"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"stdc++.6.0.9" -l"z" -framework "CoreLocation" -framework "CoreTelephony" -framework "MAMapKit" -framework "OpenGLES" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
 PODS_ROOT = ${SRCROOT}/Pods
