@@ -140,29 +140,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数据" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-Zc-5v5">
-                                <rect key="frame" x="283" y="289" width="34" height="21"/>
+                                <rect key="frame" x="283" y="260" width="34" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fK-xD-VZs">
-                                <rect key="frame" x="279" y="492" width="42" height="21"/>
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh3-Ay-OFX">
+                                <rect key="frame" x="279" y="318" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8fK-xD-VZs" firstAttribute="centerX" secondItem="k7q-a0-top" secondAttribute="centerX" id="7eT-8w-Ica"/>
-                            <constraint firstItem="5f1-Gc-uFQ" firstAttribute="top" secondItem="8fK-xD-VZs" secondAttribute="bottom" constant="87" id="JiJ-76-9OE"/>
-                            <constraint firstItem="3xr-Zc-5v5" firstAttribute="centerX" secondItem="k7q-a0-top" secondAttribute="centerX" id="cAQ-xq-mpB"/>
-                            <constraint firstItem="3xr-Zc-5v5" firstAttribute="centerY" secondItem="k7q-a0-top" secondAttribute="centerY" id="ltx-me-I7t"/>
+                            <constraint firstItem="8fK-xD-VZs" firstAttribute="centerY" secondItem="k7q-a0-top" secondAttribute="centerY" id="HyQ-gI-b4p"/>
+                            <constraint firstItem="3xr-Zc-5v5" firstAttribute="centerX" secondItem="k7q-a0-top" secondAttribute="centerX" id="Jqw-ot-t6n"/>
+                            <constraint firstItem="3xr-Zc-5v5" firstAttribute="centerX" secondItem="8fK-xD-VZs" secondAttribute="centerX" id="RF2-mu-pw6"/>
+                            <constraint firstItem="8fK-xD-VZs" firstAttribute="leading" secondItem="eh3-Ay-OFX" secondAttribute="leading" id="RpN-EA-fDx"/>
+                            <constraint firstItem="8fK-xD-VZs" firstAttribute="top" secondItem="3xr-Zc-5v5" secondAttribute="bottom" constant="8" symbolic="YES" id="YaY-fT-mZE"/>
+                            <constraint firstItem="eh3-Ay-OFX" firstAttribute="top" secondItem="8fK-xD-VZs" secondAttribute="bottom" constant="8" symbolic="YES" id="jmx-14-KQT"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dataLabel" destination="3xr-Zc-5v5" id="4Cb-tr-tnn"/>
-                        <outlet property="maxData" destination="8fK-xD-VZs" id="VXC-37-er8"/>
+                        <outlet property="aLabel" destination="3xr-Zc-5v5" id="rqL-ah-fOc"/>
+                        <outlet property="altitude" destination="eh3-Ay-OFX" id="fsz-KE-NdP"/>
+                        <outlet property="vLabel" destination="8fK-xD-VZs" id="HwK-N8-T5a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aN3-UG-HJg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2685,7 +2694,7 @@
                                     <constraint firstAttribute="height" constant="1" id="ijO-jn-NbC"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-jR-fdb" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-jR-fdb" customClass="KMPlaceholderTextView" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="16" y="177" width="343" height="208"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
