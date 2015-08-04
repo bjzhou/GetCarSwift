@@ -91,16 +91,25 @@
                                     <action selector="trafficButtonAction:" destination="e6H-8R-ir9" eventType="touchUpInside" id="P5P-M3-EtY"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLG-1T-1v0">
+                                <rect key="frame" x="0.0" y="0.0" width="10" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="XKP-zh-1u3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hJC-e7-oet" firstAttribute="trailing" secondItem="J2T-v3-9hb" secondAttribute="trailing" id="1nf-AX-A0a"/>
                             <constraint firstItem="irs-1c-ZZP" firstAttribute="trailing" secondItem="J2T-v3-9hb" secondAttribute="trailing" id="3Np-e4-bKf"/>
+                            <constraint firstItem="HLG-1T-1v0" firstAttribute="top" secondItem="BsB-UW-BMf" secondAttribute="top" id="7T4-Qe-DP5"/>
                             <constraint firstItem="J2T-v3-9hb" firstAttribute="leading" secondItem="hJC-e7-oet" secondAttribute="leading" id="8iU-7V-9EC"/>
                             <constraint firstItem="PZU-b9-M31" firstAttribute="top" secondItem="QCN-7B-LPw" secondAttribute="bottom" constant="8" id="IUI-Fj-frP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vRl-we-4J3" secondAttribute="trailing" constant="-8" id="IiI-Jl-cld"/>
                             <constraint firstItem="hJC-e7-oet" firstAttribute="top" secondItem="1Hj-6O-L1V" secondAttribute="bottom" constant="8" symbolic="YES" id="IkK-he-iGp"/>
                             <constraint firstItem="irs-1c-ZZP" firstAttribute="bottom" secondItem="PZU-b9-M31" secondAttribute="top" id="Pfu-O3-B02"/>
+                            <constraint firstItem="HLG-1T-1v0" firstAttribute="leading" secondItem="BsB-UW-BMf" secondAttribute="leading" id="QQb-zB-7Ni"/>
                             <constraint firstItem="QCN-7B-LPw" firstAttribute="leading" secondItem="BsB-UW-BMf" secondAttribute="leadingMargin" constant="-8" id="UeR-pE-cNv"/>
                             <constraint firstItem="irs-1c-ZZP" firstAttribute="leading" secondItem="BsB-UW-BMf" secondAttribute="leading" id="W3I-fF-BQO"/>
                             <constraint firstItem="abt-0w-bfo" firstAttribute="trailing" secondItem="vRl-we-4J3" secondAttribute="trailing" id="XEL-mR-7ME"/>
@@ -110,6 +119,7 @@
                             <constraint firstItem="PZU-b9-M31" firstAttribute="top" secondItem="vRl-we-4J3" secondAttribute="bottom" constant="59" id="m3k-gy-C8h"/>
                             <constraint firstItem="irs-1c-ZZP" firstAttribute="top" secondItem="1Hj-6O-L1V" secondAttribute="bottom" id="r7s-c4-RTF"/>
                             <constraint firstItem="vRl-we-4J3" firstAttribute="leading" secondItem="abt-0w-bfo" secondAttribute="leading" id="thm-Ci-H2n"/>
+                            <constraint firstItem="PZU-b9-M31" firstAttribute="top" secondItem="HLG-1T-1v0" secondAttribute="bottom" id="v2y-eg-Gz1"/>
                             <constraint firstAttribute="trailing" secondItem="J2T-v3-9hb" secondAttribute="trailing" id="yb7-1A-8bZ"/>
                         </constraints>
                     </view>

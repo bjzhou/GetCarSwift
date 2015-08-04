@@ -57,6 +57,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     public func enableAeroEffectInTopBar (boolValue : Bool) { aeroEffectInTopBar = boolValue}
     public func enableButtonsWithImages (boolValue : Bool) { buttonsWithImages = boolValue}
     public func enableBarShadow (boolValue : Bool) { barShadow = boolValue}
+    public func getPageViewController(index: Int) -> UIViewController? { return pageViews[index] }
     
     override public func drawRect(rect: CGRect)
     {
@@ -241,10 +242,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     public func barButtonAction(sender: UIButton?)
     {
         let index: Int = sender!.tag
-        let pagesScrollViewSize = scrollView.frame.size
-        UIView.animateWithDuration(0.3, animations: {
-            self.scrollView.contentOffset = CGPointMake(pagesScrollViewSize.width * (CGFloat)(index), 0)
-        })
+        switchPage(index)
     }
     
     public func scrollViewDidScroll(scrollView: UIScrollView)
@@ -256,6 +254,16 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         //The offset addition is based on the width of the animated bar (button width times 0.8)
         let offsetAddition = (containerView.frame.size.width/(CGFloat)(viewControllerIDs.count))*0.1
         animatedBar.frame = CGRectMake((offsetAddition + (scrollView.contentOffset.x/(CGFloat)(viewControllerIDs.count))), animatedBar.frame.origin.y, animatedBar.frame.size.width, animatedBar.frame.size.height);
+    }
+    
+    public func switchPage(index: Int) {
+        guard index < pageViews.count else {
+            return
+        }
+        let pagesScrollViewSize = scrollView.frame.size
+        UIView.animateWithDuration(0.3, animations: {
+            self.scrollView.contentOffset = CGPointMake(pagesScrollViewSize.width * (CGFloat)(index), 0)
+        })
     }
     
 }

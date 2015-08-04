@@ -1,6 +1,6 @@
 source 'https://git.oschina.net/akuandev/Specs.git'
 platform :ios, '8.0'
-#use_frameworks!
+use_frameworks!
 
 pod 'AMap3DMap'
 #pod 'AMapSearch'

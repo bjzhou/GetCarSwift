@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TraceViewController: UIViewController {
+class TraceViewController: UIViewController, AccelerationUpdateDelegate {
     @IBOutlet weak var swiftPagesView: SwiftPages!
     
     let VCIDs = ["data", "map"];
@@ -19,6 +19,20 @@ class TraceViewController: UIViewController {
 
         swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(VCIDs, buttonTitlesArray: buttonTitles)
         swiftPagesView.enableBarShadow(true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if let dataVC = swiftPagesView.getPageViewController(0) as? DataViewController {
+            dataVC.delegate = self
+        }
+    }
+    
+    func onLeft() {
+        swiftPagesView.switchPage(0)
+    }
+    
+    func onRight() {
+        swiftPagesView.switchPage(1)
     }
 
 }
