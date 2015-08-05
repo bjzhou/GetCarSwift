@@ -59,6 +59,8 @@
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
 		C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8551AD96F31003B07FE /* MapViewController.swift */; };
 		C8E96BBC1B28994800BA4E1A /* Pods.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C8F9CD6F1B7246BB0003AF1B /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */; };
+		C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD701B725CDD0003AF1B /* Toast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +146,8 @@
 		C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarViewController.swift; sourceTree = "<group>"; };
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
 		C8E2B8551AD96F31003B07FE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		E28ABDA3268414DDF291F999 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +194,7 @@
 			children = (
 				C80881E11B6D2190002A1CE9 /* FIRApi.swift */,
 				C89A05C21B6E058C00620C85 /* ApiBase.swift */,
+				C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
 				C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */,
 				C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */,
+				C8F9CD701B725CDD0003AF1B /* Toast.swift */,
 			);
 			name = ThirdParty;
 			sourceTree = "<group>";
@@ -527,6 +533,7 @@
 				C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
+				C8F9CD6F1B7246BB0003AF1B /* UserApi.swift in Sources */,
 				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
 				C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */,
 				C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */,
@@ -534,6 +541,7 @@
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
 				C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */,
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
+				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
 				C85263871B6E29AB00E43FE0 /* ParameterEncoding.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,

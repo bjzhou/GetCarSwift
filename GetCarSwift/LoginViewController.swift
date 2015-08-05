@@ -50,15 +50,27 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func onVCodeAction(sender: UIButton) {
-        if phoneText.text!.characters.count < 11 {
+        guard let phone = phoneText.text where phone.characters.count >= 11 else {
+            self.view.makeToast(message: "手机号格式错误")
             return
         }
         timerCount = 0
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
-        code = arc4random_uniform(900000) + 100000
-        let alert = UIAlertController(title: "验证码", message: String(code), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "好", style: .Cancel, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
+        getCodeMsg(phone).responseJSON { (req, res, data) in
+            guard let jsonValue = data.value else {
+                print(data.error?.description)
+                self.view.makeToast(message: "网络错误")
+                return
+            }
+            
+            let result = ApiResult<CodeMsg>(json: jsonValue)
+            if result.code < 0 {
+                self.view.makeToast(message: result.msg)
+                self.timerReset(timer)
+            } else {
+                self.vcodeText.text = result.data.code
+            }
+        }
     }
 
     @IBAction func oSkipAction(sender: UIButton) {
@@ -71,13 +83,18 @@ class LoginViewController: UIViewController {
         timerCount++
         let button = timer.userInfo as? UIButton
         if timerCount==60 {
-            timer.invalidate()
-            button?.enabled = true
-            button?.setTitle("发送验证码", forState: .Normal)
+            timerReset(timer)
             return
         }
         button?.enabled = false
         button?.setTitle(String(60-timerCount) + "秒后重新发送", forState: .Normal)
+    }
+    
+    func timerReset(timer: NSTimer) {
+        let button = timer.userInfo as? UIButton
+        timer.invalidate()
+        button?.enabled = true
+        button?.setTitle("发送验证码", forState: .Normal)
     }
 
 }

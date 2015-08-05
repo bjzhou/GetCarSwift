@@ -8,6 +8,8 @@
 
 import Foundation
 
+let DOMAIN = "http://api.gaikit.com:8901/"
+
 let memoryCapacity = 20 * 1024 * 1024
 let diskCapacity = 100 * 1024 * 1024
 let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
@@ -22,3 +24,19 @@ func initConfiguration() -> NSURLSessionConfiguration {
 }
 
 let apiManager = Manager(configuration: initConfiguration())
+
+struct ApiResult<T: ApiResultBase> {
+    var code: Int
+    var msg: String
+    var data: T
+    init(json: AnyObject) {
+        let json = JSON(json)
+        code = json["code"].intValue
+        msg = json["msg"].stringValue
+        data = T(json: json["data"])
+    }
+}
+
+protocol ApiResultBase {
+    init(json: JSON)
+}
