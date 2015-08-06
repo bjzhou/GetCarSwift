@@ -10,20 +10,7 @@ import Foundation
 
 let DOMAIN = "http://api.gaikit.com:8901/"
 
-let memoryCapacity = 20 * 1024 * 1024
-let diskCapacity = 100 * 1024 * 1024
-let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
-
-func initConfiguration() -> NSURLSessionConfiguration {
-    let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-    let defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
-    configuration.HTTPAdditionalHeaders = defaultHeaders
-    configuration.requestCachePolicy = .UseProtocolCachePolicy
-    configuration.URLCache = cache
-    return configuration
-}
-
-let apiManager = Manager(configuration: initConfiguration())
+let apiManager = Manager.sharedInstance
 
 struct ApiResult<T: ApiResultBase> {
     var code: Int
@@ -39,4 +26,21 @@ struct ApiResult<T: ApiResultBase> {
 
 protocol ApiResultBase {
     init(json: JSON)
+}
+
+extension Manager {
+    public func request(
+        method: Method,
+        _ URLString: URLStringConvertible,
+        body: JSON)
+        -> Request
+        {
+            let mutableURLRequest = URLRequest(method, URLString, headers: nil)
+            do {
+                try mutableURLRequest.HTTPBody = body.rawData()
+            } catch {
+                print("url reuest error")
+            }
+            return request(mutableURLRequest)
+        }
 }

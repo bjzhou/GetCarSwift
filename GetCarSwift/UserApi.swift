@@ -16,5 +16,5 @@ struct CodeMsg: ApiResultBase {
 }
 
 func getCodeMsg(phone: String) -> Request {
-    return apiManager.request(.POST, DOMAIN + "user/getCodeMsg", parameters: ["phone": phone])
+    return apiManager.request(.POST, DOMAIN + "user/getCodeMsg", body: JSON(["phone":phone]))
 }
