@@ -26,20 +26,21 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     private var distanceToBottom: CGFloat = 49
     
     //Color variables
-    private var animatedBarColor = UIColor(red: 28/255, green: 95/255, blue: 185/255, alpha: 1)
-    private var topBarBackground = UIColor.whiteColor()
-    private var buttonsTextColor = UIColor.grayColor()
-    private var containerViewBackground = UIColor.whiteColor()
+    private var animatedBarColor = UIColor.gaikeRedColor()
+    private var topBarBackground = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+    private var buttonsTextColor = UIColor.whiteColor()
+    private var containerViewBackground = UIColor.gaikeBackgroundColor()
     
     //Item size variables
-    private var topBarHeight: CGFloat = 45
+    private var topBarHeight: CGFloat = 36
     private var animatedBarHeight: CGFloat = 3
     
     //Bar item variables
+    private var transparentTopBar: Bool = true
     private var aeroEffectInTopBar: Bool = false //This gives the top bap a blurred effect, also overlayes the it over the VC's
     private var buttonsWithImages: Bool = false
     private var barShadow: Bool = true
-    private var buttonsTextFontAndSize: UIFont = UIFont(name: "HelveticaNeue-Light", size: 20)!
+    private var buttonsTextFontAndSize: UIFont = UIFont.systemFontOfSize(16)
     
     // MARK: - Positions Of The Container View API -
     public func setOriginX (origin : CGFloat) { xOrigin = origin }
@@ -71,7 +72,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         self.addSubview(containerView)
         
         //Set the scrollview
-        if (aeroEffectInTopBar) {
+        if (aeroEffectInTopBar || transparentTopBar) {
             scrollView = UIScrollView(frame: CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height))
         } else {
             scrollView = UIScrollView(frame: CGRectMake(0, topBarHeight, containerView.frame.size.width, containerView.frame.size.height - topBarHeight))

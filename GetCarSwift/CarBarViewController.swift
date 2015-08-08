@@ -26,7 +26,7 @@ class CarBarViewController: UITableViewController, UISearchResultsUpdating, UISe
         searchController.searchBar.sizeToFit()
         searchController.delegate = self
         searchController.searchBar.tintColor = UIColor.blackColor()
-        searchController.searchBar.setBackgroundImage(UIImageWithColor(UIColorFromRGB(0xe2e2e2)), forBarPosition: .Top, barMetrics: .Default)
+        searchController.searchBar.setBackgroundImage(UIImageWithColor(UIColor(rgbValue: 0xe2e2e2)), forBarPosition: .Top, barMetrics: .Default)
         tableView.tableHeaderView = searchController.searchBar
     }
     

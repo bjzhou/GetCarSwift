@@ -11,8 +11,6 @@ import Foundation
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
 
-let UI_COLOR_RED = UIColorFromRGB(0xcc0007)
-
 let IMAGE_ARROW = "arrow"
 let IMAGE_DABAOWEI = "gz_baowei"
 let IMAGE_HOURAO = "gz_hourao"

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		70903CF7DE3CD5A47C3D32A5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEB7D44B704C3E2AEED25C2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
+		C835CE8C1B75235A003015A7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C835CE8B1B75235A003015A7 /* UIColor.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C852635F1B6E1FFB00E43FE0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */; };
@@ -33,6 +34,8 @@
 		C867FC841AD8FCB000F99592 /* GetCarSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */; };
 		C867FD1E1AD9071900F99592 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Globals.swift */; };
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
+		C874CEA51B75B34500501632 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874CEA41B75B34500501632 /* String.swift */; };
+		C874CEA71B75B65D00501632 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874CEA61B75B65D00501632 /* CLLocationCoordinate2D.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
 		C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */; };
@@ -92,6 +95,7 @@
 		BBEB7D44B704C3E2AEED25C2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42AD40CE547E3B55020E5BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
+		C835CE8B1B75235A003015A7 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -120,6 +124,8 @@
 		C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCarSwiftTests.swift; sourceTree = "<group>"; };
 		C867FD1D1AD9071900F99592 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C874CEA41B75B34500501632 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C874CEA61B75B65D00501632 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
 		C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifyViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +205,16 @@
 			name = Api;
 			sourceTree = "<group>";
 		};
+		C835CE8A1B75232E003015A7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C835CE8B1B75235A003015A7 /* UIColor.swift */,
+				C874CEA41B75B34500501632 /* String.swift */,
+				C874CEA61B75B65D00501632 /* CLLocationCoordinate2D.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
 		C85263601B6E282800E43FE0 /* Alamofire */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +237,7 @@
 		C867FC5D1AD8FCAF00F99592 = {
 			isa = PBXGroup;
 			children = (
+				C835CE8A1B75232E003015A7 /* Extension */,
 				C867FC681AD8FCAF00F99592 /* GetCarSwift */,
 				C867FC801AD8FCB000F99592 /* GetCarSwiftTests */,
 				C867FC671AD8FCAF00F99592 /* Products */,
@@ -550,8 +567,11 @@
 				C85263881B6E29AB00E43FE0 /* Request.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
+				C874CEA51B75B34500501632 /* String.swift in Sources */,
 				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
+				C835CE8C1B75235A003015A7 /* UIColor.swift in Sources */,
 				C852638B1B6E29AB00E43FE0 /* ServerTrustPolicy.swift in Sources */,
+				C874CEA71B75B65D00501632 /* CLLocationCoordinate2D.swift in Sources */,
 				C852638A1B6E29AB00E43FE0 /* Result.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
 				C85263841B6E29AB00E43FE0 /* Error.swift in Sources */,

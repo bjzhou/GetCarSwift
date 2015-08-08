@@ -23,11 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().barTintColor = UI_COLOR_RED
+        UINavigationBar.appearance().barTintColor = UIColor.gaikeRedColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(), NSFontAttributeName : UIFont.systemFontOfSize(20.0)]
         UINavigationBar.appearance().barStyle = .Black
         
-        UITabBar.appearance().tintColor = UI_COLOR_RED
+        UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
         
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.whiteColor()
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.darkGrayColor()

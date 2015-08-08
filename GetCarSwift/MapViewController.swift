@@ -31,6 +31,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         mapView.delegate = self
         mapView.userTrackingMode = MAUserTrackingModeFollow
         mapView.showsCompass = false
+        mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 17
     }
     
