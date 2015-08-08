@@ -28,6 +28,7 @@
 		C852638F1B6E29E900E43FE0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */; };
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
+		C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865B4E51B765BFB00790A81 /* ModViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
@@ -51,14 +52,13 @@
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
-		C8E2B8401AD93527003B07FE /* IntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83F1AD93527003B07FE /* IntroduceViewController.swift */; };
+		C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */; };
 		C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */; };
 		C8E2B8441AD93C00003B07FE /* IntroduceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */; };
 		C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8471AD95103003B07FE /* ModifyViewController.swift */; };
 		C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */; };
 		C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */; };
 		C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */; };
-		C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */; };
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
 		C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8551AD96F31003B07FE /* MapViewController.swift */; };
 		C8E96BBC1B28994800BA4E1A /* Pods.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEEC4067984AC3FB0D501E /* Pods.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -114,6 +114,7 @@
 		C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
+		C865B4E51B765BFB00790A81 /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,14 +143,13 @@
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
-		C8E2B83F1AD93527003B07FE /* IntroduceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
+		C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModDoctorViewController.swift; sourceTree = "<group>"; };
 		C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroduceCotentView.swift; sourceTree = "<group>"; };
 		C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroduceContentView.xib; sourceTree = "<group>"; };
 		C8E2B8471AD95103003B07FE /* ModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoCell.swift; sourceTree = "<group>"; };
 		C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
-		C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarViewController.swift; sourceTree = "<group>"; };
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
 		C8E2B8551AD96F31003B07FE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 				C80881E01B6D2171002A1CE9 /* Api */,
 				C8E2B8541AD96F19003B07FE /* Trace */,
 				C8E2B8491AD95AB2003B07FE /* Mine */,
-				C8E2B83E1AD93412003B07FE /* Modification */,
+				C8E2B83E1AD93412003B07FE /* Mod */,
 				C8E2B8391AD92AFA003B07FE /* CarBar */,
 				C8E2B8361AD926C7003B07FE /* Common */,
 				C867FD1F1AD909B300F99592 /* Login */,
@@ -341,16 +341,17 @@
 			name = CarBar;
 			sourceTree = "<group>";
 		};
-		C8E2B83E1AD93412003B07FE /* Modification */ = {
+		C8E2B83E1AD93412003B07FE /* Mod */ = {
 			isa = PBXGroup;
 			children = (
-				C8E2B83F1AD93527003B07FE /* IntroduceViewController.swift */,
+				C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */,
 				C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */,
 				C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */,
 				C8E2B8471AD95103003B07FE /* ModifyViewController.swift */,
 				C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */,
+				C865B4E51B765BFB00790A81 /* ModViewController.swift */,
 			);
-			name = Modification;
+			name = Mod;
 			sourceTree = "<group>";
 		};
 		C8E2B8491AD95AB2003B07FE /* Mine */ = {
@@ -359,7 +360,6 @@
 				C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */,
 				C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */,
 				C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */,
-				C8E2B8501AD967D6003B07FE /* MyCarViewController.swift */,
 				C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */,
 				C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */,
 				C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */,
@@ -546,7 +546,7 @@
 				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
 				C852638F1B6E29E900E43FE0 /* SwiftyJSON.swift in Sources */,
 				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
-				C8E2B8401AD93527003B07FE /* IntroduceViewController.swift in Sources */,
+				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
 				C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
@@ -561,8 +561,8 @@
 				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
 				C85263871B6E29AB00E43FE0 /* ParameterEncoding.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
+				C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
-				C8E2B8511AD967D6003B07FE /* MyCarViewController.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C85263881B6E29AB00E43FE0 /* Request.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */,

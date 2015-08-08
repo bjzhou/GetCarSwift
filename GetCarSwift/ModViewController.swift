@@ -1,19 +1,19 @@
 //
-//  TraceViewController.swift
+//  ModViewController.swift
 //  GetCarSwift
 //
-//  Created by 周斌佳 on 15/8/2.
+//  Created by 周斌佳 on 15/8/8.
 //  Copyright © 2015年 &#21608;&#25996;&#20339;. All rights reserved.
 //
 
 import UIKit
 
-class TraceViewController: UIViewController {
-    @IBOutlet weak var swiftPagesView: SwiftPages!
+class ModViewController: UIViewController {
     
-    let VCIDs = ["data", "map"];
-    let buttonTitles = ["数据", "地图"];
+    let VCIDs = ["modDoctor", "modStore"]
+    let buttonTitles = ["改装博士", "改装商城"]
 
+    @IBOutlet var swiftPagesView: SwiftPages!
     override func viewDidLoad() {
         super.viewDidLoad()
 

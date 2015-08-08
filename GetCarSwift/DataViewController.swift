@@ -9,11 +9,6 @@
 import UIKit
 import CoreMotion
 
-protocol AccelerationUpdateDelegate {
-    func onLeft()
-    func onRight()
-}
-
 class DataViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     //@IBOutlet weak var scoreView: UIView!
@@ -34,8 +29,6 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     let scoreTitles = ["天门山通天大道", "台州鸟山", "云南三家村"]
     let scores = ["7:24.36s", "9:05.18s", "5:42.55s"]
-    
-    var delegate: AccelerationUpdateDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
