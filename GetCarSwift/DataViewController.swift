@@ -9,7 +9,7 @@
 import UIKit
 import CoreMotion
 
-class DataViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class DataViewController: SwiftPageContentViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     //@IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var scoreTable: UITableView!

@@ -18,7 +18,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     private var viewControllerIDs: [String] = []
     private var buttonTitles: [String] = []
     private var buttonImages: [UIImage] = []
-    private var pageViews: [UIViewController?] = []
+    private var pageViews: [SwiftPageContentViewController?] = []
     
     //Container view position variables
     private var xOrigin: CGFloat = 0
@@ -41,6 +41,8 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     private var buttonsWithImages: Bool = false
     private var barShadow: Bool = true
     private var buttonsTextFontAndSize: UIFont = UIFont.systemFontOfSize(16)
+    
+    var delegate: SwiftPagesDelegate?
     
     // MARK: - Positions Of The Container View API -
     public func setOriginX (origin : CGFloat) { xOrigin = origin }
@@ -212,13 +214,14 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             frame.origin.y = 0.0
             
             //Create the variable that will hold the VC being load
-            var newPageView: UIViewController
+            var newPageView: SwiftPageContentViewController
             
             //Look for the VC by its identifier in the storyboard and add it to the scrollview
-            newPageView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(viewControllerIDs[page]) 
+            newPageView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(viewControllerIDs[page]) as! SwiftPageContentViewController
             newPageView.view.frame = frame
+            newPageView.delegate = self.delegate
             scrollView.addSubview(newPageView.view)
-            
+
             //Replace the nil in the pageViews array with the VC just created
             pageViews[page] = newPageView
         }
@@ -267,4 +270,8 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         })
     }
     
+}
+
+protocol SwiftPagesDelegate {
+    func showViewController(vc: UIViewController)
 }

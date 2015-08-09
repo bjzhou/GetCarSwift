@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapViewController: UIViewController, MAMapViewDelegate {
+class MapViewController: SwiftPageContentViewController, MAMapViewDelegate {
     
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var layerButton: UIButton!

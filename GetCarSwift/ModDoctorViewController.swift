@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
+class ModDoctorViewController: SwiftPageContentViewController, UIScrollViewDelegate {
     
     let CONTENT_DABAOWEI = "大包围装饰的学名是车身空气扰流组件，一般来说，汽车大包围由前包围，后包围和侧包围组成，前后包围有全包围式和半包围式两种形式：全包围式是将原有保险杠拆除，然后装上大包围，或将大包围套在原保险杠表面；半包围是在原保险杠的下部附加一装饰件，这样可以不拆除保险杠，侧包围又称侧杠包围或侧杠裙边。由于汽车在发生撞击时，保险杠可以起到缓冲和吸震的作用，而且它是在汽车设计时经过精密计算得出的结果，可以最大限度的保护乘员，所以出于安全考虑，与全包围相比半包围更具有优势，但美中不足的是半包围达不到全包围的那种整体美感。"
     
@@ -23,7 +23,8 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        pageControl.pageIndicatorTintColor = UIColor.whiteColor()
+        pageControl.currentPageIndicatorTintColor = UIColor.darkGrayColor()
     }
     
     func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
@@ -31,8 +32,8 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
         subView.translatesAutoresizingMaskIntoConstraints = true
         subView.title.text = title
         subView.icon.image = UIImage(named: iconName)
-        subView.message.scrollEnabled = false
         subView.message.text = message
+        subView.message.scrollRangeToVisible(NSMakeRange(0, 0))
         scrollView.addSubview(subView)
     }
     
@@ -40,12 +41,18 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
         pageControl.currentPage = (Int)(scrollView.contentOffset.x / view.bounds.size.width)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        for subView in scrollView.subviews {
-            let subView = subView as! IntroduceCotentView
-            subView.message.scrollEnabled = true
-        }
+    @IBAction func onPageChanged(sender: UIPageControl) {
+        let index = sender.currentPage
+        scrollView.setContentOffset(CGPointMake(scrollView.frame.size.width*CGFloat(index), 0), animated: true)
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        for subView in scrollView.subviews {
+//            print("viewDidAppear")
+//            let subView = subView as! IntroduceCotentView
+//            subView.message.scrollRectToVisible(CGRectMake(0, 0, subView.message.frame.size.width, subView.message.frame.size.width), animated: false)
+//        }
+//    }
     
     override func viewWillAppear(animated: Bool) {
         scrollView.layoutIfNeeded()

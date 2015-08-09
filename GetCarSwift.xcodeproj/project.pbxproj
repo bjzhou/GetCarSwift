@@ -29,6 +29,9 @@
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
 		C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865B4E51B765BFB00790A81 /* ModViewController.swift */; };
+		C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */; };
+		C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780001B7757300000D7DF /* ModStoreViewController.swift */; };
+		C86780031B7761BC0000D7DF /* SwiftPageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780021B7761BC0000D7DF /* SwiftPageContentViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
@@ -115,6 +118,9 @@
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
 		C865B4E51B765BFB00790A81 /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
+		C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreDetailViewController.swift; sourceTree = "<group>"; };
+		C86780001B7757300000D7DF /* ModStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreViewController.swift; sourceTree = "<group>"; };
+		C86780021B7761BC0000D7DF /* SwiftPageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPageContentViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -315,7 +321,6 @@
 			isa = PBXGroup;
 			children = (
 				C85263601B6E282800E43FE0 /* Alamofire */,
-				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
 				C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */,
 				C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */,
 				C8F9CD701B725CDD0003AF1B /* Toast.swift */,
@@ -326,7 +331,9 @@
 		C8E2B8361AD926C7003B07FE /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
 				C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */,
+				C86780021B7761BC0000D7DF /* SwiftPageContentViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -350,6 +357,8 @@
 				C8E2B8471AD95103003B07FE /* ModifyViewController.swift */,
 				C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */,
 				C865B4E51B765BFB00790A81 /* ModViewController.swift */,
+				C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */,
+				C86780001B7757300000D7DF /* ModStoreViewController.swift */,
 			);
 			name = Mod;
 			sourceTree = "<group>";
@@ -576,8 +585,11 @@
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
 				C85263841B6E29AB00E43FE0 /* Error.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
+				C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */,
+				C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */,
+				C86780031B7761BC0000D7DF /* SwiftPageContentViewController.swift in Sources */,
 				C852638D1B6E29AB00E43FE0 /* Validation.swift in Sources */,
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,

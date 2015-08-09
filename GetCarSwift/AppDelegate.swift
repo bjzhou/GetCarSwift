@@ -29,9 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
         
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor.whiteColor()
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.darkGrayColor()
-        
         MAMapServices.sharedServices().apiKey = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
         
         checkNewVersion()

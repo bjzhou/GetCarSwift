@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ModViewController: UIViewController {
+class ModViewController: UIViewController, SwiftPagesDelegate {
     
     let VCIDs = ["modDoctor", "modStore"]
     let buttonTitles = ["改装博士", "改装商城"]
@@ -18,6 +18,11 @@ class ModViewController: UIViewController {
         super.viewDidLoad()
 
         swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(VCIDs, buttonTitlesArray: buttonTitles)
+        swiftPagesView.delegate = self
+    }
+    
+    func showViewController(vc: UIViewController) {
+        self.showViewController(vc, sender: self)
     }
 
 }
