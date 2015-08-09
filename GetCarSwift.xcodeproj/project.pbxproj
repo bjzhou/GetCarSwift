@@ -10,6 +10,7 @@
 		70903CF7DE3CD5A47C3D32A5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEB7D44B704C3E2AEED25C2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
 		C835CE8C1B75235A003015A7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C835CE8B1B75235A003015A7 /* UIColor.swift */; };
+		C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848F1B61B778626008DAC69 /* TrackingViewController.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C852635F1B6E1FFB00E43FE0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */; };
@@ -99,6 +100,7 @@
 		C42AD40CE547E3B55020E5BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
 		C835CE8B1B75235A003015A7 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		C848F1B61B778626008DAC69 /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -377,6 +379,7 @@
 				C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */,
 				C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */,
 				C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */,
+				C848F1B61B778626008DAC69 /* TrackingViewController.swift */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
 				C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */,
+				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
 				C8F9CD6F1B7246BB0003AF1B /* UserApi.swift in Sources */,
