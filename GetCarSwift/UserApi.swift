@@ -16,5 +16,13 @@ struct CodeMsg: ApiResultBase {
 }
 
 func getCodeMsg(phone: String) -> Request {
-    return apiManager.request(.POST, DOMAIN + "user/getCodeMsg", body: JSON(["phone":phone]))
+    return apiManager.request("user/getCodeMsg", body: ["phone":phone])
+}
+
+func login(phone: String, password: String) -> Request {
+    return apiManager.request("user/login", body: ["phone":phone, "password":password])
+}
+
+func register(phone: String, password: String, code: String, sex: String, username: String, nickname: String) -> Request{
+    return apiManager.request("user/register", body: ["phone":phone, "password":password, "code":code, "sex":sex, "username":username, "nickname":nickname])
 }

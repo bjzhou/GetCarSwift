@@ -29,18 +29,28 @@ protocol ApiResultBase {
 }
 
 extension Manager {
-    public func request(
-        method: Method,
-        _ URLString: URLStringConvertible,
-        body: JSON)
-        -> Request
-        {
-            let mutableURLRequest = URLRequest(method, URLString, headers: nil)
-            do {
-                try mutableURLRequest.HTTPBody = body.rawData()
-            } catch {
-                print("url reuest error")
+
+    public func request(urlString: String, body: [String:AnyObject]) -> Request {
+            var headers: [String:String] = [:]
+            if let token = ApiHeader.sharedInstance.token {
+                headers["token"] = token
             }
+            
+            if let lat = ApiHeader.sharedInstance.lat {
+                headers["lat"] = String(lat)
+            }
+            
+            if let longi = ApiHeader.sharedInstance.longi {
+                headers["longi"] = String(longi)
+            }
+
+            let mutableURLRequest = URLRequest(.POST, DOMAIN + urlString, headers: headers)
+            do {
+                try mutableURLRequest.HTTPBody = JSON(body).rawData()
+            } catch {
+                print("url request error: \(mutableURLRequest.description)")
+            }
+        print("request url: \(mutableURLRequest.description)")
             return request(mutableURLRequest)
         }
 }

@@ -114,6 +114,8 @@ class DataViewController: SwiftPageContentViewController, CLLocationManagerDeleg
             self.altitude.text = String(format: "%.0f", location.altitude)
             self.lonLabel.text = location.coordinate.longitudeString()
             self.latLabel.text = location.coordinate.latitudeString()
+            ApiHeader.sharedInstance.lat = location.coordinate.latitude
+            ApiHeader.sharedInstance.longi = location.coordinate.longitude
         })
     }
     

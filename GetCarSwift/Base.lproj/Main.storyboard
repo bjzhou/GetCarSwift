@@ -3284,6 +3284,75 @@
             </objects>
             <point key="canvasLocation" x="1676.5" y="1264.5"/>
         </scene>
+        <!--Register View Controller-->
+        <scene sceneID="ycu-85-ast">
+            <objects>
+                <viewController storyboardIdentifier="register" id="xDq-c9-JoD" customClass="RegisterViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wZO-y3-2M2"/>
+                        <viewControllerLayoutGuide type="bottom" id="zgD-q0-Cb8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="I8U-gD-qpW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="用户名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J8C-nl-bKw">
+                                <rect key="frame" x="20" y="28" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eua-Qc-baK">
+                                <rect key="frame" x="20" y="72" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="昵称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vhu-E3-gPb">
+                                <rect key="frame" x="20" y="110" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Wc-lt-ZCc">
+                                <rect key="frame" x="285" y="186" width="30" height="30"/>
+                                <state key="normal" title="注册"/>
+                                <connections>
+                                    <action selector="onRegister:" destination="xDq-c9-JoD" eventType="touchUpInside" id="hR4-Ke-1Jd"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="性别" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PS0-gG-ide">
+                                <rect key="frame" x="20" y="148" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PS0-gG-ide" firstAttribute="trailing" secondItem="Vhu-E3-gPb" secondAttribute="trailing" id="6KB-94-7WD"/>
+                            <constraint firstItem="J8C-nl-bKw" firstAttribute="leading" secondItem="I8U-gD-qpW" secondAttribute="leadingMargin" id="BOd-Gm-McY"/>
+                            <constraint firstItem="Vhu-E3-gPb" firstAttribute="top" secondItem="Eua-Qc-baK" secondAttribute="bottom" constant="8" symbolic="YES" id="D1c-0V-gBK"/>
+                            <constraint firstItem="J8C-nl-bKw" firstAttribute="top" secondItem="wZO-y3-2M2" secondAttribute="bottom" constant="8" symbolic="YES" id="IgE-Er-doL"/>
+                            <constraint firstItem="PS0-gG-ide" firstAttribute="leading" secondItem="Vhu-E3-gPb" secondAttribute="leading" id="QLC-og-hhi"/>
+                            <constraint firstItem="Vhu-E3-gPb" firstAttribute="leading" secondItem="Eua-Qc-baK" secondAttribute="leading" id="TdA-HA-FnG"/>
+                            <constraint firstItem="4Wc-lt-ZCc" firstAttribute="centerX" secondItem="PS0-gG-ide" secondAttribute="centerX" id="WJR-7u-A3U"/>
+                            <constraint firstItem="Vhu-E3-gPb" firstAttribute="trailing" secondItem="Eua-Qc-baK" secondAttribute="trailing" id="ava-00-d4b"/>
+                            <constraint firstItem="J8C-nl-bKw" firstAttribute="trailing" secondItem="Eua-Qc-baK" secondAttribute="trailing" id="nbD-QP-h8w"/>
+                            <constraint firstItem="PS0-gG-ide" firstAttribute="top" secondItem="Vhu-E3-gPb" secondAttribute="bottom" constant="8" symbolic="YES" id="pTN-aJ-ylS"/>
+                            <constraint firstItem="4Wc-lt-ZCc" firstAttribute="top" secondItem="PS0-gG-ide" secondAttribute="bottom" constant="8" symbolic="YES" id="qMz-cx-Pf6"/>
+                            <constraint firstItem="Eua-Qc-baK" firstAttribute="leading" secondItem="J8C-nl-bKw" secondAttribute="leading" id="qjm-KB-xJl"/>
+                            <constraint firstItem="J8C-nl-bKw" firstAttribute="trailing" secondItem="I8U-gD-qpW" secondAttribute="trailingMargin" id="s0v-eh-h2a"/>
+                            <constraint firstItem="Eua-Qc-baK" firstAttribute="top" secondItem="J8C-nl-bKw" secondAttribute="bottom" constant="14" id="zD9-wX-vYm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nickname" destination="Vhu-E3-gPb" id="DQg-cf-hYo"/>
+                        <outlet property="password" destination="Eua-Qc-baK" id="uVd-cY-f9M"/>
+                        <outlet property="sex" destination="PS0-gG-ide" id="xWY-cK-pKT"/>
+                        <outlet property="username" destination="J8C-nl-bKw" id="eum-qQ-mWy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YdX-xU-0R1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="309" y="-507"/>
+        </scene>
         <!--赛道-->
         <scene sceneID="Ces-6D-UHe">
             <objects>

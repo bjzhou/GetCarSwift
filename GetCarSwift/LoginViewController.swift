@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var vcodeText: UITextField!
     
-    var code: UInt32 = 0;
+    var code: String = "";
     var timerCount = 0;
 
     override func viewDidLoad() {
@@ -29,23 +29,24 @@ class LoginViewController: UIViewController {
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: IBOutlet Actions
     
     @IBAction func onLoginAction(sender: UIButton) {
-        if code == 0 {return}
-        if vcodeText.text == String(code) {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setBool(true, forKey: "isLogin")
+        if vcodeText.text == code {
+//            let defaults = NSUserDefaults.standardUserDefaults()
+//            defaults.setBool(true, forKey: "isLogin")
+//            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let controller = storyboard.instantiateInitialViewController()
+//            UIApplication.sharedApplication().keyWindow?.rootViewController = controller
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateInitialViewController()
-            UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+            let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register") as! RegisterViewController
+            dest.phone = phoneText.text
+            dest.code = vcodeText.text
+            showViewController(dest, sender: self)
+        } else {
+            self.view.makeToast(message: "验证码不正确")
         }
     }
 
@@ -68,7 +69,7 @@ class LoginViewController: UIViewController {
                 self.view.makeToast(message: result.msg)
                 self.timerReset(timer)
             } else {
-                self.vcodeText.text = result.data.code
+                self.code = result.data.code
             }
         }
     }
@@ -96,5 +97,4 @@ class LoginViewController: UIViewController {
         button?.enabled = true
         button?.setTitle("发送验证码", forState: .Normal)
     }
-
 }
