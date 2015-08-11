@@ -11,6 +11,7 @@
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
 		C835CE8C1B75235A003015A7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C835CE8B1B75235A003015A7 /* UIColor.swift */; };
 		C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848F1B61B778626008DAC69 /* TrackingViewController.swift */; };
+		C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C852635F1B6E1FFB00E43FE0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */; };
@@ -104,6 +105,7 @@
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
 		C835CE8B1B75235A003015A7 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C848F1B61B778626008DAC69 /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
+		C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewController.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C852635E1B6E1FFB00E43FE0 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -323,6 +325,7 @@
 			children = (
 				C867FD201AD909E400F99592 /* LoginViewController.swift */,
 				C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */,
+				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */,
 				C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */,
+				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
 				C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */,

@@ -50,3 +50,10 @@ code_sign_if_enabled() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework 'Pods/MMDrawerController.framework'
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework 'Pods/MMDrawerController.framework'
+fi
