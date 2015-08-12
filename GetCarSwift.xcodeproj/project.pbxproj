@@ -48,6 +48,7 @@
 		C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* GeoApi.swift */; };
 		C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA781B78DF5400F5E24D /* ApiHeader.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
+		C881F0331B7B89D000E062B6 /* cars.json in Resources */ = {isa = PBXBuildFile; fileRef = C881F0321B7B89D000E062B6 /* cars.json */; };
 		C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* Utils.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* ApiBase.swift */; };
@@ -146,6 +147,7 @@
 		C880DA761B78D21900F5E24D /* GeoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoApi.swift; sourceTree = "<group>"; };
 		C880DA781B78DF5400F5E24D /* ApiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeader.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C881F0321B7B89D000E062B6 /* cars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cars.json; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
 		C89A05C21B6E058C00620C85 /* ApiBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiBase.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
+				C881F02F1B7B86BD00E062B6 /* Assets */,
 				C80881E01B6D2171002A1CE9 /* Api */,
 				C8E2B8541AD96F19003B07FE /* Trace */,
 				C8E2B8491AD95AB2003B07FE /* Mine */,
@@ -328,6 +331,14 @@
 				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		C881F02F1B7B86BD00E062B6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C881F0321B7B89D000E062B6 /* cars.json */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		C89A05C81B6E162500620C85 /* ThirdParty */ = {
@@ -495,6 +506,7 @@
 			files = (
 				C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */,
 				C8E2B8441AD93C00003B07FE /* IntroduceContentView.xib in Resources */,
+				C881F0331B7B89D000E062B6 /* cars.json in Resources */,
 				C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */,
 				C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */,
 			);

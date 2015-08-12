@@ -10,48 +10,61 @@ import UIKit
 import MMDrawerController
 
 class CarTableViewController: UITableViewController {
-    
-    let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+    var json: JSON = JSON([])
+    var keys: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.tableView.sectionIndexColor = UIColor.blackColor()
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            let jsonpath = NSBundle.mainBundle().pathForResource("cars", ofType: "json")
+            let jsonstr = try! NSData(contentsOfFile: jsonpath!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            self.json = JSON(data: jsonstr)
+            self.keys = Array(self.json.dictionary!.keys).sort()
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        })
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return alphabet.count
+        return keys.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return json[keys[section]].count
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath)
 
-        // Configure the cell...
+        let icon = cell.viewWithTag(501) as! UIImageView
+        let title = cell.viewWithTag(502) as! UILabel
+        
+        let titleText = Array(json[keys[indexPath.section]].dictionary!.keys).sort()[indexPath.row]
+        icon.image = UIImage(named: titleText+"logo")
+        title.text = titleText
 
         return cell
     }
     
-//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return tableView.sectionHeaderHeight
-//    }
-//    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return alphabet[section]
+        return keys[section]
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return alphabet
+        return keys
     }
     
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return alphabet.indexOf(title)!
+        return keys.indexOf(title)!
     }
     
 //    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
