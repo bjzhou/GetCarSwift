@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     
     var phone: String?
     var code: String?
@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var sex: UITextField!
+    @IBOutlet weak var carLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,17 @@ class RegisterViewController: UIViewController {
             }
         } else {
             print("error: \(phone), \(code)")
+        }
+    }
+    
+    func didCarSelected(carName: String) {
+        carLabel.text = carName
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "choose_car" {
+            let dest = segue.destinationViewController as! CarTableNavigationController
+            dest.carDelegate = self
         }
     }
 }

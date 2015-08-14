@@ -9,6 +9,11 @@
 import UIKit
 import CoreMotion
 
+infix operator ^ { associativity left precedence 140 }
+func ^ (left: Double, right: Double) -> Double {
+    return pow(left, right)
+}
+
 class DataViewController: SwiftPageContentViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     //@IBOutlet weak var scoreView: UIView!
@@ -55,10 +60,10 @@ class DataViewController: SwiftPageContentViewController, CLLocationManagerDeleg
             dispatch_async(dispatch_get_main_queue(), {
                 let curX = validData.userAcceleration.x
                 let curY = validData.userAcceleration.y
-                //let curZ = validData.userAcceleration.z
+                let curZ = validData.userAcceleration.z
+                ApiHeader.sharedInstance.a = curY
                 self.aLabel.text = String(format: "%.0f", Double.abs(curY*9.8))
-                let constant = Double.abs(self.calculateTyreWear(curX, v: self.vLabel.text!.doubleValue)) * 310
-                if constant > 0 { print(constant) }
+                let constant = Double.abs(self.calculateTyreWear(curX, ay: curY, az: curZ, v: self.vLabel.text!.doubleValue)) * 310
                 UIView.animateWithDuration(0.1, animations: {
                     self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
                     self.progressView.layoutIfNeeded()
@@ -67,10 +72,9 @@ class DataViewController: SwiftPageContentViewController, CLLocationManagerDeleg
         })
     }
     
-    func calculateTyreWear(a: Double, v: Double) -> Double {
-        if Int(a) == 0 { return 0 }
+    func calculateTyreWear(ax: Double, ay: Double, az: Double, v: Double) -> Double {
         if Int(v) == 0 { return 0 }
-        return a * v / 500
+        return (ax * 7 + ay + az * 2) * v / 2000
     }
     
     func initLocation() {
@@ -114,6 +118,7 @@ class DataViewController: SwiftPageContentViewController, CLLocationManagerDeleg
             self.altitude.text = String(format: "%.0f", location.altitude)
             self.lonLabel.text = location.coordinate.longitudeString()
             self.latLabel.text = location.coordinate.latitudeString()
+            ApiHeader.sharedInstance.v = location.speed
             ApiHeader.sharedInstance.lat = location.coordinate.latitude
             ApiHeader.sharedInstance.longi = location.coordinate.longitude
         })

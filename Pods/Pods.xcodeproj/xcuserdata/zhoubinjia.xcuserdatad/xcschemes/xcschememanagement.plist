@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MMDrawerController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06DFA1C077A5F5ADDCD1EBD02B1B8ACD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>35FFD6E1CA99337672D75E91614297A2</key>
+		<key>1BA84416B19DF31967CCD7D02D962E49</key>
 		<dict>
 			<key>primary</key>
 			<true/>

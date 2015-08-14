@@ -3306,8 +3306,8 @@
                                 <rect key="frame" x="19" y="316" width="337" height="52"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fa-oF-OnA">
-                                <rect key="frame" x="102" y="182" width="238" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="102" y="181" width="238" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIF-hG-Tyk">
@@ -3343,11 +3343,11 @@
                                 <state key="normal" backgroundImage="login_button"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReP-uh-QDY">
-                                <rect key="frame" x="102" y="331" width="200" height="21"/>
+                                <rect key="frame" x="102" y="333" width="200" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="3ak-D9-ofz"/>
+                                    <constraint firstAttribute="height" constant="18" id="3ak-D9-ofz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -3361,7 +3361,7 @@
                                     <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="lHb-65-dGW" kind="show" id="iZQ-wC-YXf"/>
+                                    <segue destination="Hf7-rd-DIT" kind="presentation" identifier="choose_car" id="6N1-k5-Gxs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3407,6 +3407,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="carLabel" destination="ReP-uh-QDY" id="6qD-6g-zzj"/>
                         <outlet property="nickname" destination="1fa-oF-OnA" id="pJA-hd-gPY"/>
                     </connections>
                 </viewController>
@@ -3417,7 +3418,7 @@
         <!--Car Table View Controller-->
         <scene sceneID="9qt-Km-0Zp">
             <objects>
-                <tableViewController id="lHb-65-dGW" customClass="CarTableViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="car_table" id="lHb-65-dGW" customClass="CarTableViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="49" sectionHeaderHeight="22" sectionFooterHeight="22" id="lAP-gb-xdQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3455,10 +3456,18 @@
                             <outlet property="delegate" destination="lHb-65-dGW" id="eSn-Lx-R9u"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="OyV-pz-yHf">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FTm-UZ-LGZ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="didNavigationItemCancel:" destination="lHb-65-dGW" id="xdw-W8-cI5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qNZ-tq-PKJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-603.5" y="-2992.5"/>
+            <point key="canvasLocation" x="-142.5" y="-2992.5"/>
         </scene>
         <!--赛道-->
         <scene sceneID="Ces-6D-UHe">
@@ -4303,6 +4312,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3kE-iy-eoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2070.5" y="-2942.5"/>
+        </scene>
+        <!--Car Table Navigation Controller-->
+        <scene sceneID="Qie-yt-lDf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hf7-rd-DIT" customClass="CarTableNavigationController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vnd-Km-KiQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lHb-65-dGW" kind="relationship" relationship="rootViewController" id="qdc-nY-i8H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="33l-b0-94r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-595.5" y="-2992.5"/>
         </scene>
     </scenes>
     <resources>

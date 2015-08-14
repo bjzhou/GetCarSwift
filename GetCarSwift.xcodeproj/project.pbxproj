@@ -42,6 +42,10 @@
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
 		C874CEA51B75B34500501632 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874CEA41B75B34500501632 /* String.swift */; };
 		C874CEA71B75B65D00501632 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874CEA61B75B65D00501632 /* CLLocationCoordinate2D.swift */; };
+		C87AAD8A1B7CD30700084EA0 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD891B7CD30700084EA0 /* SideMenu.swift */; };
+		C87AAD8C1B7CD33500084EA0 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8B1B7CD33500084EA0 /* ENSideMenuNavigationController.swift */; };
+		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
+		C87AAD961B7CEA1F00084EA0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD951B7CEA1F00084EA0 /* JSON.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
 		C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */; };
@@ -50,6 +54,7 @@
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
 		C881F0331B7B89D000E062B6 /* cars.json in Resources */ = {isa = PBXBuildFile; fileRef = C881F0321B7B89D000E062B6 /* cars.json */; };
 		C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* Utils.swift */; };
+		C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* ApiBase.swift */; };
 		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
@@ -141,6 +146,10 @@
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C874CEA41B75B34500501632 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C874CEA61B75B65D00501632 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		C87AAD891B7CD30700084EA0 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		C87AAD8B1B7CD33500084EA0 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
+		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
+		C87AAD951B7CEA1F00084EA0 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
 		C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifyViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +158,7 @@
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C881F0321B7B89D000E062B6 /* cars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cars.json; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableNavigationController.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
 		C89A05C21B6E058C00620C85 /* ApiBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiBase.swift; sourceTree = "<group>"; };
 		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +241,7 @@
 				C835CE8B1B75235A003015A7 /* UIColor.swift */,
 				C874CEA41B75B34500501632 /* String.swift */,
 				C874CEA61B75B65D00501632 /* CLLocationCoordinate2D.swift */,
+				C87AAD951B7CEA1F00084EA0 /* JSON.swift */,
 			);
 			name = Extension;
 			path = ..;
@@ -289,9 +300,6 @@
 				C835CE8A1B75232E003015A7 /* Extension */,
 				C89A05C81B6E162500620C85 /* ThirdParty */,
 				C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */,
-				C867FC711AD8FCAF00F99592 /* Main.storyboard */,
-				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
-				C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */,
 				C867FC691AD8FCAF00F99592 /* Supporting Files */,
 			);
 			path = GetCarSwift;
@@ -329,13 +337,27 @@
 				C867FD201AD909E400F99592 /* LoginViewController.swift */,
 				C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */,
 				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
+				C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */,
+				C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		C87AAD881B7CD2E100084EA0 /* ENSwiftSideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C87AAD891B7CD30700084EA0 /* SideMenu.swift */,
+				C87AAD8B1B7CD33500084EA0 /* ENSideMenuNavigationController.swift */,
+			);
+			name = ENSwiftSideMenu;
 			sourceTree = "<group>";
 		};
 		C881F02F1B7B86BD00E062B6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C867FC711AD8FCAF00F99592 /* Main.storyboard */,
+				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
+				C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */,
 				C881F0321B7B89D000E062B6 /* cars.json */,
 			);
 			name = Assets;
@@ -344,6 +366,7 @@
 		C89A05C81B6E162500620C85 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				C87AAD881B7CD2E100084EA0 /* ENSwiftSideMenu */,
 				C85263601B6E282800E43FE0 /* Alamofire */,
 				C852638E1B6E29E900E43FE0 /* SwiftyJSON.swift */,
 				C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */,
@@ -585,6 +608,7 @@
 				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
 				C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */,
+				C87AAD8A1B7CD30700084EA0 /* SideMenu.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
@@ -594,6 +618,7 @@
 				C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */,
 				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
+				C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */,
 				C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */,
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
@@ -614,6 +639,8 @@
 				C852638A1B6E29AB00E43FE0 /* Result.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
 				C85263841B6E29AB00E43FE0 /* Error.swift in Sources */,
+				C87AAD8C1B7CD33500084EA0 /* ENSideMenuNavigationController.swift in Sources */,
+				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */,
 				C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */,
@@ -631,6 +658,7 @@
 				C85263891B6E29AB00E43FE0 /* ResponseSerialization.swift in Sources */,
 				C85263821B6E29AB00E43FE0 /* Alamofire.swift in Sources */,
 				C85263851B6E29AB00E43FE0 /* Manager.swift in Sources */,
+				C87AAD961B7CEA1F00084EA0 /* JSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,7 +741,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Debug;
 		};
@@ -750,7 +778,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MMDrawerController
 
 class CarTableViewController: UITableViewController {
 
@@ -23,7 +22,7 @@ class CarTableViewController: UITableViewController {
             let jsonpath = NSBundle.mainBundle().pathForResource("cars", ofType: "json")
             let jsonstr = try! NSData(contentsOfFile: jsonpath!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
             self.json = JSON(data: jsonstr)
-            self.keys = Array(self.json.dictionary!.keys).sort()
+            self.keys = self.json.sortedDictionaryKeys()!
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
@@ -38,7 +37,7 @@ class CarTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return json[keys[section]].count
+        return json.sortedDictionaryValue(section)!.count
     }
 
 
@@ -48,7 +47,7 @@ class CarTableViewController: UITableViewController {
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
         
-        let titleText = Array(json[keys[indexPath.section]].dictionary!.keys).sort()[indexPath.row]
+        let titleText = json.sortedDictionaryValue(indexPath.section)!.sortedDictionaryKeys()![indexPath.row]//Array(json[keys[indexPath.section]].dictionary!.keys).sort()[indexPath.row]
         icon.image = UIImage(named: titleText+"logo")
         title.text = titleText
 
@@ -67,12 +66,14 @@ class CarTableViewController: UITableViewController {
         return keys.indexOf(title)!
     }
     
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let label = UILabel(frame: CGRectMake(20, 8, 20, 20))
-//        label.text = alphabet[section]
-//        label.font = UIFont.systemFontOfSize(14)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let navController = self.navigationController as! CarTableNavigationController
+        navController.menuController!.data = json.sortedDictionaryValue(indexPath.section)!.sortedDictionaryValue(indexPath.row)!.arrayObject as! [String]
+        showSideMenuView()
+    }
 
+    @IBAction func didNavigationItemCancel(sender: UIBarButtonItem) {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
