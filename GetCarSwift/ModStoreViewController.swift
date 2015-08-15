@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ModStoreViewController: SwiftPageContentViewController {
+class ModStoreViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +17,6 @@ class ModStoreViewController: SwiftPageContentViewController {
     }
 
     @IBAction func onBMW3Action(sender: UIButton) {
-        self.delegate?.showViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modStoreDetail"))
+        self.parentViewController?.showViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modStoreDetail"), sender: self.parentViewController)
     }
 }

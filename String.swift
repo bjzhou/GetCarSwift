@@ -18,4 +18,8 @@ extension String {
     var intValue: Int {
         return (self as NSString).integerValue
     }
+    
+    func trim() -> String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
 }

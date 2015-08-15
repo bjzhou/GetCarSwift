@@ -18,16 +18,14 @@ class CarTableViewController: UITableViewController {
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            let jsonpath = NSBundle.mainBundle().pathForResource("cars", ofType: "json")
-            let jsonstr = try! NSData(contentsOfFile: jsonpath!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            self.json = JSON(data: jsonstr)
+        CarApi.info().responseGKJSON { (req, res, result) in
+            guard let json = result.json else {
+                return
+            }
+            self.json = json
             self.keys = self.json.sortedDictionaryKeys()!
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadData()
-            })
-        })
+            self.tableView.reloadData()
+        }
     }
 
     // MARK: - Table view data source

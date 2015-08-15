@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapViewController: SwiftPageContentViewController, MAMapViewDelegate {
+class MapViewController: UIViewController, MAMapViewDelegate {
     
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var layerButton: UIButton!
@@ -23,9 +23,9 @@ class MapViewController: SwiftPageContentViewController, MAMapViewDelegate {
         super.viewDidLoad()
 
         initMapView()
+        
+        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("didTimerUpdate:"), userInfo: nil, repeats: true)
     }
-    
-
     
     func initMapView() {
         mapView.delegate = self
@@ -33,14 +33,17 @@ class MapViewController: SwiftPageContentViewController, MAMapViewDelegate {
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 17
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+        
         mapView.showsUserLocation = true
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        mapView.showsUserLocation = false
+    func didTimerUpdate(timer: NSTimer) {
+        let parent = self.parentViewController as! TraceViewController
+        GeoApi.map(accelerate: parent.a, speed: parent.v).responseGKJSON { (req, res, result) in
+            guard let json = result.json else {
+                return
+            }
+        }
     }
     
     @IBAction func locationButtonAction(sender: UIButton) {

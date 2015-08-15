@@ -10,6 +10,8 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    static let DEBUG = false
 
     var window: UIWindow?
 
@@ -18,8 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         if !defaults.boolForKey("isLogin") {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginController = storyboard.instantiateViewControllerWithIdentifier("login")
-            window?.rootViewController = loginController
+            var firstController: UIViewController
+            if let nickname = defaults.valueForKey("nickname") as? String where nickname.trim() != "" {
+                firstController = storyboard.instantiateViewControllerWithIdentifier("register")
+            } else {
+                firstController = storyboard.instantiateViewControllerWithIdentifier("login")
+            }
+
+            window?.rootViewController = firstController
+        }
+        
+        if AppDelegate.DEBUG {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("register")
         }
         
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()

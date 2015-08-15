@@ -82,7 +82,7 @@ func getColorByTag(tag: Int) -> String {
 }
 
 func getSexString(sex: Int) -> String {
-    return sex == 0 ? "男" : "女"
+    return sex == 1 ? "男" : "女"
 }
 
 func getIconString(icon: Int) -> String {

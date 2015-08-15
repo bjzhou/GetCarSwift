@@ -10,13 +10,9 @@ import UIKit
 
 class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     
-    var phone: String?
-    var code: String?
+    var sex: Int = 1
 
-    @IBOutlet weak var username: UITextField!
     @IBOutlet weak var nickname: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var sex: UITextField!
     @IBOutlet weak var carLabel: UILabel!
 
     override func viewDidLoad() {
@@ -25,29 +21,30 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         // Do any additional setup after loading the view.
     }
     @IBAction func onRegister(sender: UIButton) {
-        if let phone = phone, code = code {
-            switch(username.text, password.text) {
-            case (.Some(let usernameText), .Some(let passwordText)):
-                register(phone, password: passwordText, code: code, sex: sex.text ?? "", username: usernameText, nickname: nickname.text ?? "").responseJSON { (req, res, data) in
-                    guard let value = data.value else {
-                        if let raw = data.data {
-                            print(NSString(data: raw, encoding: NSUTF8StringEncoding))
-                        }
-                        self.view.makeToast(message: "注册失败")
-                        return
-                    }
-
-                    print(value)
+        switch(nickname.text!.trim(), carLabel.text!.trim()) {
+        case ("", _):
+            self.view.makeToast(message: "请输入用户昵称")
+        case (_, ""):
+            self.view.makeToast(message: "请选择车型")
+        case (let nicknameText, let carLabelText):
+            UserApi.updateInfo(nicknameText, sex: sex, car: carLabelText).responseGKJSON { (req, res, result) in
+                guard let json = result.json else {
+                    self.view.makeToast(message: "注册失败")
+                    return
                 }
-            case (.None, .Some):
-                self.view.makeToast(message: "用户名不能为空")
-            case (.Some, .None):
-                self.view.makeToast(message: "密码不能为空")
-            case (.None, .None):
-                self.view.makeToast(message: "用户名和密码不能为空")
+                
+                if result.code >= 0 {
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setBool(true, forKey: "isLogin")
+                    defaults.setValue(json["nickname"].stringValue, forKey: "nickname")
+                    defaults.setInteger(json["sex"].intValue, forKey: "sex")
+                    defaults.setValue(json["car"].stringValue, forKey: "car")
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateInitialViewController()
+                    UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+                }
             }
-        } else {
-            print("error: \(phone), \(code)")
         }
     }
     
@@ -60,5 +57,11 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
             let dest = segue.destinationViewController as! CarTableNavigationController
             dest.carDelegate = self
         }
+    }
+    @IBAction func didSexChange(sender: UIButton) {
+        sender.selected = true
+        let otherButton = self.view.viewWithTag(sender.tag == 501 ? 502 : 501) as! UIButton
+        otherButton.selected = false
+        sex = sender.tag == 501 ? 1 : 0
     }
 }

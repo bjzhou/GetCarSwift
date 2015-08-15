@@ -33,7 +33,6 @@
 		C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865B4E51B765BFB00790A81 /* ModViewController.swift */; };
 		C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */; };
 		C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780001B7757300000D7DF /* ModStoreViewController.swift */; };
-		C86780031B7761BC0000D7DF /* SwiftPageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780021B7761BC0000D7DF /* SwiftPageContentViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
@@ -52,9 +51,9 @@
 		C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* GeoApi.swift */; };
 		C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA781B78DF5400F5E24D /* ApiHeader.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
-		C881F0331B7B89D000E062B6 /* cars.json in Resources */ = {isa = PBXBuildFile; fileRef = C881F0321B7B89D000E062B6 /* cars.json */; };
 		C88D822F1AE27E4900DBC0C1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* Utils.swift */; };
 		C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */; };
+		C894A3321B7F783D00D853C9 /* CarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894A3311B7F783D00D853C9 /* CarApi.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* ApiBase.swift */; };
 		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
@@ -133,7 +132,6 @@
 		C865B4E51B765BFB00790A81 /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
 		C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreDetailViewController.swift; sourceTree = "<group>"; };
 		C86780001B7757300000D7DF /* ModStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreViewController.swift; sourceTree = "<group>"; };
-		C86780021B7761BC0000D7DF /* SwiftPageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPageContentViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,9 +154,9 @@
 		C880DA761B78D21900F5E24D /* GeoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoApi.swift; sourceTree = "<group>"; };
 		C880DA781B78DF5400F5E24D /* ApiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeader.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		C881F0321B7B89D000E062B6 /* cars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cars.json; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableNavigationController.swift; sourceTree = "<group>"; };
+		C894A3311B7F783D00D853C9 /* CarApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarApi.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
 		C89A05C21B6E058C00620C85 /* ApiBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiBase.swift; sourceTree = "<group>"; };
 		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +229,7 @@
 				C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */,
 				C880DA761B78D21900F5E24D /* GeoApi.swift */,
 				C880DA781B78DF5400F5E24D /* ApiHeader.swift */,
+				C894A3311B7F783D00D853C9 /* CarApi.swift */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -358,7 +357,6 @@
 				C867FC711AD8FCAF00F99592 /* Main.storyboard */,
 				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
 				C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */,
-				C881F0321B7B89D000E062B6 /* cars.json */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -382,7 +380,6 @@
 				C867FD1D1AD9071900F99592 /* Globals.swift */,
 				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
 				C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */,
-				C86780021B7761BC0000D7DF /* SwiftPageContentViewController.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -529,7 +526,6 @@
 			files = (
 				C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */,
 				C8E2B8441AD93C00003B07FE /* IntroduceContentView.xib in Resources */,
-				C881F0331B7B89D000E062B6 /* cars.json in Resources */,
 				C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */,
 				C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */,
 			);
@@ -638,6 +634,7 @@
 				C874CEA71B75B65D00501632 /* CLLocationCoordinate2D.swift in Sources */,
 				C852638A1B6E29AB00E43FE0 /* Result.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
+				C894A3321B7F783D00D853C9 /* CarApi.swift in Sources */,
 				C85263841B6E29AB00E43FE0 /* Error.swift in Sources */,
 				C87AAD8C1B7CD33500084EA0 /* ENSideMenuNavigationController.swift in Sources */,
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
@@ -648,7 +645,6 @@
 				C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */,
-				C86780031B7761BC0000D7DF /* SwiftPageContentViewController.swift in Sources */,
 				C852638D1B6E29AB00E43FE0 /* Validation.swift in Sources */,
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,

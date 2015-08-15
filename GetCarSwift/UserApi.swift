@@ -8,21 +8,19 @@
 
 import Foundation
 
-struct CodeMsg: ApiResultBase {
-    var code: String
-    init(json: JSON) {
-        code = json["code"].stringValue
+class UserApi {
+    static func request(method: String, body: [String:AnyObject]) -> Request{
+        return apiManager.request("user/" + method, body: body)
     }
-}
-
-func getCodeMsg(phone: String) -> Request {
-    return apiManager.request("user/getCodeMsg", body: ["phone":phone])
-}
-
-func login(phone: String, password: String) -> Request {
-    return apiManager.request("user/login", body: ["phone":phone, "password":password])
-}
-
-func register(phone: String, password: String, code: String, sex: String, username: String, nickname: String) -> Request{
-    return apiManager.request("user/register", body: ["phone":phone, "password":password, "code":code, "sex":sex, "username":username, "nickname":nickname])
+    static func getCodeMsg(phone: String) -> Request {
+        return UserApi.request("getCodeMsg", body: ["phone":phone])
+    }
+    
+    static func login(phone: String, code: String) -> Request {
+        return UserApi.request("login", body: ["phone":phone, "code":code])
+    }
+    
+    static func updateInfo(nickname: String, sex: Int, car: String) -> Request {
+        return UserApi.request("updateInfo", body: ["nickname":nickname, "sex":sex, "car":car])
+    }
 }

@@ -3284,7 +3284,7 @@
             </objects>
             <point key="canvasLocation" x="1676.5" y="1264.5"/>
         </scene>
-        <!--Register View Controller-->
+        <!--用户信息-->
         <scene sceneID="ycu-85-ast">
             <objects>
                 <viewController storyboardIdentifier="register" id="xDq-c9-JoD" customClass="RegisterViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -3328,19 +3328,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYR-Qu-vdW">
+                            <button opaque="NO" tag="501" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYR-Qu-vdW">
                                 <rect key="frame" x="102" y="249" width="58" height="34"/>
                                 <state key="normal" backgroundImage="login_male"/>
                                 <state key="selected" backgroundImage="login_male_selected"/>
+                                <connections>
+                                    <action selector="didSexChange:" destination="xDq-c9-JoD" eventType="touchUpInside" id="ETt-gz-NPM"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkU-vG-7dn">
+                            <button opaque="NO" tag="502" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkU-vG-7dn">
                                 <rect key="frame" x="176" y="249" width="58" height="34"/>
                                 <state key="normal" backgroundImage="login_female"/>
                                 <state key="selected" backgroundImage="login_female_selected"/>
+                                <connections>
+                                    <action selector="didSexChange:" destination="xDq-c9-JoD" eventType="touchUpInside" id="dmr-oE-95N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0yg-7S-Jzq">
                                 <rect key="frame" x="20" y="400" width="335" height="45"/>
                                 <state key="normal" backgroundImage="login_button"/>
+                                <connections>
+                                    <action selector="onRegister:" destination="xDq-c9-JoD" eventType="touchUpInside" id="lcj-68-9Y0"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReP-uh-QDY">
                                 <rect key="frame" x="102" y="333" width="200" height="18"/>
@@ -3404,6 +3413,7 @@
                             <constraint firstItem="0yg-7S-Jzq" firstAttribute="centerX" secondItem="I8U-gD-qpW" secondAttribute="centerX" id="vVX-CR-EHJ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="用户信息" id="lID-iy-t6Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -3413,7 +3423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YdX-xU-0R1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1066.5" y="-2992.5"/>
+            <point key="canvasLocation" x="-1081.5" y="-2942.5"/>
         </scene>
         <!--Car Table View Controller-->
         <scene sceneID="9qt-Km-0Zp">
@@ -3467,7 +3477,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qNZ-tq-PKJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-142.5" y="-2992.5"/>
+            <point key="canvasLocation" x="-142.5" y="-2942.5"/>
         </scene>
         <!--赛道-->
         <scene sceneID="Ces-6D-UHe">
@@ -4329,7 +4339,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33l-b0-94r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-595.5" y="-2992.5"/>
+            <point key="canvasLocation" x="-606.5" y="-2942.5"/>
         </scene>
     </scenes>
     <resources>

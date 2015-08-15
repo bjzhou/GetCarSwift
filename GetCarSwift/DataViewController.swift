@@ -9,12 +9,7 @@
 import UIKit
 import CoreMotion
 
-infix operator ^ { associativity left precedence 140 }
-func ^ (left: Double, right: Double) -> Double {
-    return pow(left, right)
-}
-
-class DataViewController: SwiftPageContentViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class DataViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     //@IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var scoreTable: UITableView!
@@ -61,9 +56,10 @@ class DataViewController: SwiftPageContentViewController, CLLocationManagerDeleg
                 let curX = validData.userAcceleration.x
                 let curY = validData.userAcceleration.y
                 let curZ = validData.userAcceleration.z
-                ApiHeader.sharedInstance.a = curY
+                let parent = self.parentViewController as? TraceViewController
+                parent?.a = curY*9.8
                 self.aLabel.text = String(format: "%.0f", Double.abs(curY*9.8))
-                let constant = Double.abs(self.calculateTyreWear(curX, ay: curY, az: curZ, v: self.vLabel.text!.doubleValue)) * 310
+                let constant = Double.abs(self.calculateTyreWear(curX, ay: curY, az: curZ, v: parent?.v ?? 0)) * 310
                 UIView.animateWithDuration(0.1, animations: {
                     self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
                     self.progressView.layoutIfNeeded()
@@ -118,7 +114,8 @@ class DataViewController: SwiftPageContentViewController, CLLocationManagerDeleg
             self.altitude.text = String(format: "%.0f", location.altitude)
             self.lonLabel.text = location.coordinate.longitudeString()
             self.latLabel.text = location.coordinate.latitudeString()
-            ApiHeader.sharedInstance.v = location.speed
+            let parent = self.parentViewController as? TraceViewController
+            parent?.v = location.speed * 3.6
             ApiHeader.sharedInstance.lat = location.coordinate.latitude
             ApiHeader.sharedInstance.longi = location.coordinate.longitude
         })

@@ -33,20 +33,40 @@ class LoginViewController: UIViewController {
     // MARK: IBOutlet Actions
     
     @IBAction func onLoginAction(sender: UIButton) {
-        if vcodeText.text == code {
-//            let defaults = NSUserDefaults.standardUserDefaults()
-//            defaults.setBool(true, forKey: "isLogin")
-//            
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let controller = storyboard.instantiateInitialViewController()
-//            UIApplication.sharedApplication().keyWindow?.rootViewController = controller
-            
-            let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register") as! RegisterViewController
-            dest.phone = phoneText.text
-            dest.code = vcodeText.text
-            showViewController(dest, sender: self)
-        } else {
-            self.view.makeToast(message: "验证码不正确")
+        switch (phoneText.text!.trim(), vcodeText.text!.trim()) {
+        case ("", _):
+            self.view.makeToast(message: "请输入手机号")
+        case (_, ""):
+            self.view.makeToast(message: "请输入验证码")
+        case (let phone, let code):
+            UserApi.login(phone, code: code).responseGKJSON { (req, res, result) in
+                guard let json = result.json else {
+                    self.view.makeToast(message: "登陆失败")
+                    return
+                }
+
+                if result.code < 0 {
+                    self.view.makeToast(message: "验证码错误")
+                    return
+                }
+                
+                ApiHeader.sharedInstance.token = json["token"].stringValue
+                
+                if json["nickname"].stringValue == "" {
+                    let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
+                    self.showViewController(dest, sender: self)
+                } else {
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setBool(true, forKey: "isLogin")
+                    defaults.setValue(json["nickname"].stringValue, forKey: "nickname")
+                    defaults.setValue(json["sex"].intValue, forKey: "sex")
+                    defaults.setValue(json["car"].stringValue, forKey: "car")
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateInitialViewController()
+                    UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+                }
+            }
         }
     }
 
@@ -57,20 +77,13 @@ class LoginViewController: UIViewController {
         }
         timerCount = 0
         let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
-        getCodeMsg(phone).responseJSON { (req, res, data) in
-            guard let jsonValue = data.value else {
-                print(data.error?.description)
-                self.view.makeToast(message: "网络错误")
+        UserApi.getCodeMsg(phone).responseGKJSON { (req, res, result) in
+            guard let json = result.json else {
+                self.view.makeToast(message: result.msg ?? "网络错误")
+                self.timerReset(timer)
                 return
             }
-            
-            let result = ApiResult<CodeMsg>(json: jsonValue)
-            if result.code < 0 {
-                self.view.makeToast(message: result.msg)
-                self.timerReset(timer)
-            } else {
-                self.code = result.data.code
-            }
+            self.code = json["code"].stringValue
         }
     }
 
