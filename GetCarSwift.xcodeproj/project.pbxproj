@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		70903CF7DE3CD5A47C3D32A5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEB7D44B704C3E2AEED25C2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
 		C835CE8C1B75235A003015A7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C835CE8B1B75235A003015A7 /* UIColor.swift */; };
 		C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848F1B61B778626008DAC69 /* TrackingViewController.swift */; };
@@ -66,8 +67,6 @@
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
 		C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */; };
-		C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */; };
-		C8E2B8441AD93C00003B07FE /* IntroduceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */; };
 		C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8471AD95103003B07FE /* ModifyViewController.swift */; };
 		C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */; };
 		C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */; };
@@ -107,6 +106,7 @@
 		04AEEC4067984AC3FB0D501E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBEB7D44B704C3E2AEED25C2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42AD40CE547E3B55020E5BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
 		C835CE8B1B75235A003015A7 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C848F1B61B778626008DAC69 /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
@@ -170,8 +170,6 @@
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModDoctorViewController.swift; sourceTree = "<group>"; };
-		C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroduceCotentView.swift; sourceTree = "<group>"; };
-		C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroduceContentView.xib; sourceTree = "<group>"; };
 		C8E2B8471AD95103003B07FE /* ModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoCell.swift; sourceTree = "<group>"; };
@@ -380,6 +378,7 @@
 				C867FD1D1AD9071900F99592 /* Globals.swift */,
 				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
 				C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */,
+				C804B90B1B80840100AEC003 /* WebViewController.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -398,8 +397,6 @@
 			isa = PBXGroup;
 			children = (
 				C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */,
-				C8E2B8411AD93BC6003B07FE /* IntroduceCotentView.swift */,
-				C8E2B8431AD93C00003B07FE /* IntroduceContentView.xib */,
 				C8E2B8471AD95103003B07FE /* ModifyViewController.swift */,
 				C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */,
 				C865B4E51B765BFB00790A81 /* ModViewController.swift */,
@@ -525,7 +522,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */,
-				C8E2B8441AD93C00003B07FE /* IntroduceContentView.xib in Resources */,
 				C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */,
 				C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */,
 			);
@@ -601,7 +597,6 @@
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
 				C852638F1B6E29E900E43FE0 /* SwiftyJSON.swift in Sources */,
-				C8E2B8421AD93BC6003B07FE /* IntroduceCotentView.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
 				C85263861B6E29AB00E43FE0 /* MultipartFormData.swift in Sources */,
 				C87AAD8A1B7CD30700084EA0 /* SideMenu.swift in Sources */,
@@ -639,6 +634,7 @@
 				C87AAD8C1B7CD33500084EA0 /* ENSideMenuNavigationController.swift in Sources */,
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
+				C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */,
 				C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */,
 				C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */,
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,

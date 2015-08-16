@@ -35,15 +35,18 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
-        let subView = IntroduceCotentView(frame: CGRectMake(8 + CGFloat(view.bounds.size.width) * CGFloat(index), 0, view.bounds.size.width - 16, scrollView.frame.size.height))
+        let subView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("mod_intr_content").view
+        let titleLabel = subView.viewWithTag(201) as! UILabel
+        let iconView = subView.viewWithTag(202) as! UIImageView
+        let messageView = subView.viewWithTag(203) as! UITextView
+        subView.frame = CGRectMake(8 + CGFloat(self.view.bounds.size.width) * CGFloat(index), 0, self.view.bounds.size.width - 16, self.scrollView.frame.size.height)
         subView.translatesAutoresizingMaskIntoConstraints = true
-        subView.title.text = title
-        subView.icon.image = UIImage(named: iconName)
-        subView.message.text = message
-        scrollView.addSubview(subView)
-        
+        titleLabel.text = title
+        iconView.image = UIImage(named: iconName)
+        messageView.text = message
+        self.scrollView.addSubview(subView)
         subView.layoutIfNeeded()
-        subView.message.contentOffset.y = 0
+        messageView.contentOffset.y = 0
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

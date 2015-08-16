@@ -116,8 +116,7 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             self.latLabel.text = location.coordinate.latitudeString()
             let parent = self.parentViewController as? TraceViewController
             parent?.v = location.speed * 3.6
-            ApiHeader.sharedInstance.lat = location.coordinate.latitude
-            ApiHeader.sharedInstance.longi = location.coordinate.longitude
+            ApiHeader.sharedInstance.location = location
         })
     }
     

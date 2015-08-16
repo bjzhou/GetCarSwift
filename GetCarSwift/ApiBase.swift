@@ -12,6 +12,8 @@ let DOMAIN = "http://api.gaikit.com:8901/"
 
 let apiManager = Manager.sharedInstance
 
+let API_DEBUG = false
+
 extension Manager {
 
     public func request(urlString: String, body: [String:AnyObject]) -> Request {
@@ -25,18 +27,20 @@ extension Manager {
         headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
         headers["Ass-token"] = ApiHeader.sharedInstance.token ?? ""
         headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
-        headers["Ass-lati"] = String(ApiHeader.sharedInstance.lat ?? 0)
-        headers["Ass-longti"] = String(ApiHeader.sharedInstance.longi ?? 0)
+        headers["Ass-lati"] = String(ApiHeader.sharedInstance.location?.coordinate.latitude ?? 0)
+        headers["Ass-longti"] = String(ApiHeader.sharedInstance.location?.coordinate.longitude ?? 0)
 
-        print("header: \(headers)")
+        if API_DEBUG {
+            print("header: \(headers)")
+        }
 
         let mutableURLRequest = URLRequest(.POST, DOMAIN + urlString, headers: headers)
         do {
             try mutableURLRequest.HTTPBody = JSON(body).rawData()
         } catch {
-            print("url request error: \(mutableURLRequest.description)")
+            if API_DEBUG {print("url request error: \(mutableURLRequest.description)")}
         }
-        print("request url: \(mutableURLRequest.description)")
+        if API_DEBUG {print("request url: \(mutableURLRequest.description)")}
         return request(mutableURLRequest)
     }
 }
@@ -54,10 +58,10 @@ extension Request {
                     newResult.json = json["data"]
                     newResult.code = json["code"].intValue
                     newResult.msg = json["msg"].stringValue
-                    print(newResult)
+                    if API_DEBUG {print(newResult)}
                 } else {
                     newResult.error = result.error
-                    print(NSString(data: result.data!, encoding: NSUTF8StringEncoding))
+                    if API_DEBUG {print(NSString(data: result.data!, encoding: NSUTF8StringEncoding))}
                 }
                 
 

@@ -19,10 +19,6 @@ class ModViewController: UIViewController {
 
         swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(VCIDs, buttonTitlesArray: buttonTitles, sender: self)
     }
-    
-    func showViewController(vc: UIViewController) {
-        self.showViewController(vc, sender: self)
-    }
 
 }
 

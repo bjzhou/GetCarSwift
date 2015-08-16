@@ -17,14 +17,13 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var mapView: MAMapView!
 
-    var newCoordinate: CLLocationCoordinate2D?
+    var timer = NSTimer()
+    var annotations: [MAPointAnnotation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         initMapView()
-        
-        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("didTimerUpdate:"), userInfo: nil, repeats: true)
     }
     
     func initMapView() {
@@ -33,15 +32,41 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 17
-        
-        mapView.showsUserLocation = true
     }
     
-    func didTimerUpdate(timer: NSTimer) {
+    override func viewDidAppear(animated: Bool) {
+        if !animated {
+            // abort when first added by swiftpages
+            return
+        }
+        mapView.showsUserLocation = true
+        didTimerUpdate()
+        timer.invalidate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("didTimerUpdate"), userInfo: nil, repeats: true)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        mapView.showsUserLocation = false
+        timer.invalidate()
+    }
+    
+    func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
         GeoApi.map(accelerate: parent.a, speed: parent.v).responseGKJSON { (req, res, result) in
             guard let json = result.json else {
                 return
+            }
+            
+            self.mapView.removeAnnotations(self.annotations)
+            for (_, subJson) in json {
+                let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
+                let pointAnnotation = MAPointAnnotation()
+                pointAnnotation.coordinate = newCoordinate.coordinate
+                pointAnnotation.title = subJson["nickname"].stringValue
+                if let dis = ApiHeader.sharedInstance.location?.distanceFromLocation(newCoordinate) {
+                    pointAnnotation.subtitle = "距离\(dis >= 1000 ? Int(dis/1000) : Int(dis))"
+                }
+                self.mapView.addAnnotation(pointAnnotation)
             }
         }
     }
@@ -115,18 +140,6 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             return annotationView;
         }
         return nil;
-    }
-    
-    func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!, updatingLocation: Bool) {
-        if (newCoordinate == nil) {
-            newCoordinate = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude + 0.001)
-            let pointAnnotation = MAPointAnnotation()
-            pointAnnotation.coordinate = newCoordinate!
-            pointAnnotation.title = "测试"
-            pointAnnotation.subtitle = "测试测试"
-            
-            mapView.addAnnotation(pointAnnotation)
-        }
     }
 
 }

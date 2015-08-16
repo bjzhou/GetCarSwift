@@ -271,14 +271,40 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         animatedBar.frame = CGRectMake((offsetAddition + (scrollView.contentOffset.x/(CGFloat)(pageViews.count))), animatedBar.frame.origin.y, animatedBar.frame.size.width, animatedBar.frame.size.height);
     }
     
+    var prevPage = 0
+    var currentPage = 0
+    
     public func switchPage(index: Int) {
         guard index < pageViews.count else {
             return
         }
+        prevPage = getCurrentPage()
         let pagesScrollViewSize = scrollView.frame.size
         UIView.animateWithDuration(0.3, animations: {
             self.scrollView.contentOffset = CGPointMake(pagesScrollViewSize.width * (CGFloat)(index), 0)
+            }, completion: { _ in
+                self.currentPage = self.getCurrentPage()
+                self.pageViews[self.prevPage].viewDidDisappear(true)
+                self.pageViews[self.currentPage].viewDidAppear(true)
         })
+    }
+    
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        prevPage = getCurrentPage()
+    }
+    
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        currentPage = getCurrentPage()
+        pageViews[prevPage].viewDidDisappear(true)
+        pageViews[currentPage].viewDidAppear(true)
+    }
+    
+    func getCurrentPage() -> Int {
+        return getPage(self.scrollView.contentOffset.x)
+    }
+    
+    func getPage(byOffset: CGFloat) -> Int {
+        return Int(byOffset / self.scrollView.frame.size.width)
     }
     
 }

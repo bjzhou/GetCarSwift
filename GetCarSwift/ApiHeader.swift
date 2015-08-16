@@ -17,10 +17,7 @@ public class ApiHeader {
         }
     }
 
-    public var lat: Double?
-    public var longi: Double?
-//    public var v: Double?
-//    public var a: Double?
+    public var location: CLLocation?
     
     init() {
         token = NSUserDefaults.standardUserDefaults().stringForKey("token")

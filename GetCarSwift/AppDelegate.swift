@@ -17,11 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if !defaults.boolForKey("isLogin") {
+        if let _ = ApiHeader.sharedInstance.token {} else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             var firstController: UIViewController
-            if let nickname = defaults.valueForKey("nickname") as? String where nickname.trim() != "" {
+            if let nickname = NSUserDefaults.standardUserDefaults().valueForKey("nickname") as? String where nickname.trim() != "" {
                 firstController = storyboard.instantiateViewControllerWithIdentifier("register")
             } else {
                 firstController = storyboard.instantiateViewControllerWithIdentifier("login")

@@ -13,10 +13,14 @@ class ModStoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //"mod_store_bg"
     }
 
     @IBAction func onBMW3Action(sender: UIButton) {
-        self.parentViewController?.showViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modStoreDetail"), sender: self.parentViewController)
+//        self.parentViewController?.showViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modStoreDetail"), sender: self.parentViewController)
+        let webBrowser = WebViewController()
+        webBrowser.hidesBottomBarWhenPushed = true
+        webBrowser.loadURLString("http://wap.koudaitong.com/v2/showcase/homepage?kdt_id=10707707")
+        self.parentViewController?.showViewController(webBrowser, sender: self.parentViewController)
     }
 }
