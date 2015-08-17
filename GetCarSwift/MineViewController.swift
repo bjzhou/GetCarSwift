@@ -8,14 +8,35 @@
 
 import UIKit
 
-class MineViewController: UITableViewController {
+class MineViewController: UITableViewController, AMapSearchDelegate {
+    
+    var searchApi: AMapSearchAPI!
+    
+    var district: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let location = ApiHeader.sharedInstance.location {
+            searchApi = AMapSearchAPI(searchKey: AMAP_KEY, delegate: self)
+            let regeoRequest = AMapReGeocodeSearchRequest()
+            regeoRequest.searchType = .ReGeocode
+            regeoRequest.location = AMapGeoPoint.locationWithLatitude(CGFloat(location.coordinate.latitude), longitude: CGFloat(location.coordinate.longitude))
+            regeoRequest.requireExtension = true
+            
+            searchApi.AMapReGoecodeSearch(regeoRequest)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
+    }
+    
+    func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
+        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
+        district = "\(response.regeocode.addressComponent.province)\(city)"
+        self.tableView.reloadData()
+        print(district)
     }
 
     // MARK: - Table view data source
@@ -30,12 +51,20 @@ class MineViewController: UITableViewController {
             let accountCell = cell as! AccountCell
             accountCell.avatar.layer.masksToBounds = true
             accountCell.avatar.layer.cornerRadius = 8
-            accountCell.avatar.image = UIImage(contentsOfFile: getFilePath("avatar"))
-            accountCell.accountName.text = "SURA"
-            accountCell.accountDescription.text = "上海市浦东新区"
+            accountCell.sexIcon.image = UIImage(named: NSUserDefaults.standardUserDefaults().integerForKey("sex") == 0 ? "mine_female" : "mine_male")
+            accountCell.avatar.image = UIImage(contentsOfFile: getFilePath("avatar")) ?? UIImage(named: "avatar")
+            accountCell.accountName.text = NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "用户名"
+            accountCell.accountDescription.text = district ?? "正在获得当前位置"
             return accountCell
         }
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "personInfo" {
+            let dest = segue.destinationViewController as! PersonInfoViewController
+            dest.district = district
+        }
     }
 
 }

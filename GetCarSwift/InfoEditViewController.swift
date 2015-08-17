@@ -8,17 +8,44 @@
 
 import UIKit
 
+enum InfoEditMode: Int {
+    case Sex
+    case Nickname
+    case Address
+    case District
+    case Sign
+}
+
 class InfoEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    let MODE_SEX = 0;
+
+    var mode: InfoEditMode = .Sex
     
     var currentSex = 0
+    
+    init(mode: InfoEditMode) {
+        super.init(nibName: nil, bundle: nil)
+        self.mode = mode
+    }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initSexView()
+        switch mode {
+        case .Sex:
+            initSexView()
+        case .Nickname:
+            break
+        case .Address:
+            break
+        case .District:
+            break
+        case .Sign:
+            break
+        }
     }
     
     func initSexView() {
@@ -28,6 +55,9 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.dataSource = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "sex")
         self.view.addSubview(tableView)
+    }
+    
+    func initNicknameView() {
     }
 
     override func didReceiveMemoryWarning() {

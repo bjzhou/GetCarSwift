@@ -10,6 +10,6 @@
 #define GetCarSwift_GetCarSwift_Bridging_Header_h
 
 #import <MAMapKit/MAMapKit.h>
-// #import <AMapSearchKit/AMapSearchAPI.h>
+#import <AMapSearchKit/AMapSearchAPI.h>
 
 #endif

@@ -10,10 +10,11 @@ import UIKit
 
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let titles = ["头像", "车形象", "用户名", "我的二维码", "我的地址", "性别", "地区", "个性签名"]
-    var values = [IMAGE_AVATAR, getCarIconName(0, color: 0, icon: 0), "SURA", IMAGE_QRCODE, "", "女", "上海浦东新区", ""]
+    let titles = ["头像", "车形象", "用户名"/*, "我的二维码"*/, "我的地址", "性别", "地区", "个性签名"]
+    var values = [IMAGE_AVATAR, getCarIconName(0, color: 0, icon: 0), "SURA"/*, IMAGE_QRCODE*/, "", "女", "上海浦东新区", ""]
     
     var avatarImage: UIImage?
+    var district: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,9 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         let colorTag = NSUserDefaults.standardUserDefaults().integerForKey("color")
         let iconTag = NSUserDefaults.standardUserDefaults().integerForKey("icon")
         values[1] = getCarIconName(sex, color: colorTag, icon: iconTag)
-        values[5] = getSexString(sex)
+        values[2] = NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "用户名"
+        values[4/*5*/] = getSexString(sex)
+        values[5/*6*/] = district ?? ""
         self.tableView.reloadData()
     }
 
@@ -38,7 +41,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 5
+            return 4/*5*/
         } else {
             return 3
         }
@@ -46,12 +49,13 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: PersonInfoCell
-        if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 3) {
+        if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1 /*|| indexPath.row == 3*/) {
             cell = tableView.dequeueReusableCellWithIdentifier("info_icon", forIndexPath:indexPath) as! PersonInfoCell
             cell.title.text = titles[indexPath.row]
-            cell.icon.image = UIImage(named: values[indexPath.row])
-            if indexPath.row == 0 && avatarImage != nil {
-                cell.icon.image = avatarImage
+            if indexPath.row == 0 {
+                cell.icon.image = avatarImage ?? UIImage(named: IMAGE_AVATAR)
+            } else {
+                cell.icon.image = UIImage(named: values[indexPath.row])
             }
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("info_text", forIndexPath:indexPath) as! PersonInfoCell
@@ -59,8 +63,8 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 cell.title.text = titles[indexPath.row]
                 cell.value.text = values[indexPath.row]
             } else {
-                cell.title.text = titles[indexPath.row + 5]
-                cell.value.text = values[indexPath.row + 5]
+                cell.title.text = titles[indexPath.row + 4/*5*/]
+                cell.value.text = values[indexPath.row + 4/*5*/]
             }
         }
 
@@ -90,13 +94,21 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let controller = storyboard.instantiateViewControllerWithIdentifier("car_icon") as UIViewController
                 self.navigationController?.showViewController(controller, sender: self)
+            case 2:
+                let vc = InfoEditViewController(mode: .Nickname)
+                self.navigationController?.showViewController(vc, sender: self)
+            case 3:
+                let vc = InfoEditViewController(mode: .Address)
+                self.navigationController?.showViewController(vc, sender: self)
             default:
                 break
             }
         } else {
             switch indexPath.row {
             case 0:
-                self.navigationController?.showViewController(InfoEditViewController(), sender: self)
+                self.navigationController?.showViewController(InfoEditViewController(mode: .Sex), sender: self)
+            case 2:
+                self.navigationController?.showViewController(InfoEditViewController(mode: .Sign), sender: self)
             default:
                 break;
             }

@@ -57,9 +57,9 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
                 let curY = validData.userAcceleration.y
                 let curZ = validData.userAcceleration.z
                 let parent = self.parentViewController as? TraceViewController
-                parent?.a = curY*9.8
-                self.aLabel.text = String(format: "%.0f", Double.abs(curY*9.8))
-                let constant = Double.abs(self.calculateTyreWear(curX, ay: curY, az: curZ, v: parent?.v ?? 0)) * 310
+                parent?.a = curY*10
+                self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
+                let constant = Double.abs(self.calculateTyreWear(curX, ay: curY, az: curZ, v: ApiHeader.sharedInstance.location?.speed ?? 0)) * 310
                 UIView.animateWithDuration(0.1, animations: {
                     self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
                     self.progressView.layoutIfNeeded()
@@ -110,12 +110,10 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             return
         }
         dispatch_async(dispatch_get_main_queue(), {
-            self.vLabel.text = String(format: "%.0f", Double.abs(location.speed * 3.6))
+            self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
             self.altitude.text = String(format: "%.0f", location.altitude)
             self.lonLabel.text = location.coordinate.longitudeString()
             self.latLabel.text = location.coordinate.latitudeString()
-            let parent = self.parentViewController as? TraceViewController
-            parent?.v = location.speed * 3.6
             ApiHeader.sharedInstance.location = location
         })
     }

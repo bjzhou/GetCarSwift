@@ -25,13 +25,8 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
 
         pageControl.pageIndicatorTintColor = UIColor.whiteColor()
         pageControl.currentPageIndicatorTintColor = UIColor.darkGrayColor()
-        
-        scrollView.contentSize = CGSizeMake(view.bounds.size.width * 3, scrollView.frame.size.height)
+
         scrollView.delegate = self;
-        
-        addSubViewToScrollVIew(0, title: "大包围", iconName: IMAGE_DABAOWEI, message: CONTENT_DABAOWEI)
-        addSubViewToScrollVIew(1, title: "后扰流板", iconName: IMAGE_HOURAO, message: CONTENT_HOURAO)
-        addSubViewToScrollVIew(2, title: "轮毂", iconName: IMAGE_LUNGU, message: CONTENT_LUNGU)
     }
     
     func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
@@ -39,14 +34,22 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
         let titleLabel = subView.viewWithTag(201) as! UILabel
         let iconView = subView.viewWithTag(202) as! UIImageView
         let messageView = subView.viewWithTag(203) as! UITextView
-        subView.frame = CGRectMake(8 + CGFloat(self.view.bounds.size.width) * CGFloat(index), 0, self.view.bounds.size.width - 16, self.scrollView.frame.size.height)
-        subView.translatesAutoresizingMaskIntoConstraints = true
+        subView.frame = CGRectMake(8 + CGFloat(self.view.frame.size.width) * CGFloat(index), 0, self.view.frame.size.width - 16, self.scrollView.frame.size.height)
+        //subView.translatesAutoresizingMaskIntoConstraints = true
         titleLabel.text = title
         iconView.image = UIImage(named: iconName)
         messageView.text = message
         self.scrollView.addSubview(subView)
         subView.layoutIfNeeded()
         messageView.contentOffset.y = 0
+    }
+    
+    override func viewDidLayoutSubviews() {
+        scrollView.contentSize = CGSizeMake(view.bounds.size.width * 3, scrollView.frame.size.height)
+        
+        addSubViewToScrollVIew(0, title: "大包围", iconName: IMAGE_DABAOWEI, message: CONTENT_DABAOWEI)
+        addSubViewToScrollVIew(1, title: "后扰流板", iconName: IMAGE_HOURAO, message: CONTENT_HOURAO)
+        addSubViewToScrollVIew(2, title: "轮毂", iconName: IMAGE_LUNGU, message: CONTENT_LUNGU)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

@@ -52,7 +52,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     
     func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
-        GeoApi.map(accelerate: parent.a, speed: parent.v).responseGKJSON { (req, res, result) in
+        GeoApi.map(accelerate: parent.a, speed: ApiHeader.sharedInstance.location?.speed ?? 0).responseGKJSON { (req, res, result) in
             guard let json = result.json else {
                 return
             }

@@ -13,6 +13,7 @@ class AccountCell: UITableViewCell {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var accountName: UILabel!
     @IBOutlet weak var accountDescription: UILabel!
+    @IBOutlet weak var sexIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

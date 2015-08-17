@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
         
-        MAMapServices.sharedServices().apiKey = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
+        MAMapServices.sharedServices().apiKey = AMAP_KEY
         
         checkNewVersion()
         

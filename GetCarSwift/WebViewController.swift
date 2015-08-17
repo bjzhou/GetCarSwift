@@ -41,6 +41,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         stopBarButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: Selector("didStop"))
         flexibleSpaceBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         
+        backBarButton.width = 44
+        forwardBarButton.width = 44
+        
         updateToolBar()
     }
     
