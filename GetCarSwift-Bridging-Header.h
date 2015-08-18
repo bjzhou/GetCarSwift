@@ -11,5 +11,6 @@
 
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchAPI.h>
+#import <Bugly/CrashReporter.h>
 
 #endif

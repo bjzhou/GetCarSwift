@@ -30,6 +30,7 @@ let IMAGE_CAR_INFO_AREA = "car_info_area"
 let IMAGE_CAR_INFO_AREA_PRESSED = "car_info_area_pressed"
 
 let AMAP_KEY = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
+let BUGLY_APPID = "900007462"
 
 
 /*

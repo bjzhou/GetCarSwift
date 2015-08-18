@@ -43,6 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MAMapServices.sharedServices().apiKey = AMAP_KEY
         
+        CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
+        CrashReporter.sharedInstance().setUserId(NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "10000")
+        CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
+        
         checkNewVersion()
         
         return true
