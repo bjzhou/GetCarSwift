@@ -10,6 +10,8 @@ import Foundation
 
 public class ApiHeader {
     static let sharedInstance = ApiHeader()
+    
+    public var delegate: LocationUpdateDelegate?
 
     public var token: String? {
         didSet {
@@ -17,9 +19,19 @@ public class ApiHeader {
         }
     }
 
-    public var location: CLLocation?
+    public var location: CLLocation? {
+        didSet {
+            if let location = location {
+                delegate?.didLocationUpdated(location)
+            }
+        }
+    }
     
     init() {
         token = NSUserDefaults.standardUserDefaults().stringForKey("token")
     }
+}
+
+public protocol LocationUpdateDelegate {
+    func didLocationUpdated(location: CLLocation)
 }

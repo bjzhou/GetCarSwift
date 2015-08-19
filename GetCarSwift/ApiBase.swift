@@ -12,7 +12,7 @@ let DOMAIN = "http://api.gaikit.com:8901/"
 
 let apiManager = Manager.sharedInstance
 
-let API_DEBUG = false
+let API_DEBUG = true
 
 extension Manager {
 

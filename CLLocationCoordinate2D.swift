@@ -35,3 +35,9 @@ extension CLLocationCoordinate2D {
             {return longDegrees >= 0 ? "E" : "W"}() )
     }
 }
+
+extension CLLocationCoordinate2D: Equatable {}
+
+public func ==(first: CLLocationCoordinate2D, next: CLLocationCoordinate2D) -> Bool {
+    return first.latitude == next.latitude && first.longitude == next.longitude
+}

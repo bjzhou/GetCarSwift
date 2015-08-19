@@ -35,11 +35,11 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
+        mapView.showsUserLocation = true
         if !animated {
             // abort when first added by swiftpages
             return
         }
-        mapView.showsUserLocation = true
         didTimerUpdate()
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("didTimerUpdate"), userInfo: nil, repeats: true)
@@ -58,16 +58,22 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             }
             
             self.mapView.removeAnnotations(self.annotations)
+            self.annotations.removeAll()
             for (_, subJson) in json {
                 let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
                 let pointAnnotation = MAPointAnnotation()
                 pointAnnotation.coordinate = newCoordinate.coordinate
-                pointAnnotation.title = subJson["nickname"].stringValue
+                pointAnnotation.title = subJson["nikename"].stringValue // please fix server spell issue
                 if let dis = ApiHeader.sharedInstance.location?.distanceFromLocation(newCoordinate) {
-                    pointAnnotation.subtitle = "距离\(dis >= 1000 ? Int(dis/1000) : Int(dis))"
+                    if dis >= 1000 {
+                        pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
+                    } else {
+                        pointAnnotation.subtitle = "距离\(Int(dis))米"
+                    }
+                    self.annotations.append(pointAnnotation)
                 }
-                self.mapView.addAnnotation(pointAnnotation)
             }
+            self.mapView.addAnnotations(self.annotations)
         }
     }
     
@@ -126,13 +132,13 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         
         if annotation.isKindOfClass(MAPointAnnotation) {
             let pointReuseIndetifier = "pointReuseIndetifier"
-            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier) as?MAPinAnnotationView
+            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier) as? MAPinAnnotationView
             if annotationView == nil {
                 annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier) as MAPinAnnotationView
             }
-            annotationView!.canShowCallout = true       //设置气泡可以弹出，默认为NO
-            annotationView!.animatesDrop = true        //设置标注动画显示，默认为NO
-            annotationView!.draggable = true        //设置标注可以拖动，默认为NO
+            annotationView!.canShowCallout = true
+            annotationView!.animatesDrop = false
+            annotationView!.draggable = false
             annotationView!.pinColor = MAPinAnnotationColor.Purple
             
             annotationView!.image = UIImage(named: "白2")
@@ -140,6 +146,10 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             return annotationView;
         }
         return nil;
+    }
+    
+    func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
+        ApiHeader.sharedInstance.location = userLocation.location
     }
 
 }

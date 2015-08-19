@@ -9,7 +9,7 @@
 import UIKit
 import CoreMotion
 
-class DataViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationUpdateDelegate {
     
     //@IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var scoreTable: UITableView!
@@ -24,7 +24,6 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     @IBOutlet weak var progressView: UIImageView!
     @IBOutlet weak var progressWidth: NSLayoutConstraint!
     let motionManager = CMMotionManager()
-    let locationManager = CLLocationManager()
     let altitudeManager = CMAltimeter()
     
     let scoreTitles = ["天门山通天大道", "台州鸟山", "云南三家村"]
@@ -55,11 +54,11 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             dispatch_async(dispatch_get_main_queue(), {
                 let curX = validData.userAcceleration.x
                 let curY = validData.userAcceleration.y
-                let curZ = validData.userAcceleration.z
+                //let curZ = validData.userAcceleration.z
                 let parent = self.parentViewController as? TraceViewController
                 parent?.a = curY*10
                 self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
-                let constant = Double.abs(self.calculateTyreWear(curX, ay: curY, az: curZ, v: ApiHeader.sharedInstance.location?.speed ?? 0)) * 310
+                let constant = Double.abs(self.calculateTyreWear(curX, v: ApiHeader.sharedInstance.location?.speed ?? 0)) * 310
                 UIView.animateWithDuration(0.1, animations: {
                     self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
                     self.progressView.layoutIfNeeded()
@@ -68,19 +67,13 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         })
     }
     
-    func calculateTyreWear(ax: Double, ay: Double, az: Double, v: Double) -> Double {
+    func calculateTyreWear(ax: Double, v: Double) -> Double {
         if Int(v) == 0 { return 0 }
-        return (ax * 7 + ay + az * 2) * v / 2000
+        return ax * v * 36 / 1000
     }
     
     func initLocation() {
-        guard CLLocationManager.locationServicesEnabled() else {
-            vLabel.text = "0"
-            return
-        }
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
+        ApiHeader.sharedInstance.delegate = self
     }
     
     func initAltitude() {
@@ -105,17 +98,11 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         scoreTable.dataSource = self
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
-            return
-        }
-        dispatch_async(dispatch_get_main_queue(), {
-            self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
-            self.altitude.text = String(format: "%.0f", location.altitude)
-            self.lonLabel.text = location.coordinate.longitudeString()
-            self.latLabel.text = location.coordinate.latitudeString()
-            ApiHeader.sharedInstance.location = location
-        })
+    func didLocationUpdated(location: CLLocation) {
+        self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
+        self.altitude.text = String(format: "%.0f", location.altitude)
+        self.lonLabel.text = location.coordinate.longitudeString()
+        self.latLabel.text = location.coordinate.latitudeString()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
