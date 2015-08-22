@@ -133,6 +133,11 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }))
         alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+        if let popoverController = alertController.popoverPresentationController {
+            let sourceView = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+            popoverController.sourceView = sourceView
+            popoverController.sourceRect = sourceView!.bounds
+        }
         presentViewController(alertController, animated: true, completion: nil)
     }
     

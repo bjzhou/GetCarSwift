@@ -78,7 +78,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func initAltitude() {
         guard CMAltimeter.isRelativeAltitudeAvailable() else {
-            pressureLabel.text = "0"
+            pressureLabel.text = "NaN"
             return
         }
         

@@ -23,7 +23,7 @@ class CarTableViewController: UITableViewController {
                 return
             }
             self.json = json
-            self.keys = self.json.sortedDictionaryKeys()!
+            self.keys = self.json.sortedDictionaryKeys() ?? []
             self.tableView.reloadData()
         }
     }

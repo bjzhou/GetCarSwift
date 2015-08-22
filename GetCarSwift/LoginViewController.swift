@@ -77,13 +77,13 @@ class LoginViewController: UIViewController {
         }
         timerCount = 0
         let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
-        UserApi.getCodeMsg(phone).responseGKJSON { (req, res, result) in
-            guard let json = result.json else {
-                self.view.makeToast(message: result.msg ?? "网络错误")
-                self.timerReset(timer)
-                return
+        timer.fire()
+        UserApi.getCodeMsg(phone).response { (req, res, data, err) in
+            if err == nil {
+                self.view.makeToast(message: "验证码已发送")
+            } else {
+                self.view.makeToast(message: "验证码发送失败")
             }
-            self.code = json["code"].stringValue
         }
     }
 
