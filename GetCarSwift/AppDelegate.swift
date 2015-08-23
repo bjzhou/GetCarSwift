@@ -17,15 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if let _ = ApiHeader.sharedInstance.token {} else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            var firstController: UIViewController
-            if let nickname = NSUserDefaults.standardUserDefaults().valueForKey("nickname") as? String where nickname.trim() != "" {
-                firstController = storyboard.instantiateViewControllerWithIdentifier("register")
-            } else {
-                firstController = storyboard.instantiateViewControllerWithIdentifier("login")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let _ = ApiHeader.sharedInstance.token {
+            if let nickname = NSUserDefaults.standardUserDefaults().valueForKey("nickname") as? String where nickname.trim() != "" {} else {
+                let firstController = UINavigationController(rootViewController: storyboard.instantiateViewControllerWithIdentifier("register"))
+                firstController.navigationItem.title = "登陆"
+                window?.rootViewController = firstController
             }
-
+        } else {
+            let firstController = storyboard.instantiateViewControllerWithIdentifier("login")
             window?.rootViewController = firstController
         }
         

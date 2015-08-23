@@ -30,7 +30,6 @@
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
 		C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865B4E51B765BFB00790A81 /* ModViewController.swift */; };
-		C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */; };
 		C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780001B7757300000D7DF /* ModStoreViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
@@ -57,7 +56,6 @@
 		C87AAD961B7CEA1F00084EA0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD951B7CEA1F00084EA0 /* JSON.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
-		C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */; };
 		C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* GeoApi.swift */; };
 		C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA781B78DF5400F5E24D /* ApiHeader.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
@@ -77,7 +75,6 @@
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
 		C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */; };
-		C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8471AD95103003B07FE /* ModifyViewController.swift */; };
 		C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */; };
 		C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */; };
 		C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */; };
@@ -124,7 +121,6 @@
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
 		C865B4E51B765BFB00790A81 /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
-		C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreDetailViewController.swift; sourceTree = "<group>"; };
 		C86780001B7757300000D7DF /* ModStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,7 +152,6 @@
 		C87AAD951B7CEA1F00084EA0 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
-		C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifyViewController.swift; sourceTree = "<group>"; };
 		C880DA761B78D21900F5E24D /* GeoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoApi.swift; sourceTree = "<group>"; };
 		C880DA781B78DF5400F5E24D /* ApiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeader.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -176,7 +171,6 @@
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModDoctorViewController.swift; sourceTree = "<group>"; };
-		C8E2B8471AD95103003B07FE /* ModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoCell.swift; sourceTree = "<group>"; };
 		C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
@@ -420,10 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */,
-				C8E2B8471AD95103003B07FE /* ModifyViewController.swift */,
-				C87FE6F91B0A18A70012C85C /* CustomModifyViewController.swift */,
 				C865B4E51B765BFB00790A81 /* ModViewController.swift */,
-				C8677FFE1B772E490000D7DF /* ModStoreDetailViewController.swift */,
 				C86780001B7757300000D7DF /* ModStoreViewController.swift */,
 			);
 			name = Mod;
@@ -583,7 +574,6 @@
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
 				C85263831B6E29AB00E43FE0 /* Download.swift in Sources */,
 				C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */,
-				C87FE6FA1B0A18A70012C85C /* CustomModifyViewController.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
@@ -626,12 +616,10 @@
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */,
-				C8677FFF1B772E490000D7DF /* ModStoreDetailViewController.swift in Sources */,
 				C880DA791B78DF5400F5E24D /* ApiHeader.swift in Sources */,
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
 				C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
-				C8E2B8481AD95103003B07FE /* ModifyViewController.swift in Sources */,
 				C852638D1B6E29AB00E43FE0 /* Validation.swift in Sources */,
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,

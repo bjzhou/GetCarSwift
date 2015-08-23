@@ -32,10 +32,10 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 17
+        mapView.showsUserLocation = true
     }
     
     override func viewDidAppear(animated: Bool) {
-        mapView.showsUserLocation = true
         if !animated {
             // abort when first added by swiftpages
             return
@@ -46,7 +46,6 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        mapView.showsUserLocation = false
         timer.invalidate()
     }
     
