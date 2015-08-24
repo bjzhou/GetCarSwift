@@ -14,7 +14,7 @@ func saveImage(image: UIImage, filename: String) {
 }
 
 func getFilePath(filename: String) -> String {
-    var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true) as [NSString]
     return paths[0].stringByAppendingPathComponent(filename)
 }
 

@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func checkNewVersion() {
         checkUpdate().responseJSON { (req, res, data) in
             guard let jsonValue = data.value else {
-                print(data.error?.description)
+                print(data.error.debugDescription)
                 return
             }
             let fir = FIR(json: jsonValue)

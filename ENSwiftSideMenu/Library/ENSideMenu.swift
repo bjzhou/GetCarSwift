@@ -50,10 +50,10 @@ public extension UIViewController {
     }
     
     /**
-    * You must call this method from viewDidLayoutSubviews in your content view controlers so it fixes size and position of the side menu when the screen
-    * rotates.
-    * A convenient way to do it might be creating a subclass of UIViewController that does precisely that and then subclassing your view controllers from it.
-    */
+     * You must call this method from viewDidLayoutSubviews in your content view controlers so it fixes size and position of the side menu when the screen
+     * rotates.
+     * A convenient way to do it might be creating a subclass of UIViewController that does precisely that and then subclassing your view controllers from it.
+     */
     func fixSideMenuSize() {
         if let navController = self.navigationController as? ENSideMenuNavigationController {
             navController.sideMenu?.updateFrame()
@@ -114,7 +114,7 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         self.sourceView = sourceView
         self.menuPosition = menuPosition
         self.setupMenuView()
-        
+    
         animator = UIDynamicAnimator(referenceView:sourceView)
         
         // Add right swipe gesture recognizer
@@ -137,7 +137,7 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         }
         
     }
-    
+
     public convenience init(sourceView: UIView, menuViewController: UIViewController, menuPosition: ENSideMenuPosition) {
         self.init(sourceView: sourceView, menuPosition: menuPosition)
         self.menuViewController = menuViewController
@@ -145,17 +145,17 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         self.menuViewController.view.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         sideMenuContainerView.addSubview(self.menuViewController.view)
     }
-    
+
     public convenience init(sourceView: UIView, view: UIView, menuPosition: ENSideMenuPosition) {
         self.init(sourceView: sourceView, menuPosition: menuPosition)
         view.frame = sideMenuContainerView.bounds
         view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         sideMenuContainerView.addSubview(view)
     }
-    
+
     /**
-    * Do not make this function private, it must be called from your own UIViewControllers (using the fixSideMenuSize function of the extension).
-    */
+     * Do not make this function private, it must be called from your own UIViewControllers (using the fixSideMenuSize function of the extension).
+     */
     func updateFrame() {
         var width:CGFloat
         var height:CGFloat
@@ -188,7 +188,7 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         
         // Configure side menu container
         updateFrame()
-        
+
         sideMenuContainerView.backgroundColor = UIColor.clearColor()
         sideMenuContainerView.clipsToBounds = false
         sideMenuContainerView.layer.masksToBounds = false
@@ -269,9 +269,9 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
             }
             else {
                 destFrame = CGRectMake((shouldOpen) ? width-menuWidth : width+2.0,
-                    0,
-                    menuWidth,
-                    height)
+                                        0,
+                                        menuWidth,
+                                        height)
             }
             
             UIView.animateWithDuration(animationDuration, animations: { () -> Void in
@@ -306,7 +306,7 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
     
     internal func handleGesture(gesture: UISwipeGestureRecognizer) {
         toggleMenu((self.menuPosition == .Right && gesture.direction == .Left)
-            || (self.menuPosition == .Left && gesture.direction == .Right))
+                || (self.menuPosition == .Left && gesture.direction == .Right))
     }
     
     private func updateSideMenuApperanceIfNeeded () {
@@ -315,7 +315,7 @@ public class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
             frame.size.width = menuWidth
             sideMenuContainerView.frame = frame
             sideMenuContainerView.layer.shadowPath = UIBezierPath(rect: sideMenuContainerView.bounds).CGPath
-            
+
             needUpdateApperance = false
         }
     }

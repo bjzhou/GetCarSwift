@@ -23,7 +23,9 @@ class CarTableNavigationController: ENSideMenuNavigationController, CarRightDele
         menuController = CarRightTableViewController()
         menuController?.delegate = self
 
-        setup(menuController!, contentViewController: self.viewControllers.last, menuPosition: .Right)
+        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: menuController!, menuPosition:.Right)
+        view.bringSubviewToFront(navigationBar)
+
         sideMenu?.menuWidth = 250
         sideMenu?.bouncingEnabled = false
         sideMenu?.allowLeftSwipe = false

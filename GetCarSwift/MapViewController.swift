@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapViewController: UIViewController, MAMapViewDelegate {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var layerButton: UIButton!
@@ -113,7 +113,10 @@ class MapViewController: UIViewController, MAMapViewDelegate {
         
         mapView.setZoomLevel(mapView.zoomLevel-1, animated: true)
     }
-    
+
+}
+
+extension MapViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
         if annotation.isKindOfClass(MAUserLocation) {
             let userLocationStyleReuseIndetifier = "userLocationStyleReuseIndetifier"
@@ -141,7 +144,7 @@ class MapViewController: UIViewController, MAMapViewDelegate {
             annotationView!.pinColor = MAPinAnnotationColor.Purple
             
             annotationView!.image = UIImage(named: "白2")
-
+            
             return annotationView;
         }
         return nil;
@@ -150,5 +153,4 @@ class MapViewController: UIViewController, MAMapViewDelegate {
     func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
         ApiHeader.sharedInstance.location = userLocation.location
     }
-
 }

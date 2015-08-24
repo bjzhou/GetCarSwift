@@ -78,5 +78,5 @@ public struct GKResult {
     var json: JSON?
     var code: Int?
     var msg: String?
-    var error: NSError?
+    var error: ErrorType?
 }

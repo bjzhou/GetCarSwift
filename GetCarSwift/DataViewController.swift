@@ -9,9 +9,8 @@
 import UIKit
 import CoreMotion
 
-class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationUpdateDelegate {
+class DataViewController: UIViewController {
     
-    //@IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var scoreTable: UITableView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var vLabel: UILabel!
@@ -97,14 +96,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         scoreTable.delegate = self
         scoreTable.dataSource = self
     }
-    
-    func didLocationUpdated(location: CLLocation) {
-        self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
-        self.altitude.text = String(format: "%.0f", location.altitude)
-        self.lonLabel.text = location.coordinate.longitudeString()
-        self.latLabel.text = location.coordinate.latitudeString()
-    }
-    
+}
+
+extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("score") as UITableViewCell!
         let title = cell.viewWithTag(301) as? UILabel
@@ -125,5 +119,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
+}
 
+extension DataViewController: LocationUpdateDelegate {
+    func didLocationUpdated(location: CLLocation) {
+        self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
+        self.altitude.text = String(format: "%.0f", location.altitude)
+        self.lonLabel.text = location.coordinate.longitudeString()
+        self.latLabel.text = location.coordinate.latitudeString()
+    }
 }
