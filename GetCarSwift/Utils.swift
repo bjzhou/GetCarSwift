@@ -46,3 +46,7 @@ func UIImageWithColor(color: UIColor) -> UIImage {
     return image
 }
 
+func avatarImage() -> UIImage {
+    return UIImage(contentsOfFile: getFilePath("avatar")) ?? UIImage(named: "avatar")!
+}
+

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MineViewController: UITableViewController, AMapSearchDelegate {
+class MineViewController: UITableViewController {
     
     var searchApi: AMapSearchAPI!
     
@@ -31,13 +31,6 @@ class MineViewController: UITableViewController, AMapSearchDelegate {
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
     }
-    
-    func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
-        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
-        district = "\(response.regeocode.addressComponent.province)\(city)"
-        self.tableView.reloadData()
-        print(district)
-    }
 
     // MARK: - Table view data source
     
@@ -52,7 +45,7 @@ class MineViewController: UITableViewController, AMapSearchDelegate {
             accountCell.avatar.layer.masksToBounds = true
             accountCell.avatar.layer.cornerRadius = 8
             accountCell.sexIcon.image = UIImage(named: NSUserDefaults.standardUserDefaults().integerForKey("sex") == 0 ? "mine_female" : "mine_male")
-            accountCell.avatar.image = UIImage(contentsOfFile: getFilePath("avatar")) ?? UIImage(named: "avatar")
+            accountCell.avatar.image = avatarImage()
             accountCell.accountName.text = NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "用户名"
             accountCell.accountDescription.text = district ?? "正在获得当前位置"
             return accountCell
@@ -67,4 +60,13 @@ class MineViewController: UITableViewController, AMapSearchDelegate {
         }
     }
 
+}
+
+extension MineViewController: AMapSearchDelegate {
+    func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
+        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
+        district = "\(response.regeocode.addressComponent.province)\(city)"
+        self.tableView.reloadData()
+        print(district)
+    }
 }

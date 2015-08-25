@@ -54,6 +54,24 @@ class MatchViewController: UIViewController {
         mapView.setZoomLevel(mapView.zoomLevel-1, animated: true)
     }
 
+    @IBAction func didAddPlayer(sender: UIButton) {
+        switch sender {
+        case purpleButton:
+            break
+        case yellowButton:
+            break
+        case blueButton:
+            break
+        default:
+            break
+        }
+        let addViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("add_player_popover")
+        addViewController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        presentViewController(addViewController, animated: true, completion: nil)
+//        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
+//        addViewController.view.center = self.view.center
+    }
+
 }
 
 extension MatchViewController: MAMapViewDelegate {

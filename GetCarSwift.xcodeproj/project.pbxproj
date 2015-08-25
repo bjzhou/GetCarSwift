@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
+		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C82A72311B8B649900545FEA /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A72241B8B649900545FEA /* Alamofire.swift */; };
 		C82A72321B8B649900545FEA /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A72251B8B649900545FEA /* Download.swift */; };
 		C82A72331B8B649900545FEA /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A72261B8B649900545FEA /* Error.swift */; };
@@ -102,6 +103,7 @@
 /* Begin PBXFileReference section */
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
+		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C82A72241B8B649900545FEA /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Alamofire/Source/Alamofire.swift; sourceTree = SOURCE_ROOT; };
 		C82A72251B8B649900545FEA /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Alamofire/Source/Download.swift; sourceTree = SOURCE_ROOT; };
 		C82A72261B8B649900545FEA /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Alamofire/Source/Error.swift; sourceTree = SOURCE_ROOT; };
@@ -465,6 +467,7 @@
 				C89A05C61B6E125400620C85 /* TraceViewController.swift */,
 				C89A05CB1B6E195600620C85 /* DataViewController.swift */,
 				C8C2C08B1B8B527D006095DC /* MatchViewController.swift */,
+				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
 			);
 			name = Trace;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
 				C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */,
+				C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
 				C82A72351B8B649900545FEA /* MultipartFormData.swift in Sources */,
 				C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */,
