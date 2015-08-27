@@ -3,7 +3,7 @@
 //  GetCarSwift
 //
 //  Created by 周斌佳 on 15/8/24.
-//  Copyright © 2015年 &#21608;&#25996;&#20339;. All rights reserved.
+//  Copyright © 2015年 周斌佳. All rights reserved.
 //
 
 import UIKit
@@ -19,6 +19,8 @@ class MatchViewController: UIViewController {
     @IBOutlet weak var purpleTitle: UILabel!
     @IBOutlet weak var yellowTitle: UILabel!
     @IBOutlet weak var blueTitle: UILabel!
+
+    var pressedButton: UIButton?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,25 +57,39 @@ class MatchViewController: UIViewController {
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {
-        switch sender {
-        case purpleButton:
-            break
-        case yellowButton:
-            break
-        case blueButton:
-            break
-        default:
-            break
-        }
-        let addViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("add_player_popover")
-        addViewController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
-        presentViewController(addViewController, animated: true, completion: nil)
-//        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
-//        addViewController.view.center = self.view.center
+        pressedButton = sender
+        let addViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("add_player_popover") as! AddPlayerTableViewController
+        addViewController.delegate = self
+        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
+        let popupViewController = PopupViewController(rootViewController: addViewController)
+        self.presentViewController(popupViewController, animated: false, completion: nil)
     }
 
 }
 
 extension MatchViewController: MAMapViewDelegate {
     
+}
+
+extension MatchViewController: AddPlayerDelegate {
+    func didPlayerAdded(avatar avatar: UIImage, name: String) {
+        if let pressedButton = pressedButton {
+            pressedButton.setBackgroundImage(avatar, forState: .Normal)
+            pressedButton.layer.cornerRadius = pressedButton.frame.size.width / 2
+            pressedButton.clipsToBounds = true
+            switch pressedButton {
+            case purpleButton:
+                purpleTitle.text = name
+                break
+            case yellowButton:
+                yellowTitle.text = name
+                break
+            case blueButton:
+                blueTitle.text = name
+                break
+            default:
+                break
+            }
+        }
+    }
 }

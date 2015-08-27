@@ -3,7 +3,7 @@
 //  GetCarSwift
 //
 //  Created by 周斌佳 on 15/8/25.
-//  Copyright © 2015年 &#21608;&#25996;&#20339;. All rights reserved.
+//  Copyright © 2015年 周斌佳. All rights reserved.
 //
 
 import UIKit
@@ -15,6 +15,8 @@ enum AddPlayerMode {
 }
 
 class AddPlayerTableViewController: UITableViewController {
+
+    var delegate: AddPlayerDelegate?
 
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Friend:"我的好友", .Rank:"赛道排名"]
 
@@ -91,9 +93,13 @@ class AddPlayerTableViewController: UITableViewController {
                 } else if indexPath.row == 3 {
                     mode = .Rank
                     tableView.reloadData()
+                } else {
+                    delegate?.didPlayerAdded(avatar: avatarImage(), name: "我")
+                    dismissPopupViewController()
                 }
             } else {
-                // selected item, dismiss view
+                delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: mode == .Friend ? friends[indexPath.row-1] : "排名第\(indexPath.row)")
+                dismissPopupViewController()
             }
         }
     }
@@ -108,11 +114,15 @@ class AddPlayerTableViewController: UITableViewController {
 
     @IBAction func didBackAction() {
         if mode == .Menu {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismissPopupViewController()
         } else {
             mode = .Menu
             tableView.reloadData()
         }
     }
 
+}
+
+protocol AddPlayerDelegate {
+    func didPlayerAdded(avatar avatar: UIImage, name: String)
 }

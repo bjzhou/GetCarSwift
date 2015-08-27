@@ -3,7 +3,7 @@
 //  GetCarSwift
 //
 //  Created by 周斌佳 on 15/8/13.
-//  Copyright © 2015年 &#21608;&#25996;&#20339;. All rights reserved.
+//  Copyright © 2015年 周斌佳. All rights reserved.
 //
 
 import UIKit
