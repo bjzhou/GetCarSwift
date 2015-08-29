@@ -7,19 +7,17 @@
 //
 
 import UIKit
+import Haneke
 
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let titles = ["头像", "车形象", "用户名"/*, "我的二维码"*/, "我的地址", "性别", "地区", "个性签名"]
     var values = [IMAGE_AVATAR, getCarIconName(0, color: 0, icon: 0), "SURA"/*, IMAGE_QRCODE*/, "", "女", "上海浦东新区", ""]
-    
-    var avatarImage: UIImage?
+
     var district: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        avatarImage = UIImage(contentsOfFile: getFilePath("avatar"))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,7 +51,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             cell = tableView.dequeueReusableCellWithIdentifier("info_icon", forIndexPath:indexPath) as! PersonInfoCell
             cell.title.text = titles[indexPath.row]
             if indexPath.row == 0 {
-                cell.icon.image = avatarImage ?? UIImage(named: IMAGE_AVATAR)
+                cell.icon.setAvatarImage()
             } else {
                 cell.icon.image = UIImage(named: values[indexPath.row])
             }
@@ -142,10 +140,11 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        avatarImage = scaleImage(image, size: CGSizeMake(254, 254))
-        saveImage(avatarImage!, filename: "avatar")
-        self.tableView.reloadData()
-        dismissViewControllerAnimated(true, completion: nil)
+        let avatarImage = image.scaleImage(size: CGSizeMake(254, 254))
+        imageCache.set(value: avatarImage, key: "avatar")
+        dismissViewControllerAnimated(true, completion: {_ in
+            self.tableView.reloadData()
+        })
     }
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {

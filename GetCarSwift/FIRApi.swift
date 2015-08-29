@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 let FIR_APP_ID = "552a3921ebc861d936002615"
 let FIR_USER_TOKEN = "c5be852abca28607167f36f029ccfc1b"

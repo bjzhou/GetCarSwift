@@ -49,7 +49,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        saveImage(image, filename: "homepage_bg")
+        imageCache.set(value: image, key: "homepage_bg")
         let userDefaults = NSUserDefaults.standardUserDefaults();
         userDefaults.setInteger(1000, forKey: "homepage_bg")
         dismissViewControllerAnimated(true, completion: nil)

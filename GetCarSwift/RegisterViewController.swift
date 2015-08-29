@@ -27,8 +27,8 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         case (_, ""):
             self.view.makeToast(message: "请选择车型")
         case (let nicknameText, let carLabelText):
-            UserApi.updateInfo(nicknameText, sex: sex, car: carLabelText).responseGKJSON { (req, res, result) in
-                guard let json = result.json else {
+            UserApi.updateInfo(nicknameText, sex: sex, car: carLabelText) { result in
+                guard let json = result.data else {
                     self.view.makeToast(message: "注册失败")
                     return
                 }

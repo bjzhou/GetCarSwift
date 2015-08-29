@@ -27,7 +27,9 @@ class MyHomepaeViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let index = userDefaults.integerForKey("homepage_bg")
         if index == 1000 {
-            homepageBg.image = UIImage(contentsOfFile: getFilePath("homepage_bg"))
+            imageCache.fetch(key: "homepage_bg").onSuccess {image in
+                self.homepageBg.image = image
+            }
         } else {
             homepageBg.image = UIImage(named: getHomepageBg(index == 0 ? 1 : index))
         }

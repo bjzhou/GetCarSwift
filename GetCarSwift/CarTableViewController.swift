@@ -7,23 +7,43 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CarTableViewController: UITableViewController {
 
-    var json: JSON = JSON([])
-    var keys: [String] = []
+    var categery: [String] = []
+    var brands: [String: [String]] = [:]
+    var models: [String: [String]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
         
-        CarApi.info().responseGKJSON { (req, res, result) in
-            guard let json = result.json else {
+        CarApi.info() { result in
+            guard let json = result.data else {
                 return
             }
-            self.json = json
-            self.keys = self.json.sortedDictionaryKeys() ?? []
+            for i in 0..<json.count {
+                let categery = json[i, "categery"].stringValue
+                let brand = json[i, "brand"].stringValue
+                let model = json[i, "model"].stringValue
+
+                if self.brands[categery] == nil {
+                    self.brands[categery] = []
+                }
+                if self.models[brand] == nil {
+                    self.models[brand] = []
+                }
+
+                if !self.categery.contains(categery) {
+                    self.categery.append(categery)
+                }
+                if !self.brands[categery]!.contains(brand) {
+                    self.brands[categery]!.append(brand)
+                }
+                self.models[brand]!.append(model)
+            }
             self.tableView.reloadData()
         }
     }
@@ -31,11 +51,11 @@ class CarTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return keys.count
+        return categery.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return json.sortedDictionaryValue(section)!.count
+        return brands[categery[section]]?.count ?? 0
     }
 
 
@@ -45,7 +65,7 @@ class CarTableViewController: UITableViewController {
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
         
-        let titleText = json.sortedDictionaryValue(indexPath.section)!.sortedDictionaryKeys()![indexPath.row]//Array(json[keys[indexPath.section]].dictionary!.keys).sort()[indexPath.row]
+        let titleText = brands[categery[indexPath.section]]?[indexPath.row] ?? ""
         icon.image = UIImage(named: titleText+"logo")
         title.text = titleText
 
@@ -53,20 +73,20 @@ class CarTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return keys[section]
+        return categery[section]
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return keys
+        return categery
     }
     
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return keys.indexOf(title)!
+        return categery.indexOf(title)!
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let navController = self.navigationController as! CarTableNavigationController
-        navController.menuController!.data = json.sortedDictionaryValue(indexPath.section)!.sortedDictionaryValue(indexPath.row)!.arrayObject as! [String]
+        navController.menuController!.data = models[(brands[categery[indexPath.section]]?[indexPath.row]) ?? ""] ?? []
         showSideMenuView()
     }
 

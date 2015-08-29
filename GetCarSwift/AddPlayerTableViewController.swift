@@ -57,7 +57,7 @@ class AddPlayerTableViewController: UITableViewController {
                 if indexPath.row == 1 {
                     cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath)
                     let avatarView = cell.viewWithTag(111) as! UIImageView
-                    avatarView.image = avatarImage()
+                    avatarView.setAvatarImage()
                     let nameLabel = cell.viewWithTag(112) as! UILabel
                     nameLabel.text = "我"
                 } else {
@@ -94,8 +94,13 @@ class AddPlayerTableViewController: UITableViewController {
                     mode = .Rank
                     tableView.reloadData()
                 } else {
-                    delegate?.didPlayerAdded(avatar: avatarImage(), name: "我")
-                    dismissPopupViewController()
+                    imageCache.fetch(key: "avatar").onSuccess {image in
+                        self.delegate?.didPlayerAdded(avatar: image, name: "我")
+                        self.dismissPopupViewController()
+                        }.onFailure { err in
+                            self.delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: "我")
+                            self.dismissPopupViewController()
+                    }
                 }
             } else {
                 delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: mode == .Friend ? friends[indexPath.row-1] : "排名第\(indexPath.row)")

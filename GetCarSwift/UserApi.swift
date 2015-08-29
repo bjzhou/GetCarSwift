@@ -9,18 +9,17 @@
 import Foundation
 
 class UserApi {
-    static func request(method: String, body: [String:AnyObject]) -> Request{
-        return apiManager.request("user/" + method, body: body)
-    }
-    static func getCodeMsg(phone: String) -> Request {
-        return UserApi.request("getCodeMsg", body: ["phone":phone])
-    }
-    
-    static func login(phone: String, code: String) -> Request {
-        return UserApi.request("login", body: ["phone":phone, "code":code])
+    static let PREFIX = "user/"
+
+    class func getCodeMsg(phone: String, completion: GKResult -> Void) {
+        api(PREFIX + "getCodeMsg", body: ["phone":phone], completion: completion)
     }
     
-    static func updateInfo(nickname: String, sex: Int, car: String) -> Request {
-        return UserApi.request("updateInfo", body: ["nickname":nickname, "sex":sex, "car":car])
+    class func login(phone: String, code: String, completion: GKResult -> Void) {
+        api(PREFIX + "login", body: ["phone":phone, "code":code], completion: completion)
+    }
+    
+    class func updateInfo(nickname: String, sex: Int, car: String, completion: GKResult -> Void) {
+        api(PREFIX + "updateInfo", body: ["nickname":nickname, "sex":sex, "car":car], completion: completion)
     }
 }

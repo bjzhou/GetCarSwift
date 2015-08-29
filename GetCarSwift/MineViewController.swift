@@ -45,7 +45,7 @@ class MineViewController: UITableViewController {
             accountCell.avatar.layer.masksToBounds = true
             accountCell.avatar.layer.cornerRadius = 8
             accountCell.sexIcon.image = UIImage(named: NSUserDefaults.standardUserDefaults().integerForKey("sex") == 0 ? "mine_female" : "mine_male")
-            accountCell.avatar.image = avatarImage()
+            accountCell.avatar.setAvatarImage()
             accountCell.accountName.text = NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "用户名"
             accountCell.accountDescription.text = district ?? "正在获得当前位置"
             return accountCell

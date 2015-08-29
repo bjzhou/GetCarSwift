@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Haneke
 
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
@@ -32,6 +33,8 @@ let IMAGE_CAR_INFO_AREA_PRESSED = "car_info_area_pressed"
 let AMAP_KEY = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
 let BUGLY_APPID = "900007462"
 
+
+let imageCache = Shared.imageCache
 
 /*
     获得地图界面定位图标名

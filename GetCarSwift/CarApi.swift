@@ -9,11 +9,9 @@
 import Foundation
 
 class CarApi {
-    static func request(method: String, body: [String:AnyObject]) -> Request{
-        return apiManager.request("car/" + method, body: body)
-    }
-    
-    static func info() -> Request {
-        return request("info", body: [:])
+    static let PREFIX = "car/"
+
+    class func info(completion: GKResult -> Void) {
+        apiCache.fetch(fetcher: GKFetcher(urlString: PREFIX + "info", body: [:])).onSuccess(completion)
     }
 }
