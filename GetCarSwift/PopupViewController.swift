@@ -11,6 +11,8 @@ import UIKit
 public class PopupViewController: UIViewController {
     var rootViewController: UIViewController?
 
+    var cancelable = true
+
     init(rootViewController: UIViewController) {
         super.init(nibName: nil, bundle: nil)
         self.rootViewController = rootViewController
@@ -19,6 +21,10 @@ public class PopupViewController: UIViewController {
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public func setTouchCancelable(cancelable: Bool) {
+        self.cancelable = cancelable
     }
 
     override public func viewDidLoad() {
@@ -31,6 +37,17 @@ public class PopupViewController: UIViewController {
             rootViewController.view.center = self.view.center
             self.addChildViewController(rootViewController)
             rootViewController.didMoveToParentViewController(self)
+        }
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.delegate = self
+        self.view.addGestureRecognizer(tapRecognizer)
+    }
+
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        if cancelable {
+            dismissPopupViewController()
         }
     }
 
@@ -63,5 +80,14 @@ public class PopupViewController: UIViewController {
         } else {
             super.dismissViewControllerAnimated(flag, completion: completion)
         }
+    }
+}
+
+extension PopupViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if touch.view != self.view {
+            return false
+        }
+        return true
     }
 }

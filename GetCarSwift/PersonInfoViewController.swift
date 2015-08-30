@@ -142,6 +142,9 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let avatarImage = image.scaleImage(size: CGSizeMake(254, 254))
         imageCache.set(value: avatarImage, key: "avatar")
+        UploadApi.uploadHeader(avatarImage) { gkResult in
+            print(gkResult)
+        }
         dismissViewControllerAnimated(true, completion: {_ in
             self.tableView.reloadData()
         })

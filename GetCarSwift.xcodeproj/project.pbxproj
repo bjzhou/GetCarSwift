@@ -51,6 +51,7 @@
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
+		C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A8719F1B92DFEA006300EF /* UploadApi.swift */; settings = {ASSET_TAGS = (); }; };
 		C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08B1B8B527D006095DC /* MatchViewController.swift */; };
 		C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */; };
 		C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08E1B8B5DEE006095DC /* JSON.swift */; };
@@ -264,6 +265,7 @@
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
+		C8A8719F1B92DFEA006300EF /* UploadApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
 		C8C2C08B1B8B527D006095DC /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLLocationCoordinate2D.swift; path = GetCarSwift/CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		C8C2C08E1B8B5DEE006095DC /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = GetCarSwift/JSON.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				C880DA761B78D21900F5E24D /* GeoApi.swift */,
 				C880DA781B78DF5400F5E24D /* ApiHeader.swift */,
 				C894A3311B7F783D00D853C9 /* CarApi.swift */,
+				C8A8719F1B92DFEA006300EF /* UploadApi.swift */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -838,6 +841,7 @@
 				C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */,
 				C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
+				C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */,
 				C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,

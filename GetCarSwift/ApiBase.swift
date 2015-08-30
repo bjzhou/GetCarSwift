@@ -18,7 +18,7 @@ let apiCache = Shared.GKResultCache
 
 let API_DEBUG = true
 
-func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void) {
+func getHeader() -> [String:String] {
     var headers: [String:String] = [:]
 
     headers["Ass-apiver"] = "1.0"
@@ -32,9 +32,37 @@ func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Vo
     headers["Ass-lati"] = String(ApiHeader.sharedInstance.location?.coordinate.latitude ?? 0)
     headers["Ass-longti"] = String(ApiHeader.sharedInstance.location?.coordinate.longitude ?? 0)
 
+    return headers
+}
+
+extension Request {
+    func responseGK(completionHandler: (NSURLRequest?, NSHTTPURLResponse?, GKResult) -> Void) -> Self {
+        return response(responseSerializer: Request.dataResponseSerializer()) {(req, res, result) in
+            {
+                var gkResult = GKResult()
+                if let data = result.value {
+                    if let err = result.error {
+                        gkResult.error = Error.errorWithCode(-10003, failureReason: "error reason : \(err)")
+                    } else {
+                        gkResult = GKResult(json: JSON(data: data))
+                    }
+                    if API_DEBUG {print(NSString(data: data, encoding: NSUTF8StringEncoding))}
+                }
+                return gkResult
+            } ~> { gkResult in
+                completionHandler(req, res, gkResult)
+            }
+        }
+    }
+}
+
+
+func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void) {
+
+
     let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: DOMAIN + urlString)!)
     mutableURLRequest.HTTPMethod = "POST"
-    for (headerField, headerValue) in headers {
+    for (headerField, headerValue) in getHeader() {
         mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
     }
     do {
@@ -43,23 +71,28 @@ func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Vo
         if API_DEBUG {print("url request error: \(mutableURLRequest.description)")}
     }
 
-    apiManager.request(mutableURLRequest).response { (req, res, data, err) in
-        {
-            var result = GKResult()
-            if let data = data {
-            if let _ = err {
-                if API_DEBUG {print(NSString(data: data, encoding: NSUTF8StringEncoding))}
-            } else {
-                result = GKResult(json: JSON(data: data))
-            }
-            }
+    apiManager.request(mutableURLRequest).responseGK {(req, res, gkResult) in
+        completion(gkResult)
+    }
+}
 
-            result.error = err
-            if API_DEBUG {print(result)}
-            return result
-        } ~> { result in
-            completion(result)}
+func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void) {
+    apiManager.upload(.POST, DOMAIN + urlString, headers: getHeader(), multipartFormData: { multipart in
+        for (key, data) in datas {
+            multipart.appendBodyPart(data: data, name: key)
         }
+        }, encodingCompletion: {result in
+            switch result {
+            case .Success(let req, _, _):
+                req.responseGK {(req, res, gkResult) in
+                    completion(gkResult)
+                }
+            case .Failure(let err):
+                var gkResult = GKResult()
+                gkResult.error = err
+                completion(gkResult)
+            }
+    })
 }
 
 extension GKResult: DataConvertible, DataRepresentable {
