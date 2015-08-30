@@ -24,27 +24,30 @@ class CarTableViewController: UITableViewController {
             guard let json = result.data else {
                 return
             }
-            for i in 0..<json.count {
-                let categery = json[i, "categery"].stringValue
-                let brand = json[i, "brand"].stringValue
-                let model = json[i, "model"].stringValue
+            {
+                for i in 0..<json.count {
+                    let categery = json[i, "categery"].stringValue
+                    let brand = json[i, "brand"].stringValue
+                    let model = json[i, "model"].stringValue
 
-                if self.brands[categery] == nil {
-                    self.brands[categery] = []
-                }
-                if self.models[brand] == nil {
-                    self.models[brand] = []
-                }
+                    if self.brands[categery] == nil {
+                        self.brands[categery] = []
+                    }
+                    if self.models[brand] == nil {
+                        self.models[brand] = []
+                    }
 
-                if !self.categery.contains(categery) {
-                    self.categery.append(categery)
+                    if !self.categery.contains(categery) {
+                        self.categery.append(categery)
+                    }
+                    if !self.brands[categery]!.contains(brand) {
+                        self.brands[categery]!.append(brand)
+                    }
+                    self.models[brand]!.append(model)
                 }
-                if !self.brands[categery]!.contains(brand) {
-                    self.brands[categery]!.append(brand)
-                }
-                self.models[brand]!.append(model)
+            } ~> {
+                self.tableView.reloadData()
             }
-            self.tableView.reloadData()
         }
     }
 

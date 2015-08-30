@@ -44,26 +44,22 @@ func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Vo
     }
 
     apiManager.request(mutableURLRequest).response { (req, res, data, err) in
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-
+        {
             var result = GKResult()
-
             if let data = data {
-                if let _ = err {
-                    if API_DEBUG {print(NSString(data: data, encoding: NSUTF8StringEncoding))}
-                } else {
-                    result = GKResult(json: JSON(data: data))
-                }
+            if let _ = err {
+                if API_DEBUG {print(NSString(data: data, encoding: NSUTF8StringEncoding))}
+            } else {
+                result = GKResult(json: JSON(data: data))
+            }
             }
 
             result.error = err
             if API_DEBUG {print(result)}
-
-            dispatch_async(dispatch_get_main_queue(), {
-                completion(result)
-            })
-        })
-    }
+            return result
+        } ~> { result in
+            completion(result)}
+        }
 }
 
 extension GKResult: DataConvertible, DataRepresentable {
