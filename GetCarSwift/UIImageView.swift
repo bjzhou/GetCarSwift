@@ -34,8 +34,12 @@ extension UIImageView {
     }
 
     func setAvatarImage() {
-        self.hnk_setImageFromKey("avatar", failure: {_ in
+        if let avatarUrl = NSUserDefaults.standardUserDefaults().stringForKey("avatar") {
+            self.hnk_setImageFromURL(NSURL(string: avatarUrl)!, failure: {_ in
+                self.image = UIImage(named: "avatar")
+            })
+        } else {
             self.image = UIImage(named: "avatar")
-        })
+        }
     }
 }

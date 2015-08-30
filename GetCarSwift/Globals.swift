@@ -8,6 +8,7 @@
 
 import Foundation
 import Haneke
+import SwiftyJSON
 
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
@@ -124,4 +125,14 @@ func ~><T>(bgThread: () -> T, mainThread: (result: T) -> ()) {
 
 func async(bgThread: () -> Void) {
     dispatch_async(queue, bgThread)
+}
+
+func updateLogin(json: SwiftyJSON.JSON) {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    defaults.setBool(true, forKey: "isLogin")
+    defaults.setValue(json["nickname"].stringValue, forKey: "nickname")
+    defaults.setValue(json["sex"].intValue, forKey: "sex")
+    defaults.setValue(json["car"].stringValue, forKey: "car")
+    defaults.setValue(json["img"].stringValue, forKey: "avatar")
+    defaults.setValue(json["phone"].stringValue, forKey: "phone")
 }

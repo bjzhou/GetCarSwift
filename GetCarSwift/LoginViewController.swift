@@ -56,12 +56,8 @@ class LoginViewController: UIViewController {
                     let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
                     self.showViewController(dest, sender: self)
                 } else {
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setBool(true, forKey: "isLogin")
-                    defaults.setValue(json["nickname"].stringValue, forKey: "nickname")
-                    defaults.setValue(json["sex"].intValue, forKey: "sex")
-                    defaults.setValue(json["car"].stringValue, forKey: "car")
-                    
+                    updateLogin(json)
+
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let controller = storyboard.instantiateInitialViewController()
                     UIApplication.sharedApplication().keyWindow?.rootViewController = controller

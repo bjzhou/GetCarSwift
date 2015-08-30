@@ -18,7 +18,7 @@ let apiCache = Shared.GKResultCache
 
 let API_DEBUG = true
 
-func getHeader() -> [String:String] {
+func getHeader(upload: Bool = false) -> [String:String] {
     var headers: [String:String] = [:]
 
     headers["Ass-apiver"] = "1.0"
@@ -77,22 +77,42 @@ func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Vo
 }
 
 func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void) {
-    apiManager.upload(.POST, DOMAIN + urlString, headers: getHeader(), multipartFormData: { multipart in
-        for (key, data) in datas {
-            multipart.appendBodyPart(data: data, name: key)
+    let urlRequest = urlRequestWithComponents(DOMAIN + urlString, headers: getHeader(), imageData: datas)
+
+    Alamofire.upload(urlRequest.0, data: urlRequest.1).responseGK {(req, res, gkResult) in
+        completion(gkResult)
+    }
+}
+
+
+func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
+
+    // create url request to send
+    let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+    mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+    let boundaryConstant = "myRandomBoundary12345";
+    let contentType = "multipart/form-data;boundary="+boundaryConstant
+    mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+    if let headers = headers {
+        for (key, value) in headers {
+            mutableURLRequest.setValue(value, forHTTPHeaderField: key)
         }
-        }, encodingCompletion: {result in
-            switch result {
-            case .Success(let req, _, _):
-                req.responseGK {(req, res, gkResult) in
-                    completion(gkResult)
-                }
-            case .Failure(let err):
-                var gkResult = GKResult()
-                gkResult.error = err
-                completion(gkResult)
-            }
-    })
+    }
+
+    // create upload data to send
+    let uploadData = NSMutableData()
+
+    // add image
+    uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    for (key, data) in imageData {
+        uploadData.appendData("Content-Disposition: form-data; name=\(key); filename=\(key).png\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData(data)
+    }
+    uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+
+    // return URLRequestConvertible and NSData
+    return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
 }
 
 extension GKResult: DataConvertible, DataRepresentable {
