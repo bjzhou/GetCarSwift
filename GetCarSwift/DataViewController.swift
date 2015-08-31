@@ -57,7 +57,7 @@ class DataViewController: UIViewController {
                 let parent = self.parentViewController as? TraceViewController
                 parent?.a = curY*10
                 self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
-                let constant = Double.abs(self.calculateTyreWear(curX, v: ApiHeader.sharedInstance.location?.speed ?? 0)) * 310
+                let constant = Double.abs(self.calculateTyreWear(curX, v: DataKeeper.sharedInstance.location?.speed ?? 0)) * 310
                 UIView.animateWithDuration(0.1, animations: {
                     self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
                     self.progressView.layoutIfNeeded()
@@ -72,7 +72,7 @@ class DataViewController: UIViewController {
     }
     
     func initLocation() {
-        ApiHeader.sharedInstance.delegate = self
+        DataKeeper.sharedInstance.delegates.append(self)
     }
     
     func initAltitude() {
@@ -121,7 +121,7 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension DataViewController: LocationUpdateDelegate {
+extension DataViewController: DataKeeperDelegate {
     func didLocationUpdated(location: CLLocation) {
         self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
         self.altitude.text = String(format: "%.0f", location.altitude)

@@ -628,6 +628,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHr-AD-vBg">
                                         <rect key="frame" x="243" y="14" width="27" height="27"/>
                                         <state key="normal" backgroundImage="btn_playback"/>
+                                        <connections>
+                                            <action selector="didPlayBack:" destination="J1V-FK-ZhS" eventType="touchUpInside" id="09d-Yo-GoJ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1098,6 +1101,7 @@
                         <outlet property="mapView" destination="4wu-gj-rh5" id="2cv-7q-qE4"/>
                         <outlet property="purpleButton" destination="BFD-mT-Nc9" id="aki-Np-ACX"/>
                         <outlet property="purpleTitle" destination="SQ7-e7-yd9" id="Zfn-EM-Nwm"/>
+                        <outlet property="timeLabel" destination="Ve9-Zl-Scw" id="t9P-jh-1c2"/>
                         <outlet property="yellowButton" destination="6F3-Un-UTd" id="kJ8-iQ-Au0"/>
                         <outlet property="yellowTitle" destination="3s9-me-5vs" id="QdL-0S-j13"/>
                     </connections>

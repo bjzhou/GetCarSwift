@@ -20,7 +20,11 @@ class MatchViewController: UIViewController {
     @IBOutlet weak var yellowTitle: UILabel!
     @IBOutlet weak var blueTitle: UILabel!
 
+    @IBOutlet weak var timeLabel: UILabel!
+
     var pressedButton: UIButton?
+
+    var dataList: [[String:Double]] = [[:]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,10 +69,45 @@ class MatchViewController: UIViewController {
         self.presentViewController(popupViewController, animated: false, completion: nil)
     }
 
+    var curTime = 0
+    var startPlay = false
+    @IBAction func didPlayBack(sender: UIButton) {
+        if !startPlay {
+            startPlay = true
+            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("didPlayUpdate:"), userInfo: nil, repeats: true).fire()
+        } else {
+            curTime = 0
+            startPlay = false
+        }
+        var firstOrLast: [String:Double] = [:]
+        firstOrLast["lat"] = mapView.userLocation.coordinate.latitude
+        firstOrLast["long"] = mapView.userLocation.coordinate.longitude
+        firstOrLast["speed"] = mapView.userLocation.location.speed * 3.6
+        //firstOrLast["accelarate"] = mapView.userLocation.location
+        dataList.append(firstOrLast)
+    }
+
+    func didPlayUpdate(sender: NSTimer) {
+        if !startPlay {
+            sender.invalidate()
+            return
+        }
+
+        curTime++
+        let tms = curTime % 100
+        let s = curTime / 100 % 60
+        let m = curTime / 100 / 60
+        timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
+    }
+
 }
 
 extension MatchViewController: MAMapViewDelegate {
-    
+    func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!, updatingLocation: Bool) {
+        if updatingLocation && startPlay {
+
+        }
+    }
 }
 
 extension MatchViewController: AddPlayerDelegate {

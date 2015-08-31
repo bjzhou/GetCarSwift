@@ -136,3 +136,33 @@ func updateLogin(json: SwiftyJSON.JSON) {
     defaults.setValue(json["img"].stringValue, forKey: "avatar")
     defaults.setValue(json["phone"].stringValue, forKey: "phone")
 }
+
+public class DataKeeper {
+    static let sharedInstance = DataKeeper()
+
+    public var delegates: [DataKeeperDelegate] = []
+
+    public var token: String? {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setValue(token, forKey: "token")
+        }
+    }
+
+    public var location: CLLocation? {
+        didSet {
+            if let location = location {
+                for delegate in delegates {
+                    delegate.didLocationUpdated(location)
+                }
+            }
+        }
+    }
+
+    init() {
+        token = NSUserDefaults.standardUserDefaults().stringForKey("token")
+    }
+}
+
+public protocol DataKeeperDelegate {
+    func didLocationUpdated(location: CLLocation)
+}

@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let _ = ApiHeader.sharedInstance.token {
+        if let _ = DataKeeper.sharedInstance.token {
             if let nickname = NSUserDefaults.standardUserDefaults().valueForKey("nickname") as? String where nickname.trim() != "" {} else {
                 let firstController = UINavigationController(rootViewController: storyboard.instantiateViewControllerWithIdentifier("register"))
                 firstController.navigationItem.title = "登陆"

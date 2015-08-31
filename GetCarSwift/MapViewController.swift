@@ -51,7 +51,7 @@ class MapViewController: UIViewController {
     
     func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
-        GeoApi.map(accelerate: parent.a, speed: ApiHeader.sharedInstance.location?.speed ?? 0) { result in
+        GeoApi.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0) { result in
             guard let json = result.data else {
                 return
             }
@@ -62,8 +62,8 @@ class MapViewController: UIViewController {
                 let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
                 let pointAnnotation = MAPointAnnotation()
                 pointAnnotation.coordinate = newCoordinate.coordinate
-                pointAnnotation.title = subJson["nikename"].stringValue // please fix server spell issue
-                if let dis = ApiHeader.sharedInstance.location?.distanceFromLocation(newCoordinate) {
+                pointAnnotation.title = subJson["nickname"].stringValue
+                if let dis = DataKeeper.sharedInstance.location?.distanceFromLocation(newCoordinate) {
                     if dis >= 1000 {
                         pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
                     } else {
@@ -151,6 +151,6 @@ extension MapViewController: MAMapViewDelegate {
     }
     
     func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
-        ApiHeader.sharedInstance.location = userLocation.location
+        DataKeeper.sharedInstance.location = userLocation.location
     }
 }

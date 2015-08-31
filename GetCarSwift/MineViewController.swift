@@ -17,7 +17,7 @@ class MineViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let location = ApiHeader.sharedInstance.location {
+        if let location = DataKeeper.sharedInstance.location {
             searchApi = AMapSearchAPI(searchKey: AMAP_KEY, delegate: self)
             let regeoRequest = AMapReGeocodeSearchRequest()
             regeoRequest.searchType = .ReGeocode

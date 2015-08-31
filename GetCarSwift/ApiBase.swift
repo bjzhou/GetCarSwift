@@ -27,10 +27,10 @@ func getHeader(upload: Bool = false) -> [String:String] {
     headers["Ass-contentmd5"] = ""
     headers["Ass-signature"] = ""
     headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
-    headers["Ass-token"] = ApiHeader.sharedInstance.token ?? ""
+    headers["Ass-token"] = DataKeeper.sharedInstance.token ?? ""
     headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
-    headers["Ass-lati"] = String(ApiHeader.sharedInstance.location?.coordinate.latitude ?? 0)
-    headers["Ass-longti"] = String(ApiHeader.sharedInstance.location?.coordinate.longitude ?? 0)
+    headers["Ass-lati"] = String(DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0)
+    headers["Ass-longti"] = String(DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0)
 
     return headers
 }

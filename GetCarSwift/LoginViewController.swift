@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                ApiHeader.sharedInstance.token = json["token"].stringValue
+                DataKeeper.sharedInstance.token = json["token"].stringValue
                 
                 if json["nickname"].stringValue == "" {
                     let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
