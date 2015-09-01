@@ -9,6 +9,7 @@
 import Foundation
 import Haneke
 import SwiftyJSON
+import CoreMotion
 
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
@@ -150,9 +151,29 @@ public class DataKeeper {
 
     public var location: CLLocation? {
         didSet {
-            if let location = location {
+            if let location = location where location.speed >= 0 {
                 for delegate in delegates {
-                    delegate.didLocationUpdated(location)
+                    delegate.didLocationUpdated?(location)
+                }
+            }
+        }
+    }
+
+    public var acceleration: CMAcceleration? {
+        didSet {
+            if let acceleration = acceleration {
+                for delegate in delegates {
+                    delegate.didAccelerationUpdated?(acceleration)
+                }
+            }
+        }
+    }
+
+    public var altitude: CMAltitudeData? {
+        didSet {
+            if let altitude = altitude {
+                for delegate in delegates {
+                    delegate.didAltitudeUpdated?(altitude)
                 }
             }
         }
@@ -163,6 +184,8 @@ public class DataKeeper {
     }
 }
 
-public protocol DataKeeperDelegate {
-    func didLocationUpdated(location: CLLocation)
+@objc public protocol DataKeeperDelegate {
+    optional func didLocationUpdated(location: CLLocation)
+    optional func didAccelerationUpdated(acceleration: CMAcceleration)
+    optional func didAltitudeUpdated(altitude: CMAltitudeData)
 }

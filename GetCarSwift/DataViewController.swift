@@ -22,83 +22,22 @@ class DataViewController: UIViewController {
     
     @IBOutlet weak var progressView: UIImageView!
     @IBOutlet weak var progressWidth: NSLayoutConstraint!
-    let motionManager = CMMotionManager()
-    let altitudeManager = CMAltimeter()
-    
+
     let scoreTitles = ["天门山通天大道", "台州鸟山", "云南三家村"]
     let scores = ["7:24.36s", "9:05.18s", "5:42.55s"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initMotion()
-        initLocation()
-        initAltitude()
-        
-        initTable()
-    }
-    
-    func initMotion() {
-        guard motionManager.deviceMotionAvailable else {
-            aLabel.text = "0"
-            progressWidth.constant = 0
-            progressView.layoutIfNeeded()
-            return
-        }
-        motionManager.deviceMotionUpdateInterval = 0.01
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
-            guard let validData = data else {
-                return
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                let curX = validData.userAcceleration.x
-                let curY = validData.userAcceleration.y
-                //let curZ = validData.userAcceleration.z
-                let parent = self.parentViewController as? TraceViewController
-                parent?.a = curY*10
-                self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
-                let constant = Double.abs(self.calculateTyreWear(curX, v: DataKeeper.sharedInstance.location?.speed ?? 0)) * 310
-                UIView.animateWithDuration(0.1, animations: {
-                    self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
-                    self.progressView.layoutIfNeeded()
-                })
-            })
-        })
-    }
-    
-    func calculateTyreWear(ax: Double, v: Double) -> Double {
-        if Int(v) == 0 { return 0 }
-        return ax * v * 36 / 1000
-    }
-    
-    func initLocation() {
+
         DataKeeper.sharedInstance.delegates.append(self)
-    }
-    
-    func initAltitude() {
-        guard CMAltimeter.isRelativeAltitudeAvailable() else {
-            pressureLabel.text = "NaN"
-            return
-        }
-        
-        altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
-            guard let validData = data else {
-                return
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.pressureLabel.text = String(Int(validData.pressure.doubleValue*10))
-            })
-        })
-    }
-    
-    func initTable() {
         scoreTable.delegate = self
         scoreTable.dataSource = self
     }
+
 }
 
 extension DataViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("score") as UITableViewCell!
         let title = cell.viewWithTag(301) as? UILabel
@@ -119,13 +58,39 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
+
 }
 
 extension DataViewController: DataKeeperDelegate {
+
     func didLocationUpdated(location: CLLocation) {
         self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
         self.altitude.text = String(format: "%.0f", location.altitude)
         self.lonLabel.text = location.coordinate.longitudeString()
         self.latLabel.text = location.coordinate.latitudeString()
     }
+
+    func didAccelerationUpdated(acceleration: CMAcceleration) {
+        let curX = acceleration.x
+        let curY = acceleration.y
+        //let curZ = acceleration.z
+        let parent = self.parentViewController as? TraceViewController
+        parent?.a = curY*10
+        self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
+        let constant = Double.abs(self.calculateTyreWear(curX, v: DataKeeper.sharedInstance.location?.speed ?? 0)) * 310
+        UIView.animateWithDuration(0.1, animations: {
+            self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
+            self.progressView.layoutIfNeeded()
+        })
+    }
+
+    func calculateTyreWear(ax: Double, v: Double) -> Double {
+        if Int(v) == 0 { return 0 }
+        return ax * v * 36 / 1000
+    }
+
+    func didAltitudeUpdated(altitude: CMAltitudeData) {
+        self.pressureLabel.text = String(Int(altitude.pressure.doubleValue*10))
+    }
+
 }

@@ -87,12 +87,14 @@ class AddPlayerTableViewController: UITableViewController {
                 mode = .Rank
                 tableView.reloadData()
             } else {
-                imageCache.fetch(key: "avatar").onSuccess {image in
-                    self.delegate?.didPlayerAdded(avatar: image, name: "我")
-                    self.dismissPopupViewController()
-                    }.onFailure { err in
-                        self.delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: "我")
+                if let url = NSUserDefaults.standardUserDefaults().stringForKey("avatar") {
+                    imageCache.fetch(URL: NSURL(string: url)!).onSuccess {image in
+                        self.delegate?.didPlayerAdded(avatar: image, name: "我")
                         self.dismissPopupViewController()
+                        }.onFailure { err in
+                            self.delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: "我")
+                            self.dismissPopupViewController()
+                    }
                 }
             }
             if indexPath.row != 0 {

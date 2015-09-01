@@ -308,8 +308,8 @@
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqP-1V-1Vs">
-                                                <rect key="frame" x="133" y="22" width="35" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqP-1V-1Vs">
+                                                <rect key="frame" x="155" y="22" width="13" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -392,8 +392,8 @@
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEV-WS-35g">
-                                                <rect key="frame" x="133" y="22" width="35" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEV-WS-35g">
+                                                <rect key="frame" x="155" y="22" width="13" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1096,13 +1096,19 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="blueAcce" destination="66F-FQ-dQs" id="JeD-cX-cYd"/>
                         <outlet property="blueButton" destination="v0a-GK-6sO" id="EFk-cA-Pig"/>
+                        <outlet property="blueSpeed" destination="dSX-Rr-GNY" id="0k4-Zr-iXo"/>
                         <outlet property="blueTitle" destination="ihg-dZ-X71" id="vnu-PW-bcd"/>
                         <outlet property="mapView" destination="4wu-gj-rh5" id="2cv-7q-qE4"/>
+                        <outlet property="purpleAcce" destination="Bs5-Ac-Zup" id="yjG-oU-ljG"/>
                         <outlet property="purpleButton" destination="BFD-mT-Nc9" id="aki-Np-ACX"/>
+                        <outlet property="purpleSpeed" destination="uAu-dU-5w5" id="g5f-v0-e9T"/>
                         <outlet property="purpleTitle" destination="SQ7-e7-yd9" id="Zfn-EM-Nwm"/>
                         <outlet property="timeLabel" destination="Ve9-Zl-Scw" id="t9P-jh-1c2"/>
+                        <outlet property="yellowAcce" destination="hCq-gK-oal" id="CXz-hs-4GT"/>
                         <outlet property="yellowButton" destination="6F3-Un-UTd" id="kJ8-iQ-Au0"/>
+                        <outlet property="yellowSpeed" destination="m4q-bc-y9b" id="IVS-Wp-3KV"/>
                         <outlet property="yellowTitle" destination="3s9-me-5vs" id="QdL-0S-j13"/>
                     </connections>
                 </viewController>

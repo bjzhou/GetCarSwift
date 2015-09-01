@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 
 class MapViewController: UIViewController {
     
@@ -17,6 +18,10 @@ class MapViewController: UIViewController {
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var mapView: MAMapView!
 
+
+    let motionManager = CMMotionManager()
+    let altitudeManager = CMAltimeter()
+
     var timer = NSTimer()
     var annotations: [MAPointAnnotation] = []
 
@@ -24,8 +29,43 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
 
         initMapView()
+        initMotion()
+        initAltitude()
+
+        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "sex", options: .New, context: nil)
+        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "color", options: .New, context: nil)
+        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "icon", options: .New, context: nil)
     }
-    
+
+    func initMotion() {
+        guard motionManager.deviceMotionAvailable else {
+            return
+        }
+        motionManager.deviceMotionUpdateInterval = 0.01
+        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
+            guard let validData = data else {
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                DataKeeper.sharedInstance.acceleration = validData.userAcceleration
+            })
+        })
+    }
+
+    func initAltitude() {
+        guard CMAltimeter.isRelativeAltitudeAvailable() else {
+            return
+        }
+        altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
+            guard let validData = data else {
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                DataKeeper.sharedInstance.altitude = validData
+            })
+        })
+    }
+
     func initMapView() {
         mapView.delegate = self
         mapView.userTrackingMode = MAUserTrackingModeFollow
@@ -34,7 +74,7 @@ class MapViewController: UIViewController {
         mapView.zoomLevel = 17
         mapView.showsUserLocation = true
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         if !animated {
             // abort when first added by swiftpages
@@ -112,6 +152,19 @@ class MapViewController: UIViewController {
         }
         
         mapView.setZoomLevel(mapView.zoomLevel-1, animated: true)
+    }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath == "sex" || keyPath == "color" || keyPath == "icon" {
+            mapView.showsUserLocation = false
+            mapView.showsUserLocation = true
+        }
+    }
+
+    deinit {
+        NSUserDefaults.standardUserDefaults().removeObserver(self, forKeyPath: "sex")
+        NSUserDefaults.standardUserDefaults().removeObserver(self, forKeyPath: "color")
+        NSUserDefaults.standardUserDefaults().removeObserver(self, forKeyPath: "icon")
     }
 
 }

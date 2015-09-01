@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class MatchViewController: UIViewController {
     
@@ -20,11 +21,19 @@ class MatchViewController: UIViewController {
     @IBOutlet weak var yellowTitle: UILabel!
     @IBOutlet weak var blueTitle: UILabel!
 
+    @IBOutlet weak var purpleSpeed: UILabel!
+    @IBOutlet weak var yellowSpeed: UILabel!
+    @IBOutlet weak var blueSpeed: UILabel!
+
+    @IBOutlet weak var purpleAcce: UILabel!
+    @IBOutlet weak var yellowAcce: UILabel!
+    @IBOutlet weak var blueAcce: UILabel!
+
     @IBOutlet weak var timeLabel: UILabel!
 
     var pressedButton: UIButton?
 
-    var dataList: [[String:Double]] = [[:]]
+    var dataList: [Double:[String:Double]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +41,9 @@ class MatchViewController: UIViewController {
     }
     
     func initMapView() {
-        mapView.delegate = self
-        mapView.userTrackingMode = MAUserTrackingModeFollow
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 17
-        mapView.showsUserLocation = true
     }
     
     @IBAction func locationButtonAction(sender: UIButton) {
@@ -73,22 +79,22 @@ class MatchViewController: UIViewController {
     var startPlay = false
     @IBAction func didPlayBack(sender: UIButton) {
         if !startPlay {
+            dataList.removeAll()
             startPlay = true
             NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("didPlayUpdate:"), userInfo: nil, repeats: true).fire()
         } else {
             curTime = 0
             startPlay = false
+            let pasteBoard = UIPasteboard.generalPasteboard()
+            pasteBoard.string = JSON(dataList).rawString()
         }
-        var firstOrLast: [String:Double] = [:]
-        firstOrLast["lat"] = mapView.userLocation.coordinate.latitude
-        firstOrLast["long"] = mapView.userLocation.coordinate.longitude
-        firstOrLast["speed"] = mapView.userLocation.location.speed * 3.6
-        //firstOrLast["accelarate"] = mapView.userLocation.location
-        dataList.append(firstOrLast)
     }
 
     func didPlayUpdate(sender: NSTimer) {
         if !startPlay {
+            timeLabel.text = "00:00.00"
+            blueSpeed.text = "0.0"
+            blueAcce.text = "0.0"
             sender.invalidate()
             return
         }
@@ -98,14 +104,18 @@ class MatchViewController: UIViewController {
         let s = curTime / 100 % 60
         let m = curTime / 100 / 60
         timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
-    }
 
-}
+        if curTime % 100 == 0 {
+            var point: [String:Double] = [:]
+            point["lat"] = DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0
+            point["long"] = DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0
+            let speed = DataKeeper.sharedInstance.location?.speed
+            point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
+            point["accelarate"] = round(abs(DataKeeper.sharedInstance.acceleration?.y ?? 0) * 100) / 10
+            dataList[Double(curTime) / 100.0] = point
 
-extension MatchViewController: MAMapViewDelegate {
-    func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!, updatingLocation: Bool) {
-        if updatingLocation && startPlay {
-
+            blueSpeed.text = String(point["speed"]!)
+            blueAcce.text = String(point["accelarate"]!)
         }
     }
 }
