@@ -33,21 +33,22 @@ class MatchViewController: UIViewController {
 
     var pressedButton: UIButton?
 
-    var dataList: [Double:[String:Double]] = [:]
+    var purpleAnnotation: MAPointAnnotation?
+    var yellowAnnotation: MAPointAnnotation?
+    var blueAnnotation: MAPointAnnotation?
+
+    var dataList: [[String:Double]] = []
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         initMapView()
     }
     
     func initMapView() {
+        mapView.centerCoordinate = DataKeeper.sharedInstance.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        mapView.delegate = self
         mapView.showsCompass = false
-        mapView.scaleOrigin = CGPoint(x: 8, y: 44)
+        mapView.scaleOrigin = CGPoint(x: 8, y: 8)
         mapView.zoomLevel = 17
-    }
-    
-    @IBAction func locationButtonAction(sender: UIButton) {
-        mapView.userTrackingMode = MAUserTrackingModeFollow
     }
     
     @IBAction func zoomInButtonAction(sender: UIButton) {
@@ -85,6 +86,7 @@ class MatchViewController: UIViewController {
         } else {
             curTime = 0
             startPlay = false
+            print(dataList)
             let pasteBoard = UIPasteboard.generalPasteboard()
             pasteBoard.string = JSON(dataList).rawString()
         }
@@ -98,8 +100,6 @@ class MatchViewController: UIViewController {
             sender.invalidate()
             return
         }
-
-        curTime++
         let tms = curTime % 100
         let s = curTime / 100 % 60
         let m = curTime / 100 / 60
@@ -112,11 +112,16 @@ class MatchViewController: UIViewController {
             let speed = DataKeeper.sharedInstance.location?.speed
             point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
             point["accelarate"] = round(abs(DataKeeper.sharedInstance.acceleration?.y ?? 0) * 100) / 10
-            dataList[Double(curTime) / 100.0] = point
+            dataList.append(point)
 
             blueSpeed.text = String(point["speed"]!)
             blueAcce.text = String(point["accelarate"]!)
+
+            purpleAnnotation?.coordinate.longitude += 0.001
+            blueAnnotation?.coordinate.longitude += 0.001
+            yellowAnnotation?.coordinate.longitude += 0.001
         }
+        curTime++
     }
 }
 
@@ -128,17 +133,58 @@ extension MatchViewController: AddPlayerDelegate {
             pressedButton.clipsToBounds = true
             switch pressedButton {
             case purpleButton:
+                self.mapView.removeAnnotation(purpleAnnotation)
                 purpleTitle.text = name
+                purpleAnnotation = MAPointAnnotation()
+                purpleAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 100, longitude: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 100)
+                self.mapView.addAnnotation(purpleAnnotation)
                 break
             case yellowButton:
+                self.mapView.removeAnnotation(yellowAnnotation)
                 yellowTitle.text = name
+                yellowAnnotation = MAPointAnnotation()
+                yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 100 + 0.01, longitude: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 100)
+                self.mapView.addAnnotation(yellowAnnotation)
                 break
             case blueButton:
+                self.mapView.removeAnnotation(blueAnnotation)
                 blueTitle.text = name
+                blueAnnotation = MAPointAnnotation()
+                blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 100 - 0.01, longitude: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 100)
+                self.mapView.addAnnotation(blueAnnotation)
                 break
             default:
                 break
             }
         }
+    }
+}
+
+extension MatchViewController: MAMapViewDelegate {
+    func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
+        if annotation.isKindOfClass(MAPointAnnotation) {
+            let pointReuseIndetifier = "pointReuseIndetifier"
+            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier) as? MAPinAnnotationView
+            if annotationView == nil {
+                annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier) as MAPinAnnotationView
+            }
+            annotationView!.canShowCallout = false
+            annotationView!.animatesDrop = false
+            annotationView!.draggable = false
+
+            switch annotation as! MAPointAnnotation {
+            case let purple where purple == purpleAnnotation:
+                annotationView!.image = UIImage(named: "purple_small_car")
+            case let yellow where yellow == yellowAnnotation:
+                annotationView!.image = UIImage(named: "yellow_small_car")
+            case let blue where blue == blueAnnotation:
+                annotationView!.image = UIImage(named: "blue_small_car")
+            default:
+                break
+            }
+
+            return annotationView;
+        }
+        return nil;
     }
 }
