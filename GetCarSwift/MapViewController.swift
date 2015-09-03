@@ -10,7 +10,7 @@ import UIKit
 import CoreMotion
 
 class MapViewController: UIViewController {
-    
+
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var layerButton: UIButton!
     @IBOutlet weak var trafficButton: UIButton!
@@ -21,6 +21,8 @@ class MapViewController: UIViewController {
 
     let motionManager = CMMotionManager()
     let altitudeManager = CMAltimeter()
+
+    var locationImage: UIImage?
 
     var timer = NSTimer()
     var annotations: [MAPointAnnotation] = []
@@ -35,6 +37,15 @@ class MapViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "sex", options: .New, context: nil)
         NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "color", options: .New, context: nil)
         NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "icon", options: .New, context: nil)
+
+        setLocationImage()
+    }
+
+    func setLocationImage() {
+        let sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
+        let color = NSUserDefaults.standardUserDefaults().integerForKey("color")
+        let icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+        locationImage = UIImage(named: getCarIconName(sex, color: color, icon: icon))
     }
 
     func initMotion() {
@@ -68,7 +79,7 @@ class MapViewController: UIViewController {
 
     func initMapView() {
         mapView.delegate = self
-        mapView.userTrackingMode = MAUserTrackingModeFollow
+        mapView.userTrackingMode = .Follow
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 17
@@ -84,18 +95,18 @@ class MapViewController: UIViewController {
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("didTimerUpdate"), userInfo: nil, repeats: true)
     }
-    
+
     override func viewDidDisappear(animated: Bool) {
         timer.invalidate()
     }
-    
+
     func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
         GeoApi.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0) { result in
             guard let json = result.data else {
                 return
             }
-            
+
             self.mapView.removeAnnotations(self.annotations)
             self.annotations.removeAll()
             for (_, subJson) in json {
@@ -115,9 +126,9 @@ class MapViewController: UIViewController {
             self.mapView.addAnnotations(self.annotations)
         }
     }
-    
+
     @IBAction func locationButtonAction(sender: UIButton) {
-        mapView.userTrackingMode = MAUserTrackingModeFollow
+        mapView.userTrackingMode = .Follow
     }
 
     @IBAction func layerButtonAction(sender: UIButton) {
@@ -127,7 +138,7 @@ class MapViewController: UIViewController {
             mapView.mapType = MAMapType.Standard
         }
     }
-    
+
     @IBAction func trafficButtonAction(sender: UIButton) {
         if sender.selected {
             mapView.showTraffic = false;
@@ -142,20 +153,21 @@ class MapViewController: UIViewController {
         if mapView.zoomLevel >= 20 {
             return
         }
-        
+
         mapView.setZoomLevel(mapView.zoomLevel+1, animated: true)
     }
-    
+
     @IBAction func zoomOutButtonAction(sender: UIButton) {
         if mapView.zoomLevel <= 3 {
             return
         }
-        
+
         mapView.setZoomLevel(mapView.zoomLevel-1, animated: true)
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "sex" || keyPath == "color" || keyPath == "icon" {
+            setLocationImage()
             mapView.showsUserLocation = false
             mapView.showsUserLocation = true
         }
@@ -177,14 +189,11 @@ extension MapViewController: MAMapViewDelegate {
             if annotationView == nil {
                 annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: userLocationStyleReuseIndetifier)
             }
-            let sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
-            let color = NSUserDefaults.standardUserDefaults().integerForKey("color")
-            let icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
-            annotationView.image = UIImage(named: getCarIconName(sex, color: color, icon: icon))
-            
+            annotationView.image = locationImage
+
             return annotationView
         }
-        
+
         if annotation.isKindOfClass(MAPointAnnotation) {
             let pointReuseIndetifier = "pointReuseIndetifier"
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier) as? MAPinAnnotationView
@@ -195,14 +204,14 @@ extension MapViewController: MAMapViewDelegate {
             annotationView!.animatesDrop = false
             annotationView!.draggable = false
             annotationView!.pinColor = MAPinAnnotationColor.Purple
-            
+
             annotationView!.image = UIImage(named: "白2")
-            
+
             return annotationView;
         }
         return nil;
     }
-    
+
     func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
         DataKeeper.sharedInstance.location = userLocation.location
     }

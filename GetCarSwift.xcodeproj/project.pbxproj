@@ -31,7 +31,6 @@
 		C86F85501B8215A100C7DC7C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F854F1B8215A100C7DC7C /* CoreMotion.framework */; };
 		C86F85521B82169B00C7DC7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85511B82169B00C7DC7C /* CoreGraphics.framework */; };
 		C86F85541B8216A600C7DC7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85531B8216A600C7DC7C /* QuartzCore.framework */; };
-		C86F85561B8216B100C7DC7C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85551B8216B100C7DC7C /* OpenGLES.framework */; };
 		C86F85581B8216BD00C7DC7C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85571B8216BD00C7DC7C /* CoreLocation.framework */; };
 		C86F855A1B8216CD00C7DC7C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85591B8216CD00C7DC7C /* CoreTelephony.framework */; };
 		C86F855C1B8216D500C7DC7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F855B1B8216D500C7DC7C /* SystemConfiguration.framework */; };
@@ -52,6 +51,9 @@
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
 		C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A8719F1B92DFEA006300EF /* UploadApi.swift */; settings = {ASSET_TAGS = (); }; };
+		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2011B983967002F39EB /* TrackViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; settings = {ASSET_TAGS = (); }; };
 		C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08B1B8B527D006095DC /* MatchViewController.swift */; };
 		C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */; };
 		C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08E1B8B5DEE006095DC /* JSON.swift */; };
@@ -221,7 +223,7 @@
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
-		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageView.swift; path = GetCarSwift/UIImageView.swift; sourceTree = "<group>"; };
+		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C848F1B61B778626008DAC69 /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
 		C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewController.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -243,7 +245,6 @@
 		C86F854F1B8215A100C7DC7C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C86F85511B82169B00C7DC7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C86F85531B8216A600C7DC7C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C86F85551B8216B100C7DC7C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C86F85571B8216BD00C7DC7C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C86F85591B8216CD00C7DC7C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C86F855B1B8216D500C7DC7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -256,7 +257,7 @@
 		C880DA761B78D21900F5E24D /* GeoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoApi.swift; sourceTree = "<group>"; };
 		C880DA781B78DF5400F5E24D /* ApiHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeader.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		C88D822E1AE27E4900DBC0C1 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = GetCarSwift/UIImage.swift; sourceTree = "<group>"; };
+		C88D822E1AE27E4900DBC0C1 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableNavigationController.swift; sourceTree = "<group>"; };
 		C894A3311B7F783D00D853C9 /* CarApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarApi.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
@@ -266,11 +267,14 @@
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
 		C8A8719F1B92DFEA006300EF /* UploadApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
+		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
+		C8AEC2011B983967002F39EB /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
+		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		C8C2C08B1B8B527D006095DC /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
-		C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLLocationCoordinate2D.swift; path = GetCarSwift/CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
-		C8C2C08E1B8B5DEE006095DC /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = GetCarSwift/JSON.swift; sourceTree = "<group>"; };
-		C8C2C08F1B8B5DEE006095DC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = GetCarSwift/String.swift; sourceTree = "<group>"; };
-		C8C2C0901B8B5DEE006095DC /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = GetCarSwift/UIColor.swift; sourceTree = "<group>"; };
+		C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		C8C2C08E1B8B5DEE006095DC /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		C8C2C08F1B8B5DEE006095DC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C8C2C0901B8B5DEE006095DC /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C8C2C0951B8B5EAE006095DC /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = GetCarSwift/AMapSearchKit.framework; sourceTree = "<group>"; };
 		C8C2C0961B8B5EAE006095DC /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = GetCarSwift/Bugly.framework; sourceTree = "<group>"; };
 		C8C2C0971B8B5EAE006095DC /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = GetCarSwift/MAMapKit.framework; sourceTree = "<group>"; };
@@ -283,7 +287,7 @@
 		C8CD8DEE1B91DF090050DF90 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ENSideMenuNavigationController.swift; path = ENSwiftSideMenu/Library/ENSideMenuNavigationController.swift; sourceTree = SOURCE_ROOT; };
 		C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = "<group>"; };
 		C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
-		C8D6CAE51B8F511700A417CF /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = GetCarSwift/UIViewController.swift; sourceTree = "<group>"; };
+		C8D6CAE51B8F511700A417CF /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
@@ -313,7 +317,6 @@
 				C86F855C1B8216D500C7DC7C /* SystemConfiguration.framework in Frameworks */,
 				C86F855A1B8216CD00C7DC7C /* CoreTelephony.framework in Frameworks */,
 				C86F85581B8216BD00C7DC7C /* CoreLocation.framework in Frameworks */,
-				C86F85561B8216B100C7DC7C /* OpenGLES.framework in Frameworks */,
 				C8C2C0981B8B5EAE006095DC /* AMapSearchKit.framework in Frameworks */,
 				C86F85541B8216A600C7DC7C /* QuartzCore.framework in Frameworks */,
 				C86F85521B82169B00C7DC7C /* CoreGraphics.framework in Frameworks */,
@@ -347,7 +350,6 @@
 				C86F855B1B8216D500C7DC7C /* SystemConfiguration.framework */,
 				C86F85591B8216CD00C7DC7C /* CoreTelephony.framework */,
 				C86F85571B8216BD00C7DC7C /* CoreLocation.framework */,
-				C86F85551B8216B100C7DC7C /* OpenGLES.framework */,
 				C86F85531B8216A600C7DC7C /* QuartzCore.framework */,
 				C86F85511B82169B00C7DC7C /* CoreGraphics.framework */,
 				C86F854F1B8215A100C7DC7C /* CoreMotion.framework */,
@@ -367,21 +369,6 @@
 				C8A8719F1B92DFEA006300EF /* UploadApi.swift */,
 			);
 			name = Api;
-			sourceTree = "<group>";
-		};
-		C835CE8A1B75232E003015A7 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				C88D822E1AE27E4900DBC0C1 /* UIImage.swift */,
-				C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */,
-				C8C2C08E1B8B5DEE006095DC /* JSON.swift */,
-				C8C2C08F1B8B5DEE006095DC /* String.swift */,
-				C8C2C0901B8B5DEE006095DC /* UIColor.swift */,
-				C8D6CAE51B8F511700A417CF /* UIViewController.swift */,
-				C828823B1B9219620091F624 /* UIImageView.swift */,
-			);
-			name = Extension;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		C867FC5D1AD8FCAF00F99592 = {
@@ -409,6 +396,7 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
+				C8AEC2051B985BAB002F39EB /* Extension */,
 				C881F02F1B7B86BD00E062B6 /* Assets */,
 				C80881E01B6D2171002A1CE9 /* Api */,
 				C8E2B8541AD96F19003B07FE /* Trace */,
@@ -417,7 +405,6 @@
 				C8E2B8391AD92AFA003B07FE /* CarBar */,
 				C867FD1F1AD909B300F99592 /* Login */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
-				C835CE8A1B75232E003015A7 /* Extension */,
 				C89A05C81B6E162500620C85 /* ThirdParty */,
 				C867FD1D1AD9071900F99592 /* Globals.swift */,
 				C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */,
@@ -485,6 +472,21 @@
 			name = ThirdParty;
 			sourceTree = "<group>";
 		};
+		C8AEC2051B985BAB002F39EB /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C88D822E1AE27E4900DBC0C1 /* UIImage.swift */,
+				C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */,
+				C8C2C08E1B8B5DEE006095DC /* JSON.swift */,
+				C8C2C08F1B8B5DEE006095DC /* String.swift */,
+				C8C2C0901B8B5DEE006095DC /* UIColor.swift */,
+				C8D6CAE51B8F511700A417CF /* UIViewController.swift */,
+				C828823B1B9219620091F624 /* UIImageView.swift */,
+				C8AEC2031B985B5C002F39EB /* NSDate.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
 		C8CD8DC41B91CB8F0050DF90 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,6 +546,8 @@
 				C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */,
 				C8E2B83C1AD92D73003B07FE /* PostCell.swift */,
 				C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */,
+				C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */,
+				C8AEC2011B983967002F39EB /* TrackViewController.swift */,
 			);
 			name = CarBar;
 			sourceTree = "<group>";
@@ -822,6 +826,7 @@
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
+				C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */,
 				C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
@@ -835,6 +840,7 @@
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
 				C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */,
 				C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */,
+				C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */,
 				C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */,
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
@@ -861,6 +867,7 @@
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
 				C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
+				C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */,
 				C8C2C0941B8B5DEE006095DC /* UIColor.swift in Sources */,
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,

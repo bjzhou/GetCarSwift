@@ -55,7 +55,7 @@ class MatchViewController: UIViewController {
         if mapView.zoomLevel >= 20 {
             return
         }
-        
+
         mapView.setZoomLevel(mapView.zoomLevel+1, animated: true)
     }
     
@@ -63,7 +63,7 @@ class MatchViewController: UIViewController {
         if mapView.zoomLevel <= 3 {
             return
         }
-        
+
         mapView.setZoomLevel(mapView.zoomLevel-1, animated: true)
     }
 
