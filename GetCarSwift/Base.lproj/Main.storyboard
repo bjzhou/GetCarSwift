@@ -2817,7 +2817,7 @@
         <!--使用条款以及免责声明-->
         <scene sceneID="mat-XM-7Ad">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="xF7-B5-Hds" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="xF7-B5-Hds" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RCb-3k-fJ7"/>
                         <viewControllerLayoutGuide type="bottom" id="fbm-yW-RVt"/>
