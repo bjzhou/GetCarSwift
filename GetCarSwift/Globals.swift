@@ -131,21 +131,51 @@ func async(bgThread: () -> Void) {
 func updateLogin(json: SwiftyJSON.JSON) {
     let defaults = NSUserDefaults.standardUserDefaults()
     defaults.setBool(true, forKey: "isLogin")
-    defaults.setValue(json["nickname"].stringValue, forKey: "nickname")
-    defaults.setValue(json["sex"].intValue, forKey: "sex")
     defaults.setValue(json["car"].stringValue, forKey: "car")
-    defaults.setValue(json["img"].stringValue, forKey: "avatar")
     defaults.setValue(json["phone"].stringValue, forKey: "phone")
+    DataKeeper.sharedInstance.nickname = json["nickname"].stringValue
+    DataKeeper.sharedInstance.sex = json["sex"].intValue
+    DataKeeper.sharedInstance.avatarUrl = json["img"].stringValue
 }
 
 public class DataKeeper {
     static let sharedInstance = DataKeeper()
 
-    public var delegates: [DataKeeperDelegate] = []
+    private var delegates: [DataKeeperDelegate] = []
 
     public var token: String? {
-        didSet {
-            NSUserDefaults.standardUserDefaults().setValue(token, forKey: "token")
+        get {
+            return NSUserDefaults.standardUserDefaults().stringForKey("token")
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "token")
+        }
+    }
+
+    public var nickname: String? {
+        get {
+            return NSUserDefaults.standardUserDefaults().stringForKey("nickname")
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "nickname")
+        }
+    }
+
+    public var sex: Int {
+        get {
+            return NSUserDefaults.standardUserDefaults().integerForKey("sex")
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "sex")
+        }
+    }
+
+    public var avatarUrl: String? {
+        get {
+            return NSUserDefaults.standardUserDefaults().stringForKey("avatar")
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "avatar")
         }
     }
 
@@ -179,8 +209,8 @@ public class DataKeeper {
         }
     }
 
-    init() {
-        token = NSUserDefaults.standardUserDefaults().stringForKey("token")
+    public func addDelegate(delegate: DataKeeperDelegate) {
+        delegates.append(delegate)
     }
 }
 

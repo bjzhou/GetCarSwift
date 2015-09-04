@@ -91,7 +91,7 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didPostComment(sender: UIButton) {
-        comments.append(["time":NSDate.nowString, "avatar":NSUserDefaults.standardUserDefaults().stringForKey("avatar") ?? "", "nickname":NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "", "content":commentTextField.text ?? ""])
+        comments.append(["time":NSDate.nowString, "avatar":DataKeeper.sharedInstance.avatarUrl ?? "", "nickname":DataKeeper.sharedInstance.nickname ?? "", "content":commentTextField.text ?? ""])
         commentTextField.text = ""
         self.view.endEditing(true)
     }

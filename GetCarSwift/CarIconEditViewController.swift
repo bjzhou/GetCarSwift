@@ -9,8 +9,7 @@
 import UIKit
 
 class CarIconEditViewController: UIViewController {
-    
-    var sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
+
     var colorTag = NSUserDefaults.standardUserDefaults().integerForKey("color")
     var iconTag = NSUserDefaults.standardUserDefaults().integerForKey("icon")
     var prevColorTag = -1
@@ -28,7 +27,7 @@ class CarIconEditViewController: UIViewController {
     func loadHighlightButton() {
         for tag in 101...109 {
             let button = self.view.viewWithTag(tag) as! UIButton
-            let image = UIImage(named: getColorIconName(sex, color: tag))
+            let image = UIImage(named: getColorIconName(DataKeeper.sharedInstance.sex, color: tag))
             button.setImage(image, forState: UIControlState.Highlighted)
             button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
             button.setImage(image, forState: UIControlState.Selected)
@@ -48,7 +47,7 @@ class CarIconEditViewController: UIViewController {
         for tag in 201...206 {
             let button = self.view.viewWithTag(tag) as! UIButton
             let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, icon: tag))
-            let image = UIImage(named: getCarIconName(sex, color: colorTag, icon: tag))
+            let image = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color: colorTag, icon: tag))
             button.setImage(noSexImage, forState: UIControlState.Normal)
             button.setImage(image, forState: UIControlState.Highlighted)
             button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])

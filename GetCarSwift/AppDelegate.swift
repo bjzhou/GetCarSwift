@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let _ = DataKeeper.sharedInstance.token {
-            if let nickname = NSUserDefaults.standardUserDefaults().valueForKey("nickname") as? String where nickname.trim() != "" {} else {
+            if let nickname = DataKeeper.sharedInstance.nickname where nickname.trim() != "" {} else {
                 let firstController = UINavigationController(rootViewController: storyboard.instantiateViewControllerWithIdentifier("register"))
                 firstController.navigationItem.title = "登陆"
                 window?.rootViewController = firstController
@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MAMapServices.sharedServices().apiKey = AMAP_KEY
         
         CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
-        CrashReporter.sharedInstance().setUserId(NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "10000")
+        CrashReporter.sharedInstance().setUserId(DataKeeper.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
         
         checkNewVersion()

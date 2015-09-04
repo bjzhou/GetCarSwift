@@ -87,7 +87,7 @@ class AddPlayerTableViewController: UITableViewController {
                 mode = .Rank
                 tableView.reloadData()
             } else {
-                if let url = NSUserDefaults.standardUserDefaults().stringForKey("avatar") {
+                if let url = DataKeeper.sharedInstance.avatarUrl {
                     imageCache.fetch(URL: NSURL(string: url)!).onSuccess {image in
                         self.delegate?.didPlayerAdded(avatar: image, name: "我")
                         self.dismissPopupViewController()

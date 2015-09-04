@@ -54,6 +54,7 @@
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2011B983967002F39EB /* TrackViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; settings = {ASSET_TAGS = (); }; };
+		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; settings = {ASSET_TAGS = (); }; };
 		C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08B1B8B527D006095DC /* MatchViewController.swift */; };
 		C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */; };
 		C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08E1B8B5DEE006095DC /* JSON.swift */; };
@@ -270,6 +271,7 @@
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2011B983967002F39EB /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
+		C8AEC2121B996F41002F39EB /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		C8C2C08B1B8B527D006095DC /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		C8C2C08E1B8B5DEE006095DC /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -396,7 +398,6 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
-				C8AEC2051B985BAB002F39EB /* Extension */,
 				C881F02F1B7B86BD00E062B6 /* Assets */,
 				C80881E01B6D2171002A1CE9 /* Api */,
 				C8E2B8541AD96F19003B07FE /* Trace */,
@@ -405,6 +406,7 @@
 				C8E2B8391AD92AFA003B07FE /* CarBar */,
 				C867FD1F1AD909B300F99592 /* Login */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
+				C8AEC2051B985BAB002F39EB /* Extension */,
 				C89A05C81B6E162500620C85 /* ThirdParty */,
 				C867FD1D1AD9071900F99592 /* Globals.swift */,
 				C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */,
@@ -483,6 +485,7 @@
 				C8D6CAE51B8F511700A417CF /* UIViewController.swift */,
 				C828823B1B9219620091F624 /* UIImageView.swift */,
 				C8AEC2031B985B5C002F39EB /* NSDate.swift */,
+				C8AEC2121B996F41002F39EB /* NSAttributedString.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */,
 				C8CD8DEF1B91DF090050DF90 /* ENSideMenu.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
+				C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */,
 				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
 				C894A3321B7F783D00D853C9 /* CarApi.swift in Sources */,

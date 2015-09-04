@@ -34,12 +34,12 @@ extension UIImageView {
     }
 
     func setAvatarImage() {
-        if let avatarUrl = NSUserDefaults.standardUserDefaults().stringForKey("avatar") {
+        if let avatarUrl = DataKeeper.sharedInstance.avatarUrl {
             self.hnk_setImageFromURL(NSURL(string: avatarUrl)!, failure: {_ in
                 self.image = UIImage(named: "avatar")
             })
         } else {
-            self.image = UIImage(named: "avatar")
+            self.image = UIImage(named: NSUserDefaults.standardUserDefaults().integerForKey("sex") == 1 ? "avatar" : "avatar_female")
         }
     }
 }

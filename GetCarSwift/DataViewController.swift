@@ -29,9 +29,17 @@ class DataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DataKeeper.sharedInstance.delegates.append(self)
+        DataKeeper.sharedInstance.addDelegate(self)
         scoreTable.delegate = self
         scoreTable.dataSource = self
+    }
+
+    @IBAction func didGo(sender: UIButton) {
+        let attributedMessage = NSAttributedString.loadHTMLString("<font size=4>在通过设定的起点和终点时将会自动启动与结束码表，不用手动启动与结束。<br/><br/>进入计时前，请仔细阅读<b>《使用条款以及免责声明》</b>。进入计时，即视为认同我司的<b>《使用条款以及免责声明》</b></font>")
+        let alertController = UIAlertController(title: "自动计时器", message: "", preferredStyle: .Alert)
+        alertController.setValue(attributedMessage, forKey: "attributedMessage")
+        alertController.addAction(UIAlertAction(title: "进入计时", style: .Default, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
     }
 
 }

@@ -46,21 +46,28 @@ class MineViewController: UITableViewController {
             accountCell.avatar.layer.cornerRadius = 8
             accountCell.sexIcon.image = UIImage(named: NSUserDefaults.standardUserDefaults().integerForKey("sex") == 0 ? "mine_female" : "mine_male")
             accountCell.avatar.setAvatarImage()
-            accountCell.accountName.text = NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? "用户名"
+            accountCell.accountName.text = DataKeeper.sharedInstance.nickname ?? "用户名"
             accountCell.accountDescription.text = district ?? "正在获得当前位置"
             return accountCell
         }
         return cell
     }
+
+    // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "personInfo" {
             let dest = segue.destinationViewController as! PersonInfoViewController
             dest.district = district
+        } else if segue.identifier == "homepage" {
+            let dest = segue.destinationViewController as! MyHomepaeViewController
+            dest.district = district
         }
     }
 
 }
+
+// MARK: -
 
 extension MineViewController: AMapSearchDelegate {
     func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {

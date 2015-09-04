@@ -20,8 +20,6 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
 
     var mode: InfoEditMode = .Sex
     
-    var currentSex = 0
-    
     init(mode: InfoEditMode) {
         super.init(nibName: nil, bundle: nil)
         self.mode = mode
@@ -49,7 +47,6 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func initSexView() {
-        currentSex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
         let tableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: UITableViewStyle.Grouped)
         tableView.delegate = self
         tableView.dataSource = self
@@ -82,13 +79,12 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textLabel?.text = "女"
         }
         
-        cell.accessoryView = UIImageView(image: indexPath.row != currentSex ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
+        cell.accessoryView = UIImageView(image: indexPath.row != DataKeeper.sharedInstance.sex ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        currentSex = indexPath.row == 1 ? 0 : 1
-        NSUserDefaults.standardUserDefaults().setInteger(currentSex, forKey: "sex")
+        DataKeeper.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
         tableView.reloadData()
         self.navigationController?.popViewControllerAnimated(true)
     }

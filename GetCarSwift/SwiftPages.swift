@@ -33,7 +33,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     
     //Item size variables
     private var topBarHeight: CGFloat = 36
-    private var animatedBarHeight: CGFloat = 3
+    private var animatedBarHeight: CGFloat = 5
     
     //Bar item variables
     private var transparentTopBar: Bool = true

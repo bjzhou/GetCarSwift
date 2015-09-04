@@ -42,10 +42,9 @@ class MapViewController: UIViewController {
     }
 
     func setLocationImage() {
-        let sex = NSUserDefaults.standardUserDefaults().integerForKey("sex")
         let color = NSUserDefaults.standardUserDefaults().integerForKey("color")
         let icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
-        locationImage = UIImage(named: getCarIconName(sex, color: color, icon: icon))
+        locationImage = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color: color, icon: icon))
     }
 
     func initMotion() {
