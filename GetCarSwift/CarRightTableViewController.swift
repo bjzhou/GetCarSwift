@@ -13,9 +13,9 @@ protocol CarRightDelegate: CarTableNavigationDelegate {
 }
 
 class CarRightTableViewController: UITableViewController {
-    
+
     var delegate: CarRightDelegate?
-    var data: [String] = [] {
+    var data: [(String, String)] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -23,7 +23,7 @@ class CarRightTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
     }
 
@@ -44,17 +44,17 @@ class CarRightTableViewController: UITableViewController {
         if cell == nil {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
         }
-        
-        cell?.textLabel?.text = data[indexPath.row]
+
+        cell?.textLabel?.text = data[indexPath.row].1
 
         return cell!
     }
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let delegate = delegate {
             delegate.didCarSelected(data[indexPath.row])
             delegate.dismissViewController()
         }
     }
-
+    
 }

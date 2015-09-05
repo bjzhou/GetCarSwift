@@ -9,17 +9,17 @@
 import UIKit
 
 protocol CarTableNavigationDelegate {
-    func didCarSelected(carName: String)
+    func didCarSelected(car: (String, String))
 }
 
-class CarTableNavigationController: ENSideMenuNavigationController, CarRightDelegate {
-    
+class CarTableNavigationController: ENSideMenuNavigationController {
+
     var carDelegate: CarTableNavigationDelegate?
     var menuController: CarRightTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         menuController = CarRightTableViewController()
         menuController?.delegate = self
 
@@ -30,13 +30,14 @@ class CarTableNavigationController: ENSideMenuNavigationController, CarRightDele
         sideMenu?.bouncingEnabled = false
         sideMenu?.allowLeftSwipe = false
     }
-    
-    func didCarSelected(carName: String) {
-        carDelegate?.didCarSelected(carName)
+}
+
+extension CarTableNavigationController: CarRightDelegate {
+    func didCarSelected(car: (String, String)) {
+        carDelegate?.didCarSelected(car)
     }
-    
+
     func dismissViewController() {
         dismissViewControllerAnimated(true, completion: nil)
     }
-
 }

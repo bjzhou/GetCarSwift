@@ -10,11 +10,10 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     static let DEBUG = false
 
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -28,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let firstController = storyboard.instantiateViewControllerWithIdentifier("login")
             window?.rootViewController = firstController
         }
-        
+
         if AppDelegate.DEBUG {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("register")
@@ -38,20 +37,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor.gaikeRedColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(), NSFontAttributeName : UIFont.systemFontOfSize(20.0)]
         UINavigationBar.appearance().barStyle = .Black
-        
+
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
-        
+
         MAMapServices.sharedServices().apiKey = AMAP_KEY
-        
+
         CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
         CrashReporter.sharedInstance().setUserId(DataKeeper.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
-        
+
         checkNewVersion()
-        
+
         return true
     }
-    
+
     func checkNewVersion() {
         checkUpdate().responseJSON { (req, res, data) in
             guard let jsonValue = data.value else {
@@ -91,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    
 }
 

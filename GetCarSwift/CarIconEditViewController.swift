@@ -23,7 +23,7 @@ class CarIconEditViewController: UIViewController {
         loadHighlightButton()
         loadCurrentIcon()
     }
-    
+
     func loadHighlightButton() {
         for tag in 101...109 {
             let button = self.view.viewWithTag(tag) as! UIButton
@@ -33,17 +33,17 @@ class CarIconEditViewController: UIViewController {
             button.setImage(image, forState: UIControlState.Selected)
         }
     }
-    
+
     func loadCurrentIcon() {
         let colorButton = self.view.viewWithTag(colorTag) as! UIButton
         colorButton.selected = true
-        
+
         if prevColorTag != -1 && prevColorTag != colorTag {
             let prevButton = self.view.viewWithTag(prevColorTag) as! UIButton
             prevButton.selected = false
         }
         prevColorTag = colorTag
-        
+
         for tag in 201...206 {
             let button = self.view.viewWithTag(tag) as! UIButton
             let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, icon: tag))
@@ -56,7 +56,7 @@ class CarIconEditViewController: UIViewController {
 
         let iconButton = self.view.viewWithTag(iconTag) as! UIButton
         iconButton.selected = true
-        
+
         if prevIconTag != -1 && prevIconTag != iconTag {
             let prevButton = self.view.viewWithTag(prevIconTag) as! UIButton
             prevButton.selected = false
@@ -64,11 +64,6 @@ class CarIconEditViewController: UIViewController {
         prevIconTag = iconTag
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func onColorAction(sender: UIButton) {
         colorTag = sender.tag
         loadCurrentIcon()
@@ -82,16 +77,12 @@ class CarIconEditViewController: UIViewController {
     @IBAction func onSaveAction(sender: UIButton) {
         NSUserDefaults.standardUserDefaults().setInteger(colorTag, forKey: "color")
         NSUserDefaults.standardUserDefaults().setInteger(iconTag, forKey: "icon")
+        UserApi.updateInfo(color: String(colorTag), icon: String(iconTag), completion: {gkResult in
+            if let data = gkResult.data {
+                updateLogin(data)
+            }
+        })
         self.navigationController?.popViewControllerAnimated(true)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

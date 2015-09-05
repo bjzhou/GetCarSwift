@@ -9,8 +9,9 @@
 import UIKit
 
 class RegisterViewController: UIViewController, CarTableNavigationDelegate {
-    
+
     var sex: Int = 1
+    var selectedCarId: String?
 
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var carLabel: UILabel!
@@ -18,21 +19,28 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let tapGesture = UITapGestureRecognizer(target: self, action: "didSingleTap")
+        tapGesture.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tapGesture)
     }
+
+    func didSingleTap() {
+        self.view.endEditing(true)
+    }
+
     @IBAction func onRegister(sender: UIButton) {
-        switch(nickname.text!.trim(), carLabel.text!.trim()) {
+        switch(nickname.text!.trim(), selectedCarId) {
         case ("", _):
             self.view.makeToast(message: "请输入用户昵称")
-        case (_, ""):
+        case (_, .None):
             self.view.makeToast(message: "请选择车型")
-        case (let nicknameText, let carLabelText):
-            UserApi.updateInfo(nicknameText, sex: sex, car: carLabelText) { result in
+        case (let nicknameText, let .Some(selectedCarId)):
+            UserApi.updateInfo(nickname: nicknameText, sex: sex, car: selectedCarId) { result in
                 guard let json = result.data else {
                     self.view.makeToast(message: "注册失败")
                     return
                 }
-                
+
                 if result.code >= 0 {
                     updateLogin(json)
 
@@ -43,11 +51,12 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
             }
         }
     }
-    
-    func didCarSelected(carName: String) {
-        carLabel.text = carName
+
+    func didCarSelected(car: (String, String)) {
+        carLabel.text = car.1
+        selectedCarId = car.0
     }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "choose_car" {
             let dest = segue.destinationViewController as! CarTableNavigationController

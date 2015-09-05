@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
         case (_, ""):
             self.view.makeToast(message: "请输入验证码")
         case (let phone, let code):
-            UserApi.login(phone, code: code) { result in
+            UserApi.login(phone: phone, code: code) { result in
                 guard let json = result.data else {
                     self.view.makeToast(message: "登陆失败")
                     return
