@@ -21,8 +21,8 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     override func viewWillAppear(animated: Bool) {
-        let colorTag = NSUserDefaults.standardUserDefaults().integerForKey("color")
-        let iconTag = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+        let colorTag = DataKeeper.sharedInstance.carHeadBg
+        let iconTag = DataKeeper.sharedInstance.carHeadId
         values[1] = getCarIconName(DataKeeper.sharedInstance.sex, color: colorTag, icon: iconTag)
         values[2] = DataKeeper.sharedInstance.nickname ?? "用户名"
         values[3/*5*/] = getSexString(DataKeeper.sharedInstance.sex)

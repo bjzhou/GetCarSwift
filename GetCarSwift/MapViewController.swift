@@ -30,21 +30,21 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        DataKeeper.sharedInstance.addDelegate(self)
+
         initMapView()
         initMotion()
         initAltitude()
-
-        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "sex", options: .New, context: nil)
-        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "color", options: .New, context: nil)
-        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "icon", options: .New, context: nil)
 
         setLocationImage()
     }
 
     func setLocationImage() {
-        let color = NSUserDefaults.standardUserDefaults().integerForKey("color")
-        let icon = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+        let color = DataKeeper.sharedInstance.carHeadBg
+        let icon = DataKeeper.sharedInstance.carHeadId
         locationImage = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color: color, icon: icon))
+        mapView.showsUserLocation = false
+        mapView.showsUserLocation = true
     }
 
     func initMotion() {
@@ -163,21 +163,20 @@ class MapViewController: UIViewController {
 
         mapView.setZoomLevel(mapView.zoomLevel-1, animated: true)
     }
+}
 
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "sex" || keyPath == "color" || keyPath == "icon" {
-            setLocationImage()
-            mapView.showsUserLocation = false
-            mapView.showsUserLocation = true
-        }
+extension MapViewController: DataKeeperDelegate {
+    func didCarHeadBgUpdated(carHeadBg: Int) {
+        setLocationImage()
     }
 
-    deinit {
-        NSUserDefaults.standardUserDefaults().removeObserver(self, forKeyPath: "sex")
-        NSUserDefaults.standardUserDefaults().removeObserver(self, forKeyPath: "color")
-        NSUserDefaults.standardUserDefaults().removeObserver(self, forKeyPath: "icon")
+    func didCarHeadIdUpdated(carHeadId: Int) {
+        setLocationImage()
     }
 
+    func didSexUpdated(sex: Int) {
+        setLocationImage()
+    }
 }
 
 extension MapViewController: MAMapViewDelegate {

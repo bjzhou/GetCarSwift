@@ -39,10 +39,10 @@ let BUGLY_APPID = "900007462"
 let imageCache = Shared.imageCache
 
 /*
-    获得地图界面定位图标名
-    sex: 性别，0男/1女
-    color:颜色类型，101-110
-    icon:图标类型，201-206
+获得地图界面定位图标名
+sex: 性别，0男/1女
+color:颜色类型，101-110
+icon:图标类型，201-206
 */
 func getCarIconName(sex: Int, color: Int, icon: Int) -> String {
     return getSexString(sex) + "  " + getColorByTag(color) + getIconString(icon) + " 选中"
@@ -53,9 +53,9 @@ func getNoSexCarIconName(color: Int, icon: Int) -> String {
 }
 
 /*
-    获得颜色图标名
-    sex: 性别，0男/1女
-    color:颜色类型，101-110
+获得颜色图标名
+sex: 性别，0男/1女
+color:颜色类型，101-110
 */
 func getColorIconName(sex: Int, color: Int) -> String {
     return getSexString(sex) + "  " + getColorByTag(color) + " 选中"
@@ -131,11 +131,21 @@ func async(bgThread: () -> Void) {
 func updateLogin(json: SwiftyJSON.JSON) {
     let defaults = NSUserDefaults.standardUserDefaults()
     defaults.setBool(true, forKey: "isLogin")
-    defaults.setValue(json["car"].stringValue, forKey: "car")
-    defaults.setValue(json["phone"].stringValue, forKey: "phone")
-    DataKeeper.sharedInstance.nickname = json["nickname"].stringValue
-    DataKeeper.sharedInstance.sex = json["sex"].intValue
-    DataKeeper.sharedInstance.avatarUrl = json["img"].stringValue
+    if let car = json["car"].string {
+        defaults.setValue(car, forKey: "car")
+    }
+    if let phone = json["phone"].string {
+        defaults.setValue(phone, forKey: "phone")
+    }
+    if let nickname = json["nickname"].string {
+        DataKeeper.sharedInstance.nickname = nickname
+    }
+    if let sex = json["sex"].int {
+        DataKeeper.sharedInstance.sex = sex
+    }
+    if let avatarUrl = json["img"].string {
+        DataKeeper.sharedInstance.avatarUrl = avatarUrl
+    }
 }
 
 public class DataKeeper {
@@ -167,6 +177,9 @@ public class DataKeeper {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "sex")
+            for delegate in delegates {
+                delegate.didSexUpdated?(newValue)
+            }
         }
     }
 
@@ -176,6 +189,32 @@ public class DataKeeper {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "avatar")
+        }
+    }
+
+    public var carHeadId: Int {
+        get {
+            let tmp = NSUserDefaults.standardUserDefaults().integerForKey("car_head_id")
+            return  tmp == 0 ? 201 : tmp
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_id")
+            for delegate in delegates {
+                delegate.didCarHeadIdUpdated?(newValue)
+            }
+        }
+    }
+
+    public var carHeadBg: Int {
+        get {
+            let tmp = NSUserDefaults.standardUserDefaults().integerForKey("car_head_bg")
+            return tmp == 0 ? 101 : tmp
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_bg")
+            for delegate in delegates {
+                delegate.didCarHeadBgUpdated?(newValue)
+            }
         }
     }
 
@@ -218,4 +257,7 @@ public class DataKeeper {
     optional func didLocationUpdated(location: CLLocation)
     optional func didAccelerationUpdated(acceleration: CMAcceleration)
     optional func didAltitudeUpdated(altitude: CMAltitudeData)
+    optional func didCarHeadBgUpdated(carHeadBg: Int)
+    optional func didCarHeadIdUpdated(carHeadId: Int)
+    optional func didSexUpdated(sex: Int)
 }

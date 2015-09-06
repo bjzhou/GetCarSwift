@@ -24,6 +24,6 @@ class UserApi {
     }
 
     class func updateInfo(color color: String, icon: String, completion: GKResult -> Void) {
-        api(PREFIX + "updateInfo", body: ["color":color, "icon":icon], completion: completion)
+        api(PREFIX + "updateInfo", body: ["car_head_bg":color, "car_head_id":icon], completion: completion)
     }
 }

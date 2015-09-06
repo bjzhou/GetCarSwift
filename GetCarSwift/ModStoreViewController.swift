@@ -10,14 +10,15 @@ import UIKit
 
 class ModStoreViewController: UIViewController {
 
+    @IBOutlet weak var storeButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //"mod_store_bg"
+        storeButton.setAttributedTitle(NSAttributedString(string: "进入商城", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, NSForegroundColorAttributeName: UIColor.whiteColor()]), forState: .Normal)
     }
 
     @IBAction func onBMW3Action(sender: UIButton) {
-//        self.parentViewController?.showViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modStoreDetail"), sender: self.parentViewController)
         let webBrowser = WebViewController()
         webBrowser.hidesBottomBarWhenPushed = true
         webBrowser.loadURLString("http://wap.koudaitong.com/v2/showcase/homepage?kdt_id=10707707")

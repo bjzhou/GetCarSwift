@@ -10,16 +10,14 @@ import UIKit
 
 class CarIconEditViewController: UIViewController {
 
-    var colorTag = NSUserDefaults.standardUserDefaults().integerForKey("color")
-    var iconTag = NSUserDefaults.standardUserDefaults().integerForKey("icon")
+    var colorTag = DataKeeper.sharedInstance.carHeadBg
+    var iconTag = DataKeeper.sharedInstance.carHeadId
     var prevColorTag = -1
     var prevIconTag = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        colorTag = colorTag == 0 ? 101 : colorTag
-        iconTag = iconTag == 0 ? 201 : iconTag
         loadHighlightButton()
         loadCurrentIcon()
     }
@@ -75,8 +73,8 @@ class CarIconEditViewController: UIViewController {
     }
 
     @IBAction func onSaveAction(sender: UIButton) {
-        NSUserDefaults.standardUserDefaults().setInteger(colorTag, forKey: "color")
-        NSUserDefaults.standardUserDefaults().setInteger(iconTag, forKey: "icon")
+        DataKeeper.sharedInstance.carHeadBg = colorTag
+        DataKeeper.sharedInstance.carHeadId = iconTag
         UserApi.updateInfo(color: String(colorTag), icon: String(iconTag), completion: {gkResult in
             if let data = gkResult.data {
                 updateLogin(data)

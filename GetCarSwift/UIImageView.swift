@@ -39,7 +39,7 @@ extension UIImageView {
                 self.image = UIImage(named: "avatar")
             })
         } else {
-            self.image = UIImage(named: NSUserDefaults.standardUserDefaults().integerForKey("sex") == 1 ? "avatar" : "avatar_female")
+            self.image = UIImage(named: DataKeeper.sharedInstance.sex == 1 ? "avatar" : "avatar_female")
         }
     }
 }
