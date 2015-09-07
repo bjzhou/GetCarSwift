@@ -25,7 +25,7 @@ class MapViewController: UIViewController {
     var locationImage: UIImage?
 
     var timer = NSTimer()
-    var annotations: [MAPointAnnotation] = []
+    var annotations: [CustomMAPointAnnotation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,9 +110,10 @@ class MapViewController: UIViewController {
             self.annotations.removeAll()
             for (_, subJson) in json {
                 let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
-                let pointAnnotation = MAPointAnnotation()
+                let pointAnnotation = CustomMAPointAnnotation()
                 pointAnnotation.coordinate = newCoordinate.coordinate
                 pointAnnotation.title = subJson["nickname"].stringValue
+                pointAnnotation.image = UIImage(named: getCarIconName(subJson["sex"].intValue, color: subJson["car_head_bg"].intValue, icon: subJson["car_head_id"].intValue))!
                 if let dis = DataKeeper.sharedInstance.location?.distanceFromLocation(newCoordinate) {
                     if dis >= 1000 {
                         pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
@@ -192,7 +193,8 @@ extension MapViewController: MAMapViewDelegate {
             return annotationView
         }
 
-        if annotation.isKindOfClass(MAPointAnnotation) {
+        if annotation.isKindOfClass(CustomMAPointAnnotation) {
+            let annotation = annotation as! CustomMAPointAnnotation
             let pointReuseIndetifier = "pointReuseIndetifier"
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier) as? MAPinAnnotationView
             if annotationView == nil {
@@ -201,9 +203,8 @@ extension MapViewController: MAMapViewDelegate {
             annotationView!.canShowCallout = true
             annotationView!.animatesDrop = false
             annotationView!.draggable = false
-            annotationView!.pinColor = MAPinAnnotationColor.Purple
 
-            annotationView!.image = UIImage(named: "白2")
+            annotationView!.image = annotation.image
 
             return annotationView;
         }
@@ -212,5 +213,12 @@ extension MapViewController: MAMapViewDelegate {
 
     func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
         DataKeeper.sharedInstance.location = userLocation.location
+    }
+}
+
+public class CustomMAPointAnnotation: MAPointAnnotation {
+    public var image: UIImage = UIImage(named: "白2")!
+    override init() {
+        super.init()
     }
 }

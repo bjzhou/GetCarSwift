@@ -49,6 +49,7 @@
 		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
+		C89D6A4A1B9DB0F200B0F69B /* ModIntroContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
 		C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A8719F1B92DFEA006300EF /* UploadApi.swift */; settings = {ASSET_TAGS = (); }; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -266,6 +267,7 @@
 		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModIntroContentViewController.swift; sourceTree = "<group>"; };
 		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
 		C8A8719F1B92DFEA006300EF /* UploadApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 				C8E2B83F1AD93527003B07FE /* ModDoctorViewController.swift */,
 				C865B4E51B765BFB00790A81 /* ModViewController.swift */,
 				C86780001B7757300000D7DF /* ModStoreViewController.swift */,
+				C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */,
 			);
 			name = Mod;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
 				C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */,
 				C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */,
+				C89D6A4A1B9DB0F200B0F69B /* ModIntroContentViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */,

@@ -30,18 +30,12 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
-        let subView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("mod_intr_content").view
-        let titleLabel = subView.viewWithTag(201) as! UILabel
-        let iconView = subView.viewWithTag(202) as! UIImageView
-        let messageView = subView.viewWithTag(203) as! UITextView
-        subView.frame = CGRectMake(8 + CGFloat(self.view.frame.size.width) * CGFloat(index), 0, self.view.frame.size.width - 16, self.scrollView.frame.size.height)
-        //subView.translatesAutoresizingMaskIntoConstraints = true
-        titleLabel.text = title
-        iconView.image = UIImage(named: iconName)
-        messageView.text = message
-        self.scrollView.addSubview(subView)
-        subView.layoutIfNeeded()
-        messageView.contentOffset.y = 0
+        let intrContentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("mod_intr_content") as! ModIntroContentViewController
+        intrContentVC.view.frame = CGRectMake(8 + CGFloat(self.view.frame.size.width) * CGFloat(index), 0, self.view.frame.size.width - 16, self.scrollView.frame.size.height)
+        intrContentVC.titleLabel.text = title
+        intrContentVC.iconView.image = UIImage(named: iconName)
+        intrContentVC.messageTextView.text = message
+        self.scrollView.addSubview(intrContentVC.view)
     }
 
     override func viewDidLayoutSubviews() {

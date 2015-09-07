@@ -3504,7 +3504,7 @@
         <!--Mod Info Content View Controller-->
         <scene sceneID="b3k-tC-Vpk">
             <objects>
-                <viewController storyboardIdentifier="mod_intr_content" id="PEz-OL-e7T" userLabel="Mod Info Content View Controller" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mod_intr_content" id="PEz-OL-e7T" userLabel="Mod Info Content View Controller" customClass="ModIntroContentViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tcl-9S-tAc"/>
                         <viewControllerLayoutGuide type="bottom" id="EFT-vv-3iP"/>
@@ -3558,6 +3558,11 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="iconView" destination="o47-lJ-Da9" id="rYr-rJ-Vul"/>
+                        <outlet property="messageTextView" destination="Gfo-7y-2G5" id="Z5O-J2-c1I"/>
+                        <outlet property="titleLabel" destination="2U8-Kq-KTJ" id="Vwk-sh-C7F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkh-dV-yPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
