@@ -22,11 +22,11 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var index2Button: UIButton!
     @IBOutlet weak var index3Button: UIButton!
 
-    var images = ["tianhuangping_view1", "tianhuangping_view2", "tianhuangping_view3"]
-    var titles = "安吉天荒坪"
-    var challenge = "star3"
-    //var details = "..."
-    var mapImage = "tianhuangping_map"
+    var images: [String] = []
+    var trackTitle = ""
+    var trackDetail = ""
+    var trackStarString = "star3"
+    var trackMap = ""
     var lovedCount = 1000
     var comments = [["time":"2015-08-28 15:35", "avatar":"", "nickname":"定春", "content":"汪！汪！汪！"]] {
         didSet {
@@ -45,6 +45,15 @@ class TrackDetailViewController: UIViewController {
         commentTableView.dataSource = self
         commentTableView.rowHeight = UITableViewAutomaticDimension
         commentTableView.estimatedRowHeight = 60
+
+        initTrackData()
+    }
+
+    func initTrackData() {
+        trackLabel.text = trackTitle
+        trackDetailLabel.text = trackDetail
+        trackStar.image = UIImage(named: trackStarString)
+        mapImageView.image = UIImage(named: trackMap)
     }
 
     override func viewDidLayoutSubviews() {

@@ -1221,7 +1221,7 @@
         <!--赛道-->
         <scene sceneID="KUs-mE-n8K">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="XJ4-3o-pJ7" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="XJ4-3o-pJ7" customClass="TrackViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F24-6T-ObR"/>
                         <viewControllerLayoutGuide type="bottom" id="I7H-de-mlO"/>
@@ -1256,9 +1256,9 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXq-OK-trL">
                                         <rect key="frame" x="0.0" y="561" width="375" height="186"/>
-                                        <state key="normal" title="天门山通天大道" backgroundImage="tongtiandadao"/>
+                                        <state key="normal" title="天门山通天大道" backgroundImage="tianmenshan"/>
                                         <connections>
-                                            <segue destination="M0L-ke-mQw" kind="show" identifier="tongtiandadao" id="VQ6-HN-0un"/>
+                                            <segue destination="M0L-ke-mQw" kind="show" identifier="tianmenshan" id="VQ6-HN-0un"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4803,7 +4803,7 @@
         <image name="tag_used_replace_selected" width="74" height="26"/>
         <image name="tianhuangping" width="375" height="186"/>
         <image name="tianhuangping_map" width="375" height="167"/>
-        <image name="tongtiandadao" width="375" height="186"/>
+        <image name="tianmenshan" width="375" height="186"/>
         <image name="track_top_bg" width="375" height="199"/>
         <image name="tracking_camera" width="25" height="22"/>
         <image name="tracking_flow" width="22" height="549"/>
@@ -4840,7 +4840,7 @@
         <image name="黑" width="35" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VQ6-HN-0un"/>
+        <segue reference="IWc-xu-q9q"/>
         <segue reference="Fgq-tQ-jbz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.80000000000000004" green="0.0" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
