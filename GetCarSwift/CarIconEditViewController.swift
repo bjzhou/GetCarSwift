@@ -75,7 +75,7 @@ class CarIconEditViewController: UIViewController {
     @IBAction func onSaveAction(sender: UIButton) {
         DataKeeper.sharedInstance.carHeadBg = colorTag
         DataKeeper.sharedInstance.carHeadId = iconTag
-        UserApi.updateInfo(color: String(colorTag), icon: String(iconTag), completion: {gkResult in
+        UserApi.sharedInstance.updateInfo(color: String(colorTag), icon: String(iconTag), completion: {gkResult in
             if let data = gkResult.data {
                 updateLogin(data)
             }

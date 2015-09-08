@@ -8,10 +8,12 @@
 
 import Foundation
 
-class UploadApi {
-    static let PREFIX = "upload/"
+class UploadApi: GaikeApi {
+    static let sharedInstance = UploadApi()
 
-    class func uploadHeader(image: UIImage, completion: GKResult -> Void) {
-        upload(PREFIX + "uploadHeader", datas: ["pictures":UIImagePNGRepresentation(image)!], completion: completion)
+    var path = "upload/"
+
+    func uploadHeader(image: UIImage, completion: GKResult -> Void) {
+        upload("uploadHeader", datas: ["pictures":UIImagePNGRepresentation(image)!], completion: completion)
     }
 }

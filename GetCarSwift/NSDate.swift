@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NSDate.swift
 //  GetCarSwift
 //
 //  Created by 周斌佳 on 15/9/3.
@@ -13,8 +13,9 @@ extension NSDate {
         return "刚刚"
     }
 
-    class func optimizedString(time: NSTimeInterval) -> String {
+    func optimizedString() -> String {
         let now = NSDate().timeIntervalSince1970
+        let time = self.timeIntervalSince1970
         switch (now - time) {
         case let x where x <= 60:
             return "刚刚"

@@ -20,7 +20,7 @@ class CarTableViewController: UITableViewController {
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
-        CarApi.info() { result in
+        CarApi.sharedInstance.info() { result in
             guard let json = result.data else {
                 return
             }

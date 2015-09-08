@@ -8,10 +8,11 @@
 
 import Foundation
 
-class CarApi {
-    static let PREFIX = "car/"
+class CarApi: GaikeApi {
+    static let sharedInstance = CarApi()
+    var path = "car/"
 
-    class func info(completion: GKResult -> Void) {
-        apiCache.fetch(fetcher: GKFetcher(urlString: PREFIX + "info", body: [:])).onSuccess(completion)
+    func info(completion: GKResult -> Void) {
+        apiCache.fetch(fetcher: GKFetcher(api: self, method: "info")).onSuccess(completion)
     }
 }

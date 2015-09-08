@@ -101,7 +101,7 @@ class MapViewController: UIViewController {
 
     func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
-        GeoApi.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0) { result in
+        GeoApi.sharedInstance.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0) { result in
             guard let json = result.data else {
                 return
             }

@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
         case (_, ""):
             self.view.makeToast(message: "请输入验证码")
         case (let phone, let code):
-            UserApi.login(phone: phone, code: code) { result in
+            UserApi.sharedInstance.login(phone: phone, code: code) { result in
                 guard let json = result.data else {
                     self.view.makeToast(message: "登陆失败")
                     return
@@ -74,7 +74,7 @@ class LoginViewController: UIViewController {
         timerCount = 0
         let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
         timer.fire()
-        UserApi.getCodeMsg(phone) { result in
+        UserApi.sharedInstance.getCodeMsg(phone) { result in
             if result.error == nil {
                 self.view.makeToast(message: "验证码已发送")
             } else {

@@ -140,7 +140,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let avatarImage = image.scaleImage(size: CGSizeMake(254, 254))
-        UploadApi.uploadHeader(avatarImage) { gkResult in
+        UploadApi.sharedInstance.uploadHeader(avatarImage) { gkResult in
             if let json = gkResult.data {
                 updateLogin(json)
                 self.tableView.reloadData()

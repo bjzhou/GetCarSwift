@@ -10,6 +10,14 @@ import UIKit
 
 class TrackDetailViewController: UIViewController {
 
+    struct Comment {
+        var id: String?
+        var content: String
+        var create_time: String
+        var nickname: String
+        var avatar: String
+    }
+
     @IBOutlet weak var imageScrollView: UIScrollView!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var trackStar: UIImageView!
@@ -22,13 +30,14 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var index2Button: UIButton!
     @IBOutlet weak var index3Button: UIButton!
 
+    var sid = 0
     var images: [String] = []
     var trackTitle = ""
     var trackDetail = ""
     var trackStarString = "star3"
     var trackMap = ""
     var lovedCount = 1000
-    var comments = [["time":"2015-08-28 15:35", "avatar":"", "nickname":"定春", "content":"汪！汪！汪！"]] {
+    var comments: [Comment] = [] {
         didSet {
             commentTableView.reloadData()
         }
@@ -54,6 +63,16 @@ class TrackDetailViewController: UIViewController {
         trackDetailLabel.text = trackDetail
         trackStar.image = UIImage(named: trackStarString)
         mapImageView.image = UIImage(named: trackMap)
+        TraceApi.sharedInstance.comments(sid: sid, limit: 999) { gkResult in
+            guard let json = gkResult.data else {
+                return
+            }
+            for (_, commentJson) in json["comments", "content"] {
+                self.comments.insert(Comment(id: commentJson["id"].stringValue, content: commentJson["content"].stringValue, create_time: commentJson["create_time"].stringValue, nickname: commentJson["nickname"].stringValue, avatar: commentJson["avatar"].stringValue), atIndex: 0)
+            }
+            self.lovedCount = json["praises", "total"].intValue
+            self.updateLoveLabel()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -100,7 +119,13 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didPostComment(sender: UIButton) {
-        comments.append(["time":NSDate.nowString, "avatar":DataKeeper.sharedInstance.avatarUrl ?? "", "nickname":DataKeeper.sharedInstance.nickname ?? "", "content":commentTextField.text ?? ""])
+        TraceApi.sharedInstance.pubComment(sid: sid, content: commentTextField.text ?? "") { gkResult in
+            guard let data = gkResult.data else {
+                self.view.makeToast(message: "发表评论失败！")
+                return
+            }
+            self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", avatar: DataKeeper.sharedInstance.nickname ?? ""))
+        }
         commentTextField.text = ""
         self.view.endEditing(true)
     }
@@ -116,8 +141,23 @@ class TrackDetailViewController: UIViewController {
         sender.selected = !sender.selected
         if sender.selected {
             loveLabel.text = "已想去"
+            TraceApi.sharedInstance.praise(sid: sid) { gkResult in
+
+            }
         } else {
-            loveLabel.text = lovedCount >= 1000 ? "想去(999+)" : "想去(\(lovedCount))"
+            updateLoveLabel()
+            TraceApi.sharedInstance.cancelPraise(sid: sid) { gkResult in
+            }
+        }
+    }
+
+    func updateLoveLabel() {
+        if lovedCount <= 0 {
+            loveLabel.text = "想去"
+        } else if lovedCount >= 1000 {
+            loveLabel.text = "想去(999+)"
+        } else {
+            loveLabel.text = "想去(\(lovedCount))"
         }
     }
 
@@ -162,15 +202,15 @@ extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let time = cell.viewWithTag(312) as! UILabel
         let content = cell.viewWithTag(313) as! UILabel
 
-        if let url = NSURL(string: comments[indexPath.row]["avatar"] ?? "") {
+        if let url = NSURL(string: comments[indexPath.row].avatar) {
             avatarView.hnk_setImageFromURL(url, placeholder: UIImage(named: "avatar"))
         } else {
             avatarView.image = UIImage(named: "avatar")
         }
 
-        nickname.text = comments[indexPath.row]["nickname"]
-        time.text = comments[indexPath.row]["time"]
-        content.text = comments[indexPath.row]["content"]
+        nickname.text = comments[indexPath.row].nickname
+        time.text = comments[indexPath.row].create_time
+        content.text = comments[indexPath.row].content
         return cell
     }
 

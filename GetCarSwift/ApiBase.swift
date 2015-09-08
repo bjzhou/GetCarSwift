@@ -11,28 +11,101 @@ import Alamofire
 import SwiftyJSON
 import Haneke
 
-let DOMAIN = "http://api.gaikit.com:8901/"
-
 let apiManager = Manager.sharedInstance
 let apiCache = Shared.GKResultCache
 
 let API_DEBUG = true
 
-func getHeader(upload: Bool = false) -> [String:String] {
-    var headers: [String:String] = [:]
+protocol GaikeApi {
+    var domain: String { get }
+    var path: String { get set }
+    func getHeader(upload: Bool) -> [String:String]
+    func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void)
+    func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void)
+}
 
-    headers["Ass-apiver"] = "1.0"
-    headers["Ass-appver"] = VERSION_SHORT
-    headers["Ass-accesskey"] = ""
-    headers["Ass-contentmd5"] = ""
-    headers["Ass-signature"] = ""
-    headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
-    headers["Ass-token"] = DataKeeper.sharedInstance.token ?? ""
-    headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
-    headers["Ass-lati"] = String(DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0)
-    headers["Ass-longti"] = String(DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0)
+extension GaikeApi {
+    var domain: String {
+        return "http://api.gaikit.com:8901/"
+    }
 
-    return headers
+    var path: String {
+        return ""
+    }
+
+    func getHeader(upload: Bool = false) -> [String:String] {
+        var headers: [String:String] = [:]
+
+        headers["Ass-apiver"] = "1.0"
+        headers["Ass-appver"] = VERSION_SHORT
+        headers["Ass-accesskey"] = ""
+        headers["Ass-contentmd5"] = ""
+        headers["Ass-signature"] = ""
+        headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
+        headers["Ass-token"] = DataKeeper.sharedInstance.token ?? ""
+        headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
+        headers["Ass-lati"] = String(DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0)
+        headers["Ass-longti"] = String(DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0)
+        
+        return headers
+    }
+
+    func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void) {
+
+
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: domain + path + urlString)!)
+        mutableURLRequest.HTTPMethod = "POST"
+        for (headerField, headerValue) in getHeader() {
+            mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
+        }
+        do {
+            try mutableURLRequest.HTTPBody = JSON(body).rawData()
+        } catch {
+            if API_DEBUG {print("url request error: \(mutableURLRequest.description)")}
+        }
+
+        apiManager.request(mutableURLRequest).responseGK {(req, res, gkResult) in
+            completion(gkResult)
+        }
+    }
+
+    func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void) {
+        let urlRequest = urlRequestWithComponents(domain + path + urlString, headers: getHeader(), imageData: datas)
+
+        Alamofire.upload(urlRequest.0, data: urlRequest.1).responseGK {(req, res, gkResult) in
+            completion(gkResult)
+        }
+    }
+
+    func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
+
+        // create url request to send
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+        let boundaryConstant = "myRandomBoundary12345";
+        let contentType = "multipart/form-data;boundary="+boundaryConstant
+        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        if let headers = headers {
+            for (key, value) in headers {
+                mutableURLRequest.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+
+        // create upload data to send
+        let uploadData = NSMutableData()
+
+        // add image
+        uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        for (key, data) in imageData {
+            uploadData.appendData("Content-Disposition: form-data; name=\(key); filename=\(key).png\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+            uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+            uploadData.appendData(data)
+        }
+        uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+
+        // return URLRequestConvertible and NSData
+        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
+    }
 }
 
 extension Request {
@@ -54,65 +127,6 @@ extension Request {
             }
         }
     }
-}
-
-
-func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void) {
-
-
-    let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: DOMAIN + urlString)!)
-    mutableURLRequest.HTTPMethod = "POST"
-    for (headerField, headerValue) in getHeader() {
-        mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
-    }
-    do {
-        try mutableURLRequest.HTTPBody = JSON(body).rawData()
-    } catch {
-        if API_DEBUG {print("url request error: \(mutableURLRequest.description)")}
-    }
-
-    apiManager.request(mutableURLRequest).responseGK {(req, res, gkResult) in
-        completion(gkResult)
-    }
-}
-
-func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void) {
-    let urlRequest = urlRequestWithComponents(DOMAIN + urlString, headers: getHeader(), imageData: datas)
-
-    Alamofire.upload(urlRequest.0, data: urlRequest.1).responseGK {(req, res, gkResult) in
-        completion(gkResult)
-    }
-}
-
-
-func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
-
-    // create url request to send
-    let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-    mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
-    let boundaryConstant = "myRandomBoundary12345";
-    let contentType = "multipart/form-data;boundary="+boundaryConstant
-    mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
-    if let headers = headers {
-        for (key, value) in headers {
-            mutableURLRequest.setValue(value, forHTTPHeaderField: key)
-        }
-    }
-
-    // create upload data to send
-    let uploadData = NSMutableData()
-
-    // add image
-    uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-    for (key, data) in imageData {
-        uploadData.appendData("Content-Disposition: form-data; name=\(key); filename=\(key).png\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData(data)
-    }
-    uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-
-    // return URLRequestConvertible and NSData
-    return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
 }
 
 extension GKResult: DataConvertible, DataRepresentable {
@@ -139,18 +153,21 @@ extension Shared {
 }
 
 class GKFetcher : Fetcher<GKResult> {
+    let api: GaikeApi
+    let method: String
     let body: [String:AnyObject]
-    let urlString: String
 
-    init(urlString: String, body: [String:AnyObject]) {
+    init(api: GaikeApi, method: String, body: [String:AnyObject] = [:]) {
+        let urlString = api.domain + api.path + method
         let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: urlString)!), parameters: body).0.URLString
+        self.api = api
+        self.method = method
         self.body = body
-        self.urlString = urlString
         super.init(key: key)
     }
 
     override func fetch(failure fail : ((NSError?) -> ()), success succeed : (GKResult.Result) -> ()) {
-        api(urlString, body: body) { result in
+        api.api(method, body: body) { result in
             if let err = result.error {
                 fail(err)
             } else {

@@ -8,22 +8,23 @@
 
 import Foundation
 
-class UserApi {
-    static let PREFIX = "user/"
+class UserApi: GaikeApi {
+    static let sharedInstance = UserApi()
+    var path = "user/"
 
-    class func getCodeMsg(phone: String, completion: GKResult -> Void) {
-        api(PREFIX + "getCodeMsg", body: ["phone":phone], completion: completion)
+    func getCodeMsg(phone: String, completion: GKResult -> Void) {
+        api("getCodeMsg", body: ["phone":phone], completion: completion)
     }
 
-    class func login(phone phone: String, code: String, completion: GKResult -> Void) {
-        api(PREFIX + "login", body: ["phone":phone, "code":code], completion: completion)
+    func login(phone phone: String, code: String, completion: GKResult -> Void) {
+        api("login", body: ["phone":phone, "code":code], completion: completion)
     }
 
-    class func updateInfo(nickname nickname: String, sex: Int, car: String, completion: GKResult -> Void) {
-        api(PREFIX + "updateInfo", body: ["nickname":nickname, "sex":sex, "car":car], completion: completion)
+    func updateInfo(nickname nickname: String, sex: Int, car: String, completion: GKResult -> Void) {
+        api("updateInfo", body: ["nickname":nickname, "sex":sex, "car":car], completion: completion)
     }
 
-    class func updateInfo(color color: String, icon: String, completion: GKResult -> Void) {
-        api(PREFIX + "updateInfo", body: ["car_head_bg":color, "car_head_id":icon], completion: completion)
+    func updateInfo(color color: String, icon: String, completion: GKResult -> Void) {
+        api("updateInfo", body: ["car_head_bg":color, "car_head_id":icon], completion: completion)
     }
 }
