@@ -15,12 +15,13 @@ class TrackDetailViewController: UIViewController {
         var content: String
         var create_time: String
         var nickname: String
-        var avatar: String
+        var head: String
     }
 
     @IBOutlet weak var imageScrollView: UIScrollView!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var trackStar: UIImageView!
+    @IBOutlet weak var loveButton: UIButton!
     @IBOutlet weak var loveLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView!
     @IBOutlet weak var commentTableView: UITableView!
@@ -29,6 +30,18 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var index1Button: UIButton!
     @IBOutlet weak var index2Button: UIButton!
     @IBOutlet weak var index3Button: UIButton!
+    @IBOutlet weak var emptyView: UIView!
+
+    var loveButtonSelected = false {
+        didSet {
+            loveButton.selected = loveButtonSelected
+            if loveButtonSelected {
+                loveLabel.text = "已想去"
+            } else {
+                updateLoveLabel()
+            }
+        }
+    }
 
     var sid = 0
     var images: [String] = []
@@ -40,6 +53,13 @@ class TrackDetailViewController: UIViewController {
     var comments: [Comment] = [] {
         didSet {
             commentTableView.reloadData()
+            if comments.count == 0 {
+                commentTableView.hidden = true
+                emptyView.hidden = false
+            } else if commentTableView.hidden {
+                commentTableView.hidden = false
+                emptyView.hidden = true
+            }
         }
     }
 
@@ -68,10 +88,19 @@ class TrackDetailViewController: UIViewController {
                 return
             }
             for (_, commentJson) in json["comments", "content"] {
-                self.comments.insert(Comment(id: commentJson["id"].stringValue, content: commentJson["content"].stringValue, create_time: commentJson["create_time"].stringValue, nickname: commentJson["nickname"].stringValue, avatar: commentJson["avatar"].stringValue), atIndex: 0)
+                self.comments.insert(Comment(id: commentJson["id"].stringValue, content: commentJson["content"].stringValue, create_time: commentJson["create_time"].stringValue, nickname: commentJson["nickname"].stringValue, head: commentJson["head"].stringValue), atIndex: 0)
+            }
+
+            let myId = NSUserDefaults.standardUserDefaults().stringForKey("id")
+            for (_, praiseJson) in json["praises", "content"] {
+                if myId == praiseJson["uid"].stringValue && myId != "" {
+                    self.loveButtonSelected = true
+                }
             }
             self.lovedCount = json["praises", "total"].intValue
-            self.updateLoveLabel()
+            if !self.loveButtonSelected {
+                self.updateLoveLabel()
+            }
         }
     }
 
@@ -124,9 +153,10 @@ class TrackDetailViewController: UIViewController {
                 self.view.makeToast(message: "发表评论失败！")
                 return
             }
-            self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", avatar: DataKeeper.sharedInstance.nickname ?? ""))
+            self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
+
+            self.commentTextField.text = ""
         }
-        commentTextField.text = ""
         self.view.endEditing(true)
     }
 
@@ -138,14 +168,12 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didLoveChanged(sender: UIButton) {
-        sender.selected = !sender.selected
-        if sender.selected {
-            loveLabel.text = "已想去"
+        loveButtonSelected ? lovedCount-- : lovedCount++
+        loveButtonSelected = !loveButtonSelected
+        if loveButtonSelected {
             TraceApi.sharedInstance.praise(sid: sid) { gkResult in
-
             }
         } else {
-            updateLoveLabel()
             TraceApi.sharedInstance.cancelPraise(sid: sid) { gkResult in
             }
         }
@@ -202,7 +230,7 @@ extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let time = cell.viewWithTag(312) as! UILabel
         let content = cell.viewWithTag(313) as! UILabel
 
-        if let url = NSURL(string: comments[indexPath.row].avatar) {
+        if let url = NSURL(string: comments[indexPath.row].head) {
             avatarView.hnk_setImageFromURL(url, placeholder: UIImage(named: "avatar"))
         } else {
             avatarView.image = UIImage(named: "avatar")

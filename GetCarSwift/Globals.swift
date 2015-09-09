@@ -137,13 +137,16 @@ func updateLogin(json: SwiftyJSON.JSON) {
     if let phone = json["phone"].string {
         defaults.setValue(phone, forKey: "phone")
     }
+    if let id = json["id"].string {
+        defaults.setValue(id, forKey: "id")
+    }
     if let nickname = json["nickname"].string {
         DataKeeper.sharedInstance.nickname = nickname
     }
     if let sex = json["sex"].int {
         DataKeeper.sharedInstance.sex = sex
     }
-    if let avatarUrl = json["img"].string {
+    if let avatarUrl = json["img"].string where avatarUrl.hasPrefix("http://") {
         DataKeeper.sharedInstance.avatarUrl = avatarUrl
     }
 }
