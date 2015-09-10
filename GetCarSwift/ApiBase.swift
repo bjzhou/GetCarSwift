@@ -51,8 +51,6 @@ extension GaikeApi {
     }
 
     func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void) {
-
-
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: domain + path + urlString)!)
         mutableURLRequest.HTTPMethod = "POST"
         for (headerField, headerValue) in getHeader() {
@@ -65,6 +63,10 @@ extension GaikeApi {
         }
 
         apiManager.request(mutableURLRequest).responseGK {(req, res, gkResult) in
+            if gkResult.msg == "user need login" {
+                logout()
+                return
+            }
             completion(gkResult)
         }
     }

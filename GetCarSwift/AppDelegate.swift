@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().setUserId(DataKeeper.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
 
-        checkNewVersion()
+        //checkNewVersion()
 
         return true
     }

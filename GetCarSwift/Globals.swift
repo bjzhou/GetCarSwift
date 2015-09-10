@@ -130,7 +130,7 @@ func async(bgThread: () -> Void) {
 
 func updateLogin(json: SwiftyJSON.JSON) {
     let defaults = NSUserDefaults.standardUserDefaults()
-    defaults.setBool(true, forKey: "isLogin")
+
     if let car = json["car"].string {
         defaults.setValue(car, forKey: "car")
     }
@@ -139,6 +139,10 @@ func updateLogin(json: SwiftyJSON.JSON) {
     }
     if let id = json["id"].string {
         defaults.setValue(id, forKey: "id")
+    }
+
+    if let token = json["token"].string {
+        DataKeeper.sharedInstance.token = token
     }
     if let nickname = json["nickname"].string {
         DataKeeper.sharedInstance.nickname = nickname
@@ -149,6 +153,15 @@ func updateLogin(json: SwiftyJSON.JSON) {
     if let avatarUrl = json["img"].string where avatarUrl.hasPrefix("http://") {
         DataKeeper.sharedInstance.avatarUrl = avatarUrl
     }
+}
+
+func logout() {
+    DataKeeper.sharedInstance.token = nil
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let firstController = storyboard.instantiateViewControllerWithIdentifier("login")
+    let window = UIApplication.sharedApplication().keyWindow
+    window?.makeToast(message: "登录信息已过期，请重新登录")
+    window?.rootViewController = firstController
 }
 
 public class DataKeeper {

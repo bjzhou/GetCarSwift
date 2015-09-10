@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var vcodeText: UITextField!
-    
+
     var code: String = "";
     var timerCount = 0;
 
@@ -22,16 +22,16 @@ class LoginViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapRecognizer)
-        
+
         phoneText.becomeFirstResponder()
     }
-    
+
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
-    
+
     // MARK: IBOutlet Actions
-    
+
     @IBAction func onLoginAction(sender: UIButton) {
         switch (phoneText.text!.trim(), vcodeText.text!.trim()) {
         case ("", _):
@@ -49,9 +49,9 @@ class LoginViewController: UIViewController {
                     self.view.makeToast(message: "验证码错误")
                     return
                 }
-                
+
                 DataKeeper.sharedInstance.token = json["token"].stringValue
-                
+
                 if json["nickname"].stringValue == "" {
                     let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
                     self.showViewController(dest, sender: self)
@@ -88,7 +88,7 @@ class LoginViewController: UIViewController {
         let controller = storyboard.instantiateInitialViewController()
         UIApplication.sharedApplication().keyWindow?.rootViewController = controller
     }
-    
+
     func onTimeUpdate(timer: NSTimer) {
         timerCount++
         let button = timer.userInfo as? UIButton
@@ -99,7 +99,7 @@ class LoginViewController: UIViewController {
         button?.enabled = false
         button?.setTitle(String(60-timerCount) + "秒后重新发送", forState: .Normal)
     }
-    
+
     func timerReset(timer: NSTimer) {
         let button = timer.userInfo as? UIButton
         timer.invalidate()

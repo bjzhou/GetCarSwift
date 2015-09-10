@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:GetCarSwift.xcodeproj">
+      location = "self:/Users/zhoubinjia/Code/GetCarSwift/GetCarSwift.xcodeproj">
    </FileRef>
 </Workspace>

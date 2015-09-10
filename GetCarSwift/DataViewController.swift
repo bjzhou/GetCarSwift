@@ -24,7 +24,7 @@ class DataViewController: UIViewController {
     @IBOutlet weak var progressWidth: NSLayoutConstraint!
 
     let scoreTitles = ["天门山通天大道", "台州鸟山", "云南三家村"]
-    let scores = ["7:24.36s", "9:05.18s", "5:42.55s"]
+    let scores = ["?","?","?"]//["7:24.36s", "9:05.18s", "5:42.55s"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,9 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let alertController = UIAlertController(title: nil, message: "轨迹数据实测中，敬请期待", preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "好", style: .Default, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

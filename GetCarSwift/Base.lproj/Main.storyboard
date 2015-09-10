@@ -457,7 +457,7 @@
                                             <constraint firstAttribute="height" constant="1" id="Pyr-fe-hkv"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iH7-tA-5ix">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iH7-tA-5ix">
                                         <rect key="frame" x="0.0" y="43" width="359" height="124"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="separatorColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1831,42 +1831,8 @@
                             </tableViewSection>
                             <tableViewSection id="oUi-4A-WdP">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="45" id="tff-65-uf5" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="204" width="375" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tff-65-uf5" id="cjB-Op-wl3">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_homepage" translatesAutoresizingMaskIntoConstraints="NO" id="zW3-Ks-ngF">
-                                                    <rect key="frame" x="16" y="10" width="24" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="24" id="v6z-aI-Apk"/>
-                                                        <constraint firstAttribute="height" constant="24" id="yX7-xs-ljx"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人主页" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5B-my-St4">
-                                                    <rect key="frame" x="56" y="12" width="68" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="x5B-my-St4" firstAttribute="centerY" secondItem="cjB-Op-wl3" secondAttribute="centerY" id="Pnr-K2-SWU"/>
-                                                <constraint firstItem="zW3-Ks-ngF" firstAttribute="leading" secondItem="cjB-Op-wl3" secondAttribute="leading" constant="16" id="R8c-MN-bDn"/>
-                                                <constraint firstItem="x5B-my-St4" firstAttribute="leading" secondItem="zW3-Ks-ngF" secondAttribute="trailing" constant="16" id="afx-sD-9Vg"/>
-                                                <constraint firstItem="zW3-Ks-ngF" firstAttribute="centerY" secondItem="cjB-Op-wl3" secondAttribute="centerY" id="jHs-sh-6gV"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="icon" destination="zW3-Ks-ngF" id="LKh-28-UPl"/>
-                                            <outlet property="title" destination="x5B-my-St4" id="Aq4-bx-eyf"/>
-                                            <segue destination="WvW-FC-sie" kind="show" identifier="homepage" id="XqM-vz-PEd"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="45" id="LV8-9i-opa" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="249" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="204" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LV8-9i-opa" id="sIz-W7-5qJ">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -1904,7 +1870,7 @@
                             <tableViewSection id="rtD-hP-Kfj">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common" rowHeight="45" id="9nc-kv-zjH" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="314" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="269" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9nc-kv-zjH" id="j4h-bQ-mwC">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -4796,7 +4762,6 @@
         <image name="mod_doctor_intr_area" width="354" height="346"/>
         <image name="mod_doctor_top_bg" width="375" height="165"/>
         <image name="mod_store_bg" width="375" height="502"/>
-        <image name="my_homepage" width="35" height="35"/>
         <image name="nav_add_car" width="21" height="21"/>
         <image name="niaoshan" width="375" height="186"/>
         <image name="picture" width="27" height="22"/>
