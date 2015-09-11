@@ -23,7 +23,7 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var trackStar: UIImageView!
     @IBOutlet weak var loveButton: UIButton!
     @IBOutlet weak var loveLabel: UILabel!
-    @IBOutlet weak var mapImageView: UIImageView!
+    //@IBOutlet weak var mapImageView: UIImageView!
     @IBOutlet weak var commentTableView: UITableView!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var trackDetailLabel: UILabel!
@@ -48,7 +48,7 @@ class TrackDetailViewController: UIViewController {
     var trackTitle = ""
     var trackDetail = ""
     var trackStarString = "star3"
-    var trackMap = ""
+    //var trackMap = ""
     var lovedCount = 1000
     var comments: [Comment] = [] {
         didSet {
@@ -82,7 +82,7 @@ class TrackDetailViewController: UIViewController {
         trackLabel.text = trackTitle
         trackDetailLabel.text = trackDetail
         trackStar.image = UIImage(named: trackStarString)
-        mapImageView.image = UIImage(named: trackMap)
+        //mapImageView.image = UIImage(named: trackMap)
         TraceApi.sharedInstance.comments(sid: sid, limit: 999) { gkResult in
             guard let json = gkResult.data else {
                 return

@@ -65,7 +65,11 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         // MARK: - Size Of The Container View -
         let pagesContainerHeight = self.frame.height - yOrigin - distanceToBottom
         let pagesContainerWidth = self.frame.width
-        
+
+        if pagesContainerWidth <= 320 && topBarHeight >= 36 {
+            topBarHeight = 24
+        }
+
         //Set the containerView, every item is constructed relative to this view
         containerView = UIView(frame: CGRectMake(xOrigin, yOrigin, pagesContainerWidth, pagesContainerHeight))
         containerView.backgroundColor = containerViewBackground
