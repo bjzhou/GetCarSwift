@@ -114,8 +114,8 @@ class MapViewController: UIViewController {
                         } else {
                             pointAnnotation.subtitle = "距离\(Int(dis))米"
                         }
-                        self.annotations.append(pointAnnotation)
                     }
+                    self.annotations.append(pointAnnotation)
                 }
                 self.mapView.addAnnotations(self.annotations)
             }

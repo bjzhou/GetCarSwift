@@ -147,8 +147,8 @@ func updateLogin(json: SwiftyJSON.JSON) {
     if let nickname = json["nickname"].string {
         DataKeeper.sharedInstance.nickname = nickname
     }
-    if let sex = json["sex"].int {
-        DataKeeper.sharedInstance.sex = sex
+    if let sex = json["sex"].string {
+        DataKeeper.sharedInstance.sex = sex.intValue
     }
     if let avatarUrl = json["img"].string {
         var mutableUrl = avatarUrl

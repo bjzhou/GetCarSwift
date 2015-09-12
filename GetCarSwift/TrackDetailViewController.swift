@@ -152,6 +152,7 @@ class TrackDetailViewController: UIViewController {
                 self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
 
                 self.commentTextField.text = ""
+                self.commentTableView.scrollToBottom(true)
             } else {
                 self.view.makeToast(message: "发表评论失败！")
             }
