@@ -9,22 +9,20 @@
 /* Begin PBXBuildFile section */
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
-		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		C82A723E1B8B64B200545FEA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F855F1B82171200C7DC7C /* libz.tbd */; };
-		C82A723F1B8B64B800545FEA /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85611B82172500C7DC7C /* libstdc++.6.0.9.tbd */; };
-		C82A72401B8B64BF00545FEA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C8CB4C681B83549D008396BF /* libc++.tbd */; };
+		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
+		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848F1B61B778626008DAC69 /* TrackingViewController.swift */; };
 		C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
+		C8556C7B1BA33D2200623154 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8556C7A1BA33D2200623154 /* libc++.dylib */; };
+		C8556C7D1BA33D2C00623154 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8556C7C1BA33D2C00623154 /* libstdc++.6.0.9.dylib */; };
+		C8556C7F1BA33D3600623154 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8556C7E1BA33D3600623154 /* libz.dylib */; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
 		C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865B4E51B765BFB00790A81 /* ModViewController.swift */; };
 		C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780001B7757300000D7DF /* ModStoreViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
-		C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
-		C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
 		C867FC841AD8FCB000F99592 /* GetCarSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */; };
 		C867FD1E1AD9071900F99592 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Globals.swift */; };
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
@@ -35,6 +33,8 @@
 		C86F855A1B8216CD00C7DC7C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85591B8216CD00C7DC7C /* CoreTelephony.framework */; };
 		C86F855C1B8216D500C7DC7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F855B1B8216D500C7DC7C /* SystemConfiguration.framework */; };
 		C86F855E1B82170400C7DC7C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F855D1B82170400C7DC7C /* Security.framework */; };
+		C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
+		C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
@@ -43,19 +43,19 @@
 		C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* UIImage.swift */; };
 		C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */; };
 		C894A3321B7F783D00D853C9 /* CarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894A3311B7F783D00D853C9 /* CarApi.swift */; };
-		C89791DD1B9F04280027D6A5 /* TraceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* TraceApi.swift */; settings = {ASSET_TAGS = (); }; };
+		C89791DD1B9F04280027D6A5 /* TraceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* TraceApi.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* ApiBase.swift */; };
 		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
-		C89D6A4A1B9DB0F200B0F69B /* ModIntroContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C89D6A4A1B9DB0F200B0F69B /* ModIntroContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
-		C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A8719F1B92DFEA006300EF /* UploadApi.swift */; settings = {ASSET_TAGS = (); }; };
-		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2011B983967002F39EB /* TrackViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; settings = {ASSET_TAGS = (); }; };
-		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; settings = {ASSET_TAGS = (); }; };
+		C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A8719F1B92DFEA006300EF /* UploadApi.swift */; };
+		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
+		C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2011B983967002F39EB /* TrackViewController.swift */; };
+		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; };
+		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; };
 		C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08B1B8B527D006095DC /* MatchViewController.swift */; };
 		C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */; };
 		C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08E1B8B5DEE006095DC /* JSON.swift */; };
@@ -65,8 +65,8 @@
 		C8C2C0991B8B5EAE006095DC /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C2C0961B8B5EAE006095DC /* Bugly.framework */; };
 		C8C2C09A1B8B5EAE006095DC /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C2C0971B8B5EAE006095DC /* MAMapKit.framework */; };
 		C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */; };
-		C8CD8DEF1B91DF090050DF90 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CD8DED1B91DF090050DF90 /* ENSideMenu.swift */; settings = {ASSET_TAGS = (); }; };
-		C8CD8DF01B91DF090050DF90 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CD8DEE1B91DF090050DF90 /* ENSideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
+		C8CD8DEF1B91DF090050DF90 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CD8DED1B91DF090050DF90 /* ENSideMenu.swift */; };
+		C8CD8DF01B91DF090050DF90 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CD8DEE1B91DF090050DF90 /* ENSideMenuNavigationController.swift */; };
 		C8CD8E071B91E85B0050DF90 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8DE11B91DDE70050DF90 /* SwiftyJSON.framework */; };
 		C8CD8E081B91E85B0050DF90 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8DE11B91DDE70050DF90 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C8CD8E0C1B91E8660050DF90 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */; };
@@ -74,8 +74,8 @@
 		C8CD8E1C1B91EABF0050DF90 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8E171B91EAAE0050DF90 /* Haneke.framework */; };
 		C8CD8E1D1B91EABF0050DF90 /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8E171B91EAAE0050DF90 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */; };
-		C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController.swift */; };
+		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
@@ -111,13 +111,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
 			remoteInfo = "Alamofire OSX";
-		};
-		C8CD8DCF1B91CB900050DF90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C8CD8DC31B91CB8F0050DF90 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E4202FE01B667AA100C997FB;
-			remoteInfo = "Alamofire watchOS";
 		};
 		C8CD8DD11B91CB900050DF90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -231,6 +224,9 @@
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
+		C8556C7A1BA33D2200623154 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		C8556C7C1BA33D2C00623154 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
+		C8556C7E1BA33D3600623154 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
 		C865B4E51B765BFB00790A81 /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
 		C86780001B7757300000D7DF /* ModStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreViewController.swift; sourceTree = "<group>"; };
@@ -312,9 +308,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C82A72401B8B64BF00545FEA /* libc++.tbd in Frameworks */,
-				C82A723F1B8B64B800545FEA /* libstdc++.6.0.9.tbd in Frameworks */,
-				C82A723E1B8B64B200545FEA /* libz.tbd in Frameworks */,
+				C8556C7F1BA33D3600623154 /* libz.dylib in Frameworks */,
+				C8556C7D1BA33D2C00623154 /* libstdc++.6.0.9.dylib in Frameworks */,
+				C8556C7B1BA33D2200623154 /* libc++.dylib in Frameworks */,
 				C8C2C0991B8B5EAE006095DC /* Bugly.framework in Frameworks */,
 				C8C2C09A1B8B5EAE006095DC /* MAMapKit.framework in Frameworks */,
 				C86F855E1B82170400C7DC7C /* Security.framework in Frameworks */,
@@ -344,6 +340,9 @@
 		2C2ECC4D086E66923F2F9980 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8556C7E1BA33D3600623154 /* libz.dylib */,
+				C8556C7C1BA33D2C00623154 /* libstdc++.6.0.9.dylib */,
+				C8556C7A1BA33D2200623154 /* libc++.dylib */,
 				C8C2C0951B8B5EAE006095DC /* AMapSearchKit.framework */,
 				C8C2C0961B8B5EAE006095DC /* Bugly.framework */,
 				C8C2C0971B8B5EAE006095DC /* MAMapKit.framework */,
@@ -497,7 +496,6 @@
 			children = (
 				C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */,
 				C8CD8DCE1B91CB900050DF90 /* Alamofire.framework */,
-				C8CD8DD01B91CB900050DF90 /* Alamofire.framework */,
 				C8CD8DD21B91CB900050DF90 /* Alamofire iOS Tests.xctest */,
 				C8CD8DD41B91CB900050DF90 /* Alamofire OSX Tests.xctest */,
 			);
@@ -710,13 +708,6 @@
 			remoteRef = C8CD8DCD1B91CB900050DF90 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C8CD8DD01B91CB900050DF90 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = C8CD8DCF1B91CB900050DF90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		C8CD8DD21B91CB900050DF90 /* Alamofire iOS Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -787,8 +778,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C867FC731AD8FCAF00F99592 /* Main.storyboard in Resources */,
-				C867FC781AD8FCAF00F99592 /* LaunchScreen.xib in Resources */,
+				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
+				C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */,
 				C8EA68D01B8211C8003CD510 /* AMap.bundle in Resources */,
 				C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */,
 			);

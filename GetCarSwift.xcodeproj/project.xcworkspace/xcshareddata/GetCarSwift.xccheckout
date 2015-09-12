@@ -16,6 +16,8 @@
 		<string>https://github.com/evnaz/ENSwiftSideMenu.git</string>
 		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
 		<string>https://github.com/SwiftyJSON/SwiftyJSON.git</string>
+		<key>C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F</key>
+		<string>https://github.com/Haneke/HanekeSwift.git</string>
 		<key>EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D</key>
 		<string>git.oschina.net:bjzhou/GetCarSwift.git</string>
 	</dict>
@@ -29,6 +31,8 @@
 		<string>../../ENSwiftSideMenu/</string>
 		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
 		<string>../../SwiftyJSON/</string>
+		<key>C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F</key>
+		<string>../../HanekeSwift/</string>
 		<key>EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D</key>
 		<string>../..</string>
 	</dict>
@@ -63,6 +67,14 @@
 			<string>EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>GetCarSwift</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HanekeSwift</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

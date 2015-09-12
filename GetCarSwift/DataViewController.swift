@@ -47,7 +47,7 @@ class DataViewController: UIViewController {
 extension DataViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("score") as UITableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("score") as! UITableViewCell!
         let title = cell.viewWithTag(301) as? UILabel
         let score = cell.viewWithTag(302) as? UILabel
         title?.text = scoreTitles[indexPath.row]

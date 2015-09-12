@@ -19,18 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let _ = DataKeeper.sharedInstance.token {
             if let nickname = DataKeeper.sharedInstance.nickname where nickname.trim() != "" {} else {
-                let firstController = UINavigationController(rootViewController: storyboard.instantiateViewControllerWithIdentifier("register"))
+                let firstController = UINavigationController(rootViewController: storyboard.instantiateViewControllerWithIdentifier("register") as! UIViewController)
                 firstController.navigationItem.title = "登陆"
                 window?.rootViewController = firstController
             }
         } else {
-            let firstController = storyboard.instantiateViewControllerWithIdentifier("login")
+            let firstController = storyboard.instantiateViewControllerWithIdentifier("login") as! UIViewController
             window?.rootViewController = firstController
         }
 
         if AppDelegate.DEBUG {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("register")
+            window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("register") as? UIViewController
         }
 
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
@@ -52,19 +52,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func checkNewVersion() {
-        checkUpdate().responseJSON { (req, res, data) in
-            guard let jsonValue = data.value else {
-                print(data.error.debugDescription)
+        checkUpdate().responseJSON { (req, res, data, err) in
+            if let jsonValue: AnyObject = data {
+                let fir = FIR(json: jsonValue)
+                if VERSION != fir.version {
+                    let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+                    alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
+                        UIApplication.sharedApplication().openURL(NSURL(string: fir.updateUrl)!)
+                    }))
+                    self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                }
+            } else {
+                print(err.debugDescription)
                 return
-            }
-            let fir = FIR(json: jsonValue)
-            if VERSION != fir.version {
-                let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
-                    UIApplication.sharedApplication().openURL(NSURL(string: fir.updateUrl)!)
-                }))
-                self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
             }
         }
     }

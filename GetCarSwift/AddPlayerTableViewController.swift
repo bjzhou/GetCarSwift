@@ -50,23 +50,23 @@ class AddPlayerTableViewController: UITableViewController {
         switch mode {
         case .Menu:
             if indexPath.row == 0 {
-                cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) as! UITableViewCell
                 let avatarView = cell.viewWithTag(111) as! UIImageView
                 avatarView.setAvatarImage()
                 let nameLabel = cell.viewWithTag(112) as! UILabel
                 nameLabel.text = "我"
             } else {
-                cell = tableView.dequeueReusableCellWithIdentifier("menu", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCellWithIdentifier("menu", forIndexPath: indexPath) as! UITableViewCell
                 cell.textLabel?.text = indexPath.row == 1 ? titles[.Friend] : titles[.Rank]
             }
         case .Friend:
-            cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) as! UITableViewCell
             let avatarView = cell.viewWithTag(111) as! UIImageView
             avatarView.image = UIImage(named: "avatar")
             let nameLabel = cell.viewWithTag(112) as! UILabel
             nameLabel.text = friends[indexPath.row]
         case .Rank:
-            cell = tableView.dequeueReusableCellWithIdentifier("rank", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCellWithIdentifier("rank", forIndexPath: indexPath) as! UITableViewCell
             let avatarView = cell.viewWithTag(122) as! UIImageView
             avatarView.image = UIImage(named: "avatar")
             let rankLabel = cell.viewWithTag(121) as! UILabel
@@ -110,15 +110,15 @@ class AddPlayerTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 48))
         view.backgroundColor = UIColor.whiteColor()
-        let button = UIButton(type: .Custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton()
+        button.setTranslatesAutoresizingMaskIntoConstraints(false)
         button.setBackgroundImage(UIImage(named: "backbutton"), forState: .Normal)
         button.addTarget(self, action: Selector("didBackAction"), forControlEvents: .TouchUpInside)
         let title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
+        title.setTranslatesAutoresizingMaskIntoConstraints(false)
         title.text = titles[mode]
         let line = UIView()
-        line.translatesAutoresizingMaskIntoConstraints = false
+        line.setTranslatesAutoresizingMaskIntoConstraints(false)
         line.backgroundColor = self.tableView.separatorColor
         view.addSubview(button)
         view.addSubview(title)
@@ -157,5 +157,5 @@ class AddPlayerTableViewController: UITableViewController {
 }
 
 protocol AddPlayerDelegate {
-    func didPlayerAdded(avatar avatar: UIImage, name: String)
+    func didPlayerAdded(#avatar: UIImage, name: String)
 }

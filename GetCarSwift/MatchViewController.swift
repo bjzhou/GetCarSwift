@@ -114,8 +114,8 @@ class MatchViewController: UIViewController {
             point["accelarate"] = round(abs(DataKeeper.sharedInstance.acceleration?.y ?? 0) * 100) / 10
             dataList.append(point)
 
-            blueSpeed.text = String(point["speed"]!)
-            blueAcce.text = String(point["accelarate"]!)
+            blueSpeed.text = String(stringInterpolationSegment: point["speed"]!)
+            blueAcce.text = String(stringInterpolationSegment: point["accelarate"]!)
 
             purpleAnnotation?.coordinate.longitude += 0.001
             blueAnnotation?.coordinate.longitude += 0.001
@@ -126,7 +126,7 @@ class MatchViewController: UIViewController {
 }
 
 extension MatchViewController: AddPlayerDelegate {
-    func didPlayerAdded(avatar avatar: UIImage, name: String) {
+    func didPlayerAdded(#avatar: UIImage, name: String) {
         if let pressedButton = pressedButton {
             pressedButton.setBackgroundImage(avatar, forState: .Normal)
             pressedButton.layer.cornerRadius = pressedButton.frame.size.width / 2

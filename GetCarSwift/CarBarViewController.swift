@@ -55,13 +55,13 @@ class CarBarViewController: UITableViewController, UISearchResultsUpdating, UISe
         }
         
         if indexPath.row == 0 {
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("tag")!
+            let cell = self.tableView.dequeueReusableCellWithIdentifier("tag")! as! UITableViewCell
             return cell
         }
         var postCell = self.tableView.dequeueReusableCellWithIdentifier("carbar") as! PostCell
         let info = infos.objectAtIndex(indexPath.row - 1) as! [String]
         let iconName = info[0]
-        if iconName.characters.count > 0 {
+        if count(iconName) > 0 {
             postCell.icon.image = UIImage(named: iconName)
         } else {
             postCell = self.tableView.dequeueReusableCellWithIdentifier("carbar_noicon") as! PostCell

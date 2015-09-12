@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIImage {
-    func scaleImage(scale scale: CGFloat) -> UIImage {
+    func scaleImage(#scale: CGFloat) -> UIImage {
         UIGraphicsBeginImageContext(CGSizeMake(self.size.width * scale, self.size.height * scale))
         self.drawInRect(CGRectMake(0, 0, self.size.width * scale, self.size.height * scale))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -17,7 +17,7 @@ extension UIImage {
         return newImage
     }
 
-    func scaleImage(size size: CGSize) -> UIImage {
+    func scaleImage(#size: CGSize) -> UIImage {
         UIGraphicsBeginImageContext(size)
         self.drawInRect(CGRectMake(0, 0, size.width, size.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()

@@ -11,7 +11,7 @@ import Foundation
 extension NSAttributedString {
     class func loadHTMLString(string: String) -> NSAttributedString? {
         if let data = string.dataUsingEncoding(NSUnicodeStringEncoding) {
-            return try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+            return NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil, error: nil)
         }
         return nil
     }

@@ -8,11 +8,14 @@
 
 import Foundation
 
-class CarApi: GaikeApi {
+class CarApi: GaikeService {
     static let sharedInstance = CarApi()
-    var path = "car/"
 
-    func info(completion: GKResult -> Void) {
-        apiCache.fetch(fetcher: GKFetcher(api: self, method: "info")).onSuccess(completion)
+    override func path() -> String {
+        return "car/"
+    }
+
+    func info(completion: GKResult -> ()) {
+        apiCache.fetch(fetcher: GKFetcher<GKResult>(api: self, method: "info")).onSuccess(completion)
     }
 }

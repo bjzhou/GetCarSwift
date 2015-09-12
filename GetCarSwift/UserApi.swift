@@ -8,23 +8,26 @@
 
 import Foundation
 
-class UserApi: GaikeApi {
+class UserApi: GaikeService {
     static let sharedInstance = UserApi()
-    var path = "user/"
+
+    override func path() -> String {
+        return "user/"
+    }
 
     func getCodeMsg(phone: String, completion: GKResult -> Void) {
         api("getCodeMsg", body: ["phone":phone], completion: completion)
     }
 
-    func login(phone phone: String, code: String, completion: GKResult -> Void) {
+    func login(#phone: String, code: String, completion: GKResult -> Void) {
         api("login", body: ["phone":phone, "code":code], completion: completion)
     }
 
-    func updateInfo(nickname nickname: String, sex: Int, car: String, completion: GKResult -> Void) {
+    func updateInfo(#nickname: String, sex: Int, car: String, completion: GKResult -> Void) {
         api("updateInfo", body: ["nickname":nickname, "sex":sex, "car":car], completion: completion)
     }
 
-    func updateInfo(color color: String, icon: String, completion: GKResult -> Void) {
+    func updateInfo(#color: String, icon: String, completion: GKResult -> Void) {
         api("updateInfo", body: ["car_head_bg":color, "car_head_id":icon], completion: completion)
     }
 }

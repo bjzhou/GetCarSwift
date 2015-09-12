@@ -12,7 +12,7 @@ import SwiftyJSON
 extension JSON {
     func sortedDictionaryKeys() -> [String]? {
         if self.type == .Dictionary {
-            return Array(self.dictionary!.keys).sort()
+            return Array(self.dictionary!.keys).sorted(<)
         }
         return nil
     }

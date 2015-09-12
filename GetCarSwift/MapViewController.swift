@@ -42,38 +42,35 @@ class MapViewController: UIViewController {
     func setLocationImage() {
         let color = DataKeeper.sharedInstance.carHeadBg
         let icon = DataKeeper.sharedInstance.carHeadId
-        locationImage = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color: color, icon: icon))
+        locationImage = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color, icon))
         mapView.showsUserLocation = false
         mapView.showsUserLocation = true
     }
 
     func initMotion() {
-        guard motionManager.deviceMotionAvailable else {
-            return
-        }
-        motionManager.deviceMotionUpdateInterval = 0.01
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
-            guard let validData = data else {
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), {
-                DataKeeper.sharedInstance.acceleration = validData.userAcceleration
+        if motionManager.deviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 0.01
+            motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
+                if let validData = data {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        DataKeeper.sharedInstance.acceleration = validData.userAcceleration
+                    })
+                }
             })
-        })
+
+        }
     }
 
     func initAltitude() {
-        guard CMAltimeter.isRelativeAltitudeAvailable() else {
-            return
-        }
-        altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
-            guard let validData = data else {
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), {
-                DataKeeper.sharedInstance.altitude = validData
+        if CMAltimeter.isRelativeAltitudeAvailable() {
+            altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
+                if let validData = data {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        DataKeeper.sharedInstance.altitude = validData
+                    })
+                }
             })
-        })
+        }
     }
 
     func initMapView() {
@@ -102,28 +99,26 @@ class MapViewController: UIViewController {
     func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
         GeoApi.sharedInstance.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0) { result in
-            guard let json = result.data else {
-                return
-            }
-
-            self.mapView.removeAnnotations(self.annotations)
-            self.annotations.removeAll()
-            for (_, subJson) in json {
-                let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
-                let pointAnnotation = CustomMAPointAnnotation()
-                pointAnnotation.coordinate = newCoordinate.coordinate
-                pointAnnotation.title = subJson["nickname"].stringValue
-                pointAnnotation.image = UIImage(named: getCarIconName(subJson["sex"].intValue, color: subJson["car_head_bg"].intValue, icon: subJson["car_head_id"].intValue))!
-                if let dis = DataKeeper.sharedInstance.location?.distanceFromLocation(newCoordinate) {
-                    if dis >= 1000 {
-                        pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
-                    } else {
-                        pointAnnotation.subtitle = "距离\(Int(dis))米"
+            if let json = result.data {
+                self.mapView.removeAnnotations(self.annotations)
+                self.annotations.removeAll()
+                for (_, subJson) in json {
+                    let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
+                    let pointAnnotation = CustomMAPointAnnotation()
+                    pointAnnotation.coordinate = newCoordinate.coordinate
+                    pointAnnotation.title = subJson["nickname"].stringValue
+                    pointAnnotation.image = UIImage(named: getCarIconName(subJson["sex"].intValue, subJson["car_head_bg"].intValue, subJson["car_head_id"].intValue))!
+                    if let dis = DataKeeper.sharedInstance.location?.distanceFromLocation(newCoordinate) {
+                        if dis >= 1000 {
+                            pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
+                        } else {
+                            pointAnnotation.subtitle = "距离\(Int(dis))米"
+                        }
+                        self.annotations.append(pointAnnotation)
                     }
-                    self.annotations.append(pointAnnotation)
                 }
+                self.mapView.addAnnotations(self.annotations)
             }
-            self.mapView.addAnnotations(self.annotations)
         }
     }
 

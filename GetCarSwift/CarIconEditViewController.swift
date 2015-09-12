@@ -25,9 +25,9 @@ class CarIconEditViewController: UIViewController {
     func loadHighlightButton() {
         for tag in 101...109 {
             let button = self.view.viewWithTag(tag) as! UIButton
-            let image = UIImage(named: getColorIconName(DataKeeper.sharedInstance.sex, color: tag))
+            let image = UIImage(named: getColorIconName(DataKeeper.sharedInstance.sex, tag))
             button.setImage(image, forState: UIControlState.Highlighted)
-            button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
+            button.setImage(image, forState: UIControlState.Selected | UIControlState.Highlighted)
             button.setImage(image, forState: UIControlState.Selected)
         }
     }
@@ -44,11 +44,11 @@ class CarIconEditViewController: UIViewController {
 
         for tag in 201...206 {
             let button = self.view.viewWithTag(tag) as! UIButton
-            let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, icon: tag))
-            let image = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color: colorTag, icon: tag))
+            let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, tag))
+            let image = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, colorTag, tag))
             button.setImage(noSexImage, forState: UIControlState.Normal)
             button.setImage(image, forState: UIControlState.Highlighted)
-            button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
+            button.setImage(image, forState: UIControlState.Selected | UIControlState.Highlighted)
             button.setImage(image, forState: UIControlState.Selected)
         }
 

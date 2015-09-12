@@ -70,12 +70,12 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         loadURL(NSURL(string: urlString)!)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if keyPath == "estimatedProgress" {
             progressView.alpha = 1
             let animated = webView.estimatedProgress > Double(progressView.progress)
             progressView.setProgress(Float(webView.estimatedProgress), animated:animated)
-            
+
             // Once complete, fade out UIProgressView
             if webView.estimatedProgress >= 1.0 {
                 UIView.animateWithDuration(0.3, delay: 0.3, options: UIViewAnimationOptions.CurveEaseOut, animations: {
@@ -86,7 +86,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             }
         }
     }
-    
+
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         updateToolBar()
     }

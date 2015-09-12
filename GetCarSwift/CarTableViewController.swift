@@ -21,33 +21,32 @@ class CarTableViewController: UITableViewController {
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
         CarApi.sharedInstance.info() { result in
-            guard let json = result.data else {
-                return
-            }
-            {
-                for i in 0..<json.count {
-                    let categery = json[i, "categery"].stringValue
-                    let brand = json[i, "brand"].stringValue
-                    let model = json[i, "model"].stringValue
-                    let modelId = json[i, "id"].stringValue
+            if let json = result.data {
+                {
+                    for i in 0..<json.count {
+                        let categery = json[i, "categery"].stringValue
+                        let brand = json[i, "brand"].stringValue
+                        let model = json[i, "model"].stringValue
+                        let modelId = json[i, "id"].stringValue
 
-                    if self.brands[categery] == nil {
-                        self.brands[categery] = []
-                    }
-                    if self.models[brand] == nil {
-                        self.models[brand] = []
-                    }
+                        if self.brands[categery] == nil {
+                            self.brands[categery] = []
+                        }
+                        if self.models[brand] == nil {
+                            self.models[brand] = []
+                        }
 
-                    if !self.categeries.contains(categery) {
-                        self.categeries.append(categery)
+                        if !contains(self.categeries, categery) {
+                            self.categeries.append(categery)
+                        }
+                        if !contains(self.brands[categery]!, brand) {
+                            self.brands[categery]!.append(brand)
+                        }
+                        self.models[brand]!.append((modelId, model))
                     }
-                    if !self.brands[categery]!.contains(brand) {
-                        self.brands[categery]!.append(brand)
-                    }
-                    self.models[brand]!.append((modelId, model))
+                    } ~> {
+                        self.tableView.reloadData()
                 }
-            } ~> {
-                self.tableView.reloadData()
             }
         }
     }
@@ -64,7 +63,7 @@ class CarTableViewController: UITableViewController {
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath) as! UITableViewCell
 
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
@@ -80,12 +79,12 @@ class CarTableViewController: UITableViewController {
         return categeries[section]
     }
 
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
         return categeries
     }
 
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return categeries.indexOf(title)!
+        return find(categeries, title)!
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

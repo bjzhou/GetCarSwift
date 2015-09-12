@@ -17,23 +17,23 @@ let apiCache = Shared.GKResultCache
 let API_DEBUG = true
 
 protocol GaikeApi {
-    var domain: String { get }
-    var path: String { get set }
+    static var domain: String { get }
+    func path() -> String
     func getHeader(upload: Bool) -> [String:String]
     func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void)
     func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void)
 }
 
-extension GaikeApi {
-    var domain: String {
+class GaikeService: GaikeApi {
+    class var domain: String {
         return "http://api.gaikit.com:8901/"
     }
 
-    var path: String {
+    func path() -> String {
         return ""
     }
 
-    func getHeader(upload: Bool = false) -> [String:String] {
+    func getHeader(_ upload: Bool = false) -> [String:String] {
         var headers: [String:String] = [:]
 
         headers["Ass-apiver"] = "1.0"
@@ -41,29 +41,26 @@ extension GaikeApi {
         headers["Ass-accesskey"] = ""
         headers["Ass-contentmd5"] = ""
         headers["Ass-signature"] = ""
-        headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
+        headers["Ass-time"] = String(stringInterpolationSegment: NSDate().timeIntervalSince1970)
         headers["Ass-token"] = DataKeeper.sharedInstance.token ?? ""
         headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
-        headers["Ass-lati"] = String(DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0)
-        headers["Ass-longti"] = String(DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0)
+        headers["Ass-lati"] = String(stringInterpolationSegment: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0)
+        headers["Ass-longti"] = String(stringInterpolationSegment: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0)
         
         return headers
     }
 
     func api(urlString: String, body: [String:AnyObject], completion: GKResult -> Void) {
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: domain + path + urlString)!)
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: GaikeService.domain + path() + urlString)!)
         mutableURLRequest.HTTPMethod = "POST"
         for (headerField, headerValue) in getHeader() {
             mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
         }
-        do {
-            try mutableURLRequest.HTTPBody = JSON(body).rawData()
-        } catch {
-            if API_DEBUG {print("url request error: \(mutableURLRequest.description)")}
-        }
+
+        mutableURLRequest.HTTPBody = JSON(body).rawData()
 
         apiManager.request(mutableURLRequest).responseGK {(req, res, gkResult) in
-            if gkResult.msg == "user need login" {
+            if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
                 logout()
                 return
             }
@@ -72,7 +69,7 @@ extension GaikeApi {
     }
 
     func upload(urlString: String, datas: [String:NSData], completion: GKResult -> Void) {
-        let urlRequest = urlRequestWithComponents(domain + path + urlString, headers: getHeader(), imageData: datas)
+        let urlRequest = urlRequestWithComponents(GaikeService.domain + path() + urlString, headers: getHeader(), imageData: datas)
 
         Alamofire.upload(urlRequest.0, data: urlRequest.1).responseGK {(req, res, gkResult) in
             completion(gkResult)
@@ -112,12 +109,12 @@ extension GaikeApi {
 
 extension Request {
     func responseGK(completionHandler: (NSURLRequest?, NSHTTPURLResponse?, GKResult) -> Void) -> Self {
-        return response(responseSerializer: Request.dataResponseSerializer()) {(req, res, result) in
+        return response(responseSerializer: Request.dataResponseSerializer()) {(req, res, result, err) in
             {
                 var gkResult = GKResult()
-                if let data = result.value {
-                    if let err = result.error {
-                        gkResult.error = Error.errorWithCode(-10003, failureReason: "error reason : \(err)")
+                if let data = result {
+                    if let err = err {
+                        gkResult.error =  err
                     } else {
                         gkResult = GKResult(json: JSON(data: data))
                     }
@@ -140,7 +137,7 @@ extension GKResult: DataConvertible, DataRepresentable {
     }
 
     public func asData() -> NSData! {
-        return try! self.rawJSON?.rawData()
+        return self.rawJSON?.rawData()
     }
 }
 
@@ -154,13 +151,13 @@ extension Shared {
     }
 }
 
-class GKFetcher : Fetcher<GKResult> {
+class GKFetcher<T> : Fetcher<GKResult> {
     let api: GaikeApi
     let method: String
     let body: [String:AnyObject]
 
     init(api: GaikeApi, method: String, body: [String:AnyObject] = [:]) {
-        let urlString = api.domain + api.path + method
+        let urlString = GaikeService.domain + api.path() + method
         let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: urlString)!), parameters: body).0.URLString
         self.api = api
         self.method = method

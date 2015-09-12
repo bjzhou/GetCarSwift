@@ -150,18 +150,23 @@ func updateLogin(json: SwiftyJSON.JSON) {
     if let sex = json["sex"].int {
         DataKeeper.sharedInstance.sex = sex
     }
-    if let avatarUrl = json["img"].string where avatarUrl.hasPrefix("http://") {
-        DataKeeper.sharedInstance.avatarUrl = avatarUrl
+    if let avatarUrl = json["img"].string {
+        var mutableUrl = avatarUrl
+        if !avatarUrl.hasPrefix("http://") {
+            mutableUrl = "http://pic.gaikit.com/user/head/" + avatarUrl
+        }
+        DataKeeper.sharedInstance.avatarUrl = mutableUrl
     }
 }
 
 func logout() {
     DataKeeper.sharedInstance.token = nil
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let firstController = storyboard.instantiateViewControllerWithIdentifier("login")
+    let firstController = storyboard.instantiateViewControllerWithIdentifier("login") as! UIViewController
     let window = UIApplication.sharedApplication().keyWindow
-    window?.makeToast(message: "登录信息已过期，请重新登录")
     window?.rootViewController = firstController
+
+    firstController.view.makeToast(message: "登录信息已过期，请重新登录")
 }
 
 public class DataKeeper {
