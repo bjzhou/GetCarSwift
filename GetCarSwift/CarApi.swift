@@ -16,6 +16,7 @@ class CarApi: GaikeService {
     }
 
     func info(completion: GKResult -> ()) {
-        apiCache.fetch(fetcher: GKFetcher<GKResult>(api: self, method: "info")).onSuccess(completion)
+        api("info", body: [:], completion: completion)
+        //apiCache.fetch(fetcher: GKFetcher<GKResult>(api: self, method: "info")).onSuccess(completion)
     }
 }

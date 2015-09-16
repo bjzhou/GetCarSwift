@@ -52,9 +52,9 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         }
     }
 
-    func didCarSelected(car: (String, String)) {
-        carLabel.text = car.1
-        selectedCarId = car.0
+    func didCarSelected(car: String) {
+        carLabel.text = car
+        selectedCarId = car
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

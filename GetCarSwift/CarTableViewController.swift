@@ -13,7 +13,7 @@ class CarTableViewController: UITableViewController {
 
     var categeries: [String] = []
     var brands: [String: [String]] = [:]
-    var models: [String: [(String,String)]] = [:]
+    var models: [String: [String]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,26 +23,12 @@ class CarTableViewController: UITableViewController {
         CarApi.sharedInstance.info() { result in
             if let json = result.data {
                 {
-                    for i in 0..<json.count {
-                        let categery = json[i, "categery"].stringValue
-                        let brand = json[i, "brand"].stringValue
-                        let model = json[i, "model"].stringValue
-                        let modelId = json[i, "id"].stringValue
-
-                        if self.brands[categery] == nil {
-                            self.brands[categery] = []
+                    self.categeries = json.sortedDictionaryKeys() ?? []
+                    for categery in self.categeries {
+                        self.brands[categery] = json[categery].sortedDictionaryKeys() ?? []
+                        for brand in self.brands[categery]! {
+                            self.models[brand] = json[categery, brand].arrayObject as? [String]
                         }
-                        if self.models[brand] == nil {
-                            self.models[brand] = []
-                        }
-
-                        if !contains(self.categeries, categery) {
-                            self.categeries.append(categery)
-                        }
-                        if !contains(self.brands[categery]!, brand) {
-                            self.brands[categery]!.append(brand)
-                        }
-                        self.models[brand]!.append((modelId, model))
                     }
                     } ~> {
                         self.tableView.reloadData()
