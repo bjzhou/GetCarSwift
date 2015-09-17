@@ -84,21 +84,22 @@ class TrackDetailViewController: UIViewController {
         trackStar.image = UIImage(named: trackStarString)
         //mapImageView.image = UIImage(named: trackMap)
         TraceApi.sharedInstance.comments(sid: sid, limit: 999) { gkResult in
-            if let json = gkResult.data {
-                for (_, commentJson) in json["comments", "content"] {
-                    self.comments.insert(Comment(id: commentJson["id"].stringValue, content: commentJson["content"].stringValue, create_time: commentJson["create_time"].stringValue, nickname: commentJson["nickname"].stringValue, head: commentJson["head"].stringValue), atIndex: 0)
-                }
+            guard let json = gkResult.data else {
+                return
+            }
+            for (_, commentJson) in json["comments", "content"] {
+                self.comments.insert(Comment(id: commentJson["id"].stringValue, content: commentJson["content"].stringValue, create_time: commentJson["create_time"].stringValue, nickname: commentJson["nickname"].stringValue, head: commentJson["head"].stringValue), atIndex: 0)
+            }
 
-                let myId = NSUserDefaults.standardUserDefaults().stringForKey("id")
-                for (_, praiseJson) in json["praises", "content"] {
-                    if myId == praiseJson["uid"].stringValue && myId != "" {
-                        self.loveButtonSelected = true
-                    }
+            let myId = NSUserDefaults.standardUserDefaults().stringForKey("id")
+            for (_, praiseJson) in json["praises", "content"] {
+                if myId == praiseJson["uid"].stringValue && myId != "" {
+                    self.loveButtonSelected = true
                 }
-                self.lovedCount = json["praises", "total"].intValue
-                if !self.loveButtonSelected {
-                    self.updateLoveLabel()
-                }
+            }
+            self.lovedCount = json["praises", "total"].intValue
+            if !self.loveButtonSelected {
+                self.updateLoveLabel()
             }
         }
     }
@@ -148,14 +149,14 @@ class TrackDetailViewController: UIViewController {
 
     @IBAction func didPostComment(sender: UIButton) {
         TraceApi.sharedInstance.pubComment(sid: sid, content: commentTextField.text ?? "") { gkResult in
-            if let data = gkResult.data {
-                self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
-
-                self.commentTextField.text = ""
-                self.commentTableView.scrollToBottom(true)
-            } else {
+            guard let data = gkResult.data else {
                 self.view.makeToast(message: "发表评论失败！")
+                return
             }
+            self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
+
+            self.commentTextField.text = ""
+            self.commentTableView.scrollToBottom(true)
         }
         self.view.endEditing(true)
     }
@@ -224,7 +225,7 @@ extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) 
         let avatarView = cell.viewWithTag(310) as! UIImageView
         let nickname = cell.viewWithTag(311) as! UILabel
         let time = cell.viewWithTag(312) as! UILabel

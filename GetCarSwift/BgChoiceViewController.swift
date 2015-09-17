@@ -31,7 +31,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("bg_small", forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("bg_small", forIndexPath: indexPath) as UICollectionViewCell
         let imageView = cell.viewWithTag(401) as! UIImageView
         imageView.image = UIImage(named: getSmallHomepageBg(indexPath.row + 1))
         cell.addSubview(imageView)
@@ -48,7 +48,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         return 10
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [NSObject : AnyObject]!) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imageCache.set(value: image, key: "homepage_bg")
         let userDefaults = NSUserDefaults.standardUserDefaults();
         userDefaults.setInteger(1000, forKey: "homepage_bg")

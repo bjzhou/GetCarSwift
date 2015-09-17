@@ -99,7 +99,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = topBar.bounds
-            blurView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            blurView.translatesAutoresizingMaskIntoConstraints = false
             topBar.addSubview(blurView)
         }
         containerView.addSubview(topBar)
@@ -173,7 +173,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         //Important - Titles Array must Have The Same Number Of Items As The viewControllerIDs Array
         if VCIDsArray.count == buttonTitlesArray.count {
             for id in VCIDsArray {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(id) as! UIViewController
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(id) 
                 sender.addChildViewController(vc)
                 vc.didMoveToParentViewController(sender)
                 pageViews.append(vc)
@@ -190,7 +190,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         //Important - Images Array must Have The Same Number Of Items As The viewControllerIDs Array
         if VCIDsArray.count == buttonImagesArray.count {
             for id in VCIDsArray {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(id) as! UIViewController
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(id) 
                 sender.addChildViewController(vc)
                 vc.didMoveToParentViewController(sender)
                 pageViews.append(vc)
@@ -279,17 +279,18 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     var currentPage = 0
     
     public func switchPage(index: Int) {
-        if index < pageViews.count {
-            prevPage = getCurrentPage()
-            let pagesScrollViewSize = scrollView.frame.size
-            UIView.animateWithDuration(0.3, animations: {
-                self.scrollView.contentOffset = CGPointMake(pagesScrollViewSize.width * (CGFloat)(index), 0)
-                }, completion: { _ in
-                    self.currentPage = self.getCurrentPage()
-                    self.pageViews[self.prevPage].viewDidDisappear(true)
-                    self.pageViews[self.currentPage].viewDidAppear(true)
-            })
+        guard index < pageViews.count else {
+            return
         }
+        prevPage = getCurrentPage()
+        let pagesScrollViewSize = scrollView.frame.size
+        UIView.animateWithDuration(0.3, animations: {
+            self.scrollView.contentOffset = CGPointMake(pagesScrollViewSize.width * (CGFloat)(index), 0)
+            }, completion: { _ in
+                self.currentPage = self.getCurrentPage()
+                self.pageViews[self.prevPage].viewDidDisappear(true)
+                self.pageViews[self.currentPage].viewDidAppear(true)
+        })
     }
     
     public func scrollViewWillBeginDragging(scrollView: UIScrollView) {

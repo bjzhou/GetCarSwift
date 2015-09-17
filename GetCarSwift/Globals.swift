@@ -162,7 +162,7 @@ func updateLogin(json: SwiftyJSON.JSON) {
 func logout() {
     DataKeeper.sharedInstance.token = nil
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let firstController = storyboard.instantiateViewControllerWithIdentifier("login") as! UIViewController
+    let firstController = storyboard.instantiateViewControllerWithIdentifier("login") 
     let window = UIApplication.sharedApplication().keyWindow
     window?.rootViewController = firstController
 

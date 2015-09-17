@@ -21,18 +21,19 @@ class CarTableViewController: UITableViewController {
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
         CarApi.sharedInstance.info() { result in
-            if let json = result.data {
-                {
-                    self.categeries = json.sortedDictionaryKeys() ?? []
-                    for categery in self.categeries {
-                        self.brands[categery] = json[categery].sortedDictionaryKeys() ?? []
-                        for brand in self.brands[categery]! {
-                            self.models[brand] = json[categery, brand].arrayObject as? [String]
-                        }
+            guard let json = result.data else {
+                return
+            }
+            {
+                self.categeries = json.sortedDictionaryKeys() ?? []
+                for categery in self.categeries {
+                    self.brands[categery] = json[categery].sortedDictionaryKeys() ?? []
+                    for brand in self.brands[categery]! {
+                        self.models[brand] = json[categery, brand].arrayObject as? [String]
                     }
-                    } ~> {
-                        self.tableView.reloadData()
                 }
+                } ~> {
+                    self.tableView.reloadData()
             }
         }
     }
@@ -49,7 +50,7 @@ class CarTableViewController: UITableViewController {
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath) 
 
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
@@ -65,12 +66,12 @@ class CarTableViewController: UITableViewController {
         return categeries[section]
     }
 
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
+    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         return categeries
     }
 
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return find(categeries, title)!
+        return categeries.indexOf(title)!
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

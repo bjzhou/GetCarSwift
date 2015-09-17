@@ -76,11 +76,11 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        preSelectedIndexPath = tableView.indexPathForSelectedRow()
+        preSelectedIndexPath = tableView.indexPathForSelectedRow
         if preSelectedIndexPath != indexPath {
             let alertView = UIAlertController(title: "选取您想改装的车辆", message: nil, preferredStyle: .Alert)
-            alertView.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: {(action: UIAlertAction!) in
-                if let selectedIndexPath = self.tableView.indexPathForSelectedRow() {
+            alertView.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: {(action: UIAlertAction) in
+                if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
                     self.tableView(tableView, didDeselectRowAtIndexPath: selectedIndexPath)
                 }
@@ -89,8 +89,8 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
                     self.tableView(tableView, didSelectRowAtIndexPath: self.preSelectedIndexPath!)
                 }
             }))
-            alertView.addAction(UIAlertAction(title: "确认", style: .Default, handler: {(action: UIAlertAction!) in
-                if let selectedIndexPath = self.tableView.indexPathForSelectedRow() {
+            alertView.addAction(UIAlertAction(title: "确认", style: .Default, handler: {(action: UIAlertAction) in
+                if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
                     NSUserDefaults.standardUserDefaults().setInteger(selectedIndexPath.row, forKey: "using_car_info")
                 }
             }))
@@ -104,7 +104,7 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("car_info")! as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("car_info")! 
         let clearView = UIView(frame: cell.frame)
         clearView.backgroundColor = UIColor.clearColor()
         cell.selectedBackgroundView = clearView

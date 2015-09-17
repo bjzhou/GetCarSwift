@@ -40,53 +40,52 @@ class LoginViewController: UIViewController {
             self.view.makeToast(message: "请输入验证码")
         case (let phone, let code):
             UserApi.sharedInstance.login(phone: phone, code: code) { result in
-                if let json = result.data {
-                    if result.code < 0 {
-                        self.view.makeToast(message: "验证码错误")
-                        return
-                    }
-
-                    DataKeeper.sharedInstance.token = json["token"].stringValue
-
-                    if json["nickname"].stringValue == "" {
-                        let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register") as! UIViewController
-                        self.showViewController(dest, sender: self)
-                    } else {
-                        updateLogin(json)
-
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let controller = storyboard.instantiateInitialViewController() as! UIViewController
-                        UIApplication.sharedApplication().keyWindow?.rootViewController = controller
-                    }
-                } else {
+                guard let json = result.data else {
                     self.view.makeToast(message: "登陆失败")
                     return
+                }
+
+                if result.code < 0 {
+                    self.view.makeToast(message: "验证码错误")
+                    return
+                }
+
+                DataKeeper.sharedInstance.token = json["token"].stringValue
+
+                if json["nickname"].stringValue == "" {
+                    let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
+                    self.showViewController(dest, sender: self)
+                } else {
+                    updateLogin(json)
+
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateInitialViewController()
+                    UIApplication.sharedApplication().keyWindow?.rootViewController = controller
                 }
             }
         }
     }
 
     @IBAction func onVCodeAction(sender: UIButton) {
-        if let phone = phoneText.text where phone.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) >= 11 {
-            timerCount = 0
-            let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
-            timer.fire()
-            UserApi.sharedInstance.getCodeMsg(phone) { result in
-                if result.error == nil {
-                    self.view.makeToast(message: "验证码已发送")
-                } else {
-                    self.view.makeToast(message: "验证码发送失败")
-                }
-            }
-        } else {
+        guard let phone = phoneText.text where phone.characters.count >= 11 else {
             self.view.makeToast(message: "手机号格式错误")
             return
+        }
+        timerCount = 0
+        let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
+        timer.fire()
+        UserApi.sharedInstance.getCodeMsg(phone) { result in
+            if result.error == nil {
+                self.view.makeToast(message: "验证码已发送")
+            } else {
+                self.view.makeToast(message: "验证码发送失败")
+            }
         }
     }
 
     @IBAction func oSkipAction(sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateInitialViewController() as! UIViewController
+        let controller = storyboard.instantiateInitialViewController()
         UIApplication.sharedApplication().keyWindow?.rootViewController = controller
     }
 

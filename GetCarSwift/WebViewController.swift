@@ -70,7 +70,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         loadURL(NSURL(string: urlString)!)
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "estimatedProgress" {
             progressView.alpha = 1
             let animated = webView.estimatedProgress > Double(progressView.progress)

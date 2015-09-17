@@ -92,6 +92,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C820570A1BAAFF2800E59A74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C8CD8DC31B91CB8F0050DF90 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4202FE01B667AA100C997FB;
+			remoteInfo = "Alamofire watchOS";
+		};
+		C82057121BAAFF2800E59A74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C8CD8DD91B91DDE60050DF90 /* SwiftyJSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4D7CCE81B9465A700EE7221;
+			remoteInfo = "SwiftyJSON watchOS";
+		};
 		C867FC7E1AD8FCB000F99592 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C867FC5E1AD8FCAF00F99592 /* Project object */;
@@ -499,6 +513,7 @@
 			children = (
 				C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */,
 				C8CD8DCE1B91CB900050DF90 /* Alamofire.framework */,
+				C820570B1BAAFF2800E59A74 /* Alamofire.framework */,
 				C8CD8DD21B91CB900050DF90 /* Alamofire iOS Tests.xctest */,
 				C8CD8DD41B91CB900050DF90 /* Alamofire OSX Tests.xctest */,
 			);
@@ -512,6 +527,7 @@
 				C8CD8DE31B91DDE70050DF90 /* SwiftyJSON iOS Tests.xctest */,
 				C8CD8DE51B91DDE70050DF90 /* SwiftyJSON.framework */,
 				C8CD8DE71B91DDE70050DF90 /* SwiftyJSON OSX Tests.xctest */,
+				C82057131BAAFF2800E59A74 /* SwiftyJSON.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -649,6 +665,7 @@
 		C867FC5E1AD8FCAF00F99592 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "周斌佳";
@@ -697,6 +714,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C820570B1BAAFF2800E59A74 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = C820570A1BAAFF2800E59A74 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C82057131BAAFF2800E59A74 /* SwiftyJSON.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyJSON.framework;
+			remoteRef = C82057121BAAFF2800E59A74 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

@@ -98,7 +98,7 @@ extension UIView {
         self.showToast(toast: toast, duration: HRToastDefaultDuration, position: HRToastPositionDefault)
     }
     
-    func showToast(#toast: UIView, duration: Double, position: AnyObject) {
+    func showToast(toast toast: UIView, duration: Double, position: AnyObject) {
         let existToast = objc_getAssociatedObject(self, &HRToastView) as! UIView?
         if existToast != nil {
             if let timer: NSTimer = objc_getAssociatedObject(existToast, &HRToastTimer) as? NSTimer {
@@ -118,16 +118,16 @@ extension UIView {
         }
         
         self.addSubview(toast)
-        objc_setAssociatedObject(self, &HRToastView, toast, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+        objc_setAssociatedObject(self, &HRToastView, toast, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         
         UIView.animateWithDuration(HRToastFadeDuration,
-            delay: 0.0, options: (.CurveEaseOut | .AllowUserInteraction),
+            delay: 0.0, options: [.CurveEaseOut , .AllowUserInteraction],
             animations: {
                 toast.alpha = 1.0
             },
             completion: { (finished: Bool) in
                 let timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
-                objc_setAssociatedObject(toast, &HRToastTimer, timer, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+                objc_setAssociatedObject(toast, &HRToastTimer, timer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         })
     }
     
@@ -147,7 +147,7 @@ extension UIView {
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
         activityView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(HRToastOpacity)
         activityView.alpha = 0.0
-        activityView.autoresizingMask = (.FlexibleLeftMargin | .FlexibleTopMargin | .FlexibleRightMargin | .FlexibleBottomMargin)
+        activityView.autoresizingMask = [.FlexibleLeftMargin , .FlexibleTopMargin , .FlexibleRightMargin , .FlexibleBottomMargin]
         activityView.layer.cornerRadius = HRToastCornerRadius
         
         if HRToastDisplayShadow {
@@ -166,7 +166,7 @@ extension UIView {
             activityIndicatorView.frame.origin.y -= 10
             let activityMessageLabel = UILabel(frame: CGRectMake(activityView.bounds.origin.x, (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), activityView.bounds.size.width, 20))
             activityMessageLabel.textColor = UIColor.whiteColor()
-            activityMessageLabel.font = (count(msg)<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
+            activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
             activityMessageLabel.textAlignment = .Center
             activityMessageLabel.text = msg
             activityView.addSubview(activityMessageLabel)
@@ -175,7 +175,7 @@ extension UIView {
         self.addSubview(activityView)
         
         // associate activity view with self
-        objc_setAssociatedObject(self, &HRToastActivityView, activityView, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        objc_setAssociatedObject(self, &HRToastActivityView, activityView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0,
@@ -197,21 +197,21 @@ extension UIView {
             },
             completion: { (finished: Bool) in
                 existingActivityView!.removeFromSuperview()
-                objc_setAssociatedObject(self, &HRToastActivityView, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+                objc_setAssociatedObject(self, &HRToastActivityView, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         })
     }
     
     /*
     *  private methods (helper)
     */
-    func hideToast(#toast: UIView) {
+    func hideToast(toast toast: UIView) {
         self.hideToast(toast: toast, force: false);
     }
     
-    func hideToast(#toast: UIView, force: Bool) {
+    func hideToast(toast toast: UIView, force: Bool) {
         let completeClosure = { (finish: Bool) -> () in
             toast.removeFromSuperview()
-            objc_setAssociatedObject(self, &HRToastTimer, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &HRToastTimer, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         
         if force {
@@ -219,7 +219,7 @@ extension UIView {
         } else {
             UIView.animateWithDuration(HRToastFadeDuration,
                 delay: 0.0,
-                options: (.CurveEaseIn | .BeginFromCurrentState),
+                options: [.CurveEaseIn , .BeginFromCurrentState],
                 animations: {
                     toast.alpha = 0.0
                 },
@@ -251,7 +251,7 @@ extension UIView {
                 return CGPointMake(viewSize.width/2, viewSize.height/2)
             }
         } else if position is NSValue {
-            return position.CGPointValue()
+            return position.CGPointValue
         }
         
         print("Warning: Invalid position for toast.")
@@ -266,7 +266,7 @@ extension UIView {
         var imageView: UIImageView?
         
         let wrapperView = UIView()
-        wrapperView.autoresizingMask = (.FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin | .FlexibleBottomMargin)
+        wrapperView.autoresizingMask = [.FlexibleLeftMargin ,.FlexibleRightMargin , .FlexibleTopMargin , .FlexibleBottomMargin]
         wrapperView.layer.cornerRadius = HRToastCornerRadius
         wrapperView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(HRToastOpacity)
         

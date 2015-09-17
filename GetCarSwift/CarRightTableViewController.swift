@@ -39,7 +39,7 @@ class CarRightTableViewController: UITableViewController {
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell")
 
         if cell == nil {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
