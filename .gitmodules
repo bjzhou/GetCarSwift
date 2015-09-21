@@ -9,4 +9,4 @@
 	url = https://github.com/evnaz/ENSwiftSideMenu.git
 [submodule "HanekeSwift"]
 	path = HanekeSwift
-	url = https://github.com/meteochu/HanekeSwift.git
+	url = https://github.com/Haneke/HanekeSwift.git
