@@ -4,12 +4,12 @@
 [submodule "SwiftyJSON"]
 	path = SwiftyJSON
 	url = https://github.com/SwiftyJSON/SwiftyJSON.git
-[submodule "ENSwiftSideMenu"]
-	path = ENSwiftSideMenu
-	url = https://github.com/evnaz/ENSwiftSideMenu.git
 [submodule "HanekeSwift"]
 	path = HanekeSwift
 	url = https://github.com/Haneke/HanekeSwift.git
 [submodule "RxSwift"]
 	path = RxSwift
 	url = https://github.com/ReactiveX/RxSwift.git
+[submodule "ENSwiftSideMenu"]
+	path = ENSwiftSideMenu
+	url = https://github.com/evnaz/ENSwiftSideMenu.git
