@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let DEBUG = false
+    static let DEBUG_REGISTER = false
 
     var window: UIWindow?
 
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = firstController
         }
 
-        if AppDelegate.DEBUG {
+        if AppDelegate.DEBUG_REGISTER {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("register")
         }
@@ -52,9 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func checkNewVersion() {
-        checkUpdate().responseJSON { (req, res, data) in
-            guard let jsonValue = data.value else {
-                print(data.error.debugDescription)
+        checkUpdate().responseJSON { res in
+            guard let jsonValue = res.result.value else {
+                print(res.result.error.debugDescription)
                 return
             }
             let fir = FIR(json: jsonValue)

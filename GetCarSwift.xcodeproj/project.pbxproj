@@ -36,6 +36,12 @@
 		C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
+		C87C943C1BB0524800194F21 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87C942D1BB0523E00194F21 /* RxSwift.framework */; };
+		C87C943D1BB0524800194F21 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C87C942D1BB0523E00194F21 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C87C94401BB0524800194F21 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87C94311BB0523E00194F21 /* RxCocoa.framework */; };
+		C87C94411BB0524800194F21 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C87C94311BB0523E00194F21 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C87C94441BB0524800194F21 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87C94351BB0523E00194F21 /* RxBlocking.framework */; };
+		C87C94451BB0524800194F21 /* RxBlocking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C87C94351BB0523E00194F21 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
 		C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* GeoApi.swift */; };
@@ -112,6 +118,69 @@
 			proxyType = 1;
 			remoteGlobalIDString = C867FC651AD8FCAF00F99592;
 			remoteInfo = GetCarSwift;
+		};
+		C87C942C1BB0523E00194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8A56AD71AD7424700B4673B;
+			remoteInfo = "RxSwift-iOS";
+		};
+		C87C942E1BB0523E00194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C88BB8711B07E5ED0064D411;
+			remoteInfo = "RxSwift-OSX";
+		};
+		C87C94301BB0523E00194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C809396D1B8A71760088E94D;
+			remoteInfo = "RxCocoa-iOS";
+		};
+		C87C94321BB0523E00194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C80939E71B8A71840088E94D;
+			remoteInfo = "RxCocoa-OSX";
+		};
+		C87C94341BB0523E00194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8093BC71B8A71F00088E94D;
+			remoteInfo = "RxBlocking-iOS";
+		};
+		C87C94361BB0523E00194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8093C451B8A71FC0088E94D;
+			remoteInfo = "RxBlocking-OSX";
+		};
+		C87C943E1BB0524800194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C8A56AD61AD7424700B4673B;
+			remoteInfo = "RxSwift-iOS";
+		};
+		C87C94421BB0524800194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C80938F51B8A71760088E94D;
+			remoteInfo = "RxCocoa-iOS";
+		};
+		C87C94461BB0524800194F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C8093B4B1B8A71F00088E94D;
+			remoteInfo = "RxBlocking-iOS";
 		};
 		C8CD8DCB1B91CB900050DF90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -220,9 +289,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C87C943D1BB0524800194F21 /* RxSwift.framework in Embed Frameworks */,
 				C8CD8E081B91E85B0050DF90 /* SwiftyJSON.framework in Embed Frameworks */,
 				C8CD8E0D1B91E8660050DF90 /* Alamofire.framework in Embed Frameworks */,
+				C87C94411BB0524800194F21 /* RxCocoa.framework in Embed Frameworks */,
 				C8CD8E1D1B91EABF0050DF90 /* Haneke.framework in Embed Frameworks */,
+				C87C94451BB0524800194F21 /* RxBlocking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +337,7 @@
 		C86F855F1B82171200C7DC7C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C86F85611B82172500C7DC7C /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
+		C87C941D1BB0523E00194F21 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
 		C880DA761B78D21900F5E24D /* GeoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoApi.swift; sourceTree = "<group>"; };
@@ -324,6 +397,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C87C94401BB0524800194F21 /* RxCocoa.framework in Frameworks */,
 				C8556C7F1BA33D3600623154 /* libz.dylib in Frameworks */,
 				C8556C7D1BA33D2C00623154 /* libstdc++.6.0.9.dylib in Frameworks */,
 				C8556C7B1BA33D2200623154 /* libc++.dylib in Frameworks */,
@@ -331,11 +405,13 @@
 				C8C2C09A1B8B5EAE006095DC /* MAMapKit.framework in Frameworks */,
 				C86F855E1B82170400C7DC7C /* Security.framework in Frameworks */,
 				C86F855C1B8216D500C7DC7C /* SystemConfiguration.framework in Frameworks */,
+				C87C943C1BB0524800194F21 /* RxSwift.framework in Frameworks */,
 				C86F855A1B8216CD00C7DC7C /* CoreTelephony.framework in Frameworks */,
 				C86F85581B8216BD00C7DC7C /* CoreLocation.framework in Frameworks */,
 				C8C2C0981B8B5EAE006095DC /* AMapSearchKit.framework in Frameworks */,
 				C86F85541B8216A600C7DC7C /* QuartzCore.framework in Frameworks */,
 				C86F85521B82169B00C7DC7C /* CoreGraphics.framework in Frameworks */,
+				C87C94441BB0524800194F21 /* RxBlocking.framework in Frameworks */,
 				C86F85501B8215A100C7DC7C /* CoreMotion.framework in Frameworks */,
 				C8CD8E1C1B91EABF0050DF90 /* Haneke.framework in Frameworks */,
 				C8CD8E071B91E85B0050DF90 /* SwiftyJSON.framework in Frameworks */,
@@ -393,6 +469,7 @@
 		C867FC5D1AD8FCAF00F99592 = {
 			isa = PBXGroup;
 			children = (
+				C87C941D1BB0523E00194F21 /* Rx.xcodeproj */,
 				C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */,
 				C8CD8DD91B91DDE60050DF90 /* SwiftyJSON.xcodeproj */,
 				C8CD8DC31B91CB8F0050DF90 /* Alamofire.xcodeproj */,
@@ -468,6 +545,19 @@
 				C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		C87C941E1BB0523E00194F21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C87C942D1BB0523E00194F21 /* RxSwift.framework */,
+				C87C942F1BB0523E00194F21 /* RxSwift.framework */,
+				C87C94311BB0523E00194F21 /* RxCocoa.framework */,
+				C87C94331BB0523E00194F21 /* RxCocoa.framework */,
+				C87C94351BB0523E00194F21 /* RxBlocking.framework */,
+				C87C94371BB0523E00194F21 /* RxBlocking.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C881F02F1B7B86BD00E062B6 /* Assets */ = {
@@ -635,6 +725,9 @@
 				C8CD8E0A1B91E85B0050DF90 /* PBXTargetDependency */,
 				C8CD8E0F1B91E8660050DF90 /* PBXTargetDependency */,
 				C8CD8E1F1B91EABF0050DF90 /* PBXTargetDependency */,
+				C87C943F1BB0524800194F21 /* PBXTargetDependency */,
+				C87C94431BB0524800194F21 /* PBXTargetDependency */,
+				C87C94471BB0524800194F21 /* PBXTargetDependency */,
 			);
 			name = GetCarSwift;
 			productName = GetCarSwift;
@@ -701,6 +794,10 @@
 					ProjectRef = C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */;
 				},
 				{
+					ProductGroup = C87C941E1BB0523E00194F21 /* Products */;
+					ProjectRef = C87C941D1BB0523E00194F21 /* Rx.xcodeproj */;
+				},
+				{
 					ProductGroup = C8CD8DDA1B91DDE60050DF90 /* Products */;
 					ProjectRef = C8CD8DD91B91DDE60050DF90 /* SwiftyJSON.xcodeproj */;
 				},
@@ -726,6 +823,48 @@
 			fileType = wrapper.framework;
 			path = SwiftyJSON.framework;
 			remoteRef = C82057121BAAFF2800E59A74 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C87C942D1BB0523E00194F21 /* RxSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxSwift.framework;
+			remoteRef = C87C942C1BB0523E00194F21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C87C942F1BB0523E00194F21 /* RxSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxSwift.framework;
+			remoteRef = C87C942E1BB0523E00194F21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C87C94311BB0523E00194F21 /* RxCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxCocoa.framework;
+			remoteRef = C87C94301BB0523E00194F21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C87C94331BB0523E00194F21 /* RxCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxCocoa.framework;
+			remoteRef = C87C94321BB0523E00194F21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C87C94351BB0523E00194F21 /* RxBlocking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxBlocking.framework;
+			remoteRef = C87C94341BB0523E00194F21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C87C94371BB0523E00194F21 /* RxBlocking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxBlocking.framework;
+			remoteRef = C87C94361BB0523E00194F21 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */ = {
@@ -927,6 +1066,21 @@
 			isa = PBXTargetDependency;
 			target = C867FC651AD8FCAF00F99592 /* GetCarSwift */;
 			targetProxy = C867FC7E1AD8FCB000F99592 /* PBXContainerItemProxy */;
+		};
+		C87C943F1BB0524800194F21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RxSwift-iOS";
+			targetProxy = C87C943E1BB0524800194F21 /* PBXContainerItemProxy */;
+		};
+		C87C94431BB0524800194F21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RxCocoa-iOS";
+			targetProxy = C87C94421BB0524800194F21 /* PBXContainerItemProxy */;
+		};
+		C87C94471BB0524800194F21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RxBlocking-iOS";
+			targetProxy = C87C94461BB0524800194F21 /* PBXContainerItemProxy */;
 		};
 		C8CD8E0A1B91E85B0050DF90 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

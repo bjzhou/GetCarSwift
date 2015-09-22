@@ -112,11 +112,11 @@ extension GaikeApi {
 
 extension Request {
     func responseGK(completionHandler: (NSURLRequest?, NSHTTPURLResponse?, GKResult) -> Void) -> Self {
-        return response(responseSerializer: Request.dataResponseSerializer()) {(req, res, result) in
+        return response(responseSerializer: Request.dataResponseSerializer()) { res in
             {
                 var gkResult = GKResult()
-                if let data = result.value {
-                    if let err = result.error {
+                if let data = res.result.value {
+                    if let err = res.result.error {
                         gkResult.error = Error.errorWithCode(-10003, failureReason: "error reason : \(err)")
                     } else {
                         gkResult = GKResult(json: JSON(data: data))
@@ -125,7 +125,7 @@ extension Request {
                 }
                 return gkResult
             } ~> { gkResult in
-                completionHandler(req, res, gkResult)
+                completionHandler(res.request, res.response, gkResult)
             }
         }
     }
