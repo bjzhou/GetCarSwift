@@ -13,3 +13,6 @@
 [submodule "RxSwift"]
 	path = RxSwift
 	url = https://github.com/ReactiveX/RxSwift.git
+[submodule "ObjectMapper"]
+	path = ObjectMapper
+	url = https://github.com/Hearst-DD/ObjectMapper.git

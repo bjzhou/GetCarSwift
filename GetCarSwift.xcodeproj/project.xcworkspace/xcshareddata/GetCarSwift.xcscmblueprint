@@ -5,25 +5,32 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F" : 0,
+    "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
     "8B123162C394A0A0A138779108E4C59DD771865A" : 0,
-    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
-    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : 0,
     "EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D" : 0,
-    "67620B5EFA902936DF04070AF595B76AB0333747" : 0
+    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
+    "58AAB0051E2B4EEDF1845A552012E6D0EBAD9127" : 0,
+    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B34B994C-E109-43FE-9483-C20F07F5F51F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F" : "GetCarSwift\/HanekeSwift\/",
+    "67620B5EFA902936DF04070AF595B76AB0333747" : "GetCarSwift\/Alamofire\/",
     "8B123162C394A0A0A138779108E4C59DD771865A" : "GetCarSwift\/RxSwift\/",
-    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "GetCarSwift\/SwiftyJSON\/",
-    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : "GetCarSwift\/ENSwiftSideMenu\/",
     "EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D" : "GetCarSwift",
-    "67620B5EFA902936DF04070AF595B76AB0333747" : "GetCarSwift\/Alamofire\/"
+    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "GetCarSwift\/SwiftyJSON\/",
+    "58AAB0051E2B4EEDF1845A552012E6D0EBAD9127" : "GetCarSwift\/ObjectMapper\/",
+    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : "GetCarSwift\/ENSwiftSideMenu\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "GetCarSwift",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GetCarSwift.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Hearst-DD\/ObjectMapper.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "58AAB0051E2B4EEDF1845A552012E6D0EBAD9127"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alamofire\/Alamofire.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
