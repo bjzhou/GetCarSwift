@@ -35,14 +35,14 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         case (_, .None):
             self.view.makeToast(message: "请选择车型")
         case (let nicknameText, let .Some(selectedCarId)):
-            UserApi.sharedInstance.updateInfo(nickname: nicknameText, sex: sex, car: selectedCarId) { result in
-                guard let json = result.data else {
+            User.updateInfo(nickname: nicknameText, sex: sex, car: selectedCarId).subscribeNext { result in
+                guard let user = result.data else {
                     self.view.makeToast(message: "注册失败")
                     return
                 }
 
                 if result.code >= 0 {
-                    updateLogin(json)
+                    updateLogin(user)
 
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let controller = storyboard.instantiateInitialViewController()

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 extension String {
     var floatValue: Float {
@@ -21,5 +22,11 @@ extension String {
     
     func trim() -> String {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
+}
+
+extension String: JSONable {
+    init(json: JSON) {
+        self.init(json.stringValue)
     }
 }

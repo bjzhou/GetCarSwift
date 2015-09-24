@@ -10,6 +10,7 @@ import Foundation
 import Haneke
 import SwiftyJSON
 import CoreMotion
+import ObjectMapper
 
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
@@ -128,34 +129,30 @@ func async(bgThread: () -> Void) {
     dispatch_async(queue, bgThread)
 }
 
-func updateLogin(json: SwiftyJSON.JSON) {
+func updateLogin(user: User) {
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    if let car = json["car"].string {
+    if let car = user.car {
         defaults.setValue(car, forKey: "car")
     }
-    if let phone = json["phone"].string {
+    if let phone = user.phone {
         defaults.setValue(phone, forKey: "phone")
     }
-    if let id = json["id"].string {
+    if let id = user.id {
         defaults.setValue(id, forKey: "id")
     }
 
-    if let token = json["token"].string {
+    if let token = user.token {
         DataKeeper.sharedInstance.token = token
     }
-    if let nickname = json["nickname"].string {
+    if let nickname = user.nickname {
         DataKeeper.sharedInstance.nickname = nickname
     }
-    if let sex = json["sex"].string {
-        DataKeeper.sharedInstance.sex = sex.intValue
+    if let sex = user.sex {
+        DataKeeper.sharedInstance.sex = sex
     }
-    if let avatarUrl = json["img"].string {
-        var mutableUrl = avatarUrl
-        if !avatarUrl.hasPrefix("http://") {
-            mutableUrl = "http://pic.gaikit.com/user/head/" + avatarUrl
-        }
-        DataKeeper.sharedInstance.avatarUrl = mutableUrl
+    if let avatarUrl = user.img {
+        DataKeeper.sharedInstance.avatarUrl = avatarUrl
     }
 }
 

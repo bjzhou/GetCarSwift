@@ -10,13 +10,7 @@ import UIKit
 
 class TrackDetailViewController: UIViewController {
 
-    struct Comment {
-        var id: String?
-        var content: String
-        var create_time: String
-        var nickname: String
-        var head: String
-    }
+
 
     @IBOutlet weak var imageScrollView: UIScrollView!
     @IBOutlet weak var trackLabel: UILabel!
@@ -83,25 +77,26 @@ class TrackDetailViewController: UIViewController {
         trackDetailLabel.text = trackDetail
         trackStar.image = UIImage(named: trackStarString)
         //mapImageView.image = UIImage(named: trackMap)
-        TraceApi.sharedInstance.comments(sid: sid, limit: 999) { gkResult in
-            guard let json = gkResult.data else {
+        Comments.getComments(sid: sid, limit: 999).subscribeNext { gkResult in
+            guard let comments = gkResult.data else {
                 return
             }
-            for (_, commentJson) in json["comments", "content"] {
-                self.comments.insert(Comment(id: commentJson["id"].stringValue, content: commentJson["content"].stringValue, create_time: commentJson["create_time"].stringValue, nickname: commentJson["nickname"].stringValue, head: commentJson["head"].stringValue), atIndex: 0)
+            for comment in comments.comments {
+                self.comments.insert(Comment(id: comment.id, content: comment.content, create_time: comment.create_time, nickname: comment.nickname, head: comment.head), atIndex: 0)
             }
 
             let myId = NSUserDefaults.standardUserDefaults().stringForKey("id")
-            for (_, praiseJson) in json["praises", "content"] {
-                if myId == praiseJson["uid"].stringValue && myId != "" {
+            for praise in comments.praises {
+                if myId == praise.uid && myId != "" {
                     self.loveButtonSelected = true
                 }
             }
-            self.lovedCount = json["praises", "total"].intValue
+            self.lovedCount = comments.praisesTotal
             if !self.loveButtonSelected {
                 self.updateLoveLabel()
             }
         }
+        
     }
 
     override func viewDidLayoutSubviews() {
@@ -148,12 +143,12 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didPostComment(sender: UIButton) {
-        TraceApi.sharedInstance.pubComment(sid: sid, content: commentTextField.text ?? "") { gkResult in
-            guard let data = gkResult.data else {
+        Comment.pubComment(sid: sid, content: commentTextField.text ?? "").subscribeNext { gkResult in
+            guard let str = gkResult.data else {
                 self.view.makeToast(message: "发表评论失败！")
                 return
             }
-            self.comments.append(Comment(id: data.stringValue, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
+            self.comments.append(Comment(id: str, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
 
             self.commentTextField.text = ""
             self.commentTableView.scrollToBottom(true)
@@ -172,10 +167,10 @@ class TrackDetailViewController: UIViewController {
         loveButtonSelected ? lovedCount-- : lovedCount++
         loveButtonSelected = !loveButtonSelected
         if loveButtonSelected {
-            TraceApi.sharedInstance.praise(sid: sid) { gkResult in
+            Praise.praise(sid: sid).subscribeNext { gkResult in
             }
         } else {
-            TraceApi.sharedInstance.cancelPraise(sid: sid) { gkResult in
+            Praise.cancelPraise(sid: sid).subscribeNext { gkResult in
             }
         }
     }

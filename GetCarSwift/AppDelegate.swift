@@ -52,12 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func checkNewVersion() {
-        checkUpdate().responseJSON { res in
-            guard let jsonValue = res.result.value else {
-                print(res.result.error.debugDescription)
-                return
-            }
-            let fir = FIR(json: jsonValue)
+        FIR.checkUpdate().subscribeNext { fir in
             if VERSION != fir.version {
                 let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))

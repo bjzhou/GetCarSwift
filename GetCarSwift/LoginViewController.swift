@@ -39,28 +39,28 @@ class LoginViewController: UIViewController {
         case (_, ""):
             self.view.makeToast(message: "请输入验证码")
         case (let phone, let code):
-            UserApi.sharedInstance.login(phone: phone, code: code) { result in
-                guard let json = result.data else {
+            User.login(phone: phone, code: code).subscribeNext { res in
+                guard let user = res.data else {
                     self.view.makeToast(message: "登陆失败")
                     return
                 }
 
-                if result.code < 0 {
+                if res.code < 0 {
                     self.view.makeToast(message: "验证码错误")
                     return
                 }
 
-                DataKeeper.sharedInstance.token = json["token"].stringValue
+                DataKeeper.sharedInstance.token = user.token
 
-                if json["nickname"].stringValue == "" {
-                    let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
-                    self.showViewController(dest, sender: self)
-                } else {
-                    updateLogin(json)
+                if let nickname = user.nickname where nickname != "" {
+                    updateLogin(user)
 
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let controller = storyboard.instantiateInitialViewController()
                     UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+                } else {
+                    let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
+                    self.showViewController(dest, sender: self)
                 }
             }
         }
@@ -74,13 +74,11 @@ class LoginViewController: UIViewController {
         timerCount = 0
         let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
         timer.fire()
-        UserApi.sharedInstance.getCodeMsg(phone) { result in
-            if result.error == nil {
-                self.view.makeToast(message: "验证码已发送")
-            } else {
+        User.getCodeMsg(phone).subscribe(error: { err in
                 self.view.makeToast(message: "验证码发送失败")
-            }
-        }
+            }, completed: {
+                self.view.makeToast(message: "验证码发送成功")
+        })
     }
 
     @IBAction func oSkipAction(sender: UIButton) {

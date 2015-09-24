@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
-		C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIRApi.swift */; };
+		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
 		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
 		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C842763D1BB185E70041C3F9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C842762E1BB185930041C3F9 /* RxSwift.framework */; };
@@ -46,21 +46,20 @@
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
-		C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* GeoApi.swift */; };
+		C880DA771B78D21900F5E24D /* Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* Nearby.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
 		C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* UIImage.swift */; };
 		C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */; };
-		C894A3321B7F783D00D853C9 /* CarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894A3311B7F783D00D853C9 /* CarApi.swift */; };
+		C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894A3311B7F783D00D853C9 /* CarInfo.swift */; };
 		C894F5FB1BA440B300645DA3 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894F5FA1BA440B300645DA3 /* UITableView.swift */; };
-		C89791DD1B9F04280027D6A5 /* TraceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* TraceApi.swift */; };
+		C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* Comment.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
-		C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* ApiBase.swift */; };
+		C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* GaikeService.swift */; };
 		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
 		C89D6A4A1B9DB0F200B0F69B /* ModIntroContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */; };
 		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
-		C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A8719F1B92DFEA006300EF /* UploadApi.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
 		C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2011B983967002F39EB /* TrackViewController.swift */; };
 		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; };
@@ -95,7 +94,9 @@
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
 		C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8551AD96F31003B07FE /* MapViewController.swift */; };
 		C8EA68D01B8211C8003CD510 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C8EA68CF1B8211C8003CD510 /* AMap.bundle */; };
-		C8F9CD6F1B7246BB0003AF1B /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */; };
+		C8EEB65D1BB2D3D300BB5704 /* Praise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEB65C1BB2D3D300BB5704 /* Praise.swift */; settings = {ASSET_TAGS = (); }; };
+		C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEB65E1BB2D84D00BB5704 /* Comments.swift */; settings = {ASSET_TAGS = (); }; };
+		C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* User.swift */; };
 		C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD701B725CDD0003AF1B /* Toast.swift */; };
 /* End PBXBuildFile section */
 
@@ -348,7 +349,7 @@
 
 /* Begin PBXFileReference section */
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		C80881E11B6D2190002A1CE9 /* FIRApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRApi.swift; sourceTree = "<group>"; };
+		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C842761B1BB185930041C3F9 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
@@ -386,21 +387,20 @@
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
-		C880DA761B78D21900F5E24D /* GeoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoApi.swift; sourceTree = "<group>"; };
+		C880DA761B78D21900F5E24D /* Nearby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nearby.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableNavigationController.swift; sourceTree = "<group>"; };
-		C894A3311B7F783D00D853C9 /* CarApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarApi.swift; sourceTree = "<group>"; };
+		C894A3311B7F783D00D853C9 /* CarInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
 		C894F5FA1BA440B300645DA3 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
-		C89791DC1B9F04280027D6A5 /* TraceApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceApi.swift; sourceTree = "<group>"; };
+		C89791DC1B9F04280027D6A5 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
-		C89A05C21B6E058C00620C85 /* ApiBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiBase.swift; sourceTree = "<group>"; };
+		C89A05C21B6E058C00620C85 /* GaikeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaikeService.swift; sourceTree = "<group>"; };
 		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		C89D6A491B9DB0F200B0F69B /* ModIntroContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModIntroContentViewController.swift; sourceTree = "<group>"; };
 		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
-		C8A8719F1B92DFEA006300EF /* UploadApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2011B983967002F39EB /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
@@ -434,7 +434,9 @@
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
 		C8E2B8551AD96F31003B07FE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C8EA68CF1B8211C8003CD510 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		C8EEB65C1BB2D3D300BB5704 /* Praise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Praise.swift; sourceTree = "<group>"; };
+		C8EEB65E1BB2D84D00BB5704 /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		C8F9CD6E1B7246BB0003AF1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -499,18 +501,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C80881E01B6D2171002A1CE9 /* Api */ = {
+		C80881E01B6D2171002A1CE9 /* servicce */ = {
 			isa = PBXGroup;
 			children = (
-				C80881E11B6D2190002A1CE9 /* FIRApi.swift */,
-				C89A05C21B6E058C00620C85 /* ApiBase.swift */,
-				C8F9CD6E1B7246BB0003AF1B /* UserApi.swift */,
-				C880DA761B78D21900F5E24D /* GeoApi.swift */,
-				C894A3311B7F783D00D853C9 /* CarApi.swift */,
-				C8A8719F1B92DFEA006300EF /* UploadApi.swift */,
-				C89791DC1B9F04280027D6A5 /* TraceApi.swift */,
+				C89A05C21B6E058C00620C85 /* GaikeService.swift */,
 			);
-			name = Api;
+			name = servicce;
 			sourceTree = "<group>";
 		};
 		C842761C1BB185930041C3F9 /* Products */ = {
@@ -536,6 +532,20 @@
 				C842765A1BB186AF0041C3F9 /* ObjectMapper-MacTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C842765F1BB188D60041C3F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C880DA761B78D21900F5E24D /* Nearby.swift */,
+				C80881E11B6D2190002A1CE9 /* FIR.swift */,
+				C8F9CD6E1B7246BB0003AF1B /* User.swift */,
+				C894A3311B7F783D00D853C9 /* CarInfo.swift */,
+				C89791DC1B9F04280027D6A5 /* Comment.swift */,
+				C8EEB65C1BB2D3D300BB5704 /* Praise.swift */,
+				C8EEB65E1BB2D84D00BB5704 /* Comments.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		C867FC5D1AD8FCAF00F99592 = {
@@ -565,8 +575,9 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
+				C842765F1BB188D60041C3F9 /* Model */,
 				C881F02F1B7B86BD00E062B6 /* Assets */,
-				C80881E01B6D2171002A1CE9 /* Api */,
+				C80881E01B6D2171002A1CE9 /* servicce */,
 				C8E2B8541AD96F19003B07FE /* Trace */,
 				C8E2B8491AD95AB2003B07FE /* Mine */,
 				C8E2B83E1AD93412003B07FE /* Mod */,
@@ -1094,15 +1105,16 @@
 				C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
-				C80881E21B6D2190002A1CE9 /* FIRApi.swift in Sources */,
+				C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */,
 				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
 				C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */,
 				C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
-				C89A05C31B6E058C00620C85 /* ApiBase.swift in Sources */,
+				C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */,
 				C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */,
+				C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
-				C8F9CD6F1B7246BB0003AF1B /* UserApi.swift in Sources */,
+				C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */,
 				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
 				C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */,
 				C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */,
@@ -1117,19 +1129,19 @@
 				C8C2C08C1B8B527D006095DC /* MatchViewController.swift in Sources */,
 				C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
-				C8A871A01B92DFEA006300EF /* UploadApi.swift in Sources */,
 				C865B4E61B765BFB00790A81 /* ModViewController.swift in Sources */,
 				C89D6A4A1B9DB0F200B0F69B /* ModIntroContentViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */,
-				C880DA771B78D21900F5E24D /* GeoApi.swift in Sources */,
+				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
 				C8CD8DEF1B91DF090050DF90 /* ENSideMenu.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */,
 				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
+				C8EEB65D1BB2D3D300BB5704 /* Praise.swift in Sources */,
 				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
-				C894A3321B7F783D00D853C9 /* CarApi.swift in Sources */,
+				C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */,
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */,
@@ -1143,7 +1155,7 @@
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C894F5FB1BA440B300645DA3 /* UITableView.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
-				C89791DD1B9F04280027D6A5 /* TraceApi.swift in Sources */,
+				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
 				C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */,
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C828823C1B9219620091F624 /* UIImageView.swift in Sources */,

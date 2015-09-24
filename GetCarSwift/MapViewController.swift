@@ -101,19 +101,19 @@ class MapViewController: UIViewController {
 
     func didTimerUpdate() {
         let parent = self.parentViewController as! TraceViewController
-        GeoApi.sharedInstance.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0) { result in
-            guard let json = result.data else {
+        Nearby.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0).subscribeNext { result in
+            guard let nearbys = result.dataArray else {
                 return
             }
 
             self.mapView.removeAnnotations(self.annotations)
             self.annotations.removeAll()
-            for (_, subJson) in json {
-                let newCoordinate = CLLocation(latitude: subJson["lati"].doubleValue, longitude: subJson["longt"].doubleValue)
+            for nearby in nearbys {
+                let newCoordinate = CLLocation(latitude: nearby.lati, longitude: nearby.longt)
                 let pointAnnotation = CustomMAPointAnnotation()
                 pointAnnotation.coordinate = newCoordinate.coordinate
-                pointAnnotation.title = subJson["nickname"].stringValue
-                pointAnnotation.image = UIImage(named: getCarIconName(subJson["sex"].intValue, color: subJson["car_head_bg"].intValue, icon: subJson["car_head_id"].intValue))!
+                pointAnnotation.title = nearby.nickname
+                pointAnnotation.image = UIImage(named: getCarIconName(nearby.sex, color: nearby.car_head_bg, icon: nearby.car_head_id))!
                 if let dis = DataKeeper.sharedInstance.location?.distanceFromLocation(newCoordinate) {
                     if dis >= 1000 {
                         pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"

@@ -20,8 +20,8 @@ class CarTableViewController: UITableViewController {
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
-        CarApi.sharedInstance.info() { result in
-            guard let json = result.data else {
+        CarInfo.info().subscribeNext { result in
+            guard let carInfos = result.dataArray else {
                 return
             }
             {
@@ -33,11 +33,11 @@ class CarTableViewController: UITableViewController {
 //                    }
 //                }
 
-                for i in 0..<json.count {
-                    let categery = json[i, "categery"].stringValue
-                    let brand = json[i, "brand"].stringValue
-                    let model = json[i, "model"].stringValue
-                    //let modelId = json[i, "id"].stringValue
+                for carInfo in carInfos {
+                    let categery = carInfo.category
+                    let brand = carInfo.brand
+                    let model = carInfo.model
+                    //let modelId = carInfo.modelId
 
                     if self.brands[categery] == nil {
                         self.brands[categery] = []
