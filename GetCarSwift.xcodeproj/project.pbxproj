@@ -17,8 +17,6 @@
 		C84276421BB185E70041C3F9 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C84276321BB185930041C3F9 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C84276451BB185E70041C3F9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84276361BB185930041C3F9 /* RxBlocking.framework */; };
 		C84276461BB185E70041C3F9 /* RxBlocking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C84276361BB185930041C3F9 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C842765B1BB186CF0041C3F9 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84276521BB186AF0041C3F9 /* ObjectMapper.framework */; };
-		C842765C1BB186CF0041C3F9 /* ObjectMapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C84276521BB186AF0041C3F9 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848F1B61B778626008DAC69 /* TrackingViewController.swift */; };
 		C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
@@ -178,48 +176,6 @@
 			remoteGlobalIDString = C8093B4B1B8A71F00088E94D;
 			remoteInfo = "RxBlocking-iOS";
 		};
-		C84276511BB186AF0041C3F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6AAC8F7619F03C2900E7A677;
-			remoteInfo = "ObjectMapper-iOS";
-		};
-		C84276531BB186AF0041C3F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD1602FF1AC023D5000CD69A;
-			remoteInfo = "ObjectMapper-Mac";
-		};
-		C84276551BB186AF0041C3F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6A2AD03D1B2C78540097E150;
-			remoteInfo = "ObjectMapper-watchOS";
-		};
-		C84276571BB186AF0041C3F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6AAC8F8119F03C2900E7A677;
-			remoteInfo = "ObjectMapper-iOSTests";
-		};
-		C84276591BB186AF0041C3F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD1603091AC023D6000CD69A;
-			remoteInfo = "ObjectMapper-MacTests";
-		};
-		C842765D1BB186CF0041C3F9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 6AAC8F7519F03C2900E7A677;
-			remoteInfo = "ObjectMapper-iOS";
-		};
 		C867FC7E1AD8FCB000F99592 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C867FC5E1AD8FCAF00F99592 /* Project object */;
@@ -340,7 +296,6 @@
 				C84276421BB185E70041C3F9 /* RxCocoa.framework in Embed Frameworks */,
 				C8CD8E1D1B91EABF0050DF90 /* Haneke.framework in Embed Frameworks */,
 				C84276461BB185E70041C3F9 /* RxBlocking.framework in Embed Frameworks */,
-				C842765C1BB186CF0041C3F9 /* ObjectMapper.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,7 +308,6 @@
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C842761B1BB185930041C3F9 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
-		C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectMapper.xcodeproj; path = ObjectMapper/ObjectMapper.xcodeproj; sourceTree = "<group>"; };
 		C848F1B61B778626008DAC69 /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
 		C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewController.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -447,7 +401,6 @@
 			files = (
 				C84276411BB185E70041C3F9 /* RxCocoa.framework in Frameworks */,
 				C8556C7F1BA33D3600623154 /* libz.dylib in Frameworks */,
-				C842765B1BB186CF0041C3F9 /* ObjectMapper.framework in Frameworks */,
 				C8556C7D1BA33D2C00623154 /* libstdc++.6.0.9.dylib in Frameworks */,
 				C8556C7B1BA33D2200623154 /* libc++.dylib in Frameworks */,
 				C8C2C0991B8B5EAE006095DC /* Bugly.framework in Frameworks */,
@@ -522,18 +475,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C842764A1BB186AF0041C3F9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C84276521BB186AF0041C3F9 /* ObjectMapper.framework */,
-				C84276541BB186AF0041C3F9 /* ObjectMapper.framework */,
-				C84276561BB186AF0041C3F9 /* ObjectMapper.framework */,
-				C84276581BB186AF0041C3F9 /* ObjectMapper-iOSTests.xctest */,
-				C842765A1BB186AF0041C3F9 /* ObjectMapper-MacTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C842765F1BB188D60041C3F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,7 +492,6 @@
 		C867FC5D1AD8FCAF00F99592 = {
 			isa = PBXGroup;
 			children = (
-				C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */,
 				C842761B1BB185930041C3F9 /* Rx.xcodeproj */,
 				C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */,
 				C8CD8DD91B91DDE60050DF90 /* SwiftyJSON.xcodeproj */,
@@ -799,7 +739,6 @@
 				C84276401BB185E70041C3F9 /* PBXTargetDependency */,
 				C84276441BB185E70041C3F9 /* PBXTargetDependency */,
 				C84276481BB185E70041C3F9 /* PBXTargetDependency */,
-				C842765E1BB186CF0041C3F9 /* PBXTargetDependency */,
 			);
 			name = GetCarSwift;
 			productName = GetCarSwift;
@@ -864,10 +803,6 @@
 				{
 					ProductGroup = C8CD8E111B91EAAE0050DF90 /* Products */;
 					ProjectRef = C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */;
-				},
-				{
-					ProductGroup = C842764A1BB186AF0041C3F9 /* Products */;
-					ProjectRef = C84276491BB186AF0041C3F9 /* ObjectMapper.xcodeproj */;
 				},
 				{
 					ProductGroup = C842761C1BB185930041C3F9 /* Products */;
@@ -941,41 +876,6 @@
 			fileType = wrapper.framework;
 			path = RxBlocking.framework;
 			remoteRef = C84276371BB185930041C3F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C84276521BB186AF0041C3F9 /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = C84276511BB186AF0041C3F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C84276541BB186AF0041C3F9 /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = C84276531BB186AF0041C3F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C84276561BB186AF0041C3F9 /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = C84276551BB186AF0041C3F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C84276581BB186AF0041C3F9 /* ObjectMapper-iOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectMapper-iOSTests.xctest";
-			remoteRef = C84276571BB186AF0041C3F9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C842765A1BB186AF0041C3F9 /* ObjectMapper-MacTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectMapper-MacTests.xctest";
-			remoteRef = C84276591BB186AF0041C3F9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */ = {
@@ -1188,11 +1088,6 @@
 			isa = PBXTargetDependency;
 			name = "RxBlocking-iOS";
 			targetProxy = C84276471BB185E70041C3F9 /* PBXContainerItemProxy */;
-		};
-		C842765E1BB186CF0041C3F9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ObjectMapper-iOS";
-			targetProxy = C842765D1BB186CF0041C3F9 /* PBXContainerItemProxy */;
 		};
 		C867FC7F1AD8FCB000F99592 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

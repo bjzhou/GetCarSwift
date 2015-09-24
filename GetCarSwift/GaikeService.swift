@@ -13,6 +13,8 @@ import RxSwift
 import SwiftyJSON
 
 let apiManager = Manager.sharedInstance
+let operationQueue = NSOperationQueue()
+let operationScheduler = OperationQueueScheduler(operationQueue: operationQueue)
 
 let API_DEBUG = true
 
@@ -64,12 +66,7 @@ class GaikeService {
                     print("ERROR=========================================> \(err)")
                 } else {
                     if let data = res.result.value {
-                        let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
-                        if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
-                            logout()
-                        } else {
-                            observer.on(.Next(gkResult))
-                        }
+                        observer.on(.Next(data))
                         if API_DEBUG {
                             let responseString = String(data: data, encoding: NSUTF8StringEncoding) ?? ""
                             print("RESPONSE=========================================> \(responseString)")
@@ -81,7 +78,9 @@ class GaikeService {
             return AnonymousDisposable {
                 request.cancel()
             }
-        }
+            }.observeOn(operationScheduler).map { (data: NSData) in
+                return self.parseJSON(data)
+            }.observeOn(MainScheduler.sharedInstance)
     }
 
     func upload<T>(urlString: String, datas: [String:NSData]) -> Observable<GKResult<T>> {
@@ -93,12 +92,7 @@ class GaikeService {
                     observer.on(.Error(err))
                 } else {
                     if let data = res.result.value {
-                        let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
-                        if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
-                            logout()
-                        } else {
-                            observer.on(.Next(gkResult))
-                        }
+                        observer.on(.Next(data))
                     }
                     observer.on(.Completed)
                 }
@@ -106,7 +100,9 @@ class GaikeService {
             return AnonymousDisposable {
                 upload.cancel()
             }
-        }
+            }.observeOn(operationScheduler).map { (data: NSData) in
+                return self.parseJSON(data)
+            }.observeOn(MainScheduler.sharedInstance)
     }
 
     func cache<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
@@ -116,17 +112,22 @@ class GaikeService {
                     observer.on(.Error(err))
                 }
                 }.onSuccess { data in
-                    let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
-                    if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
-                        logout()
-                    } else {
-                        observer.on(.Next(gkResult))
-                    }
+                    observer.on(.Next(data))
                     observer.on(.Completed)
             }
             return AnonymousDisposable {
             }
+            }.observeOn(operationScheduler).map { (data: NSData) in
+                return self.parseJSON(data)
+            }.observeOn(MainScheduler.sharedInstance)
+    }
+
+    private func parseJSON<T>(data: NSData) -> GKResult<T> {
+        let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
+        if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
+            logout()
         }
+        return gkResult
     }
 
     func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
