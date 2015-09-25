@@ -36,8 +36,8 @@ let IMAGE_CAR_INFO_AREA_PRESSED = "car_info_area_pressed"
 let AMAP_KEY = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
 let BUGLY_APPID = "900007462"
 
-
-let imageCache = Shared.imageCache
+let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
 /*
 获得地图界面定位图标名
@@ -132,34 +132,33 @@ func async(bgThread: () -> Void) {
 func updateLogin(user: User) {
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    if let car = user.car {
+    if let car = user.car where car != "" {
         defaults.setValue(car, forKey: "car")
     }
-    if let phone = user.phone {
+    if let phone = user.phone where phone != "" {
         defaults.setValue(phone, forKey: "phone")
     }
-    if let id = user.id {
+    if let id = user.id where id != "" {
         defaults.setValue(id, forKey: "id")
     }
 
-    if let token = user.token {
+    if let token = user.token where token != "" {
         DataKeeper.sharedInstance.token = token
     }
-    if let nickname = user.nickname {
+    if let nickname = user.nickname where nickname != "" {
         DataKeeper.sharedInstance.nickname = nickname
     }
     if let sex = user.sex {
         DataKeeper.sharedInstance.sex = sex
     }
-    if let avatarUrl = user.img {
+    if let avatarUrl = user.img where avatarUrl != "" {
         DataKeeper.sharedInstance.avatarUrl = avatarUrl
     }
 }
 
 func logout() {
     DataKeeper.sharedInstance.token = nil
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let firstController = storyboard.instantiateViewControllerWithIdentifier("login") 
+    let firstController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
     let window = UIApplication.sharedApplication().keyWindow
     window?.rootViewController = firstController
 

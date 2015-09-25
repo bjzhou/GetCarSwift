@@ -17,6 +17,8 @@
 		C84276421BB185E70041C3F9 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C84276321BB185930041C3F9 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C84276451BB185E70041C3F9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84276361BB185930041C3F9 /* RxBlocking.framework */; };
 		C84276461BB185E70041C3F9 /* RxBlocking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C84276361BB185930041C3F9 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; settings = {ASSET_TAGS = (); }; };
 		C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848F1B61B778626008DAC69 /* TrackingViewController.swift */; };
 		C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */; };
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
@@ -91,6 +93,7 @@
 		C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */; };
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
 		C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8551AD96F31003B07FE /* MapViewController.swift */; };
+		C8E335531BB44910005449B2 /* ViewProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E335521BB44910005449B2 /* ViewProxy.swift */; settings = {ASSET_TAGS = (); }; };
 		C8EA68D01B8211C8003CD510 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C8EA68CF1B8211C8003CD510 /* AMap.bundle */; };
 		C8EEB65D1BB2D3D300BB5704 /* Praise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEB65C1BB2D3D300BB5704 /* Praise.swift */; settings = {ASSET_TAGS = (); }; };
 		C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEB65E1BB2D84D00BB5704 /* Comments.swift */; settings = {ASSET_TAGS = (); }; };
@@ -308,6 +311,8 @@
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C842761B1BB185930041C3F9 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
+		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C848F1B61B778626008DAC69 /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
 		C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewController.swift; sourceTree = "<group>"; };
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -387,6 +392,8 @@
 		C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
 		C8E2B8551AD96F31003B07FE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C8E335521BB44910005449B2 /* ViewProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProxy.swift; sourceTree = "<group>"; };
+		C8E335611BB45413005449B2 /* GetCarPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = GetCarPlayground.playground; sourceTree = SOURCE_ROOT; };
 		C8EA68CF1B8211C8003CD510 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
 		C8EEB65C1BB2D3D300BB5704 /* Praise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Praise.swift; sourceTree = "<group>"; };
 		C8EEB65E1BB2D84D00BB5704 /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
@@ -489,6 +496,24 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		C84408E91BB43C590088D046 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C84408F71BB43C720088D046 /* LoginViewModel.swift */,
+				C8E335521BB44910005449B2 /* ViewProxy.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		C84408F91BB43D2B0088D046 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C867FD201AD909E400F99592 /* LoginViewController.swift */,
+				C84408FA1BB43D410088D046 /* Login.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C867FC5D1AD8FCAF00F99592 = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +521,7 @@
 				C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */,
 				C8CD8DD91B91DDE60050DF90 /* SwiftyJSON.xcodeproj */,
 				C8CD8DC31B91CB8F0050DF90 /* Alamofire.xcodeproj */,
+				C8E335611BB45413005449B2 /* GetCarPlayground.playground */,
 				C867FC681AD8FCAF00F99592 /* GetCarSwift */,
 				C867FC801AD8FCB000F99592 /* GetCarSwiftTests */,
 				C867FC671AD8FCAF00F99592 /* Products */,
@@ -516,6 +542,8 @@
 			isa = PBXGroup;
 			children = (
 				C842765F1BB188D60041C3F9 /* Model */,
+				C84408F91BB43D2B0088D046 /* View */,
+				C84408E91BB43C590088D046 /* ViewModel */,
 				C881F02F1B7B86BD00E062B6 /* Assets */,
 				C80881E01B6D2171002A1CE9 /* servicce */,
 				C8E2B8541AD96F19003B07FE /* Trace */,
@@ -562,7 +590,6 @@
 		C867FD1F1AD909B300F99592 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				C867FD201AD909E400F99592 /* LoginViewController.swift */,
 				C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */,
 				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
 				C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */,
@@ -965,6 +992,7 @@
 				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
 				C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */,
 				C8EA68D01B8211C8003CD510 /* AMap.bundle in Resources */,
+				C84408FB1BB43D410088D046 /* Login.storyboard in Resources */,
 				C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1009,6 +1037,7 @@
 				C8E2B8401AD93527003B07FE /* ModDoctorViewController.swift in Sources */,
 				C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */,
 				C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */,
+				C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */,
 				C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */,
@@ -1056,6 +1085,7 @@
 				C894F5FB1BA440B300645DA3 /* UITableView.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
 				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
+				C8E335531BB44910005449B2 /* ViewProxy.swift in Sources */,
 				C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */,
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C828823C1B9219620091F624 /* UIImageView.swift in Sources */,

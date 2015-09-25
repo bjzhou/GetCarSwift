@@ -44,8 +44,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
                 if result.code >= 0 {
                     updateLogin(user)
 
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let controller = storyboard.instantiateInitialViewController()
+                    let controller = mainStoryboard.instantiateInitialViewController()
                     UIApplication.sharedApplication().keyWindow?.rootViewController = controller
                 }
             }

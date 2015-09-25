@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 enum AddPlayerMode {
     case Menu
@@ -88,7 +89,7 @@ class AddPlayerTableViewController: UITableViewController {
                 tableView.reloadData()
             } else {
                 if let url = DataKeeper.sharedInstance.avatarUrl {
-                    imageCache.fetch(URL: NSURL(string: url)!).onSuccess {image in
+                    Shared.imageCache.fetch(URL: NSURL(string: url)!).onSuccess {image in
                         self.delegate?.didPlayerAdded(avatar: image, name: "我")
                         self.dismissPopupViewController()
                         }.onFailure { err in

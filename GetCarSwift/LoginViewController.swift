@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import RxCocoa
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, ViewProxy {
 
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var vcodeText: UITextField!
+    @IBOutlet weak var vcodeButton: UIButton!
 
-    var code: String = "";
-    var timerCount = 0;
+    var loginViewModel: LoginViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,14 @@ class LoginViewController: UIViewController {
         self.view.addGestureRecognizer(tapRecognizer)
 
         phoneText.becomeFirstResponder()
+
+        loginViewModel = LoginViewModel(phoneText: phoneText.rx_text, codeText: vcodeText.rx_text)
+        loginViewModel.viewProxy = self
+
+        loginViewModel.codeEnabled.bindTo(vcodeButton.rx_enabled)
+        loginViewModel.codeTitle.subscribeNext { title in
+            self.vcodeButton.setTitle(title, forState: .Normal)
+        }
     }
 
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
@@ -33,75 +42,20 @@ class LoginViewController: UIViewController {
     // MARK: IBOutlet Actions
 
     @IBAction func onLoginAction(sender: UIButton) {
-        switch (phoneText.text!.trim(), vcodeText.text!.trim()) {
-        case ("", _):
-            self.view.makeToast(message: "请输入手机号")
-        case (_, ""):
-            self.view.makeToast(message: "请输入验证码")
-        case (let phone, let code):
-            User.login(phone: phone, code: code).subscribeNext { res in
-                guard let user = res.data else {
-                    self.view.makeToast(message: "登陆失败")
-                    return
-                }
-
-                if res.code < 0 {
-                    self.view.makeToast(message: "验证码错误")
-                    return
-                }
-
-                DataKeeper.sharedInstance.token = user.token
-
-                if let nickname = user.nickname where nickname != "" {
-                    updateLogin(user)
-
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let controller = storyboard.instantiateInitialViewController()
-                    UIApplication.sharedApplication().keyWindow?.rootViewController = controller
-                } else {
-                    let dest = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("register")
-                    self.showViewController(dest, sender: self)
-                }
-            }
-        }
+        loginViewModel.onLoginAction()
     }
 
     @IBAction func onVCodeAction(sender: UIButton) {
-        guard let phone = phoneText.text where phone.characters.count >= 11 else {
-            self.view.makeToast(message: "手机号格式错误")
-            return
-        }
-        timerCount = 0
-        let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("onTimeUpdate:"), userInfo: sender, repeats: true)
-        timer.fire()
-        User.getCodeMsg(phone).subscribe(error: { err in
-                self.view.makeToast(message: "验证码发送失败")
-            }, completed: {
-                self.view.makeToast(message: "验证码发送成功")
-        })
+        loginViewModel.onCodeButtonAction()
     }
 
-    @IBAction func oSkipAction(sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateInitialViewController()
-        UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+
+
+    func showToast(toast: String) {
+        self.view.makeToast(message: toast)
     }
 
-    func onTimeUpdate(timer: NSTimer) {
-        timerCount++
-        let button = timer.userInfo as? UIButton
-        if timerCount==60 {
-            timerReset(timer)
-            return
-        }
-        button?.enabled = false
-        button?.setTitle(String(60-timerCount) + "秒后重新发送", forState: .Normal)
-    }
-
-    func timerReset(timer: NSTimer) {
-        let button = timer.userInfo as? UIButton
-        timer.invalidate()
-        button?.enabled = true
-        button?.setTitle("发送验证码", forState: .Normal)
+    func showViewController(vc: UIViewController) {
+        self.showViewController(vc, sender: self)
     }
 }

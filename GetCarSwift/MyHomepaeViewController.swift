@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class MyHomepaeViewController: UIViewController {
 
@@ -33,7 +34,7 @@ class MyHomepaeViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let index = userDefaults.integerForKey("homepage_bg")
         if index == 1000 {
-            imageCache.fetch(key: "homepage_bg").onSuccess {image in
+            Shared.imageCache.fetch(key: "homepage_bg").onSuccess {image in
                 self.homepageBg.image = image
             }
         } else {

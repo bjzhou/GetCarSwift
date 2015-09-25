@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var collection: UICollectionView!
@@ -49,7 +50,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        imageCache.set(value: image, key: "homepage_bg")
+        Shared.imageCache.set(value: image, key: "homepage_bg")
         let userDefaults = NSUserDefaults.standardUserDefaults();
         userDefaults.setInteger(1000, forKey: "homepage_bg")
         dismissViewControllerAnimated(true, completion: nil)

@@ -30,7 +30,7 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
-        let intrContentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("mod_intr_content") as! ModIntroContentViewController
+        let intrContentVC = mainStoryboard.instantiateViewControllerWithIdentifier("mod_intr_content") as! ModIntroContentViewController
         intrContentVC.view.frame = CGRectMake(8 + CGFloat(self.view.frame.size.width) * CGFloat(index), 0, self.view.frame.size.width - 16, self.scrollView.frame.size.height)
         intrContentVC.titleLabel.text = title
         intrContentVC.iconView.image = UIImage(named: iconName)

@@ -168,12 +168,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     }
     
     // MARK: - Initialization Functions -
-    public func initializeWithVCIDsArrayAndButtonTitlesArray (VCIDsArray: [String], buttonTitlesArray: [String], sender: UIViewController)
+    public func initializeWithVCIDsArrayAndButtonTitlesArray (storyboard: UIStoryboard, VCIDsArray: [String], buttonTitlesArray: [String], sender: UIViewController)
     {
         //Important - Titles Array must Have The Same Number Of Items As The viewControllerIDs Array
         if VCIDsArray.count == buttonTitlesArray.count {
             for id in VCIDsArray {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(id) 
+                let vc = storyboard.instantiateViewControllerWithIdentifier(id)
                 sender.addChildViewController(vc)
                 vc.didMoveToParentViewController(sender)
                 pageViews.append(vc)
@@ -185,12 +185,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         }
     }
     
-    public func initializeWithVCIDsArrayAndButtonImagesArray (VCIDsArray: [String], buttonImagesArray: [UIImage], sender: UIViewController)
+    public func initializeWithVCIDsArrayAndButtonImagesArray (storyboard: UIStoryboard, VCIDsArray: [String], buttonImagesArray: [UIImage], sender: UIViewController)
     {
         //Important - Images Array must Have The Same Number Of Items As The viewControllerIDs Array
         if VCIDsArray.count == buttonImagesArray.count {
             for id in VCIDsArray {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(id) 
+                let vc = storyboard.instantiateViewControllerWithIdentifier(id)
                 sender.addChildViewController(vc)
                 vc.didMoveToParentViewController(sender)
                 pageViews.append(vc)

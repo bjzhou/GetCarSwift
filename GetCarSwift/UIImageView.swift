@@ -17,11 +17,11 @@ extension UIImageView {
 
 
         if let format = format {
-            imageCache.addFormat(format)
+            Shared.imageCache.addFormat(format)
         }
 
         var animated = false
-        imageCache.fetch(key: key, formatName: format?.name ?? HanekeGlobals.Cache.OriginalFormatName, failure: {[weak self] error in
+        Shared.imageCache.fetch(key: key, formatName: format?.name ?? HanekeGlobals.Cache.OriginalFormatName, failure: {[weak self] error in
             if let _ = self {
                 fail?(error)
             }

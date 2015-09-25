@@ -11,26 +11,28 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static let DEBUG_LOGIN = true
     static let DEBUG_REGISTER = false
 
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let _ = DataKeeper.sharedInstance.token {
             if let nickname = DataKeeper.sharedInstance.nickname where nickname.trim() != "" {} else {
-                let firstController = UINavigationController(rootViewController: storyboard.instantiateViewControllerWithIdentifier("register") )
+                let firstController = UINavigationController(rootViewController: loginStoryboard.instantiateViewControllerWithIdentifier("register") )
                 firstController.navigationItem.title = "登陆"
                 window?.rootViewController = firstController
             }
         } else {
-            let firstController = storyboard.instantiateViewControllerWithIdentifier("login") 
-            window?.rootViewController = firstController
+            window?.rootViewController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
+        }
+
+        if AppDelegate.DEBUG_LOGIN {
+            window?.rootViewController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
         }
 
         if AppDelegate.DEBUG_REGISTER {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("register")
+            window?.rootViewController = loginStoryboard.instantiateViewControllerWithIdentifier("register")
         }
 
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
