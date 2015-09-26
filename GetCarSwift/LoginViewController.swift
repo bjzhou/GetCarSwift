@@ -9,7 +9,7 @@
 import UIKit
 import RxCocoa
 
-class LoginViewController: UIViewController, ViewProxy {
+class LoginViewController: UIViewController {
 
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var vcodeText: UITextField!
@@ -49,7 +49,9 @@ class LoginViewController: UIViewController, ViewProxy {
         loginViewModel.onCodeButtonAction()
     }
 
+}
 
+extension LoginViewController: ViewProxy {
 
     func showToast(toast: String) {
         self.view.makeToast(message: toast)
@@ -58,4 +60,5 @@ class LoginViewController: UIViewController, ViewProxy {
     func showViewController(vc: UIViewController) {
         self.showViewController(vc, sender: self)
     }
+
 }

@@ -11,63 +11,27 @@ import SwiftyJSON
 
 class CarTableViewController: UITableViewController {
 
-    var categeries: [String] = []
-    var brands: [String: [String]] = [:]
-    var models: [String: [String]] = [:]
+    var carTableViewModel: CarTableViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
-        CarInfo.info().subscribeNext { result in
-            guard let carInfos = result.dataArray else {
-                return
-            }
-            {
-//                self.categeries = json.sortedDictionaryKeys() ?? []
-//                for categery in self.categeries {
-//                    self.brands[categery] = json[categery].sortedDictionaryKeys() ?? []
-//                    for brand in self.brands[categery]! {
-//                        self.models[brand] = json[categery, brand].arrayObject as? [String]
-//                    }
-//                }
-
-                for carInfo in carInfos {
-                    let categery = carInfo.category
-                    let brand = carInfo.brand
-                    let model = carInfo.model
-                    //let modelId = carInfo.modelId
-
-                    if self.brands[categery] == nil {
-                        self.brands[categery] = []
-                    }
-                    if self.models[brand] == nil {
-                        self.models[brand] = []
-                    }
-
-                    if !self.categeries.contains(categery) {
-                        self.categeries.append(categery)
-                    }
-                    if !self.brands[categery]!.contains(brand) {
-                        self.brands[categery]!.append(brand)
-                    }
-                    self.models[brand]!.append(model)
-                }
-                } ~> {
-                    self.tableView.reloadData()
-            }
+        carTableViewModel = CarTableViewModel()
+        carTableViewModel.fetchCarInfos().subscribeNext {
+            self.tableView.reloadData()
         }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return categeries.count
+        return carTableViewModel.categeries.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return brands[categeries[section]]?.count ?? 0
+        return carTableViewModel.brands[carTableViewModel.categeries[section]]?.count ?? 0
     }
 
 
@@ -77,7 +41,7 @@ class CarTableViewController: UITableViewController {
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
 
-        let titleText = brands[categeries[indexPath.section]]?[indexPath.row] ?? ""
+        let titleText = carTableViewModel.brands[carTableViewModel.categeries[indexPath.section]]?[indexPath.row] ?? ""
         icon.image = UIImage(named: titleText+"logo")
         title.text = titleText
 
@@ -85,20 +49,20 @@ class CarTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return categeries[section]
+        return carTableViewModel.categeries[section]
     }
 
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return categeries
+        return carTableViewModel.categeries
     }
 
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return categeries.indexOf(title)!
+        return carTableViewModel.categeries.indexOf(title)!
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let navController = self.navigationController as! CarTableNavigationController
-        navController.menuController!.data = models[(brands[categeries[indexPath.section]]?[indexPath.row]) ?? ""] ?? []
+        navController.menuController!.data = carTableViewModel.models[(carTableViewModel.brands[carTableViewModel.categeries[indexPath.section]]?[indexPath.row]) ?? ""] ?? []
         showSideMenuView()
     }
 

@@ -10,8 +10,7 @@ import UIKit
 
 class RegisterViewController: UIViewController, CarTableNavigationDelegate {
 
-    var sex: Int = 1
-    var selectedCarId: String?
+    var registerViewModel: RegisterViewModel!
 
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var carLabel: UILabel!
@@ -22,6 +21,8 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: "didSingleTap")
         tapGesture.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGesture)
+
+        registerViewModel = RegisterViewModel(nickname: nickname.rx_text)
     }
 
     func didSingleTap() {
@@ -29,31 +30,12 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     }
 
     @IBAction func onRegister(sender: UIButton) {
-        switch(nickname.text!.trim(), selectedCarId) {
-        case ("", _):
-            self.view.makeToast(message: "请输入用户昵称")
-        case (_, .None):
-            self.view.makeToast(message: "请选择车型")
-        case (let nicknameText, let .Some(selectedCarId)):
-            User.updateInfo(nickname: nicknameText, sex: sex, car: selectedCarId).subscribeNext { result in
-                guard let user = result.data else {
-                    self.view.makeToast(message: "注册失败")
-                    return
-                }
-
-                if result.code >= 0 {
-                    updateLogin(user)
-
-                    let controller = mainStoryboard.instantiateInitialViewController()
-                    UIApplication.sharedApplication().keyWindow?.rootViewController = controller
-                }
-            }
-        }
+        registerViewModel.didRegister()
     }
 
     func didCarSelected(car: String) {
         carLabel.text = car
-        selectedCarId = car
+        registerViewModel.car = car
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -66,6 +48,6 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         sender.selected = true
         let otherButton = self.view.viewWithTag(sender.tag == 501 ? 502 : 501) as! UIButton
         otherButton.selected = false
-        sex = sender.tag == 501 ? 1 : 0
+        registerViewModel.sex = sender.tag == 501 ? 1 : 0
     }
 }

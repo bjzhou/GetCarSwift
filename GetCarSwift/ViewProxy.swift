@@ -11,7 +11,6 @@ import Foundation
 @objc protocol ViewProxy {
     optional func showToast(toast: String)
     optional func showViewController(vc: UIViewController)
-    optional func setRootViewController()
 }
 
 extension ViewProxy {

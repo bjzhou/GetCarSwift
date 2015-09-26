@@ -81,6 +81,8 @@
 		C8CD8E0D1B91E8660050DF90 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8DCC1B91CB900050DF90 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C8CD8E1C1B91EABF0050DF90 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8E171B91EAAE0050DF90 /* Haneke.framework */; };
 		C8CD8E1D1B91EABF0050DF90 /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C8CD8E171B91EAAE0050DF90 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */; };
 		C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController.swift */; };
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
@@ -380,6 +382,8 @@
 		C8CD8DED1B91DF090050DF90 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ENSideMenu.swift; path = ENSwiftSideMenu/Library/ENSideMenu.swift; sourceTree = SOURCE_ROOT; };
 		C8CD8DEE1B91DF090050DF90 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ENSideMenuNavigationController.swift; path = ENSwiftSideMenu/Library/ENSideMenuNavigationController.swift; sourceTree = SOURCE_ROOT; };
 		C8CD8E101B91EAAE0050DF90 /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = "<group>"; };
+		C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewModel.swift; sourceTree = "<group>"; };
 		C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		C8D6CAE51B8F511700A417CF /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -499,7 +503,7 @@
 		C84408E91BB43C590088D046 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C84408F71BB43C720088D046 /* LoginViewModel.swift */,
+				C8D1C5021BB64F5D00F131BC /* login */,
 				C8E335521BB44910005449B2 /* ViewProxy.swift */,
 			);
 			name = ViewModel;
@@ -508,8 +512,7 @@
 		C84408F91BB43D2B0088D046 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C867FD201AD909E400F99592 /* LoginViewController.swift */,
-				C84408FA1BB43D410088D046 /* Login.storyboard */,
+				C8D1C5011BB64F4100F131BC /* login */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -550,7 +553,6 @@
 				C8E2B8491AD95AB2003B07FE /* Mine */,
 				C8E2B83E1AD93412003B07FE /* Mod */,
 				C8E2B8391AD92AFA003B07FE /* CarBar */,
-				C867FD1F1AD909B300F99592 /* Login */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C8AEC2051B985BAB002F39EB /* Extension */,
 				C89A05C81B6E162500620C85 /* ThirdParty */,
@@ -585,17 +587,6 @@
 				C867FC821AD8FCB000F99592 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C867FD1F1AD909B300F99592 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */,
-				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
-				C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */,
-				C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */,
-			);
-			name = Login;
 			sourceTree = "<group>";
 		};
 		C881F02F1B7B86BD00E062B6 /* Assets */ = {
@@ -677,6 +668,29 @@
 				C8CD8E1B1B91EAAE0050DF90 /* HanekeDemo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C8D1C5011BB64F4100F131BC /* login */ = {
+			isa = PBXGroup;
+			children = (
+				C867FD201AD909E400F99592 /* LoginViewController.swift */,
+				C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */,
+				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
+				C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */,
+				C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */,
+				C84408FA1BB43D410088D046 /* Login.storyboard */,
+			);
+			name = login;
+			sourceTree = "<group>";
+		};
+		C8D1C5021BB64F5D00F131BC /* login */ = {
+			isa = PBXGroup;
+			children = (
+				C84408F71BB43C720088D046 /* LoginViewModel.swift */,
+				C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */,
+				C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */,
+			);
+			name = login;
 			sourceTree = "<group>";
 		};
 		C8E2B8361AD926C7003B07FE /* Widget */ = {
@@ -1064,6 +1078,7 @@
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */,
 				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
+				C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */,
 				C8CD8DEF1B91DF090050DF90 /* ENSideMenu.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */,
@@ -1078,6 +1093,7 @@
 				C8C2C0931B8B5DEE006095DC /* String.swift in Sources */,
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
 				C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */,
+				C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */,
 				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */,
 				C8C2C0941B8B5DEE006095DC /* UIColor.swift in Sources */,
