@@ -50,15 +50,3 @@ class LoginViewController: UIViewController {
     }
 
 }
-
-extension LoginViewController: ViewProxy {
-
-    func showToast(toast: String) {
-        self.view.makeToast(message: toast)
-    }
-
-    func showViewController(vc: UIViewController) {
-        self.showViewController(vc, sender: self)
-    }
-
-}

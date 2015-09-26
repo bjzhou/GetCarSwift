@@ -19,7 +19,7 @@ class TraceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(mainStoryboard, VCIDsArray: VCIDs, buttonTitlesArray: buttonTitles, sender: self)
+        swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(traceStoryboard, VCIDsArray: VCIDs, buttonTitlesArray: buttonTitles, sender: self)
     }
 
     override func viewDidAppear(animated: Bool) {

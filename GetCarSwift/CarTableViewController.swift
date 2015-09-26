@@ -13,13 +13,20 @@ class CarTableViewController: UITableViewController {
 
     var carTableViewModel: CarTableViewModel!
 
+    var categeries: [String] = []
+    var brands: [String: [String]] = [:]
+    var models: [String: [String]] = [:]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
         carTableViewModel = CarTableViewModel()
-        carTableViewModel.fetchCarInfos().subscribeNext {
+        carTableViewModel.fetchCarInfos() { (c, b, m) in
+            self.categeries = c
+            self.brands = b
+            self.models = m
             self.tableView.reloadData()
         }
     }
@@ -27,11 +34,11 @@ class CarTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return carTableViewModel.categeries.count
+        return categeries.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return carTableViewModel.brands[carTableViewModel.categeries[section]]?.count ?? 0
+        return brands[categeries[section]]?.count ?? 0
     }
 
 
@@ -41,7 +48,7 @@ class CarTableViewController: UITableViewController {
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
 
-        let titleText = carTableViewModel.brands[carTableViewModel.categeries[indexPath.section]]?[indexPath.row] ?? ""
+        let titleText = brands[categeries[indexPath.section]]?[indexPath.row] ?? ""
         icon.image = UIImage(named: titleText+"logo")
         title.text = titleText
 
@@ -49,20 +56,20 @@ class CarTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return carTableViewModel.categeries[section]
+        return categeries[section]
     }
 
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return carTableViewModel.categeries
+        return categeries
     }
 
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return carTableViewModel.categeries.indexOf(title)!
+        return categeries.indexOf(title)!
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let navController = self.navigationController as! CarTableNavigationController
-        navController.menuController!.data = carTableViewModel.models[(carTableViewModel.brands[carTableViewModel.categeries[indexPath.section]]?[indexPath.row]) ?? ""] ?? []
+        navController.menuController!.data = models[(brands[categeries[indexPath.section]]?[indexPath.row]) ?? ""] ?? []
         showSideMenuView()
     }
 

@@ -18,3 +18,15 @@ extension ViewProxy {
         UIApplication.sharedApplication().keyWindow?.rootViewController = mainStoryboard.instantiateInitialViewController()
     }
 }
+
+extension UIViewController: ViewProxy {
+
+    func showToast(toast: String) {
+        self.view.makeToast(message: toast)
+    }
+
+    func showViewController(vc: UIViewController) {
+        self.showViewController(vc, sender: self)
+    }
+    
+}

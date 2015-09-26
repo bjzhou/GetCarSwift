@@ -38,6 +38,10 @@ let BUGLY_APPID = "900007462"
 
 let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+let traceStoryboard = UIStoryboard(name: "Trace", bundle: nil)
+let carBarStoryboard = UIStoryboard(name: "CarBar", bundle: nil)
+let mineStoryboard = UIStoryboard(name: "Mine", bundle: nil)
+let modStoryboard = UIStoryboard(name: "Mod", bundle: nil)
 
 /*
 获得地图界面定位图标名

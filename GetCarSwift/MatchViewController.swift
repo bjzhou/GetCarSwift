@@ -69,7 +69,7 @@ class MatchViewController: UIViewController {
 
     @IBAction func didAddPlayer(sender: UIButton) {
         pressedButton = sender
-        let addViewController = mainStoryboard.instantiateViewControllerWithIdentifier("add_player_popover") as! AddPlayerTableViewController
+        let addViewController = traceStoryboard.instantiateViewControllerWithIdentifier("add_player_popover") as! AddPlayerTableViewController
         addViewController.delegate = self
         addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
         let popupViewController = PopupViewController(rootViewController: addViewController)

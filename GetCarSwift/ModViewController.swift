@@ -17,7 +17,7 @@ class ModViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(mainStoryboard, VCIDsArray: VCIDs, buttonTitlesArray: buttonTitles, sender: self)
+        swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(modStoryboard, VCIDsArray: VCIDs, buttonTitlesArray: buttonTitles, sender: self)
     }
 
 }

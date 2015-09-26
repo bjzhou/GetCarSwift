@@ -23,6 +23,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         self.view.addGestureRecognizer(tapGesture)
 
         registerViewModel = RegisterViewModel(nickname: nickname.rx_text)
+        registerViewModel.viewProxy = self
     }
 
     func didSingleTap() {

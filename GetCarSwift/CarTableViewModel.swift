@@ -21,17 +21,16 @@ import RxSwift
 
 struct CarTableViewModel {
 
-    var categeries: [String] = []
-    var brands: [String: [String]] = [:]
-    var models: [String: [String]] = [:]
-
     init() {
     }
 
-    mutating func fetchCarInfos() -> Observable<Void> {
-        return CarInfo.info().observeOn(operationScheduler).map { result in
+    func fetchCarInfos(reloadData: ([String], [String: [String]], [String: [String]]) -> ()) {
+        CarInfo.info().observeOn(operationScheduler).map { result in
+            var categeries: [String] = []
+            var brands: [String: [String]] = [:]
+            var models: [String: [String]] = [:]
             guard let carInfos = result.dataArray else {
-                return
+                return (categeries, brands, models)
             }
             for carInfo in carInfos {
                 let categery = carInfo.category
@@ -39,21 +38,25 @@ struct CarTableViewModel {
                 let model = carInfo.model
                 //let modelId = carInfo.modelId
 
-                if self.brands[categery] == nil {
-                    self.brands[categery] = []
+                if brands[categery] == nil {
+                    brands[categery] = []
                 }
-                if self.models[brand] == nil {
-                    self.models[brand] = []
+                if models[brand] == nil {
+                    models[brand] = []
                 }
 
-                if !self.categeries.contains(categery) {
-                    self.categeries.append(categery)
+                if !categeries.contains(categery) {
+                    categeries.append(categery)
                 }
-                if !self.brands[categery]!.contains(brand) {
-                    self.brands[categery]!.append(brand)
+                if !brands[categery]!.contains(brand) {
+                    brands[categery]!.append(brand)
                 }
-                self.models[brand]!.append(model)
+                models[brand]!.append(model)
             }
+            return (categeries, brands, models)
             }.observeOn(MainScheduler.sharedInstance)
+            .subscribeNext { (c: [String], b: [String: [String]], m: [String: [String]]) in
+                reloadData(c, b, m)
+        }
     }
 }

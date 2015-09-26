@@ -88,7 +88,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             case 0:
                 showImagePickerAlertView()
             case 1:
-                let controller = mainStoryboard.instantiateViewControllerWithIdentifier("car_icon")
+                let controller = mineStoryboard.instantiateViewControllerWithIdentifier("car_icon")
                 self.navigationController?.showViewController(controller, sender: self)
             case 2:
                 fallthrough

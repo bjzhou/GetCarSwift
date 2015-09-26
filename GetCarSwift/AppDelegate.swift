@@ -11,8 +11,8 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let DEBUG_LOGIN = true
-    static let DEBUG_REGISTER = false
+    static let DEBUG_LOGIN = false
+    static let DEBUG_REGISTER = true
 
     var window: UIWindow?
 
