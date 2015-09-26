@@ -148,7 +148,7 @@ class TrackDetailViewController: UIViewController {
                 self.view.makeToast(message: "发表评论失败！")
                 return
             }
-            self.comments.append(Comment(id: str, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: DataKeeper.sharedInstance.nickname ?? "", head: DataKeeper.sharedInstance.nickname ?? ""))
+            self.comments.append(Comment(id: str, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: Me.sharedInstance.nickname ?? "", head: Me.sharedInstance.nickname ?? ""))
 
             self.commentTextField.text = ""
             self.commentTableView.scrollToBottom(true)

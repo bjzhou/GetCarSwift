@@ -21,11 +21,11 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     override func viewWillAppear(animated: Bool) {
-        let colorTag = DataKeeper.sharedInstance.carHeadBg
-        let iconTag = DataKeeper.sharedInstance.carHeadId
-        values[1] = getCarIconName(DataKeeper.sharedInstance.sex, color: colorTag, icon: iconTag)
-        values[2] = DataKeeper.sharedInstance.nickname ?? "用户名"
-        values[3/*5*/] = getSexString(DataKeeper.sharedInstance.sex)
+        let colorTag = Me.sharedInstance.carHeadBg
+        let iconTag = Me.sharedInstance.carHeadId
+        values[1] = getCarIconName(Me.sharedInstance.sex, color: colorTag, icon: iconTag)
+        values[2] = Me.sharedInstance.nickname ?? "用户名"
+        values[3/*5*/] = getSexString(Me.sharedInstance.sex)
         values[4/*6*/] = district ?? ""
         self.tableView.reloadData()
     }
@@ -141,7 +141,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         let avatarImage = image.scaleImage(size: CGSizeMake(254, 254))
         User.uploadHeader(avatarImage).subscribeNext { gkResult in
             if let user = gkResult.data {
-                updateLogin(user)
+                Me.sharedInstance.updateLogin(user)
                 self.tableView.reloadData()
             }
         }

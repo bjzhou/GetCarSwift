@@ -57,10 +57,10 @@ struct LoginViewModel {
                     return
                 }
 
-                DataKeeper.sharedInstance.token = token
+                Me.sharedInstance.token = token
 
                 if let nickname = user.nickname where nickname != "" {
-                    updateLogin(user)
+                    Me.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 } else {
                     let dest = loginStoryboard.instantiateViewControllerWithIdentifier("register")

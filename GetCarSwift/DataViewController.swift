@@ -29,9 +29,42 @@ class DataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DataKeeper.sharedInstance.addDelegate(self)
         scoreTable.delegate = self
         scoreTable.dataSource = self
+
+        DeviceDataService.sharedInstance.rx_location.subscribeNext { location in
+            if let location = location {
+                self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
+                self.altitude.text = String(format: "%.0f", location.altitude)
+                self.lonLabel.text = location.coordinate.longitudeString()
+                self.latLabel.text = location.coordinate.latitudeString()
+            }
+        }
+
+        DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acceleration in
+            if let acceleration = acceleration {
+                let curX = acceleration.x
+                let curY = acceleration.y
+                //let curZ = acceleration.z
+                self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
+                let constant = Double.abs(self.calculateTyreWear(curX, v: DeviceDataService.sharedInstance.rx_location.value?.speed ?? 0)) * 310
+                UIView.animateWithDuration(0.1, animations: {
+                    self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
+                    self.progressView.layoutIfNeeded()
+                })
+            }
+        }
+
+        DeviceDataService.sharedInstance.rx_altitude.subscribeNext { altitude in
+            if let altitude = altitude {
+                self.pressureLabel.text = String(Int(altitude.pressure.doubleValue*10))
+            }
+        }
+    }
+
+    func calculateTyreWear(ax: Double, v: Double) -> Double {
+        if Int(v) == 0 { return 0 }
+        return ax * v * 36 / 1000
     }
 
     @IBAction func didGo(sender: UIButton) {
@@ -68,40 +101,6 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
-    }
-
-}
-
-extension DataViewController: DataKeeperDelegate {
-
-    func didLocationUpdated(location: CLLocation) {
-        self.vLabel.text = String(format: "%.0f", location.speed < 0 ? 0 : location.speed * 3.6)
-        self.altitude.text = String(format: "%.0f", location.altitude)
-        self.lonLabel.text = location.coordinate.longitudeString()
-        self.latLabel.text = location.coordinate.latitudeString()
-    }
-
-    func didAccelerationUpdated(acceleration: CMAcceleration) {
-        let curX = acceleration.x
-        let curY = acceleration.y
-        //let curZ = acceleration.z
-        let parent = self.parentViewController as? TraceViewController
-        parent?.a = curY*10
-        self.aLabel.text = String(format: "%.0f", Double.abs(curY*10))
-        let constant = Double.abs(self.calculateTyreWear(curX, v: DataKeeper.sharedInstance.location?.speed ?? 0)) * 310
-        UIView.animateWithDuration(0.1, animations: {
-            self.progressWidth.constant = CGFloat(constant > 310 ? 310 : constant)
-            self.progressView.layoutIfNeeded()
-        })
-    }
-
-    func calculateTyreWear(ax: Double, v: Double) -> Double {
-        if Int(v) == 0 { return 0 }
-        return ax * v * 36 / 1000
-    }
-
-    func didAltitudeUpdated(altitude: CMAltitudeData) {
-        self.pressureLabel.text = String(Int(altitude.pressure.doubleValue*10))
     }
 
 }

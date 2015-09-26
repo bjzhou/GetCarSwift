@@ -12,13 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let DEBUG_LOGIN = false
-    static let DEBUG_REGISTER = true
+    static let DEBUG_REGISTER = false
 
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if let _ = DataKeeper.sharedInstance.token {
-            if let nickname = DataKeeper.sharedInstance.nickname where nickname.trim() != "" {} else {
+        if let _ = Me.sharedInstance.token {
+            if let nickname = Me.sharedInstance.nickname where nickname.trim() != "" {} else {
                 let firstController = UINavigationController(rootViewController: loginStoryboard.instantiateViewControllerWithIdentifier("register") )
                 firstController.navigationItem.title = "登陆"
                 window?.rootViewController = firstController
@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MAMapServices.sharedServices().apiKey = AMAP_KEY
 
         CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
-        CrashReporter.sharedInstance().setUserId(DataKeeper.sharedInstance.nickname ?? "10000")
+        CrashReporter.sharedInstance().setUserId(Me.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
 
         //checkNewVersion()

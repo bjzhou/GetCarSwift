@@ -11,8 +11,6 @@ import UIKit
 class TraceViewController: UIViewController {
     @IBOutlet weak var swiftPagesView: SwiftPages!
 
-    var a:Double = 0
-
     let VCIDs = ["data", "map"];
     let buttonTitles = ["数据", "地图"];
 

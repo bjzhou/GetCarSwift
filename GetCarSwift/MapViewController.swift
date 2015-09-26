@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreMotion
+import RxSwift
 
 class MapViewController: UIViewController {
 
@@ -18,62 +18,33 @@ class MapViewController: UIViewController {
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var mapView: MAMapView!
 
-
-    let motionManager = CMMotionManager()
-    let altitudeManager = CMAltimeter()
-
     var locationImage: UIImage?
 
-    var timer = NSTimer()
     var annotations: [CustomMAPointAnnotation] = []
+
+    var timer: Disposable?
+    var mapViewModel: MapViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DataKeeper.sharedInstance.addDelegate(self)
-
         initMapView()
-        initMotion()
-        initAltitude()
+
+        mapViewModel = MapViewModel()
+
+        User.rx_me.subscribeNext { me in
+            self.setLocationImage()
+        }
 
         setLocationImage()
     }
 
     func setLocationImage() {
-        let color = DataKeeper.sharedInstance.carHeadBg
-        let icon = DataKeeper.sharedInstance.carHeadId
-        locationImage = UIImage(named: getCarIconName(DataKeeper.sharedInstance.sex, color: color, icon: icon))
+        let color = Me.sharedInstance.carHeadBg
+        let icon = Me.sharedInstance.carHeadId
+        locationImage = UIImage(named: getCarIconName(Me.sharedInstance.sex, color: color, icon: icon))
         mapView.showsUserLocation = false
         mapView.showsUserLocation = true
-    }
-
-    func initMotion() {
-        guard motionManager.deviceMotionAvailable else {
-            return
-        }
-        motionManager.deviceMotionUpdateInterval = 0.01
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
-            guard let validData = data else {
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), {
-                DataKeeper.sharedInstance.acceleration = validData.userAcceleration
-            })
-        })
-    }
-
-    func initAltitude() {
-        guard CMAltimeter.isRelativeAltitudeAvailable() else {
-            return
-        }
-        altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue(), withHandler: { (data, error) in
-            guard let validData = data else {
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), {
-                DataKeeper.sharedInstance.altitude = validData
-            })
-        })
     }
 
     func initMapView() {
@@ -90,45 +61,21 @@ class MapViewController: UIViewController {
             // abort when first added by swiftpages
             return
         }
-        didTimerUpdate()
-        timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("didTimerUpdate"), userInfo: nil, repeats: true)
+        timer?.dispose()
+        timer = mapViewModel.updateNearby().subscribeNext { annotations in
+            print(annotations.count)
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            self.mapView.addAnnotations(annotations)
+        }
     }
 
     override func viewDidDisappear(animated: Bool) {
-        timer.invalidate()
-    }
-
-    func didTimerUpdate() {
-        let parent = self.parentViewController as! TraceViewController
-        Nearby.map(accelerate: parent.a, speed: DataKeeper.sharedInstance.location?.speed ?? 0).subscribeNext { result in
-            guard let nearbys = result.dataArray else {
-                return
-            }
-
-            self.mapView.removeAnnotations(self.annotations)
-            self.annotations.removeAll()
-            for nearby in nearbys {
-                let newCoordinate = CLLocation(latitude: nearby.lati, longitude: nearby.longt)
-                let pointAnnotation = CustomMAPointAnnotation()
-                pointAnnotation.coordinate = newCoordinate.coordinate
-                pointAnnotation.title = nearby.nickname
-                pointAnnotation.image = UIImage(named: getCarIconName(nearby.sex, color: nearby.car_head_bg, icon: nearby.car_head_id))!
-                if let dis = DataKeeper.sharedInstance.location?.distanceFromLocation(newCoordinate) {
-                    if dis >= 1000 {
-                        pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
-                    } else {
-                        pointAnnotation.subtitle = "距离\(Int(dis))米"
-                    }
-                    self.annotations.append(pointAnnotation)
-                }
-                self.mapView.addAnnotations(self.annotations)
-            }
-        }
+        timer?.dispose()
     }
 
     @IBAction func locationButtonAction(sender: UIButton) {
         mapView.userTrackingMode = .Follow
+        mapView.setZoomLevel(17, animated: true)
     }
 
     @IBAction func layerButtonAction(sender: UIButton) {
@@ -166,20 +113,6 @@ class MapViewController: UIViewController {
     }
 }
 
-extension MapViewController: DataKeeperDelegate {
-    func didCarHeadBgUpdated(carHeadBg: Int) {
-        setLocationImage()
-    }
-
-    func didCarHeadIdUpdated(carHeadId: Int) {
-        setLocationImage()
-    }
-
-    func didSexUpdated(sex: Int) {
-        setLocationImage()
-    }
-}
-
 extension MapViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
         if annotation.isKindOfClass(MAUserLocation) {
@@ -212,7 +145,7 @@ extension MapViewController: MAMapViewDelegate {
     }
 
     func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
-        DataKeeper.sharedInstance.location = userLocation.location
+        DeviceDataService.sharedInstance.rx_location.value = userLocation.location
     }
 }
 

@@ -47,7 +47,7 @@ struct RegisterViewModel {
                 }
 
                 if res.code >= 0 {
-                    updateLogin(user)
+                    Me.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 }
             }

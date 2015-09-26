@@ -37,7 +37,7 @@
 		C86780011B7757300000D7DF /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86780001B7757300000D7DF /* ModStoreViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC841AD8FCB000F99592 /* GetCarSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */; };
-		C867FD1E1AD9071900F99592 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Globals.swift */; };
+		C867FD1E1AD9071900F99592 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Res.swift */; };
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
 		C86F85501B8215A100C7DC7C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F854F1B8215A100C7DC7C /* CoreMotion.framework */; };
 		C86F85521B82169B00C7DC7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86F85511B82169B00C7DC7C /* CoreGraphics.framework */; };
@@ -104,6 +104,9 @@
 		C8EA68D01B8211C8003CD510 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C8EA68CF1B8211C8003CD510 /* AMap.bundle */; };
 		C8EEB65D1BB2D3D300BB5704 /* Praise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEB65C1BB2D3D300BB5704 /* Praise.swift */; settings = {ASSET_TAGS = (); }; };
 		C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEB65E1BB2D84D00BB5704 /* Comments.swift */; settings = {ASSET_TAGS = (); }; };
+		C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F333571BB6C32900F4EFB2 /* DeviceDataService.swift */; settings = {ASSET_TAGS = (); }; };
+		C8F333681BB6DA6600F4EFB2 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F333671BB6DA6600F4EFB2 /* Async.swift */; settings = {ASSET_TAGS = (); }; };
+		C8F3336B1BB6DE7F00F4EFB2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F3336A1BB6DE7F00F4EFB2 /* MapViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* User.swift */; };
 		C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD701B725CDD0003AF1B /* Toast.swift */; };
 /* End PBXBuildFile section */
@@ -344,7 +347,7 @@
 		C867FC7D1AD8FCB000F99592 /* GetCarSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetCarSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC821AD8FCB000F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCarSwiftTests.swift; sourceTree = "<group>"; };
-		C867FD1D1AD9071900F99592 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		C867FD1D1AD9071900F99592 /* Res.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Res.swift; sourceTree = "<group>"; };
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C86F854F1B8215A100C7DC7C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C86F85511B82169B00C7DC7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -411,6 +414,9 @@
 		C8EA68CF1B8211C8003CD510 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
 		C8EEB65C1BB2D3D300BB5704 /* Praise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Praise.swift; sourceTree = "<group>"; };
 		C8EEB65E1BB2D84D00BB5704 /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		C8F333571BB6C32900F4EFB2 /* DeviceDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDataService.swift; sourceTree = "<group>"; };
+		C8F333671BB6DA6600F4EFB2 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
+		C8F3336A1BB6DE7F00F4EFB2 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		C8F9CD6E1B7246BB0003AF1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -479,6 +485,7 @@
 			isa = PBXGroup;
 			children = (
 				C89A05C21B6E058C00620C85 /* GaikeService.swift */,
+				C8F333571BB6C32900F4EFB2 /* DeviceDataService.swift */,
 			);
 			name = servicce;
 			sourceTree = "<group>";
@@ -487,6 +494,11 @@
 			isa = PBXGroup;
 			children = (
 				C80B6B361BB672780017D7E3 /* Trace.storyboard */,
+				C89A05C61B6E125400620C85 /* TraceViewController.swift */,
+				C8E2B8551AD96F31003B07FE /* MapViewController.swift */,
+				C89A05CB1B6E195600620C85 /* DataViewController.swift */,
+				C8C2C08B1B8B527D006095DC /* MatchViewController.swift */,
+				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
 			);
 			name = trace;
 			sourceTree = "<group>";
@@ -521,6 +533,7 @@
 		C84408E91BB43C590088D046 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C8F333691BB6DDB900F4EFB2 /* trace */,
 				C8D1C5021BB64F5D00F131BC /* login */,
 				C8E335521BB44910005449B2 /* ViewProxy.swift */,
 			);
@@ -568,19 +581,18 @@
 		C867FC681AD8FCAF00F99592 /* GetCarSwift */ = {
 			isa = PBXGroup;
 			children = (
+				C8F333661BB6DA1B00F4EFB2 /* Utils */,
 				C842765F1BB188D60041C3F9 /* Model */,
 				C84408F91BB43D2B0088D046 /* View */,
 				C84408E91BB43C590088D046 /* ViewModel */,
 				C881F02F1B7B86BD00E062B6 /* Assets */,
 				C80881E01B6D2171002A1CE9 /* servicce */,
-				C8E2B8541AD96F19003B07FE /* Trace */,
 				C8E2B8491AD95AB2003B07FE /* Mine */,
 				C8E2B83E1AD93412003B07FE /* Mod */,
 				C8E2B8391AD92AFA003B07FE /* CarBar */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C8AEC2051B985BAB002F39EB /* Extension */,
 				C89A05C81B6E162500620C85 /* ThirdParty */,
-				C867FD1D1AD9071900F99592 /* Globals.swift */,
 				C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */,
 				C867FC691AD8FCAF00F99592 /* Supporting Files */,
 			);
@@ -769,16 +781,21 @@
 			name = Mine;
 			sourceTree = "<group>";
 		};
-		C8E2B8541AD96F19003B07FE /* Trace */ = {
+		C8F333661BB6DA1B00F4EFB2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C8E2B8551AD96F31003B07FE /* MapViewController.swift */,
-				C89A05C61B6E125400620C85 /* TraceViewController.swift */,
-				C89A05CB1B6E195600620C85 /* DataViewController.swift */,
-				C8C2C08B1B8B527D006095DC /* MatchViewController.swift */,
-				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
+				C867FD1D1AD9071900F99592 /* Res.swift */,
+				C8F333671BB6DA6600F4EFB2 /* Async.swift */,
 			);
-			name = Trace;
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		C8F333691BB6DDB900F4EFB2 /* trace */ = {
+			isa = PBXGroup;
+			children = (
+				C8F3336A1BB6DE7F00F4EFB2 /* MapViewModel.swift */,
+			);
+			name = trace;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1111,11 +1128,12 @@
 				C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */,
 				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
 				C8EEB65D1BB2D3D300BB5704 /* Praise.swift in Sources */,
-				C867FD1E1AD9071900F99592 /* Globals.swift in Sources */,
+				C867FD1E1AD9071900F99592 /* Res.swift in Sources */,
 				C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */,
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */,
+				C8F333681BB6DA6600F4EFB2 /* Async.swift in Sources */,
 				C8CD8DF01B91DF090050DF90 /* ENSideMenuNavigationController.swift in Sources */,
 				C8C2C0931B8B5DEE006095DC /* String.swift in Sources */,
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
@@ -1125,6 +1143,7 @@
 				C8AEC2021B983967002F39EB /* TrackViewController.swift in Sources */,
 				C8C2C0941B8B5DEE006095DC /* UIColor.swift in Sources */,
 				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
+				C8F3336B1BB6DE7F00F4EFB2 /* MapViewModel.swift in Sources */,
 				C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */,
 				C894F5FB1BA440B300645DA3 /* UITableView.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
@@ -1133,6 +1152,7 @@
 				C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */,
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C828823C1B9219620091F624 /* UIImageView.swift in Sources */,
+				C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */,
 				C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

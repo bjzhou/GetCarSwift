@@ -17,7 +17,7 @@ class MineViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let location = DataKeeper.sharedInstance.location {
+        if let location = DeviceDataService.sharedInstance.rx_location.value {
             searchApi = AMapSearchAPI(searchKey: AMAP_KEY, delegate: self)
             let regeoRequest = AMapReGeocodeSearchRequest()
             regeoRequest.searchType = .ReGeocode
@@ -44,9 +44,9 @@ class MineViewController: UITableViewController {
             let accountCell = cell as! AccountCell
             accountCell.avatar.layer.masksToBounds = true
             accountCell.avatar.layer.cornerRadius = 8
-            accountCell.sexIcon.image = UIImage(named: DataKeeper.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
+            accountCell.sexIcon.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
             accountCell.avatar.setAvatarImage()
-            accountCell.accountName.text = DataKeeper.sharedInstance.nickname ?? "用户名"
+            accountCell.accountName.text = Me.sharedInstance.nickname ?? "用户名"
             accountCell.accountDescription.text = district ?? "正在获得当前位置"
             return accountCell
         }

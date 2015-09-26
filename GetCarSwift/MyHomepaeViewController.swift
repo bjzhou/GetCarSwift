@@ -25,8 +25,8 @@ class MyHomepaeViewController: UIViewController {
         super.viewDidLoad()
 
         myAvatar.setAvatarImage()
-        sexImage.image = UIImage(named: DataKeeper.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
-        nickname.text = DataKeeper.sharedInstance.nickname
+        sexImage.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
+        nickname.text = Me.sharedInstance.nickname
         position.text = district ?? "正在获取位置"
     }
 

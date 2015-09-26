@@ -44,13 +44,13 @@ class MatchViewController: UIViewController {
     }
     
     func initMapView() {
-        mapView.centerCoordinate = DataKeeper.sharedInstance.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        mapView.centerCoordinate = DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         mapView.delegate = self
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 8)
         mapView.zoomLevel = 17
     }
-    
+
     @IBAction func zoomInButtonAction(sender: UIButton) {
         if mapView.zoomLevel >= 20 {
             return
@@ -107,11 +107,11 @@ class MatchViewController: UIViewController {
 
         if curTime % 100 == 0 {
             var point: [String:Double] = [:]
-            point["lat"] = DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0
-            point["long"] = DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0
-            let speed = DataKeeper.sharedInstance.location?.speed
+            point["lat"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0
+            point["long"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0
+            let speed = DeviceDataService.sharedInstance.rx_location.value?.speed
             point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
-            point["accelarate"] = round(abs(DataKeeper.sharedInstance.acceleration?.y ?? 0) * 100) / 10
+            point["accelarate"] = round(abs(DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 100) / 10
             dataList.append(point)
 
             blueSpeed.text = String(point["speed"]!)
@@ -136,21 +136,21 @@ extension MatchViewController: AddPlayerDelegate {
                 self.mapView.removeAnnotation(purpleAnnotation)
                 purpleTitle.text = name
                 purpleAnnotation = MAPointAnnotation()
-                purpleAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 100, longitude: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 100)
+                purpleAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
                 self.mapView.addAnnotation(purpleAnnotation)
                 break
             case yellowButton:
                 self.mapView.removeAnnotation(yellowAnnotation)
                 yellowTitle.text = name
                 yellowAnnotation = MAPointAnnotation()
-                yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 100 + 0.01, longitude: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 100)
+                yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100 + 0.01, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
                 self.mapView.addAnnotation(yellowAnnotation)
                 break
             case blueButton:
                 self.mapView.removeAnnotation(blueAnnotation)
                 blueTitle.text = name
                 blueAnnotation = MAPointAnnotation()
-                blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DataKeeper.sharedInstance.location?.coordinate.latitude ?? 100 - 0.01, longitude: DataKeeper.sharedInstance.location?.coordinate.longitude ?? 100)
+                blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100 - 0.01, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
                 self.mapView.addAnnotation(blueAnnotation)
                 break
             default:

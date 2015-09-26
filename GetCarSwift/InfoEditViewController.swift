@@ -79,12 +79,12 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textLabel?.text = "女"
         }
         
-        cell.accessoryView = UIImageView(image: indexPath.row != DataKeeper.sharedInstance.sex ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
+        cell.accessoryView = UIImageView(image: indexPath.row != Me.sharedInstance.sex ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        DataKeeper.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
+        Me.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
         tableView.reloadData()
         self.navigationController?.popViewControllerAnimated(true)
     }

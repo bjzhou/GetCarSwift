@@ -31,10 +31,10 @@ class GaikeService {
         headers["Ass-contentmd5"] = ""
         headers["Ass-signature"] = ""
         headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
-        headers["Ass-token"] = DataKeeper.sharedInstance.token ?? ""
+        headers["Ass-token"] = Me.sharedInstance.token ?? ""
         headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
-        headers["Ass-lati"] = String(DataKeeper.sharedInstance.location?.coordinate.latitude ?? 0)
-        headers["Ass-longti"] = String(DataKeeper.sharedInstance.location?.coordinate.longitude ?? 0)
+        headers["Ass-lati"] = String(DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0)
+        headers["Ass-longti"] = String(DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0)
 
         if API_DEBUG {
             print("HEADER=========================================> \(headers)")
@@ -125,7 +125,7 @@ class GaikeService {
     private func parseJSON<T>(data: NSData) -> GKResult<T> {
         let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
         if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
-            logout()
+            Me.sharedInstance.logout()
         }
         return gkResult
     }
