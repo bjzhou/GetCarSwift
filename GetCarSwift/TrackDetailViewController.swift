@@ -7,10 +7,9 @@
 //
 
 import UIKit
+import RxSwift
 
 class TrackDetailViewController: UIViewController {
-
-
 
     @IBOutlet weak var imageScrollView: UIScrollView!
     @IBOutlet weak var trackLabel: UILabel!
@@ -26,36 +25,7 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var index3Button: UIButton!
     @IBOutlet weak var emptyView: UIView!
 
-    var loveButtonSelected = false {
-        didSet {
-            loveButton.selected = loveButtonSelected
-            if loveButtonSelected {
-                loveLabel.text = "已想去"
-            } else {
-                updateLoveLabel()
-            }
-        }
-    }
-
-    var sid = 0
-    var images: [String] = []
-    var trackTitle = ""
-    var trackDetail = ""
-    var trackStarString = "star3"
-    //var trackMap = ""
-    var lovedCount = 1000
-    var comments: [Comment] = [] {
-        didSet {
-            commentTableView.reloadData()
-            if comments.count == 0 {
-                commentTableView.hidden = true
-                emptyView.hidden = false
-            } else if commentTableView.hidden {
-                commentTableView.hidden = false
-                emptyView.hidden = true
-            }
-        }
-    }
+    var trackDetailViewModel: TrackDetailViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,34 +39,45 @@ class TrackDetailViewController: UIViewController {
         commentTableView.rowHeight = UITableViewAutomaticDimension
         commentTableView.estimatedRowHeight = 60
 
+        trackDetailViewModel.viewProxy = self
         initTrackData()
     }
 
     func initTrackData() {
-        trackLabel.text = trackTitle
-        trackDetailLabel.text = trackDetail
-        trackStar.image = UIImage(named: trackStarString)
-        //mapImageView.image = UIImage(named: trackMap)
-        Comments.getComments(sid: sid, limit: 999).subscribeNext { gkResult in
-            guard let comments = gkResult.data else {
-                return
-            }
-            for comment in comments.comments {
-                self.comments.insert(Comment(id: comment.id, content: comment.content, create_time: comment.create_time, nickname: comment.nickname, head: comment.head), atIndex: 0)
-            }
+        trackLabel.text = trackDetailViewModel.trackTitle
+        trackDetailLabel.text = trackDetailViewModel.trackDetail
+        trackStar.image = UIImage(named: trackDetailViewModel.trackStarString)
+        //mapImageView.image = UIImage(named: trackDetailViewModel.trackMap)
+        trackDetailViewModel.getComments()
 
-            let myId = NSUserDefaults.standardUserDefaults().stringForKey("id")
-            for praise in comments.praises {
-                if myId == praise.uid && myId != "" {
-                    self.loveButtonSelected = true
+        combineLatest(trackDetailViewModel.rx_loveButtonSelected, trackDetailViewModel.rx_lovedCount) { selected, lovedCount in
+            return (selected, lovedCount)
+            }.subscribeNext { selected, lovedCount in
+                if selected {
+                    self.loveLabel.text = "已想去"
+                    return
                 }
-            }
-            self.lovedCount = comments.praisesTotal
-            if !self.loveButtonSelected {
-                self.updateLoveLabel()
+                if lovedCount <= 0 {
+                    self.loveLabel.text = "想去"
+                } else if lovedCount >= 1000 {
+                    self.loveLabel.text = "想去(999+)"
+                } else {
+                    self.loveLabel.text = "想去(\(lovedCount))"
+                }
+        }
+
+        trackDetailViewModel.rx_loveButtonSelected.bindTo(loveButton.rx_selected)
+
+        trackDetailViewModel.rx_comments.subscribeNext { comments in
+            self.commentTableView.reloadData()
+            if comments.count == 0 {
+                self.commentTableView.hidden = true
+                self.emptyView.hidden = false
+            } else if self.commentTableView.hidden {
+                self.commentTableView.hidden = false
+                self.emptyView.hidden = true
             }
         }
-        
     }
 
     override func viewDidLayoutSubviews() {
@@ -105,9 +86,9 @@ class TrackDetailViewController: UIViewController {
 
     func initScrollView() {
         imageScrollView.delegate = self
-        imageScrollView.contentSize = CGSize(width: imageScrollView.frame.width*CGFloat(images.count), height: imageScrollView.frame.height)
-        for i in 0..<images.count {
-            let imageView = UIImageView(image: UIImage(named: images[i]))
+        imageScrollView.contentSize = CGSize(width: imageScrollView.frame.width*CGFloat(trackDetailViewModel.images.count), height: imageScrollView.frame.height)
+        for i in 0..<trackDetailViewModel.images.count {
+            let imageView = UIImageView(image: UIImage(named: trackDetailViewModel.images[i]))
             imageView.frame = CGRect(x: imageScrollView.frame.width*CGFloat(i), y: 0, width: self.view.frame.width, height: imageScrollView.frame.height)
             imageScrollView.addSubview(imageView)
         }
@@ -143,13 +124,7 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didPostComment(sender: UIButton) {
-        Comment.pubComment(sid: sid, content: commentTextField.text ?? "").subscribeNext { gkResult in
-            guard let str = gkResult.data else {
-                self.view.makeToast(message: "发表评论失败！")
-                return
-            }
-            self.comments.append(Comment(id: str, content: self.commentTextField.text ?? "", create_time: NSDate.nowString, nickname: Me.sharedInstance.nickname ?? "", head: Me.sharedInstance.nickname ?? ""))
-
+        trackDetailViewModel.postComment(commentTextField.text ?? "").subscribeNext {
             self.commentTextField.text = ""
             self.commentTableView.scrollToBottom(true)
         }
@@ -164,25 +139,7 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didLoveChanged(sender: UIButton) {
-        loveButtonSelected ? lovedCount-- : lovedCount++
-        loveButtonSelected = !loveButtonSelected
-        if loveButtonSelected {
-            Praise.praise(sid: sid).subscribeNext { gkResult in
-            }
-        } else {
-            Praise.cancelPraise(sid: sid).subscribeNext { gkResult in
-            }
-        }
-    }
-
-    func updateLoveLabel() {
-        if lovedCount <= 0 {
-            loveLabel.text = "想去"
-        } else if lovedCount >= 1000 {
-            loveLabel.text = "想去(999+)"
-        } else {
-            loveLabel.text = "想去(\(lovedCount))"
-        }
+        trackDetailViewModel.didLoveChanged()
     }
 
     func updateIndexButton() {
@@ -216,7 +173,7 @@ extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return trackDetailViewModel.rx_comments.value.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -226,15 +183,15 @@ extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let time = cell.viewWithTag(312) as! UILabel
         let content = cell.viewWithTag(313) as! UILabel
 
-        if let url = NSURL(string: comments[indexPath.row].head) {
+        if let url = NSURL(string: trackDetailViewModel.rx_comments.value[indexPath.row].head) {
             avatarView.hnk_setImageFromURL(url, placeholder: UIImage(named: "avatar"))
         } else {
             avatarView.image = UIImage(named: "avatar")
         }
 
-        nickname.text = comments[indexPath.row].nickname
-        time.text = comments[indexPath.row].create_time
-        content.text = comments[indexPath.row].content
+        nickname.text = trackDetailViewModel.rx_comments.value[indexPath.row].nickname
+        time.text = trackDetailViewModel.rx_comments.value[indexPath.row].create_time
+        content.text = trackDetailViewModel.rx_comments.value[indexPath.row].content
         return cell
     }
 

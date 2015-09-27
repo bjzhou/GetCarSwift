@@ -9,8 +9,8 @@
 import Foundation
 
 @objc protocol ViewProxy {
-    optional func showToast(toast: String)
-    optional func showViewController(vc: UIViewController)
+    func showToast(toast: String)
+    func showViewController(vc: UIViewController)
 }
 
 extension ViewProxy {

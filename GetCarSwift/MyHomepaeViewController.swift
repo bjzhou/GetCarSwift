@@ -19,15 +19,13 @@ class MyHomepaeViewController: UIViewController {
     @IBOutlet weak var myAvatar: UIImageView!
     @IBOutlet weak var homepageBg: UIImageView!
 
-    var district: String?
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         myAvatar.setAvatarImage()
         sexImage.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
         nickname.text = Me.sharedInstance.nickname
-        position.text = district ?? "正在获取位置"
+        DeviceDataService.sharedInstance.rx_district.bindTo(position.rx_text)
     }
 
     override func viewWillAppear(animated: Bool) {

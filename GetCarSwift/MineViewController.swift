@@ -9,23 +9,9 @@
 import UIKit
 
 class MineViewController: UITableViewController {
-    
-    var searchApi: AMapSearchAPI!
-    
-    var district: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let location = DeviceDataService.sharedInstance.rx_location.value {
-            searchApi = AMapSearchAPI(searchKey: AMAP_KEY, delegate: self)
-            let regeoRequest = AMapReGeocodeSearchRequest()
-            regeoRequest.searchType = .ReGeocode
-            regeoRequest.location = AMapGeoPoint.locationWithLatitude(CGFloat(location.coordinate.latitude), longitude: CGFloat(location.coordinate.longitude))
-            regeoRequest.requireExtension = true
-            
-            searchApi.AMapReGoecodeSearch(regeoRequest)
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -47,33 +33,10 @@ class MineViewController: UITableViewController {
             accountCell.sexIcon.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
             accountCell.avatar.setAvatarImage()
             accountCell.accountName.text = Me.sharedInstance.nickname ?? "用户名"
-            accountCell.accountDescription.text = district ?? "正在获得当前位置"
+            DeviceDataService.sharedInstance.rx_district.bindTo(accountCell.accountDescription.rx_text)
             return accountCell
         }
         return cell
     }
 
-    // MARK: - Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "personInfo" {
-            let dest = segue.destinationViewController as! PersonInfoViewController
-            dest.district = district
-        } else if segue.identifier == "homepage" {
-            let dest = segue.destinationViewController as! MyHomepaeViewController
-            dest.district = district
-        }
-    }
-
-}
-
-// MARK: -
-
-extension MineViewController: AMapSearchDelegate {
-    func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
-        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
-        district = "\(response.regeocode.addressComponent.province)\(city)"
-        self.tableView.reloadData()
-        print(district)
-    }
 }

@@ -33,11 +33,11 @@ struct LoginViewModel {
             .take(1)
             .filter { phone, code in
                 if phone.trim() == "" {
-                    self.viewProxy?.showToast?("请输入手机号")
+                    self.viewProxy?.showToast("请输入手机号")
                     return false
                 }
                 if code.trim() == "" {
-                    self.viewProxy?.showToast?("请输入验证码")
+                    self.viewProxy?.showToast("请输入验证码")
                     return false
                 }
                 return true
@@ -48,12 +48,12 @@ struct LoginViewModel {
             .concat()
             .subscribeNext { res in
                 guard let user = res.data, let token = user.token else {
-                    self.viewProxy?.showToast?("登陆失败")
+                    self.viewProxy?.showToast("登陆失败")
                     return
                 }
 
                 if res.code < 0 {
-                    self.viewProxy?.showToast?("验证码错误")
+                    self.viewProxy?.showToast("验证码错误")
                     return
                 }
 
@@ -64,7 +64,7 @@ struct LoginViewModel {
                     self.viewProxy?.setRootViewController()
                 } else {
                     let dest = loginStoryboard.instantiateViewControllerWithIdentifier("register")
-                    self.viewProxy?.showViewController?(dest)
+                    self.viewProxy?.showViewController(dest)
                 }
         }
     }
@@ -74,7 +74,7 @@ struct LoginViewModel {
             .take(1)
             .filter { phone in
                 if phone.characters.count < 11 {
-                    self.viewProxy?.showToast?("手机号格式错误")
+                    self.viewProxy?.showToast("手机号格式错误")
                     return false
                 }
                 self.timer = interval(1, MainScheduler.sharedInstance).take(60).subscribeNext { time in
@@ -92,9 +92,9 @@ struct LoginViewModel {
             }
             .concat()
             .subscribe(error: { _ in
-                self.viewProxy?.showToast?("验证码发送失败")
+                self.viewProxy?.showToast("验证码发送失败")
                 }, completed: {
-                    self.viewProxy?.showToast?("验证码发送成功")
+                    self.viewProxy?.showToast("验证码发送成功")
             })
 
     }

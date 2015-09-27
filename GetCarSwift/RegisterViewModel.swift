@@ -27,11 +27,11 @@ struct RegisterViewModel {
             .take(1)
             .filter { nick in
                 if nick.trim() == "" {
-                    self.viewProxy?.showToast?("请输入用户昵称")
+                    self.viewProxy?.showToast("请输入用户昵称")
                     return false
                 }
                 if self.car.trim() == "" {
-                    self.viewProxy?.showToast?("请选择车型")
+                    self.viewProxy?.showToast("请选择车型")
                     return false
                 }
                 return true
@@ -42,7 +42,7 @@ struct RegisterViewModel {
             .concat()
             .subscribeNext { res in
                 guard let user = res.data else {
-                    self.viewProxy?.showToast?("注册失败")
+                    self.viewProxy?.showToast("注册失败")
                     return
                 }
 
