@@ -32,7 +32,9 @@ class MapViewController: UIViewController {
 
         mapViewModel = MapViewModel()
 
-        User.rx_me.subscribeNext { me in
+        User.rx_me
+            .observeOn(MainScheduler.sharedInstance)
+            .subscribeNext { me in
             self.setLocationImage()
         }
 

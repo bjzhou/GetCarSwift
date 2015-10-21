@@ -64,9 +64,6 @@ func getColorIconName(sex: Int, color: Int) -> String {
 
 func getColorByTag(tag: Int) -> String {
     switch tag {
-    case 0:
-        // default value
-        return "红"
     case 101:
         return "红"
     case 102:
@@ -86,7 +83,7 @@ func getColorByTag(tag: Int) -> String {
     case 109:
         return "紫"
     default:
-        return "其他"
+        return "红"
     }
 }
 
@@ -95,7 +92,7 @@ func getSexString(sex: Int) -> String {
 }
 
 func getIconString(icon: Int) -> String {
-    return icon == 0 ? "1" : String(icon - 200)
+    return icon < 200 ? "1" : String(icon - 200)
 }
 
 func getSmallHomepageBg(index: Int) -> String {

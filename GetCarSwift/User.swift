@@ -179,10 +179,14 @@ struct Me {
 
     mutating func logout() {
         self.token = nil
-        let firstController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
-        let window = UIApplication.sharedApplication().keyWindow
-        window?.rootViewController = firstController
+        MainScheduler.sharedInstance.schedule("", action: { _ in
+            let firstController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
+            let window = UIApplication.sharedApplication().keyWindow
+            window?.rootViewController = firstController
 
-        firstController.view.makeToast(message: "登录信息已过期，请重新登录")
+            firstController.view.makeToast(message: "登录信息已过期，请重新登录")
+
+            return AnonymousDisposable {}
+        })
     }
 }
