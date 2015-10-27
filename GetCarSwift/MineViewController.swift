@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class MineViewController: UITableViewController {
+
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +36,7 @@ class MineViewController: UITableViewController {
             accountCell.sexIcon.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
             accountCell.avatar.setAvatarImage()
             accountCell.accountName.text = Me.sharedInstance.nickname ?? "用户名"
-            DeviceDataService.sharedInstance.rx_district.bindTo(accountCell.accountDescription.rx_text)
+            DeviceDataService.sharedInstance.rx_district.bindTo(accountCell.accountDescription.rx_text).addDisposableTo(disposeBag)
             return accountCell
         }
         return cell

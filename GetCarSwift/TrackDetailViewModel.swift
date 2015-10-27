@@ -9,6 +9,8 @@ import RxCocoa
 
 struct TrackDetailViewModel {
 
+    let disposeBag = DisposeBag()
+
     var viewProxy: ViewProxy?
 
     var sid = 0
@@ -37,7 +39,7 @@ struct TrackDetailViewModel {
                     }
                 }
                self.rx_comments.value = comments.comments
-            }
+            }.addDisposableTo(disposeBag)
     }
 
     func postComment(text: String) -> Observable<Void> {
@@ -55,10 +57,10 @@ struct TrackDetailViewModel {
         self.rx_loveButtonSelected.value = !self.rx_loveButtonSelected.value
         if self.rx_loveButtonSelected.value {
             Praise.praise(sid: sid).subscribeNext { gkResult in
-            }
+            }.addDisposableTo(disposeBag)
         } else {
             Praise.cancelPraise(sid: sid).subscribeNext { gkResult in
-            }
+            }.addDisposableTo(disposeBag)
         }
     }
 }

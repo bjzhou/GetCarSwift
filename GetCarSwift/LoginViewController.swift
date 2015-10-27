@@ -8,8 +8,11 @@
 
 import UIKit
 import RxCocoa
+import RxSwift
 
 class LoginViewController: UIViewController {
+
+    let disposeBag = DisposeBag()
 
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var vcodeText: UITextField!
@@ -29,10 +32,10 @@ class LoginViewController: UIViewController {
         loginViewModel = LoginViewModel(phoneText: phoneText.rx_text, codeText: vcodeText.rx_text)
         loginViewModel.viewProxy = self
 
-        loginViewModel.codeEnabled.bindTo(vcodeButton.rx_enabled)
+        loginViewModel.codeEnabled.bindTo(vcodeButton.rx_enabled).addDisposableTo(disposeBag)
         loginViewModel.codeTitle.subscribeNext { title in
             self.vcodeButton.setTitle(title, forState: .Normal)
-        }
+        }.addDisposableTo(disposeBag)
     }
 
     func handleSingleTap(recognizer: UITapGestureRecognizer) {

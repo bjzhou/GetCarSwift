@@ -8,8 +8,11 @@
 
 import UIKit
 import Haneke
+import RxSwift
 
 class MyHomepaeViewController: UIViewController {
+
+    let disposeBag = DisposeBag()
 
     @IBOutlet weak var collectCount: UILabel!
     @IBOutlet weak var postCount: UILabel!
@@ -25,7 +28,7 @@ class MyHomepaeViewController: UIViewController {
         myAvatar.setAvatarImage()
         sexImage.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
         nickname.text = Me.sharedInstance.nickname
-        DeviceDataService.sharedInstance.rx_district.bindTo(position.rx_text)
+        DeviceDataService.sharedInstance.rx_district.bindTo(position.rx_text).addDisposableTo(disposeBag)
     }
 
     override func viewWillAppear(animated: Bool) {

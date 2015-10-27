@@ -11,6 +11,8 @@ import RxSwift
 
 class MapViewController: UIViewController {
 
+    let disposeBag = DisposeBag()
+
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var layerButton: UIButton!
     @IBOutlet weak var trafficButton: UIButton!
@@ -36,7 +38,7 @@ class MapViewController: UIViewController {
             .observeOn(MainScheduler.sharedInstance)
             .subscribeNext { me in
             self.setLocationImage()
-        }
+        }.addDisposableTo(disposeBag)
 
         setLocationImage()
     }

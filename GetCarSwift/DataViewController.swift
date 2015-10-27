@@ -8,8 +8,11 @@
 
 import UIKit
 import CoreMotion
+import RxSwift
 
 class DataViewController: UIViewController {
+
+    let disposeBag = DisposeBag()
     
     @IBOutlet weak var scoreTable: UITableView!
     @IBOutlet weak var timeLabel: UILabel!
@@ -39,7 +42,7 @@ class DataViewController: UIViewController {
                 self.lonLabel.text = location.coordinate.longitudeString()
                 self.latLabel.text = location.coordinate.latitudeString()
             }
-        }
+        }.addDisposableTo(disposeBag)
 
         DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acceleration in
             if let acceleration = acceleration {
@@ -53,13 +56,13 @@ class DataViewController: UIViewController {
                     self.progressView.layoutIfNeeded()
                 })
             }
-        }
+        }.addDisposableTo(disposeBag)
 
         DeviceDataService.sharedInstance.rx_altitude.subscribeNext { altitude in
             if let altitude = altitude {
                 self.pressureLabel.text = String(Int(altitude.pressure.doubleValue*10))
             }
-        }
+        }.addDisposableTo(disposeBag)
     }
 
     func calculateTyreWear(ax: Double, v: Double) -> Double {

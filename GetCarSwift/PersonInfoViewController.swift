@@ -8,8 +8,11 @@
 
 import UIKit
 import Haneke
+import RxSwift
 
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    let disposeBag = DisposeBag()
     
     let titles = ["头像", "车形象", "用户名", /*"我的二维码", "我的地址",*/ "性别", "地区"/*, "个性签名"*/]
     var values = [IMAGE_AVATAR, getCarIconName(0, color: 0, icon: 0), "SURA"/*, IMAGE_QRCODE, ""*/, "女", "上海浦东新区"/*, ""*/]
@@ -142,7 +145,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 Me.sharedInstance.updateLogin(user)
                 self.tableView.reloadData()
             }
-        }
+        }.addDisposableTo(disposeBag)
         dismissViewControllerAnimated(true, completion: {_ in
             self.tableView.reloadData()
         })

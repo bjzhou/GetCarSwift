@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class CarIconEditViewController: UIViewController {
+
+    let disposeBag = DisposeBag()
 
     var colorTag = Me.sharedInstance.carHeadBg
     var iconTag = Me.sharedInstance.carHeadId
@@ -79,7 +82,7 @@ class CarIconEditViewController: UIViewController {
             if let user = res.data {
                 Me.sharedInstance.updateLogin(user)
             }
-        }
+        }.addDisposableTo(disposeBag)
         self.navigationController?.popViewControllerAnimated(true)
     }
 

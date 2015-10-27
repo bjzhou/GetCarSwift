@@ -13,6 +13,8 @@ import RxSwift
 class DeviceDataService: NSObject {
     static let sharedInstance = DeviceDataService()
 
+    let disposeBag = DisposeBag()
+
     let motionManager = CMMotionManager()
     let altitudeManager = CMAltimeter()
 
@@ -58,7 +60,7 @@ class DeviceDataService: NSObject {
 
                 self.searchApi.AMapReGoecodeSearch(regeoRequest)
             }
-        }
+        }.addDisposableTo(disposeBag)
     }
 }
 

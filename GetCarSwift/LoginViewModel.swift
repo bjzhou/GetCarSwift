@@ -11,6 +11,8 @@ import RxSwift
 import RxCocoa
 
 struct LoginViewModel {
+    let disposeBag = DisposeBag()
+
     var phoneText: ControlProperty<String>
     var codeText: ControlProperty<String>
 
@@ -66,7 +68,7 @@ struct LoginViewModel {
                     let dest = loginStoryboard.instantiateViewControllerWithIdentifier("register")
                     self.viewProxy?.showViewController(dest)
                 }
-        }
+        }.addDisposableTo(disposeBag)
     }
 
     mutating func onCodeButtonAction() {
@@ -91,11 +93,12 @@ struct LoginViewModel {
                 return User.getCodeMsg(phone)
             }
             .concat()
-            .subscribe(error: { _ in
+            .subscribe(onError: { _ in
                 self.viewProxy?.showToast("验证码发送失败")
-                }, completed: {
+                }, onCompleted: {
                     self.viewProxy?.showToast("验证码发送成功")
             })
+            .addDisposableTo(disposeBag)
 
     }
 

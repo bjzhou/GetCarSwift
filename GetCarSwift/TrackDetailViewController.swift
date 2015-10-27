@@ -11,6 +11,8 @@ import RxSwift
 
 class TrackDetailViewController: UIViewController {
 
+    let disposeBag = DisposeBag()
+
     @IBOutlet weak var imageScrollView: UIScrollView!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var trackStar: UIImageView!
@@ -64,9 +66,9 @@ class TrackDetailViewController: UIViewController {
                 } else {
                     self.loveLabel.text = "想去(\(lovedCount))"
                 }
-        }
+        }.addDisposableTo(disposeBag)
 
-        trackDetailViewModel.rx_loveButtonSelected.bindTo(loveButton.rx_selected)
+        trackDetailViewModel.rx_loveButtonSelected.bindTo(loveButton.rx_selected).addDisposableTo(disposeBag)
 
         trackDetailViewModel.rx_comments.subscribeNext { comments in
             self.commentTableView.reloadData()
@@ -77,7 +79,7 @@ class TrackDetailViewController: UIViewController {
                 self.commentTableView.hidden = false
                 self.emptyView.hidden = true
             }
-        }
+        }.addDisposableTo(disposeBag)
     }
 
     override func viewDidLayoutSubviews() {
@@ -127,7 +129,7 @@ class TrackDetailViewController: UIViewController {
         trackDetailViewModel.postComment(commentTextField.text ?? "").subscribeNext {
             self.commentTextField.text = ""
             self.commentTableView.scrollToBottom(true)
-        }
+        }.addDisposableTo(disposeBag)
         self.view.endEditing(true)
     }
 

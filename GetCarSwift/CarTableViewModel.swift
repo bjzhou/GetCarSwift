@@ -21,6 +21,8 @@ import RxSwift
 
 struct CarTableViewModel {
 
+    let disposeBag = DisposeBag()
+
     init() {
     }
 
@@ -57,6 +59,6 @@ struct CarTableViewModel {
             }.observeOn(MainScheduler.sharedInstance)
             .subscribeNext { (c: [String], b: [String: [String]], m: [String: [String]]) in
                 reloadData(c, b, m)
-        }
+        }.addDisposableTo(disposeBag)
     }
 }

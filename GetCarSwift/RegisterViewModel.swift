@@ -12,6 +12,8 @@ import RxCocoa
 
 struct RegisterViewModel {
 
+    let disposeBag = DisposeBag()
+
     var sex = 0
     var nickname: ControlProperty<String>
     var car = ""
@@ -50,6 +52,6 @@ struct RegisterViewModel {
                     Me.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 }
-            }
+            }.addDisposableTo(disposeBag)
     }
 }
