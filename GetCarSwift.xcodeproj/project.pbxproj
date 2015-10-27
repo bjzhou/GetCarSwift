@@ -20,6 +20,9 @@
 		C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C80B6B401BB6790A0017D7E3 /* CarBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */; settings = {ASSET_TAGS = (); }; };
 		C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B411BB679150017D7E3 /* Mine.storyboard */; settings = {ASSET_TAGS = (); }; };
+		C80F69541BDF261E0055B7B0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C80F69531BDF261E0055B7B0 /* libz.tbd */; };
+		C80F69581BDF26580055B7B0 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C80F69571BDF26580055B7B0 /* libc++.tbd */; };
+		C80F695A1BDF26640055B7B0 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C80F69591BDF26640055B7B0 /* libstdc++.6.0.9.tbd */; };
 		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
 		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C842763D1BB185E70041C3F9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C842762E1BB185930041C3F9 /* RxSwift.framework */; };
@@ -35,9 +38,6 @@
 		C8516DDC1AE2127A00BB0FF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
-		C8556C7B1BA33D2200623154 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8556C7A1BA33D2200623154 /* libc++.dylib */; };
-		C8556C7D1BA33D2C00623154 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8556C7C1BA33D2C00623154 /* libstdc++.6.0.9.dylib */; };
-		C8556C7F1BA33D3600623154 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C8556C7E1BA33D3600623154 /* libz.dylib */; };
 		C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85B349C1BB7C5C500435320 /* UIButton.swift */; settings = {ASSET_TAGS = (); }; };
 		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
@@ -331,6 +331,9 @@
 		C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CarBar.storyboard; sourceTree = "<group>"; };
 		C80B6B411BB679150017D7E3 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
+		C80F69531BDF261E0055B7B0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C80F69571BDF26580055B7B0 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C80F69591BDF26640055B7B0 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C842761B1BB185930041C3F9 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
@@ -341,9 +344,6 @@
 		C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
-		C8556C7A1BA33D2200623154 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		C8556C7C1BA33D2C00623154 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		C8556C7E1BA33D3600623154 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C85B349C1BB7C5C500435320 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,8 +363,6 @@
 		C86F85591B8216CD00C7DC7C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C86F855B1B8216D500C7DC7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C86F855D1B82170400C7DC7C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		C86F855F1B82171200C7DC7C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		C86F85611B82172500C7DC7C /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
@@ -394,7 +392,6 @@
 		C8C2C0971B8B5EAE006095DC /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = GetCarSwift/MAMapKit.framework; sourceTree = "<group>"; };
 		C8C2C09B1B8B5EEE006095DC /* GetCarSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetCarSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoEditViewController.swift; sourceTree = "<group>"; };
-		C8CB4C681B83549D008396BF /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C8CD8DC31B91CB8F0050DF90 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		C8CD8DD91B91DDE60050DF90 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		C8CD8DED1B91DF090050DF90 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ENSideMenu.swift; path = ENSwiftSideMenu/Library/ENSideMenu.swift; sourceTree = SOURCE_ROOT; };
@@ -430,10 +427,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C80F695A1BDF26640055B7B0 /* libstdc++.6.0.9.tbd in Frameworks */,
+				C80F69581BDF26580055B7B0 /* libc++.tbd in Frameworks */,
+				C80F69541BDF261E0055B7B0 /* libz.tbd in Frameworks */,
 				C84276411BB185E70041C3F9 /* RxCocoa.framework in Frameworks */,
-				C8556C7F1BA33D3600623154 /* libz.dylib in Frameworks */,
-				C8556C7D1BA33D2C00623154 /* libstdc++.6.0.9.dylib in Frameworks */,
-				C8556C7B1BA33D2200623154 /* libc++.dylib in Frameworks */,
 				C8C2C0991B8B5EAE006095DC /* Bugly.framework in Frameworks */,
 				C8C2C09A1B8B5EAE006095DC /* MAMapKit.framework in Frameworks */,
 				C86F855E1B82170400C7DC7C /* Security.framework in Frameworks */,
@@ -465,15 +462,12 @@
 		2C2ECC4D086E66923F2F9980 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C8556C7E1BA33D3600623154 /* libz.dylib */,
-				C8556C7C1BA33D2C00623154 /* libstdc++.6.0.9.dylib */,
-				C8556C7A1BA33D2200623154 /* libc++.dylib */,
+				C80F69591BDF26640055B7B0 /* libstdc++.6.0.9.tbd */,
+				C80F69571BDF26580055B7B0 /* libc++.tbd */,
+				C80F69531BDF261E0055B7B0 /* libz.tbd */,
 				C8C2C0951B8B5EAE006095DC /* AMapSearchKit.framework */,
 				C8C2C0961B8B5EAE006095DC /* Bugly.framework */,
 				C8C2C0971B8B5EAE006095DC /* MAMapKit.framework */,
-				C8CB4C681B83549D008396BF /* libc++.tbd */,
-				C86F85611B82172500C7DC7C /* libstdc++.6.0.9.tbd */,
-				C86F855F1B82171200C7DC7C /* libz.tbd */,
 				C86F855D1B82170400C7DC7C /* Security.framework */,
 				C86F855B1B8216D500C7DC7C /* SystemConfiguration.framework */,
 				C86F85591B8216CD00C7DC7C /* CoreTelephony.framework */,
