@@ -40,7 +40,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "choose_car" {
+        if segue.identifier == R.segue.choose_car {
             let dest = segue.destinationViewController as! CarTableNavigationController
             dest.carDelegate = self
         }

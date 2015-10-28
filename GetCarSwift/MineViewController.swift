@@ -33,7 +33,7 @@ class MineViewController: UITableViewController {
             let accountCell = cell as! AccountCell
             accountCell.avatar.layer.masksToBounds = true
             accountCell.avatar.layer.cornerRadius = 8
-            accountCell.sexIcon.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
+            accountCell.sexIcon.image = Me.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
             accountCell.avatar.setAvatarImage()
             accountCell.accountName.text = Me.sharedInstance.nickname ?? "用户名"
             DeviceDataService.sharedInstance.rx_district.bindTo(accountCell.accountDescription.rx_text).addDisposableTo(disposeBag)

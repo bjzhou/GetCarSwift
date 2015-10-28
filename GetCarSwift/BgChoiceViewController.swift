@@ -32,7 +32,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("bg_small", forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.bg_small.identifier, forIndexPath: indexPath) as UICollectionViewCell
         let imageView = cell.viewWithTag(401) as! UIImageView
         imageView.image = UIImage(named: getSmallHomepageBg(indexPath.row + 1))
         cell.addSubview(imageView)

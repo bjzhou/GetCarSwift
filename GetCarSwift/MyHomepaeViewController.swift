@@ -26,7 +26,7 @@ class MyHomepaeViewController: UIViewController {
         super.viewDidLoad()
 
         myAvatar.setAvatarImage()
-        sexImage.image = UIImage(named: Me.sharedInstance.sex == 0 ? "mine_female" : "mine_male")
+        sexImage.image = Me.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
         nickname.text = Me.sharedInstance.nickname
         DeviceDataService.sharedInstance.rx_district.bindTo(position.rx_text).addDisposableTo(disposeBag)
     }

@@ -13,10 +13,10 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.addChildViewController(traceStoryboard.instantiateInitialViewController()!)
-        self.addChildViewController(modStoryboard.instantiateInitialViewController()!)
-        self.addChildViewController(carBarStoryboard.instantiateInitialViewController()!)
-        self.addChildViewController(mineStoryboard.instantiateInitialViewController()!)
+        self.addChildViewController(R.storyboard.trace.initialViewController!)
+        self.addChildViewController(R.storyboard.mod.initialViewController!)
+        self.addChildViewController(R.storyboard.carBar.initialViewController!)
+        self.addChildViewController(R.storyboard.mine.initialViewController!)
 
     }
 }

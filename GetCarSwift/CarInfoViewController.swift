@@ -66,13 +66,13 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         let cellBg = cell?.viewWithTag(TAG_BG) as? UIImageView
-        cellBg?.image = UIImage(named: IMAGE_CAR_INFO_AREA_PRESSED)
+        cellBg?.image = R.image.car_info_area_pressed
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         let cellBg = cell?.viewWithTag(TAG_BG) as? UIImageView
-        cellBg?.image = UIImage(named: IMAGE_CAR_INFO_AREA)
+        cellBg?.image = R.image.car_info_area
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {

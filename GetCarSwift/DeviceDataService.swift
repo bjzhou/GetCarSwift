@@ -29,7 +29,8 @@ class DeviceDataService: NSObject {
     override init() {
         super.init()
 
-        searchApi = AMapSearchAPI(searchKey: AMAP_KEY, delegate: self)
+        searchApi = AMapSearchAPI()
+        searchApi.delegate = self
 
         if motionManager.deviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 0.01
@@ -54,7 +55,6 @@ class DeviceDataService: NSObject {
                     return
                 }
                 let regeoRequest = AMapReGeocodeSearchRequest()
-                regeoRequest.searchType = .ReGeocode
                 regeoRequest.location = AMapGeoPoint.locationWithLatitude(CGFloat(location.coordinate.latitude), longitude: CGFloat(location.coordinate.longitude))
                 regeoRequest.requireExtension = true
 
@@ -66,7 +66,7 @@ class DeviceDataService: NSObject {
 
 extension DeviceDataService: AMapSearchDelegate {
     func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
-        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
+        let city = response.regeocode.addressComponent.city == nil ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
         self.rx_district.value = "\(response.regeocode.addressComponent.province)\(city)"
         districtService?.dispose()
     }

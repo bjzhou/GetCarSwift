@@ -69,7 +69,7 @@ class MatchViewController: UIViewController {
 
     @IBAction func didAddPlayer(sender: UIButton) {
         pressedButton = sender
-        let addViewController = traceStoryboard.instantiateViewControllerWithIdentifier("add_player_popover") as! AddPlayerTableViewController
+        let addViewController = R.storyboard.trace.add_player_popover!
         addViewController.delegate = self
         addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
         let popupViewController = PopupViewController(rootViewController: addViewController)
@@ -174,11 +174,11 @@ extension MatchViewController: MAMapViewDelegate {
 
             switch annotation as! MAPointAnnotation {
             case let purple where purple == purpleAnnotation:
-                annotationView!.image = UIImage(named: "purple_small_car")
+                annotationView!.image = R.image.purple_small_car
             case let yellow where yellow == yellowAnnotation:
-                annotationView!.image = UIImage(named: "yellow_small_car")
+                annotationView!.image = R.image.yellow_small_car
             case let blue where blue == blueAnnotation:
-                annotationView!.image = UIImage(named: "blue_small_car")
+                annotationView!.image = R.image.blue_small_car
             default:
                 break
             }

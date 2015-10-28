@@ -19,20 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if let _ = Me.sharedInstance.token {
             if let nickname = Me.sharedInstance.nickname where nickname.trim() != "" {} else {
-                let firstController = UINavigationController(rootViewController: loginStoryboard.instantiateViewControllerWithIdentifier("register") )
+                let firstController = UINavigationController(rootViewController: R.storyboard.login.register!)
                 firstController.navigationItem.title = "登陆"
                 window?.rootViewController = firstController
             }
         } else {
-            window?.rootViewController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
+            window?.rootViewController = R.storyboard.login.login
         }
 
         if AppDelegate.DEBUG_LOGIN {
-            window?.rootViewController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
+            window?.rootViewController = R.storyboard.login.login
         }
 
         if AppDelegate.DEBUG_REGISTER {
-            window?.rootViewController = loginStoryboard.instantiateViewControllerWithIdentifier("register")
+            window?.rootViewController = R.storyboard.login.register
         }
 
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
 
         MAMapServices.sharedServices().apiKey = AMAP_KEY
+        AMapSearchServices.sharedServices().apiKey = AMAP_KEY
 
         CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
         CrashReporter.sharedInstance().setUserId(Me.sharedInstance.nickname ?? "10000")

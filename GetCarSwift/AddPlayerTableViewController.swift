@@ -63,13 +63,13 @@ class AddPlayerTableViewController: UITableViewController {
         case .Friend:
             cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
             let avatarView = cell.viewWithTag(111) as! UIImageView
-            avatarView.image = UIImage(named: "avatar")
+            avatarView.image = R.image.avatar
             let nameLabel = cell.viewWithTag(112) as! UILabel
             nameLabel.text = friends[indexPath.row]
         case .Rank:
             cell = tableView.dequeueReusableCellWithIdentifier("rank", forIndexPath: indexPath) 
             let avatarView = cell.viewWithTag(122) as! UIImageView
-            avatarView.image = UIImage(named: "avatar")
+            avatarView.image = R.image.avatar
             let rankLabel = cell.viewWithTag(121) as! UILabel
             rankLabel.text = String(indexPath.row+1)
             let nameLabel = cell.viewWithTag(123) as! UILabel
@@ -93,7 +93,7 @@ class AddPlayerTableViewController: UITableViewController {
                         self.delegate?.didPlayerAdded(avatar: image, name: "我")
                         self.dismissPopupViewController()
                         }.onFailure { err in
-                            self.delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: "我")
+                            self.delegate?.didPlayerAdded(avatar: R.image.avatar!, name: "我")
                             self.dismissPopupViewController()
                     }
                 }
@@ -103,7 +103,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: UIImage(named: "avatar")!, name: mode == .Friend ? friends[indexPath.row] : "排名第\(indexPath.row+1)")
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : "排名第\(indexPath.row+1)")
             dismissPopupViewController()
         }
     }
@@ -113,7 +113,7 @@ class AddPlayerTableViewController: UITableViewController {
         view.backgroundColor = UIColor.whiteColor()
         let button = UIButton(type: .Custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "backbutton"), forState: .Normal)
+        button.setBackgroundImage(R.image.backbutton, forState: .Normal)
         button.addTarget(self, action: Selector("didBackAction"), forControlEvents: .TouchUpInside)
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false

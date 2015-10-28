@@ -29,11 +29,11 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self;
     }
 
-    func addSubViewToScrollVIew(index: Int, title: String, iconName: String, message: String) {
-        let intrContentVC = modStoryboard.instantiateViewControllerWithIdentifier("mod_intr_content") as! ModIntroContentViewController
+    func addSubViewToScrollVIew(index: Int, title: String, icon: UIImage?, message: String) {
+        let intrContentVC = R.storyboard.mod.mod_intr_content!
         intrContentVC.view.frame = CGRectMake(8 + CGFloat(self.view.frame.size.width) * CGFloat(index), 0, self.view.frame.size.width - 16, self.scrollView.frame.size.height)
         intrContentVC.titleLabel.text = title
-        intrContentVC.iconView.image = UIImage(named: iconName)
+        intrContentVC.iconView.image = icon
         intrContentVC.messageTextView.text = message
         self.scrollView.addSubview(intrContentVC.view)
     }
@@ -41,9 +41,9 @@ class ModDoctorViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLayoutSubviews() {
         scrollView.contentSize = CGSizeMake(view.bounds.size.width * 3, scrollView.frame.size.height)
 
-        addSubViewToScrollVIew(0, title: "大包围", iconName: IMAGE_DABAOWEI, message: CONTENT_DABAOWEI)
-        addSubViewToScrollVIew(1, title: "后扰流板", iconName: IMAGE_HOURAO, message: CONTENT_HOURAO)
-        addSubViewToScrollVIew(2, title: "轮毂", iconName: IMAGE_LUNGU, message: CONTENT_LUNGU)
+        addSubViewToScrollVIew(0, title: "大包围", icon: R.image.gz_baowei, message: CONTENT_DABAOWEI)
+        addSubViewToScrollVIew(1, title: "后扰流板", icon: R.image.gz_hourao, message: CONTENT_HOURAO)
+        addSubViewToScrollVIew(2, title: "轮毂", icon: R.image.gz_lunkuo, message: CONTENT_LUNGU)
     }
 
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

@@ -9,15 +9,14 @@
 import UIKit
 
 class ModViewController: UIViewController {
-    
-    let VCIDs = ["modDoctor", "modStore"]
+
     let buttonTitles = ["改装博士", "改装商城"]
 
     @IBOutlet var swiftPagesView: SwiftPages!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        swiftPagesView.initializeWithVCIDsArrayAndButtonTitlesArray(modStoryboard, VCIDsArray: VCIDs, buttonTitlesArray: buttonTitles, sender: self)
+        swiftPagesView.initializeWithVCsArrayAndButtonTitlesArray([R.storyboard.mod.modDoctor!, R.storyboard.mod.modStore!], buttonTitlesArray: buttonTitles, sender: self)
     }
 
 }

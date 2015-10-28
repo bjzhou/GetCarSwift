@@ -28,7 +28,7 @@ class AccountCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        accessoryView = UIImageView(image: UIImage(named: IMAGE_ARROW))
+        accessoryView = UIImageView(image: R.image.arrow)
     }
 
 }

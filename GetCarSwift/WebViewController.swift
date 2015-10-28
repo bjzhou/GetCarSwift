@@ -35,8 +35,8 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         progressView.trackTintColor = UIColor(white: 1, alpha: 0)
         self.view.addSubview(progressView)
         
-        backBarButton = UIBarButtonItem(image: UIImage(named: "backbutton"), style: .Plain, target: self, action: Selector("didBack"))
-        forwardBarButton = UIBarButtonItem(image: UIImage(named: "forwardbutton"), style: .Plain, target: self, action: Selector("didForward"))
+        backBarButton = UIBarButtonItem(image: R.image.backbutton, style: .Plain, target: self, action: Selector("didBack"))
+        forwardBarButton = UIBarButtonItem(image: R.image.forwardbutton, style: .Plain, target: self, action: Selector("didForward"))
         refreshBarButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: Selector("didRefresh"))
         stopBarButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: Selector("didStop"))
         flexibleSpaceBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)

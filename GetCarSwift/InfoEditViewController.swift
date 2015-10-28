@@ -79,7 +79,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textLabel?.text = "女"
         }
         
-        cell.accessoryView = UIImageView(image: indexPath.row != Me.sharedInstance.sex ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
+        cell.accessoryView = UIImageView(image: indexPath.row != Me.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
         return cell
     }
     

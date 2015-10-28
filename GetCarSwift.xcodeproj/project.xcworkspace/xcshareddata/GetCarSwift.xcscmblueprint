@@ -4,23 +4,29 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "69AF840D792779EDC1501DFB94242F79649CD44F" : 0,
     "C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F" : 0,
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
     "8B123162C394A0A0A138779108E4C59DD771865A" : 0,
     "EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D" : 0,
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
     "58AAB0051E2B4EEDF1845A552012E6D0EBAD9127" : 0,
-    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : 0
+    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : 0,
+    "B141D43A78807E302A086A84B4BECA9271DA3018" : 0,
+    "768F1F9CC867EF28C17472B184F0AF0781227AAE" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B34B994C-E109-43FE-9483-C20F07F5F51F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "69AF840D792779EDC1501DFB94242F79649CD44F" : "GetCarSwift\/R.swift\/Xcode.swift\/",
     "C93564C1AFB8B50FF58188F21182F5D0EEAD1C3F" : "GetCarSwift\/HanekeSwift\/",
     "67620B5EFA902936DF04070AF595B76AB0333747" : "GetCarSwift\/Alamofire\/",
     "8B123162C394A0A0A138779108E4C59DD771865A" : "GetCarSwift\/RxSwift\/",
     "EE179005EEB8CE8DC60AAC87DC3E2B28AFA7920D" : "GetCarSwift",
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "GetCarSwift\/SwiftyJSON\/",
     "58AAB0051E2B4EEDF1845A552012E6D0EBAD9127" : "GetCarSwift\/ObjectMapper\/",
-    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : "GetCarSwift\/ENSwiftSideMenu\/"
+    "BCDB49ED628DA8AA71FA05685DFF5C163964F4D2" : "GetCarSwift\/ENSwiftSideMenu\/",
+    "B141D43A78807E302A086A84B4BECA9271DA3018" : "GetCarSwift\/R.swift\/OptionKit\/",
+    "768F1F9CC867EF28C17472B184F0AF0781227AAE" : "GetCarSwift\/R.swift\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "GetCarSwift",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -37,9 +43,24 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "67620B5EFA902936DF04070AF595B76AB0333747"
     },
     {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mac-cain13\/Xcode.swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "69AF840D792779EDC1501DFB94242F79649CD44F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mac-cain13\/R.swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "768F1F9CC867EF28C17472B184F0AF0781227AAE"
+    },
+    {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ReactiveX\/RxSwift.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8B123162C394A0A0A138779108E4C59DD771865A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mac-cain13\/OptionKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B141D43A78807E302A086A84B4BECA9271DA3018"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/evnaz\/ENSwiftSideMenu.git",

@@ -180,7 +180,7 @@ struct Me {
     mutating func logout() {
         self.token = nil
         MainScheduler.sharedInstance.schedule("", action: { _ in
-            let firstController = loginStoryboard.instantiateViewControllerWithIdentifier("login")
+            let firstController = R.storyboard.login.login!
             let window = UIApplication.sharedApplication().keyWindow
             window?.rootViewController = firstController
 

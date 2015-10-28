@@ -186,9 +186,9 @@ extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let content = cell.viewWithTag(313) as! UILabel
 
         if let url = NSURL(string: trackDetailViewModel.rx_comments.value[indexPath.row].head) {
-            avatarView.hnk_setImageFromURL(url, placeholder: UIImage(named: "avatar"))
+            avatarView.hnk_setImageFromURL(url, placeholder: R.image.avatar)
         } else {
-            avatarView.image = UIImage(named: "avatar")
+            avatarView.image = R.image.avatar
         }
 
         nickname.text = trackDetailViewModel.rx_comments.value[indexPath.row].nickname

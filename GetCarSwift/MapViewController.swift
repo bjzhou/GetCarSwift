@@ -154,7 +154,7 @@ extension MapViewController: MAMapViewDelegate {
 }
 
 public class CustomMAPointAnnotation: MAPointAnnotation {
-    public var image: UIImage = UIImage(named: "白2")!
+    public var image: UIImage = R.image.白2!
     override init() {
         super.init()
     }

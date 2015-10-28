@@ -105,22 +105,24 @@ class GaikeService {
             }.observeOn(MainScheduler.sharedInstance)
     }
 
-    func cache<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
-        return create { observer in
-            Shared.dataCache.fetch(fetcher: GKFetcher(method: urlString, body: body)).onFailure { err in
-                if let err = err {
-                    observer.on(.Error(err))
-                }
-                }.onSuccess { data in
-                    observer.on(.Next(data))
-                    observer.on(.Completed)
-            }
-            return AnonymousDisposable {
-            }
-            }.observeOn(operationScheduler).map { (data: NSData) in
-                return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance)
-    }
+//    func cache<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
+//        return create { observer in
+//            let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: GaikeService.domain + urlString)!), parameters: body).0.URLString
+//            let fetcher = 
+//            Shared.dataCache.fetch(fetcher: GKFetcher(method: urlString, body: body)).onFailure { err in
+//                if let err = err {
+//                    observer.on(.Error(err))
+//                }
+//                }.onSuccess { data in
+//                    observer.on(.Next(data))
+//                    observer.on(.Completed)
+//            }
+//            return AnonymousDisposable {
+//            }
+//            }.observeOn(operationScheduler).map { (data: NSData) in
+//                return self.parseJSON(data)
+//            }.observeOn(MainScheduler.sharedInstance)
+//    }
 
     private func parseJSON<T>(data: NSData) -> GKResult<T> {
         let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
@@ -161,36 +163,36 @@ class GaikeService {
     }
 }
 
-class GKFetcher : Fetcher<NSData> {
-    let method: String
-    let body: [String:AnyObject]
-
-    init(method: String, body: [String:AnyObject] = [:]) {
-        let urlString = GaikeService.domain + method
-        let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: urlString)!), parameters: body).0.URLString
-        self.method = method
-        self.body = body
-        super.init(key: key)
-    }
-
-    override func fetch(failure fail : ((NSError?) -> ()), success succeed : (NSData.Result) -> ()) {
-        apiManager.request(GaikeService.sharedInstance.generateURLRequest(method, body: body)).responseData { res in
-            if let err = res.result.error {
-                fail(err)
-            } else {
-                if let data = res.result.value {
-                    succeed(data)
-                    if API_DEBUG {
-                        let responseString = String(data: data, encoding: NSUTF8StringEncoding) ?? ""
-                        print("RESPONSE=========================================> \(responseString)")
-                    }
-                }
-            }
-        }
-    }
-
-    override func cancelFetch() {}
-}
+//class GKFetcher : Fetcher<NSData> {
+//    let method: String
+//    let body: [String:AnyObject]
+//
+//    init(method: String, body: [String:AnyObject] = [:]) {
+//        let urlString = GaikeService.domain + method
+//        let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: urlString)!), parameters: body).0.URLString
+//        self.method = method
+//        self.body = body
+//        super.init(key: key)
+//    }
+//
+//    override func fetch(failure fail : ((NSError?) -> ()), success succeed : (NSData.Result) -> ()) {
+//        apiManager.request(GaikeService.sharedInstance.generateURLRequest(method, body: body)).responseData { res in
+//            if let err = res.result.error {
+//                fail(err)
+//            } else {
+//                if let data = res.result.value {
+//                    succeed(data)
+//                    if API_DEBUG {
+//                        let responseString = String(data: data, encoding: NSUTF8StringEncoding) ?? ""
+//                        print("RESPONSE=========================================> \(responseString)")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    override func cancelFetch() {}
+//}
 
 struct GKResult<U: JSONable> {
     var data: U?

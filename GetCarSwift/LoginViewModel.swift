@@ -65,7 +65,7 @@ struct LoginViewModel {
                     Me.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 } else {
-                    let dest = loginStoryboard.instantiateViewControllerWithIdentifier("register")
+                    let dest = R.storyboard.login.register!
                     self.viewProxy?.showViewController(dest)
                 }
         }.addDisposableTo(disposeBag)

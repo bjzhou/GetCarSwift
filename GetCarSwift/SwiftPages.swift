@@ -62,7 +62,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     
     override public func drawRect(rect: CGRect)
     {
-        // MARK: - Size Of The Container View -
+        //Size Of The Container View
         let pagesContainerHeight = self.frame.height - yOrigin - distanceToBottom
         let pagesContainerWidth = self.frame.width
 
@@ -168,45 +168,15 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     }
     
     // MARK: - Initialization Functions -
-    public func initializeWithVCIDsArrayAndButtonTitlesArray (storyboard: UIStoryboard, VCIDsArray: [String], buttonTitlesArray: [String], sender: UIViewController)
-    {
-        //Important - Titles Array must Have The Same Number Of Items As The viewControllerIDs Array
-        if VCIDsArray.count == buttonTitlesArray.count {
-            for id in VCIDsArray {
-                let vc = storyboard.instantiateViewControllerWithIdentifier(id)
-                sender.addChildViewController(vc)
-                vc.didMoveToParentViewController(sender)
-                pageViews.append(vc)
-            }
-            buttonTitles = buttonTitlesArray
-            buttonsWithImages = false
-        } else {
-            print("Initilization failed, the VC ID array count does not match the button titles array count.")
-        }
-    }
-    
-    public func initializeWithVCIDsArrayAndButtonImagesArray (storyboard: UIStoryboard, VCIDsArray: [String], buttonImagesArray: [UIImage], sender: UIViewController)
-    {
-        //Important - Images Array must Have The Same Number Of Items As The viewControllerIDs Array
-        if VCIDsArray.count == buttonImagesArray.count {
-            for id in VCIDsArray {
-                let vc = storyboard.instantiateViewControllerWithIdentifier(id)
-                sender.addChildViewController(vc)
-                vc.didMoveToParentViewController(sender)
-                pageViews.append(vc)
-            }
-            buttonImages = buttonImagesArray
-            buttonsWithImages = true
-        } else {
-            print("Initilization failed, the VC ID array count does not match the button images array count.")
-        }
-    }
-    
-    public func initializeWithVCsArrayAndButtonTitlesArray (VCsArray: [UIViewController], buttonTitlesArray: [String])
+    public func initializeWithVCsArrayAndButtonTitlesArray (VCsArray: [UIViewController], buttonTitlesArray: [String], sender: UIViewController)
     {
         //Important - Titles Array must Have The Same Number Of Items As The viewControllerIDs Array
         if VCsArray.count == buttonTitlesArray.count {
-            pageViews = VCsArray
+            for vc in VCsArray {
+                sender.addChildViewController(vc)
+                vc.didMoveToParentViewController(sender)
+                pageViews.append(vc)
+            }
             buttonTitles = buttonTitlesArray
             buttonsWithImages = false
         } else {
@@ -214,11 +184,15 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         }
     }
     
-    public func initializeWithVCsArrayAndButtonImagesArray (VCsArray: [UIViewController], buttonImagesArray: [UIImage])
+    public func initializeWithVCsArrayAndButtonImagesArray (VCsArray: [UIViewController], buttonImagesArray: [UIImage], sender: UIViewController)
     {
         //Important - Images Array must Have The Same Number Of Items As The viewControllerIDs Array
         if VCsArray.count == buttonImagesArray.count {
-            pageViews = VCsArray
+            for vc in VCsArray {
+                sender.addChildViewController(vc)
+                vc.didMoveToParentViewController(sender)
+                pageViews.append(vc)
+            }
             buttonImages = buttonImagesArray
             buttonsWithImages = true
         } else {

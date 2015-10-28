@@ -37,7 +37,7 @@ class BrandsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        cell.accessoryView = UIImageView(image: indexPath.row == currentBrand ? UIImage(named: IAMGE_ACCESSORY_SELECTED) : UIImage(named: IAMGE_ACCESSORY))
+        cell.accessoryView = UIImageView(image: indexPath.row == currentBrand ? R.image.accessory_selected : R.image.accessory)
         return cell
     }
 
