@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().setUserId(Me.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
 
-        //checkNewVersion()
+        checkNewVersion()
 
         return true
     }

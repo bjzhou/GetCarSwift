@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 import RxSwift
 
-let FIR_APP_ID = "552a3921ebc861d936002615"
+let FIR_APP_ID = "563089a800fc7478b600000f"
 let FIR_USER_TOKEN = "c5be852abca28607167f36f029ccfc1b"
 let FIR_URL_VERSION_CHECK = "http://api.fir.im/apps/latest/" + FIR_APP_ID
 
@@ -20,7 +20,7 @@ struct FIR: JSONable {
     var version: String = ""
     var versionShort: String = ""
     var changelog: String = ""
-    var updateUrl: String = "http://fir.im/GetCarSwift"
+    var updateUrl: String = "http://fir.im/GetCar"
 
     init(json: JSON) {
         name = json["name"].stringValue

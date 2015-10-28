@@ -11,7 +11,12 @@ import Foundation
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
 
-let AMAP_KEY = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
+//#if ADHOC
+let AMAP_KEY = "5f7efffc934719c87faca88c9cea88ec"
+//#else
+//    let AMAP_KEY = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
+//#endif
+
 let BUGLY_APPID = "900007462"
 
 /*
