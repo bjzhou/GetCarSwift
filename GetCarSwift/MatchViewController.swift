@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import RxSwift
 
 class MatchViewController: UIViewController {
     
@@ -48,7 +49,9 @@ class MatchViewController: UIViewController {
         mapView.delegate = self
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 8)
-        mapView.zoomLevel = 17
+        mapView.zoomLevel = 19
+        mapView.zoomEnabled = false
+        mapView.scrollEnabled = false
     }
 
     @IBAction func zoomInButtonAction(sender: UIButton) {
@@ -86,9 +89,9 @@ class MatchViewController: UIViewController {
         } else {
             curTime = 0
             startPlay = false
-            print(dataList)
-            let pasteBoard = UIPasteboard.generalPasteboard()
-            pasteBoard.string = JSON(dataList).rawString()
+//            print(dataList)
+//            let pasteBoard = UIPasteboard.generalPasteboard()
+//            pasteBoard.string = JSON(dataList).rawString()
         }
     }
 
@@ -105,22 +108,23 @@ class MatchViewController: UIViewController {
         let m = curTime / 100 / 60
         timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
 
-        if curTime % 100 == 0 {
-            var point: [String:Double] = [:]
-            point["lat"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0
-            point["long"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0
-            let speed = DeviceDataService.sharedInstance.rx_location.value?.speed
-            point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
-            point["accelarate"] = round(abs(DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 100) / 10
-            dataList.append(point)
+        var point: [String:Double] = [:]
+        point["lat"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0
+        point["long"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0
+        let speed = DeviceDataService.sharedInstance.rx_location.value?.speed
+        point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
+        point["accelarate"] = round(abs(DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 100) / 10
+        dataList.append(point)
 
-            blueSpeed.text = String(point["speed"]!)
-            blueAcce.text = String(point["accelarate"]!)
+        blueSpeed.text = String(point["speed"]!)
+        blueAcce.text = String(point["accelarate"]!)
 
-            purpleAnnotation?.coordinate.longitude += 0.001
-            blueAnnotation?.coordinate.longitude += 0.001
-            yellowAnnotation?.coordinate.longitude += 0.001
-        }
+        purpleAnnotation?.coordinate.longitude += 0.000001
+        blueAnnotation?.coordinate.longitude += 0.000001
+        yellowAnnotation?.coordinate.longitude += 0.000001
+
+        mapView.setCenterCoordinate(purpleAnnotation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), animated: false)
+
         curTime++
     }
 }
@@ -143,14 +147,14 @@ extension MatchViewController: AddPlayerDelegate {
                 self.mapView.removeAnnotation(yellowAnnotation)
                 yellowTitle.text = name
                 yellowAnnotation = MAPointAnnotation()
-                yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100 + 0.01, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
+                yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: (DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100) + 0.00005, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
                 self.mapView.addAnnotation(yellowAnnotation)
                 break
             case blueButton:
                 self.mapView.removeAnnotation(blueAnnotation)
                 blueTitle.text = name
                 blueAnnotation = MAPointAnnotation()
-                blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100 - 0.01, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
+                blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: (DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 100) - 0.00005, longitude: DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 100)
                 self.mapView.addAnnotation(blueAnnotation)
                 break
             default:
