@@ -46,7 +46,7 @@ class MapViewController: UIViewController {
     func setLocationImage() {
         let color = Me.sharedInstance.carHeadBg
         let icon = Me.sharedInstance.carHeadId
-        locationImage = UIImage(named: getCarIconName(Me.sharedInstance.sex, color: color, icon: icon))
+        locationImage = UIImage(named: getCarIconName(Me.sharedInstance.sex, color: color, icon: icon))?.scaleImage(scale: 0.5)
         mapView.showsUserLocation = false
         mapView.showsUserLocation = true
     }
@@ -66,10 +66,9 @@ class MapViewController: UIViewController {
             return
         }
         timer?.dispose()
-        timer = mapViewModel.updateNearby().subscribeNext { annotations in
-            print(annotations.count)
-            self.mapView.removeAnnotations(self.mapView.annotations)
-            self.mapView.addAnnotations(annotations)
+        timer = mapViewModel.updateNearby().subscribeNext { (old, new) in
+            self.mapView.removeAnnotations(old)
+            self.mapView.addAnnotations(new)
         }
     }
 
@@ -126,6 +125,7 @@ extension MapViewController: MAMapViewDelegate {
                 annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: userLocationStyleReuseIndetifier)
             }
             annotationView.image = locationImage
+            annotationView.canShowCallout = true
 
             return annotationView
         }
@@ -154,7 +154,7 @@ extension MapViewController: MAMapViewDelegate {
 }
 
 public class CustomMAPointAnnotation: MAPointAnnotation {
-    public var image: UIImage = R.image.白2!
+    public var image: UIImage?
     override init() {
         super.init()
     }
