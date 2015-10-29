@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Haneke
 import SwiftyJSON
 
 struct User: JSONable {
@@ -21,7 +22,7 @@ struct User: JSONable {
 
     static var rx_me: Variable<Me> = Variable(Me.sharedInstance)
 
-    init(json: JSON) {
+    init(json: SwiftyJSON.JSON) {
         phone = json["phone"].string
         id = json["id"].string
         car = json["car"].string
@@ -149,6 +150,16 @@ struct Me {
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_bg")
             User.rx_me.value = self
+        }
+    }
+
+    func fetchAvatar(result: UIImage -> ()) {
+        if let avatarUrl = avatarUrl {
+            Shared.imageCache.fetch(URL: NSURL(string: avatarUrl)!).onSuccess(result).onFailure { _ in
+                    result(R.image.avatar!)
+            }
+        } else {
+            result(R.image.avatar!)
         }
     }
 

@@ -18,6 +18,7 @@ enum AddPlayerMode {
 class AddPlayerTableViewController: UITableViewController {
 
     var delegate: AddPlayerDelegate?
+    var sender: UIButton?
 
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Friend:"我的好友", .Rank:"赛道排名"]
 
@@ -88,14 +89,9 @@ class AddPlayerTableViewController: UITableViewController {
                 mode = .Rank
                 tableView.reloadData()
             } else {
-                if let url = Me.sharedInstance.avatarUrl {
-                    Shared.imageCache.fetch(URL: NSURL(string: url)!).onSuccess {image in
-                        self.delegate?.didPlayerAdded(avatar: image, name: "我")
-                        self.dismissPopupViewController()
-                        }.onFailure { err in
-                            self.delegate?.didPlayerAdded(avatar: R.image.avatar!, name: "我")
-                            self.dismissPopupViewController()
-                    }
+                Me.sharedInstance.fetchAvatar { image in
+                    self.delegate?.didPlayerAdded(avatar: image, name: "我", sender: self.sender)
+                    self.dismissPopupViewController()
                 }
             }
             if indexPath.row != 0 {
@@ -103,7 +99,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : "排名第\(indexPath.row+1)")
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : "排名第\(indexPath.row+1)", sender: sender)
             dismissPopupViewController()
         }
     }
@@ -158,5 +154,5 @@ class AddPlayerTableViewController: UITableViewController {
 }
 
 protocol AddPlayerDelegate {
-    func didPlayerAdded(avatar avatar: UIImage, name: String)
+    func didPlayerAdded(avatar avatar: UIImage, name: String, sender: UIButton?)
 }
