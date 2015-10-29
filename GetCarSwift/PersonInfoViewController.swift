@@ -100,24 +100,15 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 let controller = R.storyboard.mine.car_icon
                 self.navigationController?.showViewController(controller!, sender: self)
             case 2:
-                fallthrough
-                //let vc = InfoEditViewController(mode: .Nickname)
-                //self.navigationController?.showViewController(vc, sender: self)
-            case 3:
-                fallthrough
-                //let vc = InfoEditViewController(mode: .Address)
-                //self.navigationController?.showViewController(vc, sender: self)
+                let vc = InfoEditViewController(mode: .Nickname)
+                self.navigationController?.showViewController(vc, sender: self)
             default:
                 break
             }
         } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
-                fallthrough
-                //self.navigationController?.showViewController(InfoEditViewController(mode: .Sex), sender: self)
-            case 2:
-                fallthrough
-                //self.navigationController?.showViewController(InfoEditViewController(mode: .Sign), sender: self)
+                self.navigationController?.showViewController(InfoEditViewController(mode: .Sex), sender: self)
             default:
                 break;
             }

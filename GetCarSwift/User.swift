@@ -46,12 +46,24 @@ struct User: JSONable {
         return GaikeService.sharedInstance.api("user/login", body: ["phone":phone, "code":code])
     }
 
-    static func updateInfo(nickname nickname: String, sex: Int, car: String) -> Observable<GKResult<User>> {
-        return GaikeService.sharedInstance.api("user/updateInfo", body: ["nickname":nickname, "sex":sex, "car":car])
-    }
-
-    static func updateInfo(color color: String, icon: String) -> Observable<GKResult<User>> {
-        return GaikeService.sharedInstance.api("user/updateInfo", body: ["car_head_bg":color, "car_head_id":icon])
+    static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, car: String? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
+        var body: [String:AnyObject] = [:]
+        if let a = nickname {
+            body["nickname"] = a
+        }
+        if let a = sex {
+            body["sex"] = a
+        }
+        if let a = car {
+            body["car"] = a
+        }
+        if let a = color {
+            body["color"] = a
+        }
+        if let a = icon {
+            body["icon"] = a
+        }
+        return GaikeService.sharedInstance.api("user/updateInfo", body: body)
     }
 
     static func uploadHeader(image: UIImage) -> Observable<GKResult<User>> {
