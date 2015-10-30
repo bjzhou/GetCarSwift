@@ -377,7 +377,6 @@
 				C842765F1BB188D60041C3F9 /* Model */,
 				C80881E01B6D2171002A1CE9 /* servicce */,
 				C867FC691AD8FCAF00F99592 /* Supporting Files */,
-				C89A05C81B6E162500620C85 /* ThirdParty */,
 				C8F333661BB6DA1B00F4EFB2 /* Utils */,
 				C84408F91BB43D2B0088D046 /* View */,
 				C84408E91BB43C590088D046 /* ViewModel */,
@@ -419,16 +418,6 @@
 				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
 			);
 			name = Assets;
-			sourceTree = "<group>";
-		};
-		C89A05C81B6E162500620C85 /* ThirdParty */ = {
-			isa = PBXGroup;
-			children = (
-				C8CD8DEC1B91DEED0050DF90 /* ENSideMenu */,
-				C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */,
-				C8F9CD701B725CDD0003AF1B /* Toast.swift */,
-			);
-			name = ThirdParty;
 			sourceTree = "<group>";
 		};
 		C8AEC2051B985BAB002F39EB /* Extension */ = {
@@ -484,6 +473,9 @@
 		C8E2B8361AD926C7003B07FE /* Widget */ = {
 			isa = PBXGroup;
 			children = (
+				C8CD8DEC1B91DEED0050DF90 /* ENSideMenu */,
+				C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */,
+				C8F9CD701B725CDD0003AF1B /* Toast.swift */,
 				C89A05C91B6E166400620C85 /* SwiftPages.swift */,
 				C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */,
 				C804B90B1B80840100AEC003 /* WebViewController.swift */,

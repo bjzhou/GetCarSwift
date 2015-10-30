@@ -34,6 +34,8 @@ extension CLLocationCoordinate2D {
             longSeconds,
             {return longDegrees >= 0 ? "E" : "W"}() )
     }
+
+    static var Zero = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 }
 
 extension CLLocationCoordinate2D: Equatable {}

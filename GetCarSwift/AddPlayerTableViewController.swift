@@ -23,10 +23,12 @@ class AddPlayerTableViewController: UITableViewController {
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Friend:"我的好友", .Rank:"赛道排名"]
 
     var mode: AddPlayerMode = .Menu
-    var friends = ["aaa", "bbb", "ccc", "ddd", "eee", "fff"]
+    var friends = ["aaaaaaaaaaaaaaa", "bbb", "ccc", "ddd", "eee", "fff"]
+    var rankings: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        rankings = NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys.filter { $0.hasPrefix("test")}
     }
 
     // MARK: - Table view data source
@@ -42,7 +44,7 @@ class AddPlayerTableViewController: UITableViewController {
         case .Friend:
             return friends.count
         case .Rank:
-            return 5
+            return rankings.count
         }
     }
 
@@ -74,7 +76,7 @@ class AddPlayerTableViewController: UITableViewController {
             let rankLabel = cell.viewWithTag(121) as! UILabel
             rankLabel.text = String(indexPath.row+1)
             let nameLabel = cell.viewWithTag(123) as! UILabel
-            nameLabel.text = "排名第\(indexPath.row+1)"
+            nameLabel.text = rankings[indexPath.row]
         }
 
         return cell
@@ -99,7 +101,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : "排名第\(indexPath.row+1)", sender: sender)
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row], sender: sender)
             dismissPopupViewController()
         }
     }

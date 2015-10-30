@@ -26,7 +26,7 @@ class DataViewController: UIViewController {
     @IBOutlet weak var progressView: UIImageView!
     @IBOutlet weak var progressWidth: NSLayoutConstraint!
 
-    let scoreTitles = ["天门山通天大道", "台州鸟山", "云南三家村"]
+    let scoreTitles = ["上海浦东软件园（录制）", "上海浦东软件园（演示）", "云南三家村"]
     let scores = ["?","?","?"]//["7:24.36s", "9:05.18s", "5:42.55s"]
 
     override func viewDidLoad() {
@@ -74,7 +74,9 @@ class DataViewController: UIViewController {
         let attributedMessage = NSAttributedString.loadHTMLString("<font size=4>在通过设定的起点和终点时将会自动启动与结束码表，不用手动启动与结束。<br/><br/>进入计时前，请仔细阅读<b>《使用条款以及免责声明》</b>。进入计时，即视为认同我司的<b>《使用条款以及免责声明》</b></font>")
         let alertController = UIAlertController(title: "自动计时器", message: "", preferredStyle: .Alert)
         alertController.setValue(attributedMessage, forKey: "attributedMessage")
-        alertController.addAction(UIAlertAction(title: "进入计时", style: .Default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "进入计时", style: .Default, handler: { _ in
+            //do what?
+        }))
         presentViewController(alertController, animated: true, completion: nil)
     }
 
@@ -96,9 +98,13 @@ extension DataViewController: UITableViewDelegate, UITableViewDataSource {
 //        let alertController = UIAlertController(title: nil, message: "轨迹数据实测中，敬请期待", preferredStyle: .Alert)
 //        alertController.addAction(UIAlertAction(title: "好", style: .Default, handler: nil))
 //        presentViewController(alertController, animated: true, completion: nil)
-        showViewController(R.storyboard.trace.match!)
+        let vc = R.storyboard.trace.match!
+        if indexPath.row == 0 {
+            vc.recordMode = true
+        }
+        showViewController(vc)
     }
-    
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 40
     }
