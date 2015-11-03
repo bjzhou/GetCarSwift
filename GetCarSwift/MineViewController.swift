@@ -42,4 +42,11 @@ class MineViewController: UITableViewController {
         return cell
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == R.segue.record_race {
+            let destVC = segue.destinationViewController as! MatchViewController
+            destVC.recordMode = true
+        }
+    }
+
 }

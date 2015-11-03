@@ -10,6 +10,8 @@ import UIKit
 import SwiftyJSON
 import RxSwift
 
+typealias Score = [Double:[String:Double]]
+
 class MatchViewController: UIViewController {
     
     @IBOutlet weak var mapView: MAMapView!
@@ -45,67 +47,169 @@ class MatchViewController: UIViewController {
     var yellowAnnotation: MAPointAnnotation?
     var blueAnnotation: MAPointAnnotation?
 
-    var newDataList: [[String:Double]] = []
+    var newDataList: Score = [:]
 
-    var purpleDataList: [[String:Double]] = []
-    var yellowDataList: [[String:Double]] = []
-    var blueDataList: [[String:Double]] = []
+    var purpleDataList: Score = [:]
+    var yellowDataList: Score = [:]
+    var blueDataList: Score = [:]
 
-    var timerDisposable: Disposable?
+    var _10msTimer: Disposable?
+    var _100msTimer: Disposable?
     var locationDisposable: Disposable?
 
     override func viewDidLoad() {
         self.title = mapTitle
+
         initMapView()
         if recordMode {
             addMe()
         }
     }
 
-    var startPlay = false
-    var readyPlay = false
-    var stopTime = 0
+    var stopTime = 0.0
+    var playing = false
+    var ready = false
 
     override func viewDidAppear(animated: Bool) {
         if recordMode {
+            UIApplication.sharedApplication().idleTimerDisabled = true
             locationDisposable = DeviceDataService.sharedInstance.rx_location.subscribeNext { location in
-                if let coordinate = location?.coordinate {
-                    if MACircleContainsCoordinate(coordinate, self.mapStartCircle.coordinate, 10) {
-                        if self.startPlay {
-                            self.stateLabel.text = "已结束"
-                            self.playOrStop()
-                            return
-                        }
-                        self.stateLabel.text = "准备中"
-                        self.readyPlay = true
-                    } else {
-                        if self.readyPlay {
-                            self.stateLabel.text = "进行中"
-                            self.readyPlay = false
-                            self.playOrStop()
-                        }
+                if let location = location where location.horizontalAccuracy < 65 {
+                    if self.stateLabel.text == "正在定位" {
+                        self.stateLabel.text = "已定位"
                     }
+                    if MACircleContainsCoordinate(location.coordinate, self.mapStartCircle.coordinate, 10) {
+                        if self.playing && !self.ready {
+                            self.stop()
+                            self.stateLabel.text = "已结束"
+                        }
+                        self.playing = false
+                        self.ready = true
+                        self.stateLabel.text = "已就绪"
+                    } else {
+                        if !self.playing && self.ready {
+                            self.play()
+                            self.playing = true
+
+                            self.stateLabel.text = "进行中"
+                        }
+                        self.ready = false
+                    }
+                } else {
+                    self.stateLabel.text = "正在定位"
                 }
             }
         }
     }
 
+    func play() {
+        if recordMode {
+            newDataList.removeAll()
+        }
+        _10msTimer?.dispose()
+        _100msTimer?.dispose()
+
+        _100msTimer = timer(0, 0.1, MainScheduler.sharedInstance).subscribeNext { ti in
+            if self.recordMode {
+                var point: [String:Double] = [:]
+                point["lat"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0
+                point["long"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0
+                let speed = DeviceDataService.sharedInstance.rx_location.value?.speed
+                point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
+                point["accelarate"] = round(abs(DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 100) / 10
+                self.newDataList[Double(ti)/10] = point
+
+                self.blueSpeed.text = String(point["speed"]!)
+                self.blueAcce.text = String(point["accelarate"]!)
+            } else {
+                if let data = self.blueDataList[Double(ti)/10] {
+                    let view = self.mapView.viewForAnnotation(self.blueAnnotation)
+                    UIView.transitionWithView(view, duration: 0.1, options: .CurveLinear, animations: {
+                        self.blueAnnotation?.coordinate = CLLocationCoordinate2D(latitude: data["lat"]!, longitude: data["long"]!)
+                    }, completion: nil)
+                    self.blueSpeed.text = "\(data["speed"]!)"
+                    self.blueAcce.text = "\(data["accelarate"]!)"
+                }
+                if let data = self.yellowDataList[Double(ti)/10] {
+                    let view = self.mapView.viewForAnnotation(self.yellowAnnotation)
+                    UIView.transitionWithView(view, duration: 0.1, options: .CurveLinear, animations: {
+                        self.yellowAnnotation?.coordinate = CLLocationCoordinate2D(latitude: data["lat"]!, longitude: data["long"]!)
+                        }, completion: nil)
+                    self.yellowSpeed.text = "\(data["speed"]!)"
+                    self.yellowAcce.text = "\(data["accelarate"]!)"
+                }
+                if let data = self.purpleDataList[Double(ti)/10] {
+                    let view = self.mapView.viewForAnnotation(self.purpleAnnotation)
+                    UIView.transitionWithView(view, duration: 0.1, options: .CurveLinear, animations: {
+                        self.purpleAnnotation?.coordinate = CLLocationCoordinate2D(latitude: data["lat"]!, longitude: data["long"]!)
+                        }, completion: nil)
+                    self.purpleSpeed.text = "\(data["speed"]!)"
+                    self.purpleAcce.text = "\(data["accelarate"]!)"
+                }
+
+                if Double(ti)/10 > self.stopTime {
+                    self.stop()
+                }
+            }
+        }
+        _10msTimer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
+            let tms = t % 100
+            let s = t / 100 % 60
+            let m = t / 100 / 60
+            self.timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
+
+            if self.recordMode {
+                self.blueAnnotation?.coordinate = DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero
+            }
+        }
+    }
+
+    func stop() {
+        _10msTimer?.dispose()
+        _100msTimer?.dispose()
+        timeLabel.text = "00:00.00"
+        blueSpeed.text = "0.0"
+        blueAcce.text = "0.0"
+        if recordMode {
+            let alert = UIAlertController(title: nil, message: "正在保存...", preferredStyle: .Alert)
+            presentViewController(alert, animated: true, completion: nil);
+            {
+                let testFiles: [String] = File.docFile.list()?.map {
+                    return $0.getName()
+                    }.filter { $0.hasPrefix("test") } ?? []
+                let file = File(path: "test\(testFiles.count)")
+                (self.newDataList as NSDictionary).writeToFile(file.path, atomically: true)
+                } ~> {
+                    alert.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+    }
+
     override func viewDidDisappear(animated: Bool) {
-        timerDisposable?.dispose()
+        _10msTimer?.dispose()
+        _100msTimer?.dispose()
         locationDisposable?.dispose()
+        UIApplication.sharedApplication().idleTimerDisabled = false
     }
 
     func initMapView() {
         mapView.delegate = self
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 8)
-        mapView.zoomLevel = 16.5
 
         if recordMode {
             mapView.showsUserLocation = true
         }
 
-        mapView.setCenterCoordinate(mapCenter, animated: false)
+        if let map = NSUserDefaults.standardUserDefaults().valueForKey(mapTitle) {
+            let loc = CLLocationCoordinate2D(latitude: map["center_lat"] as! Double, longitude: map["center_lng"] as! Double)
+            mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: map["start_lat"] as! Double, longitude: map["start_lng"] as! Double), radius: 10)
+            mapView.setCenterCoordinate(loc, animated: false)
+            mapView.zoomLevel = map["zoom"] as! Double
+        } else {
+            mapView.setCenterCoordinate(mapCenter, animated: false)
+            mapView.zoomLevel = 16.5
+        }
 
         mapView.addOverlay(mapStartCircle)
     }
@@ -133,70 +237,12 @@ class MatchViewController: UIViewController {
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {
-        let addViewController = R.storyboard.trace.add_player_popover!
+        let addViewController = R.storyboard.mine.add_player_popover!
         addViewController.delegate = self
         addViewController.sender = sender
         addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
         let popupViewController = PopupViewController(rootViewController: addViewController)
         self.presentViewController(popupViewController, animated: false, completion: nil)
-    }
-
-    func playOrStop() {
-        if !startPlay {
-            if recordMode {
-                newDataList.removeAll()
-            }
-            startPlay = true
-            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
-                let tms = t % 100
-                let s = t / 100 % 60
-                let m = t / 100 / 60
-                self.timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
-
-                if self.recordMode {
-                    var point: [String:Double] = [:]
-                    point["lat"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0
-                    point["long"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0
-                    let speed = DeviceDataService.sharedInstance.rx_location.value?.speed
-                    point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
-                    point["accelarate"] = round(abs(DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 100) / 10
-                    self.newDataList.append(point)
-
-                    self.blueSpeed.text = String(point["speed"]!)
-                    self.blueAcce.text = String(point["accelarate"]!)
-
-                    self.blueAnnotation?.coordinate = DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero
-                } else {
-                    if Int(t) > self.stopTime {
-                        self.playOrStop()
-                    }
-                    if self.blueDataList.count > Int(t) {
-                        self.blueAnnotation?.coordinate = CLLocationCoordinate2D(latitude: self.blueDataList[Int(t)]["lat"] ?? 0, longitude: self.blueDataList[Int(t)]["long"] ?? 0)
-                        self.blueSpeed.text = "\(self.blueDataList[Int(t)]["speed"])"
-                        self.blueAcce.text = "\(self.blueDataList[Int(t)]["accelarate"])"
-                    }
-                    if self.yellowDataList.count > Int(t) {
-                        self.yellowAnnotation?.coordinate = CLLocationCoordinate2D(latitude: self.yellowDataList[Int(t)]["lat"] ?? 0, longitude: self.yellowDataList[Int(t)]["long"] ?? 0)
-                        self.yellowSpeed.text = "\(self.yellowDataList[Int(t)]["speed"])"
-                        self.yellowAcce.text = "\(self.yellowDataList[Int(t)]["accelarate"])"
-                    }
-                    if self.purpleDataList.count > Int(t) {
-                        self.purpleAnnotation?.coordinate = CLLocationCoordinate2D(latitude: self.purpleDataList[Int(t)]["lat"] ?? 0, longitude: self.purpleDataList[Int(t)]["long"] ?? 0)
-                        self.purpleSpeed.text = "\(self.purpleDataList[Int(t)]["speed"])"
-                        self.purpleAcce.text = "\(self.purpleDataList[Int(t)]["accelarate"])"
-                    }
-                }
-            }
-        } else {
-            startPlay = false
-            timerDisposable?.dispose()
-            timeLabel.text = "00:00.00"
-            blueSpeed.text = "0.0"
-            blueAcce.text = "0.0"
-            if recordMode {
-                NSUserDefaults.standardUserDefaults().setValue(newDataList, forKey: "test\(NSDate().timeIntervalSince1970)")
-            }
-        }
     }
 
     @IBAction func didPlayBack(sender: UIButton) {
@@ -213,8 +259,8 @@ class MatchViewController: UIViewController {
             map["zoom"] = mapView.zoomLevel
             NSUserDefaults.standardUserDefaults().setValue(map, forKey: mapTitle)
         } else {
-            playOrStop()
-            stopTime = max(max(blueDataList.count, yellowDataList.count), purpleDataList.count)
+            stopTime = max(max(blueDataList.keys.sort().last ?? 0, yellowDataList.keys.sort().last ?? 0), purpleDataList.keys.sort().last ?? 0)
+            play()
         }
     }
 }
@@ -228,41 +274,50 @@ extension MatchViewController: AddPlayerDelegate {
             if pressedButton == blueButton && name == "我" {
                 return
             }
-            if let dataList = NSUserDefaults.standardUserDefaults().valueForKey(name) as? [[String:Double]] {
-                switch pressedButton {
-                case purpleButton:
-                    purpleDataList = dataList
-                    self.mapView.removeAnnotation(purpleAnnotation)
-                    purpleTitle.text = name
-                    purpleAnnotation = MAPointAnnotation()
-                    if let first = dataList.first {
-                        purpleAnnotation!.coordinate = CLLocationCoordinate2D(latitude: first["lat"] ?? 0, longitude: first["long"] ?? 0)
+
+            let alert = UIAlertController(title: nil, message: "正在读取...", preferredStyle: .Alert)
+            presentViewController(alert, animated: true, completion: nil);
+            {
+                let dataList = NSDictionary(contentsOfFile: File(path: name).path) as? Score
+                return dataList
+                } ~> { (dataList: Score?) in
+                    if let dataList = dataList {
+                        switch pressedButton {
+                        case self.purpleButton:
+                            self.purpleDataList = dataList
+                            self.mapView.removeAnnotation(self.purpleAnnotation)
+                            self.purpleTitle.text = name
+                            self.purpleAnnotation = MAPointAnnotation()
+                            if let first = dataList[dataList.keys.sort().first ?? 0] {
+                                self.purpleAnnotation!.coordinate = CLLocationCoordinate2D(latitude: first["lat"] ?? 0, longitude: first["long"] ?? 0)
+                            }
+                            self.mapView.addAnnotation(self.purpleAnnotation)
+                            break
+                        case self.yellowButton:
+                            self.yellowDataList = dataList
+                            self.mapView.removeAnnotation(self.yellowAnnotation)
+                            self.yellowTitle.text = name
+                            self.yellowAnnotation = MAPointAnnotation()
+                            if let first = dataList[dataList.keys.sort().first ?? 0] {
+                                self.yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: first["lat"] ?? 0, longitude: first["long"] ?? 0)
+                            }
+                            self.mapView.addAnnotation(self.yellowAnnotation)
+                            break
+                        case self.blueButton:
+                            self.blueDataList = dataList
+                            self.mapView.removeAnnotation(self.blueAnnotation)
+                            self.blueTitle.text = name
+                            self.blueAnnotation = MAPointAnnotation()
+                            if let first = dataList[dataList.keys.sort().first ?? 0] {
+                                self.blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: first["lat"] ?? 0, longitude: first["long"] ?? 0)
+                            }
+                            self.mapView.addAnnotation(self.blueAnnotation)
+                            break
+                        default:
+                            break
+                        }
                     }
-                    self.mapView.addAnnotation(purpleAnnotation)
-                    break
-                case yellowButton:
-                    yellowDataList = dataList
-                    self.mapView.removeAnnotation(yellowAnnotation)
-                    yellowTitle.text = name
-                    yellowAnnotation = MAPointAnnotation()
-                    if let first = dataList.first {
-                        yellowAnnotation!.coordinate = CLLocationCoordinate2D(latitude: first["lat"] ?? 0, longitude: first["long"] ?? 0)
-                    }
-                    self.mapView.addAnnotation(yellowAnnotation)
-                    break
-                case blueButton:
-                    blueDataList = dataList
-                    self.mapView.removeAnnotation(blueAnnotation)
-                    blueTitle.text = name
-                    blueAnnotation = MAPointAnnotation()
-                    if let first = dataList.first {
-                        blueAnnotation!.coordinate = CLLocationCoordinate2D(latitude: first["lat"] ?? 0, longitude: first["long"] ?? 0)
-                    }
-                    self.mapView.addAnnotation(blueAnnotation)
-                    break
-                default:
-                    break
-                }
+                    alert.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }

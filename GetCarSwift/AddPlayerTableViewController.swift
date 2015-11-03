@@ -28,7 +28,10 @@ class AddPlayerTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        rankings = NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys.filter { $0.hasPrefix("test")}
+        //rankings = NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys.filter { $0.hasPrefix("test")}
+        rankings = File.docFile.list()?.map {
+            return $0.getName()
+        }.filter { $0.hasPrefix("test") } ?? []
     }
 
     // MARK: - Table view data source

@@ -19,3 +19,5 @@ combineLatest(a, b) { a,b in
 a.value = 1
 b.value = 2
 a.value = 3
+a.value = 5
+a.value = 8
