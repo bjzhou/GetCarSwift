@@ -57,6 +57,10 @@ class MatchViewController: UIViewController {
     var _100msTimer: Disposable?
     var locationDisposable: Disposable?
 
+    var prevKeyPurple = 0.0
+    var prevKeyYellow = 0.0
+    var prevKeyBlue = 0.0
+
     override func viewDidLoad() {
         self.title = mapTitle
 
@@ -110,6 +114,7 @@ class MatchViewController: UIViewController {
         _100msTimer?.dispose()
 
         _100msTimer = timer(0, 0.1, MainScheduler.sharedInstance).subscribeNext { ti in
+            let s = Double(ti)/10
             if self.recordMode {
                 var point: [String:Double] = [:]
                 point["lat"] = DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0
@@ -117,37 +122,49 @@ class MatchViewController: UIViewController {
                 let speed = DeviceDataService.sharedInstance.rx_location.value?.speed
                 point["speed"] = round((speed < 0 ? 0 : speed ?? 0) * 3.6 * 1000) / 1000
                 point["accelarate"] = round(abs(DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 100) / 10
-                self.newDataList[Double(ti)/10] = point
+                if self.newDataList[self.prevKeyBlue]?["lat"] != point["lat"] || self.newDataList[self.prevKeyBlue]?["long"] != point["long"] {
+                    self.newDataList[s] = point
+                    self.prevKeyBlue = s
+                }
 
                 self.blueSpeed.text = String(point["speed"]!)
                 self.blueAcce.text = String(point["accelarate"]!)
             } else {
-                if let data = self.blueDataList[Double(ti)/10] {
+                if let data = self.blueDataList[s] where (data["lat"] != self.blueDataList[self.prevKeyBlue]?["lat"] || data["long"] != self.blueDataList[self.prevKeyBlue]?["long"]) {
+                    let duration = s - self.prevKeyBlue + 0.01
                     let view = self.mapView.viewForAnnotation(self.blueAnnotation)
-                    UIView.transitionWithView(view, duration: 0.1, options: .CurveLinear, animations: {
+                    UIView.transitionWithView(view, duration: duration, options: [.BeginFromCurrentState, .CurveLinear], animations: {
                         self.blueAnnotation?.coordinate = CLLocationCoordinate2D(latitude: data["lat"]!, longitude: data["long"]!)
-                    }, completion: nil)
+                        }, completion: { result in
+                            self.prevKeyBlue = s
+                    })
                     self.blueSpeed.text = "\(data["speed"]!)"
                     self.blueAcce.text = "\(data["accelarate"]!)"
                 }
-                if let data = self.yellowDataList[Double(ti)/10] {
+                if let data = self.yellowDataList[s] where (data["lat"] != self.yellowDataList[self.prevKeyYellow]?["lat"] || data["long"] != self.yellowDataList[self.prevKeyYellow]?["long"]) {
+                    let duration = s - self.prevKeyYellow + 0.01
                     let view = self.mapView.viewForAnnotation(self.yellowAnnotation)
-                    UIView.transitionWithView(view, duration: 0.1, options: .CurveLinear, animations: {
+                    UIView.transitionWithView(view, duration: duration, options: [.BeginFromCurrentState, .CurveLinear], animations: {
                         self.yellowAnnotation?.coordinate = CLLocationCoordinate2D(latitude: data["lat"]!, longitude: data["long"]!)
-                        }, completion: nil)
+                        }, completion: { result in
+                            self.prevKeyYellow = s
+                    })
                     self.yellowSpeed.text = "\(data["speed"]!)"
                     self.yellowAcce.text = "\(data["accelarate"]!)"
                 }
-                if let data = self.purpleDataList[Double(ti)/10] {
+                if let data = self.purpleDataList[s] where (data["lat"] != self.purpleDataList[self.prevKeyPurple]?["lat"] || data["long"] != self.purpleDataList[self.prevKeyPurple]?["long"]) {
+                    let duration = s - self.prevKeyPurple + 0.01
                     let view = self.mapView.viewForAnnotation(self.purpleAnnotation)
-                    UIView.transitionWithView(view, duration: 0.1, options: .CurveLinear, animations: {
+                    UIView.transitionWithView(view, duration: duration, options: [.BeginFromCurrentState, .CurveLinear], animations: {
                         self.purpleAnnotation?.coordinate = CLLocationCoordinate2D(latitude: data["lat"]!, longitude: data["long"]!)
-                        }, completion: nil)
+                        }, completion: { result in
+                            self.prevKeyPurple = s
+                    })
                     self.purpleSpeed.text = "\(data["speed"]!)"
                     self.purpleAcce.text = "\(data["accelarate"]!)"
                 }
 
-                if Double(ti)/10 > self.stopTime {
+                if s > self.stopTime {
                     self.stop()
                 }
             }
@@ -178,9 +195,10 @@ class MatchViewController: UIViewController {
                     return $0.getName()
                     }.filter { $0.hasPrefix("test") } ?? []
                 let file = File(path: "test\(testFiles.count)")
-                (self.newDataList as NSDictionary).writeToFile(file.path, atomically: true)
-                } ~> {
+                return NSKeyedArchiver.archiveRootObject(self.newDataList, toFile: file.path)
+                } ~> { (result: Bool) in
                     alert.dismissViewControllerAnimated(true, completion: nil)
+                    self.view.makeToast(message: result ? "保存成功" : "保存失败")
             }
         }
     }
@@ -278,7 +296,7 @@ extension MatchViewController: AddPlayerDelegate {
             let alert = UIAlertController(title: nil, message: "正在读取...", preferredStyle: .Alert)
             presentViewController(alert, animated: true, completion: nil);
             {
-                let dataList = NSDictionary(contentsOfFile: File(path: name).path) as? Score
+                let dataList = NSKeyedUnarchiver.unarchiveObjectWithFile(File(path: name).path) as? Score
                 return dataList
                 } ~> { (dataList: Score?) in
                     if let dataList = dataList {

@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func checkNewVersion() {
         _ = FIR.checkUpdate().subscribeNext { fir in
-            if VERSION != fir.version {
+            if VERSION < fir.version {
                 let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
                 alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in

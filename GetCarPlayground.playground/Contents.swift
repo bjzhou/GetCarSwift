@@ -21,3 +21,7 @@ b.value = 2
 a.value = 3
 a.value = 5
 a.value = 8
+
+String(0)
+
+round(0.51)

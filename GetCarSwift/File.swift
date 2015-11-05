@@ -45,11 +45,17 @@ struct File {
     }
 
     mutating func mkdir() {
+        if isDirectory() {
+            return
+        }
         try! NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: false, attributes: nil)
         fixPathIfNeeded()
     }
 
     mutating func mkdirs() {
+        if isDirectory() {
+            return
+        }
         try! NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: true, attributes: nil)
         fixPathIfNeeded()
     }
@@ -60,7 +66,7 @@ struct File {
 
     func list() -> [File]? {
         let files = NSFileManager.defaultManager().enumeratorAtPath(self.path)
-        return files?.filter { ($0 as? String) != nil }.map { File(path: $0 as! String) }
+        return files?.filter { ($0 as? String) != nil }.map { try! File(dir: self, name: $0 as! String) }
     }
 
     static let docFile = File(path: try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true).path!)

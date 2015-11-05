@@ -13,18 +13,18 @@ import RxSwift
 
 let FIR_APP_ID = "563089a800fc7478b600000f"
 let FIR_USER_TOKEN = "c5be852abca28607167f36f029ccfc1b"
-let FIR_URL_VERSION_CHECK = "http://api.fir.im/apps/latest/" + FIR_APP_ID
+let FIR_URL_VERSION_CHECK = "http://api.fir.im/apps/latest/\(FIR_APP_ID)?api_token=\(FIR_USER_TOKEN)"
 
 struct FIR: JSONable {
     var name: String = ""
-    var version: String = ""
+    var version: Int = 0
     var versionShort: String = ""
     var changelog: String = ""
     var updateUrl: String = "http://fir.im/GetCar"
 
     init(json: JSON) {
         name = json["name"].stringValue
-        version = json["version"].stringValue
+        version = json["version"].intValue
         versionShort = json["versionShort"].stringValue
         changelog = json["changelog"].stringValue
         updateUrl = json["update_url"].stringValue

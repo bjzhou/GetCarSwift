@@ -9,7 +9,7 @@
 import Foundation
 
 let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-let VERSION = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
+let VERSION = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String)!
 
 #if ADHOC
     let AMAP_KEY = "5f7efffc934719c87faca88c9cea88ec"
