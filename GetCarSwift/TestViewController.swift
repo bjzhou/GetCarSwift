@@ -13,7 +13,7 @@ class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        _ = _100dir.list()?.map { file in
+//        _ = try! _100dir.listFiles().map { file in
 //            print("file: ----------\(file.getName())")
 //            let a = NSKeyedUnarchiver.unarchiveObjectWithFile(file.path) as? Score ?? [:]
 //            let b = a.sort { a0, a1 in
@@ -25,7 +25,7 @@ class TestViewController: UIViewController {
 //            print(b)
 //        }
 
-//        _ = File.docFile.list()?.map { file in
+//        _ = try! File.docFile.listFiles().map { file in
 //            if file.path.containsString("/100/") || !file.path.containsString("test") {
 //                return
 //            }

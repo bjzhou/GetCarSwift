@@ -12,6 +12,12 @@ import RxSwift
 
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+#if DEBUG
+    let debugCount = 2
+#else
+    let debugCount = 0
+#endif
+
     let disposeBag = DisposeBag()
     
     let titles = ["头像", "车形象", "用户名", /*"我的二维码", "我的地址",*/ "性别", "地区"/*, "个性签名"*/]
@@ -44,7 +50,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         case 1:
             return 2
         case 2:
-            return 1
+            return debugCount
         default:
             return 0
         }
@@ -70,8 +76,12 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 cell.value.text = values[indexPath.row + 3/*5*/]
             }
         } else {
-            let logoutCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.logout, forIndexPath: indexPath)
-            return logoutCell!
+            let testCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.test, forIndexPath: indexPath)
+            if indexPath.row == 0 {
+                let label = testCell?.viewWithTag(303) as? UILabel
+                label?.text = "测试"
+            }
+            return testCell!
         }
 
         return cell
@@ -113,7 +123,11 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 break;
             }
         } else {
-            Me.sharedInstance.logout()
+            if indexPath.row == 0 {
+                self.navigationController?.showViewController(R.storyboard.mine.test!, sender: self)
+            } else {
+                Me.sharedInstance.logout()
+            }
         }
     }
     

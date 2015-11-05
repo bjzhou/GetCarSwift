@@ -30,6 +30,7 @@ class DataViewController: UIViewController {
 
     var _100dir = File(path: "100")
 
+    var prevKey = 0.0
     var data: Score = [:]
 
     override func viewDidLoad() {
@@ -94,13 +95,16 @@ class DataViewController: UIViewController {
                     let meters = startLoc.distanceFromLocation(loc)
                     self.latLabel.text = String(format: "%.1fm", meters)
 
-                    self.data[Double(t)/100] = ["speed": loc.speed, "acce": acce.y, "meters": meters]
+                    if meters != self.data[self.prevKey]?["meters"] ?? 0 {
+                        self.data[Double(t)/100] = ["speed": loc.speed, "acce": acce.y, "meters": meters]
+                        self.prevKey = Double(t)/100
+                    }
 
                     if meters >= 100 {
                         self.altitude.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
                         self.pressureLabel.text = String(format: "%.2f km/h", 100/(Double(t)/100)*3.6)
                         self.stopTimer()
-                        let file = try! File(dir: self._100dir, name: "test" + String(self._100dir.list()?.count ?? 0))
+                        let file = try! File(dir: self._100dir, name: "test" + String(self._100dir.list().count))
                         NSKeyedArchiver.archiveRootObject(self.data, toFile: file.path)
                     }
                 } else {
@@ -133,7 +137,7 @@ class DataViewController: UIViewController {
 //                    self.altitude.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
 //                    self.pressureLabel.text = String(format: "%.2f km/h", 100/(Double(t)/100)*3.6)
 //                    self.stopTimer()
-//                    let file = try! File(dir: self._100dir, name: "test" + String(self._100dir.list()?.count ?? 0))
+//                    let file = try! File(dir: self._100dir, name: "test" + String(self._100dir.list().count))
 //                    NSKeyedArchiver.archiveRootObject(self.data, toFile: file.path)
 //                }
 //            } else {

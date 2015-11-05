@@ -61,8 +61,12 @@ class MatchViewController: UIViewController {
     var prevKeyYellow = 0.0
     var prevKeyBlue = 0.0
 
+    var lapDir = File(path: "lap")
+
     override func viewDidLoad() {
         self.title = mapTitle
+
+        lapDir.mkdir()
 
         initMapView()
         if recordMode {
@@ -191,9 +195,7 @@ class MatchViewController: UIViewController {
             let alert = UIAlertController(title: nil, message: "正在保存...", preferredStyle: .Alert)
             presentViewController(alert, animated: true, completion: nil);
             {
-                let testFiles: [String] = File.docFile.list()?.map {
-                    return $0.getName()
-                    }.filter { $0.hasPrefix("test") } ?? []
+                let testFiles: [String] = try! self.lapDir.list().filter { $0.hasPrefix("test") }
                 let file = File(path: "test\(testFiles.count)")
                 return NSKeyedArchiver.archiveRootObject(self.newDataList, toFile: file.path)
                 } ~> { (result: Bool) in
@@ -296,7 +298,7 @@ extension MatchViewController: AddPlayerDelegate {
             let alert = UIAlertController(title: nil, message: "正在读取...", preferredStyle: .Alert)
             presentViewController(alert, animated: true, completion: nil);
             {
-                let dataList = NSKeyedUnarchiver.unarchiveObjectWithFile(File(path: name).path) as? Score
+                let dataList = NSKeyedUnarchiver.unarchiveObjectWithFile(try! File(dir: self.lapDir, name: name).path) as? Score
                 return dataList
                 } ~> { (dataList: Score?) in
                     if let dataList = dataList {
