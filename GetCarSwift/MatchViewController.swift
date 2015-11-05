@@ -183,6 +183,7 @@ class MatchViewController: UIViewController {
                 self.blueAnnotation?.coordinate = DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero
             }
         }
+        //testAnim()
     }
 
     func stop() {
@@ -203,6 +204,59 @@ class MatchViewController: UIViewController {
                     self.view.makeToast(message: result ? "保存成功" : "保存失败")
             }
         }
+    }
+
+    func testAnim() {
+
+        let points: [CGPoint] = self.blueDataList.keys.sort().map { key in
+            let loc = CLLocationCoordinate2D(latitude: self.blueDataList[key]!["lat"] ?? 0, longitude: self.blueDataList[key]!["long"] ?? 0)
+            return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
+        }
+        let path = CGPathCreateMutable()
+        CGPathAddLines(path, nil, points, points.count)
+        CGPathCloseSubpath(path)
+
+        let anim = CABasicAnimation(keyPath: "strokeEnd")
+        anim.duration = blueDataList.keys.sort().last ?? 0
+        anim.fromValue = 0
+        anim.toValue = 1
+        anim.delegate = self
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.lineWidth = 4
+        shapeLayer.strokeColor = UIColor.blueColor().CGColor
+        shapeLayer.fillColor = UIColor.clearColor().CGColor
+
+        shapeLayer.path = path
+        self.mapView.layer.insertSublayer(shapeLayer, atIndex: 1)
+        shapeLayer.addAnimation(anim, forKey: "shape")
+    }
+
+    func testAnim2() {
+
+        let points: [CGPoint] = self.blueDataList.keys.sort().map { key in
+            let loc = CLLocationCoordinate2D(latitude: self.blueDataList[key]!["lat"] ?? 0, longitude: self.blueDataList[key]!["long"] ?? 0)
+            return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
+        }
+        let path = CGPathCreateMutable()
+        CGPathAddLines(path, nil, points, points.count)
+        CGPathCloseSubpath(path)
+
+        let lastTime = blueDataList.keys.sort().last ?? 0
+        let anim = CAKeyframeAnimation(keyPath: "position")
+        anim.duration = lastTime
+        //anim.path = path
+        anim.values = points.map { NSValue(CGPoint: CGPointMake($0.x - points[0].x, $0.y - points[0].y)) }
+        anim.calculationMode = kCAAnimationPaced
+        anim.rotationMode = kCAAnimationRotateAuto
+        anim.removedOnCompletion = false
+        anim.fillMode = kCAFillModeForwards
+        anim.additive = true
+        anim.delegate = self
+
+        let view = self.mapView.viewForAnnotation(self.blueAnnotation)
+        view.layer.addAnimation(anim, forKey: "annotation")
+        //self.blueAnnotation?.coordinate = CLLocationCoordinate2D(latitude: self.blueDataList[lastTime]!["lat"] ?? 0, longitude: self.blueDataList[lastTime]!["long"] ?? 0)
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -392,5 +446,15 @@ extension MatchViewController: MAMapViewDelegate {
             return circleView
         }
         return nil
+    }
+}
+
+extension MatchViewController {
+    override func animationDidStart(anim: CAAnimation) {
+        print(anim)
+    }
+
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        print(anim, flag)
     }
 }
