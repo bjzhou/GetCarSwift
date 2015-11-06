@@ -22,12 +22,11 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     
     //Container view position variables
     private var xOrigin: CGFloat = 0
-    private var yOrigin: CGFloat = 64
-    private var distanceToBottom: CGFloat = 49
-    
+    private var yOrigin: CGFloat = 0
+    private var distanceToBottom: CGFloat = 0
+
     //Color variables
-    private var animatedBarColor = UIColor.gaikeRedColor()
-    private var topBarBackground = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+    private var topBarImage = R.image.pages_bg
     private var buttonsTextColor = UIColor.whiteColor()
     private var containerViewBackground = UIColor.gaikeBackgroundColor()
     
@@ -39,7 +38,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     private var transparentTopBar: Bool = true
     private var aeroEffectInTopBar: Bool = false //This gives the top bap a blurred effect, also overlayes the it over the VC's
     private var buttonsWithImages: Bool = false
-    private var barShadow: Bool = true
+    private var barShadow: Bool = false
     private var buttonsTextFontAndSize: UIFont = UIFont.systemFontOfSize(16)
     
     // MARK: - Positions Of The Container View API -
@@ -48,8 +47,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     public func setDistanceToBottom (distance : CGFloat) { distanceToBottom = distance }
     
     // MARK: - API's -
-    public func setAnimatedBarColor (color : UIColor) { animatedBarColor = color }
-    public func setTopBarBackground (color : UIColor) { topBarBackground = color }
+    public func setTopBarImage(image: UIImage?) { topBarImage = image }
     public func setButtonsTextColor (color : UIColor) { buttonsTextColor = color }
     public func setContainerViewBackground (color : UIColor) { containerViewBackground = color }
     public func setTopBarHeight (pointSize : CGFloat) { topBarHeight = pointSize}
@@ -62,6 +60,8 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     
     override public func drawRect(rect: CGRect)
     {
+        containerView?.removeFromSuperview()
+
         //Size Of The Container View
         let pagesContainerHeight = self.frame.height - yOrigin - distanceToBottom
         let pagesContainerWidth = self.frame.width
@@ -87,11 +87,14 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         scrollView.delegate = self
         scrollView.delaysContentTouches = false
         scrollView.backgroundColor = UIColor.clearColor()
+        scrollView.bounces = false
         containerView.addSubview(scrollView)
         
         //Set the top bar
         topBar = UIView(frame: CGRectMake(0, 0, containerView.frame.size.width, topBarHeight))
-        topBar.backgroundColor = topBarBackground
+        let imageView = UIImageView(image: topBarImage)
+        imageView.frame = topBar.frame
+        topBar.addSubview(imageView)
         if (aeroEffectInTopBar) {
             //Create the blurred visual effect
             //You can choose between ExtraLight, Light and Dark
@@ -103,7 +106,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             topBar.addSubview(blurView)
         }
         containerView.addSubview(topBar)
-        
+
         //Set the top bar buttons
         var buttonsXPosition: CGFloat = 0
         var buttonNumber = 0
@@ -141,11 +144,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         
         
         //Set up the animated UIView
-        animatedBar = UIView(frame: CGRectMake(0, topBarHeight - animatedBarHeight + 1, (containerView.frame.size.width/(CGFloat)(pageViews.count))*0.8, animatedBarHeight))
+        animatedBar = UIImageView(image: R.image.scroll_bar)
+        animatedBar.frame = CGRectMake(0, topBarHeight - animatedBarHeight + 1, (containerView.frame.size.width/(CGFloat)(pageViews.count))*0.8, animatedBarHeight)
         animatedBar.center.x = containerView.frame.size.width/(CGFloat)(pageViews.count * 2)
-        animatedBar.backgroundColor = animatedBarColor
+        //animatedBar.backgroundColor = animatedBarColor
         containerView.addSubview(animatedBar)
-        
+
         //Add the bar shadow (set to true or false with the barShadow var)
         if (barShadow) {
             let shadowView = UIView(frame: CGRectMake(0, topBarHeight, containerView.frame.size.width, 4))
@@ -266,15 +270,18 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
                 self.pageViews[self.currentPage].viewDidAppear(true)
         })
     }
-    
+
     public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         prevPage = getCurrentPage()
     }
     
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        currentPage = getCurrentPage()
-        pageViews[prevPage].viewDidDisappear(true)
-        pageViews[currentPage].viewDidAppear(true)
+        if currentPage != getCurrentPage() {
+            currentPage = getCurrentPage()
+
+            pageViews[prevPage].viewDidDisappear(true)
+            pageViews[currentPage].viewDidAppear(true)
+        }
     }
     
     func getCurrentPage() -> Int {

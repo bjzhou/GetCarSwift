@@ -18,5 +18,14 @@ class MainViewController: UITabBarController {
         self.addChildViewController(R.storyboard.carBar.initialViewController!)
         self.addChildViewController(R.storyboard.mine.initialViewController!)
 
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gaikeRedColor()], forState:.Selected)
+
+    }
+
+    override func viewDidLayoutSubviews() {
+        for item in self.tabBar.items! {
+            item.image = item.image?.imageWithRenderingMode(.AlwaysOriginal)
+        }
     }
 }

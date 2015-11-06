@@ -35,11 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = R.storyboard.login.register
         }
 
+        UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().barTintColor = UIColor.gaikeRedColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(), NSFontAttributeName : UIFont.systemFontOfSize(20.0)]
+        UINavigationBar.appearance().barTintColor = UIColor.blackColor()
         UINavigationBar.appearance().barStyle = .Black
 
+        UITabBar.appearance().translucent = false
+        UITabBar.appearance().barTintColor = UIColor.blackColor()
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
 
         MAMapServices.sharedServices().apiKey = AMAP_KEY

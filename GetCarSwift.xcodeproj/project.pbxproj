@@ -22,6 +22,7 @@
 		C80B6B401BB6790A0017D7E3 /* CarBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */; };
 		C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B411BB679150017D7E3 /* Mine.storyboard */; };
 		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
+		C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */; };
 		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
 		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; };
@@ -132,6 +133,7 @@
 		C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CarBar.storyboard; sourceTree = "<group>"; };
 		C80B6B411BB679150017D7E3 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
+		C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LetsgoDigital-Regular.ttf"; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 		C881F02F1B7B86BD00E062B6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */,
 				C8516DDB1AE2127A00BB0FF4 /* Images.xcassets */,
 				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
 			);
@@ -613,6 +616,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */,
 				C80B6B371BB672780017D7E3 /* Trace.storyboard in Resources */,
 				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
 				C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */,

@@ -19,6 +19,8 @@ let VERSION = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! S
     let BUGLY_APPID = "900007462"
 #endif
 
+let alertStr = NSAttributedString.loadHTMLString("<font size=4>在通过设定的起点和终点时将会自动启动与结束码表，不用手动启动与结束。<br/><br/>进入计时前，请仔细阅读<b>《使用条款以及免责声明》</b>。进入计时，即视为认同我司的<b>《使用条款以及免责声明》</b></font>")
+
 /*
 获得地图界面定位图标名
 sex: 性别，0男/1女
