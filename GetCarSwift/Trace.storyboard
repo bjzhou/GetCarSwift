@@ -360,7 +360,7 @@
             </objects>
             <point key="canvasLocation" x="-920.5" y="754.5"/>
         </scene>
-        <!--轨迹-->
+        <!--GK-BOX-->
         <scene sceneID="h8Z-mJ-d5C">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="2cr-TT-juz" customClass="TraceViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -374,7 +374,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="轨迹" id="HGE-nd-nm0"/>
+                    <navigationItem key="navigationItem" title="GK-BOX" id="HGE-nd-nm0"/>
                     <connections>
                         <outlet property="swiftPagesView" destination="5wc-IL-CHb" id="8tN-15-VCI"/>
                     </connections>
@@ -383,11 +383,11 @@
             </objects>
             <point key="canvasLocation" x="-2123" y="740"/>
         </scene>
-        <!--轨迹-->
+        <!--GK-BOX-->
         <scene sceneID="fDW-1d-XCh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uwa-hJ-3GR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="轨迹" image="tab_gkbox" id="auE-QK-J5L"/>
+                    <tabBarItem key="tabBarItem" title="GK-BOX" image="tab_gkbox" id="auE-QK-J5L"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b6i-ak-uRW">

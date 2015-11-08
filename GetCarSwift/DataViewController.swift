@@ -56,9 +56,10 @@ class DataViewController: UIViewController {
             }.subscribeNext { (loc, acce) in
                 if let loc = loc, acce = acce {
                     //self.lonLabel.text = String(format: "%.0fm", loc.horizontalAccuracy)
-                    if self.ready && abs(acce.y) > 0.1 {
+                    if self.ready && (abs(acce.y) > 0.1 || loc.speed > 0.1) {
                         self.ready = false
                         self.startLoc = loc
+                        self.keyTime.removeAll()
                         self.startTimer()
                     }
                     if loc.speed <= 0.0 && abs(acce.z) <= 0.1 && self.pressed {
