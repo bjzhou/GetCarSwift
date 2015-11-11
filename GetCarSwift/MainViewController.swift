@@ -21,6 +21,8 @@ class MainViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gaikeRedColor()], forState:.Selected)
 
+        //UILabel.appearance().font = UIFont.systemFontOfSize()
+
     }
 
     override func viewDidLayoutSubviews() {

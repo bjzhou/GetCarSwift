@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (3.1.0)
   - AMap2DMap (3.1.0)
+  - AMapLocation (1.0.0)
   - AMapSearch (3.0.0)
   - Bugly (1.4.0)
   - HanekeSwift (0.10.0)
@@ -14,6 +15,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - AMap2DMap
+  - AMapLocation
   - AMapSearch
   - Bugly
   - HanekeSwift
@@ -34,6 +36,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 415bd7f56197722978759078486689f7ef913dce
   AMap2DMap: a6741139dd16d237713c4fd6cae9a0399ca1fe25
+  AMapLocation: 56584af1044e16375407760ad39271364486c424
   AMapSearch: fd1ed96353f8a0f5c2e2463dac6a145bb3e6970f
   Bugly: 682e56dcc62633635e22d75d0968fa5a372bfce3
   HanekeSwift: d6f5bdf9dbdbbc09d59623b2c1d533e46463dd4d

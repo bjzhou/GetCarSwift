@@ -17,8 +17,9 @@ class DeviceDataService: NSObject {
 
     let motionManager = CMMotionManager()
     let altitudeManager = CMAltimeter()
+    let locationManager = AMapLocationManager()
+    var searchApi = AMapSearchAPI()
 
-    var searchApi: AMapSearchAPI!
     var districtService: Disposable?
 
     var rx_acceleration: Variable<CMAcceleration?> = Variable(nil)
@@ -29,8 +30,10 @@ class DeviceDataService: NSObject {
     override init() {
         super.init()
 
-        searchApi = AMapSearchAPI()
         searchApi.delegate = self
+
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
 
         if motionManager.deviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 0.01
@@ -69,5 +72,11 @@ extension DeviceDataService: AMapSearchDelegate {
         let city = response.regeocode.addressComponent.city == nil ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
         self.rx_district.value = "\(response.regeocode.addressComponent.province)\(city)"
         districtService?.dispose()
+    }
+}
+
+extension DeviceDataService: AMapLocationManagerDelegate {
+    func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!) {
+        self.rx_location.value = location
     }
 }

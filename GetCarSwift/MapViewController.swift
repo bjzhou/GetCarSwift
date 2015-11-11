@@ -147,10 +147,6 @@ extension MapViewController: MAMapViewDelegate {
         }
         return nil;
     }
-
-    func mapView(mapView: MAMapView!, didUpdateUserLocation userLocation: MAUserLocation!) {
-        DeviceDataService.sharedInstance.rx_location.value = userLocation.location
-    }
 }
 
 public class CustomMAPointAnnotation: MAPointAnnotation {

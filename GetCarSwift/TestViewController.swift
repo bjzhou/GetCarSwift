@@ -10,10 +10,17 @@ import UIKit
 
 class TestViewController: UIViewController {
 
+    let _100dir = File(path: "100")
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        _ = try! _100dir.listFiles().map { file in
+//        _ = try! _100dir.listFiles().filter { file in
+//            if file.getName().hasPrefix("v60") {
+//                return true
+//            }
+//            return false
+//            }.map { file in
 //            print("file: ----------\(file.getName())")
 //            let a = NSKeyedUnarchiver.unarchiveObjectWithFile(file.path) as? Score ?? [:]
 //            let b = a.sort { a0, a1 in
@@ -39,6 +46,10 @@ class TestViewController: UIViewController {
 //            }
 //            print(b)
 //        }
+    }
+
+    @IBAction func didClick(sender: UIButton) {
+        showViewController(R.storyboard.carBar.straightMatch!)
     }
 
 }

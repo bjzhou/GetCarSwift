@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uwa-hJ-3GR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uwa-hJ-3GR">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -183,35 +183,15 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="238"/>
                                         <animations/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rgz-U8-Y7m">
-                                        <rect key="frame" x="159" y="163" width="200" height="51"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="速度：000.0 km/h     加速度：0.0 kg/N" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XXM-GN-EXC">
+                                        <rect key="frame" x="30.5" y="167" width="313" height="17.5"/>
                                         <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="51" id="dUG-FM-WTB"/>
-                                            <constraint firstAttribute="width" constant="200" id="j5f-2C-QX8"/>
-                                        </constraints>
-                                        <state key="normal" image="btn_go"/>
-                                        <state key="selected" image="btn_go_pressed"/>
-                                        <connections>
-                                            <action selector="didGo:" destination="FWA-OX-BfD" eventType="touchUpInside" id="unm-ub-qgU"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 km/h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXM-GN-EXC">
-                                        <rect key="frame" x="89" y="178" width="54" height="21"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="速度：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11h-dS-BOn">
-                                        <rect key="frame" x="24" y="178" width="51" height="21"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KeN-Bw-1Sg">
-                                        <rect key="frame" x="49" y="67" width="277" height="80"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KeN-Bw-1Sg">
+                                        <rect key="frame" x="49" y="79" width="277" height="80"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="80"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -221,17 +201,17 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="11h-dS-BOn" firstAttribute="centerY" secondItem="XXM-GN-EXC" secondAttribute="centerY" id="4yD-92-gG9"/>
+                                    <constraint firstItem="KeN-Bw-1Sg" firstAttribute="centerY" secondItem="V6V-iI-SFa" secondAttribute="centerY" id="0pN-Qf-yeI"/>
                                     <constraint firstAttribute="bottom" secondItem="Xbo-DE-tnZ" secondAttribute="bottom" id="GHg-j9-1QX"/>
-                                    <constraint firstItem="Rgz-U8-Y7m" firstAttribute="leading" secondItem="XXM-GN-EXC" secondAttribute="trailing" constant="16" id="PAt-wM-dex"/>
-                                    <constraint firstAttribute="bottom" secondItem="Rgz-U8-Y7m" secondAttribute="bottom" constant="24" id="PBe-SD-jMg"/>
+                                    <constraint firstItem="XXM-GN-EXC" firstAttribute="top" secondItem="KeN-Bw-1Sg" secondAttribute="bottom" constant="8" id="KYZ-s8-JiA"/>
                                     <constraint firstItem="Xbo-DE-tnZ" firstAttribute="top" secondItem="V6V-iI-SFa" secondAttribute="top" id="V0v-bg-5nQ"/>
-                                    <constraint firstItem="Rgz-U8-Y7m" firstAttribute="top" secondItem="KeN-Bw-1Sg" secondAttribute="bottom" constant="16" id="XNx-a1-nos"/>
                                     <constraint firstItem="KeN-Bw-1Sg" firstAttribute="centerX" secondItem="V6V-iI-SFa" secondAttribute="centerX" id="XV7-yT-Naz"/>
-                                    <constraint firstItem="XXM-GN-EXC" firstAttribute="centerY" secondItem="Rgz-U8-Y7m" secondAttribute="centerY" id="YAW-eV-oDs"/>
+                                    <constraint firstItem="XXM-GN-EXC" firstAttribute="centerX" secondItem="KeN-Bw-1Sg" secondAttribute="centerX" id="Y6G-i5-9eq"/>
                                     <constraint firstAttribute="trailing" secondItem="Xbo-DE-tnZ" secondAttribute="trailing" id="ZUF-Bu-Vyo"/>
-                                    <constraint firstItem="11h-dS-BOn" firstAttribute="leading" secondItem="Xbo-DE-tnZ" secondAttribute="leading" constant="24" id="bmW-yt-jAN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Rgz-U8-Y7m" secondAttribute="trailing" constant="16" id="ifX-9M-1Pi"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XXM-GN-EXC" secondAttribute="trailing" constant="24" id="atn-Dm-qq1"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KeN-Bw-1Sg" secondAttribute="trailing" constant="24" id="aty-ez-0wv"/>
+                                    <constraint firstItem="KeN-Bw-1Sg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="V6V-iI-SFa" secondAttribute="leading" constant="24" id="dQY-39-vXs"/>
+                                    <constraint firstItem="XXM-GN-EXC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="V6V-iI-SFa" secondAttribute="leading" constant="24" id="hYY-Pf-78v"/>
                                     <constraint firstAttribute="width" secondItem="V6V-iI-SFa" secondAttribute="height" multiplier="375:199" priority="250" id="nmx-NO-c5v"/>
                                     <constraint firstItem="Xbo-DE-tnZ" firstAttribute="leading" secondItem="V6V-iI-SFa" secondAttribute="leading" id="vZS-HR-F8u"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="149" id="zsQ-cS-750"/>
@@ -351,7 +331,6 @@
                         <outlet property="data1" destination="gZ6-hU-kF9" id="eL8-Hf-1jE"/>
                         <outlet property="data2" destination="H2S-Zm-i6k" id="mLN-GH-RTA"/>
                         <outlet property="data3" destination="gGe-5r-0mP" id="pPR-eX-hS5"/>
-                        <outlet property="goButton" destination="Rgz-U8-Y7m" id="7JN-WK-dvD"/>
                         <outlet property="timeLabel" destination="KeN-Bw-1Sg" id="nPe-hk-kD6"/>
                         <outlet property="vLabel" destination="XXM-GN-EXC" id="RUL-Qq-fBS"/>
                     </connections>
@@ -406,8 +385,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btn_go" width="178" height="29"/>
-        <image name="btn_go_pressed" width="200" height="51"/>
         <image name="data_area" width="185" height="150"/>
         <image name="map_layer_change" width="28" height="28"/>
         <image name="map_location" width="20" height="20"/>
