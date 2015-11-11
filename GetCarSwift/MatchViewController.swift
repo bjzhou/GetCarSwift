@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import RxSwift
 
-typealias Score = [Double:[String:Double]]
+typealias ScoreData = [Double:[String:Double]]
 
 class MatchViewController: UIViewController {
     
@@ -47,11 +47,11 @@ class MatchViewController: UIViewController {
     var yellowAnnotation: MAPointAnnotation?
     var blueAnnotation: MAPointAnnotation?
 
-    var newDataList: Score = [:]
+    var newDataList: ScoreData = [:]
 
-    var purpleDataList: Score = [:]
-    var yellowDataList: Score = [:]
-    var blueDataList: Score = [:]
+    var purpleDataList: ScoreData = [:]
+    var yellowDataList: ScoreData = [:]
+    var blueDataList: ScoreData = [:]
 
     var _10msTimer: Disposable?
     var _100msTimer: Disposable?
@@ -275,11 +275,11 @@ class MatchViewController: UIViewController {
             mapView.showsUserLocation = true
         }
 
-        if let map = NSUserDefaults.standardUserDefaults().valueForKey(mapTitle) {
-            let loc = CLLocationCoordinate2D(latitude: map["center_lat"] as! Double, longitude: map["center_lng"] as! Double)
-            mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: map["start_lat"] as! Double, longitude: map["start_lng"] as! Double), radius: 10)
+        if let map = NSUserDefaults.standardUserDefaults().valueForKey(mapTitle) as? [String:Double] {
+            let loc = CLLocationCoordinate2D(latitude: map["center_lat"]!, longitude: map["center_lng"]!)
+            mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: map["start_lat"]!, longitude: map["start_lng"]!), radius: 10)
             mapView.setCenterCoordinate(loc, animated: false)
-            mapView.zoomLevel = map["zoom"] as! Double
+            mapView.zoomLevel = map["zoom"]!
         } else {
             mapView.setCenterCoordinate(mapCenter, animated: false)
             mapView.zoomLevel = 16.5
@@ -352,9 +352,9 @@ extension MatchViewController: AddPlayerDelegate {
             let alert = UIAlertController(title: nil, message: "正在读取...", preferredStyle: .Alert)
             presentViewController(alert, animated: true, completion: nil);
             {
-                let dataList = NSKeyedUnarchiver.unarchiveObjectWithFile(try! File(dir: self.lapDir, name: name).path) as? Score
+                let dataList = NSKeyedUnarchiver.unarchiveObjectWithFile(try! File(dir: self.lapDir, name: name).path) as? ScoreData
                 return dataList
-                } ~> { (dataList: Score?) in
+                } ~> { (dataList: ScoreData?) in
                     if let dataList = dataList {
                         switch pressedButton {
                         case self.purpleButton:

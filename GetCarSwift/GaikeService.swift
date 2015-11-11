@@ -20,7 +20,7 @@ let API_DEBUG = true
 
 class GaikeService {
     static let sharedInstance = GaikeService()
-    static let domain = "http://api.gaikit.com:8901/"
+    static let domain = "http://api.gaikit.com/"
 
     func getHeader(upload: Bool = false) -> [String:String] {
         var headers: [String:String] = [:]

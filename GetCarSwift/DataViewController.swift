@@ -9,6 +9,7 @@
 import UIKit
 import CoreMotion
 import RxSwift
+import RealmSwift
 
 class DataViewController: UIViewController {
 
@@ -16,14 +17,24 @@ class DataViewController: UIViewController {
 
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var vLabel: UILabel!
-    @IBOutlet weak var data0: SwiftPages!
-    @IBOutlet weak var data1: SwiftPages!
-    @IBOutlet weak var data2: SwiftPages!
-    @IBOutlet weak var data3: SwiftPages!
+    @IBOutlet weak var data0: UIView!
+    @IBOutlet weak var data1: UIView!
+    @IBOutlet weak var data2: UIView!
+    @IBOutlet weak var data3: UIView!
+    @IBOutlet weak var latestButton: UIButton!
+    @IBOutlet weak var bestButton: UIButton!
 
-    var datas = [SwiftPages]()
+    @IBOutlet weak var signalView1: UIImageView!
+    @IBOutlet weak var signalView2: UIImageView!
+    @IBOutlet weak var signalView3: UIImageView!
+    @IBOutlet weak var signalView4: UIImageView!
+    @IBOutlet weak var signalView5: UIImageView!
+
+    let realm = try! Realm()
+
+    var datas = [UIView]()
     var dataVCs = [DataSubViewController]()
-    let dataTitles = ["0~100m", "0~400m", "0~60km/h", "0~100km/h", "30~50km/h", "50~70km/h", "60~0km/h", "100~0km/h"]
+    let dataTitles = ["0~60km/h", "0~100km/h", "60~0km/h", "0~400m"]
 
     var _msTimer: Disposable?
 
@@ -31,13 +42,17 @@ class DataViewController: UIViewController {
     var startLoc: CLLocation?
     var acces = Acces()
 
-    var _100dir = File(path: "100")
-
-    var prevKey = 0.0
-    var data: Score = [:]
+    var data = List<RmScoreData>()
     var keyTime = [String:Double]()
     var lastA = 0.0
-    var scores = [Double]()
+
+    var showBest = false {
+        didSet {
+            updateScore()
+        }
+    }
+    var latestScores = [-1.0, -1.0, -1.0, -1.0]
+    var bestScores = [-1.0, -1.0, -1.0, -1.0]
 
     struct Acces {
         var acces = [CMAcceleration]()
@@ -60,9 +75,34 @@ class DataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        _100dir.mkdir()
-
         initPages()
+
+        let signalViews = [signalView1, signalView2, signalView3, signalView4, signalView5]
+        let noSignalImages = [R.image.no_signal_1, R.image.no_signal_2, R.image.no_signal_3, R.image.no_signal_4, R.image.no_signal_5]
+        let signalImages = [R.image.signal_1, R.image.signal_2, R.image.signal_3, R.image.signal_4, R.image.signal_5]
+        DeviceDataService.sharedInstance.rx_location.subscribeNext { loc in
+            if let loc = loc {
+                for i in 0...4 {
+                    signalViews[i].image = signalImages[i]
+                }
+                if loc.horizontalAccuracy > 5 {
+                    signalViews[4].image = noSignalImages[4]
+                }
+                if loc.horizontalAccuracy > 10 {
+                    signalViews[3].image = noSignalImages[3]
+                }
+                if loc.horizontalAccuracy >= 65 {
+                    signalViews[2].image = noSignalImages[2]
+                }
+                if loc.horizontalAccuracy > 65 {
+                    signalViews[1].image = noSignalImages[1]
+                }
+            } else {
+                for i in 0...4 {
+                    signalViews[i].image = noSignalImages[i]
+                }
+            }
+        }.addDisposableTo(disposeBag)
 
         DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acce in
             if let acce = acce {
@@ -87,68 +127,103 @@ class DataViewController: UIViewController {
         datas = [data0, data1, data2, data3]
         let scale: CGFloat = self.view.bounds.height / 667
         for var i=0; i<4; i++ {
-            datas[i].setTopBarImage(nil)
-            datas[i].setTopBarHeight(21*scale)
-            datas[i].setAnimatedBarHeight(3)
-            datas[i].setButtonsTextColor(UIColor(white: 1, alpha: 0.7))
-            datas[i].setContainerViewBackground(UIColor.clearColor())
-            datas[i].setButtonsTextFontAndSize(UIFont.systemFontOfSize(14*scale))
 
-            dataVCs.append(DataSubViewController())
-            dataVCs.append(DataSubViewController())
+            datas[i].layoutIfNeeded()
 
-            datas[i].initializeWithVCsArrayAndButtonTitlesArray([dataVCs[i*2], dataVCs[i*2+1]], buttonTitlesArray: [dataTitles[i*2], dataTitles[i*2+1]], sender: self)
+            let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: datas[i].frame.width, height: 21*scale))
+            titleLabel.textAlignment = .Center
+            titleLabel.textColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1)
+            titleLabel.font = UIFont.systemFontOfSize(14*scale)
+            titleLabel.text = dataTitles[i]
+            let subVc = DataSubViewController()
+            subVc.view.frame = CGRect(x: 0, y: 0, width: datas[i].frame.width, height: datas[i].frame.height)
+            self.addChildViewController(subVc)
+            subVc.didMoveToParentViewController(self)
+            dataVCs.append(subVc)
+            datas[i].addSubview(titleLabel)
+            datas[i].addSubview(subVc.view)
         }
+
+        self.updateScore()
     }
 
     override func viewDidDisappear(animated: Bool) {
         stopTimer()
     }
 
+    @IBAction func didLatestSelected(sender: UIButton) {
+        sender.selected = true
+        bestButton.selected = false
+        showBest = false
+    }
+
+    @IBAction func didBestSelected(sender: UIButton) {
+        sender.selected = true
+        latestButton.selected = false
+        showBest = true
+    }
+
     func time2String(t: Double) -> String {
+        if t == -1 {
+            return "--:--.--"
+        }
         let ms = Int(t*100) % 100
         let s = Int(t) % 60
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
 
-    func fixTime(t: Double, prevT: Double, v: Double, expectV: Double) -> Double {
-        let dt = t - prevT
-        if let prevV = self.data[prevT]?["v"] where dt != 0 && prevV != 0 {
-            let a = (v - prevV) / dt
+    func fixTime(t: Double, prevData: RmScoreData, v: Double, expectV: Double) -> Double {
+        let dt = t - prevData.t
+        if prevData.v != 0 && dt != 0 {
+            let a = (v - prevData.v) / dt
             if a == 0 { return t }
-            let expectDt = (expectV - prevV) / a
-            print(t, prevT, v, prevV, expectV, expectDt)
-            return prevT + expectDt
+            let expectDt = (expectV - prevData.v) / a
+            print(t, prevData.t, v, prevData.v, expectV, expectDt)
+            return prevData.t + expectDt
         } else {
             return t
         }
     }
 
-    func fixTime(t: Double, prevT: Double, v: Double, expectS: Double) -> Double {
-        let dt = t - prevT
-        if let prevV = self.data[prevT]?["v"], prevS = self.data[prevT]?["s"] where dt != 0 {
-            let a = (v - prevV) / dt
+    func fixTime(t: Double, prevData: RmScoreData, v: Double, expectS: Double) -> Double {
+        let dt = t - prevData.t
+        if prevData.v != 0 && dt != 0 {
+            let a = (v - prevData.v) / dt
             if a == 0 { return t }
-            let expectDt = sqrt(abs((expectS - prevS) / a))
-            return prevT + expectDt
+            let expectDt = sqrt(abs((expectS - prevData.s) / a))
+            return prevData.t + expectDt
         } else {
             return t
+        }
+    }
+
+    func updateScore() {
+        let v60s = self.realm.objects(RmScore).filter("type = 'v60'")
+        let v100s = self.realm.objects(RmScore).filter("type = 'v100'")
+        let s400s = self.realm.objects(RmScore).filter("type = 's400'")
+        let b60s = self.realm.objects(RmScore).filter("type = 'b60'")
+        self.latestScores[0] =? v60s.sorted("createdAt").last?.score
+        self.bestScores[0] =? v60s.sorted("score").first?.score
+        self.latestScores[1] =? v100s.sorted("createdAt").last?.score
+        self.bestScores[1] =? v100s.sorted("score").first?.score
+        self.latestScores[2] =? b60s.sorted("createdAt").last?.score
+        self.bestScores[2] =? b60s.sorted("score").first?.score
+        self.latestScores[3] =? s400s.sorted("createdAt").last?.score
+        self.bestScores[3] =? s400s.sorted("score").first?.score
+
+        for i in 0...3 {
+            dataVCs[i].time = self.time2String(showBest ? bestScores[i] : latestScores[i])
         }
     }
 
     func startTimer() {
         UIApplication.sharedApplication().idleTimerDisabled = true
-        scores.removeAll()
-        for _ in dataVCs {
-            //vc.time = "--:--.--"
-            scores.append(-1)
-        }
         self.data.removeAll()
         self.lastA = 0.0
-        self.prevKey = 0
         self.keyTime.removeAll()
         self.ready = false
+        self.latestScores = [-1.0, -1.0, -1.0, -1.0]
         _msTimer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
@@ -159,115 +234,99 @@ class DataViewController: UIViewController {
                     let s = startLoc.distanceFromLocation(loc)
                     let a = self.acces.averageA()
 
-                    //let prevA = self.data[self.prevKey]?["a"] ?? 0
-                    let prevS = self.data[self.prevKey]?["s"] ?? 0
-                    let prevV = self.data[self.prevKey]?["v"] ?? 0
-
-
-                    if s >= 100 && prevS < 100 {
-                        if self.scores[0] == -1 {
-                            self.scores[0] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectS: 100)
-                            self.dataVCs[0].time = self.time2String(self.scores[0])
-                        }
-                    }
-
-                    if s >= 400 && prevS < 400 {
-                        if self.scores[1] == -1 {
-                            self.scores[1] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectS: 400)
-                            self.dataVCs[1].time = self.time2String(self.scores[1])
-                        }
-                    }
-
-                    if v >= 30 && prevV < 30 {
-                        self.keyTime["30"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 30)
-                    }
-
-                    if v >= 50 && prevV < 50 {
-                        self.keyTime["50"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 50)
-
-                        if self.scores[4] == -1 {
-                            let dt = self.keyTime["50"]! - self.keyTime["30"]!
-                            self.scores[4] = dt
-                            self.dataVCs[4].time = self.time2String(self.scores[4])
-                        }
-                    }
-
-                    if v >= 60 && prevV < 60 {
-                        self.keyTime["60"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 60)
-                        if self.scores[2] == -1 {
-                            self.scores[2] = self.keyTime["60"]!
-                            self.dataVCs[2].time = self.time2String(self.scores[2])
-                            async {
-                                var data = self.data
-                                data[self.scores[2]] = ["v": 60.0, "a": a, "s": s]
-                                let file = try! File(dir: self._100dir, name: "v60_\(self._100dir.list().count).dat")
-                                NSKeyedArchiver.archiveRootObject(data, toFile: file.path)
-                            }
-                        }
-                    }
-
-                    if v <= 60 && prevV > 60 {
-                        self.keyTime["60"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 60)
-                    }
-
-                    if v >= 70 && prevV < 70 {
-                        self.keyTime["70"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 70)
-
-                        if self.scores[5] == -1 {
-                            let dt = self.keyTime["70"]! - self.keyTime["50"]!
-                            self.scores[5] = dt
-                            self.dataVCs[5].time = self.time2String(self.scores[5])
-                        }
-                    }
-
-                    if v >= 100 && prevV < 100 {
-                        self.keyTime["100"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 100)
-                        if self.scores[3] == -1 {
-                            self.scores[3] = self.keyTime["100"]!
-                            self.dataVCs[3].time = self.time2String(self.scores[3])
-                            async {
-                                var data = self.data
-                                data[self.scores[3]] = ["v": 100.0, "a": a, "s": s]
-                                let file = try! File(dir: self._100dir, name: "v100_\(self._100dir.list().count).dat")
-                                NSKeyedArchiver.archiveRootObject(data, toFile: file.path)
-                            }
-                        }
-                    }
-
-                    if v <= 100 && prevV > 100 {
-                        self.keyTime["100"] = self.fixTime(Double(t)/100, prevT: self.prevKey, v: v, expectV: 100)
-                    }
-
-                    if v <= 2 && prevV != 0 {
-                        let dt = Double(t) / 100 - self.prevKey
-                        if self.lastA == 0.0 && dt != 0 {
-                            self.lastA = (v - prevV) / dt
-                        }
-                        let newV = prevV + self.lastA * dt
-                        self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", newV <= 0 ? 0 : newV, a)
-
-                        if newV <= 0.0 {
-                            if let v60 = self.keyTime["60"] where v60 != 0 {
-                                let dt = Double(t)/100 - v60
-                                if self.scores[6] == -1 {
-                                    self.scores[6] = dt
-                                    self.dataVCs[6].time = self.time2String(dt)
+                    if let prevData = self.data.last {
+                        if s >= 400 && prevData.s < 400 {
+                            if self.latestScores[3] == -1 {
+                                self.latestScores[3] = self.fixTime(Double(t)/100, prevData: prevData, v: v, expectS: 400)
+                                self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
+                                self.dataVCs[3].time = self.time2String(self.showBest ? self.bestScores[3] : self.latestScores[3])
+                                let data = self.data
+                                data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
+                                let score = RmScore()
+                                score.type = "s400"
+                                score.score = self.latestScores[3]
+                                score.data = data
+                                try! self.realm.write {
+                                    self.realm.add(score)
                                 }
                             }
-                            if let v100 = self.keyTime["100"] where v100 != 0 {
-                                let dt = Double(t)/100 - v100
-                                if self.scores[7] == -1 {
-                                    self.scores[7] = dt
-                                    self.dataVCs[7].time = self.time2String(dt)
+                        }
+
+                        if v >= 60 && prevData.v < 60 {
+                            self.keyTime["60"] = self.fixTime(Double(t)/100, prevData: prevData, v: v, expectV: 60)
+                            if self.latestScores[0] == -1 {
+                                self.latestScores[0] = self.keyTime["60"]!
+                                self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
+                                self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
+                                let data = self.data
+                                data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": s]))
+                                let score = RmScore()
+                                score.type = "v60"
+                                score.score = self.latestScores[0]
+                                score.data = data
+                                try! self.realm.write {
+                                    self.realm.add(score)
                                 }
                             }
-                            self.stopTimer()
                         }
-                    }
 
-                    if s != self.data[self.prevKey]?["s"] ?? 0 {
-                        self.data[Double(t)/100] = ["v": v, "a": a, "s": s]
-                        self.prevKey = Double(t)/100
+                        if v <= 60 && prevData.v > 60 {
+                            self.keyTime["60"] = self.fixTime(Double(t)/100, prevData: prevData, v: v, expectV: 60)
+                        }
+
+                        if v >= 100 && prevData.v < 100 {
+                            self.keyTime["100"] = self.fixTime(Double(t)/100, prevData: prevData, v: v, expectV: 100)
+                            if self.latestScores[1] == -1 {
+                                self.latestScores[1] = self.keyTime["100"]!
+                                self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
+                                self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
+                                let data = self.data
+                                data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": s]))
+                                let score = RmScore()
+                                score.type = "v100"
+                                score.score = self.latestScores[1]
+                                score.data = data
+                                try! self.realm.write {
+                                    self.realm.add(score)
+                                }
+                            }
+                        }
+
+                        if v <= 2 && prevData.v != 0 {
+                            let dt = Double(t) / 100 - prevData.t
+                            if self.lastA == 0.0 && dt != 0 {
+                                self.lastA = (v - prevData.v) / dt
+                            }
+                            let newV = prevData.v + self.lastA * dt
+                            self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", newV <= 0 ? 0 : newV, a)
+
+                            if newV <= 0.0 {
+                                if let v60 = self.keyTime["60"] where v60 != 0 {
+                                    let dt = Double(t)/100 - v60
+                                    if self.latestScores[2] == -1 {
+                                        self.latestScores[2] = dt
+                                        self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
+                                        self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
+                                        let data = self.data
+                                        data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 0.0, "a": a, "s": s]))
+                                        let score = RmScore()
+                                        score.type = "b60"
+                                        score.score = self.latestScores[2]
+                                        score.data = data
+                                        try! self.realm.write {
+                                            self.realm.add(score)
+                                        }
+                                    }
+                                }
+                                self.stopTimer()
+                            }
+                        }
+
+                        if s != prevData.s {
+                            self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
+                        }
+                    } else {
+                        self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
                     }
                 }
             }

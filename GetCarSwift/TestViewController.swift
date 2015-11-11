@@ -10,7 +10,7 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    let _100dir = File(path: "100")
+    let scoreDir = File(path: "score")
 
     override func viewDidLoad() {
         super.viewDidLoad()

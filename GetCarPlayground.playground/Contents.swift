@@ -25,3 +25,12 @@ a.value = 8
 String(0)
 
 round(0.51)
+
+var array = [0, 1, 2, 3] {
+    didSet {
+        print(array)
+    }
+}
+
+array[0] = 1
+array.append(4)

@@ -17,7 +17,7 @@ class TraceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        swiftPagesView.initializeWithVCsArrayAndButtonTitlesArray([R.storyboard.trace.data!, R.storyboard.trace.map!], buttonTitlesArray: buttonTitles, sender: self)
+        swiftPagesView.initializeWithVCsArrayAndButtonTitlesArray([R.storyboard.gkbox.data!, R.storyboard.gkbox.map!], buttonTitlesArray: buttonTitles, sender: self)
     }
 
     override func viewDidAppear(animated: Bool) {

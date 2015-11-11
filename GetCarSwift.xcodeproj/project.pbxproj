@@ -17,13 +17,14 @@
 		98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA7E7F32B82B982261BC1FB /* Pods.framework */; };
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
-		C80B6B371BB672780017D7E3 /* Trace.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B361BB672780017D7E3 /* Trace.storyboard */; };
+		C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B361BB672780017D7E3 /* gkbox.storyboard */; };
 		C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */; };
 		C80B6B401BB6790A0017D7E3 /* CarBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */; };
 		C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B411BB679150017D7E3 /* Mine.storyboard */; };
 		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
 		C81655841BF05CCF004E17AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81655831BF05CCF004E17AE /* Images.xcassets */; };
 		C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */; };
+		C81655881BF32D9D004E17AE /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655871BF32D9D004E17AE /* RmScore.swift */; };
 		C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */; };
 		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
@@ -73,6 +74,7 @@
 		C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */; };
 		C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController.swift */; };
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
+		C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE51BF343BB00792F3E /* Helper.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
@@ -129,13 +131,14 @@
 		AF89B3959372DB5712543292 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
-		C80B6B361BB672780017D7E3 /* Trace.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trace.storyboard; sourceTree = "<group>"; };
+		C80B6B361BB672780017D7E3 /* gkbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = gkbox.storyboard; sourceTree = "<group>"; };
 		C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CarBar.storyboard; sourceTree = "<group>"; };
 		C80B6B411BB679150017D7E3 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C81655831BF05CCF004E17AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StraightMatchViewController.swift; sourceTree = "<group>"; };
+		C81655871BF32D9D004E17AE /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
 		C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LetsgoDigital-Regular.ttf"; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 		C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		C8D6CAE51B8F511700A417CF /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		C8D88FE51BF343BB00792F3E /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -281,14 +285,14 @@
 			name = servicce;
 			sourceTree = "<group>";
 		};
-		C80B6B281BB672560017D7E3 /* trace */ = {
+		C80B6B281BB672560017D7E3 /* gk-box */ = {
 			isa = PBXGroup;
 			children = (
 				C89A05CB1B6E195600620C85 /* DataViewController.swift */,
 				C8E2B8551AD96F31003B07FE /* MapViewController.swift */,
 				C89A05C61B6E125400620C85 /* TraceViewController.swift */,
 			);
-			name = trace;
+			name = "gk-box";
 			sourceTree = "<group>";
 		};
 		C842765F1BB188D60041C3F9 /* Model */ = {
@@ -301,6 +305,7 @@
 				C880DA761B78D21900F5E24D /* Nearby.swift */,
 				C8EEB65C1BB2D3D300BB5704 /* Praise.swift */,
 				C8F9CD6E1B7246BB0003AF1B /* User.swift */,
+				C81655871BF32D9D004E17AE /* RmScore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -324,7 +329,7 @@
 				C8D1C5011BB64F4100F131BC /* login */,
 				C85B34AC1BB7DAA400435320 /* mine */,
 				8BDEBA9465805C8CC88C3130 /* mod */,
-				C80B6B281BB672560017D7E3 /* trace */,
+				C80B6B281BB672560017D7E3 /* gk-box */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */,
 			);
@@ -361,7 +366,7 @@
 				C84408FA1BB43D410088D046 /* Login.storyboard */,
 				C80B6B411BB679150017D7E3 /* Mine.storyboard */,
 				8BDEB3E592343A2B219B8F2F /* Mod.storyboard */,
-				C80B6B361BB672780017D7E3 /* Trace.storyboard */,
+				C80B6B361BB672780017D7E3 /* gkbox.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				C8F333671BB6DA6600F4EFB2 /* Async.swift */,
 				C867FD1D1AD9071900F99592 /* Res.swift */,
 				C844F4001BE73DE1008AFC8B /* File.swift */,
+				C8D88FE51BF343BB00792F3E /* Helper.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -621,7 +627,7 @@
 			files = (
 				C81655841BF05CCF004E17AE /* Images.xcassets in Resources */,
 				C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */,
-				C80B6B371BB672780017D7E3 /* Trace.storyboard in Resources */,
+				C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */,
 				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
 				C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */,
 				C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */,
@@ -733,6 +739,7 @@
 				C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */,
+				C81655881BF32D9D004E17AE /* RmScore.swift in Sources */,
 				C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */,
 				C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
@@ -768,6 +775,7 @@
 				C867FD1E1AD9071900F99592 /* Res.swift in Sources */,
 				C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */,
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
+				C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */,
 				C8F333681BB6DA6600F4EFB2 /* Async.swift in Sources */,

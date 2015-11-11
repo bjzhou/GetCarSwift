@@ -30,3 +30,7 @@ func ~><T>(bgThread: () -> T, mainThread: (result: T) -> ()) {
 func async(bgThread: () -> Void) {
     dispatch_async(queue, bgThread)
 }
+
+func mainThread(main: () -> Void) {
+    dispatch_async(dispatch_get_main_queue(), main)
+}
