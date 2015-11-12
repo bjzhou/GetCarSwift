@@ -40,7 +40,6 @@ class DataViewController: UIViewController {
 
     var ready = false
     var startLoc: CLLocation?
-    var acces = Acces()
 
     var data = List<RmScoreData>()
     var keyTime = [String:Double]()
@@ -53,24 +52,6 @@ class DataViewController: UIViewController {
     }
     var latestScores = [-1.0, -1.0, -1.0, -1.0]
     var bestScores = [-1.0, -1.0, -1.0, -1.0]
-
-    struct Acces {
-        var acces = [CMAcceleration]()
-
-        mutating func append(value: CMAcceleration) {
-            if acces.count >= 10 {
-                acces.removeFirst()
-            }
-            acces.append(value)
-        }
-
-        func averageA() -> Double {
-            let count = Double(acces.count)
-            let acce = acces.reduce((0.0,0.0,0.0), combine: { ($0.0 + $1.x / count, $0.1 + $1.y / count, $0.2 + $1.z / count) })
-            //print(acce)
-            return sqrt(acce.0 * acce.0 + acce.1 * acce.1 * acce.2 * acce.2) * 9.81
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,12 +85,9 @@ class DataViewController: UIViewController {
             }
         }.addDisposableTo(disposeBag)
 
-        DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acce in
-            if let acce = acce {
-                self.acces.append(acce)
-            }
+        DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acces in
             if let loc = DeviceDataService.sharedInstance.rx_location.value {
-                let a = self.acces.averageA()
+                let a = acces.averageA()
                 self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
                 if self.ready && (loc.speed > 0 || a >= 0.5) {
                     self.startLoc = loc
@@ -125,10 +103,12 @@ class DataViewController: UIViewController {
     func initPages() {
 
         datas = [data0, data1, data2, data3]
-        let scale: CGFloat = self.view.bounds.height / 667
         for var i=0; i<4; i++ {
 
             datas[i].layoutIfNeeded()
+
+            let scale: CGFloat = (self.view.frame.height - 410) / 257
+            print(scale)
 
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: datas[i].frame.width, height: 21*scale))
             titleLabel.textAlignment = .Center
@@ -232,7 +212,7 @@ class DataViewController: UIViewController {
                 if let startLoc = self.startLoc {
                     let v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
                     let s = startLoc.distanceFromLocation(loc)
-                    let a = self.acces.averageA()
+                    let a = DeviceDataService.sharedInstance.rx_acceleration.value.averageA()
 
                     if let prevData = self.data.last {
                         if s >= 400 && prevData.s < 400 {
@@ -240,7 +220,8 @@ class DataViewController: UIViewController {
                                 self.latestScores[3] = self.fixTime(Double(t)/100, prevData: prevData, v: v, expectS: 400)
                                 self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
                                 self.dataVCs[3].time = self.time2String(self.showBest ? self.bestScores[3] : self.latestScores[3])
-                                let data = self.data
+                                let data = List<RmScoreData>()
+                                data.appendContentsOf(self.data)
                                 data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
                                 let score = RmScore()
                                 score.type = "s400"
@@ -258,7 +239,8 @@ class DataViewController: UIViewController {
                                 self.latestScores[0] = self.keyTime["60"]!
                                 self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
                                 self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
-                                let data = self.data
+                                let data = List<RmScoreData>()
+                                data.appendContentsOf(self.data)
                                 data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": s]))
                                 let score = RmScore()
                                 score.type = "v60"
@@ -280,7 +262,8 @@ class DataViewController: UIViewController {
                                 self.latestScores[1] = self.keyTime["100"]!
                                 self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
                                 self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
-                                let data = self.data
+                                let data = List<RmScoreData>()
+                                data.appendContentsOf(self.data)
                                 data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": s]))
                                 let score = RmScore()
                                 score.type = "v100"
@@ -292,7 +275,7 @@ class DataViewController: UIViewController {
                             }
                         }
 
-                        if v <= 2 && prevData.v != 0 {
+                        if v <= 2 && prevData.v > 0 {
                             let dt = Double(t) / 100 - prevData.t
                             if self.lastA == 0.0 && dt != 0 {
                                 self.lastA = (v - prevData.v) / dt
@@ -307,7 +290,8 @@ class DataViewController: UIViewController {
                                         self.latestScores[2] = dt
                                         self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
                                         self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
-                                        let data = self.data
+                                        let data = List<RmScoreData>()
+                                        data.appendContentsOf(self.data)
                                         data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 0.0, "a": a, "s": s]))
                                         let score = RmScore()
                                         score.type = "b60"

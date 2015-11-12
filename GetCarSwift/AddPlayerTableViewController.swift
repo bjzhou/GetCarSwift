@@ -8,6 +8,7 @@
 
 import UIKit
 import Haneke
+import RealmSwift
 
 enum AddPlayerMode {
     case Menu
@@ -20,15 +21,18 @@ class AddPlayerTableViewController: UITableViewController {
     var delegate: AddPlayerDelegate?
     var sender: UIButton?
 
+    let realm = try! Realm()
+
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Friend:"我的好友", .Rank:"赛道排名"]
 
     var mode: AddPlayerMode = .Menu
     var friends = ["aaaaaaaaaaaaaaa", "bbb", "ccc", "ddd", "eee", "fff"]
-    var rankings: [String] = []
+    var rankings = [RmScore]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        rankings = try! File(path: "lap").list().filter { $0.hasPrefix("test") }
+
+        rankings = realm.objects(RmScore).filter("type = 'anji'").map { $0 }
     }
 
     // MARK: - Table view data source
@@ -76,7 +80,7 @@ class AddPlayerTableViewController: UITableViewController {
             let rankLabel = cell.viewWithTag(121) as! UILabel
             rankLabel.text = String(indexPath.row+1)
             let nameLabel = cell.viewWithTag(123) as! UILabel
-            nameLabel.text = rankings[indexPath.row]
+            nameLabel.text = rankings[indexPath.row].name
         }
 
         return cell
@@ -92,7 +96,7 @@ class AddPlayerTableViewController: UITableViewController {
                 tableView.reloadData()
             } else {
                 Me.sharedInstance.fetchAvatar { image in
-                    self.delegate?.didPlayerAdded(avatar: image, name: "我", sender: self.sender)
+                    self.delegate?.didPlayerAdded(avatar: image, name: "我", score: self.rankings[indexPath.row], sender: self.sender)
                     self.dismissPopupViewController()
                 }
             }
@@ -101,7 +105,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row], sender: sender)
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row].name, score: rankings[indexPath.row], sender: sender)
             dismissPopupViewController()
         }
     }
@@ -156,5 +160,5 @@ class AddPlayerTableViewController: UITableViewController {
 }
 
 protocol AddPlayerDelegate {
-    func didPlayerAdded(avatar avatar: UIImage, name: String, sender: UIButton?)
+    func didPlayerAdded(avatar avatar: UIImage, name: String, score: RmScore, sender: UIButton?)
 }

@@ -10,6 +10,26 @@ import Foundation
 import CoreMotion
 import RxSwift
 
+struct GKAcceleration {
+    private var latest10 = [CMAcceleration]()
+
+    var last = CMAcceleration()
+
+    mutating func append(value: CMAcceleration) {
+        if latest10.count >= 10 {
+            latest10.removeFirst()
+        }
+        latest10.append(value)
+        last = value
+    }
+
+    func averageA() -> Double {
+        let count = Double(latest10.count)
+        let acce = latest10.reduce((0.0,0.0,0.0), combine: { ($0.0 + $1.x / count, $0.1 + $1.y / count, $0.2 + $1.z / count) })
+        return sqrt(acce.0 * acce.0 + acce.1 * acce.1 * acce.2 * acce.2) * 9.81
+    }
+}
+
 class DeviceDataService: NSObject {
     static let sharedInstance = DeviceDataService()
 
@@ -22,7 +42,7 @@ class DeviceDataService: NSObject {
 
     var districtService: Disposable?
 
-    var rx_acceleration: Variable<CMAcceleration?> = Variable(nil)
+    var rx_acceleration: Variable<GKAcceleration> = Variable(GKAcceleration())
     var rx_altitude: Variable<CMAltitudeData?> = Variable(nil)
     var rx_location: Variable<CLLocation?> = Variable(nil)
     var rx_district = Variable("正在获取位置信息")
@@ -39,7 +59,7 @@ class DeviceDataService: NSObject {
             motionManager.deviceMotionUpdateInterval = 0.01
             motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: { (data, error) in
                 if let validData = data {
-                    self.rx_acceleration.value = validData.userAcceleration
+                    self.rx_acceleration.value.append(validData.userAcceleration)
                 }
             })
         }

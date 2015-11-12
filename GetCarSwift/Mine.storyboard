@@ -1269,7 +1269,7 @@
                                 <rect key="frame" x="279" y="323" width="42" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2094,34 +2094,67 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blC-IS-5Bh" userLabel="state">
-                                <rect key="frame" x="247" y="64" width="128" height="33"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blC-IS-5Bh" userLabel="state">
+                                <rect key="frame" x="261" y="64" width="114" height="144"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="状态：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjS-8p-dP5">
                                         <rect key="frame" x="8" y="8" width="42" height="17"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCu-LD-E4D">
-                                        <rect key="frame" x="58" y="8" width="62" height="17"/>
+                                        <rect key="frame" x="58" y="8" width="48" height="17"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbK-Sl-2cn">
+                                        <rect key="frame" x="8" y="70" width="98" height="29"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="点这里设定终点"/>
+                                        <connections>
+                                            <action selector="didSetStop:" destination="nCo-fh-LAW" eventType="touchUpInside" id="qan-CH-jxj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFw-j7-iPW">
+                                        <rect key="frame" x="8" y="107" width="98" height="29"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="点这里标记地图"/>
+                                        <connections>
+                                            <action selector="didMarkMap:" destination="nCo-fh-LAW" eventType="touchUpInside" id="wTh-tQ-5cf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-QL-bF5">
+                                        <rect key="frame" x="8" y="33" width="98" height="29"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="点这里设定起点"/>
+                                        <connections>
+                                            <action selector="didSetStart:" destination="nCo-fh-LAW" eventType="touchUpInside" id="mtF-ji-RRK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="kFw-j7-iPW" firstAttribute="leading" secondItem="BbK-Sl-2cn" secondAttribute="leading" id="9Ex-3G-aoN"/>
                                     <constraint firstItem="cCu-LD-E4D" firstAttribute="centerY" secondItem="hjS-8p-dP5" secondAttribute="centerY" id="AXH-ID-Ibs"/>
-                                    <constraint firstAttribute="width" constant="128" id="Ifj-Ya-Mtx"/>
+                                    <constraint firstItem="BbK-Sl-2cn" firstAttribute="top" secondItem="oLt-QL-bF5" secondAttribute="bottom" constant="8" id="Lcd-1s-hOD"/>
                                     <constraint firstItem="hjS-8p-dP5" firstAttribute="top" secondItem="blC-IS-5Bh" secondAttribute="top" constant="8" id="NYZ-yF-2xb"/>
-                                    <constraint firstAttribute="height" constant="33" id="VIx-La-8Wh"/>
+                                    <constraint firstItem="BbK-Sl-2cn" firstAttribute="leading" secondItem="oLt-QL-bF5" secondAttribute="leading" id="OPg-sH-9dm"/>
+                                    <constraint firstItem="oLt-QL-bF5" firstAttribute="top" secondItem="hjS-8p-dP5" secondAttribute="bottom" constant="8" id="OtI-oF-KCQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="kFw-j7-iPW" secondAttribute="bottom" constant="8" id="VKf-Hh-gDp"/>
                                     <constraint firstItem="hjS-8p-dP5" firstAttribute="leading" secondItem="blC-IS-5Bh" secondAttribute="leading" constant="8" id="WYa-lX-ZUA"/>
                                     <constraint firstItem="cCu-LD-E4D" firstAttribute="leading" secondItem="hjS-8p-dP5" secondAttribute="trailing" constant="8" id="Y7s-I6-24R"/>
+                                    <constraint firstItem="kFw-j7-iPW" firstAttribute="top" secondItem="BbK-Sl-2cn" secondAttribute="bottom" constant="8" id="hDK-p0-SMh"/>
                                     <constraint firstAttribute="trailing" secondItem="cCu-LD-E4D" secondAttribute="trailing" constant="8" id="hQA-AV-ql0"/>
+                                    <constraint firstAttribute="trailing" secondItem="kFw-j7-iPW" secondAttribute="trailing" constant="8" id="lVZ-4X-cXN"/>
+                                    <constraint firstItem="oLt-QL-bF5" firstAttribute="leading" secondItem="hjS-8p-dP5" secondAttribute="leading" id="p4k-Hd-3aK"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFh-r5-Fwq">
@@ -2146,7 +2179,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrV-n7-B4o">
-                                        <rect key="frame" x="141" y="14" width="94" height="27"/>
+                                        <rect key="frame" x="141" y="14.5" width="94" height="26.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="highlightedColor"/>
@@ -2213,7 +2246,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jh-7M-ea4">
-                                        <rect key="frame" x="31" y="16" width="31" height="24"/>
+                                        <rect key="frame" x="31.5" y="16" width="30.5" height="24"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -2238,7 +2271,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J36-h7-0Kb">
-                                        <rect key="frame" x="31" y="16" width="31" height="24"/>
+                                        <rect key="frame" x="31.5" y="16" width="30.5" height="24"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -2294,7 +2327,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxV-Xz-iS9">
-                                        <rect key="frame" x="31" y="16" width="31" height="24"/>
+                                        <rect key="frame" x="31.5" y="16" width="30.5" height="24"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -2319,7 +2352,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCG-Ra-JdS">
-                                        <rect key="frame" x="31" y="16" width="31" height="24"/>
+                                        <rect key="frame" x="31.5" y="16" width="30.5" height="24"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -2344,7 +2377,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHX-kx-Yir">
-                                        <rect key="frame" x="31" y="16" width="31" height="24"/>
+                                        <rect key="frame" x="31.5" y="16" width="30.5" height="24"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -2369,7 +2402,7 @@
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mg0-za-G4p">
-                                        <rect key="frame" x="31" y="16" width="31" height="24"/>
+                                        <rect key="frame" x="31.5" y="16" width="30.5" height="24"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -2667,6 +2700,7 @@
                         <outlet property="blueButton" destination="wa4-Za-dXJ" id="ChD-XF-IL2"/>
                         <outlet property="blueSpeed" destination="5jh-7M-ea4" id="oIj-fC-mGY"/>
                         <outlet property="blueTitle" destination="AsG-Vt-rq4" id="Qye-va-cUf"/>
+                        <outlet property="debugView" destination="blC-IS-5Bh" id="UxI-f6-pht"/>
                         <outlet property="mapView" destination="x3v-Lp-54N" id="3pr-3I-Eih"/>
                         <outlet property="purpleAcce" destination="DHX-kx-Yir" id="DnR-Nt-zWs"/>
                         <outlet property="purpleButton" destination="d0m-ej-ETV" id="0aN-v3-rd4"/>

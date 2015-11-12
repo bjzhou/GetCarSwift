@@ -177,21 +177,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V6V-iI-SFa">
-                                <rect key="frame" x="0.0" y="64" width="375" height="234"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="243"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="timer_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Xbo-DE-tnZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="234"/>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="752" image="timer_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Xbo-DE-tnZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
                                         <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="速度：000.0 km/h     加速度：0.0 kg/N" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XXM-GN-EXC">
-                                        <rect key="frame" x="31" y="184" width="313" height="17.5"/>
+                                        <rect key="frame" x="31" y="193" width="313" height="17.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KeN-Bw-1Sg">
-                                        <rect key="frame" x="49" y="86" width="277" height="80"/>
+                                        <rect key="frame" x="49" y="90" width="277" height="80"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="80"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -232,9 +232,10 @@
                                     <constraint firstItem="KeN-Bw-1Sg" firstAttribute="centerY" secondItem="V6V-iI-SFa" secondAttribute="centerY" constant="9" id="0pN-Qf-yeI"/>
                                     <constraint firstItem="AWL-QB-B5J" firstAttribute="leading" secondItem="XbJ-uI-4vz" secondAttribute="trailing" constant="8" id="30g-oC-Rjh"/>
                                     <constraint firstItem="A21-Ox-dRF" firstAttribute="baseline" secondItem="ser-7x-6Mf" secondAttribute="baseline" id="4Vl-di-Oda"/>
+                                    <constraint firstItem="KeN-Bw-1Sg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="XbJ-uI-4vz" secondAttribute="bottom" constant="-8" id="4vI-cR-tUo"/>
                                     <constraint firstItem="Zzd-yr-Vk6" firstAttribute="baseline" secondItem="A21-Ox-dRF" secondAttribute="baseline" id="FGI-Jf-ofJ"/>
                                     <constraint firstAttribute="bottom" secondItem="Xbo-DE-tnZ" secondAttribute="bottom" id="GHg-j9-1QX"/>
-                                    <constraint firstItem="XXM-GN-EXC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KeN-Bw-1Sg" secondAttribute="bottom" constant="8" id="KYZ-s8-JiA"/>
+                                    <constraint firstItem="XXM-GN-EXC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KeN-Bw-1Sg" secondAttribute="bottom" id="KYZ-s8-JiA"/>
                                     <constraint firstItem="ba7-N2-zY4" firstAttribute="baseline" secondItem="AWL-QB-B5J" secondAttribute="baseline" id="MWt-I5-JLk"/>
                                     <constraint firstItem="Xbo-DE-tnZ" firstAttribute="top" secondItem="XbJ-uI-4vz" secondAttribute="top" priority="250" constant="-52" id="NPw-mE-WhR"/>
                                     <constraint firstAttribute="trailing" secondItem="Zzd-yr-Vk6" secondAttribute="trailing" constant="16" id="TFI-Sv-6C1"/>
@@ -259,13 +260,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="UaT-i3-MhC">
-                                <rect key="frame" x="0.0" y="308" width="375" height="266"/>
+                                <rect key="frame" x="0.0" y="317" width="375" height="257"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iex-8N-uCF">
-                                        <rect key="frame" x="0.0" y="0.0" width="185" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="185" height="125.5"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area" translatesAutoresizingMaskIntoConstraints="NO" id="or1-tv-Sp1">
-                                                <rect key="frame" x="0.0" y="0.0" width="185" height="130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="125.5"/>
                                                 <animations/>
                                             </imageView>
                                         </subviews>
@@ -279,10 +280,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZ6-hU-kF9">
-                                        <rect key="frame" x="190" y="0.0" width="185" height="130"/>
+                                        <rect key="frame" x="190" y="0.0" width="185" height="125.5"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area" translatesAutoresizingMaskIntoConstraints="NO" id="1R5-zB-dkg">
-                                                <rect key="frame" x="0.0" y="0.0" width="185" height="130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="125.5"/>
                                                 <animations/>
                                             </imageView>
                                         </subviews>
@@ -296,10 +297,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H2S-Zm-i6k">
-                                        <rect key="frame" x="0.0" y="136" width="185" height="130"/>
+                                        <rect key="frame" x="0.0" y="131.5" width="185" height="125.5"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area" translatesAutoresizingMaskIntoConstraints="NO" id="jnD-wI-BHq">
-                                                <rect key="frame" x="0.0" y="0.0" width="185" height="130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="125.5"/>
                                                 <animations/>
                                             </imageView>
                                         </subviews>
@@ -313,10 +314,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGe-5r-0mP">
-                                        <rect key="frame" x="190" y="136" width="185" height="130"/>
+                                        <rect key="frame" x="190" y="131.5" width="185" height="125.5"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area" translatesAutoresizingMaskIntoConstraints="NO" id="LgT-GM-Jkd">
-                                                <rect key="frame" x="0.0" y="0.0" width="185" height="130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="125.5"/>
                                                 <animations/>
                                             </imageView>
                                         </subviews>

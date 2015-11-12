@@ -75,6 +75,7 @@
 		C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController.swift */; };
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
 		C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE51BF343BB00792F3E /* Helper.swift */; };
+		C8D88FEA1BF4482D00792F3E /* RaceTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE91BF4482D00792F3E /* RaceTrack.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
@@ -195,6 +196,7 @@
 		C8D6CAE51B8F511700A417CF /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		C8D88FE51BF343BB00792F3E /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		C8D88FE91BF4482D00792F3E /* RaceTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceTrack.swift; sourceTree = "<group>"; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				C8EEB65C1BB2D3D300BB5704 /* Praise.swift */,
 				C8F9CD6E1B7246BB0003AF1B /* User.swift */,
 				C81655871BF32D9D004E17AE /* RmScore.swift */,
+				C8D88FE91BF4482D00792F3E /* RaceTrack.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */,
+				C8D88FEA1BF4482D00792F3E /* RaceTrack.swift in Sources */,
 				C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */,
 				C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */,
 				C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */,

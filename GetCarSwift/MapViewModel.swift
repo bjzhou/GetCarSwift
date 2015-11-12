@@ -19,7 +19,7 @@ struct MapViewModel {
 
     mutating func updateNearby() -> Observable<AnnotationTuple> {
         return timer(0, 10, MainScheduler.sharedInstance).map { _ in
-            Nearby.map(accelerate: (DeviceDataService.sharedInstance.rx_acceleration.value?.y ?? 0) * 10, speed: DeviceDataService.sharedInstance.rx_location.value?.speed ?? 0)
+            Nearby.map(accelerate: DeviceDataService.sharedInstance.rx_acceleration.value.averageA(), speed: DeviceDataService.sharedInstance.rx_location.value?.speed ?? 0)
         }
         .concat()
         .map { result in

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,6 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
         CrashReporter.sharedInstance().setUserId(Me.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
+
+        let config = Realm.Configuration(
+            schemaVersion: 4,
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < 1) {
+                }
+        })
+        Realm.Configuration.defaultConfiguration = config
 
 #if ADHOC
             checkNewVersion()
