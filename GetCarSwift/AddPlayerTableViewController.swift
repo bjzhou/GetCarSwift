@@ -96,7 +96,7 @@ class AddPlayerTableViewController: UITableViewController {
                 tableView.reloadData()
             } else {
                 Me.sharedInstance.fetchAvatar { image in
-                    self.delegate?.didPlayerAdded(avatar: image, name: "我", score: self.rankings[indexPath.row], sender: self.sender)
+                    self.delegate?.didPlayerAdded(avatar: image, name: "我", score: RmScore(), sender: self.sender)
                     self.dismissPopupViewController()
                 }
             }
@@ -105,7 +105,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row].name, score: rankings[indexPath.row], sender: sender)
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row].name, score: RmScore(), sender: sender)
             dismissPopupViewController()
         }
     }

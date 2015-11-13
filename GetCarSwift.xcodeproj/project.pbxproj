@@ -76,6 +76,7 @@
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
 		C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE51BF343BB00792F3E /* Helper.swift */; };
 		C8D88FEA1BF4482D00792F3E /* RaceTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE91BF4482D00792F3E /* RaceTrack.swift */; };
+		C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FEB1BF5B67800792F3E /* RealmExt.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
@@ -197,6 +198,7 @@
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		C8D88FE51BF343BB00792F3E /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C8D88FE91BF4482D00792F3E /* RaceTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceTrack.swift; sourceTree = "<group>"; };
+		C8D88FEB1BF5B67800792F3E /* RealmExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmExt.swift; sourceTree = "<group>"; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				C828823B1B9219620091F624 /* UIImageView.swift */,
 				C894F5FA1BA440B300645DA3 /* UITableView.swift */,
 				C8D6CAE51B8F511700A417CF /* UIViewController.swift */,
+				C8D88FEB1BF5B67800792F3E /* RealmExt.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -707,7 +710,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\"${SRCROOT}/dSYM_upload.sh\"";
+			shellScript = "\"${SRCROOT}/dSYM_upload.sh\"";
 			showEnvVarsInLog = 0;
 		};
 		C88D89601BDF75E200AA4425 /* Generate R.swift */ = {
@@ -753,6 +756,7 @@
 				C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */,
 				C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */,
 				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
+				C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
 				C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */,
 				C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */,

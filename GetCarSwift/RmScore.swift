@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 class RmScore: Object {
     dynamic var type = ""

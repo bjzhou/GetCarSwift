@@ -352,7 +352,7 @@ extension MatchViewController: AddPlayerDelegate {
     func didPlayerAdded(avatar avatar: UIImage, name: String, score: RmScore, sender: UIButton?) {
         if let pressedButton = sender {
             pressedButton.setBackgroundImage(avatar, forState: .Normal)
-            pressedButton.layer.cornerRadius = pressedButton.frame.size.width / 2
+            pressedButton.layer.cornerRadius = 20
             pressedButton.clipsToBounds = true
             if pressedButton == blueButton && name == "我" {
                 return

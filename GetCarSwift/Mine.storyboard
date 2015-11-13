@@ -2095,7 +2095,7 @@
                                 </variation>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blC-IS-5Bh" userLabel="state">
-                                <rect key="frame" x="261" y="64" width="114" height="144"/>
+                                <rect key="frame" x="253" y="64" width="122" height="144"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="状态：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjS-8p-dP5">
                                         <rect key="frame" x="8" y="8" width="42" height="17"/>
@@ -2104,8 +2104,8 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCu-LD-E4D">
-                                        <rect key="frame" x="58" y="8" width="48" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="正在定位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCu-LD-E4D">
+                                        <rect key="frame" x="58" y="8" width="56" height="17"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2153,7 +2153,6 @@
                                     <constraint firstItem="cCu-LD-E4D" firstAttribute="leading" secondItem="hjS-8p-dP5" secondAttribute="trailing" constant="8" id="Y7s-I6-24R"/>
                                     <constraint firstItem="kFw-j7-iPW" firstAttribute="top" secondItem="BbK-Sl-2cn" secondAttribute="bottom" constant="8" id="hDK-p0-SMh"/>
                                     <constraint firstAttribute="trailing" secondItem="cCu-LD-E4D" secondAttribute="trailing" constant="8" id="hQA-AV-ql0"/>
-                                    <constraint firstAttribute="trailing" secondItem="kFw-j7-iPW" secondAttribute="trailing" constant="8" id="lVZ-4X-cXN"/>
                                     <constraint firstItem="oLt-QL-bF5" firstAttribute="leading" secondItem="hjS-8p-dP5" secondAttribute="leading" id="p4k-Hd-3aK"/>
                                 </constraints>
                             </view>
@@ -2835,7 +2834,7 @@
         <image name="benz_logo_small" width="40" height="40"/>
         <image name="blue_small_car" width="33" height="13"/>
         <image name="bmw_logo_small" width="40" height="40"/>
-        <image name="btn_add_player" width="57" height="57"/>
+        <image name="btn_add_player" width="47" height="47"/>
         <image name="btn_playback" width="27" height="27"/>
         <image name="camera" width="25" height="22"/>
         <image name="camera_pressed" width="25" height="22"/>

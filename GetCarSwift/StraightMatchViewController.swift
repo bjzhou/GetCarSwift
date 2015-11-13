@@ -32,7 +32,10 @@ class StraightMatchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        for button in [button1, button2, button3] {
+            button.layer.masksToBounds = true
+            button.layer.cornerRadius = 23.5
+        }
     }
 
     @IBAction func didStart(sender: UIButton) {
@@ -40,6 +43,19 @@ class StraightMatchViewController: UIViewController {
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {
+        let addViewController = R.storyboard.mine.add_player_popover!
+        addViewController.delegate = self
+        addViewController.sender = sender
+        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
+        let popupViewController = PopupViewController(rootViewController: addViewController)
+        self.presentViewController(popupViewController, animated: false, completion: nil)
+    }
+}
 
+extension StraightMatchViewController: AddPlayerDelegate {
+    func didPlayerAdded(avatar avatar: UIImage, name: String, score: RmScore, sender: UIButton?) {
+        sender?.setBackgroundImage(avatar, forState: .Normal)
+        sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
+        sender?.layer.borderWidth = 2
     }
 }

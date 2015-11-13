@@ -153,7 +153,7 @@ find ${BUILT_PRODUCTS_DIR} -name "*.zip" -print0 | xargs -0 -I {} mv {} ${DSYM_S
 echo "Extract symbols from dSYM to ${DSYM_ZIP_FPATH}."
 
 echo "--------------------------------"
-(/usr/bin/java -jar "${BUGLY_SYMBOL_JAR_PATH}" -i "${DSYM_SRC}" -o "${DSYM_ZIP_FPATH}" ) || exitWithMessage "Error: Failed to extract symbols." 1
+(/usr/bin/java -jar "${BUGLY_SYMBOL_JAR_PATH}" -i "${DSYM_SRC}" -o "${DSYM_ZIP_FPATH}" ) #|| exitWithMessage "Error: Failed to extract symbols." 1
 echo "--------------------------------"
 
 if [ ! -e "${DSYM_ZIP_FPATH}" ]; then
