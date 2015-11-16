@@ -20,6 +20,7 @@ class AddPlayerTableViewController: UITableViewController {
 
     var delegate: AddPlayerDelegate?
     var sender: UIButton?
+    var type: String = "anji"
 
     let realm = try! Realm()
 
@@ -32,7 +33,7 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        rankings = realm.objects(RmScore).filter("type = 'anji'").map { $0 }
+        rankings = realm.objects(RmScore).filter("type = '\(type)'").map { $0 }
     }
 
     // MARK: - Table view data source
@@ -105,7 +106,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row].name, score: RmScore(), sender: sender)
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row].name, score: rankings[indexPath.row], sender: sender)
             dismissPopupViewController()
         }
     }

@@ -40,9 +40,9 @@ class MatchViewController: UIViewController {
 
     var recordMode = false
 
-    var mapCenter = CLLocationCoordinate2D(latitude: 31.2015978929397, longitude: 121.605284651681)
-    var mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 31.2000404188507, longitude: 121.604965850096), radius: 10)
-    var mapStopCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 31.2000404188507, longitude: 121.604965850096), radius: 10)
+    var mapCenter = CLLocationCoordinate2D(latitude: 30.4600651679568, longitude: 119.599765503284)
+    var mapStartCircles: [MACircle] = [MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4620881289806, longitude: 119.592864948279), radius: 10), MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4612778365043, longitude: 119.593586889931), radius: 10)]
+    var mapStopCircles: [MACircle] = [MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4600850062744, longitude: 119.599697063361), radius: 10), MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4627173581684, longitude: 119.592778590697), radius: 10)]
 
     var raceTrack = RaceTrack(value: ["name": "anji"])
 
@@ -94,7 +94,7 @@ class MatchViewController: UIViewController {
                     if self.stateLabel.text == "正在定位" {
                         self.stateLabel.text = "已定位"
                     }
-                    if MACircleContainsCoordinate(location.coordinate, self.mapStartCircle.coordinate, 10) {
+                    if MACircleContainsCoordinate(location.coordinate, self.mapStartCircles[0].coordinate, 10) {
                         if self.raceTrack.cycle && self.playing && !self.ready {
                             self.stop()
                             self.stateLabel.text = "已结束"
@@ -103,7 +103,7 @@ class MatchViewController: UIViewController {
                         self.ready = true
                         self.stateLabel.text = "已就绪"
                     } else {
-                        if MACircleContainsCoordinate(location.coordinate, self.mapStopCircle.coordinate, 10) {
+                        if MACircleContainsCoordinate(location.coordinate, self.mapStopCircles[0].coordinate, 10) {
                             if !self.raceTrack.cycle && self.playing && !self.ready {
                                 self.stop()
                                 self.stateLabel.text = "已结束"
@@ -251,19 +251,17 @@ class MatchViewController: UIViewController {
 
         if recordMode {
             mapView.userTrackingMode = .Follow
-            mapView.showsUserLocation = true
-        } else {
-            let loc = CLLocationCoordinate2D(latitude: raceTrack.mapCenterLat, longitude: raceTrack.mapCenterLong)
-            mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: raceTrack.startLat, longitude: raceTrack.startLong), radius: 10)
-            mapStopCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: raceTrack.stopLat, longitude: raceTrack.stopLong), radius: 10)
-            mapView.setCenterCoordinate(loc, animated: false)
-            mapView.zoomLevel = raceTrack.mapZoom
+            //mapView.showsUserLocation = true
         }
 
-        mapView.addOverlay(mapStartCircle)
-        if !raceTrack.cycle {
-            mapView.addOverlay(mapStopCircle)
-        }
+        let loc = CLLocationCoordinate2D(latitude: raceTrack.mapCenterLat, longitude: raceTrack.mapCenterLong)
+        //mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: raceTrack.startLat, longitude: raceTrack.startLong), radius: 10)
+        //mapStopCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: raceTrack.stopLat, longitude: raceTrack.stopLong), radius: 10)
+        mapView.zoomLevel = raceTrack.mapZoom
+        mapView.setCenterCoordinate(loc, animated: false)
+
+        mapView.addOverlays(mapStartCircles)
+        mapView.addOverlays(mapStopCircles)
     }
 
     func addMe() {
@@ -305,38 +303,38 @@ class MatchViewController: UIViewController {
     }
 
     @IBAction func didSetStart(sender: UIButton) {
-        mapView.removeOverlay(mapStartCircle)
-        mapStartCircle = MACircle(centerCoordinate: DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero, radius: 10)
-        mapView.addOverlay(mapStartCircle)
-
-        try! realm.write {
-            self.raceTrack.startLat = self.mapStartCircle.coordinate.latitude
-            self.raceTrack.startLong = self.mapStartCircle.coordinate.longitude
-            self.raceTrack.startAlt = DeviceDataService.sharedInstance.rx_location.value?.altitude ?? 0
-            self.raceTrack.cycle = true
-        }
-        self.view.makeToast(message: "已设定起点")
+//        mapView.removeOverlay(mapStartCircle)
+//        mapStartCircle = MACircle(centerCoordinate: DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero, radius: 10)
+//        mapView.addOverlay(mapStartCircle)
+//
+//        try! realm.write {
+//            self.raceTrack.startLat = self.mapStartCircle.coordinate.latitude
+//            self.raceTrack.startLong = self.mapStartCircle.coordinate.longitude
+//            self.raceTrack.startAlt = DeviceDataService.sharedInstance.rx_location.value?.altitude ?? 0
+//            self.raceTrack.cycle = true
+//        }
+//        self.view.makeToast(message: "已设定起点")
     }
 
     @IBAction func didSetStop(sender: UIButton) {
-        if let loc = DeviceDataService.sharedInstance.rx_location.value {
-            let startLoc = CLLocation(latitude: raceTrack.startLat, longitude: raceTrack.startLong)
-            if loc.distanceFromLocation(startLoc) < 100 && abs(loc.altitude - raceTrack.startAlt) < 50 {
-                self.view.makeToast(message: "已设定起点与终点相同")
-                return
-            }
-            mapView.removeOverlay(mapStopCircle)
-            mapStopCircle = MACircle(centerCoordinate: DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero, radius: 10)
-            mapView.addOverlay(mapStopCircle)
-
-            try! realm.write {
-                self.raceTrack.stopLat = self.mapStopCircle.coordinate.latitude
-                self.raceTrack.stopLong = self.mapStopCircle.coordinate.longitude
-                self.raceTrack.stopAlt = DeviceDataService.sharedInstance.rx_location.value?.altitude ?? 0
-                self.raceTrack.cycle = false
-            }
-            self.view.makeToast(message: "已设定终点")
-        }
+//        if let loc = DeviceDataService.sharedInstance.rx_location.value {
+//            let startLoc = CLLocation(latitude: raceTrack.startLat, longitude: raceTrack.startLong)
+//            if loc.distanceFromLocation(startLoc) < 100 && abs(loc.altitude - raceTrack.startAlt) < 50 {
+//                self.view.makeToast(message: "已设定起点与终点相同")
+//                return
+//            }
+//            mapView.removeOverlay(mapStopCircle)
+//            mapStopCircle = MACircle(centerCoordinate: DeviceDataService.sharedInstance.rx_location.value?.coordinate ?? CLLocationCoordinate2D.Zero, radius: 10)
+//            mapView.addOverlay(mapStopCircle)
+//
+//            try! realm.write {
+//                self.raceTrack.stopLat = self.mapStopCircle.coordinate.latitude
+//                self.raceTrack.stopLong = self.mapStopCircle.coordinate.longitude
+//                self.raceTrack.stopAlt = DeviceDataService.sharedInstance.rx_location.value?.altitude ?? 0
+//                self.raceTrack.cycle = false
+//            }
+//            self.view.makeToast(message: "已设定终点")
+//        }
     }
 
     @IBAction func didMarkMap(sender: UIButton) {
@@ -432,7 +430,7 @@ extension MatchViewController: MAMapViewDelegate {
 
             return annotationView
         }
-        return nil;
+        return nil
     }
 
     func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
@@ -440,10 +438,13 @@ extension MatchViewController: MAMapViewDelegate {
             let circleView = MACircleView(overlay: overlay)
             circleView.lineWidth = 1
             circleView.strokeColor = UIColor.blackColor()
-            if overlay as! MACircle == mapStartCircle {
-                circleView.fillColor = UIColor.greenColor()
-            } else {
-                circleView.fillColor = UIColor.redColor()
+            if let circle = overlay as? MACircle {
+                if mapStartCircles.contains(circle) {
+                    circleView.fillColor = UIColor.greenColor()
+                }
+                if mapStopCircles.contains(circle) {
+                    circleView.fillColor = UIColor.redColor()
+                }
             }
             return circleView
         }
