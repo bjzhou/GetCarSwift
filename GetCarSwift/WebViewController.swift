@@ -31,7 +31,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         
         progressView = UIProgressView(progressViewStyle: .Default)
-        progressView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.progressView.frame.size.height)
+        progressView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.progressView.frame.size.height)
         progressView.trackTintColor = UIColor(white: 1, alpha: 0)
         self.view.addSubview(progressView)
         
@@ -43,7 +43,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         
         backBarButton.width = 44
         forwardBarButton.width = 44
-        
+
         updateToolBar()
     }
     

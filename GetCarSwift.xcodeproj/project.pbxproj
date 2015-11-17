@@ -59,7 +59,6 @@
 		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
-		C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
 		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; };
 		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; };
@@ -80,7 +79,6 @@
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
 		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
 		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
-		C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */; };
 		C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */; };
 		C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */; };
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
@@ -180,7 +178,6 @@
 		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHomepaeViewController.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		C8AEC2121B996F41002F39EB /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
@@ -202,7 +199,6 @@
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
 		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
-		C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoCell.swift; sourceTree = "<group>"; };
 		C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
@@ -346,7 +342,6 @@
 			children = (
 				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
 				C8C2C08B1B8B527D006095DC /* MatchViewController.swift */,
-				C8E2B84A1AD95AD6003B07FE /* AccountCell.swift */,
 				C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */,
 				C89884361B0650F5009634E1 /* BgChoiceViewController.swift */,
 				C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */,
@@ -354,7 +349,6 @@
 				C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */,
 				C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */,
 				C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */,
-				C8A4C34C1B04EF0B006D6DBD /* MyHomepaeViewController.swift */,
 				C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */,
 				C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */,
 				C848F1B61B778626008DAC69 /* TrackingViewController.swift */,
@@ -736,7 +730,6 @@
 			files = (
 				C8F2BD7F1BE074CB00424EEA /* ENSideMenu.swift in Sources */,
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
-				C8E2B84B1AD95AD6003B07FE /* AccountCell.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */,
@@ -754,7 +747,6 @@
 				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
 				C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */,
-				C8A4C34D1B04EF0B006D6DBD /* MyHomepaeViewController.swift in Sources */,
 				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
 				C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hiA-6M-Qmf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hiA-6M-Qmf">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -167,14 +167,14 @@
                         <viewControllerLayoutGuide type="bottom" id="tpm-2N-nOb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Eyx-Qg-fpc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aE-0f-vgO">
-                                <rect key="frame" x="0.0" y="378" width="320" height="53"/>
+                                <rect key="frame" x="0.0" y="565" width="375" height="53"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更多产品尽请期待……" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwk-iG-gG8">
-                                        <rect key="frame" x="79" y="16" width="163" height="21"/>
+                                        <rect key="frame" x="107" y="16" width="162.5" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -189,17 +189,12 @@
                                     <constraint firstItem="rwk-iG-gG8" firstAttribute="centerX" secondItem="4aE-0f-vgO" secondAttribute="centerX" id="gMK-yN-8lV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3b-ui-Tb3">
-                                <rect key="frame" x="0.0" y="64" width="320" height="314"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="mod_store_bg" translatesAutoresizingMaskIntoConstraints="NO" id="0js-7C-ZY9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="501"/>
                                 <animations/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="80"/>
-                                <state key="normal" backgroundImage="mod_store_bg"/>
-                                <connections>
-                                    <action selector="onBMW3Action:" destination="S5k-IG-FM9" eventType="touchUpInside" id="UN0-as-lTQ"/>
-                                </connections>
-                            </button>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oof-3q-3hb">
-                                <rect key="frame" x="136" y="314" width="48" height="27"/>
+                                <rect key="frame" x="163" y="501" width="48" height="27"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="进入商城"/>
@@ -211,22 +206,23 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Oof-3q-3hb" firstAttribute="top" secondItem="o3b-ui-Tb3" secondAttribute="bottom" constant="-64" id="89I-TS-t1e"/>
-                            <constraint firstItem="o3b-ui-Tb3" firstAttribute="leading" secondItem="Eyx-Qg-fpc" secondAttribute="leading" id="AQM-6d-H0O"/>
                             <constraint firstAttribute="trailing" secondItem="4aE-0f-vgO" secondAttribute="trailing" id="EON-Dp-XI8"/>
-                            <constraint firstItem="4aE-0f-vgO" firstAttribute="top" secondItem="o3b-ui-Tb3" secondAttribute="bottom" id="JX7-A5-i2r"/>
-                            <constraint firstAttribute="trailing" secondItem="o3b-ui-Tb3" secondAttribute="trailing" id="Zc4-ZR-lTo"/>
+                            <constraint firstItem="Oof-3q-3hb" firstAttribute="top" secondItem="0js-7C-ZY9" secondAttribute="bottom" constant="-64" id="Jry-l8-0c1"/>
+                            <constraint firstAttribute="trailing" secondItem="0js-7C-ZY9" secondAttribute="trailing" id="Te8-Qg-Pme"/>
                             <constraint firstItem="tpm-2N-nOb" firstAttribute="top" secondItem="4aE-0f-vgO" secondAttribute="bottom" id="adu-92-WSh"/>
-                            <constraint firstItem="o3b-ui-Tb3" firstAttribute="top" secondItem="vVw-WZ-SKe" secondAttribute="bottom" id="bAH-fM-QhT"/>
+                            <constraint firstItem="4aE-0f-vgO" firstAttribute="top" secondItem="0js-7C-ZY9" secondAttribute="bottom" id="cOG-rE-PNH"/>
                             <constraint firstItem="Oof-3q-3hb" firstAttribute="centerX" secondItem="Eyx-Qg-fpc" secondAttribute="centerX" id="d2E-Gj-hxp"/>
                             <constraint firstItem="4aE-0f-vgO" firstAttribute="leading" secondItem="Eyx-Qg-fpc" secondAttribute="leading" id="egE-CY-ZwG"/>
+                            <constraint firstItem="0js-7C-ZY9" firstAttribute="leading" secondItem="Eyx-Qg-fpc" secondAttribute="leading" id="g8p-nb-F4T"/>
+                            <constraint firstItem="0js-7C-ZY9" firstAttribute="top" secondItem="vVw-WZ-SKe" secondAttribute="bottom" id="it3-Om-uit"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IxG-yh-mFq"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="storeBg" destination="0js-7C-ZY9" id="dGj-0b-Zwc"/>
                         <outlet property="storeButton" destination="Oof-3q-3hb" id="ela-YL-7br"/>
                     </connections>
                 </viewController>
