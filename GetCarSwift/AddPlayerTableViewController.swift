@@ -33,7 +33,7 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        rankings = realm.objects(RmScore).filter("type = '\(type)'").map { $0 }
+        rankings = realm.objects(RmScore).filter("type = '\(type)'").map { $0 }.sort { $0.0.score < $0.1.score }
     }
 
     // MARK: - Table view data source
@@ -81,7 +81,7 @@ class AddPlayerTableViewController: UITableViewController {
             let rankLabel = cell.viewWithTag(121) as! UILabel
             rankLabel.text = String(indexPath.row+1)
             let nameLabel = cell.viewWithTag(123) as! UILabel
-            nameLabel.text = rankings[indexPath.row].name
+            nameLabel.text = String(format: "%.2f", rankings[indexPath.row].score)
         }
 
         return cell
@@ -106,7 +106,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : rankings[indexPath.row].name, score: rankings[indexPath.row], sender: sender)
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : String(format: "%.2f", rankings[indexPath.row].score), score: rankings[indexPath.row], sender: sender)
             dismissPopupViewController()
         }
     }

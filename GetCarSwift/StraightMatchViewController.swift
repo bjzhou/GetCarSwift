@@ -31,12 +31,17 @@ class StraightMatchViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
 
     @IBOutlet weak var raceBg: UIImageView!
+    @IBOutlet weak var finishLine: UIImageView!
+    @IBOutlet weak var leftAdImg: UIImageView!
+    @IBOutlet weak var rightAdImg: UIImageView!
 
     var score1: RmScore?
     var score2: RmScore?
     var score3: RmScore?
 
     var _timer: Disposable?
+
+    var ads: [UIImage?] = [R.image.ad_KW, R.image.ad_AFE, R.image.ad_CSB, R.image.ad_MRG, R.image.ad_DMEN, R.image.ad_JBOM, R.image.ad_TEIN, R.image.ad_INJEN, R.image.ad_DHLINS, R.image.ad_DIXCEL, R.image.ad_AP_RACING]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +50,9 @@ class StraightMatchViewController: UIViewController {
             button.layer.masksToBounds = true
             button.layer.cornerRadius = 23.5
         }
+
+        leftAdImg.transform = CGAffineTransformMakeRotation(CGFloat(270.0*M_PI/180.0))
+        rightAdImg.transform = CGAffineTransformMakeRotation(CGFloat(90*M_PI/180.0))
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -65,6 +73,8 @@ class StraightMatchViewController: UIViewController {
                 let s = t / 100 % 60
                 let m = t / 100 / 60
                 self.timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
+
+                self.showRandomAd(t)
 
                 if let score = self.score1 {
                     let datas = score.data.filter { $0.t == Double(t)/100 }
@@ -93,11 +103,14 @@ class StraightMatchViewController: UIViewController {
                 if Double(t)/100 >= stopTime {
                     self._timer?.dispose()
                     sender.selected = !sender.selected
+                    self.stopAnim()
                 }
             }
+            raceBg.image = R.image.race_bg_starting
             startAnim(button1, score: score1)
             startAnim(button2, score: score2)
             startAnim(button3, score: score3)
+            startFinishLineAnim()
         }
     }
 
@@ -105,10 +118,9 @@ class StraightMatchViewController: UIViewController {
         if let score = score {
             let anim = CAKeyframeAnimation(keyPath: "position.y")
             anim.duration = score.score
-            anim.keyTimes = score.data.map { $0.t }
+            anim.keyTimes = score.data.map { $0.t / score.score }
             anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
-            anim.calculationMode = kCAAnimationPaced
-            anim.rotationMode = kCAAnimationRotateAuto
+            anim.calculationMode = kCAAnimationLinear
             anim.removedOnCompletion = false
             anim.fillMode = kCAFillModeForwards
             anim.additive = true
@@ -118,10 +130,62 @@ class StraightMatchViewController: UIViewController {
         }
     }
 
+    func startFinishLineAnim() {
+        var bestScore = RmScore()
+        bestScore.score = 99999
+        for score in [score1, score2, score3] {
+            if let score = score where score.score < bestScore.score {
+                bestScore = score
+            }
+        }
+        let anim = CAKeyframeAnimation(keyPath: "position.y")
+        anim.duration = bestScore.score
+        anim.keyTimes = bestScore.data.map { $0.t / bestScore.score }
+        anim.values = bestScore.data.map { $0.s }
+        anim.calculationMode = kCAAnimationLinear
+        anim.removedOnCompletion = false
+        anim.fillMode = kCAFillModeForwards
+        anim.additive = true
+        anim.delegate = self
+
+        finishLine.layer.addAnimation(anim, forKey: "finishLine")
+    }
+
+    func showRandomAd(t: Int64) {
+        let rdm = random() % 1000
+        if rdm < 5 {
+            startAdAnim(leftAdImg)
+        } else if rdm < 10 {
+            startAdAnim(rightAdImg)
+        }
+    }
+
+    func startAdAnim(ad: UIImageView) {
+        if let _ = ad.layer.animationForKey("ad") {
+            return
+        }
+        let img = ads[random() % 11]
+        ad.image = img
+        let anim = CABasicAnimation(keyPath: "position.y")
+        anim.duration = 2
+        anim.fromValue = 0
+        anim.toValue = raceBg.frame.height + ad.frame.height + 1
+        anim.removedOnCompletion = true
+        ad.layer.addAnimation(anim, forKey: "ad")
+    }
+
     func stopAnim() {
         button1.superview?.layer.removeAllAnimations()
         button2.superview?.layer.removeAllAnimations()
         button3.superview?.layer.removeAllAnimations()
+        finishLine.layer.removeAllAnimations()
+        raceBg.image = R.image.race_bg
+    }
+
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        if anim == finishLine.layer.animationForKey("finishLine") {
+            raceBg.image = R.image.race_bg
+        }
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {

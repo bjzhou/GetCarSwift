@@ -275,7 +275,7 @@
             </objects>
             <point key="canvasLocation" x="-1354.5" y="-912.5"/>
         </scene>
-        <!--Tracking View Controller-->
+        <!--改装跟踪-->
         <scene sceneID="Gdo-uM-HjA">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="X94-7F-Vby" customClass="TrackingViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -288,167 +288,167 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fL9-hg-a0X">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="tracking_flow" translatesAutoresizingMaskIntoConstraints="NO" id="CM8-Cj-k6B">
-                                        <rect key="frame" x="8" y="80" width="22" height="549"/>
+                                        <rect key="frame" x="8" y="16" width="22" height="549"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="C6o-Ia-5Hv"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zq9-d6-iX7">
-                                        <rect key="frame" x="13" y="85" width="13" height="13"/>
+                                        <rect key="frame" x="13" y="21" width="13" height="13"/>
                                         <animations/>
                                         <state key="normal" backgroundImage="tracking_flow_nor"/>
                                         <state key="selected" backgroundImage="tracking_flow_completed"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbD-qs-Fcm">
-                                        <rect key="frame" x="13" y="190" width="13" height="13"/>
+                                        <rect key="frame" x="13" y="126" width="13" height="13"/>
                                         <animations/>
                                         <state key="normal" backgroundImage="tracking_flow_nor"/>
                                         <state key="selected" backgroundImage="tracking_flow_completed"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J02-eH-vm3">
-                                        <rect key="frame" x="13" y="297" width="13" height="13"/>
+                                        <rect key="frame" x="13" y="233" width="13" height="13"/>
                                         <animations/>
                                         <state key="normal" backgroundImage="tracking_flow_nor"/>
                                         <state key="selected" backgroundImage="tracking_flow_completed"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0Z-f0-xe2">
-                                        <rect key="frame" x="13" y="404" width="13" height="13"/>
+                                        <rect key="frame" x="13" y="340" width="13" height="13"/>
                                         <animations/>
                                         <state key="normal" backgroundImage="tracking_flow_nor"/>
                                         <state key="selected" backgroundImage="tracking_flow_completed"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvR-8a-cYp">
-                                        <rect key="frame" x="13" y="509" width="13" height="13"/>
+                                        <rect key="frame" x="13" y="445" width="13" height="13"/>
                                         <animations/>
                                         <state key="normal" backgroundImage="tracking_flow_nor"/>
                                         <state key="selected" backgroundImage="tracking_flow_completed"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提车现场" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANX-1a-97b">
-                                        <rect key="frame" x="38" y="81" width="68" height="20.5"/>
+                                        <rect key="frame" x="38" y="17" width="68" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="包围换装" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGI-da-7D5">
-                                        <rect key="frame" x="38" y="186" width="68" height="20.5"/>
+                                        <rect key="frame" x="38" y="122" width="68" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="底盘加固" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abc-zJ-LBR">
-                                        <rect key="frame" x="38" y="293" width="68" height="20.5"/>
+                                        <rect key="frame" x="38" y="229" width="68" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="整车整合" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHT-hm-bek">
-                                        <rect key="frame" x="38" y="400" width="68" height="20.5"/>
+                                        <rect key="frame" x="38" y="336" width="68" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="整车交付" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHL-mD-UkV">
-                                        <rect key="frame" x="38" y="505" width="68" height="20.5"/>
+                                        <rect key="frame" x="38" y="441" width="68" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1v-Jp-ThF">
-                                        <rect key="frame" x="38" y="110" width="109" height="76"/>
+                                        <rect key="frame" x="38" y="46" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
                                         <state key="normal" image="tracking_camera" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ih0-Bo-N92">
-                                        <rect key="frame" x="256" y="110" width="109" height="76"/>
+                                        <rect key="frame" x="256" y="46" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2do-Ns-qqd">
-                                        <rect key="frame" x="147" y="110" width="109" height="76"/>
+                                        <rect key="frame" x="147" y="46" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbr-kT-o99">
-                                        <rect key="frame" x="38" y="215" width="109" height="76"/>
+                                        <rect key="frame" x="38" y="151" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_camera" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LJ-I5-bHT">
-                                        <rect key="frame" x="256" y="215" width="109" height="76"/>
+                                        <rect key="frame" x="256" y="151" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2p-OM-Gn1">
-                                        <rect key="frame" x="147" y="215" width="109" height="76"/>
+                                        <rect key="frame" x="147" y="151" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gQ-Lp-6Po">
-                                        <rect key="frame" x="38" y="322" width="109" height="76"/>
+                                        <rect key="frame" x="38" y="258" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_camera" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuA-XU-cRj">
-                                        <rect key="frame" x="256" y="322" width="109" height="76"/>
+                                        <rect key="frame" x="256" y="258" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prk-f4-HiA">
-                                        <rect key="frame" x="147" y="322" width="109" height="76"/>
+                                        <rect key="frame" x="147" y="258" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8I5-2q-m5W">
-                                        <rect key="frame" x="38" y="429" width="109" height="76"/>
+                                        <rect key="frame" x="38" y="365" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_camera" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4va-4s-38Q">
-                                        <rect key="frame" x="256" y="429" width="109" height="76"/>
+                                        <rect key="frame" x="256" y="365" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmS-ve-evW">
-                                        <rect key="frame" x="147" y="429" width="109" height="76"/>
+                                        <rect key="frame" x="147" y="365" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPy-LT-kBH">
-                                        <rect key="frame" x="38" y="534" width="109" height="76"/>
+                                        <rect key="frame" x="38" y="470" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_camera" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8V7-Pt-BGS">
-                                        <rect key="frame" x="256" y="534" width="109" height="76"/>
+                                        <rect key="frame" x="256" y="470" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3W9-lH-i8f">
-                                        <rect key="frame" x="147" y="534" width="109" height="76"/>
+                                        <rect key="frame" x="147" y="470" width="109" height="76"/>
                                         <animations/>
                                         <inset key="contentEdgeInsets" minX="-4" minY="-4" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="tracking_plus" backgroundImage="tracking_pic_area"/>
@@ -493,7 +493,7 @@
                                     <constraint firstItem="8I5-2q-m5W" firstAttribute="top" secondItem="vHT-hm-bek" secondAttribute="bottom" constant="8" id="TQI-u0-twq"/>
                                     <constraint firstAttribute="trailing" secondItem="ih0-Bo-N92" secondAttribute="trailing" constant="10" id="Vl0-8q-qje"/>
                                     <constraint firstItem="J02-eH-vm3" firstAttribute="top" secondItem="VbD-qs-Fcm" secondAttribute="bottom" constant="94" id="Vum-Gi-bAE"/>
-                                    <constraint firstItem="CM8-Cj-k6B" firstAttribute="top" secondItem="fL9-hg-a0X" secondAttribute="top" constant="80" id="XWz-3b-rZ4"/>
+                                    <constraint firstItem="CM8-Cj-k6B" firstAttribute="top" secondItem="fL9-hg-a0X" secondAttribute="top" constant="16" id="XWz-3b-rZ4"/>
                                     <constraint firstItem="E2p-OM-Gn1" firstAttribute="width" secondItem="zbr-kT-o99" secondAttribute="width" id="XbY-i0-C6a"/>
                                     <constraint firstItem="ih0-Bo-N92" firstAttribute="leading" secondItem="2do-Ns-qqd" secondAttribute="trailing" id="Ybn-5M-Wgs"/>
                                     <constraint firstItem="CM8-Cj-k6B" firstAttribute="leading" secondItem="fL9-hg-a0X" secondAttribute="leading" constant="8" id="bP8-Rl-A48"/>
@@ -541,14 +541,15 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="fL9-hg-a0X" firstAttribute="top" secondItem="ush-ea-jSq" secondAttribute="top" id="3aW-bR-wrh"/>
                             <constraint firstAttribute="trailing" secondItem="fL9-hg-a0X" secondAttribute="trailing" id="9Sr-6w-uW6"/>
+                            <constraint firstItem="fL9-hg-a0X" firstAttribute="top" secondItem="Mc0-PM-LBM" secondAttribute="bottom" id="Y2C-er-rwn"/>
                             <constraint firstItem="ih0-Bo-N92" firstAttribute="trailing" secondItem="ush-ea-jSq" secondAttribute="trailing" constant="-10" id="dnK-VT-J0h"/>
                             <constraint firstItem="CM8-Cj-k6B" firstAttribute="leading" secondItem="ush-ea-jSq" secondAttribute="leading" constant="8" id="pog-4V-6ko"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fL9-hg-a0X" secondAttribute="bottom" id="qnz-a0-G5P"/>
                             <constraint firstItem="fL9-hg-a0X" firstAttribute="leading" secondItem="ush-ea-jSq" secondAttribute="leading" id="qoa-o4-3pX"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="改装跟踪" id="htE-aZ-xVG"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scrollView" destination="fL9-hg-a0X" id="JT3-w7-Yjr"/>
@@ -556,7 +557,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Osl-eL-Zjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="415" y="200"/>
+            <point key="canvasLocation" x="414.5" y="199.5"/>
         </scene>
         <!--车形象-->
         <scene sceneID="FMh-Bt-qJw">
