@@ -34,9 +34,9 @@ class TrackViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
-            showViewController(R.storyboard.carBar.straightMatch!)
+            showViewController(R.storyboard.track.straightMatch!)
         } else {
-            let vc = R.storyboard.carBar.track_detail!
+            let vc = R.storyboard.track.track_detail!
             var trackDetailViewModel = TrackDetailViewModel()
             switch indexPath.row {
             case 1:
@@ -62,7 +62,7 @@ class TrackViewController: UITableViewController {
                 //destController.trackMap = "sanjiacun_map"
             case 4:
                 trackDetailViewModel.sid = 4
-                trackDetailViewModel.images = ["tianmenshan_view1", "tianmenshan_view2", "tianmenshan_view2"]
+                trackDetailViewModel.images = ["tianmenshan_view1", "tianmenshan_view2", "tianmenshan_view3"]
                 trackDetailViewModel.trackTitle = "天门山通天大道"
                 trackDetailViewModel.trackDetail = "天门山位于湖南省张家界市永定区，被称为通天大道的盘山公路共计99弯，暗合了“天有九重，云有九霄”之意。"
                 trackDetailViewModel.trackStarString = "star5"

@@ -59,6 +59,7 @@ class GaikeService {
     }
 
     func api<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
             let request = apiManager.request(self.generateURLRequest(urlString, body: body)).responseData { res in
                 if let err = res.result.error {
@@ -80,13 +81,15 @@ class GaikeService {
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance)
+            }.observeOn(MainScheduler.sharedInstance).doOn {
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }
     }
 
     func upload<T>(urlString: String, datas: [String:NSData]) -> Observable<GKResult<T>> {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
             let urlRequest = self.urlRequestWithComponents(GaikeService.domain + urlString, headers: self.getHeader(), imageData: datas)
-
             let upload = Alamofire.upload(urlRequest.0, data: urlRequest.1).responseData { res in
                 if let err = res.result.error {
                     observer.on(.Error(err))
@@ -102,7 +105,9 @@ class GaikeService {
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance)
+            }.observeOn(MainScheduler.sharedInstance).doOn {
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }
     }
 
 //    func cache<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {

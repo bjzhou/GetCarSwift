@@ -19,27 +19,16 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var loveButton: UIButton!
     @IBOutlet weak var loveLabel: UILabel!
     //@IBOutlet weak var mapImageView: UIImageView!
-    @IBOutlet weak var commentTableView: UITableView!
-    @IBOutlet weak var commentTextField: UITextField!
+
     @IBOutlet weak var trackDetailLabel: UILabel!
     @IBOutlet weak var index1Button: UIButton!
     @IBOutlet weak var index2Button: UIButton!
     @IBOutlet weak var index3Button: UIButton!
-    @IBOutlet weak var emptyView: UIView!
 
     var trackDetailViewModel: TrackDetailViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
-        tapRecognizer.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapRecognizer)
-
-        commentTableView.delegate = self
-        commentTableView.dataSource = self
-        commentTableView.rowHeight = UITableViewAutomaticDimension
-        commentTableView.estimatedRowHeight = 60
 
         trackDetailViewModel.viewProxy = self
         initTrackData()
@@ -62,24 +51,13 @@ class TrackDetailViewController: UIViewController {
                 if lovedCount <= 0 {
                     self.loveLabel.text = "想去"
                 } else if lovedCount >= 1000 {
-                    self.loveLabel.text = "想去(999+)"
+                    self.loveLabel.text = "想去\n(999+)"
                 } else {
-                    self.loveLabel.text = "想去(\(lovedCount))"
+                    self.loveLabel.text = "想去\n(\(lovedCount))"
                 }
         }.addDisposableTo(disposeBag)
 
         trackDetailViewModel.rx_loveButtonSelected.bindTo(loveButton.rx_selected).addDisposableTo(disposeBag)
-
-        trackDetailViewModel.rx_comments.subscribeNext { comments in
-            self.commentTableView.reloadData()
-            if comments.count == 0 {
-                self.commentTableView.hidden = true
-                self.emptyView.hidden = false
-            } else if self.commentTableView.hidden {
-                self.commentTableView.hidden = false
-                self.emptyView.hidden = true
-            }
-        }.addDisposableTo(disposeBag)
     }
 
     override func viewDidLayoutSubviews() {
@@ -94,43 +72,6 @@ class TrackDetailViewController: UIViewController {
             imageView.frame = CGRect(x: imageScrollView.frame.width*CGFloat(i), y: 0, width: self.view.frame.width, height: imageScrollView.frame.height)
             imageScrollView.addSubview(imageView)
         }
-    }
-
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-    }
-
-    func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize =  (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
-                UIView.animateWithDuration(0.3, animations: {
-                    self.view.frame.origin = CGPoint(x: 0, y: -keyboardSize.height)
-                })
-            }
-        }
-    }
-
-    func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.3, animations: {
-            self.view.frame.origin = CGPoint(x: 0, y: 0)
-        })
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
-    @IBAction func didPostComment(sender: UIButton) {
-        trackDetailViewModel.postComment(commentTextField.text ?? "").subscribeNext {
-            self.commentTextField.text = ""
-            self.commentTableView.scrollToBottom(true)
-        }.addDisposableTo(disposeBag)
-        self.view.endEditing(true)
     }
 
     @IBAction func didIndexChanged(sender: UIButton) {
@@ -161,43 +102,18 @@ class TrackDetailViewController: UIViewController {
         }
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == R.segue.track_comment {
+            if let destVc = segue.destinationViewController as? CommentsViewController {
+                destVc.trackDetailViewModel = trackDetailViewModel
+            }
+        }
+    }
+
 }
 
 extension TrackDetailViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         updateIndexButton()
-    }
-}
-
-extension TrackDetailViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trackDetailViewModel.rx_comments.value.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) 
-        let avatarView = cell.viewWithTag(310) as! UIImageView
-        let nickname = cell.viewWithTag(311) as! UILabel
-        let time = cell.viewWithTag(312) as! UILabel
-        let content = cell.viewWithTag(313) as! UILabel
-
-        if let url = NSURL(string: trackDetailViewModel.rx_comments.value[indexPath.row].head) {
-            avatarView.hnk_setImageFromURL(url, placeholder: R.image.avatar)
-        } else {
-            avatarView.image = R.image.avatar
-        }
-
-        nickname.text = trackDetailViewModel.rx_comments.value[indexPath.row].nickname
-        time.text = trackDetailViewModel.rx_comments.value[indexPath.row].create_time
-        content.text = trackDetailViewModel.rx_comments.value[indexPath.row].content
-        return cell
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }

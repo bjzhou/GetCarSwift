@@ -24,7 +24,7 @@ class TestViewController: UIViewController {
     }
 
     @IBAction func didClick(sender: UIButton) {
-        showViewController(R.storyboard.carBar.straightMatch!)
+        
     }
 
 }

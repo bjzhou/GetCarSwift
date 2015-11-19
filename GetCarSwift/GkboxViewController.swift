@@ -1,5 +1,5 @@
 //
-//  TraceViewController.swift
+//  GkboxViewController.swift
 //  GetCarSwift
 //
 //  Created by 周斌佳 on 15/8/2.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TraceViewController: UIViewController {
+class GkboxViewController: UIViewController {
     @IBOutlet weak var swiftPagesView: SwiftPages!
 
     let VCIDs = ["data", "map"];

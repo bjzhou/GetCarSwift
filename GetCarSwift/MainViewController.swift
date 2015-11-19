@@ -15,7 +15,7 @@ class MainViewController: UITabBarController {
 
         self.addChildViewController(R.storyboard.gkbox.initialViewController!)
         self.addChildViewController(R.storyboard.mod.initialViewController!)
-        self.addChildViewController(R.storyboard.carBar.initialViewController!)
+        self.addChildViewController(R.storyboard.track.initialViewController!)
         self.addChildViewController(R.storyboard.mine.initialViewController!)
 
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)

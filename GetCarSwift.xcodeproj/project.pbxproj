@@ -19,12 +19,13 @@
 		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
 		C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B361BB672780017D7E3 /* gkbox.storyboard */; };
 		C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */; };
-		C80B6B401BB6790A0017D7E3 /* CarBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */; };
+		C80B6B401BB6790A0017D7E3 /* Track.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B3F1BB6790A0017D7E3 /* Track.storyboard */; };
 		C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B411BB679150017D7E3 /* Mine.storyboard */; };
 		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
 		C81655841BF05CCF004E17AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81655831BF05CCF004E17AE /* Images.xcassets */; };
 		C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */; };
 		C81655881BF32D9D004E17AE /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655871BF32D9D004E17AE /* RmScore.swift */; };
+		C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */; };
 		C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */; };
 		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
@@ -56,7 +57,7 @@
 		C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* Comment.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* GaikeService.swift */; };
-		C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* TraceViewController.swift */; };
+		C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* GkboxViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
@@ -133,12 +134,13 @@
 		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
 		C80B6B361BB672780017D7E3 /* gkbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = gkbox.storyboard; sourceTree = "<group>"; };
 		C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CarBar.storyboard; sourceTree = "<group>"; };
+		C80B6B3F1BB6790A0017D7E3 /* Track.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Track.storyboard; sourceTree = "<group>"; };
 		C80B6B411BB679150017D7E3 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C81655831BF05CCF004E17AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StraightMatchViewController.swift; sourceTree = "<group>"; };
 		C81655871BF32D9D004E17AE /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
+		C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LetsgoDigital-Regular.ttf"; sourceTree = "<group>"; };
 		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -175,7 +177,7 @@
 		C89791DC1B9F04280027D6A5 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
 		C89A05C21B6E058C00620C85 /* GaikeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaikeService.swift; sourceTree = "<group>"; };
-		C89A05C61B6E125400620C85 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
+		C89A05C61B6E125400620C85 /* GkboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GkboxViewController.swift; sourceTree = "<group>"; };
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +246,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8BDEB006326E9E3DED7B8762 /* carbar */ = {
+		8BDEB006326E9E3DED7B8762 /* track */ = {
 			isa = PBXGroup;
 			children = (
 				C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */,
@@ -253,8 +255,9 @@
 				C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */,
 				8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */,
 				C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */,
+				C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */,
 			);
-			name = carbar;
+			name = track;
 			sourceTree = "<group>";
 		};
 		8BDEBA9465805C8CC88C3130 /* mod */ = {
@@ -268,12 +271,12 @@
 			name = mod;
 			sourceTree = "<group>";
 		};
-		8BDEBDF395FABF0B9500EB3E /* carbar */ = {
+		8BDEBDF395FABF0B9500EB3E /* track */ = {
 			isa = PBXGroup;
 			children = (
 				8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */,
 			);
-			name = carbar;
+			name = track;
 			sourceTree = "<group>";
 		};
 		C80881E01B6D2171002A1CE9 /* servicce */ = {
@@ -285,14 +288,14 @@
 			name = servicce;
 			sourceTree = "<group>";
 		};
-		C80B6B281BB672560017D7E3 /* gk-box */ = {
+		C80B6B281BB672560017D7E3 /* gkbox */ = {
 			isa = PBXGroup;
 			children = (
 				C89A05CB1B6E195600620C85 /* DataViewController.swift */,
 				C8E2B8551AD96F31003B07FE /* MapViewController.swift */,
-				C89A05C61B6E125400620C85 /* TraceViewController.swift */,
+				C89A05C61B6E125400620C85 /* GkboxViewController.swift */,
 			);
-			name = "gk-box";
+			name = gkbox;
 			sourceTree = "<group>";
 		};
 		C842765F1BB188D60041C3F9 /* Model */ = {
@@ -314,9 +317,9 @@
 		C84408E91BB43C590088D046 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8BDEBDF395FABF0B9500EB3E /* carbar */,
+				8BDEBDF395FABF0B9500EB3E /* track */,
 				C8D1C5021BB64F5D00F131BC /* login */,
-				C8F333691BB6DDB900F4EFB2 /* trace */,
+				C8F333691BB6DDB900F4EFB2 /* gkbox */,
 				C8E335521BB44910005449B2 /* ViewProxy.swift */,
 			);
 			name = ViewModel;
@@ -326,11 +329,11 @@
 			isa = PBXGroup;
 			children = (
 				C860F3FE1BE882FF00B17004 /* storyboard */,
-				8BDEB006326E9E3DED7B8762 /* carbar */,
+				8BDEB006326E9E3DED7B8762 /* track */,
 				C8D1C5011BB64F4100F131BC /* login */,
 				C85B34AC1BB7DAA400435320 /* mine */,
 				8BDEBA9465805C8CC88C3130 /* mod */,
-				C80B6B281BB672560017D7E3 /* gk-box */,
+				C80B6B281BB672560017D7E3 /* gkbox */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */,
 			);
@@ -361,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				C867FC711AD8FCAF00F99592 /* Main.storyboard */,
-				C80B6B3F1BB6790A0017D7E3 /* CarBar.storyboard */,
+				C80B6B3F1BB6790A0017D7E3 /* Track.storyboard */,
 				C84408FA1BB43D410088D046 /* Login.storyboard */,
 				C80B6B411BB679150017D7E3 /* Mine.storyboard */,
 				8BDEB3E592343A2B219B8F2F /* Mod.storyboard */,
@@ -519,12 +522,12 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		C8F333691BB6DDB900F4EFB2 /* trace */ = {
+		C8F333691BB6DDB900F4EFB2 /* gkbox */ = {
 			isa = PBXGroup;
 			children = (
 				C8F3336A1BB6DE7F00F4EFB2 /* MapViewModel.swift */,
 			);
-			name = trace;
+			name = gkbox;
 			sourceTree = "<group>";
 		};
 		D726EAD8677BF61B80C23841 /* Pods */ = {
@@ -631,7 +634,7 @@
 				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
 				C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */,
 				C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */,
-				C80B6B401BB6790A0017D7E3 /* CarBar.storyboard in Resources */,
+				C80B6B401BB6790A0017D7E3 /* Track.storyboard in Resources */,
 				C84408FB1BB43D410088D046 /* Login.storyboard in Resources */,
 				8BDEBA96983C7719658CADA4 /* Mod.storyboard in Resources */,
 			);
@@ -745,7 +748,7 @@
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
 				C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */,
 				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
-				C89A05C71B6E125400620C85 /* TraceViewController.swift in Sources */,
+				C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */,
 				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
 				C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */,
@@ -792,6 +795,7 @@
 				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
 				C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */,
 				C8E335531BB44910005449B2 /* ViewProxy.swift in Sources */,
+				C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */,
 				C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */,
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C828823C1B9219620091F624 /* UIImageView.swift in Sources */,
