@@ -1,0 +1,63 @@
+//
+//  TrackTableViewCell.swift
+//  GetCarSwift
+//
+//  Created by 周斌佳 on 15/11/20.
+//  Copyright © 2015年 周斌佳. All rights reserved.
+//
+
+import UIKit
+
+class TrackTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var trackLabel: UILabel!
+    @IBOutlet weak var trackBg: UIImageView!
+    @IBOutlet weak var trackStar: UIImageView!
+    @IBOutlet weak var loveButton: UIButton!
+    @IBOutlet weak var loveLabel: UILabel!
+    @IBOutlet weak var trackStarLabel: UILabel!
+    @IBOutlet weak var loveView: UIView!
+
+    var lovedCount = 1000 {
+        didSet {
+            updateLoveLabel()
+        }
+    }
+
+    var hideStar = false {
+        didSet {
+            trackStar.hidden = hideStar
+            trackStarLabel.hidden = hideStar
+            loveView.hidden = hideStar
+        }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+
+    @IBAction func didTapLove(sender: UIButton) {
+        sender.selected = !sender.selected
+        updateLoveLabel()
+    }
+
+    func updateLoveLabel() {
+        if loveButton.selected {
+            loveLabel.text = "已想去"
+            return
+        }
+        if lovedCount <= 0 {
+            loveLabel.text = "想去"
+        } else if lovedCount >= 1000 {
+            loveLabel.text = "想去(999+)"
+        } else {
+            loveLabel.text = "想去(\(lovedCount))"
+        }
+    }
+
+}
