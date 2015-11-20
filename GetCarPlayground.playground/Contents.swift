@@ -34,3 +34,12 @@ var array = [0, 1, 2, 3] {
 
 array[0] = 1
 array.append(4)
+
+var lazy: Int {
+    let r = 1
+    print(r+1)
+    return r+1
+}
+
+print(lazy)
+print(lazy+1)

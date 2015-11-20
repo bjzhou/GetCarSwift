@@ -24,6 +24,8 @@ class MapViewController: UIViewController {
 
     var annotations: [CustomMAPointAnnotation] = []
 
+    var trackPoints: [CLLocationCoordinate2D] = []
+
     var timer: Disposable?
     var mapViewModel: MapViewModel!
 
@@ -41,6 +43,7 @@ class MapViewController: UIViewController {
         }.addDisposableTo(disposeBag)
 
         setLocationImage()
+        loadTrackPoints()
     }
 
     func setLocationImage() {
@@ -49,6 +52,18 @@ class MapViewController: UIViewController {
         locationImage = UIImage(named: getCarIconName(Me.sharedInstance.sex, color: color, icon: icon))?.scaleImage(scale: 0.5)
         mapView.showsUserLocation = false
         mapView.showsUserLocation = true
+    }
+
+    func loadTrackPoints() {
+        let start = CLLocationCoordinate2D(latitude: 31.0767290992663, longitude: 121.118461205797)
+        let passes = [CLLocationCoordinate2D(latitude: 31.074202813552, longitude: 121.122138209538),
+                CLLocationCoordinate2D(latitude: 31.0765154547976, longitude: 121.119096889323),
+                CLLocationCoordinate2D(latitude: 31.0752325428113, longitude: 121.121573354806),
+                CLLocationCoordinate2D(latitude: 31.0773631380887, longitude: 121.117991819228)]
+        mapView.addOverlay(MACircle(centerCoordinate: start, radius: 15))
+        for pass in passes {
+            mapView.addOverlay(MACircle(centerCoordinate: pass, radius: 15))
+        }
     }
 
     func initMapView() {
@@ -66,10 +81,10 @@ class MapViewController: UIViewController {
             return
         }
         timer?.dispose()
-        timer = mapViewModel.updateNearby().subscribeNext { (old, new) in
-            self.mapView.removeAnnotations(old)
-            self.mapView.addAnnotations(new)
-        }
+//        timer = mapViewModel.updateNearby().subscribeNext { (old, new) in
+//            self.mapView.removeAnnotations(old)
+//            self.mapView.addAnnotations(new)
+//        }
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -143,9 +158,21 @@ extension MapViewController: MAMapViewDelegate {
 
             annotationView!.image = annotation.image
 
-            return annotationView;
+            return annotationView
         }
-        return nil;
+        return nil
+    }
+
+    func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
+        if let circle = overlay as? MACircle {
+            let circleView = MACircleView(circle: circle)
+            return circleView
+        }
+        return nil
+    }
+
+    func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
+        print(coordinate)
     }
 }
 

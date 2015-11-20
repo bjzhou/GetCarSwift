@@ -44,7 +44,7 @@ class MatchViewController: UIViewController {
     var mapStartCircles: [MACircle] = [MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4620881289806, longitude: 119.592864948279), radius: 10), MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4612778365043, longitude: 119.593586889931), radius: 10)]
     var mapStopCircles: [MACircle] = [MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4600850062744, longitude: 119.599697063361), radius: 10), MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: 30.4627173581684, longitude: 119.592778590697), radius: 10)]
 
-    var raceTrack = RaceTrack(value: ["name": "anji"])
+    var raceTrack = RmRaceTrack(value: ["name": "anji"])
 
     var purpleAnnotation: MAPointAnnotation?
     var yellowAnnotation: MAPointAnnotation?
@@ -61,13 +61,13 @@ class MatchViewController: UIViewController {
 
     override func viewDidLoad() {
 
-        if let raceTrack = realm.objects(RaceTrack).filter("name = 'anji'").first {
+        if let raceTrack = realm.objects(RmRaceTrack).filter("name = 'anji'").first {
             self.raceTrack = raceTrack
         } else {
-            let raceTrack = RaceTrack()
+            let raceTrack = RmRaceTrack()
             raceTrack.name = "anji"
-            raceTrack.mapCenterLat = mapCenter.latitude
-            raceTrack.mapCenterLong = mapCenter.longitude
+            raceTrack.mapCenter?.latitude = mapCenter.latitude
+            raceTrack.mapCenter?.longitude = mapCenter.longitude
             raceTrack.mapZoom = 16.5
             try! realm.write {
                 self.realm.add(raceTrack)
@@ -254,7 +254,7 @@ class MatchViewController: UIViewController {
             //mapView.showsUserLocation = true
         }
 
-        let loc = CLLocationCoordinate2D(latitude: raceTrack.mapCenterLat, longitude: raceTrack.mapCenterLong)
+        let loc = CLLocationCoordinate2D(latitude: raceTrack.mapCenter?.latitude ?? 0, longitude: raceTrack.mapCenter?.longitude ?? 0)
         //mapStartCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: raceTrack.startLat, longitude: raceTrack.startLong), radius: 10)
         //mapStopCircle = MACircle(centerCoordinate: CLLocationCoordinate2D(latitude: raceTrack.stopLat, longitude: raceTrack.stopLong), radius: 10)
         mapView.zoomLevel = raceTrack.mapZoom
@@ -339,8 +339,8 @@ class MatchViewController: UIViewController {
 
     @IBAction func didMarkMap(sender: UIButton) {
         try! realm.write {
-            self.raceTrack.mapCenterLat = self.mapView.centerCoordinate.latitude
-            self.raceTrack.mapCenterLong = self.mapView.centerCoordinate.longitude
+            self.raceTrack.mapCenter?.latitude = self.mapView.centerCoordinate.latitude
+            self.raceTrack.mapCenter?.longitude = self.mapView.centerCoordinate.longitude
             self.raceTrack.mapZoom = self.mapView.zoomLevel
         }
     }

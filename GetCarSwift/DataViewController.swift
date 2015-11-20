@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreMotion
 import RxSwift
 import RealmSwift
 
@@ -39,6 +38,8 @@ class DataViewController: UIViewController {
     var _msTimer: Disposable?
 
     var ready = true
+    var trackReady = false
+    var passFlag = 0
     var startLoc: CLLocation?
 
     var data = List<RmScoreData>()
@@ -53,8 +54,19 @@ class DataViewController: UIViewController {
     var latestScores = [-1.0, -1.0, -1.0, -1.0]
     var bestScores = [-1.0, -1.0, -1.0, -1.0]
 
+    var tianma: RmRaceTrack = RmRaceTrack()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let _tianma = realm.objects(RmRaceTrack).filter("name = 'tianma'").last {
+            tianma = _tianma
+        } else {
+            tianma = RmRaceTrack(value: ["name": "tianma", "startLoc": ["latitude": 31.0767290992663, "longitude": 121.118461205797], "passLocs": [["latitude": 31.074202813552, "longitude": 121.122138209538], ["latitude": 31.0765154547976, "longitude": 121.119096889323], ["latitude": 31.0752325428113, "longitude": 121.121573354806], ["latitude": 31.0773631380887, "longitude": 121.117991819228]], "cycle": true])
+            try! realm.write {
+                self.realm.add(self.tianma)
+            }
+        }
 
         initPages()
 
@@ -92,6 +104,33 @@ class DataViewController: UIViewController {
                 if self.ready && (loc.speed > 0 || a >= 0.5) {
                     self.startLoc = loc
                     self.startTimer()
+                }
+                if let tianmaStart = self.tianma.startLoc {
+                    if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(tianmaStart.latitude, tianmaStart.longitude), 15) {
+                        if !self.trackReady {
+                            if self.passFlag == self.tianma.passLocs.count {
+                                let data = List<RmScoreData>()
+                                data.appendContentsOf(self.data)
+                                let score = RmScore()
+                                score.type = "tianma"
+                                score.score = data.last?.t ?? 0
+                                score.data = data
+                                try! self.realm.write {
+                                    self.realm.add(score)
+                                }
+                            }
+                            self.trackReady = true
+                            self.startLoc = loc
+                            self.startTimer()
+                        }
+                    } else {
+                        self.trackReady = false
+                    }
+                    for rmLoc in self.tianma.passLocs {
+                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 15) {
+                            self.passFlag++
+                        }
+                    }
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -183,15 +222,22 @@ class DataViewController: UIViewController {
     }
 
     func fixStart(dataList: List<RmScoreData>) -> Double {
-        var expectDt = 0.0
-        let dtStart = dataList[1].t - dataList[0].t
-        if dtStart != 0 {
-            let a = abs(dataList[1].v - dataList[0].v) / dtStart
-            if a != 0 {
-                expectDt = dataList[0].v / a
+        var i = 0
+        for j in 0..<dataList.count {
+            if dataList[j].v != 0 {
+                i = j
+                break
             }
         }
-        return expectDt
+        var expectDt = 0.0
+        let dtStart = dataList[i+1].t - dataList[i].t
+        if dtStart != 0 {
+            let a = abs(dataList[i+1].v - dataList[i].v) / dtStart
+            if a != 0 {
+                expectDt = dataList[i].v / a
+            }
+        }
+        return expectDt - dataList[i].t
     }
 
     func updateScore() {
@@ -220,6 +266,8 @@ class DataViewController: UIViewController {
         self.keyTime.removeAll()
         self.ready = false
         self.latestScores = [-1.0, -1.0, -1.0, -1.0]
+        self.passFlag = 0
+        _msTimer?.dispose()
         _msTimer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
@@ -291,7 +339,7 @@ class DataViewController: UIViewController {
                             }
                         }
 
-                        if v <= 0.1 && a < 0.5 {
+                        if v <= 0.1 && a < 0.2 {
                             if let v60 = self.keyTime["60"] where v60 != 0 && prevData.v > 0.1 {
                                 let dt = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 0) - v60
                                 if self.latestScores[2] == -1 {
