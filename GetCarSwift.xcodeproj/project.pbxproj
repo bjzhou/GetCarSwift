@@ -46,6 +46,7 @@
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
 		C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
+		C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87442F11C02B66500D17B92 /* DanmuEffect.swift */; };
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
 		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
@@ -168,6 +169,7 @@
 		C867FD1D1AD9071900F99592 /* Res.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Res.swift; sourceTree = "<group>"; };
 		C867FD201AD909E400F99592 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C86F854F1B8215A100C7DC7C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C87442F11C02B66500D17B92 /* DanmuEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DanmuEffect.swift; sourceTree = "<group>"; };
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
 		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */,
 				C804B90B1B80840100AEC003 /* WebViewController.swift */,
 				C8D6D7081B8E14B5006A068E /* PopupViewController.swift */,
+				C87442F11C02B66500D17B92 /* DanmuEffect.swift */,
 			);
 			name = Widget;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */,
 				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
+				C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */,
 				C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
 				C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */,

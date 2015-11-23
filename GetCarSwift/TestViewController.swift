@@ -15,7 +15,7 @@ class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let realm = try! Realm()
+
 //        for score in realm.objects(RmScore) {
 //            if let data = try? NSJSONSerialization.dataWithJSONObject(score.toDictionary(), options: []) {
 //                print(String(data: data, encoding: NSUTF8StringEncoding))

@@ -14,7 +14,7 @@ struct TrackDetailViewModel {
 
     var sid = 0
     var trackTitle = ""
-    //var trackMap = ""
+    var raceTrack: RmRaceTrack?
 
     var rx_comments: Variable<Array<Comment>> = Variable([])
 

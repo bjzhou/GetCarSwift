@@ -61,11 +61,6 @@ class DataViewController: UIViewController {
 
         if let _tianma = realm.objects(RmRaceTrack).filter("name = 'tianma'").last {
             tianma = _tianma
-        } else {
-            tianma = RmRaceTrack(value: ["name": "tianma", "startLoc": ["latitude": 31.0767290992663, "longitude": 121.118461205797], "passLocs": [["latitude": 31.074202813552, "longitude": 121.122138209538], ["latitude": 31.0765154547976, "longitude": 121.119096889323], ["latitude": 31.0752325428113, "longitude": 121.121573354806], ["latitude": 31.0773631380887, "longitude": 121.117991819228]], "cycle": true])
-            try! realm.write {
-                self.realm.add(self.tianma)
-            }
         }
 
         initPages()

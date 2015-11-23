@@ -8,10 +8,13 @@
 
 import UIKit
 import RxSwift
+import RealmSwift
 
 class TrackViewController: UITableViewController {
 
-    let items: [(UIImage?, String, UIImage?)] = [(R.image.straight_race, "直线赛道", R.image.star3), (R.image.tianhuangping, "安吉天荒坪", R.image.star3), (R.image.niaoshan, "台州鸟山", R.image.star4), (R.image.sanjiacun, "云南三家村", R.image.star3), (R.image.tianmenshan, "天门山通天大道", R.image.star5)]
+    let realm = try! Realm()
+
+    let items: [(UIImage?, String, UIImage?)] = [(R.image.straight_race, "直线赛道", R.image.star3), (R.image.tianhuangping, "天马赛车场", R.image.star3), (R.image.tianhuangping, "安吉天荒坪", R.image.star3), (R.image.niaoshan, "台州鸟山", R.image.star4), (R.image.sanjiacun, "云南三家村", R.image.star3), (R.image.tianmenshan, "天门山通天大道", R.image.star5)]
 
     let disposeBag = DisposeBag()
 
@@ -43,21 +46,22 @@ class TrackViewController: UITableViewController {
             var trackDetailViewModel = TrackDetailViewModel()
             switch indexPath.row {
             case 1:
+                trackDetailViewModel.sid = 5
+                trackDetailViewModel.trackTitle = "天马赛车场"
+                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("name = 'tianma'").first
+            case 2:
                 trackDetailViewModel.sid = 1
                 trackDetailViewModel.trackTitle = "安吉天荒坪"
-                //destController.trackMap =  "tianhuangping_map"
-            case 2:
+                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("name = 'anji'").first
+            case 3:
                 trackDetailViewModel.sid = 2
                 trackDetailViewModel.trackTitle = "台州鸟山"
-                //destController.trackMap = "niaoshan_map"
-            case 3:
+            case 4:
                 trackDetailViewModel.sid = 3
                 trackDetailViewModel.trackTitle = "昆明三家村"
-                //destController.trackMap = "sanjiacun_map"
-            case 4:
+            case 5:
                 trackDetailViewModel.sid = 4
                 trackDetailViewModel.trackTitle = "天门山通天大道"
-                //destController.trackMap = "tianmenshan_map"
             default:
                 break
             }

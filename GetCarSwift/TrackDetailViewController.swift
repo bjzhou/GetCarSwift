@@ -36,6 +36,8 @@ class TrackDetailViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
+    @IBOutlet weak var commentTextField: UITextField!
+
     let disposeBag = DisposeBag()
 
     var trackDetailViewModel: TrackDetailViewModel!
@@ -49,6 +51,9 @@ class TrackDetailViewController: UIViewController {
     var annotation3: MKPointAnnotation?
 
     var _timer: Disposable?
+
+    var danmuEffect: DanmuEffect?
+    var danmuPlayed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,19 +70,18 @@ class TrackDetailViewController: UIViewController {
             button.layer.cornerRadius = 23.5
         }
 
+        mapView.zoomEnabled = false
+        mapView.scrollEnabled = false
         mapView.delegate = self
-        let pa = MKPointAnnotation()
-        var didlocation = false
-        _ = DeviceDataService.sharedInstance.rx_location.subscribeNext { loc in
-            if let loc = loc {
-                pa.coordinate = loc.coordinate
-                if !didlocation {
-                    didlocation = true
-                    self.mapView.setCenterCoordinate(pa.coordinate, zoomLevel: 16.5, animated: true)
-                }
+        if let raceTrack = trackDetailViewModel.raceTrack {
+            if let mapCenter = raceTrack.mapCenter {
+                mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), zoomLevel: raceTrack.mapZoom, animated: true)
             }
         }
-        mapView.addAnnotation(pa)
+
+        var danmuRect = self.mapView.frame
+        danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 3 * 2)
+        danmuEffect = DanmuEffect(superView: self.view, rect: danmuRect)
 
     }
 
@@ -118,6 +122,14 @@ class TrackDetailViewController: UIViewController {
     func initTrackData() {
         self.title = trackDetailViewModel.trackTitle
         trackDetailViewModel.getComments()
+        trackDetailViewModel.rx_comments.subscribeNext { comments in
+            if !self.danmuPlayed && comments.count > 0 {
+                self.danmuPlayed = true
+                for comment in comments {
+                    self.danmuEffect?.send(comment.content, delay: 1)
+                }
+            }
+        }.addDisposableTo(disposeBag)
     }
 
     @IBAction func didStart(sender: UIButton) {
@@ -196,6 +208,14 @@ class TrackDetailViewController: UIViewController {
         addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
         let popupViewController = PopupViewController(rootViewController: addViewController)
         self.presentViewController(popupViewController, animated: false, completion: nil)
+    }
+
+    @IBAction func didPostComment(sender: UIButton) {
+        trackDetailViewModel?.postComment(commentTextField.text!).subscribeNext {
+            self.danmuEffect?.send(self.commentTextField.text!, highPriority: true)
+            self.commentTextField.text = ""
+            }.addDisposableTo(disposeBag)
+        self.view.endEditing(true)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

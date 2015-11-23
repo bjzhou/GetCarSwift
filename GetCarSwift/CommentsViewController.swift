@@ -12,7 +12,6 @@ import RxSwift
 class CommentsViewController: UIViewController {
 
     @IBOutlet weak var commentTableView: UITableView!
-    @IBOutlet weak var commentTextField: UITextField!
 
     @IBOutlet weak var emptyView: UIView!
 
@@ -74,14 +73,6 @@ class CommentsViewController: UIViewController {
 
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
-    @IBAction func didPostComment(sender: UIButton) {
-        trackDetailViewModel?.postComment(commentTextField.text ?? "").subscribeNext {
-            self.commentTextField.text = ""
-            self.commentTableView.scrollToBottom(true)
-            }.addDisposableTo(disposeBag)
-        self.view.endEditing(true)
     }
 
 }
