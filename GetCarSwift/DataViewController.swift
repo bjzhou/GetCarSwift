@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import RxSwift
 import RealmSwift
 
@@ -178,7 +179,7 @@ class DataViewController: UIViewController {
         if t == -1 {
             return "--:--.--"
         }
-        let ms = Int(t*100) % 100
+        let ms = Int(round(t * 100 % 100))
         let s = Int(t) % 60
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])

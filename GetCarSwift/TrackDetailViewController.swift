@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import MapKit
 
 class TrackDetailViewController: UIViewController {
 
@@ -34,7 +33,7 @@ class TrackDetailViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
 
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: MAMapView!
 
     @IBOutlet weak var commentTextField: UITextField!
 
@@ -46,9 +45,9 @@ class TrackDetailViewController: UIViewController {
     var score2: RmScore?
     var score3: RmScore?
 
-    var annotation1: MKPointAnnotation?
-    var annotation2: MKPointAnnotation?
-    var annotation3: MKPointAnnotation?
+    var annotation1: MAPointAnnotation?
+    var annotation2: MAPointAnnotation?
+    var annotation3: MAPointAnnotation?
 
     var _timer: Disposable?
 
@@ -75,7 +74,8 @@ class TrackDetailViewController: UIViewController {
         mapView.delegate = self
         if let raceTrack = trackDetailViewModel.raceTrack {
             if let mapCenter = raceTrack.mapCenter {
-                mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), zoomLevel: raceTrack.mapZoom, animated: true)
+                mapView.zoomLevel = raceTrack.mapZoom
+                mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: true)
             }
         }
 
@@ -178,7 +178,7 @@ class TrackDetailViewController: UIViewController {
         }
     }
 
-    func startAnim(annotation: MKPointAnnotation?, score: RmScore?) {
+    func startAnim(annotation: MAPointAnnotation?, score: RmScore?) {
         if let score = score, annotation = annotation {
             annotation.coordinate = CLLocationCoordinate2DMake(score.data.first?.lat ?? 0, score.data.first?.long ?? 0)
             let view = mapView.viewForAnnotation(annotation)
@@ -239,7 +239,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
             titleLabel1.text = name
             score1 = score
             if annotation1 == nil {
-                annotation1 = MKPointAnnotation()
+                annotation1 = MAPointAnnotation()
                 mapView.addAnnotation(annotation1!)
             }
             if let first = score.data.first {
@@ -249,7 +249,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
             titleLabel2.text = name
             score2 = score
             if annotation2 == nil {
-                annotation2 = MKPointAnnotation()
+                annotation2 = MAPointAnnotation()
                 mapView.addAnnotation(annotation2!)
             }
             if let first = score.data.first {
@@ -259,7 +259,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
             titleLabel3.text = name
             score3 = score
             if annotation3 == nil {
-                annotation3 = MKPointAnnotation()
+                annotation3 = MAPointAnnotation()
                 mapView.addAnnotation(annotation3!)
             }
             if let first = score.data.first {
@@ -271,6 +271,6 @@ extension TrackDetailViewController: AddPlayerDelegate {
     }
 }
 
-extension TrackDetailViewController: MKMapViewDelegate {
+extension TrackDetailViewController: MAMapViewDelegate {
 
 }

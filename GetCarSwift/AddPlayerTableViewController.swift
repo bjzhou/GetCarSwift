@@ -106,7 +106,7 @@ class AddPlayerTableViewController: UITableViewController {
                 self.view.center = self.view.superview!.center
             }
         } else {
-            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : String(format: "%.2f", rankings[indexPath.row].score), score: rankings[indexPath.row], sender: sender)
+            delegate?.didPlayerAdded(avatar: R.image.avatar!, name: mode == .Friend ? friends[indexPath.row] : String(format: "%.2f", rankings[indexPath.row].score), score: mode == .Friend ? RmScore() : rankings[indexPath.row], sender: sender)
             dismissPopupViewController()
         }
     }

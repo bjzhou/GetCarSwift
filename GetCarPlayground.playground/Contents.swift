@@ -23,6 +23,8 @@ var lazy: Int {
 print(lazy)
 print(lazy+1)
 
+print(28.918123 * 1000 % 1000)
+
 let queue = dispatch_queue_create("serial-worker", DISPATCH_QUEUE_SERIAL)
 func async(bgThread: () -> Void) {
     dispatch_async(queue, bgThread)
