@@ -66,6 +66,9 @@ extension MapViewController: MAMapViewDelegate {
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier)
             if annotationView == nil {
                 annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
+                annotationView.layer.shadowOffset = CGSize(width: 1, height: 2)
+                annotationView.layer.shadowRadius = 2
+                annotationView.layer.shadowOpacity = 1
             }
             annotationView?.canShowCallout = false
             annotationView?.draggable = false

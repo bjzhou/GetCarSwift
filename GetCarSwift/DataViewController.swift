@@ -38,7 +38,7 @@ class DataViewController: UIViewController {
 
     var _msTimer: Disposable?
 
-    var ready = true
+    var ready = false
 
     var startLoc: CLLocation?
 
@@ -52,7 +52,6 @@ class DataViewController: UIViewController {
     }
     var latestScores = [-1.0, -1.0, -1.0, -1.0]
     var bestScores = [-1.0, -1.0, -1.0, -1.0]
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,9 +89,12 @@ class DataViewController: UIViewController {
             if let loc = DeviceDataService.sharedInstance.rx_location.value {
                 let a = acces.averageA()
                 self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
-                if self.ready && (loc.speed > 0 || a >= 0.5) {
+                if self.ready && (loc.speed > 0 || a >= 0.3) {
                     self.startLoc = loc
                     self.startTimer()
+                }
+                if loc.speed <= 0.1 && a < 0.3 {
+                    self.ready = true
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -142,7 +144,7 @@ class DataViewController: UIViewController {
     }
 
     func time2String(t: Double) -> String {
-        if t == -1 {
+        if t < 0 {
             return "--:--.--"
         }
         let ms = Int(round(t * 100 % 100))
@@ -159,7 +161,13 @@ class DataViewController: UIViewController {
             if dt != 0 {
                 let a = (v - dataList.last!.v) / dt
                 if a != 0 {
-                    let expectDt = (expectV - dataList.last!.v) / a
+                    var expectDt = (expectV - dataList.last!.v) / a
+                    if expectDt > 1 {
+                        expectDt = 1
+                    }
+                    if expectDt < 0 {
+                        expectDt = 0
+                    }
                     expectT += expectDt
                 }
             }
@@ -175,7 +183,13 @@ class DataViewController: UIViewController {
             if dt != 0 {
                 let a = (v - dataList.last!.v) / dt
                 if a != 0 {
-                    let expectDt = sqrt(abs((expectS - dataList.last!.s) / a))
+                    var expectDt = sqrt(abs((expectS - dataList.last!.s) / a))
+                    if expectDt > 1 {
+                        expectDt = 1
+                    }
+                    if expectDt < 0 {
+                        expectDt = 0
+                    }
                     expectT += expectDt
                 }
             }
@@ -194,12 +208,18 @@ class DataViewController: UIViewController {
         var expectDt = 0.0
         let dtStart = dataList[i+1].t - dataList[i].t
         if dtStart != 0 {
-            let a = abs(dataList[i+1].v - dataList[i].v) / dtStart
-            if a != 0 {
-                expectDt = dataList[i].v / a
+            let a = (dataList[i+1].v - dataList[i].v) / dtStart
+            if a > 0 {
+                expectDt = dataList[i].v / a - dataList[i].t
             }
         }
-        return expectDt - dataList[i].t
+        if expectDt > 1 {
+            expectDt = 1
+        }
+        if expectDt < -1 {
+            expectDt = -1
+        }
+        return expectDt
     }
 
     func updateScore() {
@@ -234,12 +254,20 @@ class DataViewController: UIViewController {
 
             if let loc = DeviceDataService.sharedInstance.rx_location.value {
                 if let startLoc = self.startLoc {
-                    let v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
+                    var v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
                     let s = startLoc.distanceFromLocation(loc)
                     let a = DeviceDataService.sharedInstance.rx_acceleration.value.averageA()
 
                     if let prevData = self.data.last {
-                        if s >= 400 && prevData.s < 400 {
+                        if self.data.endIndex > 1 {
+                            let prevA = (self.data[self.data.endIndex-1].v - self.data[self.data.endIndex-2].v) / 3.6 / (self.data[self.data.endIndex-1].t - self.data[self.data.endIndex-2].t)
+                            let calcV = prevData.v + prevA * (Double(t)/100 - prevData.t) * 3.6
+                            print("理论速度", calcV, "GPS速度", v)
+                            if v == 0 && calcV > 10 {
+                                v = calcV
+                            }
+                        }
+                        if s >= 400 && prevData.s < 400 && prevData.s > 200 {
                             if self.latestScores[3] == -1 {
                                 self.latestScores[3] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectS: 400)
                                 self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
@@ -257,7 +285,7 @@ class DataViewController: UIViewController {
                             }
                         }
 
-                        if v >= 60 && prevData.v < 60 {
+                        if v >= 60 && prevData.v < 60 && prevData.v >= 0.5 {
                             self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
                             if self.latestScores[0] == -1 {
                                 self.latestScores[0] = self.keyTime["60"]!
@@ -280,7 +308,7 @@ class DataViewController: UIViewController {
                             self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
                         }
 
-                        if v >= 100 && prevData.v < 100 {
+                        if v >= 100 && prevData.v < 100 && prevData.v >= 40 {
                             self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
                             if self.latestScores[1] == -1 {
                                 self.latestScores[1] = self.keyTime["100"]!
@@ -299,7 +327,7 @@ class DataViewController: UIViewController {
                             }
                         }
 
-                        if v <= 0.1 && a < 0.2 {
+                        if v <= 0.1 && a < 0.3 {
                             if let v60 = self.keyTime["60"] where v60 != 0 && prevData.v > 0.1 {
                                 let dt = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 0) - v60
                                 if self.latestScores[2] == -1 {
@@ -325,6 +353,10 @@ class DataViewController: UIViewController {
                             self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
                         }
                     } else {
+                        if v >= 40 {
+                            self.stopTimer()
+                            self.ready = false
+                        }
                         self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
                     }
                 }

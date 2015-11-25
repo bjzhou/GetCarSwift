@@ -111,9 +111,6 @@ class TrackTimerViewController: UIViewController {
     }
 
     func time2String(t: Double) -> String {
-        if t <= 0 {
-            return "--:--.--"
-        }
         let ms = Int(round(t * 100 % 100))
         let s = Int(t) % 60
         let m = Int(t) / 60

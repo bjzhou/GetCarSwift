@@ -11,8 +11,7 @@ import UIKit
 class GkboxViewController: UIViewController {
     @IBOutlet weak var swiftPagesView: SwiftPages!
 
-    let VCIDs = ["data", "map"];
-    let buttonTitles = ["数据", "地图"];
+    let buttonTitles = ["直线加速", "全球赛事"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
