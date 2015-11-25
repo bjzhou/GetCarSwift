@@ -48,6 +48,14 @@ class MapViewController: UIViewController {
         mapView.zoomLevel = 3
         mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 35, longitude: 106), animated: false)
     }
+
+    @IBAction func didLayerChanged(sender: UIButton) {
+        if mapView.mapType == MAMapType.Standard {
+            mapView.mapType = MAMapType.Satellite
+        } else {
+            mapView.mapType = MAMapType.Standard
+        }
+    }
 }
 
 extension MapViewController: MAMapViewDelegate {

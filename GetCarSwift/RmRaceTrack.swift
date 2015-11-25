@@ -18,6 +18,7 @@ class RmRaceTrack: Object {
     dynamic var isDeveloped = false
     dynamic var startLoc: RmLocation?
     dynamic var stopLoc: RmLocation?
+    dynamic var leaveLoc: RmLocation?
     var passLocs = List<RmLocation>()
     dynamic var cycle = true
 
