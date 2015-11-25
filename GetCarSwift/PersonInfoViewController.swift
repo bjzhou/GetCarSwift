@@ -12,12 +12,6 @@ import RxSwift
 
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-#if DEBUG
-    let debugCount = 2
-#else
-    let debugCount = 0
-#endif
-
     let disposeBag = DisposeBag()
     
     let titles = ["头像", "车形象", "用户名", /*"我的二维码", "我的地址",*/ "性别", "地区"/*, "个性签名"*/]
@@ -40,7 +34,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,8 +43,6 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             return 3
         case 1:
             return 2
-        case 2:
-            return debugCount
         default:
             return 0
         }
@@ -66,7 +58,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             } else {
                 cell.icon.image = UIImage(named: values[indexPath.row])
             }
-        } else if indexPath.section != 2 {
+        } else {
             cell = tableView.dequeueReusableCellWithIdentifier("info_text", forIndexPath:indexPath) as! PersonInfoCell
             if indexPath.section == 0 {
                 cell.title.text = titles[indexPath.row]
@@ -75,13 +67,6 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 cell.title.text = titles[indexPath.row + 3/*5*/]
                 cell.value.text = values[indexPath.row + 3/*5*/]
             }
-        } else {
-            let testCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.test, forIndexPath: indexPath)
-            if indexPath.row == 0 {
-                let label = testCell?.viewWithTag(303) as? UILabel
-                label?.text = "测试"
-            }
-            return testCell!
         }
 
         return cell
@@ -96,7 +81,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableView.sectionHeaderHeight;
+        return tableView.sectionHeaderHeight
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -121,12 +106,6 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 self.navigationController?.showViewController(InfoEditViewController(mode: .Sex), sender: self)
             default:
                 break;
-            }
-        } else {
-            if indexPath.row == 0 {
-                self.navigationController?.showViewController(R.storyboard.mine.test!, sender: self)
-            } else {
-                Me.sharedInstance.logout()
             }
         }
     }

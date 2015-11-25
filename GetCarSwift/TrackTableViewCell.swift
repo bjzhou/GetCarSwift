@@ -35,6 +35,8 @@ class TrackTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
+        loveButton.setImage(UIImage(), forState: .Selected)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -47,16 +49,13 @@ class TrackTableViewCell: UITableViewCell {
     }
 
     func updateLoveLabel() {
-        if loveButton.selected {
-            loveLabel.text = "已想去"
-            return
-        }
+        let loveStr = (loveButton.selected ? "已" : "") + "想去"
         if lovedCount <= 0 {
-            loveLabel.text = "想去"
+            loveLabel.text = loveStr
         } else if lovedCount >= 1000 {
-            loveLabel.text = "想去(999+)"
+            loveLabel.text = loveStr + "(999+)"
         } else {
-            loveLabel.text = "想去(\(lovedCount))"
+            loveLabel.text = loveStr + "(\(lovedCount))"
         }
     }
 
