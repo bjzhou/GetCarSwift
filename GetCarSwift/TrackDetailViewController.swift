@@ -69,6 +69,9 @@ class TrackDetailViewController: UIViewController {
             button.layer.cornerRadius = 23.5
         }
 
+        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.imageWithRenderingMode(.AlwaysOriginal)
+
+        mapView.showsCompass = false
         mapView.zoomEnabled = false
         mapView.scrollEnabled = false
         mapView.delegate = self
@@ -126,7 +129,7 @@ class TrackDetailViewController: UIViewController {
             if !self.danmuPlayed && comments.count > 0 {
                 self.danmuPlayed = true
                 for comment in comments {
-                    self.danmuEffect?.send(comment.content, delay: 1)
+                    self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Me.sharedInstance.id)
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -212,7 +215,7 @@ class TrackDetailViewController: UIViewController {
 
     @IBAction func didPostComment(sender: UIButton) {
         trackDetailViewModel?.postComment(commentTextField.text!).subscribeNext {
-            self.danmuEffect?.send(self.commentTextField.text!, highPriority: true)
+            self.danmuEffect?.send(self.commentTextField.text!, highlight: true, highPriority: true)
             self.commentTextField.text = ""
             }.addDisposableTo(disposeBag)
         self.view.endEditing(true)

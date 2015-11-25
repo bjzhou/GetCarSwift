@@ -30,7 +30,7 @@ class DanmuEffect {
     }
 
     private func generateRandom(size: CGSize) -> CGFloat {
-        let randomPos = CGFloat(random()) % (rect.height - size.height)
+        let randomPos = CGFloat(arc4random_uniform(UInt32(rect.height - size.height)))
         if abs(lastPos - randomPos) <= size.height {
             return generateRandom(size)
         }
@@ -38,10 +38,15 @@ class DanmuEffect {
         return randomPos
     }
 
-    func send(text: String, delay: UInt32 = 0, highPriority: Bool = false) {
+    func send(text: String, delay: UInt32 = 0, highlight: Bool = false, highPriority: Bool = false) {
         dispatch_async(highPriority ? dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) : queue) {
             let label = UILabel()
-            label.font = UIFont.systemFontOfSize(self.textSize)
+            label.font = UIFont.boldSystemFontOfSize(self.textSize)
+            label.textColor = UIColor(rgbValue: UInt(arc4random_uniform(0xffffff+1)))
+            if highlight {
+                label.textColor = UIColor.blackColor()
+                label.backgroundColor = UIColor.redColor()
+            }
             label.text = text
             let size = label.attributedText?.size() ?? CGSizeZero
             let randomPos = self.generateRandom(size)

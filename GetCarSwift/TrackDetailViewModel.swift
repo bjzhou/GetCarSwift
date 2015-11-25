@@ -36,7 +36,7 @@ struct TrackDetailViewModel {
                 self.viewProxy?.showToast("发表评论失败！")
                 return
             }
-            self.rx_comments.value.append(Comment(id: str, content: text, create_time: NSDate.nowString, nickname: Me.sharedInstance.nickname ?? "", head: Me.sharedInstance.nickname ?? ""))
+            self.rx_comments.value.append(Comment(id: str, content: text, create_time: NSDate.nowString, nickname: Me.sharedInstance.nickname ?? "", head: Me.sharedInstance.nickname ?? "", uid: Me.sharedInstance.id ?? ""))
         }
     }
 }

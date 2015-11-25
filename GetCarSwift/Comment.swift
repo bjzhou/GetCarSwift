@@ -16,13 +16,15 @@ struct Comment: JSONable {
     var create_time = ""
     var nickname = ""
     var head = ""
+    var uid = ""
 
-    init(id: String?, content: String, create_time: String, nickname: String, head: String) {
+    init(id: String?, content: String, create_time: String, nickname: String, head: String, uid: String) {
         self.id = id
         self.content = content
         self.create_time = create_time
         self.nickname = nickname
         self.head = head
+        self.uid = uid
     }
 
     init(json: JSON) {
@@ -31,6 +33,7 @@ struct Comment: JSONable {
         create_time = json["create_time"].stringValue
         nickname = json["nickname"].stringValue
         head = json["head"].stringValue
+        uid = json["uid"].stringValue
     }
 
     static func pubComment(sid sid: Int, content: String, pid: Int = 0) -> Observable<GKResult<String>> {
