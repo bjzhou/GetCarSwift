@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class RmRaceTrack: Object {
+    dynamic var id = ""
     dynamic var name = ""
     dynamic var mapCenter: RmLocation?
     dynamic var mapZoom = 0.0
@@ -23,7 +24,7 @@ class RmRaceTrack: Object {
     dynamic var cycle = true
 
     override class func primaryKey() -> String? {
-        return "name"
+        return "id"
     }
 }
 

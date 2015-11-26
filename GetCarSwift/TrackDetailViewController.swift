@@ -147,7 +147,7 @@ class TrackDetailViewController: UIViewController {
                 self.timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
 
                 if let score = self.score1 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.record.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel1.text = String(format: "%05.1f", data.v)
                         self.aLabel1.text = String(format: "%.1f", data.a)
@@ -155,7 +155,7 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if let score = self.score2 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.record.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel2.text = String(format: "%05.1f", data.v)
                         self.aLabel2.text = String(format: "%.1f", data.a)
@@ -163,7 +163,7 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if let score = self.score3 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.record.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel3.text = String(format: "%05.1f", data.v)
                         self.aLabel3.text = String(format: "%.1f", data.a)
@@ -183,15 +183,15 @@ class TrackDetailViewController: UIViewController {
 
     func startAnim(annotation: MAPointAnnotation?, score: RmScore?) {
         if let score = score, annotation = annotation {
-            annotation.coordinate = CLLocationCoordinate2DMake(score.data.first?.lat ?? 0, score.data.first?.long ?? 0)
+            annotation.coordinate = CLLocationCoordinate2DMake(score.record.first?.lat ?? 0, score.record.first?.long ?? 0)
             let view = mapView.viewForAnnotation(annotation)
-            let points: [CGPoint] = score.data.map { data in
+            let points: [CGPoint] = score.record.map { data in
                 let loc = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
                 return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
             }
             let anim = CAKeyframeAnimation(keyPath: "position")
             anim.duration = score.score
-            anim.keyTimes = score.data.map { $0.t / score.score }
+            anim.keyTimes = score.record.map { $0.t / score.score }
             anim.values = points.map { NSValue(CGPoint: CGPointMake($0.x - points[0].x, $0.y - points[0].y)) }
             anim.calculationMode = kCAAnimationLinear
             anim.removedOnCompletion = false
@@ -245,7 +245,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
                 annotation1 = MAPointAnnotation()
                 mapView.addAnnotation(annotation1!)
             }
-            if let first = score.data.first {
+            if let first = score.record.first {
                 annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         case .Some(button2):
@@ -255,7 +255,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
                 annotation2 = MAPointAnnotation()
                 mapView.addAnnotation(annotation2!)
             }
-            if let first = score.data.first {
+            if let first = score.record.first {
                 annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         case .Some(button3):
@@ -265,7 +265,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
                 annotation3 = MAPointAnnotation()
                 mapView.addAnnotation(annotation3!)
             }
-            if let first = score.data.first {
+            if let first = score.record.first {
                 annotation3?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         default:

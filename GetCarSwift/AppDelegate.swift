@@ -54,17 +54,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
         let config = Realm.Configuration(
-            schemaVersion: 7,
+            schemaVersion: 11,
             migrationBlock: { migration, oldSchemaVersion in
-                /*if (oldSchemaVersion < 1) {
-                    // do migration if needed
-                }*/
+                if (oldSchemaVersion < 9) {
+                    migration.enumerate(RmScore.className()) { oldObject, newObject in
+                        if let data = oldObject!["data"] as? List<RmScoreData> {
+                            newObject!["record"] = data
+                        }
+                    }
+                }
         })
         Realm.Configuration.defaultConfiguration = config
 
-#if ADHOC
+        #if ADHOC
             checkNewVersion()
-#endif
+        #endif
+
+//        #if DEBUG
+//            window?.rootViewController = R.storyboard.mine.test
+//        #endif
 
         return true
     }

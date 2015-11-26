@@ -16,8 +16,6 @@ let apiManager = Manager.sharedInstance
 let operationQueue = NSOperationQueue()
 let operationScheduler = OperationQueueScheduler(operationQueue: operationQueue)
 
-let apiDebug = true
-
 class GaikeService {
     static let sharedInstance = GaikeService()
     static let domain = "http://api.gaikit.com/"
@@ -36,9 +34,10 @@ class GaikeService {
         headers["Ass-lati"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.latitude ?? 0)
         headers["Ass-longti"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.longitude ?? 0)
 
-        if apiDebug {
-            print("HEADER=========================================> \(headers)")
-        }
+        #if DEBUG
+            print("HEADER=========================================>")
+            print(headers)
+        #endif
 
         return headers
     }
@@ -51,9 +50,10 @@ class GaikeService {
         }
         mutableURLRequest.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(body, options: [])
 
-        if apiDebug {
-            print("REQUEST=========================================> \(mutableURLRequest.URLString)")
-        }
+        #if DEBUG
+            print("REQUEST=========================================>")
+            print(mutableURLRequest.URLString)
+        #endif
 
         return mutableURLRequest
     }
@@ -62,16 +62,16 @@ class GaikeService {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
             let request = apiManager.request(self.generateURLRequest(urlString, body: body)).responseData { res in
+                #if DEBUG
+                    let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                    print("RESPONSE=========================================>")
+                    print(responseString)
+                #endif
                 if let err = res.result.error {
                     observer.on(.Error(err))
-                    print("ERROR=========================================> \(err)")
                 } else {
                     if let data = res.result.value {
                         observer.on(.Next(data))
-                        if apiDebug {
-                            let responseString = String(data: data, encoding: NSUTF8StringEncoding) ?? ""
-                            print("RESPONSE=========================================> \(responseString)")
-                        }
                     }
                     observer.on(.Completed)
                 }
@@ -86,11 +86,16 @@ class GaikeService {
         }
     }
 
-    func upload<T>(urlString: String, datas: [String:NSData]) -> Observable<GKResult<T>> {
+    func upload<T>(urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: NSData]) -> Observable<GKResult<T>> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
-            let urlRequest = self.urlRequestWithComponents(GaikeService.domain + urlString, headers: self.getHeader(), imageData: datas)
+            let urlRequest = self.urlRequestWithComponents(GaikeService.domain + urlString, headers: self.getHeader(), parameters: parameters, imageData: datas)
             let upload = Alamofire.upload(urlRequest.0, data: urlRequest.1).responseData { res in
+                #if DEBUG
+                    let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                    print("RESPONSE=========================================>")
+                    print(responseString)
+                #endif
                 if let err = res.result.error {
                     observer.on(.Error(err))
                 } else {
@@ -137,7 +142,7 @@ class GaikeService {
         return gkResult
     }
 
-    func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
+    func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, parameters: [String: AnyObject]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
 
         // create url request to send
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
@@ -164,7 +169,7 @@ class GaikeService {
         uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
 
         // return URLRequestConvertible and NSData
-        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
+        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0, uploadData)
     }
 }
 

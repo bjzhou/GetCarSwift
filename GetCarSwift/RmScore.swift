@@ -14,8 +14,31 @@ class RmScore: Object {
     dynamic var type = ""
     dynamic var createdAt = NSDate().timeIntervalSince1970
     dynamic var score = 0.0
-    dynamic var name = ""
-    var data = List<RmScoreData>()
+    var record = List<RmScoreData>()
+
+    func asData() -> NSData {
+        let dic = record.map { el in
+            return ["t": el.t, "v": el.v, "a": el.a, "s": el.s, "lat": el.lat, "long": el.long, "alt": el.alt]
+        }
+        return NSKeyedArchiver.archivedDataWithRootObject(dic)
+    }
+
+    func fillRecord(data: NSData) {
+        if let recordArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [[String: Double]] {
+            let scoreDataArray: [RmScoreData] = recordArray.map { dic in
+                let scoreData = RmScoreData()
+                scoreData.t = dic["t"] ?? 0
+                scoreData.v = dic["v"] ?? 0
+                scoreData.a = dic["a"] ?? 0
+                scoreData.s = dic["s"] ?? 0
+                scoreData.lat = dic["lat"] ?? 0
+                scoreData.long = dic["long"] ?? 0
+                scoreData.alt = dic["alt"] ?? 0
+                return scoreData
+            }
+            record.appendContentsOf(scoreDataArray)
+        }
+    }
 }
 
 class RmScoreData: Object {

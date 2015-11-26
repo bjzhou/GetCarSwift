@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
     var mapViewModel: MapViewModel!
 
     var gotoTrackAction: Disposable?
+    var trackAddressAction: Disposable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,10 +115,22 @@ extension MapViewController: MAMapViewDelegate {
                 }
             }
             gotoTrackAction?.dispose()
+            trackAddressAction?.dispose()
             gotoTrackAction = gotoTrackButton.rx_tap.subscribeNext {
                 let vc = R.storyboard.gkbox.track_timer
                 vc?.raceTrack = annotation.raceTrack
                 self.showViewController(vc!)
+            }
+            trackAddressAction = trackAddressButton.rx_tap.subscribeNext {
+                let maNaviConfig = MANaviConfig()
+                maNaviConfig.destination = annotation.coordinate
+                maNaviConfig.appScheme = bundleId ?? ""
+                maNaviConfig.appName = displayName ?? ""
+                maNaviConfig.strategy = MADrivingStrategy.Fastest
+                if !MAMapURLSearch.openAMapNavigation(maNaviConfig) {
+                    //调用百度地图
+                    //调用苹果地图
+                }
             }
         }
     }

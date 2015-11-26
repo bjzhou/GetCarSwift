@@ -278,7 +278,7 @@ class DataViewController: UIViewController {
                                 let score = RmScore()
                                 score.type = "s400"
                                 score.score = self.latestScores[3]
-                                score.data = data
+                                score.record = data
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -297,7 +297,7 @@ class DataViewController: UIViewController {
                                 let score = RmScore()
                                 score.type = "v60"
                                 score.score = self.latestScores[0]
-                                score.data = data
+                                score.record = data
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -320,7 +320,7 @@ class DataViewController: UIViewController {
                                 let score = RmScore()
                                 score.type = "v100"
                                 score.score = self.latestScores[1]
-                                score.data = data
+                                score.record = data
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -340,7 +340,7 @@ class DataViewController: UIViewController {
                                     let score = RmScore()
                                     score.type = "b60"
                                     score.score = self.latestScores[2]
-                                    score.data = data
+                                    score.record = data
                                     try! self.realm.write {
                                         self.realm.add(score)
                                     }

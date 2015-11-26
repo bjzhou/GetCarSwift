@@ -77,7 +77,7 @@ class StraightMatchViewController: UIViewController {
                 self.showRandomAd(t)
 
                 if let score = self.score1 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.record.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel1.text = String(format: "%05.1f", data.v)
                         self.aLabel1.text = String(format: "%.1f", data.a)
@@ -85,7 +85,7 @@ class StraightMatchViewController: UIViewController {
                 }
 
                 if let score = self.score2 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.record.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel2.text = String(format: "%05.1f", data.v)
                         self.aLabel2.text = String(format: "%.1f", data.a)
@@ -93,7 +93,7 @@ class StraightMatchViewController: UIViewController {
                 }
 
                 if let score = self.score3 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.record.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel3.text = String(format: "%05.1f", data.v)
                         self.aLabel3.text = String(format: "%.1f", data.a)
@@ -118,8 +118,8 @@ class StraightMatchViewController: UIViewController {
         if let score = score {
             let anim = CAKeyframeAnimation(keyPath: "position.y")
             anim.duration = score.score
-            anim.keyTimes = score.data.map { $0.t / score.score }
-            anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
+            anim.keyTimes = score.record.map { $0.t / score.score }
+            anim.values = score.record.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
             anim.calculationMode = kCAAnimationLinear
             anim.removedOnCompletion = false
             anim.fillMode = kCAFillModeForwards
@@ -140,8 +140,8 @@ class StraightMatchViewController: UIViewController {
         }
         let anim = CAKeyframeAnimation(keyPath: "position.y")
         anim.duration = bestScore.score
-        anim.keyTimes = bestScore.data.map { $0.t / bestScore.score }
-        anim.values = bestScore.data.map { $0.s }
+        anim.keyTimes = bestScore.record.map { $0.t / bestScore.score }
+        anim.values = bestScore.record.map { $0.s }
         anim.calculationMode = kCAAnimationLinear
         anim.removedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
