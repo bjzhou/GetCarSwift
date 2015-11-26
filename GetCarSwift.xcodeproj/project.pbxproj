@@ -10,7 +10,7 @@
 		8BDEB0BF1D070B851F236536 /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB55F0179E0E5E7C46AE9 /* ModStoreViewController.swift */; };
 		8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */; };
 		8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */; };
-		8BDEB72CC5630B87A9209A2C /* ModIntroContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB65E7FBAE27567EAB061 /* ModIntroContentViewController.swift */; };
+		8BDEB72CC5630B87A9209A2C /* ModIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB65E7FBAE27567EAB061 /* ModIntroTableViewCell.swift */; };
 		8BDEBA96983C7719658CADA4 /* Mod.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BDEB3E592343A2B219B8F2F /* Mod.storyboard */; };
 		8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEBDB2B8219B464510356E /* ModViewController.swift */; };
 		8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */; };
@@ -128,7 +128,7 @@
 		8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		8BDEB3E592343A2B219B8F2F /* Mod.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mod.storyboard; sourceTree = "<group>"; };
 		8BDEB55F0179E0E5E7C46AE9 /* ModStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreViewController.swift; sourceTree = "<group>"; };
-		8BDEB65E7FBAE27567EAB061 /* ModIntroContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModIntroContentViewController.swift; sourceTree = "<group>"; };
+		8BDEB65E7FBAE27567EAB061 /* ModIntroTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModIntroTableViewCell.swift; sourceTree = "<group>"; };
 		8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
 		8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModDoctorViewController.swift; sourceTree = "<group>"; };
 		8BDEBDB2B8219B464510356E /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */,
-				8BDEB65E7FBAE27567EAB061 /* ModIntroContentViewController.swift */,
+				8BDEB65E7FBAE27567EAB061 /* ModIntroTableViewCell.swift */,
 				8BDEB55F0179E0E5E7C46AE9 /* ModStoreViewController.swift */,
 				8BDEBDB2B8219B464510356E /* ModViewController.swift */,
 			);
@@ -813,7 +813,7 @@
 				C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */,
 				8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */,
 				8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */,
-				8BDEB72CC5630B87A9209A2C /* ModIntroContentViewController.swift in Sources */,
+				8BDEB72CC5630B87A9209A2C /* ModIntroTableViewCell.swift in Sources */,
 				8BDEB0BF1D070B851F236536 /* ModStoreViewController.swift in Sources */,
 				8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */,
 				8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */,
