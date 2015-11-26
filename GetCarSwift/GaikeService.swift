@@ -16,7 +16,7 @@ let apiManager = Manager.sharedInstance
 let operationQueue = NSOperationQueue()
 let operationScheduler = OperationQueueScheduler(operationQueue: operationQueue)
 
-let API_DEBUG = true
+let apiDebug = true
 
 class GaikeService {
     static let sharedInstance = GaikeService()
@@ -26,17 +26,17 @@ class GaikeService {
         var headers: [String:String] = [:]
 
         headers["Ass-apiver"] = "1.0"
-        headers["Ass-appver"] = VERSION_SHORT
+        headers["Ass-appver"] = versionShort
         headers["Ass-accesskey"] = ""
         headers["Ass-contentmd5"] = ""
         headers["Ass-signature"] = ""
         headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
-        headers["Ass-token"] = Me.sharedInstance.token ?? ""
+        headers["Ass-token"] = Mine.sharedInstance.token ?? ""
         headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
-        headers["Ass-lati"] = String(DeviceDataService.sharedInstance.rx_location.value?.coordinate.latitude ?? 0)
-        headers["Ass-longti"] = String(DeviceDataService.sharedInstance.rx_location.value?.coordinate.longitude ?? 0)
+        headers["Ass-lati"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.latitude ?? 0)
+        headers["Ass-longti"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.longitude ?? 0)
 
-        if API_DEBUG {
+        if apiDebug {
             print("HEADER=========================================> \(headers)")
         }
 
@@ -51,7 +51,7 @@ class GaikeService {
         }
         mutableURLRequest.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(body, options: [])
 
-        if API_DEBUG {
+        if apiDebug {
             print("REQUEST=========================================> \(mutableURLRequest.URLString)")
         }
 
@@ -68,7 +68,7 @@ class GaikeService {
                 } else {
                     if let data = res.result.value {
                         observer.on(.Next(data))
-                        if API_DEBUG {
+                        if apiDebug {
                             let responseString = String(data: data, encoding: NSUTF8StringEncoding) ?? ""
                             print("RESPONSE=========================================> \(responseString)")
                         }
@@ -113,7 +113,7 @@ class GaikeService {
 //    func cache<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
 //        return create { observer in
 //            let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: GaikeService.domain + urlString)!), parameters: body).0.URLString
-//            let fetcher = 
+//            let fetcher =
 //            Shared.dataCache.fetch(fetcher: GKFetcher(method: urlString, body: body)).onFailure { err in
 //                if let err = err {
 //                    observer.on(.Error(err))
@@ -132,7 +132,7 @@ class GaikeService {
     private func parseJSON<T>(data: NSData) -> GKResult<T> {
         let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
         if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
-            Me.sharedInstance.logout()
+            Mine.sharedInstance.logout()
         }
         return gkResult
     }
@@ -201,7 +201,7 @@ class GaikeService {
 
 struct GKResult<U: JSONable> {
     var data: U?
-    var dataArray : [U]?
+    var dataArray: [U]?
     var code: Int = 0
     var msg: String = ""
 

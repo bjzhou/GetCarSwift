@@ -16,7 +16,7 @@ struct TrackDetailViewModel {
     var trackTitle = ""
     var raceTrack: RmRaceTrack?
 
-    var rx_comments: Variable<Array<Comment>> = Variable([])
+    var rxComments: Variable<Array<Comment>> = Variable([])
 
     init() {
     }
@@ -26,7 +26,7 @@ struct TrackDetailViewModel {
             .filter { $0.data != nil }
             .subscribeNext { cs in
                 let comments = cs.data!
-               self.rx_comments.value = comments.comments
+               self.rxComments.value = comments.comments
             }.addDisposableTo(disposeBag)
     }
 
@@ -36,7 +36,7 @@ struct TrackDetailViewModel {
                 self.viewProxy?.showToast("发表评论失败！")
                 return
             }
-            self.rx_comments.value.append(Comment(id: str, content: text, create_time: NSDate.nowString, nickname: Me.sharedInstance.nickname ?? "", head: Me.sharedInstance.nickname ?? "", uid: Me.sharedInstance.id ?? ""))
+            self.rxComments.value.append(Comment(id: str, content: text, createTime: NSDate.nowString, nickname: Mine.sharedInstance.nickname ?? "", head: Mine.sharedInstance.nickname ?? "", uid: Mine.sharedInstance.id ?? ""))
         }
     }
 }

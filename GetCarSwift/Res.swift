@@ -8,15 +8,15 @@
 
 import Foundation
 
-let VERSION_SHORT = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-let VERSION = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String)!
+let versionShort = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+let version = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String)!
 
 #if ADHOC
-    let AMAP_KEY = "5f7efffc934719c87faca88c9cea88ec"
-    let BUGLY_APPID = "900011518"
+    let amapKey = "5f7efffc934719c87faca88c9cea88ec"
+    let buglyAppid = "900011518"
 #else
-    let AMAP_KEY = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
-    let BUGLY_APPID = "900007462"
+    let amapKey = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
+    let buglyAppid = "900007462"
 #endif
 
 let alertStr = NSAttributedString.loadHTMLString("<font size=4>在通过设定的起点和终点时将会自动启动与结束码表，不用手动启动与结束。<br/><br/>进入计时前，请仔细阅读<b>《使用条款以及免责声明》</b>。进入计时，即视为认同我司的<b>《使用条款以及免责声明》</b></font>")
@@ -44,6 +44,7 @@ func getColorIconName(sex: Int, color: Int) -> String {
     return getSexString(sex) + "  " + getColorByTag(color) + " 选中"
 }
 
+// swiftlint:disable colon
 func getColorByTag(tag: Int) -> String {
     switch tag {
     case 101:
@@ -84,9 +85,3 @@ func getSmallHomepageBg(index: Int) -> String {
 func getHomepageBg(index: Int) -> String {
     return "homepage_bg" + String(index)
 }
-
-
-
-
-
-

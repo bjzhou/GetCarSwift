@@ -43,7 +43,7 @@ class CarTableViewController: UITableViewController {
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath)
 
         let icon = cell.viewWithTag(501) as! UIImageView
         let title = cell.viewWithTag(502) as! UILabel
@@ -76,5 +76,5 @@ class CarTableViewController: UITableViewController {
     @IBAction func didNavigationItemCancel(sender: UIBarButtonItem) {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
 }

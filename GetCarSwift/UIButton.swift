@@ -15,7 +15,7 @@ import RxCocoa
 */
 extension UIButton {
 
-    public var rx_selected: AnyObserver<Bool> {
+    public var rxSelected: AnyObserver<Bool> {
         return AnyObserver { [weak self] event in
             MainScheduler.ensureExecutingOnScheduler()
 

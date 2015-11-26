@@ -35,7 +35,7 @@ class SettingsTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.section == 2 {
-            Me.sharedInstance.logout()
+            Mine.sharedInstance.logout()
         }
     }
 

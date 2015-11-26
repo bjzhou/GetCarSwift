@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 extension Object {
-    func toDictionary() -> [String:AnyObject] {
+    func toDictionary() -> [String: AnyObject] {
         let properties = self.objectSchema.properties.map { $0.name }
         var dicProps = [String:AnyObject]()
         for (key, value) in self.dictionaryWithValuesForKeys(properties) {

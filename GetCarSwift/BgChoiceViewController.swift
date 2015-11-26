@@ -16,7 +16,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collection.delegate = self
         collection.dataSource = self
         imagePicker.delegate = self
@@ -30,7 +30,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         imagePicker.sourceType = .PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
     }
-    
+
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.bg_small.identifier, forIndexPath: indexPath) as UICollectionViewCell
         let imageView = cell.viewWithTag(401) as! UIImageView
@@ -38,26 +38,26 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.addSubview(imageView)
         return cell
     }
-    
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let userDefaults = NSUserDefaults.standardUserDefaults();
+        let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setInteger(indexPath.row + 1, forKey: "homepage_bg")
         navigationController?.popViewControllerAnimated(true)
     }
-    
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
         Shared.imageCache.set(value: image, key: "homepage_bg")
-        let userDefaults = NSUserDefaults.standardUserDefaults();
+        let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setInteger(1000, forKey: "homepage_bg")
         dismissViewControllerAnimated(true, completion: nil)
         navigationController?.popViewControllerAnimated(true)
     }
 
-    
+
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
     }

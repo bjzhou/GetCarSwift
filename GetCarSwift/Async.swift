@@ -10,14 +10,14 @@ import Foundation
 
 infix operator ~> {}
 
-func ~>(bgThread: () -> (), mainThread: () -> ()) {
+func ~> (bgThread: () -> (), mainThread: () -> ()) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
         bgThread()
         dispatch_async(dispatch_get_main_queue(), mainThread)
     }
 }
 
-func ~><T>(bgThread: () -> T, mainThread: (result: T) -> ()) {
+func ~><T> (bgThread: () -> T, mainThread: (result: T) -> ()) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
         let result = bgThread()
         dispatch_async(dispatch_get_main_queue()) {

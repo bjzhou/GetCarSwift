@@ -12,14 +12,14 @@ import RealmSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let DEBUG_LOGIN = false
-    static let DEBUG_REGISTER = false
+    static let debugLogin = false
+    static let debugRegister = false
 
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if let _ = Me.sharedInstance.token {
-            if let nickname = Me.sharedInstance.nickname where nickname.trim() != "" {} else {
+        if let _ = Mine.sharedInstance.token {
+            if let nickname = Mine.sharedInstance.nickname where nickname.trim() != "" {} else {
                 let firstController = UINavigationController(rootViewController: R.storyboard.login.register!)
                 firstController.navigationItem.title = "登陆"
                 window?.rootViewController = firstController
@@ -28,11 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = R.storyboard.login.login
         }
 
-        if AppDelegate.DEBUG_LOGIN {
+        if AppDelegate.debugLogin {
             window?.rootViewController = R.storyboard.login.login
         }
 
-        if AppDelegate.DEBUG_REGISTER {
+        if AppDelegate.debugRegister {
             window?.rootViewController = R.storyboard.login.register
         }
 
@@ -45,19 +45,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = UIColor.blackColor()
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
 
-        MAMapServices.sharedServices().apiKey = AMAP_KEY
-        AMapSearchServices.sharedServices().apiKey = AMAP_KEY
-        AMapLocationServices.sharedServices().apiKey = AMAP_KEY
+        MAMapServices.sharedServices().apiKey = amapKey
+        AMapSearchServices.sharedServices().apiKey = amapKey
+        AMapLocationServices.sharedServices().apiKey = amapKey
 
         CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
-        CrashReporter.sharedInstance().setUserId(Me.sharedInstance.nickname ?? "10000")
-        CrashReporter.sharedInstance().installWithAppId(BUGLY_APPID)
+        CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
+        CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
         let config = Realm.Configuration(
             schemaVersion: 7,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 1) {
-                }
+                /*if (oldSchemaVersion < 1) {
+                    // do migration if needed
+                }*/
         })
         Realm.Configuration.defaultConfiguration = config
 
@@ -70,8 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func checkNewVersion() {
         _ = FIR.checkUpdate().subscribeNext { fir in
-            if VERSION < fir.version {
-                let alert = UIAlertController(title: "更新", message: "当前版本：" + VERSION_SHORT! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
+            if version < fir.version {
+                let alert = UIAlertController(title: "更新", message: "当前版本：" + versionShort! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
                 alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
                     UIApplication.sharedApplication().openURL(NSURL(string: fir.updateUrl)!)
@@ -102,7 +103,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
 }
-

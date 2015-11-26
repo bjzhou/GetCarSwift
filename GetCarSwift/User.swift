@@ -20,7 +20,7 @@ struct User: JSONable {
     var img: String?
     var token: String?
 
-    static var rx_me: Variable<Me> = Variable(Me.sharedInstance)
+    static var rxMine: Variable<Mine> = Variable(Mine.sharedInstance)
 
     init(json: SwiftyJSON.JSON) {
         phone = json["phone"].string
@@ -71,15 +71,15 @@ struct User: JSONable {
     }
 }
 
-struct Me {
-    static var sharedInstance = Me()
+struct Mine {
+    static var sharedInstance = Mine()
     var token: String? {
         get {
             return NSUserDefaults.standardUserDefaults().stringForKey("token")
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "token")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -89,7 +89,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "id")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -99,7 +99,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "phone")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -109,7 +109,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -119,7 +119,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "nickname")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -129,7 +129,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "sex")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -139,7 +139,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "avatar")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -150,7 +150,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_id")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 
@@ -161,7 +161,7 @@ struct Me {
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_bg")
-            User.rx_me.value = self
+            User.rxMine.value = self
         }
     }
 

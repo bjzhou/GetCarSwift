@@ -49,7 +49,7 @@ struct RegisterViewModel {
                 }
 
                 if res.code >= 0 {
-                    Me.sharedInstance.updateLogin(user)
+                    Mine.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 }
             }.addDisposableTo(disposeBag)

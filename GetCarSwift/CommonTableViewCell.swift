@@ -32,7 +32,7 @@ class CommonTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
         customInit()
     }
-    
+
     func customInit() {
         accessoryView = UIImageView(image: R.image.arrow)
     }

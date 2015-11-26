@@ -56,5 +56,5 @@ class CarRightTableViewController: UITableViewController {
             delegate.dismissViewController()
         }
     }
-    
+
 }

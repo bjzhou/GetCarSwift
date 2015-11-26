@@ -13,13 +13,13 @@ protocol AddCarDelegate {
 }
 
 class AddCarViewController: UITableViewController, BrandsDelegate {
-    
+
     var brand = 0
     var delegate: AddCarDelegate?
-    
+
     @IBOutlet weak var license: UITextField!
     @IBOutlet weak var name: UITextField!
-    
+
     func brandChanged(index: Int) {
         brand = index
         NSLog("brandChanged : " + String(index))
@@ -29,11 +29,11 @@ class AddCarViewController: UITableViewController, BrandsDelegate {
         super.viewDidLoad()
 
     }
-    
+
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tableView.sectionHeaderHeight
     }
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

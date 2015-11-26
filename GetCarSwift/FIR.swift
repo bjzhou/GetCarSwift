@@ -11,16 +11,16 @@ import Alamofire
 import SwiftyJSON
 import RxSwift
 
-let FIR_APP_ID = "563089a800fc7478b600000f"
-let FIR_USER_TOKEN = "c5be852abca28607167f36f029ccfc1b"
-let FIR_URL_VERSION_CHECK = "http://api.fir.im/apps/latest/\(FIR_APP_ID)?api_token=\(FIR_USER_TOKEN)"
+let firAppId = "563089a800fc7478b600000f"
+let firUserToken = "c5be852abca28607167f36f029ccfc1b"
+let firVersionCheckUrl = "http://api.fir.im/apps/latest/\(firAppId)?api_token=\(firUserToken)"
 
 struct FIR: JSONable {
     var name: String = ""
     var version: Int = 0
     var versionShort: String = ""
     var changelog: String = ""
-    var updateUrl: String = "http://fir.im/GetCar"
+    var updateUrl = "http://fir.im/GetCar"
 
     init(json: JSON) {
         name = json["name"].stringValue
@@ -32,7 +32,7 @@ struct FIR: JSONable {
 
     static func checkUpdate() -> Observable<FIR> {
         return create { observer in
-            let request = apiManager.request(.GET, FIR_URL_VERSION_CHECK).responseData { res in
+            let request = apiManager.request(.GET, firVersionCheckUrl).responseData { res in
                 if let err = res.result.error {
                     observer.on(.Error(err))
                 } else {

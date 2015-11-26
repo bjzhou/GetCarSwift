@@ -13,8 +13,8 @@ class CarIconEditViewController: UIViewController {
 
     let disposeBag = DisposeBag()
 
-    var colorTag = Me.sharedInstance.carHeadBg
-    var iconTag = Me.sharedInstance.carHeadId
+    var colorTag = Mine.sharedInstance.carHeadBg
+    var iconTag = Mine.sharedInstance.carHeadId
     var prevColorTag = -1
     var prevIconTag = -1
 
@@ -28,7 +28,7 @@ class CarIconEditViewController: UIViewController {
     func loadHighlightButton() {
         for tag in 101...109 {
             let button = self.view.viewWithTag(tag) as! UIButton
-            let image = UIImage(named: getColorIconName(Me.sharedInstance.sex, color: tag))
+            let image = UIImage(named: getColorIconName(Mine.sharedInstance.sex, color: tag))
             button.setImage(image, forState: UIControlState.Highlighted)
             button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
             button.setImage(image, forState: UIControlState.Selected)
@@ -48,7 +48,7 @@ class CarIconEditViewController: UIViewController {
         for tag in 201...206 {
             let button = self.view.viewWithTag(tag) as! UIButton
             let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, icon: tag))
-            let image = UIImage(named: getCarIconName(Me.sharedInstance.sex, color: colorTag, icon: tag))
+            let image = UIImage(named: getCarIconName(Mine.sharedInstance.sex, color: colorTag, icon: tag))
             button.setImage(noSexImage, forState: UIControlState.Normal)
             button.setImage(image, forState: UIControlState.Highlighted)
             button.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
@@ -76,11 +76,11 @@ class CarIconEditViewController: UIViewController {
     }
 
     @IBAction func onSaveAction(sender: UIButton) {
-        Me.sharedInstance.carHeadBg = colorTag
-        Me.sharedInstance.carHeadId = iconTag
+        Mine.sharedInstance.carHeadBg = colorTag
+        Mine.sharedInstance.carHeadId = iconTag
         User.updateInfo(color: String(colorTag), icon: String(iconTag)).subscribeNext { res in
             if let user = res.data {
-                Me.sharedInstance.updateLogin(user)
+                Mine.sharedInstance.updateLogin(user)
             }
         }.addDisposableTo(disposeBag)
         self.navigationController?.popViewControllerAnimated(true)

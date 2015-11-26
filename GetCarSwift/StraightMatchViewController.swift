@@ -39,7 +39,7 @@ class StraightMatchViewController: UIViewController {
     var score2: RmScore?
     var score3: RmScore?
 
-    var _timer: Disposable?
+    var timerDisposable: Disposable?
 
     var ads: [UIImage?] = [R.image.ad_KW, R.image.ad_AFE, R.image.ad_CSB, R.image.ad_MRG, R.image.ad_DMEN, R.image.ad_JBOM, R.image.ad_TEIN, R.image.ad_INJEN, R.image.ad_DHLINS, R.image.ad_DIXCEL, R.image.ad_AP_RACING]
 
@@ -59,16 +59,16 @@ class StraightMatchViewController: UIViewController {
     }
 
     override func viewDidDisappear(animated: Bool) {
-        _timer?.dispose()
+        timerDisposable?.dispose()
     }
 
     @IBAction func didStart(sender: UIButton) {
         sender.selected = !sender.selected
-        _timer?.dispose()
+        timerDisposable?.dispose()
         stopAnim()
         if sender.selected {
             let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
-            _timer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
+            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
                 let tms = t % 100
                 let s = t / 100 % 60
                 let m = t / 100 / 60
@@ -101,7 +101,7 @@ class StraightMatchViewController: UIViewController {
                 }
 
                 if Double(t)/100 >= stopTime {
-                    self._timer?.dispose()
+                    self.timerDisposable?.dispose()
                     sender.selected = !sender.selected
                     self.stopAnim()
                 }

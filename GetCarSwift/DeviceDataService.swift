@@ -25,7 +25,7 @@ struct GKAcceleration {
 
     func averageA() -> Double {
         let count = Double(latest10.count)
-        let acce = latest10.reduce((0.0,0.0,0.0), combine: { ($0.0 + $1.x / count, $0.1 + $1.y / count, $0.2 + $1.z / count) })
+        let acce = latest10.reduce((0.0, 0.0, 0.0), combine: { ($0.0 + $1.x / count, $0.1 + $1.y / count, $0.2 + $1.z / count) })
         return sqrt(acce.0 * acce.0 + acce.1 * acce.1 * acce.2 * acce.2) * 9.81
     }
 }
@@ -42,10 +42,10 @@ class DeviceDataService: NSObject {
 
     var districtService: Disposable?
 
-    var rx_acceleration: Variable<GKAcceleration> = Variable(GKAcceleration())
-    var rx_altitude: Variable<CMAltitudeData?> = Variable(nil)
-    var rx_location: Variable<CLLocation?> = Variable(nil)
-    var rx_district = Variable("正在获取位置信息")
+    var rxAcceleration: Variable<GKAcceleration> = Variable(GKAcceleration())
+    var rxAltitude: Variable<CMAltitudeData?> = Variable(nil)
+    var rxLocation: Variable<CLLocation?> = Variable(nil)
+    var rxDistrict = Variable("正在获取位置信息")
 
     override init() {
         super.init()
@@ -59,7 +59,7 @@ class DeviceDataService: NSObject {
             motionManager.deviceMotionUpdateInterval = 0.01
             motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: { (data, error) in
                 if let validData = data {
-                    self.rx_acceleration.value.append(validData.userAcceleration)
+                    self.rxAcceleration.value.append(validData.userAcceleration)
                 }
             })
         }
@@ -67,13 +67,13 @@ class DeviceDataService: NSObject {
         if CMAltimeter.isRelativeAltitudeAvailable() {
             altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: { (data, error) in
                 if let validData = data {
-                    self.rx_altitude.value = validData
+                    self.rxAltitude.value = validData
                 }
             })
         }
 
         timer(0, 60, MainScheduler.sharedInstance).subscribeNext { _ in
-            self.districtService = self.rx_location.subscribeNext { location in
+            self.districtService = self.rxLocation.subscribeNext { location in
                 guard let location = location else {
                     return
                 }
@@ -83,20 +83,20 @@ class DeviceDataService: NSObject {
 
                 self.searchApi.AMapReGoecodeSearch(regeoRequest)
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
     }
 }
 
 extension DeviceDataService: AMapSearchDelegate {
     func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
         let city = response.regeocode.addressComponent.city == nil ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
-        self.rx_district.value = "\(response.regeocode.addressComponent.province)\(city)"
+        self.rxDistrict.value = "\(response.regeocode.addressComponent.province)\(city)"
         districtService?.dispose()
     }
 }
 
 extension DeviceDataService: AMapLocationManagerDelegate {
     func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!) {
-        self.rx_location.value = location
+        self.rxLocation.value = location
     }
 }

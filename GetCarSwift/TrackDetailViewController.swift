@@ -49,7 +49,7 @@ class TrackDetailViewController: UIViewController {
     var annotation2: MAPointAnnotation?
     var annotation3: MAPointAnnotation?
 
-    var _timer: Disposable?
+    var timerDisposable: Disposable?
 
     var danmuEffect: DanmuEffect?
     var danmuPlayed = false
@@ -98,7 +98,7 @@ class TrackDetailViewController: UIViewController {
     }
 
     override func viewDidDisappear(animated: Bool) {
-        _timer?.dispose()
+        timerDisposable?.dispose()
     }
 
     func keyboardWillShow(notification: NSNotification) {
@@ -125,11 +125,11 @@ class TrackDetailViewController: UIViewController {
     func initTrackData() {
         self.title = trackDetailViewModel.trackTitle
         trackDetailViewModel.getComments()
-        trackDetailViewModel.rx_comments.subscribeNext { comments in
+        trackDetailViewModel.rxComments.subscribeNext { comments in
             if !self.danmuPlayed && comments.count > 0 {
                 self.danmuPlayed = true
                 for comment in comments {
-                    self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Me.sharedInstance.id)
+                    self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -137,10 +137,10 @@ class TrackDetailViewController: UIViewController {
 
     @IBAction func didStart(sender: UIButton) {
         sender.selected = !sender.selected
-        _timer?.dispose()
+        timerDisposable?.dispose()
         if sender.selected {
             let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
-            _timer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
+            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
                 let tms = t % 100
                 let s = t / 100 % 60
                 let m = t / 100 / 60
@@ -171,7 +171,7 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if Double(t)/100 >= stopTime {
-                    self._timer?.dispose()
+                    self.timerDisposable?.dispose()
                     sender.selected = !sender.selected
                 }
             }

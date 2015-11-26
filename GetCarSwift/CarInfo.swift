@@ -24,7 +24,7 @@ struct CarInfo: JSONable {
     }
 
     static func info() -> Observable<GKResult<CarInfo>> {
-    	//api("info", body: [:], completion: completion)
+        //api("info", body: [:], completion: completion)
         return GaikeService.sharedInstance.api("car/info")
     }
 }

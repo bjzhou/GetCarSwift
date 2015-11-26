@@ -36,7 +36,7 @@ class DataViewController: UIViewController {
     var dataVCs = [DataSubViewController]()
     let dataTitles = ["0~60km/h", "0~100km/h", "60~0km/h", "0~400m"]
 
-    var _msTimer: Disposable?
+    var timerDisposable: Disposable?
 
     var ready = false
 
@@ -61,7 +61,7 @@ class DataViewController: UIViewController {
         let signalViews = [signalView1, signalView2, signalView3, signalView4, signalView5]
         let noSignalImages = [R.image.no_signal_1, R.image.no_signal_2, R.image.no_signal_3, R.image.no_signal_4, R.image.no_signal_5]
         let signalImages = [R.image.signal_1, R.image.signal_2, R.image.signal_3, R.image.signal_4, R.image.signal_5]
-        DeviceDataService.sharedInstance.rx_location.subscribeNext { loc in
+        DeviceDataService.sharedInstance.rxLocation.subscribeNext { loc in
             if let loc = loc {
                 for i in 0...4 {
                     signalViews[i].image = signalImages[i]
@@ -85,8 +85,8 @@ class DataViewController: UIViewController {
             }
         }.addDisposableTo(disposeBag)
 
-        DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acces in
-            if let loc = DeviceDataService.sharedInstance.rx_location.value {
+        DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
+            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
                 let a = acces.averageA()
                 self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
                 if self.ready && (loc.speed > 0 || a >= 0.3) {
@@ -247,16 +247,16 @@ class DataViewController: UIViewController {
         self.keyTime.removeAll()
         self.ready = false
         self.latestScores = [-1.0, -1.0, -1.0, -1.0]
-        _msTimer?.dispose()
-        _msTimer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
+        timerDisposable?.dispose()
+        timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            if let loc = DeviceDataService.sharedInstance.rx_location.value {
+            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
                 if let startLoc = self.startLoc {
                     var v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
                     let s = startLoc.distanceFromLocation(loc)
-                    let a = DeviceDataService.sharedInstance.rx_acceleration.value.averageA()
+                    let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
 
                     if let prevData = self.data.last {
                         if self.data.endIndex > 1 {
@@ -366,7 +366,7 @@ class DataViewController: UIViewController {
 
     func stopTimer() {
         UIApplication.sharedApplication().idleTimerDisabled = false
-        _msTimer?.dispose()
+        timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
         self.ready = true
     }

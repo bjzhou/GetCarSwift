@@ -28,5 +28,5 @@ extension UIViewController: ViewProxy {
     func showViewController(vc: UIViewController) {
         self.showViewController(vc, sender: self)
     }
-    
+
 }

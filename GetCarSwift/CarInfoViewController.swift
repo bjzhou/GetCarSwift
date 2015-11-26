@@ -8,37 +8,37 @@
 
 import UIKit
 
-class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, AddCarDelegate {
-    
-    let TAG_LOGO = 430
-    let TAG_LICENSE = 431
-    let TAG_NAME = 432
-    let TAG_BG = 433
-    
+class CarInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddCarDelegate {
+
+    let tagLogo = 430
+    let tagLicense = 431
+    let tagName = 432
+    let tagBg = 433
+
     let logos = ["bmw_logo", "benz_logo", "honda_logo_small"]
 
     @IBOutlet weak var addCarView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    
+
     var infos: [[String: String]] = []
     var preSelectedIndexPath: NSIndexPath?
-    
+
     var userDefaults = NSUserDefaults.standardUserDefaults()
-    
+
     func onCarAdded(license: String, name: String, brandIndex: Int) {
         infos.append([
             "license": license,
             "name": name,
             "logo": logos[brandIndex]
-        ])
+            ])
         userDefaults.setObject(infos, forKey: "car_info")
         tableView.reloadData()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
 
         if let infos = userDefaults.arrayForKey("car_info") as? [[String: String]] {
-            self.infos = infos;
+            self.infos = infos
             tableView.reloadData()
         }
         if infos.count == 0 {
@@ -48,8 +48,8 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
             addCarView.hidden = true
             tableView.hidden = false
         }
-        
-        let defaultIndexPath = NSIndexPath(forRow: userDefaults.integerForKey("using_car_info"), inSection: 0);
+
+        let defaultIndexPath = NSIndexPath(forRow: userDefaults.integerForKey("using_car_info"), inSection: 0)
         tableView.selectRowAtIndexPath(defaultIndexPath, animated: true, scrollPosition: .None)
         tableView(tableView, didSelectRowAtIndexPath: defaultIndexPath)
     }
@@ -60,21 +60,21 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
+
     // - MARK: tableView delegate
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        let cellBg = cell?.viewWithTag(TAG_BG) as? UIImageView
+        let cellBg = cell?.viewWithTag(tagBg) as? UIImageView
         cellBg?.image = R.image.car_info_area_pressed
     }
-    
+
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        let cellBg = cell?.viewWithTag(TAG_BG) as? UIImageView
+        let cellBg = cell?.viewWithTag(tagBg) as? UIImageView
         cellBg?.image = R.image.car_info_area
     }
-    
+
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         preSelectedIndexPath = tableView.indexPathForSelectedRow
         if preSelectedIndexPath != indexPath {
@@ -98,28 +98,28 @@ class CarInfoViewController: UIViewController,UITableViewDelegate, UITableViewDa
         }
         return indexPath
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return infos.count
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("car_info")! 
+        let cell = tableView.dequeueReusableCellWithIdentifier("car_info")!
         let clearView = UIView(frame: cell.frame)
         clearView.backgroundColor = UIColor.clearColor()
         cell.selectedBackgroundView = clearView
-        
+
         let info = infos[indexPath.row] as [String: String]
-        let carLogo = cell.viewWithTag(TAG_LOGO) as? UIImageView
-        let carLicense = cell.viewWithTag(TAG_LICENSE) as? UILabel
-        let carName = cell.viewWithTag(TAG_NAME) as? UILabel
-        
+        let carLogo = cell.viewWithTag(tagLogo) as? UIImageView
+        let carLicense = cell.viewWithTag(tagLicense) as? UILabel
+        let carName = cell.viewWithTag(tagName) as? UILabel
+
         carLogo?.image = UIImage(named: info["logo"] ?? "")
         carLicense?.text = info["license"]
         carName?.text = info["name"]
         return cell
     }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let addCarViewController = segue.destinationViewController as! AddCarViewController
         addCarViewController.delegate = self

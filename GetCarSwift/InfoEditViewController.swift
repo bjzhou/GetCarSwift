@@ -58,10 +58,10 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     func didSave() {
         switch mode {
         case .Nickname:
-            Me.sharedInstance.nickname = nickname
+            Mine.sharedInstance.nickname = nickname
             _ = User.updateInfo(nickname: nickname).subscribeNext { user in
                 if let nickname = user.data?.nickname {
-                    Me.sharedInstance.nickname = nickname
+                    Mine.sharedInstance.nickname = nickname
                 }
             }
         default:
@@ -96,10 +96,10 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 cell.textLabel?.text = "女"
             }
-            cell.accessoryView = UIImageView(image: indexPath.row != Me.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
+            cell.accessoryView = UIImageView(image: indexPath.row != Mine.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
         case .Nickname:
             let textField = UITextField(frame: CGRectMake(8, 20, cell.frame.width - 16, cell.frame.height - 40))
-            textField.text = Me.sharedInstance.nickname
+            textField.text = Mine.sharedInstance.nickname
             textField.clearButtonMode = .WhileEditing
             textField.becomeFirstResponder()
             _ = textField.rx_text.subscribeNext { text in
@@ -115,14 +115,14 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         }
         return cell
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch mode {
         case .Sex:
-            Me.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
+            Mine.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
             _ = User.updateInfo(sex: indexPath.row == 1 ? 0 : 1).subscribeNext { user in
                 if let sex = user.data?.sex {
-                    Me.sharedInstance.sex = sex
+                    Mine.sharedInstance.sex = sex
                 }
             }
             tableView.reloadData()
@@ -131,9 +131,8 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             break
         }
     }
-    
+
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
-
 }

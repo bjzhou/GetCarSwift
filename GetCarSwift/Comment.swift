@@ -13,15 +13,15 @@ import RxSwift
 struct Comment: JSONable {
     var id: String?
     var content = ""
-    var create_time = ""
+    var createTime = ""
     var nickname = ""
     var head = ""
     var uid = ""
 
-    init(id: String?, content: String, create_time: String, nickname: String, head: String, uid: String) {
+    init(id: String?, content: String, createTime: String, nickname: String, head: String, uid: String) {
         self.id = id
         self.content = content
-        self.create_time = create_time
+        self.createTime = createTime
         self.nickname = nickname
         self.head = head
         self.uid = uid
@@ -30,7 +30,7 @@ struct Comment: JSONable {
     init(json: JSON) {
         id = json["id"].string
         content = json["content"].stringValue
-        create_time = json["create_time"].stringValue
+        createTime = json["create_time"].stringValue
         nickname = json["nickname"].stringValue
         head = json["head"].stringValue
         uid = json["uid"].stringValue

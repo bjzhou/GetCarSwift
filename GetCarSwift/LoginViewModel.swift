@@ -59,10 +59,10 @@ struct LoginViewModel {
                     return
                 }
 
-                Me.sharedInstance.token = token
+                Mine.sharedInstance.token = token
 
                 if let nickname = user.nickname where nickname != "" {
-                    Me.sharedInstance.updateLogin(user)
+                    Mine.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 } else {
                     let dest = R.storyboard.login.register!

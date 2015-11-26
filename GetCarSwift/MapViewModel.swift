@@ -19,11 +19,11 @@ typealias AnnotationTuple = ([CarIconAnnotation], [CarIconAnnotation])
 struct MapViewModel {
 
     let realm = try! Realm()
-    var annotations: [String:CarIconAnnotation] = [:]
+    var annotations: [String: CarIconAnnotation] = [:]
 
     mutating func updateNearby() -> Observable<AnnotationTuple> {
         return timer(0, 10, MainScheduler.sharedInstance).map { _ in
-            Nearby.map(accelerate: DeviceDataService.sharedInstance.rx_acceleration.value.averageA(), speed: DeviceDataService.sharedInstance.rx_location.value?.speed ?? 0)
+            Nearby.map(accelerate: DeviceDataService.sharedInstance.rxAcceleration.value.averageA(), speed: DeviceDataService.sharedInstance.rxLocation.value?.speed ?? 0)
         }
         .concat()
         .map { result in
@@ -55,8 +55,8 @@ struct MapViewModel {
         let newCoordinate = CLLocation(latitude: nearby.lati, longitude: nearby.longt)
         pointAnnotation.coordinate = newCoordinate.coordinate
         pointAnnotation.title = nearby.nickname
-        pointAnnotation.image = UIImage(named: getCarIconName(nearby.sex, color: nearby.car_head_bg, icon: nearby.car_head_id))?.scaleImage(scale: 0.5)
-        if let dis = DeviceDataService.sharedInstance.rx_location.value?.distanceFromLocation(newCoordinate) {
+        pointAnnotation.image = UIImage(named: getCarIconName(nearby.sex, color: nearby.carHeadBg, icon: nearby.carHeadId))?.scaleImage(scale: 0.5)
+        if let dis = DeviceDataService.sharedInstance.rxLocation.value?.distanceFromLocation(newCoordinate) {
             if dis >= 1000 {
                 pointAnnotation.subtitle = "距离\(Int(dis/1000))千米"
             } else {

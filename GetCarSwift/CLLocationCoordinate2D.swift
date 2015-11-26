@@ -19,9 +19,9 @@ extension CLLocationCoordinate2D {
             abs(latDegrees),
             latMinutes,
             latSeconds,
-            {return latDegrees >= 0 ? "N" : "S"}() )
+            latDegrees >= 0 ? "N" : "S")
     }
-    
+
     func longitudeString() -> String {
         var longSeconds = Int(longitude * 3600)
         let longDegrees = longSeconds / 3600
@@ -32,7 +32,7 @@ extension CLLocationCoordinate2D {
             abs(longDegrees),
             longMinutes,
             longSeconds,
-            {return longDegrees >= 0 ? "E" : "W"}() )
+            longDegrees >= 0 ? "E" : "W")
     }
 
     static var Zero = CLLocationCoordinate2D(latitude: 0, longitude: 0)

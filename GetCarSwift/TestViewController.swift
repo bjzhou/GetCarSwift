@@ -16,15 +16,14 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
 
 
-//        for score in realm.objects(RmScore) {
-//            if let data = try? NSJSONSerialization.dataWithJSONObject(score.toDictionary(), options: []) {
-//                print(String(data: data, encoding: NSUTF8StringEncoding))
-//            }
-//        }
+        //        for score in realm.objects(RmScore) {
+        //            if let data = try? NSJSONSerialization.dataWithJSONObject(score.toDictionary(), options: []) {
+        //                print(String(data: data, encoding: NSUTF8StringEncoding))
+        //            }
+        //        }
     }
 
     @IBAction func didClick(sender: UIButton) {
-        
     }
 
 }

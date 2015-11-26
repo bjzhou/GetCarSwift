@@ -13,21 +13,21 @@ import RxSwift
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let disposeBag = DisposeBag()
-    
+
     let titles = ["头像", "车形象", "用户名", /*"我的二维码", "我的地址",*/ "性别", "地区"/*, "个性签名"*/]
     var values = ["avatar", getCarIconName(0, color: 0, icon: 0), "SURA"/*, IMAGE_QRCODE, ""*/, "女", "上海浦东新区"/*, ""*/]
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
-        let colorTag = Me.sharedInstance.carHeadBg
-        let iconTag = Me.sharedInstance.carHeadId
-        values[1] = getCarIconName(Me.sharedInstance.sex, color: colorTag, icon: iconTag)
-        values[2] = Me.sharedInstance.nickname ?? "用户名"
-        values[3/*5*/] = getSexString(Me.sharedInstance.sex)
-        values[4/*6*/] = DeviceDataService.sharedInstance.rx_district.value
+        let colorTag = Mine.sharedInstance.carHeadBg
+        let iconTag = Mine.sharedInstance.carHeadId
+        values[1] = getCarIconName(Mine.sharedInstance.sex, color: colorTag, icon: iconTag)
+        values[2] = Mine.sharedInstance.nickname ?? "用户名"
+        values[3/*5*/] = getSexString(Mine.sharedInstance.sex)
+        values[4/*6*/] = DeviceDataService.sharedInstance.rxDistrict.value
         self.tableView.reloadData()
     }
 
@@ -71,7 +71,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
 
         return cell
     }
-    
+
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1) {
             return 80
@@ -79,14 +79,14 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             return 60
         }
     }
-    
+
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tableView.sectionHeaderHeight
     }
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
@@ -105,11 +105,11 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             case 0:
                 self.navigationController?.showViewController(InfoEditViewController(mode: .Sex), sender: self)
             default:
-                break;
+                break
             }
         }
     }
-    
+
     func showImagePickerAlertView() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -130,20 +130,20 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         }
         presentViewController(alertController, animated: true, completion: nil)
     }
-    
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let avatarImage = image.scaleImage(size: CGSizeMake(254, 254))
         User.uploadHeader(avatarImage).subscribeNext { gkResult in
             if let user = gkResult.data {
-                Me.sharedInstance.updateLogin(user)
+                Mine.sharedInstance.updateLogin(user)
                 self.tableView.reloadData()
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
         dismissViewControllerAnimated(true, completion: {_ in
             self.tableView.reloadData()
         })
     }
-    
+
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
     }
@@ -153,8 +153,8 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
 

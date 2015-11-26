@@ -12,7 +12,7 @@ class PostViewController: UIViewController {
 
     @IBOutlet weak var hiddenTagViewHeight: NSLayoutConstraint!
     @IBOutlet weak var hiddenTagView: UIView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +20,7 @@ class PostViewController: UIViewController {
         tapRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapRecognizer)
     }
-    
+
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
@@ -34,7 +34,7 @@ class PostViewController: UIViewController {
             }
         }
     }
-    
+
     @IBAction func onTagExpand(sender: UIButton) {
         UIView.transitionWithView(hiddenTagView, duration: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: {
             self.hiddenTagViewHeight.constant = sender.selected ? 0 : 102

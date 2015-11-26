@@ -17,11 +17,11 @@ extension UIColor {
             alpha: CGFloat(1.0)
         )
     }
-    
+
     static func gaikeRedColor() -> UIColor {
         return UIColor(rgbValue: 0xcc0007)
     }
-    
+
     static func gaikeBackgroundColor() -> UIColor {
         return UIColor(rgbValue: 0xeeeeee)
     }

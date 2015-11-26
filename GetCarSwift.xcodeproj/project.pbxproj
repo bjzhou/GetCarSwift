@@ -558,6 +558,7 @@
 				C527E00D7BEFF4362739B28B /* Check Pods Manifest.lock */,
 				C8CD8E0B1B91E85B0050DF90 /* Embed Frameworks */,
 				C88D89601BDF75E200AA4425 /* Generate R.swift */,
+				C8F330031C06AFB200FC5744 /* SwiftLint */,
 				C867FC621AD8FCAF00F99592 /* Sources */,
 				C867FC631AD8FCAF00F99592 /* Frameworks */,
 				C867FC641AD8FCAF00F99592 /* Resources */,
@@ -716,6 +717,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/rswift\" \"$SRCROOT\"";
+		};
+		C8F330031C06AFB200FC5744 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --config $SRCROOT/.swiftlint.yml\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

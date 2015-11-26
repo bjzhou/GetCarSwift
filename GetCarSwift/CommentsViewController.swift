@@ -34,7 +34,7 @@ class CommentsViewController: UIViewController {
     }
 
     func initCommentsData() {
-        trackDetailViewModel?.rx_comments.subscribeNext { comments in
+        trackDetailViewModel?.rxComments.subscribeNext { comments in
             self.commentTableView.reloadData()
             if comments.count == 0 {
                 self.commentTableView.hidden = true
@@ -83,7 +83,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trackDetailViewModel?.rx_comments.value.count ?? 0
+        return trackDetailViewModel?.rxComments.value.count ?? 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -93,15 +93,15 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         let time = cell.viewWithTag(312) as! UILabel
         let content = cell.viewWithTag(313) as! UILabel
 
-        if let url = NSURL(string: trackDetailViewModel?.rx_comments.value[indexPath.row].head ?? "") {
+        if let url = NSURL(string: trackDetailViewModel?.rxComments.value[indexPath.row].head ?? "") {
             avatarView.hnk_setImageFromURL(url, placeholder: R.image.avatar)
         } else {
             avatarView.image = R.image.avatar
         }
 
-        nickname.text = trackDetailViewModel?.rx_comments.value[indexPath.row].nickname
-        time.text = trackDetailViewModel?.rx_comments.value[indexPath.row].create_time
-        content.text = trackDetailViewModel?.rx_comments.value[indexPath.row].content
+        nickname.text = trackDetailViewModel?.rxComments.value[indexPath.row].nickname
+        time.text = trackDetailViewModel?.rxComments.value[indexPath.row].createTime
+        content.text = trackDetailViewModel?.rxComments.value[indexPath.row].content
         return cell
     }
 
@@ -109,4 +109,3 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
-

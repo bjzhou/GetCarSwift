@@ -24,9 +24,9 @@ class MineViewController: UITableViewController {
         super.viewDidLoad()
 
         myAvatar.setAvatarImage()
-        sexImage.image = Me.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
-        nickname.text = Me.sharedInstance.nickname
-        DeviceDataService.sharedInstance.rx_district.bindTo(position.rx_text).addDisposableTo(disposeBag)
+        sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
+        nickname.text = Mine.sharedInstance.nickname
+        DeviceDataService.sharedInstance.rxDistrict.bindTo(position.rx_text).addDisposableTo(disposeBag)
 
         myAvatar.layer.masksToBounds = true
         myAvatar.layer.cornerRadius = 10

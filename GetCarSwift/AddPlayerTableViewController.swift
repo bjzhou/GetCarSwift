@@ -59,29 +59,29 @@ class AddPlayerTableViewController: UITableViewController {
         switch mode {
         case .Menu:
             if indexPath.row == 0 {
-                cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
-                let avatarView = cell.viewWithTag(111) as! UIImageView
-                avatarView.setAvatarImage()
-                let nameLabel = cell.viewWithTag(112) as! UILabel
-                nameLabel.text = "我"
+                cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath)
+                let avatarView = cell.viewWithTag(111) as? UIImageView
+                avatarView?.setAvatarImage()
+                let nameLabel = cell.viewWithTag(112) as? UILabel
+                nameLabel?.text = "我"
             } else {
-                cell = tableView.dequeueReusableCellWithIdentifier("menu", forIndexPath: indexPath) 
+                cell = tableView.dequeueReusableCellWithIdentifier("menu", forIndexPath: indexPath)
                 cell.textLabel?.text = indexPath.row == 1 ? titles[.Friend] : titles[.Rank]
             }
         case .Friend:
-            cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
-            let avatarView = cell.viewWithTag(111) as! UIImageView
-            avatarView.image = R.image.avatar
-            let nameLabel = cell.viewWithTag(112) as! UILabel
-            nameLabel.text = friends[indexPath.row]
+            cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath)
+            let avatarView = cell.viewWithTag(111) as? UIImageView
+            avatarView?.image = R.image.avatar
+            let nameLabel = cell.viewWithTag(112) as? UILabel
+            nameLabel?.text = friends[indexPath.row]
         case .Rank:
-            cell = tableView.dequeueReusableCellWithIdentifier("rank", forIndexPath: indexPath) 
-            let avatarView = cell.viewWithTag(122) as! UIImageView
-            avatarView.image = R.image.avatar
-            let rankLabel = cell.viewWithTag(121) as! UILabel
-            rankLabel.text = String(indexPath.row+1)
-            let nameLabel = cell.viewWithTag(123) as! UILabel
-            nameLabel.text = String(format: "%.2f", rankings[indexPath.row].score)
+            cell = tableView.dequeueReusableCellWithIdentifier("rank", forIndexPath: indexPath)
+            let avatarView = cell.viewWithTag(122) as? UIImageView
+            avatarView?.image = R.image.avatar
+            let rankLabel = cell.viewWithTag(121) as? UILabel
+            rankLabel?.text = String(indexPath.row+1)
+            let nameLabel = cell.viewWithTag(123) as? UILabel
+            nameLabel?.text = String(format: "%.2f", rankings[indexPath.row].score)
         }
 
         return cell
@@ -96,7 +96,7 @@ class AddPlayerTableViewController: UITableViewController {
                 mode = .Rank
                 tableView.reloadData()
             } else {
-                Me.sharedInstance.fetchAvatar { image in
+                Mine.sharedInstance.fetchAvatar { image in
                     self.delegate?.didPlayerAdded(avatar: image, name: "我", score: RmScore(), sender: self.sender)
                     self.dismissPopupViewController()
                 }

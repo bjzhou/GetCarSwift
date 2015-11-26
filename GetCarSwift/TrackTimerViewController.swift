@@ -23,7 +23,7 @@ class TrackTimerViewController: UIViewController {
 
     let realm = try! Realm()
     let disposeBag = DisposeBag()
-    var _msTimer: Disposable?
+    var timerDisposable: Disposable?
     var startLoc: CLLocation?
     var data = List<RmScoreData>()
     var inStartCircle = false
@@ -34,8 +34,8 @@ class TrackTimerViewController: UIViewController {
 
         updateScore()
 
-        DeviceDataService.sharedInstance.rx_acceleration.subscribeNext { acces in
-            if let loc = DeviceDataService.sharedInstance.rx_location.value {
+        DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
+            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
                 let a = acces.averageA()
                 self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
                 if let start = self.raceTrack.startLoc {
@@ -82,15 +82,15 @@ class TrackTimerViewController: UIViewController {
         stopTimer()
         UIApplication.sharedApplication().idleTimerDisabled = true
         self.data.removeAll()
-        _msTimer = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
+        timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            if let loc = DeviceDataService.sharedInstance.rx_location.value {
+            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
                 if let startLoc = self.startLoc {
                     let v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
                     let s = startLoc.distanceFromLocation(loc)
-                    let a = DeviceDataService.sharedInstance.rx_acceleration.value.averageA()
+                    let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
 
                     if let prevData = self.data.last {
                         if s != prevData.s {
@@ -106,7 +106,7 @@ class TrackTimerViewController: UIViewController {
 
     func stopTimer() {
         UIApplication.sharedApplication().idleTimerDisabled = false
-        _msTimer?.dispose()
+        timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
     }
 

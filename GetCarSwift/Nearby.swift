@@ -15,19 +15,19 @@ struct Nearby: JSONable {
     var sex = 0
     var lati = 0.0
     var longt = 0.0
-    var car_head_bg = 0
-    var car_head_id = 0
+    var carHeadBg = 0
+    var carHeadId = 0
 
     init(json: JSON) {
         nickname = json["nickname"].stringValue
         sex = json["sex"].intValue
         lati = json["lati"].doubleValue
         longt = json["longt"].doubleValue
-        car_head_bg = json["car_head_bg"].intValue
-        car_head_id = json["car_head_id"].intValue
+        carHeadBg = json["car_head_bg"].intValue
+        carHeadId = json["car_head_id"].intValue
     }
 
-    static func map(max_count: Int = 10, max_distance: Int = 5000, accelerate: Double, speed: Double) -> Observable<GKResult<Nearby>> {
-        return GaikeService.sharedInstance.api("geo/map", body: ["max_count":max_count, "max_distance":max_distance, "acc":accelerate, "speed":speed])
+    static func map(maxCount: Int = 10, maxDistance: Int = 5000, accelerate: Double, speed: Double) -> Observable<GKResult<Nearby>> {
+        return GaikeService.sharedInstance.api("geo/map", body: ["max_count":maxCount, "max_distance":maxDistance, "acc":accelerate, "speed":speed])
     }
 }

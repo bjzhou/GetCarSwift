@@ -13,7 +13,7 @@ protocol BrandsDelegate {
 }
 
 class BrandsViewController: UITableViewController {
-    
+
     var delegate: BrandsDelegate?
     var currentBrand = 0
 
@@ -27,14 +27,14 @@ class BrandsViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tableView.sectionHeaderHeight
     }
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         currentBrand = indexPath.row
         tableView.reloadData()
         delegate?.brandChanged(currentBrand)
         navigationController?.popViewControllerAnimated(true)
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         cell.accessoryView = UIImageView(image: indexPath.row == currentBrand ? R.image.accessory_selected : R.image.accessory)

@@ -9,7 +9,7 @@
 import UIKit
 
 class PersonInfoCell: UITableViewCell {
-    
+
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var value: UILabel!
@@ -24,7 +24,7 @@ class PersonInfoCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         accessoryView = UIImageView(image: R.image.arrow)
