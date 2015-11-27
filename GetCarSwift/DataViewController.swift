@@ -289,11 +289,11 @@ class DataViewController: UIViewController {
                             self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
                             if self.latestScores[0] == -1 {
                                 self.latestScores[0] = self.keyTime["60"]!
+                                self.data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": s]))
                                 self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
                                 self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
                                 let data = List<RmScoreData>()
                                 data.appendContentsOf(self.data)
-                                data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": s]))
                                 let score = RmScore()
                                 score.type = "v60"
                                 score.score = self.latestScores[0]
@@ -312,11 +312,11 @@ class DataViewController: UIViewController {
                             self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
                             if self.latestScores[1] == -1 {
                                 self.latestScores[1] = self.keyTime["100"]!
+                                self.data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": s]))
                                 self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
                                 self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
                                 let data = List<RmScoreData>()
                                 data.appendContentsOf(self.data)
-                                data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": s]))
                                 let score = RmScore()
                                 score.type = "v100"
                                 score.score = self.latestScores[1]

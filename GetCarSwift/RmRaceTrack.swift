@@ -15,7 +15,9 @@ class RmRaceTrack: Object {
     dynamic var mapCenter: RmLocation?
     dynamic var mapZoom = 0.0
     dynamic var address = ""
+    dynamic var introduce = ""
     dynamic var sightView = ""
+    dynamic var mapImage = ""
     dynamic var isDeveloped = false
     dynamic var startLoc: RmLocation?
     dynamic var stopLoc: RmLocation?

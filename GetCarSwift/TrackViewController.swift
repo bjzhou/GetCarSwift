@@ -48,11 +48,11 @@ class TrackViewController: UITableViewController {
             case 1:
                 trackDetailViewModel.sid = 5
                 trackDetailViewModel.trackTitle = "天马赛车场"
-                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("name = 'tianma'").first
+                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("id = '2'").first
             case 2:
                 trackDetailViewModel.sid = 1
                 trackDetailViewModel.trackTitle = "安吉天荒坪"
-                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("name = 'anji'").first
+                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("id = '1'").first
             case 3:
                 trackDetailViewModel.sid = 2
                 trackDetailViewModel.trackTitle = "台州鸟山"

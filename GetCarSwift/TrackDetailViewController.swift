@@ -13,6 +13,7 @@ class TrackDetailViewController: UIViewController {
 
     @IBOutlet weak var postView: UIView!
     @IBOutlet weak var postViewPos: NSLayoutConstraint!
+    @IBOutlet weak var commentTextField: UITextField!
 
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
@@ -35,7 +36,6 @@ class TrackDetailViewController: UIViewController {
 
     @IBOutlet weak var mapView: MAMapView!
 
-    @IBOutlet weak var commentTextField: UITextField!
 
     let disposeBag = DisposeBag()
 
@@ -141,10 +141,8 @@ class TrackDetailViewController: UIViewController {
         if sender.selected {
             let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
             timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
-                let tms = t % 100
-                let s = t / 100 % 60
-                let m = t / 100 / 60
-                self.timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
+                let curTs = self.time2String(Double(t)/100)
+                self.timeLabel.text = curTs
 
                 if let score = self.score1 {
                     let datas = score.record.filter { $0.t == Double(t)/100 }
@@ -201,6 +199,16 @@ class TrackDetailViewController: UIViewController {
 
             view?.layer.addAnimation(anim, forKey: "race")
         }
+    }
+
+    func time2String(t: Double) -> String {
+        if t < 0 {
+            return "--:--.--"
+        }
+        let ms = Int(round(t * 100 % 100))
+        let s = Int(t) % 60
+        let m = Int(t) / 60
+        return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {

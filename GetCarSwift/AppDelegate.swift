@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
         let config = Realm.Configuration(
-            schemaVersion: 11,
+            schemaVersion: 12,
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 9) {
                     migration.enumerate(RmScore.className()) { oldObject, newObject in

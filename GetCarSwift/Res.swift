@@ -11,7 +11,7 @@ import Foundation
 let versionShort = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 let version = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String)!
 let bundleId = NSBundle.mainBundle().infoDictionary?["CFBundleIdentifier"] as? String
-let displayName = NSBundle.mainBundle().infoDictionary?["CFBundleDisplayName"] as? String
+let productName = NSBundle.mainBundle().infoDictionary?["CFBundleName"] as? String
 
 #if ADHOC
     let amapKey = "5f7efffc934719c87faca88c9cea88ec"

@@ -25,6 +25,8 @@ class ModDoctorViewController: UIViewController {
         tableView.estimatedRowHeight = 380
     }
 
+    override func viewDidLayoutSubviews() {
+    }
 }
 
 extension ModDoctorViewController: UITableViewDelegate, UITableViewDataSource {

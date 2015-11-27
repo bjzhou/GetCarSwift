@@ -66,6 +66,7 @@
 		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; };
 		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; };
 		C8B01E9D1C05BDEE00A85612 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B01E9C1C05BDEE00A85612 /* SettingsTableViewController.swift */; };
+		C8BD47C71C0834C200AAC029 /* TrackIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BD47C61C0834C200AAC029 /* TrackIntroViewController.swift */; };
 		C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */; };
 		C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08E1B8B5DEE006095DC /* JSON.swift */; };
 		C8C2C0931B8B5DEE006095DC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08F1B8B5DEE006095DC /* String.swift */; };
@@ -189,6 +190,7 @@
 		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		C8AEC2121B996F41002F39EB /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		C8B01E9C1C05BDEE00A85612 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		C8BD47C61C0834C200AAC029 /* TrackIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackIntroViewController.swift; sourceTree = "<group>"; };
 		C8C2C08D1B8B5DEE006095DC /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		C8C2C08E1B8B5DEE006095DC /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		C8C2C08F1B8B5DEE006095DC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				C8E2B8551AD96F31003B07FE /* MapViewController.swift */,
 				C89A05C61B6E125400620C85 /* GkboxViewController.swift */,
 				C8EC0DF31C04727500A619DC /* TrackTimerViewController.swift */,
+				C8BD47C61C0834C200AAC029 /* TrackIntroViewController.swift */,
 			);
 			name = gkbox;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				C8EC0DF41C04727500A619DC /* TrackTimerViewController.swift in Sources */,
 				C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */,
 				C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D.swift in Sources */,
+				C8BD47C71C0834C200AAC029 /* TrackIntroViewController.swift in Sources */,
 				C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */,

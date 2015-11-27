@@ -19,11 +19,13 @@ class MapViewController: UIViewController {
     @IBOutlet weak var trackTitleLabel: UILabel!
     @IBOutlet weak var trackAddressButton: UIButton!
     @IBOutlet weak var gotoTrackButton: UIButton!
+    @IBOutlet weak var trackIntroButton: UIButton!
 
     var mapViewModel: MapViewModel!
 
     var gotoTrackAction: Disposable?
     var trackAddressAction: Disposable?
+    var trackIntroAction: Disposable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,21 +118,32 @@ extension MapViewController: MAMapViewDelegate {
             }
             gotoTrackAction?.dispose()
             trackAddressAction?.dispose()
+            trackIntroAction?.dispose()
+            gotoTrackButton.enabled = annotation.raceTrack.isDeveloped
             gotoTrackAction = gotoTrackButton.rx_tap.subscribeNext {
                 let vc = R.storyboard.gkbox.track_timer
                 vc?.raceTrack = annotation.raceTrack
                 self.showViewController(vc!)
             }
             trackAddressAction = trackAddressButton.rx_tap.subscribeNext {
-                let maNaviConfig = MANaviConfig()
-                maNaviConfig.destination = annotation.coordinate
-                maNaviConfig.appScheme = bundleId ?? ""
-                maNaviConfig.appName = displayName ?? ""
-                maNaviConfig.strategy = MADrivingStrategy.Fastest
-                if !MAMapURLSearch.openAMapNavigation(maNaviConfig) {
-                    //调用百度地图
-                    //调用苹果地图
+                let gaodeUrl = "iosamap://path?sourceApplication=\(productName!)&sid=BGVIS1&did=BGVIS2&dname=\(annotation.title.encodedUrlString)&dev=0&m=0&t=0"
+                if UIApplication.sharedApplication().canOpenURL(NSURL(string: gaodeUrl)!) {
+                    UIApplication.sharedApplication().openURL(NSURL(string: gaodeUrl)!)
+                } else {
+                    let origin = "我的位置".encodedUrlString
+                    let src = "\(bundleId!)|\(productName!)".encodedUrlString
+                    let baiduUrl = "baidumap://map/direction?origin=\(origin)&destination=\(annotation.title.encodedUrlString)&mode=driving&src=\(src)"
+                    if UIApplication.sharedApplication().canOpenURL(NSURL(string: baiduUrl)!) {
+                        UIApplication.sharedApplication().openURL(NSURL(string: baiduUrl)!)
+                    } else {
+                        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(annotation.title.encodedUrlString)&dirflg=d&t=m")!)
+                    }
                 }
+            }
+            trackIntroAction = trackIntroButton.rx_tap.subscribeNext {
+                let vc = R.storyboard.gkbox.track_intro
+                vc?.raceTrack = annotation.raceTrack
+                self.showViewController(vc!)
             }
         }
     }

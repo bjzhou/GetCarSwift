@@ -11,6 +11,8 @@ import RxSwift
 
 class StraightMatchViewController: UIViewController {
 
+    let disposeBag = DisposeBag()
+
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
@@ -35,6 +37,10 @@ class StraightMatchViewController: UIViewController {
     @IBOutlet weak var leftAdImg: UIImageView!
     @IBOutlet weak var rightAdImg: UIImageView!
 
+    @IBOutlet weak var postView: UIView!
+    @IBOutlet weak var postViewPos: NSLayoutConstraint!
+    @IBOutlet weak var commentTextField: UITextField!
+
     var score1: RmScore?
     var score2: RmScore?
     var score3: RmScore?
@@ -43,16 +49,35 @@ class StraightMatchViewController: UIViewController {
 
     var ads: [UIImage?] = [R.image.ad_KW, R.image.ad_AFE, R.image.ad_CSB, R.image.ad_MRG, R.image.ad_DMEN, R.image.ad_JBOM, R.image.ad_TEIN, R.image.ad_INJEN, R.image.ad_DHLINS, R.image.ad_DIXCEL, R.image.ad_AP_RACING]
 
+    var trackDetailViewModel = TrackDetailViewModel()
+    var danmuEffect: DanmuEffect?
+    var danmuPlayed = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+        var danmuRect = raceBg.frame
+        danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 2)
+        danmuEffect = DanmuEffect(superView: raceBg, rect: danmuRect)
+        trackDetailViewModel.sid = 0
 
         for button in [button1, button2, button3] {
             button.layer.masksToBounds = true
             button.layer.cornerRadius = 23.5
         }
 
-        leftAdImg.transform = CGAffineTransformMakeRotation(CGFloat(270.0*M_PI/180.0))
-        rightAdImg.transform = CGAffineTransformMakeRotation(CGFloat(90*M_PI/180.0))
+        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.imageWithRenderingMode(.AlwaysOriginal)
+
+        trackDetailViewModel.getComments()
+        trackDetailViewModel.rxComments.subscribeNext { comments in
+            if !self.danmuPlayed && comments.count > 0 {
+                self.danmuPlayed = true
+                for comment in comments {
+                    self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
+                }
+            }
+            }.addDisposableTo(disposeBag)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -69,36 +94,10 @@ class StraightMatchViewController: UIViewController {
         if sender.selected {
             let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
             timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
-                let tms = t % 100
-                let s = t / 100 % 60
-                let m = t / 100 / 60
-                self.timeLabel.text = String(format: "%02d:%02d.%02d", arguments: [m, s, tms])
+                let curTs = self.time2String(Double(t)/100)
+                self.timeLabel.text = curTs
 
                 self.showRandomAd(t)
-
-                if let score = self.score1 {
-                    let datas = score.record.filter { $0.t == Double(t)/100 }
-                    if let data = datas.first {
-                        self.vLabel1.text = String(format: "%05.1f", data.v)
-                        self.aLabel1.text = String(format: "%.1f", data.a)
-                    }
-                }
-
-                if let score = self.score2 {
-                    let datas = score.record.filter { $0.t == Double(t)/100 }
-                    if let data = datas.first {
-                        self.vLabel2.text = String(format: "%05.1f", data.v)
-                        self.aLabel2.text = String(format: "%.1f", data.a)
-                    }
-                }
-
-                if let score = self.score3 {
-                    let datas = score.record.filter { $0.t == Double(t)/100 }
-                    if let data = datas.first {
-                        self.vLabel3.text = String(format: "%05.1f", data.v)
-                        self.aLabel3.text = String(format: "%.1f", data.a)
-                    }
-                }
 
                 if Double(t)/100 >= stopTime {
                     self.timerDisposable?.dispose()
@@ -182,6 +181,16 @@ class StraightMatchViewController: UIViewController {
         raceBg.image = R.image.race_bg
     }
 
+    func time2String(t: Double) -> String {
+        if t < 0 {
+            return "--:--.--"
+        }
+        let ms = Int(round(t * 100 % 100))
+        let s = Int(t) % 60
+        let m = Int(t) / 60
+        return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
+    }
+
     override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         if anim == finishLine.layer.animationForKey("finishLine") {
             raceBg.image = R.image.race_bg
@@ -197,6 +206,22 @@ class StraightMatchViewController: UIViewController {
         let popupViewController = PopupViewController(rootViewController: addViewController)
         self.presentViewController(popupViewController, animated: false, completion: nil)
     }
+
+    @IBAction func didPostComment(sender: UIButton) {
+        _ = trackDetailViewModel.postComment(commentTextField.text!).subscribeNext {
+            self.danmuEffect?.send(self.commentTextField.text!, highlight: true, highPriority: true)
+            self.commentTextField.text = ""
+            }
+        self.view.endEditing(true)
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == R.segue.track_comment {
+            if let destVc = segue.destinationViewController as? CommentsViewController {
+                destVc.trackDetailViewModel = trackDetailViewModel
+            }
+        }
+    }
 }
 
 extension StraightMatchViewController: AddPlayerDelegate {
@@ -205,16 +230,33 @@ extension StraightMatchViewController: AddPlayerDelegate {
         sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
         sender?.layer.borderWidth = 2
 
+        var v60 = "00:00.00"
+        var v100 = "00:00.00"
+        let v60s = score.record.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t }
+        if let data = v60s.first {
+            v60 = time2String(data.t)
+        }
+        let v100s = score.record.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t }
+        if let data = v100s.first {
+            v100 = time2String(data.t)
+        }
+
         switch sender {
         case .Some(button1):
             titleLabel1.text = name
             score1 = score
+            vLabel1.text = v60
+            aLabel1.text = v100
         case .Some(button2):
             titleLabel2.text = name
             score2 = score
+            vLabel2.text = v60
+            aLabel2.text = v100
         case .Some(button3):
             titleLabel3.text = name
             score3 = score
+            vLabel3.text = v60
+            aLabel3.text = v100
         default:
             break
         }
