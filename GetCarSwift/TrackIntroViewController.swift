@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TrackIntroViewController: UIViewController {
+
+    let realm = try! Realm()
 
     @IBOutlet weak var trackView: UIImageView!
     @IBOutlet weak var trackTitleLabel: UILabel!
@@ -20,10 +23,34 @@ class TrackIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        trackView.image = UIImage(named: raceTrack.sightView)
+        trackView.image = getSightView()
         trackTitleLabel.text = raceTrack.name
         trackDetailLabel.text = raceTrack.introduce
-        trackMapImageView.image = UIImage(named: raceTrack.mapImage)
+        trackMapImageView.image = getmapImage()
+    }
+
+    func getSightView() -> UIImage {
+        if let image = UIImage(named: raceTrack.sightView) {
+            return image
+        } else if let image = UIImage(named: raceTrack.name) {
+            try! realm.write {
+                self.raceTrack.sightView = self.raceTrack.name
+            }
+            return image
+        }
+        return UIImage()
+    }
+
+    func getmapImage() -> UIImage {
+        if let image = UIImage(named: raceTrack.mapImage) {
+            return image
+        } else if let image = UIImage(named: raceTrack.name + " 赛道") {
+            try! realm.write {
+                self.raceTrack.mapImage = self.raceTrack.name + " 赛道"
+            }
+            return image
+        }
+        return UIImage()
     }
 
 }

@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="300" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oeU-Eb-xk4">
-                                <rect key="frame" x="0.0" y="32" width="375" height="586"/>
+                                <rect key="frame" x="0.0" y="7" width="375" height="611"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <imageView key="tableHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="mod_doctor_top_bg" id="sFv-sR-PbN">
@@ -89,7 +89,7 @@
                             <constraint firstItem="oeU-Eb-xk4" firstAttribute="leading" secondItem="ng0-kc-i1V" secondAttribute="leading" id="4lX-mf-L04"/>
                             <constraint firstAttribute="trailing" secondItem="oeU-Eb-xk4" secondAttribute="trailing" id="A8v-eh-tWO"/>
                             <constraint firstItem="pfh-pi-7Hx" firstAttribute="top" secondItem="oeU-Eb-xk4" secondAttribute="bottom" id="Edz-nM-XBY"/>
-                            <constraint firstItem="oeU-Eb-xk4" firstAttribute="top" secondItem="8Kf-V9-6sZ" secondAttribute="bottom" constant="-32" id="knC-LZ-Fjx"/>
+                            <constraint firstItem="oeU-Eb-xk4" firstAttribute="top" secondItem="8Kf-V9-6sZ" secondAttribute="bottom" constant="-57" id="knC-LZ-Fjx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="改装" id="3Jr-HN-0Lc"/>
@@ -222,7 +222,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mod_doctor_top_bg" width="375" height="165"/>
+        <image name="mod_doctor_top_bg" width="375" height="222"/>
         <image name="mod_store_bg" width="375" height="502"/>
         <image name="tab_gaizhuang" width="23" height="23"/>
     </resources>

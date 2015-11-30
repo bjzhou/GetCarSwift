@@ -69,7 +69,7 @@
                                         <rect key="frame" x="16" y="52.5" width="11" height="13"/>
                                         <animations/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ke7-SS-VZT">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ke7-SS-VZT">
                                         <rect key="frame" x="31" y="44" width="202" height="30"/>
                                         <animations/>
                                         <state key="normal" title="上海市松江区沈砖公路3000号">
@@ -110,6 +110,7 @@
                                     <constraint firstItem="bYb-zQ-mck" firstAttribute="bottom" secondItem="dtH-1I-jiG" secondAttribute="bottom" id="C79-Ry-Fpk"/>
                                     <constraint firstAttribute="trailing" secondItem="dtH-1I-jiG" secondAttribute="trailing" id="CRW-g1-lyM"/>
                                     <constraint firstAttribute="height" constant="128" id="H9J-zT-C2C"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ke7-SS-VZT" secondAttribute="trailing" constant="16" id="Hx5-He-J62"/>
                                     <constraint firstItem="bYb-zQ-mck" firstAttribute="trailing" secondItem="dtH-1I-jiG" secondAttribute="trailing" id="Jo8-GH-VIW"/>
                                     <constraint firstItem="edl-NQ-GZI" firstAttribute="top" secondItem="dtH-1I-jiG" secondAttribute="top" id="RLU-Xh-H0p"/>
                                     <constraint firstItem="edl-NQ-GZI" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" id="TmL-le-47V"/>
@@ -438,7 +439,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" image="tianhuangping" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-6K-jui">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" image="tianhuangping" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-6K-jui">
                                 <rect key="frame" x="0.0" y="64" width="375" height="186"/>
                                 <animations/>
                             </imageView>
@@ -453,15 +454,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Ct-zXO">
-                                <rect key="frame" x="16" y="266" width="343" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Ct-zXO">
+                                <rect key="frame" x="16" y="266" width="343" height="169"/>
                                 <animations/>
+                                <string key="text">阿布扎比亚斯码头赛道是举办F1阿布扎比大奖赛的场地，它位于波斯湾石油强国阿联酋首都阿布扎比东海岸的亚斯，距阿布扎比国际机场仅15分钟车程，著名的法拉利主题公园也坐落这里。这条赛道的独特设计不仅在于赛道及周边环境，配套设施规模也相当惊人，包括7个豪华酒店的2200张床位，以及可以停泊150艘小船的港口，包括长度超过60米的船只。亚斯滨海假日酒店共有500间客房，且横跨赛道，在房间里便可俯瞰赛道全景。另外60米高的太阳能塔也为酒店住客们提供了不一样的视觉享受。</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-m1-6VS">
-                                <rect key="frame" x="16" y="302" width="343" height="348.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" image="印度佛陀国际赛车场 赛道" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-m1-6VS">
+                                <rect key="frame" x="16" y="451" width="343" height="200"/>
                                 <animations/>
                             </imageView>
                         </subviews>
@@ -820,5 +822,6 @@
         <image name="tianhuangping" width="375" height="186"/>
         <image name="timer_bg" width="375" height="243"/>
         <image name="track_title_bg" width="375" height="30"/>
+        <image name="印度佛陀国际赛车场 赛道" width="345" height="200"/>
     </resources>
 </document>

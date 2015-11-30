@@ -63,7 +63,6 @@ class MapViewController: UIViewController {
 
 extension MapViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
-        print(annotation)
         if let annotation = annotation as? RaceTrackAnnotation {
             let pointReuseIndetifier = "pointReuseIndetifier"
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier)
@@ -149,7 +148,9 @@ extension MapViewController: MAMapViewDelegate {
     }
 
     func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
-        print(coordinate)
+        #if DEBUG
+            print(coordinate)
+        #endif
     }
 }
 
