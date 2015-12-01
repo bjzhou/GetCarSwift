@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TrackCellDelegate {
+    func didTrackChanged()
+}
+
 class TrackTableViewCell: UITableViewCell {
 
     @IBOutlet weak var trackLabel: UILabel!
@@ -35,6 +39,8 @@ class TrackTableViewCell: UITableViewCell {
         }
     }
 
+    var delegate: TrackCellDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -48,8 +54,10 @@ class TrackTableViewCell: UITableViewCell {
 
     @IBAction func didTapLove(sender: UIButton) {
         sender.selected = !sender.selected
-        Praise.praise(sid: sid, status: sender.selected ? 1 : 0)
-        updateLoveLabel()
+        _ = Praise.praise(sid: sid, status: sender.selected ? 1 : 0).subscribeNext { res in
+        }
+        lovedCount = lovedCount + (sender.selected ? 1 : -1)
+        delegate?.didTrackChanged()
     }
 
     func updateLoveLabel() {

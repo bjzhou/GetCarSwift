@@ -25,12 +25,16 @@ class TrackViewController: UITableViewController {
         super.viewDidLoad()
 
         items = realm.objects(RmRaceTrack).sorted("id").map { $0 }
+        updatePraises()
+    }
+
+    func updatePraises() {
         Praise.getPraiseList().subscribeNext { res in
             if let arr = res.dataArray {
                 self.praises = arr
                 self.tableView.reloadData()
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,6 +70,7 @@ class TrackViewController: UITableViewController {
             cell!.loveButton.enabled = false
         }
 
+        cell!.delegate = self
         getTrackBg(cell!.trackBg, index: indexPath.row)
         cell!.trackStar.image = UIImage(named: items[indexPath.row].star)
 
@@ -99,5 +104,11 @@ class TrackViewController: UITableViewController {
             vc?.trackDetailViewModel = trackDetailViewModel
             showViewController(vc!)
         }
+    }
+}
+
+extension TrackViewController: TrackCellDelegate {
+    func didTrackChanged() {
+        self.updatePraises()
     }
 }
