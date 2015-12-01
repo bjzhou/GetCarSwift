@@ -43,7 +43,7 @@ class AddPlayerTableViewController: UITableViewController {
 
     func updateScore() {
         let filterStr: String
-        if sid == 1000 {
+        if sid == 0 {
             filterStr = "type = 's400'"
         } else {
             filterStr = "mapType = \(sid)"

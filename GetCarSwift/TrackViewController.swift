@@ -14,9 +14,12 @@ class TrackViewController: UITableViewController {
 
     let realm = try! Realm()
     let disposeBag = DisposeBag()
+    let placeholder = UIImage()
 
     var items: [RmRaceTrack] = []
     var praises: [PraiseCount] = []
+
+    var images: [Int: UIImage] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,22 @@ class TrackViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }.addDisposableTo(disposeBag)
+    }
+
+    override func didReceiveMemoryWarning() {
+        images.removeAll()
+    }
+
+    func getTrackBg(imageView: UIImageView, index: Int) {
+        if let image = images[index] {
+            imageView.image = image
+        } else {
+            imageView.image = placeholder
+            items[index].getSightViewImage { img in
+                imageView.image = img
+                self.images[index] = img
+            }
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,14 +66,8 @@ class TrackViewController: UITableViewController {
             cell!.loveButton.enabled = false
         }
 
-        cell!.trackBg.image = UIImage()
-        items[indexPath.row].getSightViewImage { img in
-            cell!.trackBg.image = img
-        }
-
-        UIImage.asyncInit(items[indexPath.row].star) { img in
-            cell!.trackStar.image = img
-        }
+        getTrackBg(cell!.trackBg, index: indexPath.row)
+        cell!.trackStar.image = UIImage(named: items[indexPath.row].star)
 
         cell!.sid = items[indexPath.row].id
         cell!.trackLabel.text = items[indexPath.row].name

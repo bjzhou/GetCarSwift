@@ -63,7 +63,7 @@ class StraightMatchViewController: UIViewController {
         var danmuRect = raceBg.frame
         danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 2)
         danmuEffect = DanmuEffect(superView: raceBg, rect: danmuRect)
-        trackDetailViewModel.sid = 1000
+        trackDetailViewModel.sid = 1000 //FIXME: should be 0
 
         for button in [button1, button2, button3] {
             button.layer.masksToBounds = true

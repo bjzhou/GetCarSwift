@@ -277,7 +277,7 @@ class DataViewController: UIViewController {
                                 data.appendContentsOf(self.data)
                                 data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
                                 let score = RmScore()
-                                score.mapType = 1000
+                                score.mapType = 0
                                 score.type = "s400"
                                 score.score = self.latestScores[3]
                                 score.data = data
