@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, BLYLogLevel) {
     BLYLogLevelDebug   = 1 << 3, // 01000
     BLYLogLevelVerbose = 1 << 4, // 10000
 };
+#define BLYLogLevelDefined 1
 
 #define BLOG_LEVEL_ERR     BLYLogLevelError
 #define BLOG_LEVEL_WARN    BLYLogLevelWarn
@@ -34,6 +35,11 @@ typedef NS_ENUM(NSUInteger, BLYLogLevel) {
 #define BLogInfo(fmt, ...)    BLYLOG_MACRO(BLYLogLevelInfo, fmt, ##__VA_ARGS__)
 #define BLogDebug(fmt, ...)   BLYLOG_MACRO(BLYLogLevelDebug, fmt, ##__VA_ARGS__)
 #define BLogVerbose(fmt, ...) BLYLOG_MACRO(BLYLogLevelVerbose, fmt, ##__VA_ARGS__)
+
+#pragma mark -
+
+FOUNDATION_EXPORT void BLLog(BLYLogLevel level, NSString *format, ...);
+FOUNDATION_EXPORT void BLLogv(BLYLogLevel level, NSString *format, va_list args);
 
 #pragma mark - Interface
 @interface BuglyLog : NSObject
@@ -60,6 +66,14 @@ typedef NS_ENUM(NSUInteger, BLYLogLevel) {
  *    @param format 日志内容
  */
 + (void)log:(NSString *)format, ...;
+
+/**
+ *    @brief  打印日志
+ *
+ *    @param level 日志级别
+ *    @param fmt   日志内容
+ */
++ (void)level:(BLYLogLevel) level logs:(NSString *)message;
 
 /**
  *    @brief  打印日志

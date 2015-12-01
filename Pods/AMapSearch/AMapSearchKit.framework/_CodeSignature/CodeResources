@@ -6,11 +6,11 @@
 	<dict>
 		<key>Headers/AMapCommonObj.h</key>
 		<data>
-		9mOZMTECz2m/uuHqFBl/gqywTj4=
+		DBo6rvO7jmrHkhbyxXucOcZzc3U=
 		</data>
 		<key>Headers/AMapNearbySearchManager.h</key>
 		<data>
-		Aa7DZb8p31E9cuK/vknaaq1SXOA=
+		YaLlRhbxijVo8sPtq4uaN81Su/o=
 		</data>
 		<key>Headers/AMapNearbyUploadInfo.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Headers/AMapSearchAPI.h</key>
 		<data>
-		43QWFUC6jkYmx2gW7hl9SAqBT4I=
+		t8Mbk6NR3TcXMfGomXVaMWl4NJw=
 		</data>
 		<key>Headers/AMapSearchError.h</key>
 		<data>
-		tMZrxKOavKsDWecdMBd+VtGgU8Y=
+		F7Eb8O9eqHfgmc3vOIOuo2yXd/E=
 		</data>
 		<key>Headers/AMapSearchKit.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/AMapSearchObj.h</key>
 		<data>
-		aV1cmEXGvU+HBopoXtM2rogNTBI=
+		ZIisc6hJy5tGssFR3SEn/Hvvs9o=
 		</data>
 		<key>Headers/AMapSearchServices.h</key>
 		<data>
@@ -41,11 +41,11 @@
 	<dict>
 		<key>Headers/AMapCommonObj.h</key>
 		<data>
-		9mOZMTECz2m/uuHqFBl/gqywTj4=
+		DBo6rvO7jmrHkhbyxXucOcZzc3U=
 		</data>
 		<key>Headers/AMapNearbySearchManager.h</key>
 		<data>
-		Aa7DZb8p31E9cuK/vknaaq1SXOA=
+		YaLlRhbxijVo8sPtq4uaN81Su/o=
 		</data>
 		<key>Headers/AMapNearbyUploadInfo.h</key>
 		<data>
@@ -53,11 +53,11 @@
 		</data>
 		<key>Headers/AMapSearchAPI.h</key>
 		<data>
-		43QWFUC6jkYmx2gW7hl9SAqBT4I=
+		t8Mbk6NR3TcXMfGomXVaMWl4NJw=
 		</data>
 		<key>Headers/AMapSearchError.h</key>
 		<data>
-		tMZrxKOavKsDWecdMBd+VtGgU8Y=
+		F7Eb8O9eqHfgmc3vOIOuo2yXd/E=
 		</data>
 		<key>Headers/AMapSearchKit.h</key>
 		<data>
@@ -65,7 +65,7 @@
 		</data>
 		<key>Headers/AMapSearchObj.h</key>
 		<data>
-		aV1cmEXGvU+HBopoXtM2rogNTBI=
+		ZIisc6hJy5tGssFR3SEn/Hvvs9o=
 		</data>
 		<key>Headers/AMapSearchServices.h</key>
 		<data>

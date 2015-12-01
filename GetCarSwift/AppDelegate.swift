@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AMapSearchServices.sharedServices().apiKey = amapKey
         AMapLocationServices.sharedServices().apiKey = amapKey
 
-        CrashReporter.sharedInstance().enableBlockMonitor(true, autoReport: true)
+        CrashReporter.sharedInstance().enableBlockMonitor(true)
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 

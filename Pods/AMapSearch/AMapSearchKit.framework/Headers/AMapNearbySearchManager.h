@@ -41,7 +41,13 @@
 /// 附近搜索管理类，同时只能有一个实例开启，否则可能会出现错误。
 @interface AMapNearbySearchManager : NSObject
 
-/// manager单例。
+/**
+ * manager单例.
+ *
+ * 初始化之前请设置 `AMapSearchServices` 中的APIKey，否则将无法正常使用该服务.
+ *
+ *  @return nearbySearch实例。
+ */
 + (instancetype)sharedInstance;
 
 /// 请使用单例。

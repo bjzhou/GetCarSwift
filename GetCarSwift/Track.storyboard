@@ -1363,7 +1363,7 @@ km/h</string>
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="179.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="301" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tianhuangping" translatesAutoresizingMaskIntoConstraints="NO" id="Usp-Xe-VVj">
+                                        <imageView userInteractionEnabled="NO" tag="301" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="上海国际赛车场" translatesAutoresizingMaskIntoConstraints="NO" id="Usp-Xe-VVj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                             <animations/>
                                         </imageView>
@@ -1490,10 +1490,10 @@ km/h</string>
         <image name="race_bg" width="375" height="393"/>
         <image name="star3" width="54" height="7"/>
         <image name="tab_carbar" width="20" height="24"/>
-        <image name="tianhuangping" width="375" height="186"/>
         <image name="time_bg" width="375" height="48"/>
         <image name="time_mask" width="375" height="38"/>
         <image name="translucent_line" width="359" height="4"/>
+        <image name="上海国际赛车场" width="375" height="186"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SOV-J0-oR9"/>

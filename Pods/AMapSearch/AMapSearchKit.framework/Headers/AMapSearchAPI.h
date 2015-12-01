@@ -10,6 +10,7 @@
 #import "AMapSearchObj.h"
 #import "AMapCommonObj.h"
 
+
 @protocol AMapSearchDelegate;
 
 /// 搜索结果语言
@@ -39,6 +40,8 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
  *  @return AMapSearch类对象实例
  */
 - (instancetype)init;
+
+#pragma mark - 搜索服务接口
 
 /**
  *  POI ID查询接口
@@ -106,7 +109,7 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
 /**
  *  公交线路关键字查询
  *
- *  @param request 查询选项。具体属性字段请参考 AMapBusLineIDSearchRequest 类。
+ *  @param request 查询选项。具体属性字段请参考 AMapBusLineNameSearchRequest 类。
  */
 - (void)AMapBusLineNameSearch:(AMapBusLineNameSearchRequest *)request;
 
@@ -145,7 +148,7 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
  */
 - (void)AMapWeatherSearch:(AMapWeatherSearchRequest *)request;
 
-#pragma mark - 周边搜索相关
+#pragma mark - 附近搜索相关
 
 /**
  *  附近搜索查询接口
@@ -153,6 +156,66 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
  *  @param request 查询选项。具体属性字段请参考 AMapNearbySearchRequest 类。
  */
 - (void)AMapNearbySearch:(AMapNearbySearchRequest *)request;
+
+#pragma mark - 云图搜索相关
+
+/**
+ *  云图周边查询接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapCloudPOIAroundSearchRequest 类。
+ */
+- (void)AMapCloudPOIAroundSearch:(AMapCloudPOIAroundSearchRequest *)request;
+
+/**
+ *  云图polygon区域查询接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapCloudPOIPolygonSearchRequest 类。
+ */
+- (void)AMapCloudPOIPolygonSearch:(AMapCloudPOIPolygonSearchRequest *)request;
+
+/**
+ *  云图ID查询接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapCloudPOIIDSearchRequest 类。
+ */
+- (void)AMapCloudPOIIDSearch:(AMapCloudPOIIDSearchRequest *)request;
+
+/**
+ *  云图本地查询接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapCloudPOILocalSearchRequest 类。
+ */
+- (void)AMapCloudPOILocalSearch:(AMapCloudPOILocalSearchRequest *)request;
+
+#pragma mark - 短串分享相关
+
+/**
+ *  位置短串分享接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapLocationShareSearchRequest 类。
+ */
+- (void)AMapLocationShareSearch:(AMapLocationShareSearchRequest *)request;
+
+/**
+ *  兴趣点短串分享接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapPOIShareSearchRequest 类。
+ */
+- (void)AMapPOIShareSearch:(AMapPOIShareSearchRequest *)request;
+
+/**
+ *  路线规划短串分享接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapRouteShareSearchRequest 类。
+ */
+- (void)AMapRouteShareSearch:(AMapRouteShareSearchRequest *)request;
+
+/**
+ *  导航短串分享接口
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapNavigationShareSearchRequest 类。
+ */
+- (void)AMapNavigationShareSearch:(AMapNavigationShareSearchRequest *)request;
 
 @end
 
@@ -245,12 +308,34 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
  */
 - (void)onWeatherSearchDone:(AMapWeatherSearchRequest *)request response:(AMapWeatherSearchResponse *)response;
 
+#pragma mark - 附近搜索回调
+
 /**
- *  周边搜索回调
+ *  附近搜索回调
  *
  *  @param request  发起的请求，具体字段参考 AMapNearbySearchRequest 。
  *  @param response 响应结果，具体字段参考 AMapNearbySearchResponse 。
  */
 - (void)onNearbySearchDone:(AMapNearbySearchRequest *)request response:(AMapNearbySearchResponse *)response;
+
+#pragma mark - 云图搜索回调
+
+/**
+ *   云图查询回调函数
+ *
+ *   @param request 发起的请求，具体字段参考AMapCloudSearchBaseRequest 。
+ *   @param response 响应结果，具体字段参考 AMapCloudPOISearchResponse 。
+ */
+- (void)onCloudSearchDone:(AMapCloudSearchBaseRequest *)request response:(AMapCloudPOISearchResponse *)response;
+
+#pragma mark - 短串分享搜索回调
+
+/**
+ *  短串分享搜索回调
+ *
+ *  @param request  发起的请求
+ *  @param response 相应结果，具体字段参考 AMapShareSearchResponse。
+ */
+- (void)onShareSearchDone:(AMapShareSearchBaseRequest *)request response:(AMapShareSearchResponse *)response;
 
 @end

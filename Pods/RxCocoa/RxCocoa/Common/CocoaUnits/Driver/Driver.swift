@@ -40,7 +40,6 @@ extension DriverConvertibleType {
         - it's stateful, upon subscription (calling subscribe) last element is immediatelly replayed if it was produced
         - computation of elements is reference counted with respect to the number of observers
         - if there are no subscribers, it will release sequence computation resources
-    - it uses lockless versions of optimized operators (main dispatch queue is used as shared lock)
 
     `Driver<Element>` can be considered a builder pattern for observable sequences that drive the application.
 
@@ -154,7 +153,7 @@ public struct Drive {
 
     @warn_unused_result(message="http://git.io/rxs.uo")
     public static func sequenceOf<E>(elements: E ...) -> Driver<E> {
-        let source = elements.asObservable().subscribeOn(ConcurrentMainScheduler.sharedInstance)
+        let source = elements.toObservable().subscribeOn(ConcurrentMainScheduler.sharedInstance)
         return Driver(raw: source)
     }
     

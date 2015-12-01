@@ -64,6 +64,27 @@ extension DriverConvertibleType where E : DriverConvertibleType {
 }
 
 extension DriverConvertibleType {
+    /**
+     Projects each element of an observable sequence into a new sequence of observable sequences and then
+     transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
+
+     It is a combination of `map` + `switchLatest` operator
+
+     - parameter selector: A transform function to apply to each element.
+     - returns: An observable sequence whose elements are the result of invoking the transform function on each element of source producing an
+     Observable of Observable sequences and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
+     */
+    @warn_unused_result(message="http://git.io/rxs.uo")
+    public func flatMapLatest<R>(selector: (E) -> Driver<R>)
+        -> Driver<R> {
+        let source: Observable<R> = self
+            .asObservable()
+            .flatMapLatest(selector)
+        return Driver<R>(source)
+    }
+}
+
+extension DriverConvertibleType {
     
     /**
     Invokes an action for each event in the observable sequence, and propagates all observer messages through the result sequence.
@@ -326,5 +347,35 @@ extension CollectionType where Generator.Element : DriverConvertibleType {
     public func combineLatest<R>(resultSelector: [Generator.Element.E] throws -> R) -> Driver<R> {
         let source : Observable<R> = self.map { $0.asDriver() }.combineLatest(resultSelector)
         return Driver<R>(source)
+    }
+}
+
+extension DriverConvertibleType {
+
+    /**
+    Merges two observable sequences into one observable sequence by combining each element from self with the latest element from the second source, if any.
+
+    - parameter second: Second observable source.
+    - parameter resultSelector: Function to invoke for each element from the self combined with the latest element from the second source, if any.
+    - returns: An observable sequence containing the result of combining each element of the self  with the latest element from the second source, if any, using the specified result selector function.
+    */
+    public func withLatestFrom<SecondO: DriverConvertibleType, ResultType>(second: SecondO, resultSelector: (E, SecondO.E) -> ResultType) -> Driver<ResultType> {
+        let source = self.asObservable()
+            .withLatestFrom(second.asDriver(), resultSelector: resultSelector)
+
+        return Driver<ResultType>(source)
+    }
+
+    /**
+    Merges two observable sequences into one observable sequence by using latest element from the second sequence every time when `self` emitts an element.
+
+    - parameter second: Second observable source.
+    - returns: An observable sequence containing the result of combining each element of the self  with the latest element from the second source, if any, using the specified result selector function.
+    */
+    public func withLatestFrom<SecondO: DriverConvertibleType>(second: SecondO) -> Driver<SecondO.E> {
+        let source = self.asObservable()
+            .withLatestFrom(second.asDriver())
+
+        return Driver<SecondO.E>(source)
     }
 }

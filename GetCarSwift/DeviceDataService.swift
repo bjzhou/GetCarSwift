@@ -89,7 +89,7 @@ class DeviceDataService: NSObject {
 
 extension DeviceDataService: AMapSearchDelegate {
     func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
-        let city = response.regeocode.addressComponent.city == nil ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
+        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
         self.rxDistrict.value = "\(response.regeocode.addressComponent.province)\(city)"
         districtService?.dispose()
     }
