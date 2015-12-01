@@ -123,7 +123,9 @@ class DataViewController: UIViewController {
             datas[i].addSubview(titleLabel)
             datas[i].addSubview(subVc.view)
         }
+    }
 
+    override func viewDidAppear(animated: Bool) {
         self.updateScore()
     }
 

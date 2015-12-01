@@ -42,7 +42,6 @@
 		C867FD1E1AD9071900F99592 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Res.swift */; };
 		C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD201AD909E400F99592 /* LoginViewController.swift */; };
 		C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
-		C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */; };
 		C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87442F11C02B66500D17B92 /* DanmuEffect.swift */; };
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
 		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
@@ -60,6 +59,9 @@
 		C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* GkboxViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
+		C89C492A1C0D6F2500A1E2E1 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89C49291C0D6F2500A1E2E1 /* AboutTableViewController.swift */; };
+		C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89C492B1C0D6F6500A1E2E1 /* HelpTableViewController.swift */; };
+		C89C492E1C0D6FE900A1E2E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */; };
 		C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B6F1C0C739600002BB9 /* RmScore.swift */; };
 		C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
@@ -160,7 +162,6 @@
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C867FC721AD8FCAF00F99592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C867FC771AD8FCAF00F99592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C867FC7D1AD8FCB000F99592 /* GetCarSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetCarSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC821AD8FCB000F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCarSwiftTests.swift; sourceTree = "<group>"; };
@@ -184,6 +185,9 @@
 		C89A05C61B6E125400620C85 /* GkboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GkboxViewController.swift; sourceTree = "<group>"; };
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		C89C49291C0D6F2500A1E2E1 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
+		C89C492B1C0D6F6500A1E2E1 /* HelpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
+		C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C89E7B6F1C0C739600002BB9 /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
 		C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 				C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */,
 				C848F1B61B778626008DAC69 /* TrackingViewController.swift */,
 				C8B01E9C1C05BDEE00A85612 /* SettingsTableViewController.swift */,
+				C89C49291C0D6F2500A1E2E1 /* AboutTableViewController.swift */,
+				C89C492B1C0D6F6500A1E2E1 /* HelpTableViewController.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -381,6 +387,7 @@
 				C80B6B411BB679150017D7E3 /* Mine.storyboard */,
 				8BDEB3E592343A2B219B8F2F /* Mod.storyboard */,
 				C80B6B361BB672780017D7E3 /* gkbox.storyboard */,
+				C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -454,7 +461,6 @@
 			children = (
 				C81655831BF05CCF004E17AE /* Images.xcassets */,
 				C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */,
-				C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -644,10 +650,10 @@
 				C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */,
 				C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */,
 				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
-				C86FE32C1BA3CC130037CD7F /* LaunchScreen.xib in Resources */,
 				C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */,
 				C80B6B401BB6790A0017D7E3 /* Track.storyboard in Resources */,
 				C84408FB1BB43D410088D046 /* Login.storyboard in Resources */,
+				C89C492E1C0D6FE900A1E2E1 /* Launch Screen.storyboard in Resources */,
 				8BDEBA96983C7719658CADA4 /* Mod.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -777,12 +783,14 @@
 				C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */,
 				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
+				C89C492A1C0D6F2500A1E2E1 /* AboutTableViewController.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */,
 				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
 				C860F4001BEAF96300B17004 /* TestViewController.swift in Sources */,
 				C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */,
 				C844F4011BE73DE1008AFC8B /* File.swift in Sources */,
+				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */,
 				C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */,
@@ -850,14 +858,6 @@
 				C867FC721AD8FCAF00F99592 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C867FC761AD8FCAF00F99592 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C867FC771AD8FCAF00F99592 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

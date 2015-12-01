@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
 
     var mapViewModel: MapViewModel!
 
+    var closeAction: Disposable?
     var gotoTrackAction: Disposable?
     var trackAddressAction: Disposable?
     var trackIntroAction: Disposable?
@@ -34,13 +35,6 @@ class MapViewController: UIViewController {
 
         mapViewModel = MapViewModel()
         mapView.addAnnotations(mapViewModel.loadTracks())
-
-        closeButton.rx_tap.subscribeNext {
-            self.bottomViewPos.constant = -128
-            UIView.animateWithDuration(0.3) {
-                self.view.layoutIfNeeded()
-            }
-        }.addDisposableTo(disposeBag)
     }
 
     func initMapView() {
@@ -93,6 +87,7 @@ extension MapViewController: MAMapViewDelegate {
         return nil
     }
 
+    // swiftlint:disable comma
     func mapView(mapView: MAMapView!, didSelectAnnotationView view: MAAnnotationView!) {
         if let annotation = view.annotation as? RaceTrackAnnotation {
             if bottomViewPos.constant == 0 {
@@ -115,27 +110,34 @@ extension MapViewController: MAMapViewDelegate {
                     self.view.layoutIfNeeded()
                 }
             }
+            closeAction?.dispose()
             gotoTrackAction?.dispose()
             trackAddressAction?.dispose()
             trackIntroAction?.dispose()
             gotoTrackButton.enabled = annotation.raceTrack.isDeveloped
+            closeAction = closeButton.rx_tap.subscribeNext {
+                self.bottomViewPos.constant = -128
+                UIView.animateWithDuration(0.3) {
+                    self.view.layoutIfNeeded()
+                }
+                self.mapView.deselectAnnotation(annotation, animated: false)
+            }
             gotoTrackAction = gotoTrackButton.rx_tap.subscribeNext {
                 let vc = R.storyboard.gkbox.track_timer
                 vc?.raceTrack = annotation.raceTrack
                 self.showViewController(vc!)
             }
             trackAddressAction = trackAddressButton.rx_tap.subscribeNext {
-                let gaodeUrl = "iosamap://path?sourceApplication=\(productName!)&sid=BGVIS1&did=BGVIS2&dname=\(annotation.title.encodedUrlString)&dev=0&m=0&t=0"
+                let gaodeUrl = "iosamap://viewMap?sourceApplication=\(productName!.encodedUrlString)&poiname=\(annotation.raceTrack.name.encodedUrlString)&lat=\(annotation.coordinate.latitude)&lon=\(annotation.coordinate.longitude)&dev=0"
                 if UIApplication.sharedApplication().canOpenURL(NSURL(string: gaodeUrl)!) {
                     UIApplication.sharedApplication().openURL(NSURL(string: gaodeUrl)!)
                 } else {
-                    let origin = "我的位置".encodedUrlString
                     let src = "\(bundleId!)|\(productName!)".encodedUrlString
-                    let baiduUrl = "baidumap://map/direction?origin=\(origin)&destination=\(annotation.title.encodedUrlString)&mode=driving&src=\(src)"
+                    let baiduUrl = "baidumap://map/marker?location=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)&title=\(annotation.raceTrack.name.encodedUrlString)&content=\(annotation.raceTrack.address.encodedUrlString)&src=\(src)"
                     if UIApplication.sharedApplication().canOpenURL(NSURL(string: baiduUrl)!) {
                         UIApplication.sharedApplication().openURL(NSURL(string: baiduUrl)!)
                     } else {
-                        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(annotation.title.encodedUrlString)&dirflg=d&t=m")!)
+                        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?ll=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)")!)
                     }
                 }
             }

@@ -16,7 +16,7 @@ array.append(4)
 
 print(array.endIndex - 1)
 
-let url = "baidumap://map/direction?origin=sss&destination=sss&mode=driving&src=com.gaike.GetCarSwift.test"
+let url = "baidumap://map/direction?origin=sss&destination=123,345&mode=driving&src=com.gaike.GetCarSwift.test"
 print(NSURL(string: url))
 
 //var lazy: Int {
