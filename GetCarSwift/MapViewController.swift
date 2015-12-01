@@ -133,7 +133,7 @@ extension MapViewController: MAMapViewDelegate {
                     UIApplication.sharedApplication().openURL(NSURL(string: gaodeUrl)!)
                 } else {
                     let src = "\(bundleId!)|\(productName!)".encodedUrlString
-                    let baiduUrl = "baidumap://map/marker?location=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)&title=\(annotation.raceTrack.name.encodedUrlString)&content=\(annotation.raceTrack.address.encodedUrlString)&src=\(src)"
+                    let baiduUrl = "baidumap://map/geocoder?address=\(annotation.raceTrack.address.encodedUrlString)&src=\(src)"
                     if UIApplication.sharedApplication().canOpenURL(NSURL(string: baiduUrl)!) {
                         UIApplication.sharedApplication().openURL(NSURL(string: baiduUrl)!)
                     } else {
