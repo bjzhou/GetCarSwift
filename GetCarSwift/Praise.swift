@@ -17,11 +17,25 @@ struct Praise: JSONable {
         uid = json["uid"].stringValue
     }
 
-    static func praise(sid sid: Int) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("trace/pubComment", body: ["sid":sid, "type":0])
+    // 0: 取消
+    // 1: 点赞
+    static func praise(sid sid: Int, status: Int) -> Observable<GKResult<String>> {
+        return GaikeService.sharedInstance.api("trace/praise", body: ["sid":sid, "status":status])
     }
 
-    static func cancelPraise(sid sid: Int) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("trace/canclePraise", body: ["sid":sid])
+    static func getPraiseList() -> Observable<GKResult<PraiseCount>> {
+        return GaikeService.sharedInstance.api("trace/getPraiseList")
+    }
+}
+
+struct PraiseCount: JSONable {
+    var sid = 0
+    var count = 0
+    var status = 0
+
+    init(json: JSON) {
+        sid = json["sid"].intValue
+        count = json["count"].intValue
+        status = json["status"].intValue
     }
 }

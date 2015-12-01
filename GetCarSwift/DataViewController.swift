@@ -276,9 +276,15 @@ class DataViewController: UIViewController {
                                 data.appendContentsOf(self.data)
                                 data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
                                 let score = RmScore()
+                                score.mapType = 0
                                 score.type = "s400"
                                 score.score = self.latestScores[3]
-                                score.record = data
+                                score.data = data
+                                GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": score.score, "map_type": 0], datas: ["record": score.archive()]).subscribeNext { (res: GKResult<String>) in
+                                    if res.code != 0 {
+                                        print(res)
+                                    }
+                                }.addDisposableTo(self.disposeBag)
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -297,7 +303,7 @@ class DataViewController: UIViewController {
                                 let score = RmScore()
                                 score.type = "v60"
                                 score.score = self.latestScores[0]
-                                score.record = data
+                                score.data = data
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -320,7 +326,7 @@ class DataViewController: UIViewController {
                                 let score = RmScore()
                                 score.type = "v100"
                                 score.score = self.latestScores[1]
-                                score.record = data
+                                score.data = data
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -340,7 +346,7 @@ class DataViewController: UIViewController {
                                     let score = RmScore()
                                     score.type = "b60"
                                     score.score = self.latestScores[2]
-                                    score.record = data
+                                    score.data = data
                                     try! self.realm.write {
                                         self.realm.add(score)
                                     }

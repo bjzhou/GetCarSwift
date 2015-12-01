@@ -48,7 +48,8 @@ class TrackTimerViewController: UIViewController {
                                     let rmscore = RmScore()
                                     rmscore.type = self.raceTrack.name
                                     rmscore.score = score
-                                    rmscore.record = data
+                                    rmscore.data = data
+                                    rmscore.mapType = self.raceTrack.id
                                     try! self.realm.write {
                                         self.realm.add(rmscore)
                                     }

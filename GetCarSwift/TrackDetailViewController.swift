@@ -123,7 +123,7 @@ class TrackDetailViewController: UIViewController {
     }
 
     func initTrackData() {
-        self.title = trackDetailViewModel.trackTitle
+        self.title = trackDetailViewModel.raceTrack?.name ?? ""
         trackDetailViewModel.getComments()
         trackDetailViewModel.rxComments.subscribeNext { comments in
             if !self.danmuPlayed && comments.count > 0 {
@@ -145,7 +145,7 @@ class TrackDetailViewController: UIViewController {
                 self.timeLabel.text = curTs
 
                 if let score = self.score1 {
-                    let datas = score.record.filter { $0.t == Double(t)/100 }
+                    let datas = score.data.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel1.text = String(format: "%05.1f", data.v)
                         self.aLabel1.text = String(format: "%.1f", data.a)
@@ -153,7 +153,7 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if let score = self.score2 {
-                    let datas = score.record.filter { $0.t == Double(t)/100 }
+                    let datas = score.data.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel2.text = String(format: "%05.1f", data.v)
                         self.aLabel2.text = String(format: "%.1f", data.a)
@@ -161,7 +161,7 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if let score = self.score3 {
-                    let datas = score.record.filter { $0.t == Double(t)/100 }
+                    let datas = score.data.filter { $0.t == Double(t)/100 }
                     if let data = datas.first {
                         self.vLabel3.text = String(format: "%05.1f", data.v)
                         self.aLabel3.text = String(format: "%.1f", data.a)
@@ -181,15 +181,15 @@ class TrackDetailViewController: UIViewController {
 
     func startAnim(annotation: MAPointAnnotation?, score: RmScore?) {
         if let score = score, annotation = annotation {
-            annotation.coordinate = CLLocationCoordinate2DMake(score.record.first?.lat ?? 0, score.record.first?.long ?? 0)
+            annotation.coordinate = CLLocationCoordinate2DMake(score.data.first?.lat ?? 0, score.data.first?.long ?? 0)
             let view = mapView.viewForAnnotation(annotation)
-            let points: [CGPoint] = score.record.map { data in
+            let points: [CGPoint] = score.data.map { data in
                 let loc = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
                 return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
             }
             let anim = CAKeyframeAnimation(keyPath: "position")
             anim.duration = score.score
-            anim.keyTimes = score.record.map { $0.t / score.score }
+            anim.keyTimes = score.data.map { $0.t / score.score }
             anim.values = points.map { NSValue(CGPoint: CGPointMake($0.x - points[0].x, $0.y - points[0].y)) }
             anim.calculationMode = kCAAnimationLinear
             anim.removedOnCompletion = false
@@ -212,11 +212,11 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {
-        let addViewController = R.storyboard.mine.add_player_popover!
+        let addViewController = AddPlayerTableViewController()
         addViewController.delegate = self
         addViewController.sender = sender
-        addViewController.type = trackDetailViewModel.trackTitle
-        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
+        addViewController.sid = trackDetailViewModel.sid
+        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 200)
         let popupViewController = PopupViewController(rootViewController: addViewController)
         self.presentViewController(popupViewController, animated: false, completion: nil)
     }
@@ -240,40 +240,48 @@ class TrackDetailViewController: UIViewController {
 }
 
 extension TrackDetailViewController: AddPlayerDelegate {
-    func didPlayerAdded(avatar avatar: UIImage, name: String, score: RmScore, sender: UIButton?) {
-        sender?.setBackgroundImage(avatar, forState: .Normal)
+    func didPlayerAdded(score: RmScore, sender: UIButton?) {
+        var url = score.headUrl
+        var nickname = score.nickname
+        if url == "" {
+            url = Mine.sharedInstance.avatarUrl ?? ""
+        }
+        if nickname == "" {
+            nickname = Mine.sharedInstance.nickname ?? ""
+        }
+        sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal)
         sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
         sender?.layer.borderWidth = 2
 
         switch sender {
         case .Some(button1):
-            titleLabel1.text = name
+            titleLabel1.text = nickname
             score1 = score
             if annotation1 == nil {
                 annotation1 = MAPointAnnotation()
                 mapView.addAnnotation(annotation1!)
             }
-            if let first = score.record.first {
+            if let first = score.data.first {
                 annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         case .Some(button2):
-            titleLabel2.text = name
+            titleLabel2.text = nickname
             score2 = score
             if annotation2 == nil {
                 annotation2 = MAPointAnnotation()
                 mapView.addAnnotation(annotation2!)
             }
-            if let first = score.record.first {
+            if let first = score.data.first {
                 annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         case .Some(button3):
-            titleLabel3.text = name
+            titleLabel3.text = nickname
             score3 = score
             if annotation3 == nil {
                 annotation3 = MAPointAnnotation()
                 mapView.addAnnotation(annotation3!)
             }
-            if let first = score.record.first {
+            if let first = score.data.first {
                 annotation3?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         default:

@@ -17,6 +17,9 @@ class TrackTableViewCell: UITableViewCell {
     @IBOutlet weak var loveLabel: UILabel!
     @IBOutlet weak var trackStarLabel: UILabel!
     @IBOutlet weak var loveView: UIView!
+    @IBOutlet weak var mask: UIView!
+
+    var sid = 0
 
     var lovedCount = 1000 {
         didSet {
@@ -45,6 +48,7 @@ class TrackTableViewCell: UITableViewCell {
 
     @IBAction func didTapLove(sender: UIButton) {
         sender.selected = !sender.selected
+        Praise.praise(sid: sid, status: sender.selected ? 1 : 0)
         updateLoveLabel()
     }
 

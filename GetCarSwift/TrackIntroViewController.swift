@@ -23,34 +23,14 @@ class TrackIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        trackView.image = getSightView()
+        raceTrack.getSightViewImage { img in
+            self.trackView.image = img
+        }
         trackTitleLabel.text = raceTrack.name
         trackDetailLabel.text = raceTrack.introduce
-        trackMapImageView.image = getmapImage()
-    }
-
-    func getSightView() -> UIImage {
-        if let image = UIImage(named: raceTrack.sightView) {
-            return image
-        } else if let image = UIImage(named: raceTrack.name) {
-            try! realm.write {
-                self.raceTrack.sightView = self.raceTrack.name
-            }
-            return image
+        raceTrack.getMapImageImage { img in
+            self.trackMapImageView.image = img
         }
-        return UIImage()
-    }
-
-    func getmapImage() -> UIImage {
-        if let image = UIImage(named: raceTrack.mapImage) {
-            return image
-        } else if let image = UIImage(named: raceTrack.name + " 赛道") {
-            try! realm.write {
-                self.raceTrack.mapImage = self.raceTrack.name + " 赛道"
-            }
-            return image
-        }
-        return UIImage()
     }
 
 }

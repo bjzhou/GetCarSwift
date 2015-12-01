@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+let serialQueue = dispatch_queue_create("serial-worker", DISPATCH_QUEUE_SERIAL)
+
 infix operator ~> {}
 
 func ~> (bgThread: () -> (), mainThread: () -> ()) {

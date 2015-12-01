@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import Haneke
+import Kingfisher
 import SwiftyJSON
 
 struct User: JSONable {
@@ -165,13 +165,11 @@ struct Mine {
         }
     }
 
-    func fetchAvatar(result: UIImage -> ()) {
-        if let avatarUrl = avatarUrl {
-            Shared.imageCache.fetch(URL: NSURL(string: avatarUrl)!).onSuccess(result).onFailure { _ in
-                    result(R.image.avatar!)
-            }
+    func setAvatarImage(imageView: UIImageView) {
+        if let avatarUrl = Mine.sharedInstance.avatarUrl {
+            imageView.kf_setImageWithURL(NSURL(string: avatarUrl)!, placeholderImage: R.image.avatar)
         } else {
-            result(R.image.avatar!)
+            imageView.image = Mine.sharedInstance.sex == 1 ? R.image.avatar : R.image.avatar_female
         }
     }
 

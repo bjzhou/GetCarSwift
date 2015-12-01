@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Haneke
+import Kingfisher
 import RxSwift
 
 class MineViewController: UITableViewController {
@@ -23,7 +23,7 @@ class MineViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        myAvatar.setAvatarImage()
+        Mine.sharedInstance.setAvatarImage(myAvatar)
         sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
         nickname.text = Mine.sharedInstance.nickname
         DeviceDataService.sharedInstance.rxDistrict.bindTo(position.rx_text).addDisposableTo(disposeBag)
@@ -47,7 +47,7 @@ class MineViewController: UITableViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let index = userDefaults.integerForKey("homepage_bg")
         if index == 1000 {
-            Shared.imageCache.fetch(key: "homepage_bg").onSuccess {image in
+            KingfisherManager.sharedManager.cache.retrieveImageForKey("homepage_bg", options: KingfisherManager.OptionsNone) { image, _ in
                 self.homepageBg.image = image
             }
         } else {

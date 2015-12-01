@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 import RealmSwift
 
 @UIApplicationMain
@@ -53,18 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
-        let config = Realm.Configuration(
-            schemaVersion: 12,
-            migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 9) {
-                    migration.enumerate(RmScore.className()) { oldObject, newObject in
-                        if let data = oldObject!["data"] as? List<RmScoreData> {
-                            newObject!["record"] = data
-                        }
-                    }
-                }
-        })
-        Realm.Configuration.defaultConfiguration = config
+        Realm.Configuration.defaultConfiguration.schemaVersion = 16
 
         #if ADHOC
             checkNewVersion()

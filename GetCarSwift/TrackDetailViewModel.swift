@@ -13,7 +13,6 @@ struct TrackDetailViewModel {
     var viewProxy: ViewProxy?
 
     var sid = 0
-    var trackTitle = ""
     var raceTrack: RmRaceTrack?
 
     var rxComments: Variable<Array<Comment>> = Variable([])

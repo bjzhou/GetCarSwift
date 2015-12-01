@@ -1368,6 +1368,11 @@ km/h</string>
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                             <animations/>
                                         </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg9-LA-1f5">
+                                            <rect key="frame" x="0.0" y="0.5" width="375" height="179.5"/>
+                                            <animations/>
+                                            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.6960650802752294" colorSpace="calibratedRGB"/>
+                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="挑战指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G63-jB-0Ds">
                                             <rect key="frame" x="8" y="154" width="40" height="12"/>
                                             <animations/>
@@ -1397,7 +1402,7 @@ km/h</string>
                                                         <action selector="didTapLove:" destination="53J-5N-tQn" eventType="touchUpInside" id="AQ4-oH-1eF"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="想去(999+)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzZ-yw-JRg">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="想去(999+)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzZ-yw-JRg">
                                                     <rect key="frame" x="16" y="0.0" width="64" height="22"/>
                                                     <animations/>
                                                     <constraints>
@@ -1426,15 +1431,19 @@ km/h</string>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Usp-Xe-VVj" secondAttribute="trailing" id="0MV-BR-umb"/>
                                         <constraint firstItem="mYe-hz-Xau" firstAttribute="centerY" secondItem="G63-jB-0Ds" secondAttribute="centerY" id="1n7-Hi-N6O"/>
+                                        <constraint firstAttribute="trailing" secondItem="Pg9-LA-1f5" secondAttribute="trailing" id="5la-X6-IUd"/>
                                         <constraint firstItem="mYe-hz-Xau" firstAttribute="leading" secondItem="G63-jB-0Ds" secondAttribute="trailing" constant="8" id="98D-aP-yYh"/>
                                         <constraint firstAttribute="bottom" secondItem="Xos-dc-FVS" secondAttribute="bottom" constant="8" id="JPo-DP-Exz"/>
                                         <constraint firstItem="5yX-UZ-Wpv" firstAttribute="centerY" secondItem="7Kh-RY-sEX" secondAttribute="centerY" id="Mh6-7d-GMi"/>
                                         <constraint firstItem="G63-jB-0Ds" firstAttribute="leading" secondItem="7Kh-RY-sEX" secondAttribute="leading" constant="8" id="ORx-yt-gsQ"/>
                                         <constraint firstAttribute="trailing" secondItem="Xos-dc-FVS" secondAttribute="trailing" constant="8" id="Obb-4U-shB"/>
+                                        <constraint firstItem="Pg9-LA-1f5" firstAttribute="top" secondItem="7Kh-RY-sEX" secondAttribute="top" id="S1J-dn-KnL"/>
                                         <constraint firstItem="G63-jB-0Ds" firstAttribute="centerY" secondItem="uP5-49-icf" secondAttribute="centerY" id="Toa-3N-aYh"/>
+                                        <constraint firstItem="Pg9-LA-1f5" firstAttribute="leading" secondItem="7Kh-RY-sEX" secondAttribute="leading" id="bnj-xw-Icd"/>
                                         <constraint firstItem="Usp-Xe-VVj" firstAttribute="leading" secondItem="7Kh-RY-sEX" secondAttribute="leading" id="eqs-Bh-QXl"/>
                                         <constraint firstItem="5yX-UZ-Wpv" firstAttribute="centerX" secondItem="7Kh-RY-sEX" secondAttribute="centerX" id="iML-kB-rPf"/>
                                         <constraint firstItem="Usp-Xe-VVj" firstAttribute="top" secondItem="7Kh-RY-sEX" secondAttribute="top" id="imV-B8-ObJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="Pg9-LA-1f5" secondAttribute="bottom" id="sJa-qF-9OH"/>
                                         <constraint firstAttribute="bottom" secondItem="Usp-Xe-VVj" secondAttribute="bottom" id="u2z-CQ-BFX"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1443,6 +1452,7 @@ km/h</string>
                                     <outlet property="loveButton" destination="uP5-49-icf" id="sRo-5U-owf"/>
                                     <outlet property="loveLabel" destination="vzZ-yw-JRg" id="K5N-lJ-zAj"/>
                                     <outlet property="loveView" destination="Xos-dc-FVS" id="MoM-SX-zYg"/>
+                                    <outlet property="mask" destination="Pg9-LA-1f5" id="NVW-O2-Baa"/>
                                     <outlet property="trackBg" destination="Usp-Xe-VVj" id="xEE-8v-5AB"/>
                                     <outlet property="trackLabel" destination="5yX-UZ-Wpv" id="cuY-Nb-kIM"/>
                                     <outlet property="trackStar" destination="mYe-hz-Xau" id="aK2-0j-XYz"/>

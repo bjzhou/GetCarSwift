@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import Haneke
 import RxSwift
 import SwiftyJSON
 
@@ -58,6 +57,32 @@ class GaikeService {
         return mutableURLRequest
     }
 
+    func request(urlString: URLStringConvertible) -> Observable<NSData> {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        return create { observer in
+            let request = apiManager.request(.GET, urlString).responseData { res in
+                #if DEBUG
+                    let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                    print("RESPONSE=========================================>")
+                    print(responseString)
+                #endif
+                if let err = res.result.error {
+                    observer.on(.Error(err))
+                } else {
+                    if let data = res.result.value {
+                        observer.on(.Next(data))
+                    }
+                    observer.on(.Completed)
+                }
+            }
+            return AnonymousDisposable {
+                request.cancel()
+            }
+            }.observeOn(MainScheduler.sharedInstance).doOn {
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }
+    }
+
     func api<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
@@ -90,6 +115,10 @@ class GaikeService {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
             let urlRequest = self.urlRequestWithComponents(GaikeService.domain + urlString, headers: self.getHeader(), parameters: parameters, imageData: datas)
+            #if DEBUG
+                print("REQUEST=========================================>")
+                print(urlRequest.0)
+            #endif
             let upload = Alamofire.upload(urlRequest.0, data: urlRequest.1).responseData { res in
                 #if DEBUG
                     let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
@@ -115,25 +144,6 @@ class GaikeService {
         }
     }
 
-//    func cache<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
-//        return create { observer in
-//            let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: GaikeService.domain + urlString)!), parameters: body).0.URLString
-//            let fetcher =
-//            Shared.dataCache.fetch(fetcher: GKFetcher(method: urlString, body: body)).onFailure { err in
-//                if let err = err {
-//                    observer.on(.Error(err))
-//                }
-//                }.onSuccess { data in
-//                    observer.on(.Next(data))
-//                    observer.on(.Completed)
-//            }
-//            return AnonymousDisposable {
-//            }
-//            }.observeOn(operationScheduler).map { (data: NSData) in
-//                return self.parseJSON(data)
-//            }.observeOn(MainScheduler.sharedInstance)
-//    }
-
     private func parseJSON<T>(data: NSData) -> GKResult<T> {
         let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
         if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
@@ -157,19 +167,26 @@ class GaikeService {
         }
 
         // create upload data to send
-        let uploadData = NSMutableData()
+        var uploadData = ""
 
         // add image
-        uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         for (key, data) in imageData {
-            uploadData.appendData("Content-Disposition: form-data; name=\(key); filename=\(key).png\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-            uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-            uploadData.appendData(data)
+            uploadData += "\r\n----\(boundaryConstant)\r\n"
+            uploadData += "Content-Disposition: form-data; name=\(key); filename=\(key)\r\n"
+            uploadData += "Content-Type: \r\n\r\n"
+            uploadData += (String(data: data, encoding: NSUTF8StringEncoding) ?? "") + "\r\n"
         }
-        uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        if let parameters = parameters {
+            uploadData += "\r\n----\(boundaryConstant)\r\n"
+            uploadData += "Content-Disposition: form-data; name=content\r\n\r\n"
+            uploadData += String(data: try! NSJSONSerialization.dataWithJSONObject(parameters, options: []), encoding: NSUTF8StringEncoding)!
+        }
+        uploadData += "\r\n----\(boundaryConstant)\r\n"
+
+        print(uploadData)
 
         // return URLRequestConvertible and NSData
-        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0, uploadData)
+        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
 }
 

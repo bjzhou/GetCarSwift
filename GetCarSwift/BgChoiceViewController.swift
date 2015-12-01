@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Haneke
+import Kingfisher
 
 class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var collection: UICollectionView!
@@ -50,13 +50,12 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
-        Shared.imageCache.set(value: image, key: "homepage_bg")
+        KingfisherManager.sharedManager.cache.storeImage(image, forKey: "homepage_bg")
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setInteger(1000, forKey: "homepage_bg")
         dismissViewControllerAnimated(true, completion: nil)
         navigationController?.popViewControllerAnimated(true)
     }
-
 
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)

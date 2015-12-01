@@ -36,7 +36,8 @@ class TestViewController: UIViewController {
         dynamic var alt = 0.0
         */
         if let v60 = realm.objects(RmScore).filter("type = 'v60'").last {
-            _ = GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["map_type": 0, "duration": v60.score], datas: ["record": v60.asData()]).subscribeNext { (res: GKResult<String>) in
+            print(v60)
+            _ = GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["map_type": 0, "duration": v60.score], datas: ["record": v60.archive()]).subscribeNext { (res: GKResult<String>) in
                 print(res)
                 }
         }

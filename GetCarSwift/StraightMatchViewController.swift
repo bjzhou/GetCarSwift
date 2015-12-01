@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 import RxSwift
 
 class StraightMatchViewController: UIViewController {
@@ -117,8 +118,8 @@ class StraightMatchViewController: UIViewController {
         if let score = score {
             let anim = CAKeyframeAnimation(keyPath: "position.y")
             anim.duration = score.score
-            anim.keyTimes = score.record.map { $0.t / score.score }
-            anim.values = score.record.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
+            anim.keyTimes = score.data.map { $0.t / score.score }
+            anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
             anim.calculationMode = kCAAnimationLinear
             anim.removedOnCompletion = false
             anim.fillMode = kCAFillModeForwards
@@ -139,8 +140,8 @@ class StraightMatchViewController: UIViewController {
         }
         let anim = CAKeyframeAnimation(keyPath: "position.y")
         anim.duration = bestScore.score
-        anim.keyTimes = bestScore.record.map { $0.t / bestScore.score }
-        anim.values = bestScore.record.map { $0.s }
+        anim.keyTimes = bestScore.data.map { $0.t / bestScore.score }
+        anim.values = bestScore.data.map { $0.s }
         anim.calculationMode = kCAAnimationLinear
         anim.removedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
@@ -198,11 +199,11 @@ class StraightMatchViewController: UIViewController {
     }
 
     @IBAction func didAddPlayer(sender: UIButton) {
-        let addViewController = R.storyboard.mine.add_player_popover!
+        let addViewController = AddPlayerTableViewController()
         addViewController.delegate = self
         addViewController.sender = sender
-        addViewController.type = "s400"
-        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 258)
+        addViewController.sid = 0
+        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 200)
         let popupViewController = PopupViewController(rootViewController: addViewController)
         self.presentViewController(popupViewController, animated: false, completion: nil)
     }
@@ -225,35 +226,43 @@ class StraightMatchViewController: UIViewController {
 }
 
 extension StraightMatchViewController: AddPlayerDelegate {
-    func didPlayerAdded(avatar avatar: UIImage, name: String, score: RmScore, sender: UIButton?) {
-        sender?.setBackgroundImage(avatar, forState: .Normal)
+    func didPlayerAdded(score: RmScore, sender: UIButton?) {
+        var url = score.headUrl
+        var nickname = score.nickname
+        if url == "" {
+            url = Mine.sharedInstance.avatarUrl ?? ""
+        }
+        if nickname == "" {
+            nickname = Mine.sharedInstance.nickname ?? ""
+        }
+        sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal)
         sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
         sender?.layer.borderWidth = 2
 
         var v60 = "00:00.00"
         var v100 = "00:00.00"
-        let v60s = score.record.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t }
+        let v60s = score.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t }
         if let data = v60s.first {
             v60 = time2String(data.t)
         }
-        let v100s = score.record.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t }
+        let v100s = score.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t }
         if let data = v100s.first {
             v100 = time2String(data.t)
         }
 
         switch sender {
         case .Some(button1):
-            titleLabel1.text = name
+            titleLabel1.text = nickname
             score1 = score
             vLabel1.text = v60
             aLabel1.text = v100
         case .Some(button2):
-            titleLabel2.text = name
+            titleLabel2.text = nickname
             score2 = score
             vLabel2.text = v60
             aLabel2.text = v100
         case .Some(button3):
-            titleLabel3.text = name
+            titleLabel3.text = nickname
             score3 = score
             vLabel3.text = v60
             aLabel3.text = v100

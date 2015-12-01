@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Haneke
 import RxSwift
 
 class PersonInfoViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -54,7 +53,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             cell = tableView.dequeueReusableCellWithIdentifier("info_icon", forIndexPath:indexPath) as! PersonInfoCell
             cell.title.text = titles[indexPath.row]
             if indexPath.row == 0 {
-                cell.icon.setAvatarImage()
+                Mine.sharedInstance.setAvatarImage(cell.icon)
             } else {
                 cell.icon.image = UIImage(named: values[indexPath.row])
             }

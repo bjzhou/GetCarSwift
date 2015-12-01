@@ -13,13 +13,21 @@ import RealmSwift
 class TrackViewController: UITableViewController {
 
     let realm = try! Realm()
-
-    let items: [(UIImage?, String, UIImage?)] = [(R.image.straight_race, "直线赛道", R.image.star3), (R.image.tianhuangping, "天马赛车场", R.image.star3), (R.image.tianhuangping, "安吉天荒坪", R.image.star3), (R.image.niaoshan, "台州鸟山", R.image.star4), (R.image.sanjiacun, "云南三家村", R.image.star3), (R.image.tianmenshan, "天门山通天大道", R.image.star5)]
-
     let disposeBag = DisposeBag()
+
+    var items: [RmRaceTrack] = []
+    var praises: [PraiseCount] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        items = realm.objects(RmRaceTrack).sorted("id").map { $0 }
+        Praise.getPraiseList().subscribeNext { res in
+            if let arr = res.dataArray {
+                self.praises = arr
+                self.tableView.reloadData()
+            }
+        }.addDisposableTo(disposeBag)
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,11 +37,37 @@ class TrackViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.track_item, forIndexPath: indexPath)
 
-        cell!.trackBg.image = items[indexPath.row].0
-        cell!.trackLabel.text = items[indexPath.row].1
-        cell!.trackStar.image = items[indexPath.row].2
-        cell!.lovedCount = 1000
+        if self.items[indexPath.row].isDeveloped {
+            cell!.mask.backgroundColor = UIColor.clearColor()
+            cell!.selectionStyle = .Default
+            cell!.loveButton.enabled = true
+        } else {
+            cell!.mask.backgroundColor = UIColor(white: 0.2, alpha: 0.9)
+            cell!.selectionStyle = .None
+            cell!.loveButton.enabled = false
+        }
+
+        cell!.trackBg.image = UIImage()
+        items[indexPath.row].getSightViewImage { img in
+            cell!.trackBg.image = img
+        }
+
+        UIImage.asyncInit(items[indexPath.row].star) { img in
+            cell!.trackStar.image = img
+        }
+
+        cell!.sid = items[indexPath.row].id
+        cell!.trackLabel.text = items[indexPath.row].name
         cell!.hideStar = indexPath.row == 0
+
+        let praiseCount = praises.filter { $0.sid == items[indexPath.row].id }.first
+        if let praiseCount = praiseCount {
+            cell!.loveButton.selected = praiseCount.status == 1
+            cell!.lovedCount = praiseCount.count
+        } else {
+            cell!.loveButton.selected = false
+            cell!.lovedCount = 0
+        }
 
         return cell!
     }
@@ -42,29 +76,13 @@ class TrackViewController: UITableViewController {
         if indexPath.row == 0 {
             showViewController(R.storyboard.track.straightMatch!)
         } else {
+            if !items[indexPath.row].isDeveloped {
+                return
+            }
             let vc = R.storyboard.track.track_detail
             var trackDetailViewModel = TrackDetailViewModel()
-            switch indexPath.row {
-            case 1:
-                trackDetailViewModel.sid = 5
-                trackDetailViewModel.trackTitle = "天马赛车场"
-                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("id = '2'").first
-            case 2:
-                trackDetailViewModel.sid = 1
-                trackDetailViewModel.trackTitle = "安吉天荒坪"
-                trackDetailViewModel.raceTrack = realm.objects(RmRaceTrack).filter("id = '1'").first
-            case 3:
-                trackDetailViewModel.sid = 2
-                trackDetailViewModel.trackTitle = "台州鸟山"
-            case 4:
-                trackDetailViewModel.sid = 3
-                trackDetailViewModel.trackTitle = "昆明三家村"
-            case 5:
-                trackDetailViewModel.sid = 4
-                trackDetailViewModel.trackTitle = "天门山通天大道"
-            default:
-                break
-            }
+            trackDetailViewModel.sid = items[indexPath.row].id
+            trackDetailViewModel.raceTrack = items[indexPath.row]
             vc?.trackDetailViewModel = trackDetailViewModel
             showViewController(vc!)
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 import RxSwift
 
 class CommentsViewController: UIViewController {
@@ -94,7 +95,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         let content = cell.viewWithTag(313) as! UILabel
 
         if let url = NSURL(string: trackDetailViewModel?.rxComments.value[indexPath.row].head ?? "") {
-            avatarView.hnk_setImageFromURL(url, placeholder: R.image.avatar)
+            avatarView.kf_setImageWithURL(url, placeholderImage: R.image.avatar)
         } else {
             avatarView.image = R.image.avatar
         }

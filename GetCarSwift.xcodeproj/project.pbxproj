@@ -24,10 +24,8 @@
 		C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */; };
 		C81655841BF05CCF004E17AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81655831BF05CCF004E17AE /* Images.xcassets */; };
 		C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */; };
-		C81655881BF32D9D004E17AE /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655871BF32D9D004E17AE /* RmScore.swift */; };
 		C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */; };
 		C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */; };
-		C828823C1B9219620091F624 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C828823B1B9219620091F624 /* UIImageView.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
 		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; };
 		C844F4011BE73DE1008AFC8B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C844F4001BE73DE1008AFC8B /* File.swift */; };
@@ -62,6 +60,8 @@
 		C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C61B6E125400620C85 /* GkboxViewController.swift */; };
 		C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C91B6E166400620C85 /* SwiftPages.swift */; };
 		C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05CB1B6E195600620C85 /* DataViewController.swift */; };
+		C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B6F1C0C739600002BB9 /* RmScore.swift */; };
+		C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
 		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; };
 		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; };
@@ -143,10 +143,8 @@
 		C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerTableViewController.swift; sourceTree = "<group>"; };
 		C81655831BF05CCF004E17AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StraightMatchViewController.swift; sourceTree = "<group>"; };
-		C81655871BF32D9D004E17AE /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
 		C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LetsgoDigital-Regular.ttf"; sourceTree = "<group>"; };
-		C828823B1B9219620091F624 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C844F4001BE73DE1008AFC8B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -186,6 +184,8 @@
 		C89A05C61B6E125400620C85 /* GkboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GkboxViewController.swift; sourceTree = "<group>"; };
 		C89A05C91B6E166400620C85 /* SwiftPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPages.swift; sourceTree = "<group>"; };
 		C89A05CB1B6E195600620C85 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		C89E7B6F1C0C739600002BB9 /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
+		C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		C8AEC2121B996F41002F39EB /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
@@ -257,6 +257,7 @@
 		8BDEB006326E9E3DED7B8762 /* track */ = {
 			isa = PBXGroup;
 			children = (
+				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
 				C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */,
 				C8E2B83C1AD92D73003B07FE /* PostCell.swift */,
 				C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */,
@@ -265,6 +266,7 @@
 				C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */,
 				C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */,
 				C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */,
+				C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */,
 			);
 			name = track;
 			sourceTree = "<group>";
@@ -312,6 +314,7 @@
 		C842765F1BB188D60041C3F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C89E7B6F1C0C739600002BB9 /* RmScore.swift */,
 				C894A3311B7F783D00D853C9 /* CarInfo.swift */,
 				C89791DC1B9F04280027D6A5 /* Comment.swift */,
 				C8EEB65E1BB2D84D00BB5704 /* Comments.swift */,
@@ -319,7 +322,6 @@
 				C880DA761B78D21900F5E24D /* Nearby.swift */,
 				C8EEB65C1BB2D3D300BB5704 /* Praise.swift */,
 				C8F9CD6E1B7246BB0003AF1B /* User.swift */,
-				C81655871BF32D9D004E17AE /* RmScore.swift */,
 				C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */,
 			);
 			name = Model;
@@ -347,6 +349,7 @@
 				C80B6B281BB672560017D7E3 /* gkbox */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */,
+				C860F3FF1BEAF96300B17004 /* TestViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -354,7 +357,6 @@
 		C85B34AC1BB7DAA400435320 /* mine */ = {
 			isa = PBXGroup;
 			children = (
-				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
 				C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */,
 				C89884361B0650F5009634E1 /* BgChoiceViewController.swift */,
 				C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */,
@@ -365,7 +367,6 @@
 				C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */,
 				C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */,
 				C848F1B61B778626008DAC69 /* TrackingViewController.swift */,
-				C860F3FF1BEAF96300B17004 /* TestViewController.swift */,
 				C8B01E9C1C05BDEE00A85612 /* SettingsTableViewController.swift */,
 			);
 			name = mine;
@@ -469,7 +470,6 @@
 				C85B349C1BB7C5C500435320 /* UIButton.swift */,
 				C8C2C0901B8B5DEE006095DC /* UIColor.swift */,
 				C88D822E1AE27E4900DBC0C1 /* UIImage.swift */,
-				C828823B1B9219620091F624 /* UIImageView.swift */,
 				C894F5FA1BA440B300645DA3 /* UITableView.swift */,
 				C8D6CAE51B8F511700A417CF /* UIViewController.swift */,
 				C8D88FEB1BF5B67800792F3E /* RealmExt.swift */,
@@ -745,6 +745,7 @@
 				C8F2BD7F1BE074CB00424EEA /* ENSideMenu.swift in Sources */,
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
+				C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */,
 				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */,
 				C8D88FEA1BF4482D00792F3E /* RmRaceTrack.swift in Sources */,
@@ -755,8 +756,8 @@
 				C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */,
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */,
-				C81655881BF32D9D004E17AE /* RmScore.swift in Sources */,
 				C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */,
+				C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */,
 				C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */,
 				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
 				C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */,
@@ -812,7 +813,6 @@
 				C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */,
 				C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */,
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
-				C828823C1B9219620091F624 /* UIImageView.swift in Sources */,
 				C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */,
 				C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */,
 				8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */,

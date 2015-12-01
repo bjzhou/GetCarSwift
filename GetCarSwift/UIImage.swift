@@ -36,4 +36,13 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+
+    class func asyncInit(name: String, closure: UIImage? -> ()) {
+        dispatch_async(serialQueue) {
+            let img = UIImage(named: name)
+            mainThread {
+                closure(img)
+            }
+        }
+    }
 }
