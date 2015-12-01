@@ -35,7 +35,6 @@
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
 		C856C8C21BFED13E0066D313 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */; };
 		C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85B349C1BB7C5C500435320 /* UIButton.swift */; };
-		C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */; };
 		C860F4001BEAF96300B17004 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C860F3FF1BEAF96300B17004 /* TestViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC841AD8FCB000F99592 /* GetCarSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */; };
@@ -44,8 +43,6 @@
 		C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87442F11C02B66500D17B92 /* DanmuEffect.swift */; };
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
-		C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */; };
-		C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */; };
 		C880DA771B78D21900F5E24D /* Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* Nearby.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
 		C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* UIImage.swift */; };
@@ -76,15 +73,12 @@
 		C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */; };
 		C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */; };
 		C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */; };
-		C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */; };
 		C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController.swift */; };
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
 		C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE51BF343BB00792F3E /* Helper.swift */; };
 		C8D88FEA1BF4482D00792F3E /* RmRaceTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */; };
 		C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FEB1BF5B67800792F3E /* RealmExt.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
-		C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */; };
-		C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B83C1AD92D73003B07FE /* PostCell.swift */; };
 		C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */; };
 		C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */; };
 		C8E2B8531AD96B47003B07FE /* PersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */; };
@@ -156,7 +150,6 @@
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
 		C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		C85B349C1BB7C5C500435320 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
-		C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoViewController.swift; sourceTree = "<group>"; };
 		C860F3FF1BEAF96300B17004 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,8 +163,6 @@
 		C86F854F1B8215A100C7DC7C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C87442F11C02B66500D17B92 /* DanmuEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DanmuEffect.swift; sourceTree = "<group>"; };
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
-		C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
-		C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandsViewController.swift; sourceTree = "<group>"; };
 		C880DA761B78D21900F5E24D /* Nearby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nearby.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -203,15 +194,12 @@
 		C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoEditViewController.swift; sourceTree = "<group>"; };
 		C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewModel.swift; sourceTree = "<group>"; };
-		C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		C8D6CAE51B8F511700A417CF /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		C8D88FE51BF343BB00792F3E /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmRaceTrack.swift; sourceTree = "<group>"; };
 		C8D88FEB1BF5B67800792F3E /* RealmExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmExt.swift; sourceTree = "<group>"; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
-		C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBarViewController.swift; sourceTree = "<group>"; };
-		C8E2B83C1AD92D73003B07FE /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoCell.swift; sourceTree = "<group>"; };
 		C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		C8E2B8521AD96B47003B07FE /* PersonInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoViewController.swift; sourceTree = "<group>"; };
@@ -262,9 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				C80FCD1D1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift */,
-				C8E2B83A1AD92B27003B07FE /* CarBarViewController.swift */,
-				C8E2B83C1AD92D73003B07FE /* PostCell.swift */,
-				C8D6B1EE1B0E2F3000A2ED60 /* PostViewController.swift */,
 				C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */,
 				8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */,
 				C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */,
@@ -361,11 +346,8 @@
 		C85B34AC1BB7DAA400435320 /* mine */ = {
 			isa = PBXGroup;
 			children = (
-				C87DA9C81B08C66600AA47AF /* AddCarViewController.swift */,
 				C89884361B0650F5009634E1 /* BgChoiceViewController.swift */,
-				C87DA9CA1B08CEAB00AA47AF /* BrandsViewController.swift */,
 				C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */,
-				C85DD70D1B072ABF00A658B6 /* CarInfoViewController.swift */,
 				C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */,
 				C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */,
 				C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */,
@@ -417,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */,
-				C881F02F1B7B86BD00E062B6 /* Assets */,
 				C8AEC2051B985BAB002F39EB /* Extension */,
 				C842765F1BB188D60041C3F9 /* Model */,
 				C80881E01B6D2171002A1CE9 /* servicce */,
@@ -432,6 +413,8 @@
 		C867FC691AD8FCAF00F99592 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C81655831BF05CCF004E17AE /* Images.xcassets */,
+				C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */,
 				C88D896A1BDF797700AA4425 /* R.generated.swift */,
 				C8C2C09B1B8B5EEE006095DC /* GetCarSwift-Bridging-Header.h */,
 				C867FC6A1AD8FCAF00F99592 /* Info.plist */,
@@ -454,15 +437,6 @@
 				C867FC821AD8FCB000F99592 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C881F02F1B7B86BD00E062B6 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				C81655831BF05CCF004E17AE /* Images.xcassets */,
-				C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */,
-			);
-			name = Assets;
 			sourceTree = "<group>";
 		};
 		C8AEC2051B985BAB002F39EB /* Extension */ = {
@@ -752,7 +726,6 @@
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
 				C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */,
-				C8D6B1EF1B0E2F3000A2ED60 /* PostViewController.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */,
 				C8D88FEA1BF4482D00792F3E /* RmRaceTrack.swift in Sources */,
 				C8EC0DF41C04727500A619DC /* TrackTimerViewController.swift in Sources */,
@@ -765,12 +738,10 @@
 				C8D6CAE61B8F511700A417CF /* UIViewController.swift in Sources */,
 				C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */,
 				C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */,
-				C87DA9C91B08C66600AA47AF /* AddCarViewController.swift in Sources */,
 				C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */,
 				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
 				C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */,
-				C87DA9CB1B08CEAB00AA47AF /* BrandsViewController.swift in Sources */,
 				C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */,
 				C8D88FEC1BF5B67800792F3E /* RealmExt.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
@@ -781,7 +752,6 @@
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
 				C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */,
-				C85DD70E1B072ABF00A658B6 /* CarInfoViewController.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
 				C89C492A1C0D6F2500A1E2E1 /* AboutTableViewController.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
@@ -808,9 +778,7 @@
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
 				C8B01E9D1C05BDEE00A85612 /* SettingsTableViewController.swift in Sources */,
 				C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */,
-				C8E2B83B1AD92B27003B07FE /* CarBarViewController.swift in Sources */,
 				C8C2C0941B8B5DEE006095DC /* UIColor.swift in Sources */,
-				C8E2B83D1AD92D73003B07FE /* PostCell.swift in Sources */,
 				C8F3336B1BB6DE7F00F4EFB2 /* MapViewModel.swift in Sources */,
 				C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */,
 				C894F5FB1BA440B300645DA3 /* UITableView.swift in Sources */,

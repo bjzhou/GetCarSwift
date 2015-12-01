@@ -20,13 +20,14 @@ struct TrackDetailViewModel {
     init() {
     }
 
-    func getComments() {
-        Comments.getComments(sid: sid, limit: 999)
+    func getComments() -> Observable<Array<Comment>> {
+        return Comments.getComments(sid: sid, limit: 999)
             .filter { $0.data != nil }
-            .subscribeNext { cs in
+            .map { cs in
                 let comments = cs.data!
                self.rxComments.value = comments.comments
-            }.addDisposableTo(disposeBag)
+                return self.rxComments.value
+            }
     }
 
     func postComment(text: String) -> Observable<Void> {

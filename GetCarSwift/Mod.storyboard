@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--改装-->
@@ -22,17 +21,14 @@
                                 <rect key="frame" x="0.0" y="7" width="375" height="611"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <imageView key="tableHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="mod_doctor_top_bg" id="sFv-sR-PbN">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
+                                <imageView key="tableHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="mod_doctor_top_bg" id="sFv-sR-PbN">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <animations/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="sFv-sR-PbN" secondAttribute="height" multiplier="25:11" priority="250" id="vCL-E9-yt8"/>
-                                    </constraints>
                                 </imageView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mod_intro" id="KS0-eH-B9z" customClass="ModIntroTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="193" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="250" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KS0-eH-B9z" id="EqX-M1-a5p">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="299.5"/>

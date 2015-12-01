@@ -40,7 +40,6 @@ class DanmuEffect {
 
     func send(text: String, delay: UInt32 = 0, highlight: Bool = false, highPriority: Bool = false) {
         let closeDanmu = NSUserDefaults.standardUserDefaults().boolForKey("closeDanmu")
-        print(closeDanmu)
         if  closeDanmu {
             return
         }

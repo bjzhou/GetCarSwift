@@ -52,7 +52,6 @@ class TrackDetailViewController: UIViewController {
     var timerDisposable: Disposable?
 
     var danmuEffect: DanmuEffect?
-    var danmuPlayed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,15 +123,11 @@ class TrackDetailViewController: UIViewController {
 
     func initTrackData() {
         self.title = trackDetailViewModel.raceTrack?.name ?? ""
-        trackDetailViewModel.getComments()
-        trackDetailViewModel.rxComments.subscribeNext { comments in
-            if !self.danmuPlayed && comments.count > 0 {
-                self.danmuPlayed = true
-                for comment in comments {
-                    self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
-                }
+        trackDetailViewModel.getComments().subscribeNext { comments in
+            for comment in comments {
+                self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
     }
 
     @IBAction func didStart(sender: UIButton) {
@@ -291,5 +286,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
 }
 
 extension TrackDetailViewController: MAMapViewDelegate {
-
+    func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
+        self.view.endEditing(true)
+    }
 }

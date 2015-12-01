@@ -43,7 +43,7 @@ class AddPlayerTableViewController: UITableViewController {
 
     func updateScore() {
         let filterStr: String
-        if sid == 0 {
+        if sid == 1000 {
             filterStr = "type = 's400'"
         } else {
             filterStr = "mapType = \(sid)"
@@ -51,9 +51,6 @@ class AddPlayerTableViewController: UITableViewController {
 
         localBest = realm.objects(RmScore).filter(filterStr).sorted("score").map { $0 }
         localNewest = realm.objects(RmScore).filter(filterStr).sorted("createdAt", ascending: true).map { $0 }
-
-        print(localBest.map { $0.score })
-        print(localNewest.map { $0.score })
 
         tableView.reloadData()
     }

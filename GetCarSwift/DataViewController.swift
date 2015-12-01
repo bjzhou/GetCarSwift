@@ -108,7 +108,6 @@ class DataViewController: UIViewController {
             datas[i].layoutIfNeeded()
 
             let scale: CGFloat = (self.view.frame.height - 410) / 257
-            print(scale)
 
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: datas[i].frame.width, height: 21*scale))
             titleLabel.textAlignment = .Center
@@ -278,7 +277,7 @@ class DataViewController: UIViewController {
                                 data.appendContentsOf(self.data)
                                 data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
                                 let score = RmScore()
-                                score.mapType = 0
+                                score.mapType = 1000
                                 score.type = "s400"
                                 score.score = self.latestScores[3]
                                 score.data = data

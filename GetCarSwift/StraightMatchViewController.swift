@@ -52,16 +52,18 @@ class StraightMatchViewController: UIViewController {
 
     var trackDetailViewModel = TrackDetailViewModel()
     var danmuEffect: DanmuEffect?
-    var danmuPlayed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tapRecognizer)
 
         var danmuRect = raceBg.frame
         danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 2)
         danmuEffect = DanmuEffect(superView: raceBg, rect: danmuRect)
-        trackDetailViewModel.sid = 0
+        trackDetailViewModel.sid = 1000
 
         for button in [button1, button2, button3] {
             button.layer.masksToBounds = true
@@ -70,15 +72,11 @@ class StraightMatchViewController: UIViewController {
 
         self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.imageWithRenderingMode(.AlwaysOriginal)
 
-        trackDetailViewModel.getComments()
-        trackDetailViewModel.rxComments.subscribeNext { comments in
-            if !self.danmuPlayed && comments.count > 0 {
-                self.danmuPlayed = true
-                for comment in comments {
-                    self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
-                }
+        trackDetailViewModel.getComments().subscribeNext { cs in
+            for comment in cs {
+                self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
             }
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -86,6 +84,36 @@ class StraightMatchViewController: UIViewController {
 
     override func viewDidDisappear(animated: Bool) {
         timerDisposable?.dispose()
+    }
+
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
+                self.postViewPos.constant = keyboardSize.height
+                UIView.animateWithDuration(0.25, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+
+    func keyboardWillHide(notification: NSNotification) {
+        UIView.animateWithDuration(0.25, animations: {
+            self.postViewPos.constant = 0
+        })
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     @IBAction func didStart(sender: UIButton) {

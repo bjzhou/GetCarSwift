@@ -183,43 +183,10 @@ class GaikeService {
         }
         uploadData += "\r\n----\(boundaryConstant)\r\n"
 
-        print(uploadData)
-
         // return URLRequestConvertible and NSData
         return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
 }
-
-//class GKFetcher : Fetcher<NSData> {
-//    let method: String
-//    let body: [String:AnyObject]
-//
-//    init(method: String, body: [String:AnyObject] = [:]) {
-//        let urlString = GaikeService.domain + method
-//        let key = ParameterEncoding.URL.encode(NSMutableURLRequest(URL: NSURL(string: urlString)!), parameters: body).0.URLString
-//        self.method = method
-//        self.body = body
-//        super.init(key: key)
-//    }
-//
-//    override func fetch(failure fail : ((NSError?) -> ()), success succeed : (NSData.Result) -> ()) {
-//        apiManager.request(GaikeService.sharedInstance.generateURLRequest(method, body: body)).responseData { res in
-//            if let err = res.result.error {
-//                fail(err)
-//            } else {
-//                if let data = res.result.value {
-//                    succeed(data)
-//                    if API_DEBUG {
-//                        let responseString = String(data: data, encoding: NSUTF8StringEncoding) ?? ""
-//                        print("RESPONSE=========================================> \(responseString)")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    override func cancelFetch() {}
-//}
 
 struct GKResult<U: JSONable> {
     var data: U?

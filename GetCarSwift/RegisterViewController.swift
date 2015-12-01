@@ -13,7 +13,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     var registerViewModel: RegisterViewModel!
 
     @IBOutlet weak var nickname: UITextField!
-    @IBOutlet weak var carLabel: UILabel!
+    @IBOutlet weak var carText: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     }
 
     func didCarSelected(car: String) {
-        carLabel.text = car
+        carText.text = car
         registerViewModel.car = car
     }
 

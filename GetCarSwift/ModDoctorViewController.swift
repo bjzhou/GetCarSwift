@@ -41,4 +41,10 @@ extension ModDoctorViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.messageLabel.text = contents[indexPath.row]
         return cell!
     }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y < -57) {
+            scrollView.contentOffset = CGPointMake(0, -57)
+        }
+    }
 }
