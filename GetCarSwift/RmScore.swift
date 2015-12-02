@@ -12,8 +12,7 @@ import SwiftyJSON
 import RxSwift
 
 class RmScore: Object, JSONable {
-    dynamic var id = ""
-    dynamic var type = ""
+    dynamic var id = 0
     dynamic var url = ""
     dynamic var uid = ""
     dynamic var nickname = ""
@@ -26,7 +25,7 @@ class RmScore: Object, JSONable {
     convenience required init(json: JSON) {
         self.init()
 
-        id = json["id"].stringValue
+        id = json["id"].intValue
         url = json["url"].stringValue
         uid = json["uid"].stringValue
         nickname = json["nickname"].stringValue
@@ -34,6 +33,8 @@ class RmScore: Object, JSONable {
         mapType = json["map_type"].intValue
         headUrl = json["head_url"].stringValue
     }
+
+    override class func primaryKey() -> String? { return "id" }
 
     func archive() -> NSData {
         let dic = data.map { el in

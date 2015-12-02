@@ -111,31 +111,47 @@ class GaikeService {
         }
     }
 
-    func upload<T>(urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: NSData]) -> Observable<GKResult<T>> {
+    func upload<T>(urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: NSData], mimeType: String = "image/png") -> Observable<GKResult<T>> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
-            let urlRequest = self.urlRequestWithComponents(GaikeService.domain + urlString, headers: self.getHeader(), parameters: parameters, imageData: datas)
-            #if DEBUG
-                print("REQUEST=========================================>")
-                print(urlRequest.0)
-            #endif
-            let upload = Alamofire.upload(urlRequest.0, data: urlRequest.1).responseData { res in
-                #if DEBUG
-                    let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
-                    print("RESPONSE=========================================>")
-                    print(responseString)
-                #endif
-                if let err = res.result.error {
-                    observer.on(.Error(err))
-                } else {
-                    if let data = res.result.value {
-                        observer.on(.Next(data))
-                    }
-                    observer.on(.Completed)
+            var upload: Request?
+            Alamofire.upload(.POST, GaikeService.domain + urlString, headers: self.getHeader(), multipartFormData: { data in
+                if let parameters = parameters {
+                    let jsonParams = try! NSJSONSerialization.dataWithJSONObject(parameters, options: [])
+                    data.appendBodyPart(data: jsonParams, name: "content")
                 }
+                for (key, value) in datas {
+                    data.appendBodyPart(data: value, name: key, fileName: key+".png", mimeType: mimeType)
+                }
+                }) { res in
+                    switch res {
+                    case .Success(request: let req, streamingFromDisk: _, streamFileURL: _):
+                        #if DEBUG
+                            print("REQUEST=========================================>")
+                            print(req.request?.URLString)
+                        #endif
+                        upload = req.responseData { res in
+                            #if DEBUG
+                                let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                                print("RESPONSE=========================================>")
+                                print(responseString)
+                            #endif
+                            if let err = res.result.error {
+                                observer.on(.Error(err))
+                            } else {
+                                if let data = res.result.value {
+                                    observer.on(.Next(data))
+                                }
+                                observer.on(.Completed)
+                            }
+                        }
+                    case .Failure(let err):
+                        observer.on(.Error(err))
+                    }
+
             }
             return AnonymousDisposable {
-                upload.cancel()
+                upload?.cancel()
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
@@ -151,59 +167,26 @@ class GaikeService {
         }
         return gkResult
     }
-
-    func urlRequestWithComponents(urlString:String, headers: [String:String]? = nil, parameters: [String: AnyObject]? = nil, imageData: [String:NSData]) -> (URLRequestConvertible, NSData) {
-
-        // create url request to send
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
-        let boundaryConstant = "myRandomBoundary12345";
-        let contentType = "multipart/form-data;boundary="+boundaryConstant
-        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
-        if let headers = headers {
-            for (key, value) in headers {
-                mutableURLRequest.setValue(value, forHTTPHeaderField: key)
-            }
-        }
-
-        // create upload data to send
-        var uploadData = ""
-
-        // add image
-        for (key, data) in imageData {
-            uploadData += "\r\n----\(boundaryConstant)\r\n"
-            uploadData += "Content-Disposition: form-data; name=\(key); filename=\(key)\r\n"
-            uploadData += "Content-Type: \r\n\r\n"
-            uploadData += (String(data: data, encoding: NSUTF8StringEncoding) ?? "") + "\r\n"
-        }
-        if let parameters = parameters {
-            uploadData += "\r\n----\(boundaryConstant)\r\n"
-            uploadData += "Content-Disposition: form-data; name=content\r\n\r\n"
-            uploadData += String(data: try! NSJSONSerialization.dataWithJSONObject(parameters, options: []), encoding: NSUTF8StringEncoding)!
-        }
-        uploadData += "\r\n----\(boundaryConstant)\r\n"
-
-        // return URLRequestConvertible and NSData
-        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData.dataUsingEncoding(NSUTF8StringEncoding)!)
-    }
 }
 
 struct GKResult<U: JSONable> {
     var data: U?
     var dataArray: [U]?
-    var code: Int = 0
-    var msg: String = ""
+    var code: Int = -1
+    var msg: String = "json parse error"
 
     init(json: SwiftyJSON.JSON) {
-        code = json["code"].intValue
-        msg = json["msg"].stringValue
-        if json["data"].type == SwiftyJSON.Type.Array {
-            dataArray = []
-            for (_, subJson) in json["data"] {
-                dataArray?.append(U(json: subJson))
+        code =? json["code"].int
+        msg =? json["msg"].string
+        if let raw = json["data"].rawString() where raw != "null" {
+            if json["data"].type == SwiftyJSON.Type.Array {
+                dataArray = []
+                for (_, subJson) in json["data"] {
+                    dataArray?.append(U(json: subJson))
+                }
+            } else {
+                data = U(json: json["data"])
             }
-        } else {
-            data = U(json: json["data"])
         }
     }
 }

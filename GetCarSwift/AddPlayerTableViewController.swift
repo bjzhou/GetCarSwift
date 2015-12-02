@@ -42,15 +42,9 @@ class AddPlayerTableViewController: UITableViewController {
     }
 
     func updateScore() {
-        let filterStr: String
-        if sid == 0 {
-            filterStr = "type = 's400'"
-        } else {
-            filterStr = "mapType = \(sid)"
-        }
 
-        localBest = realm.objects(RmScore).filter(filterStr).sorted("score").map { $0 }
-        localNewest = realm.objects(RmScore).filter(filterStr).sorted("createdAt", ascending: true).map { $0 }
+        localBest = realm.objects(RmScore).filter("mapType = \(sid)").sorted("score").map { $0 }
+        localNewest = realm.objects(RmScore).filter("mapType = \(sid)").sorted("createdAt", ascending: false).map { $0 }
 
         tableView.reloadData()
     }
@@ -59,6 +53,19 @@ class AddPlayerTableViewController: UITableViewController {
         _ = Records.getRecord(sid, count: 10).subscribeNext { res in
             if let data = res.data {
                 self.records = data
+                if self.localNewest.count == 0 {
+                    for s in data.newestRes {
+                        try! self.realm.write {
+                            self.realm.add(s, update: true)
+                        }
+                    }
+                    for s in data.bestRes {
+                        try! self.realm.write {
+                            self.realm.add(s, update: true)
+                        }
+                    }
+                    self.updateScore()
+                }
                 self.tableView.reloadData()
             }
         }
@@ -82,31 +89,11 @@ class AddPlayerTableViewController: UITableViewController {
             if section == 0 {
                 if localNewest.count >= 3 {
                     return 3
-                } else if localNewest.count == 0 {
-                    if let records = records where records.newestRes.count > 0 {
-                        try! realm.write {
-                            for score in records.newestRes {
-                                self.realm.add(score)
-                            }
-                        }
-                        updateScore()
-                        return records.newestRes.count
-                    }
                 }
                 return localNewest.count
             } else {
                 if localBest.count >= 3 {
                     return 3
-                } else if localBest.count == 0 {
-                    if let records = records where records.bestRes.count > 0 {
-                        try! realm.write {
-                            for score in records.newestRes {
-                                self.realm.add(score)
-                            }
-                        }
-                        updateScore()
-                        return records.bestRes.count
-                    }
                 }
                 return localBest.count
             }

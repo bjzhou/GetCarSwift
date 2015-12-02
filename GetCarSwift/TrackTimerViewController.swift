@@ -46,10 +46,12 @@ class TrackTimerViewController: UIViewController {
                                 data.appendContentsOf(self.data)
                                 if let score = data.last?.t where score >= 0.5 {
                                     let rmscore = RmScore()
-                                    rmscore.type = self.raceTrack.name
                                     rmscore.score = score
                                     rmscore.data = data
                                     rmscore.mapType = self.raceTrack.id
+                                    Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribeNext { res in
+                                        print(res.data)
+                                        }.addDisposableTo(self.disposeBag)
                                     try! self.realm.write {
                                         self.realm.add(rmscore)
                                     }
@@ -119,7 +121,28 @@ class TrackTimerViewController: UIViewController {
     }
 
     func updateScore() {
-        let scores = realm.objects(RmScore).filter("type = '\(raceTrack.name)'")
+        let scores = realm.objects(RmScore).filter("mapType = '\(raceTrack.id)'")
+
+        if scores.count == 0 {
+            Records.getRecord(raceTrack.id, count: 3).subscribeNext { res in
+                if let r = res.data {
+                    if r.newestRes.count != 0 {
+                        for s in r.newestRes {
+                            try! self.realm.write {
+                                self.realm.add(s, update: true)
+                            }
+                        }
+                        for s in r.bestRes {
+                            try! self.realm.write {
+                                self.realm.add(s, update: true)
+                            }
+                        }
+                        self.updateScore()
+                    }
+                }
+            }.addDisposableTo(disposeBag)
+            return
+        }
 
         let latests = scores.sorted("createdAt", ascending: false)
         if latests.count > 0 {

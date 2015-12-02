@@ -54,14 +54,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
-        Realm.Configuration.defaultConfiguration.schemaVersion = 16
+        var i = 0
+        var toDelete = [MigrationObject]()
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(
+            schemaVersion: 17,
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < 17) {
+                    migration.enumerate(RmScore.className()) { oldObject, newObject in
+                        newObject!["id"] = i
+                        i++
+                        let type = oldObject!["type"] as! String
+                        if type == "s400" {
+                            newObject!["mapType"] = 0
+                            let score = newObject!["score"] as! Double
+                            if score <= 4 {
+                                toDelete.append(newObject!)
+                            }
+                        }
+                        if type == "v60" {
+                            newObject!["mapType"] = 1001
+                        }
+                        if type == "v100" {
+                            newObject!["mapType"] = 1002
+                        }
+                        if type == "b60" {
+                            newObject!["mapType"] = 1003
+                        }
+                    }
+                    for obj in toDelete {
+                        migration.delete(obj)
+                    }
+                }
+        })
 
         #if ADHOC
             checkNewVersion()
         #endif
 
 //        #if DEBUG
-//            window?.rootViewController = R.storyboard.mine.test
+//            window?.rootViewController = R.storyboard.main.debug
 //        #endif
 
         return true

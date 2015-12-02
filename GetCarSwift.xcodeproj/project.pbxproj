@@ -35,7 +35,7 @@
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
 		C856C8C21BFED13E0066D313 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */; };
 		C85B349D1BB7C5C500435320 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85B349C1BB7C5C500435320 /* UIButton.swift */; };
-		C860F4001BEAF96300B17004 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C860F3FF1BEAF96300B17004 /* TestViewController.swift */; };
+		C860F4001BEAF96300B17004 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C860F3FF1BEAF96300B17004 /* DebugViewController.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
 		C867FC841AD8FCB000F99592 /* GetCarSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC831AD8FCB000F99592 /* GetCarSwiftTests.swift */; };
 		C867FD1E1AD9071900F99592 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FD1D1AD9071900F99592 /* Res.swift */; };
@@ -150,7 +150,7 @@
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
 		C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		C85B349C1BB7C5C500435320 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
-		C860F3FF1BEAF96300B17004 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		C860F3FF1BEAF96300B17004 /* DebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C867FC6A1AD8FCAF00F99592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 				C80B6B281BB672560017D7E3 /* gkbox */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */,
-				C860F3FF1BEAF96300B17004 /* TestViewController.swift */,
+				C860F3FF1BEAF96300B17004 /* DebugViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -757,7 +757,7 @@
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage.swift in Sources */,
 				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
-				C860F4001BEAF96300B17004 /* TestViewController.swift in Sources */,
+				C860F4001BEAF96300B17004 /* DebugViewController.swift in Sources */,
 				C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */,
 				C844F4011BE73DE1008AFC8B /* File.swift in Sources */,
 				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,

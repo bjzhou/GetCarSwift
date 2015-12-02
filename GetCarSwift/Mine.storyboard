@@ -1473,56 +1473,6 @@
             </objects>
             <point key="canvasLocation" x="-2102" y="274"/>
         </scene>
-        <!--Test View Controller-->
-        <scene sceneID="Ruw-F8-Qxh">
-            <objects>
-                <viewController storyboardIdentifier="test" id="687-km-qKl" customClass="TestViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Rdw-Ef-aFZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="o2w-bL-clS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="z8O-it-noq">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxQ-En-eUX">
-                                <rect key="frame" x="277" y="247" width="46" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="didClick:" destination="687-km-qKl" eventType="touchUpInside" id="cmC-Wl-bES"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="this is a text field" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zIK-H3-7iQ">
-                                <rect key="frame" x="235" y="285" width="131" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg5-pR-8K0">
-                                <rect key="frame" x="279" y="323" width="42" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="zIK-H3-7iQ" firstAttribute="centerX" secondItem="z8O-it-noq" secondAttribute="centerX" id="C8e-Rg-nra"/>
-                            <constraint firstItem="xg5-pR-8K0" firstAttribute="centerX" secondItem="z8O-it-noq" secondAttribute="centerX" id="c3i-cp-RtY"/>
-                            <constraint firstItem="VxQ-En-eUX" firstAttribute="centerX" secondItem="z8O-it-noq" secondAttribute="centerX" id="dcG-UB-a6e"/>
-                            <constraint firstItem="xg5-pR-8K0" firstAttribute="top" secondItem="zIK-H3-7iQ" secondAttribute="bottom" constant="8" id="pUb-69-de2"/>
-                            <constraint firstItem="zIK-H3-7iQ" firstAttribute="top" secondItem="VxQ-En-eUX" secondAttribute="bottom" constant="8" id="uUQ-DR-dYF"/>
-                            <constraint firstItem="zIK-H3-7iQ" firstAttribute="centerY" secondItem="z8O-it-noq" secondAttribute="centerY" id="xLj-vU-bR8"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FL6-pM-Bf8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1432" y="273"/>
-        </scene>
         <!--使用条款以及免责声明-->
         <scene sceneID="Fuh-qe-sUi">
             <objects>

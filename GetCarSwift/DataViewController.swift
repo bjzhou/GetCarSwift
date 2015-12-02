@@ -125,7 +125,9 @@ class DataViewController: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        self.updateScore()
+        latestScores = [-1, -1, -1, -1]
+        bestScores = [-1, -1, -1, -1]
+        updateScore()
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -224,10 +226,10 @@ class DataViewController: UIViewController {
     }
 
     func updateScore() {
-        let v60s = self.realm.objects(RmScore).filter("type = 'v60'")
-        let v100s = self.realm.objects(RmScore).filter("type = 'v100'")
-        let s400s = self.realm.objects(RmScore).filter("type = 's400'")
-        let b60s = self.realm.objects(RmScore).filter("type = 'b60'")
+        let v60s = self.realm.objects(RmScore).filter("mapType = 1001")
+        let v100s = self.realm.objects(RmScore).filter("mapType = 1002")
+        let s400s = self.realm.objects(RmScore).filter("mapType = 0")
+        let b60s = self.realm.objects(RmScore).filter("mapType = 1003")
         self.latestScores[0] =? v60s.sorted("createdAt").last?.score
         self.bestScores[0] =? v60s.sorted("score").first?.score
         self.latestScores[1] =? v100s.sorted("createdAt").last?.score
@@ -237,9 +239,45 @@ class DataViewController: UIViewController {
         self.latestScores[3] =? s400s.sorted("createdAt").last?.score
         self.bestScores[3] =? s400s.sorted("score").first?.score
 
+        if v60s.count == 0 {
+            updateFromNet(1001)
+        }
+
+        if v100s.count == 0 {
+            updateFromNet(1002)
+        }
+
+        if s400s.count == 0 {
+            updateFromNet(0)
+        }
+
+        if b60s.count == 0 {
+            updateFromNet(1003)
+        }
+
         for i in 0...3 {
             dataVCs[i].time = self.time2String(showBest ? bestScores[i] : latestScores[i])
         }
+    }
+
+    func updateFromNet(mapType: Int) {
+        Records.getRecord(mapType, count: 1).subscribeNext { res in
+            if let r = res.data {
+                if r.newestRes.count != 0 {
+                    for s in r.newestRes {
+                        try! self.realm.write {
+                            self.realm.add(s, update: true)
+                        }
+                    }
+                    for s in r.bestRes {
+                        try! self.realm.write {
+                            self.realm.add(s, update: true)
+                        }
+                    }
+                    self.updateScore()
+                }
+            }
+            }.addDisposableTo(disposeBag)
     }
 
     func startTimer() {
@@ -278,13 +316,10 @@ class DataViewController: UIViewController {
                                 data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
                                 let score = RmScore()
                                 score.mapType = 0
-                                score.type = "s400"
                                 score.score = self.latestScores[3]
                                 score.data = data
-                                GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": score.score, "map_type": 0], datas: ["record": score.archive()]).subscribeNext { (res: GKResult<String>) in
-                                    if res.code != 0 {
-                                        print(res)
-                                    }
+                                Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                                    print(res.data)
                                 }.addDisposableTo(self.disposeBag)
                                 try! self.realm.write {
                                     self.realm.add(score)
@@ -302,9 +337,12 @@ class DataViewController: UIViewController {
                                 let data = List<RmScoreData>()
                                 data.appendContentsOf(self.data)
                                 let score = RmScore()
-                                score.type = "v60"
+                                score.mapType = 1001
                                 score.score = self.latestScores[0]
                                 score.data = data
+                                Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                                    print(res.data)
+                                    }.addDisposableTo(self.disposeBag)
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -325,9 +363,12 @@ class DataViewController: UIViewController {
                                 let data = List<RmScoreData>()
                                 data.appendContentsOf(self.data)
                                 let score = RmScore()
-                                score.type = "v100"
+                                score.mapType = 1002
                                 score.score = self.latestScores[1]
                                 score.data = data
+                                Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                                    print(res.data)
+                                    }.addDisposableTo(self.disposeBag)
                                 try! self.realm.write {
                                     self.realm.add(score)
                                 }
@@ -345,9 +386,12 @@ class DataViewController: UIViewController {
                                     data.appendContentsOf(self.data)
                                     data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 0.0, "a": a, "s": s]))
                                     let score = RmScore()
-                                    score.type = "b60"
+                                    score.mapType = 1003
                                     score.score = self.latestScores[2]
                                     score.data = data
+                                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                                        print(res.data)
+                                        }.addDisposableTo(self.disposeBag)
                                     try! self.realm.write {
                                         self.realm.add(score)
                                     }
