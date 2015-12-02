@@ -121,7 +121,7 @@ class TrackTimerViewController: UIViewController {
     }
 
     func updateScore() {
-        let scores = realm.objects(RmScore).filter("mapType = '\(raceTrack.id)'")
+        let scores = realm.objects(RmScore).filter("mapType = \(raceTrack.id)")
 
         if scores.count == 0 {
             Records.getRecord(raceTrack.id, count: 3).subscribeNext { res in

@@ -413,7 +413,7 @@
                             <rect key="frame" x="0.0" y="64" width="375" height="222"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="version_bg" translatesAutoresizingMaskIntoConstraints="NO" id="XsV-fV-q6Y">
+                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="version_bg" translatesAutoresizingMaskIntoConstraints="NO" id="XsV-fV-q6Y">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
                                     <animations/>
                                 </imageView>

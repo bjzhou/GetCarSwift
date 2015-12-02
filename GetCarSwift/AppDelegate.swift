@@ -55,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
         var i = 0
-        var toDelete = [MigrationObject]()
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 17,
             migrationBlock: { migration, oldSchemaVersion in
@@ -68,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             newObject!["mapType"] = 0
                             let score = newObject!["score"] as! Double
                             if score <= 4 {
-                                toDelete.append(newObject!)
+                                migration.delete(newObject!)
                             }
                         }
                         if type == "v60" {
@@ -81,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             newObject!["mapType"] = 1003
                         }
                     }
-                    for obj in toDelete {
-                        migration.delete(obj)
+                    migration.enumerate(RmRaceTrack.className()) { oldObject, newObject in
+                        migration.delete(newObject!)
                     }
                 }
         })
