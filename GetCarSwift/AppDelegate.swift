@@ -54,14 +54,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
-        var i = 0
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 17,
+            schemaVersion: 18,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 17) {
+                if (oldSchemaVersion < 18) {
                     migration.enumerate(RmScore.className()) { oldObject, newObject in
-                        newObject!["id"] = i
-                        i++
+                        newObject!["id"] = NSUUID().UUIDString
                         let type = oldObject!["type"] as! String
                         if type == "s400" {
                             newObject!["mapType"] = 0
@@ -89,10 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if ADHOC
             checkNewVersion()
         #endif
-
-//        #if DEBUG
-//            window?.rootViewController = R.storyboard.main.debug
-//        #endif
 
         return true
     }

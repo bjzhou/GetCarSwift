@@ -12,7 +12,7 @@ import SwiftyJSON
 import RxSwift
 
 class RmScore: Object, JSONable {
-    dynamic var id = 0
+    dynamic var id = NSUUID().UUIDString
     dynamic var url = ""
     dynamic var uid = ""
     dynamic var nickname = ""
@@ -25,7 +25,7 @@ class RmScore: Object, JSONable {
     convenience required init(json: JSON) {
         self.init()
 
-        id = json["id"].intValue
+        id = json["id"].stringValue
         url = json["url"].stringValue
         uid = json["uid"].stringValue
         nickname = json["nickname"].stringValue

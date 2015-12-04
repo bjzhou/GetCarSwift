@@ -8,6 +8,8 @@
 
 import UIKit
 import XCTest
+import RealmSwift
+@testable import GetCarSwift
 
 class GetCarSwiftTests: XCTestCase {
 
@@ -21,9 +23,22 @@ class GetCarSwiftTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testRmScore() {
+        let realm = try! Realm()
+        let score1 = RmScore()
+        score1.mapType = 9001
+        score1.score = 1.2
+        let score2 = RmScore()
+        score2.mapType = 9001
+        score2.score = 1.2
+        let score3 = RmScore()
+        score3.mapType = 9001
+        score3.score = 1.2
+        try! realm.write {
+            realm.add(score1)
+            realm.add(score2)
+            realm.add(score3)
+        }
     }
 
     func testPerformanceExample() {
