@@ -51,7 +51,7 @@ class GaikeService {
 
         #if DEBUG
             print("REQUEST=========================================>")
-            print(mutableURLRequest.URLString)
+            print(mutableURLRequest.URLString, body)
         #endif
 
         return mutableURLRequest

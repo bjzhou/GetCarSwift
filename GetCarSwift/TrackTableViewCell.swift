@@ -55,9 +55,9 @@ class TrackTableViewCell: UITableViewCell {
     @IBAction func didTapLove(sender: UIButton) {
         sender.selected = !sender.selected
         _ = Praise.praise(sid: sid, status: sender.selected ? 1 : 0).subscribeNext { res in
+            self.lovedCount = self.lovedCount + (sender.selected ? 1 : -1)
+            self.delegate?.didTrackChanged()
         }
-        lovedCount = lovedCount + (sender.selected ? 1 : -1)
-        delegate?.didTrackChanged()
     }
 
     func updateLoveLabel() {
