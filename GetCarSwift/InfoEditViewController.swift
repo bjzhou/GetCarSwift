@@ -36,7 +36,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func initSubView() {
-        let tableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: UITableViewStyle.Grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height), style: UITableViewStyle.Grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "infoEdit")
@@ -98,7 +98,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             }
             cell.accessoryView = UIImageView(image: indexPath.row != Mine.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
         case .Nickname:
-            let textField = UITextField(frame: CGRectMake(8, 20, cell.frame.width - 16, cell.frame.height - 40))
+            let textField = UITextField(frame: CGRect(x: 8, y: 20, width: cell.frame.width - 16, height: cell.frame.height - 40))
             textField.text = Mine.sharedInstance.nickname
             textField.clearButtonMode = .WhileEditing
             textField.becomeFirstResponder()

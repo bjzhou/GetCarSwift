@@ -20,7 +20,16 @@ class HelpTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.row == 0 {
-            UIApplication.sharedApplication().openURL(NSURL(string: telUrl)!)
+            let now = NSCalendar.currentCalendar().components([.Hour], fromDate: NSDate())
+            print(now.hour)
+            if now.hour >= 8 && now.hour <= 22 {
+                let alertController = UIAlertController(title: "联系改客专员", message: nil, preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "呼叫", style: .Default, handler: { _ in
+                    UIApplication.sharedApplication().openURL(NSURL(string: self.telUrl)!)
+                }))
+                presentViewController(alertController, animated: true, completion: nil)
+            }
         }
     }
 

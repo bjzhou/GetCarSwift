@@ -69,6 +69,7 @@ class TrackDetailViewController: UIViewController {
         }
 
         self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.imageWithRenderingMode(.AlwaysOriginal)
+        self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, forBarMetrics: .Default)
 
         mapView.showsCompass = false
         mapView.zoomEnabled = false
@@ -185,7 +186,7 @@ class TrackDetailViewController: UIViewController {
             let anim = CAKeyframeAnimation(keyPath: "position")
             anim.duration = score.score
             anim.keyTimes = score.data.map { $0.t / score.score }
-            anim.values = points.map { NSValue(CGPoint: CGPointMake($0.x - points[0].x, $0.y - points[0].y)) }
+            anim.values = points.map { NSValue(CGPoint: CGPoint(x: $0.x - points[0].x, y: $0.y - points[0].y)) }
             anim.calculationMode = kCAAnimationLinear
             anim.removedOnCompletion = false
             anim.fillMode = kCAFillModeForwards
@@ -244,7 +245,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
         if nickname == "" {
             nickname = Mine.sharedInstance.nickname ?? ""
         }
-        sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal)
+        sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal, placeholderImage: R.image.avatar)
         sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
         sender?.layer.borderWidth = 2
 

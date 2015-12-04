@@ -89,20 +89,20 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath)
-        let avatarView = cell.viewWithTag(310) as! UIImageView
-        let nickname = cell.viewWithTag(311) as! UILabel
-        let time = cell.viewWithTag(312) as! UILabel
-        let content = cell.viewWithTag(313) as! UILabel
+        let avatarView = cell.viewWithTag(310) as? UIImageView
+        let nickname = cell.viewWithTag(311) as? UILabel
+        let time = cell.viewWithTag(312) as? UILabel
+        let content = cell.viewWithTag(313) as? UILabel
 
         if let url = NSURL(string: trackDetailViewModel?.rxComments.value[indexPath.row].head ?? "") {
-            avatarView.kf_setImageWithURL(url, placeholderImage: R.image.avatar)
+            avatarView?.kf_setImageWithURL(url, placeholderImage: R.image.avatar)
         } else {
-            avatarView.image = R.image.avatar
+            avatarView?.image = R.image.avatar
         }
 
-        nickname.text = trackDetailViewModel?.rxComments.value[indexPath.row].nickname
-        time.text = trackDetailViewModel?.rxComments.value[indexPath.row].createTime
-        content.text = trackDetailViewModel?.rxComments.value[indexPath.row].content
+        nickname?.text = trackDetailViewModel?.rxComments.value[indexPath.row].nickname
+        time?.text = trackDetailViewModel?.rxComments.value[indexPath.row].createTime
+        content?.text = trackDetailViewModel?.rxComments.value[indexPath.row].content
         return cell
     }
 

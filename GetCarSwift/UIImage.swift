@@ -10,8 +10,8 @@ import Foundation
 
 extension UIImage {
     func scaleImage(scale scale: CGFloat) -> UIImage {
-        UIGraphicsBeginImageContext(CGSizeMake(self.size.width * scale, self.size.height * scale))
-        self.drawInRect(CGRectMake(0, 0, self.size.width * scale, self.size.height * scale))
+        UIGraphicsBeginImageContext(CGSize(width: self.size.width * scale, height: self.size.height * scale))
+        self.drawInRect(CGRect(x: 0, y: 0, width: self.size.width * scale, height: self.size.height * scale))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
@@ -19,14 +19,14 @@ extension UIImage {
 
     func scaleImage(size size: CGSize) -> UIImage {
         UIGraphicsBeginImageContext(size)
-        self.drawInRect(CGRectMake(0, 0, size.width, size.height))
+        self.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
     }
 
     class func WithColor(color: UIColor) -> UIImage {
-        let rect = CGRectMake(0, 0, 1.0, 1.0)
+        let rect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
         CGContextSetFillColorWithColor(context, color.CGColor)

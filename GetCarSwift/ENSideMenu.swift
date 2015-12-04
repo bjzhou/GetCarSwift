@@ -139,14 +139,6 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
     /// A Boolean value indicating whether the right swipe is enabled.
     public var allowRightSwipe: Bool = true
 
-    /**
-     Initializes an instance of a `ENSideMenu` object.
-
-     :param: sourceView   The parent view of the side menu view.
-     :param: menuPosition The position of the side menu view.
-
-     :returns: An initialized `ENSideMenu` object, added to the specified view.
-     */
     public init(sourceView: UIView, menuPosition: ENSideMenuPosition) {
         super.init()
         self.sourceView = sourceView
@@ -175,15 +167,7 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
         }
 
     }
-    /**
-     Initializes an instance of a `ENSideMenu` object.
 
-     :param: sourceView         The parent view of the side menu view.
-     :param: menuViewController A menu view controller object which will be placed in the side menu view.
-     :param: menuPosition       The position of the side menu view.
-
-     :returns: An initialized `ENSideMenu` object, added to the specified view, containing the specified menu view controller.
-     */
     public convenience init(sourceView: UIView, menuViewController: UIViewController, menuPosition: ENSideMenuPosition) {
         self.init(sourceView: sourceView, menuPosition: menuPosition)
         self.menuViewController = menuViewController
@@ -206,13 +190,13 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
         var width: CGFloat
         var height: CGFloat
         (width, height) = adjustFrameDimensions( sourceView.frame.size.width, height: sourceView.frame.size.height)
-        let menuFrame = CGRectMake(
-            (menuPosition == .Left) ?
+        let menuFrame = CGRect(
+            x: (menuPosition == .Left) ?
                 isMenuOpen ? 0 : -menuWidth-1.0 :
                 isMenuOpen ? width - menuWidth : width+1.0,
-            sourceView.frame.origin.y,
-            menuWidth,
-            height
+            y: sourceView.frame.origin.y,
+            width: menuWidth,
+            height: height
         )
         sideMenuContainerView.frame = menuFrame
     }
@@ -237,7 +221,7 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
         sideMenuContainerView.backgroundColor = UIColor.clearColor()
         sideMenuContainerView.clipsToBounds = false
         sideMenuContainerView.layer.masksToBounds = false
-        sideMenuContainerView.layer.shadowOffset = (menuPosition == .Left) ? CGSizeMake(1.0, 1.0) : CGSizeMake(-1.0, -1.0)
+        sideMenuContainerView.layer.shadowOffset = (menuPosition == .Left) ? CGSize(width: 1.0, height: 1.0) : CGSize(width: -1.0, height: -1.0)
         sideMenuContainerView.layer.shadowRadius = 1.0
         sideMenuContainerView.layer.shadowOpacity = 0.125
         sideMenuContainerView.layer.shadowPath = UIBezierPath(rect: sideMenuContainerView.bounds).CGPath
@@ -286,12 +270,12 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
             }
 
             let gravityBehavior = UIGravityBehavior(items: [sideMenuContainerView])
-            gravityBehavior.gravityDirection = CGVectorMake(gravityDirectionX,  0)
+            gravityBehavior.gravityDirection = CGVector(dx: gravityDirectionX,  dy: 0)
             animator.addBehavior(gravityBehavior)
 
             let collisionBehavior = UICollisionBehavior(items: [sideMenuContainerView])
-            collisionBehavior.addBoundaryWithIdentifier("menuBoundary", fromPoint: CGPointMake(boundaryPointX, boundaryPointY),
-                toPoint: CGPointMake(boundaryPointX, height))
+            collisionBehavior.addBoundaryWithIdentifier("menuBoundary", fromPoint: CGPoint(x: boundaryPointX, y: boundaryPointY),
+                toPoint: CGPoint(x: boundaryPointX, y: height))
             animator.addBehavior(collisionBehavior)
 
             let pushBehavior = UIPushBehavior(items: [sideMenuContainerView], mode: UIPushBehaviorMode.Instantaneous)
@@ -305,12 +289,12 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
         } else {
             var destFrame: CGRect
             if (menuPosition == .Left) {
-                destFrame = CGRectMake((shouldOpen) ? -2.0 : -menuWidth, 0, menuWidth, height)
+                destFrame = CGRect(x: (shouldOpen) ? -2.0 : -menuWidth, y: 0, width: menuWidth, height: height)
             } else {
-                destFrame = CGRectMake((shouldOpen) ? width-menuWidth : width+2.0,
-                    0,
-                    menuWidth,
-                    height)
+                destFrame = CGRect(x: (shouldOpen) ? width-menuWidth : width+2.0,
+                    y: 0,
+                    width: menuWidth,
+                    height: height)
             }
 
             UIView.animateWithDuration(

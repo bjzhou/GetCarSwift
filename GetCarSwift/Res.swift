@@ -9,7 +9,7 @@
 import Foundation
 
 let versionShort = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-let version = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String)!
+let version = Int(NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as? String ?? "")!
 let bundleId = NSBundle.mainBundle().infoDictionary?["CFBundleIdentifier"] as? String
 let productName = NSBundle.mainBundle().infoDictionary?["CFBundleName"] as? String
 
@@ -46,7 +46,6 @@ func getColorIconName(sex: Int, color: Int) -> String {
     return getSexString(sex) + "  " + getColorByTag(color) + " 选中"
 }
 
-// swiftlint:disable colon
 func getColorByTag(tag: Int) -> String {
     switch tag {
     case 101:

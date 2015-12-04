@@ -40,6 +40,6 @@ extension CLLocationCoordinate2D {
 
 extension CLLocationCoordinate2D: Equatable {}
 
-public func ==(first: CLLocationCoordinate2D, next: CLLocationCoordinate2D) -> Bool {
+public func == (first: CLLocationCoordinate2D, next: CLLocationCoordinate2D) -> Bool {
     return first.latitude == next.latitude && first.longitude == next.longitude
 }

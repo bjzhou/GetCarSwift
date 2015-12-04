@@ -430,68 +430,96 @@
         <!--赛道介绍-->
         <scene sceneID="Ewj-WO-ywf">
             <objects>
-                <viewController storyboardIdentifier="track_intro" hidesBottomBarWhenPushed="YES" id="aIq-ZS-Z6E" customClass="TrackIntroViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="track_intro" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="aIq-ZS-Z6E" customClass="TrackIntroViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2VK-d5-a9n"/>
                         <viewControllerLayoutGuide type="bottom" id="fhZ-Z4-WRL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3XS-sA-ykB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" image="tianhuangping" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-6K-jui">
-                                <rect key="frame" x="0.0" y="64" width="375" height="186"/>
-                                <animations/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="track_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="VQt-ja-yyw">
-                                <rect key="frame" x="0.0" y="220" width="375" height="30"/>
-                                <animations/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海国际赛车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX9-KT-lUs">
-                                <rect key="frame" x="128" y="224" width="119" height="20.5"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Ct-zXO">
-                                <rect key="frame" x="16" y="266" width="343" height="169"/>
-                                <animations/>
-                                <string key="text">阿布扎比亚斯码头赛道是举办F1阿布扎比大奖赛的场地，它位于波斯湾石油强国阿联酋首都阿布扎比东海岸的亚斯，距阿布扎比国际机场仅15分钟车程，著名的法拉利主题公园也坐落这里。这条赛道的独特设计不仅在于赛道及周边环境，配套设施规模也相当惊人，包括7个豪华酒店的2200张床位，以及可以停泊150艘小船的港口，包括长度超过60米的船只。亚斯滨海假日酒店共有500间客房，且横跨赛道，在房间里便可俯瞰赛道全景。另外60米高的太阳能塔也为酒店住客们提供了不一样的视觉享受。
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Sl-RK-zvw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOa-3B-uQ8">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="604"/>
+                                        <subviews>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" image="上海国际赛车场" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-6K-jui">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
+                                                <animations/>
+                                            </imageView>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="track_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="VQt-ja-yyw">
+                                                <rect key="frame" x="0.0" y="156" width="375" height="30"/>
+                                                <animations/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海国际赛车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX9-KT-lUs">
+                                                <rect key="frame" x="128" y="161" width="119" height="20.5"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Ct-zXO">
+                                                <rect key="frame" x="16" y="202" width="343" height="186"/>
+                                                <animations/>
+                                                <string key="text">阿布扎比亚斯码头赛道是举办F1阿布扎比大奖赛的场地，它位于波斯湾石油强国阿联酋首都阿布扎比东海岸的亚斯，距阿布扎比国际机场仅15分钟车程，著名的法拉利主题公园也坐落这里。这条赛道的独特设计不仅在于赛道及周边环境，配套设施规模也相当惊人，包括7个豪华酒店的2200张床位，以及可以停泊150艘小船的港口，包括长度超过60米的船只。亚斯滨海假日酒店共有500间客房，且横跨赛道，在房间里便可俯瞰赛道全景。另外60米高的太阳能塔也为酒店住客们提供了不一样的视觉享受。
 </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" image="印度佛陀国际赛车场 赛道" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-m1-6VS">
-                                <rect key="frame" x="16" y="451" width="343" height="200"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" image="上海国际赛车场 赛道" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-m1-6VS">
+                                                <rect key="frame" x="0.0" y="404" width="375" height="200"/>
+                                                <animations/>
+                                            </imageView>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="5rc-6K-jui" secondAttribute="trailing" id="AAO-9D-RwY"/>
+                                            <constraint firstItem="oX9-KT-lUs" firstAttribute="centerY" secondItem="VQt-ja-yyw" secondAttribute="centerY" id="AUQ-k7-HKd"/>
+                                            <constraint firstItem="VQt-ja-yyw" firstAttribute="leading" secondItem="5rc-6K-jui" secondAttribute="leading" id="FA2-1s-3oe"/>
+                                            <constraint firstItem="oX9-KT-lUs" firstAttribute="centerX" secondItem="VQt-ja-yyw" secondAttribute="centerX" id="FzF-yC-SQB"/>
+                                            <constraint firstItem="oBJ-Ct-zXO" firstAttribute="top" secondItem="5rc-6K-jui" secondAttribute="bottom" constant="16" id="Ry3-Eu-stx"/>
+                                            <constraint firstItem="oBJ-Ct-zXO" firstAttribute="leading" secondItem="XOa-3B-uQ8" secondAttribute="leading" constant="16" id="SEe-cH-bcQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="oBJ-Ct-zXO" secondAttribute="trailing" constant="16" id="Uhy-gS-hjm"/>
+                                            <constraint firstItem="5rc-6K-jui" firstAttribute="top" secondItem="XOa-3B-uQ8" secondAttribute="top" id="Xiw-Sx-p0b"/>
+                                            <constraint firstItem="3xR-m1-6VS" firstAttribute="leading" secondItem="XOa-3B-uQ8" secondAttribute="leading" id="YRp-S6-ffl"/>
+                                            <constraint firstAttribute="bottom" secondItem="3xR-m1-6VS" secondAttribute="bottom" id="Zbu-J3-Pk2"/>
+                                            <constraint firstItem="VQt-ja-yyw" firstAttribute="bottom" secondItem="5rc-6K-jui" secondAttribute="bottom" id="nYs-bA-4XU"/>
+                                            <constraint firstItem="VQt-ja-yyw" firstAttribute="trailing" secondItem="5rc-6K-jui" secondAttribute="trailing" id="rtn-WV-7I2"/>
+                                            <constraint firstItem="5rc-6K-jui" firstAttribute="leading" secondItem="XOa-3B-uQ8" secondAttribute="leading" id="sst-r6-w9M"/>
+                                            <constraint firstItem="3xR-m1-6VS" firstAttribute="top" secondItem="oBJ-Ct-zXO" secondAttribute="bottom" constant="16" id="tv2-rQ-R1U"/>
+                                            <constraint firstAttribute="trailing" secondItem="3xR-m1-6VS" secondAttribute="trailing" id="xhL-5h-d4V"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <animations/>
-                            </imageView>
+                                <constraints>
+                                    <constraint firstItem="XOa-3B-uQ8" firstAttribute="top" secondItem="9Sl-RK-zvw" secondAttribute="top" id="DTa-Hn-rXl"/>
+                                    <constraint firstAttribute="trailing" secondItem="XOa-3B-uQ8" secondAttribute="trailing" id="Ql8-Sz-8mA"/>
+                                    <constraint firstAttribute="bottom" secondItem="XOa-3B-uQ8" secondAttribute="bottom" id="SB4-fi-Gyh"/>
+                                    <constraint firstItem="XOa-3B-uQ8" firstAttribute="leading" secondItem="9Sl-RK-zvw" secondAttribute="leading" id="scR-Y2-jZ3"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VQt-ja-yyw" firstAttribute="leading" secondItem="5rc-6K-jui" secondAttribute="leading" id="7TU-EZ-GJ9"/>
-                            <constraint firstItem="VQt-ja-yyw" firstAttribute="trailing" secondItem="5rc-6K-jui" secondAttribute="trailing" id="C84-eE-o28"/>
-                            <constraint firstItem="oBJ-Ct-zXO" firstAttribute="top" secondItem="VQt-ja-yyw" secondAttribute="bottom" constant="16" id="Kn0-MR-7Jz"/>
-                            <constraint firstItem="VQt-ja-yyw" firstAttribute="bottom" secondItem="5rc-6K-jui" secondAttribute="bottom" id="TC2-Wt-CKc"/>
-                            <constraint firstItem="5rc-6K-jui" firstAttribute="leading" secondItem="3XS-sA-ykB" secondAttribute="leading" id="U0m-um-8BI"/>
-                            <constraint firstAttribute="trailing" secondItem="3xR-m1-6VS" secondAttribute="trailing" constant="16" id="ZgH-D9-xe5"/>
-                            <constraint firstItem="fhZ-Z4-WRL" firstAttribute="top" secondItem="3xR-m1-6VS" secondAttribute="bottom" constant="16" id="bQ6-Pp-Ny7"/>
-                            <constraint firstItem="oX9-KT-lUs" firstAttribute="centerX" secondItem="VQt-ja-yyw" secondAttribute="centerX" id="dEK-01-3m4"/>
-                            <constraint firstItem="oX9-KT-lUs" firstAttribute="centerY" secondItem="VQt-ja-yyw" secondAttribute="centerY" id="dh3-2y-Lo6"/>
-                            <constraint firstAttribute="trailing" secondItem="oBJ-Ct-zXO" secondAttribute="trailing" constant="16" id="dvk-TW-mB5"/>
-                            <constraint firstItem="3xR-m1-6VS" firstAttribute="leading" secondItem="3XS-sA-ykB" secondAttribute="leading" constant="16" id="iAh-QL-s7n"/>
-                            <constraint firstItem="5rc-6K-jui" firstAttribute="top" secondItem="2VK-d5-a9n" secondAttribute="bottom" id="mpg-0b-TT0"/>
-                            <constraint firstAttribute="trailing" secondItem="5rc-6K-jui" secondAttribute="trailing" id="pHz-W1-sNi"/>
-                            <constraint firstItem="oBJ-Ct-zXO" firstAttribute="leading" secondItem="3XS-sA-ykB" secondAttribute="leading" constant="16" id="pgs-AZ-M4n"/>
-                            <constraint firstItem="3xR-m1-6VS" firstAttribute="top" secondItem="oBJ-Ct-zXO" secondAttribute="bottom" constant="16" id="zTD-Eh-KPA"/>
+                            <constraint firstItem="XOa-3B-uQ8" firstAttribute="width" secondItem="3XS-sA-ykB" secondAttribute="width" id="A05-dS-9U2"/>
+                            <constraint firstItem="9Sl-RK-zvw" firstAttribute="top" secondItem="2VK-d5-a9n" secondAttribute="bottom" id="Exr-LT-cxo"/>
+                            <constraint firstAttribute="trailing" secondItem="9Sl-RK-zvw" secondAttribute="trailing" id="Gkk-Hv-QI3"/>
+                            <constraint firstItem="XOa-3B-uQ8" firstAttribute="height" secondItem="3XS-sA-ykB" secondAttribute="height" constant="1" id="gNh-G9-enc"/>
+                            <constraint firstItem="fhZ-Z4-WRL" firstAttribute="top" secondItem="9Sl-RK-zvw" secondAttribute="bottom" id="khq-AH-abw"/>
+                            <constraint firstItem="9Sl-RK-zvw" firstAttribute="leading" secondItem="3XS-sA-ykB" secondAttribute="leading" id="q5o-1N-jsT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="赛道介绍" id="YAC-8g-WXh"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="scrollView" destination="9Sl-RK-zvw" id="Wjc-7k-zmY"/>
                         <outlet property="trackDetailLabel" destination="oBJ-Ct-zXO" id="mHf-q0-x0h"/>
                         <outlet property="trackMapImageView" destination="3xR-m1-6VS" id="Mqh-or-Zcy"/>
                         <outlet property="trackTitleLabel" destination="oX9-KT-lUs" id="msm-Qt-BZc"/>
@@ -820,9 +848,9 @@
         <image name="no_signal_4" width="3" height="14"/>
         <image name="no_signal_5" width="3" height="18"/>
         <image name="tab_gkbox" width="23" height="23"/>
-        <image name="tianhuangping" width="375" height="186"/>
         <image name="timer_bg" width="375" height="243"/>
         <image name="track_title_bg" width="375" height="30"/>
-        <image name="印度佛陀国际赛车场 赛道" width="345" height="200"/>
+        <image name="上海国际赛车场" width="375" height="186"/>
+        <image name="上海国际赛车场 赛道" width="345" height="200"/>
     </resources>
 </document>

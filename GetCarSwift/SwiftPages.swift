@@ -66,15 +66,15 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         let pagesContainerWidth = self.frame.width
 
         //Set the containerView, every item is constructed relative to this view
-        containerView = UIView(frame: CGRectMake(xOrigin, yOrigin, pagesContainerWidth, pagesContainerHeight))
+        containerView = UIView(frame: CGRect(x: xOrigin, y: yOrigin, width: pagesContainerWidth, height: pagesContainerHeight))
         containerView.backgroundColor = containerViewBackground
         self.addSubview(containerView)
 
         //Set the scrollview
         if (aeroEffectInTopBar || transparentTopBar) {
-            scrollView = UIScrollView(frame: CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height))
+            scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: containerView.frame.size.width, height: containerView.frame.size.height))
         } else {
-            scrollView = UIScrollView(frame: CGRectMake(0, topBarHeight, containerView.frame.size.width, containerView.frame.size.height - topBarHeight))
+            scrollView = UIScrollView(frame: CGRect(x: 0, y: topBarHeight, width: containerView.frame.size.width, height: containerView.frame.size.height - topBarHeight))
         }
         scrollView.pagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
@@ -86,7 +86,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         containerView.addSubview(scrollView)
 
         //Set the top bar
-        topBar = UIView(frame: CGRectMake(0, 0, containerView.frame.size.width, topBarHeight))
+        topBar = UIView(frame: CGRect(x: 0, y: 0, width: containerView.frame.size.width, height: topBarHeight))
         let imageView = UIImageView(image: topBarImage)
         imageView.frame = topBar.frame
         topBar.addSubview(imageView)
@@ -109,7 +109,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         if (!buttonsWithImages) {
             for _ in buttonTitles {
                 var barButton: UIButton!
-                barButton = UIButton(frame: CGRectMake(buttonsXPosition, 0, containerView.frame.size.width/(CGFloat)(pageViews.count), topBarHeight))
+                barButton = UIButton(frame: CGRect(x: buttonsXPosition, y: 0, width: containerView.frame.size.width/(CGFloat)(pageViews.count), height: topBarHeight))
                 barButton.backgroundColor = UIColor.clearColor()
                 barButton.titleLabel!.font = buttonsTextFontAndSize
                 barButton.setTitle(buttonTitles[buttonNumber], forState: UIControlState.Normal)
@@ -123,7 +123,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         } else {
             for item in buttonImages {
                 var barButton: UIButton!
-                barButton = UIButton(frame: CGRectMake(buttonsXPosition, 0, containerView.frame.size.width/(CGFloat)(pageViews.count), topBarHeight))
+                barButton = UIButton(frame: CGRect(x: buttonsXPosition, y: 0, width: containerView.frame.size.width/(CGFloat)(pageViews.count), height: topBarHeight))
                 barButton.backgroundColor = UIColor.clearColor()
                 barButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
                 barButton.setImage(item, forState: .Normal)
@@ -138,14 +138,14 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
 
         //Set up the animated UIView
         animatedBar = UIImageView(image: R.image.scroll_bar)
-        animatedBar.frame = CGRectMake(0, topBarHeight - animatedBarHeight + 1, (containerView.frame.size.width/(CGFloat)(pageViews.count))*0.8, animatedBarHeight)
+        animatedBar.frame = CGRect(x: 0, y: topBarHeight - animatedBarHeight + 1, width: (containerView.frame.size.width/(CGFloat)(pageViews.count))*0.8, height: animatedBarHeight)
         animatedBar.center.x = containerView.frame.size.width/(CGFloat)(pageViews.count * 2)
         //animatedBar.backgroundColor = animatedBarColor
         containerView.addSubview(animatedBar)
 
         //Add the bar shadow (set to true or false with the barShadow var)
         if (barShadow) {
-            let shadowView = UIView(frame: CGRectMake(0, topBarHeight, containerView.frame.size.width, 4))
+            let shadowView = UIView(frame: CGRect(x: 0, y: topBarHeight, width: containerView.frame.size.width, height: 4))
             let gradient: CAGradientLayer = CAGradientLayer()
             gradient.frame = shadowView.bounds
             gradient.colors = [UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 0.28).CGColor, UIColor.clearColor().CGColor]
@@ -237,7 +237,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         //The calculations for the animated bar's movements
         //The offset addition is based on the width of the animated bar (button width times 0.8)
         let offsetAddition = (containerView.frame.size.width/(CGFloat)(pageViews.count))*0.1
-        animatedBar.frame = CGRectMake((offsetAddition + (scrollView.contentOffset.x/(CGFloat)(pageViews.count))), animatedBar.frame.origin.y, animatedBar.frame.size.width, animatedBar.frame.size.height)
+        animatedBar.frame = CGRect(x: (offsetAddition + (scrollView.contentOffset.x/(CGFloat)(pageViews.count))), y: animatedBar.frame.origin.y, width: animatedBar.frame.size.width, height: animatedBar.frame.size.height)
     }
 
     var prevPage = 0
@@ -250,7 +250,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         prevPage = getCurrentPage()
         let pagesScrollViewSize = scrollView.frame.size
         UIView.animateWithDuration(0.3, animations: {
-            self.scrollView.contentOffset = CGPointMake(pagesScrollViewSize.width * (CGFloat)(index), 0)
+            self.scrollView.contentOffset = CGPoint(x: pagesScrollViewSize.width * (CGFloat)(index), y: 0)
             }, completion: { _ in
                 self.currentPage = self.getCurrentPage()
                 self.pageViews[self.prevPage].viewDidDisappear(true)

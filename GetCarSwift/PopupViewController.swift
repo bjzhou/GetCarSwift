@@ -32,7 +32,7 @@ public class PopupViewController: UIViewController {
         if let rootViewController = rootViewController {
             rootViewController.view.layer.cornerRadius = 5
             rootViewController.view.layer.shadowOpacity = 0.8
-            rootViewController.view.layer.shadowOffset = CGSizeMake(0.0, 0.0)
+            rootViewController.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
             self.view.addSubview(rootViewController.view)
             rootViewController.view.center = self.view.center
             self.addChildViewController(rootViewController)

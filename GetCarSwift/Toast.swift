@@ -11,7 +11,7 @@ import UIKit
 /*
 *  Infix overload method
 */
-func /(lhs: CGFloat, rhs: Int) -> CGFloat {
+func / (lhs: CGFloat, rhs: Int) -> CGFloat {
     return lhs / CGFloat(rhs)
 }
 
@@ -20,38 +20,38 @@ func /(lhs: CGFloat, rhs: Int) -> CGFloat {
 */
 let toastDefaultDuration  =   2.0
 let toastFadeDuration     =   0.2
-let toastHorizontalMargin : CGFloat  =   10.0
-let toastVerticalMargin   : CGFloat  =   10.0
+let toastHorizontalMargin: CGFloat  =   10.0
+let toastVerticalMargin: CGFloat    =   10.0
 
-let toastPositionBottom  =   "bottom"
+let toastPositionBottom   =   "bottom"
 let toastPositionTop      =   "top"
 let toastPositionCenter   =   "center"
 
 let toastPositionDefault = toastPositionCenter
 
 // activity
-let toastActivityWidth  :  CGFloat  = 100.0
-let toastActivityHeight :  CGFloat  = 100.0
+let toastActivityWidth: CGFloat     = 100.0
+let toastActivityHeight: CGFloat    = 100.0
 let toastActivityPositionDefault    = "center"
 
 // image size
-let toastImageViewWidth :  CGFloat  = 80.0
-let toastImageViewHeight:  CGFloat  = 80.0
+let toastImageViewWidth: CGFloat    = 80.0
+let toastImageViewHeight: CGFloat   = 80.0
 
 // label setting
-let toastMaxWidth       :  CGFloat  = 0.8      // 80% of parent view width
-let toastMaxHeight      :  CGFloat  = 0.8
-let toastFontSize       :  CGFloat  = 16.0
+let toastMaxWidth: CGFloat          = 0.8      // 80% of parent view width
+let toastMaxHeight: CGFloat         = 0.8
+let toastFontSize: CGFloat          = 16.0
 let toastMaxTitleLines              = 0
 let toastMaxMessageLines            = 0
 
 // shadow appearance
-let toastShadowOpacity  : CGFloat   = 0.8
-let toastShadowRadius   : CGFloat   = 6.0
-let toastShadowOffset   : CGSize    = CGSizeMake(CGFloat(4.0), CGFloat(4.0))
+let toastShadowOpacity: CGFloat     = 0.8
+let toastShadowRadius: CGFloat      = 6.0
+let toastShadowOffset: CGSize       = CGSize(width: CGFloat(4.0), height: CGFloat(4.0))
 
-let toastOpacity        : CGFloat   = 0.8
-let toastCornerRadius   : CGFloat   = 10.0
+let toastOpacity: CGFloat           = 0.8
+let toastCornerRadius: CGFloat      = 10.0
 
 var toastActivityView: UnsafePointer<UIView>    =   nil
 var toastTimer: UnsafePointer<NSTimer>          =   nil
@@ -142,7 +142,7 @@ extension UIView {
         let existingActivityView: UIView? = objc_getAssociatedObject(self, &toastActivityView) as? UIView
         if existingActivityView != nil { return }
 
-        let activityView = UIView(frame: CGRectMake(0, 0, toastActivityWidth, toastActivityHeight))
+        let activityView = UIView(frame: CGRect(x: 0, y: 0, width: toastActivityWidth, height: toastActivityHeight))
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
         activityView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(toastOpacity)
         activityView.alpha = 0.0
@@ -157,13 +157,13 @@ extension UIView {
         }
 
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        activityIndicatorView.center = CGPointMake(activityView.bounds.size.width / 2, activityView.bounds.size.height / 2)
+        activityIndicatorView.center = CGPoint(x: activityView.bounds.size.width / 2, y: activityView.bounds.size.height / 2)
         activityView.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
 
         if (!msg.isEmpty) {
             activityIndicatorView.frame.origin.y -= 10
-            let activityMessageLabel = UILabel(frame: CGRectMake(activityView.bounds.origin.x, (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), activityView.bounds.size.width, 20))
+            let activityMessageLabel = UILabel(frame: CGRect(x: activityView.bounds.origin.x, y: (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), width: activityView.bounds.size.width, height: 20))
             activityMessageLabel.textColor = UIColor.whiteColor()
             activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
             activityMessageLabel.textAlignment = .Center
@@ -227,7 +227,7 @@ extension UIView {
     }
 
     func toastTimerDidFinish(timer: NSTimer) {
-        self.hideToast(toast: timer.userInfo as! UIView)
+        self.hideToast(toast: timer.userInfo as? UIView ?? UIView())
     }
 
     func handleToastTapped(recognizer: UITapGestureRecognizer) {
@@ -243,11 +243,11 @@ extension UIView {
             let
             viewSize  = self.bounds.size
             if position.lowercaseString == toastPositionTop {
-                return CGPointMake(viewSize.width/2, toastSize.height/2 + toastVerticalMargin)
+                return CGPoint(x: viewSize.width/2, y: toastSize.height/2 + toastVerticalMargin)
             } else if position.lowercaseString == toastPositionBottom {
-                return CGPointMake(viewSize.width/2, viewSize.height - toastSize.height/2 - toastVerticalMargin)
+                return CGPoint(x: viewSize.width/2, y: viewSize.height - toastSize.height/2 - toastVerticalMargin)
             } else if position.lowercaseString == toastPositionCenter {
-                return CGPointMake(viewSize.width/2, viewSize.height/2)
+                return CGPoint(x: viewSize.width/2, y: viewSize.height/2)
             }
         } else if position is NSValue {
             return position.CGPointValue
@@ -279,7 +279,7 @@ extension UIView {
         if image != nil {
             imageView = UIImageView(image: image)
             imageView!.contentMode = .ScaleAspectFit
-            imageView!.frame = CGRectMake(toastHorizontalMargin, toastVerticalMargin, CGFloat(toastImageViewWidth), CGFloat(toastImageViewHeight))
+            imageView!.frame = CGRect(x: toastHorizontalMargin, y: toastVerticalMargin, width: CGFloat(toastImageViewWidth), height: CGFloat(toastImageViewHeight))
         }
 
         var imageWidth: CGFloat, imageHeight: CGFloat, imageLeft: CGFloat
@@ -303,10 +303,10 @@ extension UIView {
             titleLabel!.text = title
 
             // size the title label according to the length of the text
-            let maxSizeTitle = CGSizeMake((self.bounds.size.width * toastMaxWidth) - imageWidth, self.bounds.size.height * toastMaxHeight)
+            let maxSizeTitle = CGSize(width: (self.bounds.size.width * toastMaxWidth) - imageWidth, height: self.bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeTitle.width, title!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = title!.stringHeight(toastFontSize, width: maxSizeTitle.width)
-            titleLabel!.frame = CGRectMake(0.0, 0.0, expectedWidth, expectedHeight)
+            titleLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
         }
 
         if msg != nil {
@@ -320,10 +320,10 @@ extension UIView {
             msgLabel!.alpha = 1.0
             msgLabel!.text = msg
 
-            let maxSizeMessage = CGSizeMake((self.bounds.size.width * toastMaxWidth) - imageWidth, self.bounds.size.height * toastMaxHeight)
+            let maxSizeMessage = CGSize(width: (self.bounds.size.width * toastMaxWidth) - imageWidth, height: self.bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeMessage.width, msg!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = msg!.stringHeight(toastFontSize, width: maxSizeMessage.width)
-            msgLabel!.frame = CGRectMake(0.0, 0.0, expectedWidth, expectedHeight)
+            msgLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
         }
 
         var titleWidth: CGFloat, titleHeight: CGFloat, titleTop: CGFloat, titleLeft: CGFloat
@@ -352,15 +352,15 @@ extension UIView {
         // set wrapper view's frame
         let wrapperWidth  = max(imageWidth + toastHorizontalMargin * 2, largerLeft + largerWidth + toastHorizontalMargin)
         let wrapperHeight = max(msgTop + msgHeight + toastVerticalMargin, imageHeight + toastVerticalMargin * 2)
-        wrapperView.frame = CGRectMake(0.0, 0.0, wrapperWidth, wrapperHeight)
+        wrapperView.frame = CGRect(x: 0.0, y: 0.0, width: wrapperWidth, height: wrapperHeight)
 
         // add subviews
         if titleLabel != nil {
-            titleLabel!.frame = CGRectMake(titleLeft, titleTop, titleWidth, titleHeight)
+            titleLabel!.frame = CGRect(x: titleLeft, y: titleTop, width: titleWidth, height: titleHeight)
             wrapperView.addSubview(titleLabel!)
         }
         if msgLabel != nil {
-            msgLabel!.frame = CGRectMake(msgLeft, msgTop, msgWidth, msgHeight)
+            msgLabel!.frame = CGRect(x: msgLeft, y: msgTop, width: msgWidth, height: msgHeight)
             wrapperView.addSubview(msgLabel!)
         }
         if imageView != nil {
@@ -376,7 +376,7 @@ extension String {
 
     func stringHeight(fontSize: CGFloat, width: CGFloat) -> CGFloat {
         let font = UIFont.systemFontOfSize(fontSize)
-        let size = CGSizeMake(width, CGFloat.max)
+        let size = CGSize(width: width, height: CGFloat.max)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .ByWordWrapping
         let attributes = [NSFontAttributeName:font,

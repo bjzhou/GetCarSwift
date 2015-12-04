@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var collection: UICollectionView!
 
     let imagePicker = UIImagePickerController()
@@ -20,6 +20,15 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         collection.delegate = self
         collection.dataSource = self
         imagePicker.delegate = self
+
+        if let flowLayout = collection.collectionViewLayout as? UICollectionViewFlowLayout {
+            let cellWidth = (self.view.frame.width - 24) / 2
+            let cellHeight = cellWidth * 116 / 175
+            flowLayout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+        }
+    }
+
+    override func viewDidLayoutSubviews() {
     }
 
     @IBAction func onCameraAction(sender: UIButton) {
@@ -32,11 +41,9 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.bg_small.identifier, forIndexPath: indexPath) as UICollectionViewCell
-        let imageView = cell.viewWithTag(401) as! UIImageView
-        imageView.image = UIImage(named: getSmallHomepageBg(indexPath.row + 1))
-        cell.addSubview(imageView)
-        return cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.bg_small, forIndexPath: indexPath)
+        cell?.bgImageView.image = UIImage(named: getSmallHomepageBg(indexPath.row + 1))
+        return cell!
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

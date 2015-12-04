@@ -41,7 +41,7 @@ class MapViewController: UIViewController {
         mapView.layoutIfNeeded()
         mapView.delegate = self
         mapView.showsCompass = false
-        mapView.scaleOrigin = CGPointMake(8, 44)
+        mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = 3
         mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 35, longitude: 106), animated: false)
     }
@@ -87,7 +87,6 @@ extension MapViewController: MAMapViewDelegate {
         return nil
     }
 
-    // swiftlint:disable comma
     func mapView(mapView: MAMapView!, didSelectAnnotationView view: MAAnnotationView!) {
         if let annotation = view.annotation as? RaceTrackAnnotation {
             if bottomViewPos.constant == 0 {

@@ -66,7 +66,7 @@ struct MapViewModel {
     }
 
     func loadTracks() -> [RaceTrackAnnotation] {
-        return realm.objects(RmRaceTrack).flatMap { rt in
+        return realm.objects(RmRaceTrack).sorted("isDeveloped").flatMap { rt in
             if let mapCenter = rt.mapCenter {
                 let anno = RaceTrackAnnotation(raceTrack: rt)
                 anno.coordinate = CLLocationCoordinate2D(latitude: mapCenter.latitude, longitude: mapCenter.longitude)

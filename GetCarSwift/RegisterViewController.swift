@@ -41,14 +41,14 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == R.segue.choose_car {
-            let dest = segue.destinationViewController as! CarTableNavigationController
-            dest.carDelegate = self
+            let dest = segue.destinationViewController as? CarTableNavigationController
+            dest?.carDelegate = self
         }
     }
     @IBAction func didSexChange(sender: UIButton) {
         sender.selected = true
-        let otherButton = self.view.viewWithTag(sender.tag == 501 ? 502 : 501) as! UIButton
-        otherButton.selected = false
+        let otherButton = self.view.viewWithTag(sender.tag == 501 ? 502 : 501) as? UIButton
+        otherButton?.selected = false
         registerViewModel.sex = sender.tag == 501 ? 1 : 0
     }
 }

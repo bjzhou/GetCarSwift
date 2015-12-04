@@ -60,10 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if (oldSchemaVersion < 18) {
                     migration.enumerate(RmScore.className()) { oldObject, newObject in
                         newObject!["id"] = NSUUID().UUIDString
-                        let type = oldObject!["type"] as! String
+                        let type = oldObject!["type"] as? String
                         if type == "s400" {
                             newObject!["mapType"] = 0
-                            let score = newObject!["score"] as! Double
+                            let score = newObject!["score"] as? Double
                             if score <= 4 {
                                 migration.delete(newObject!)
                             }

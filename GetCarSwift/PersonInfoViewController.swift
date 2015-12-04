@@ -48,27 +48,27 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: PersonInfoCell
+        var cell: PersonInfoCell?
         if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1 /*|| indexPath.row == 3*/) {
-            cell = tableView.dequeueReusableCellWithIdentifier("info_icon", forIndexPath:indexPath) as! PersonInfoCell
-            cell.title.text = titles[indexPath.row]
+            cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.info_icon, forIndexPath:indexPath)
+            cell?.title.text = titles[indexPath.row]
             if indexPath.row == 0 {
-                Mine.sharedInstance.setAvatarImage(cell.icon)
+                Mine.sharedInstance.setAvatarImage(cell!.icon)
             } else {
-                cell.icon.image = UIImage(named: values[indexPath.row])
+                cell?.icon.image = UIImage(named: values[indexPath.row])
             }
         } else {
-            cell = tableView.dequeueReusableCellWithIdentifier("info_text", forIndexPath:indexPath) as! PersonInfoCell
+            cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.info_text, forIndexPath:indexPath)
             if indexPath.section == 0 {
-                cell.title.text = titles[indexPath.row]
-                cell.value.text = values[indexPath.row]
+                cell?.title.text = titles[indexPath.row]
+                cell?.value.text = values[indexPath.row]
             } else {
-                cell.title.text = titles[indexPath.row + 3/*5*/]
-                cell.value.text = values[indexPath.row + 3/*5*/]
+                cell?.title.text = titles[indexPath.row + 3/*5*/]
+                cell?.value.text = values[indexPath.row + 3/*5*/]
             }
         }
 
-        return cell
+        return cell!
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -131,7 +131,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let avatarImage = image.scaleImage(size: CGSizeMake(254, 254))
+        let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
         User.uploadHeader(avatarImage).subscribeNext { gkResult in
             if let user = gkResult.data {
                 Mine.sharedInstance.updateLogin(user)
@@ -146,15 +146,4 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    }
-    */
-
 }

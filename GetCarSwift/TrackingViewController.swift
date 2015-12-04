@@ -16,7 +16,7 @@ class TrackingViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
-        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width, scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height)
     }
 
 }

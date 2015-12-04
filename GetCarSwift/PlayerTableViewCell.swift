@@ -25,7 +25,7 @@ class PlayerTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.imageView?.bounds = CGRectMake(0, 0, 44, 44)
+        self.imageView?.bounds = CGRect(x: 0, y: 0, width: 44, height: 44)
     }
 
 }
