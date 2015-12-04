@@ -8,14 +8,23 @@
 
 import UIKit
 
+public enum PopupType {
+    case Alert
+    case ActionSheet
+}
+
 public class PopupViewController: UIViewController {
-    var rootViewController: UIViewController?
+    var rootViewController: UIViewController
+    var popupType: PopupType
+    var sender: AnyObject?
 
     var cancelable = true
 
-    init(rootViewController: UIViewController) {
-        super.init(nibName: nil, bundle: nil)
+    init(rootViewController: UIViewController, popupType: PopupType = .Alert, sender: AnyObject? = nil) {
         self.rootViewController = rootViewController
+        self.popupType = popupType
+        self.sender = sender
+        super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .OverCurrentContext
     }
 
@@ -29,15 +38,19 @@ public class PopupViewController: UIViewController {
 
     override public func viewDidLoad() {
         self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        if let rootViewController = rootViewController {
-            rootViewController.view.layer.cornerRadius = 5
-            rootViewController.view.layer.shadowOpacity = 0.8
-            rootViewController.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-            self.view.addSubview(rootViewController.view)
+        rootViewController.view.layer.cornerRadius = 5
+        rootViewController.view.layer.shadowOpacity = 0.8
+        rootViewController.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+
+        switch popupType {
+        case .Alert:
             rootViewController.view.center = self.view.center
-            self.addChildViewController(rootViewController)
-            rootViewController.didMoveToParentViewController(self)
+        case .ActionSheet:
+            rootViewController.view.frame.origin = CGPoint(x: (self.view.frame.width - rootViewController.view.frame.width) / 2, y: self.view.frame.height - rootViewController.view.frame.height)
         }
+        self.view.addSubview(rootViewController.view)
+        self.addChildViewController(rootViewController)
+        rootViewController.didMoveToParentViewController(self)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer.numberOfTapsRequired = 1
@@ -47,36 +60,54 @@ public class PopupViewController: UIViewController {
 
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
         if cancelable {
-            dismissPopupViewController()
+            dismissPopupViewController(animated: popupType == .ActionSheet)
         }
     }
 
     public override func viewWillAppear(animated: Bool) {
-        if let rootViewController = rootViewController {
+        switch popupType {
+        case .Alert:
             rootViewController.view.alpha = 0
             rootViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
             UIView.animateWithDuration(0.3, animations: {
-                rootViewController.view.alpha = 1
-                rootViewController.view.transform = CGAffineTransformMakeScale(1, 1)
+                self.rootViewController.view.alpha = 1
+                self.rootViewController.view.transform = CGAffineTransformMakeScale(1, 1)
+            })
+        case .ActionSheet:
+            rootViewController.view.transform = CGAffineTransformMakeTranslation(0, rootViewController.view.frame.height)
+            UIView.animateWithDuration(0.3, animations: {
+                self.rootViewController.view.transform = CGAffineTransformMakeTranslation(0, 0)
             })
         }
+
     }
 
     public func setPopupViewFrame(frame: CGRect) {
-        rootViewController?.view.frame = frame
-        rootViewController?.view.center = self.view.center
+        rootViewController.view.frame = frame
+        rootViewController.view.center = self.view.center
     }
 
     public override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
-        if let rootViewController = rootViewController where flag {
-            rootViewController.view.alpha = 1
-            rootViewController.view.transform = CGAffineTransformMakeScale(1, 1)
-            UIView.animateWithDuration(0.3, animations: {
-                rootViewController.view.alpha = 0
-                rootViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
-                }) { _ in
-                    super.dismissViewControllerAnimated(flag, completion: completion)
+        if flag {
+            switch popupType {
+            case .Alert:
+                rootViewController.view.alpha = 1
+                rootViewController.view.transform = CGAffineTransformMakeScale(1, 1)
+                UIView.animateWithDuration(0.3, animations: {
+                    self.rootViewController.view.alpha = 0
+                    self.rootViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                    }) { _ in
+                        super.dismissViewControllerAnimated(false, completion: completion)
+                }
+            case .ActionSheet:
+                rootViewController.view.transform = CGAffineTransformMakeTranslation(0, 0)
+                UIView.animateWithDuration(0.3, animations: {
+                    self.rootViewController.view.transform = CGAffineTransformMakeTranslation(0, self.rootViewController.view.frame.height)
+                    }) { _ in
+                        super.dismissViewControllerAnimated(false, completion: completion)
+                }
             }
+
         } else {
             super.dismissViewControllerAnimated(flag, completion: completion)
         }

@@ -60,6 +60,7 @@
 		C89C492E1C0D6FE900A1E2E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */; };
 		C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B6F1C0C739600002BB9 /* RmScore.swift */; };
 		C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */; };
+		C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
 		C8AEC2041B985B5C002F39EB /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate.swift */; };
 		C8AEC2131B996F41002F39EB /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2121B996F41002F39EB /* NSAttributedString.swift */; };
@@ -180,6 +181,7 @@
 		C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C89E7B6F1C0C739600002BB9 /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
 		C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
+		C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTrackViewController.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		C8AEC2121B996F41002F39EB /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				C89A05C61B6E125400620C85 /* GkboxViewController.swift */,
 				C8EC0DF31C04727500A619DC /* TrackTimerViewController.swift */,
 				C8BD47C61C0834C200AAC029 /* TrackIntroViewController.swift */,
+				C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */,
 			);
 			name = gkbox;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */,
 				C8C2C0921B8B5DEE006095DC /* JSON.swift in Sources */,
+				C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */,
 				C8DE3B191C117E93009AF56E /* BgChoiceCollectionViewCell.swift in Sources */,
 				8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */,
 				8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */,

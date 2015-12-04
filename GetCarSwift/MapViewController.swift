@@ -14,14 +14,10 @@ class MapViewController: UIViewController {
     let disposeBag = DisposeBag()
 
     @IBOutlet weak var mapView: MAMapView!
-    @IBOutlet weak var bottomViewPos: NSLayoutConstraint!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var trackTitleLabel: UILabel!
-    @IBOutlet weak var trackAddressButton: UIButton!
-    @IBOutlet weak var gotoTrackButton: UIButton!
-    @IBOutlet weak var trackIntroButton: UIButton!
 
     var mapViewModel: MapViewModel!
+
+    var alertWindow = UIWindow()
 
     var closeAction: Disposable?
     var gotoTrackAction: Disposable?
@@ -89,62 +85,13 @@ extension MapViewController: MAMapViewDelegate {
 
     func mapView(mapView: MAMapView!, didSelectAnnotationView view: MAAnnotationView!) {
         if let annotation = view.annotation as? RaceTrackAnnotation {
-            if bottomViewPos.constant == 0 {
-                bottomViewPos.constant = -128
-                UIView.animateWithDuration(0.3, animations: {
-                    self.view.layoutIfNeeded()
-                    }, completion: { _ in
-                        self.trackTitleLabel.text = annotation.title
-                        self.trackAddressButton.setTitle(annotation.subtitle, forState: .Normal)
-                        self.bottomViewPos.constant = 0
-                        UIView.animateWithDuration(0.3) {
-                            self.view.layoutIfNeeded()
-                        }
-                })
-            } else {
-                self.trackTitleLabel.text = annotation.title
-                self.trackAddressButton.setTitle(annotation.subtitle, forState: .Normal)
-                self.bottomViewPos.constant = 0
-                UIView.animateWithDuration(0.3) {
-                    self.view.layoutIfNeeded()
-                }
-            }
-            closeAction?.dispose()
-            gotoTrackAction?.dispose()
-            trackAddressAction?.dispose()
-            trackIntroAction?.dispose()
-            gotoTrackButton.enabled = annotation.raceTrack.isDeveloped
-            closeAction = closeButton.rx_tap.subscribeNext {
-                self.bottomViewPos.constant = -128
-                UIView.animateWithDuration(0.3) {
-                    self.view.layoutIfNeeded()
-                }
-                self.mapView.deselectAnnotation(annotation, animated: false)
-            }
-            gotoTrackAction = gotoTrackButton.rx_tap.subscribeNext {
-                let vc = R.storyboard.gkbox.track_timer
-                vc?.raceTrack = annotation.raceTrack
-                self.showViewController(vc!)
-            }
-            trackAddressAction = trackAddressButton.rx_tap.subscribeNext {
-                let gaodeUrl = "iosamap://viewMap?sourceApplication=\(productName!.encodedUrlString)&poiname=\(annotation.raceTrack.name.encodedUrlString)&lat=\(annotation.coordinate.latitude)&lon=\(annotation.coordinate.longitude)&dev=0"
-                if UIApplication.sharedApplication().canOpenURL(NSURL(string: gaodeUrl)!) {
-                    UIApplication.sharedApplication().openURL(NSURL(string: gaodeUrl)!)
-                } else {
-                    let src = "\(bundleId!)|\(productName!)".encodedUrlString
-                    let baiduUrl = "baidumap://map/geocoder?address=\(annotation.raceTrack.address.encodedUrlString)&src=\(src)"
-                    if UIApplication.sharedApplication().canOpenURL(NSURL(string: baiduUrl)!) {
-                        UIApplication.sharedApplication().openURL(NSURL(string: baiduUrl)!)
-                    } else {
-                        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?ll=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)")!)
-                    }
-                }
-            }
-            trackIntroAction = trackIntroButton.rx_tap.subscribeNext {
-                let vc = R.storyboard.gkbox.track_intro
-                vc?.raceTrack = annotation.raceTrack
-                self.showViewController(vc!)
-            }
+            mapView.deselectAnnotation(annotation, animated: true)
+
+            let mapAlertVC = R.storyboard.gkbox.map_alert
+            mapAlertVC?.raceTrack = annotation.raceTrack
+            mapAlertVC?.view.frame.size = CGSize(width: self.view.frame.width, height: 128)
+            let popopVC = PopupViewController(rootViewController: mapAlertVC!, popupType: .ActionSheet, sender: self)
+            self.tabBarController?.presentViewController(popopVC, animated: false, completion: nil)
         }
     }
 

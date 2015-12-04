@@ -46,84 +46,6 @@
                                     <action selector="didLayerChanged:" destination="wzX-5u-fGl" eventType="touchUpInside" id="ajo-DF-IyK"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIH-IU-FPT">
-                                <rect key="frame" x="0.0" y="667" width="375" height="128"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rB-PI-HHV">
-                                        <rect key="frame" x="345" y="8" width="22" height="22"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="Mxf-Uc-YAF"/>
-                                            <constraint firstAttribute="height" constant="22" id="vNj-aK-3PN"/>
-                                        </constraints>
-                                        <state key="normal" image="map_close"/>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海天马赛车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIQ-0t-1BF">
-                                        <rect key="frame" x="16" y="16" width="119" height="20.5"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="map_address" translatesAutoresizingMaskIntoConstraints="NO" id="Hk4-Qr-beJ">
-                                        <rect key="frame" x="16" y="52.5" width="11" height="13"/>
-                                        <animations/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ke7-SS-VZT">
-                                        <rect key="frame" x="31" y="44" width="202" height="30"/>
-                                        <animations/>
-                                        <state key="normal" title="上海市松江区沈砖公路3000号">
-                                            <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="btn_go_to_track_bg" translatesAutoresizingMaskIntoConstraints="NO" id="dtH-1I-jiG">
-                                        <rect key="frame" x="0.0" y="80" width="375" height="48"/>
-                                        <animations/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edl-NQ-GZI">
-                                        <rect key="frame" x="0.0" y="80" width="187.5" height="48"/>
-                                        <animations/>
-                                        <state key="normal" title="赛道介绍">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYb-zQ-mck">
-                                        <rect key="frame" x="187.5" y="80" width="187.5" height="48"/>
-                                        <animations/>
-                                        <state key="normal" title="进入赛道">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.70196078429999997" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="top" secondItem="dtH-1I-jiG" secondAttribute="top" id="06N-V7-cfK"/>
-                                    <constraint firstItem="ke7-SS-VZT" firstAttribute="leading" secondItem="Hk4-Qr-beJ" secondAttribute="trailing" constant="4" id="0KR-rs-ydx"/>
-                                    <constraint firstItem="edl-NQ-GZI" firstAttribute="width" secondItem="bYb-zQ-mck" secondAttribute="width" id="1Ct-qd-NfT"/>
-                                    <constraint firstItem="7rB-PI-HHV" firstAttribute="top" secondItem="xIH-IU-FPT" secondAttribute="top" constant="8" id="55k-s9-4Dz"/>
-                                    <constraint firstItem="ke7-SS-VZT" firstAttribute="centerY" secondItem="Hk4-Qr-beJ" secondAttribute="centerY" id="8zR-8q-wCI"/>
-                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="leading" secondItem="edl-NQ-GZI" secondAttribute="trailing" id="AwO-Nb-4Ik"/>
-                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="bottom" secondItem="dtH-1I-jiG" secondAttribute="bottom" id="C79-Ry-Fpk"/>
-                                    <constraint firstAttribute="trailing" secondItem="dtH-1I-jiG" secondAttribute="trailing" id="CRW-g1-lyM"/>
-                                    <constraint firstAttribute="height" constant="128" id="H9J-zT-C2C"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ke7-SS-VZT" secondAttribute="trailing" constant="16" id="Hx5-He-J62"/>
-                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="trailing" secondItem="dtH-1I-jiG" secondAttribute="trailing" id="Jo8-GH-VIW"/>
-                                    <constraint firstItem="edl-NQ-GZI" firstAttribute="top" secondItem="dtH-1I-jiG" secondAttribute="top" id="RLU-Xh-H0p"/>
-                                    <constraint firstItem="edl-NQ-GZI" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" id="TmL-le-47V"/>
-                                    <constraint firstAttribute="bottom" secondItem="edl-NQ-GZI" secondAttribute="bottom" id="Tsp-2k-u04"/>
-                                    <constraint firstItem="Hk4-Qr-beJ" firstAttribute="top" secondItem="PIQ-0t-1BF" secondAttribute="bottom" constant="16" id="ZMO-CD-Ij9"/>
-                                    <constraint firstItem="Hk4-Qr-beJ" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" constant="16" id="cxc-De-hqe"/>
-                                    <constraint firstAttribute="bottom" secondItem="dtH-1I-jiG" secondAttribute="bottom" id="nxb-b4-Hki"/>
-                                    <constraint firstItem="PIQ-0t-1BF" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" constant="16" id="pcZ-W2-BTk"/>
-                                    <constraint firstItem="dtH-1I-jiG" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" id="t9H-Wt-hYF"/>
-                                    <constraint firstItem="PIQ-0t-1BF" firstAttribute="top" secondItem="xIH-IU-FPT" secondAttribute="top" constant="16" id="uhc-It-d9V"/>
-                                    <constraint firstAttribute="trailing" secondItem="7rB-PI-HHV" secondAttribute="trailing" constant="8" id="wqX-6d-rcK"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Won-Tg-h0R">
                                 <rect key="frame" x="0.0" y="0.0" width="10" height="667"/>
                                 <animations/>
@@ -136,10 +58,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="3ge-46-a9r" firstAttribute="top" secondItem="xIH-IU-FPT" secondAttribute="bottom" constant="-128" id="0a9-iU-teT"/>
-                            <constraint firstItem="xIH-IU-FPT" firstAttribute="leading" secondItem="14f-h2-ggK" secondAttribute="leading" id="0gd-Zp-vFP"/>
                             <constraint firstItem="Won-Tg-h0R" firstAttribute="top" secondItem="14f-h2-ggK" secondAttribute="top" id="1Pe-Go-3eo"/>
-                            <constraint firstAttribute="trailing" secondItem="xIH-IU-FPT" secondAttribute="trailing" id="KZa-Sa-h2T"/>
                             <constraint firstItem="WVd-yy-H0y" firstAttribute="top" secondItem="14f-h2-ggK" secondAttribute="top" id="QUu-gN-Eo3"/>
                             <constraint firstItem="Won-Tg-h0R" firstAttribute="leading" secondItem="14f-h2-ggK" secondAttribute="leading" id="ZwZ-uP-fYD"/>
                             <constraint firstItem="3ge-46-a9r" firstAttribute="top" secondItem="WVd-yy-H0y" secondAttribute="bottom" id="g9D-wV-mrn"/>
@@ -153,13 +72,7 @@
                     <navigationItem key="navigationItem" id="aOv-ms-j8R"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="bottomViewPos" destination="0a9-iU-teT" id="6HE-wI-Tc1"/>
-                        <outlet property="closeButton" destination="7rB-PI-HHV" id="SDc-sa-rXI"/>
-                        <outlet property="gotoTrackButton" destination="bYb-zQ-mck" id="W5U-vd-Hyz"/>
                         <outlet property="mapView" destination="WVd-yy-H0y" id="NZx-1t-PUT"/>
-                        <outlet property="trackAddressButton" destination="ke7-SS-VZT" id="LMr-gW-PQh"/>
-                        <outlet property="trackIntroButton" destination="edl-NQ-GZI" id="5y2-o5-hvQ"/>
-                        <outlet property="trackTitleLabel" destination="PIQ-0t-1BF" id="wOx-Kk-3xE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4cN-08-9u4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -445,32 +358,33 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOa-3B-uQ8">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="604"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" image="上海国际赛车场" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-6K-jui">
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-6K-jui">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                                                 <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="5rc-6K-jui" secondAttribute="height" multiplier="125:62" id="3um-DB-bQz"/>
+                                                </constraints>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="track_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="VQt-ja-yyw">
                                                 <rect key="frame" x="0.0" y="156" width="375" height="30"/>
                                                 <animations/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海国际赛车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX9-KT-lUs">
-                                                <rect key="frame" x="128" y="161" width="119" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX9-KT-lUs">
+                                                <rect key="frame" x="187.5" y="171.5" width="0.0" height="0.0"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Ct-zXO">
-                                                <rect key="frame" x="16" y="202" width="343" height="186"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Ct-zXO">
+                                                <rect key="frame" x="16" y="202" width="343" height="0.0"/>
                                                 <animations/>
-                                                <string key="text">阿布扎比亚斯码头赛道是举办F1阿布扎比大奖赛的场地，它位于波斯湾石油强国阿联酋首都阿布扎比东海岸的亚斯，距阿布扎比国际机场仅15分钟车程，著名的法拉利主题公园也坐落这里。这条赛道的独特设计不仅在于赛道及周边环境，配套设施规模也相当惊人，包括7个豪华酒店的2200张床位，以及可以停泊150艘小船的港口，包括长度超过60米的船只。亚斯滨海假日酒店共有500间客房，且横跨赛道，在房间里便可俯瞰赛道全景。另外60米高的太阳能塔也为酒店住客们提供了不一样的视觉享受。
-</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" image="上海国际赛车场 赛道" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-m1-6VS">
-                                                <rect key="frame" x="0.0" y="404" width="375" height="200"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-m1-6VS">
+                                                <rect key="frame" x="0.0" y="218" width="375" height="386"/>
                                                 <animations/>
                                             </imageView>
                                         </subviews>
@@ -785,6 +699,121 @@
             </objects>
             <point key="canvasLocation" x="-920.5" y="754.5"/>
         </scene>
+        <!--Map Track View Controller-->
+        <scene sceneID="fW3-Rx-ATV">
+            <objects>
+                <viewController storyboardIdentifier="map_alert" id="OE4-Bg-jnN" customClass="MapTrackViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="viD-AN-Kvb"/>
+                        <viewControllerLayoutGuide type="bottom" id="S0o-p6-NHo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FhH-Qk-pJz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIH-IU-FPT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rB-PI-HHV">
+                                        <rect key="frame" x="345" y="8" width="22" height="22"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="Mxf-Uc-YAF"/>
+                                            <constraint firstAttribute="height" constant="22" id="vNj-aK-3PN"/>
+                                        </constraints>
+                                        <state key="normal" image="map_close"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海天马赛车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIQ-0t-1BF">
+                                        <rect key="frame" x="16" y="16" width="119" height="20.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="map_address" translatesAutoresizingMaskIntoConstraints="NO" id="Hk4-Qr-beJ">
+                                        <rect key="frame" x="16" y="52.5" width="11" height="13"/>
+                                        <animations/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ke7-SS-VZT">
+                                        <rect key="frame" x="31" y="44" width="202" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="上海市松江区沈砖公路3000号">
+                                            <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="btn_go_to_track_bg" translatesAutoresizingMaskIntoConstraints="NO" id="dtH-1I-jiG">
+                                        <rect key="frame" x="0.0" y="80" width="375" height="48"/>
+                                        <animations/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edl-NQ-GZI">
+                                        <rect key="frame" x="0.0" y="80" width="187.5" height="48"/>
+                                        <animations/>
+                                        <state key="normal" title="赛道介绍">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYb-zQ-mck">
+                                        <rect key="frame" x="187.5" y="80" width="187.5" height="48"/>
+                                        <animations/>
+                                        <state key="normal" title="进入赛道">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.70196078429999997" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="top" secondItem="dtH-1I-jiG" secondAttribute="top" id="06N-V7-cfK"/>
+                                    <constraint firstItem="ke7-SS-VZT" firstAttribute="leading" secondItem="Hk4-Qr-beJ" secondAttribute="trailing" constant="4" id="0KR-rs-ydx"/>
+                                    <constraint firstItem="edl-NQ-GZI" firstAttribute="width" secondItem="bYb-zQ-mck" secondAttribute="width" id="1Ct-qd-NfT"/>
+                                    <constraint firstItem="7rB-PI-HHV" firstAttribute="top" secondItem="xIH-IU-FPT" secondAttribute="top" constant="8" id="55k-s9-4Dz"/>
+                                    <constraint firstItem="ke7-SS-VZT" firstAttribute="centerY" secondItem="Hk4-Qr-beJ" secondAttribute="centerY" id="8zR-8q-wCI"/>
+                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="leading" secondItem="edl-NQ-GZI" secondAttribute="trailing" id="AwO-Nb-4Ik"/>
+                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="bottom" secondItem="dtH-1I-jiG" secondAttribute="bottom" id="C79-Ry-Fpk"/>
+                                    <constraint firstAttribute="trailing" secondItem="dtH-1I-jiG" secondAttribute="trailing" id="CRW-g1-lyM"/>
+                                    <constraint firstAttribute="height" constant="128" id="H9J-zT-C2C"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ke7-SS-VZT" secondAttribute="trailing" constant="16" id="Hx5-He-J62"/>
+                                    <constraint firstItem="bYb-zQ-mck" firstAttribute="trailing" secondItem="dtH-1I-jiG" secondAttribute="trailing" id="Jo8-GH-VIW"/>
+                                    <constraint firstItem="edl-NQ-GZI" firstAttribute="top" secondItem="dtH-1I-jiG" secondAttribute="top" id="RLU-Xh-H0p"/>
+                                    <constraint firstItem="edl-NQ-GZI" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" id="TmL-le-47V"/>
+                                    <constraint firstAttribute="bottom" secondItem="edl-NQ-GZI" secondAttribute="bottom" id="Tsp-2k-u04"/>
+                                    <constraint firstItem="Hk4-Qr-beJ" firstAttribute="top" secondItem="PIQ-0t-1BF" secondAttribute="bottom" constant="16" id="ZMO-CD-Ij9"/>
+                                    <constraint firstItem="Hk4-Qr-beJ" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" constant="16" id="cxc-De-hqe"/>
+                                    <constraint firstAttribute="bottom" secondItem="dtH-1I-jiG" secondAttribute="bottom" id="nxb-b4-Hki"/>
+                                    <constraint firstItem="PIQ-0t-1BF" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" constant="16" id="pcZ-W2-BTk"/>
+                                    <constraint firstItem="dtH-1I-jiG" firstAttribute="leading" secondItem="xIH-IU-FPT" secondAttribute="leading" id="t9H-Wt-hYF"/>
+                                    <constraint firstItem="PIQ-0t-1BF" firstAttribute="top" secondItem="xIH-IU-FPT" secondAttribute="top" constant="16" id="uhc-It-d9V"/>
+                                    <constraint firstAttribute="trailing" secondItem="7rB-PI-HHV" secondAttribute="trailing" constant="8" id="wqX-6d-rcK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="xIH-IU-FPT" secondAttribute="trailing" id="74E-lw-XMD"/>
+                            <constraint firstItem="xIH-IU-FPT" firstAttribute="leading" secondItem="FhH-Qk-pJz" secondAttribute="leading" id="GYN-IB-70k"/>
+                            <constraint firstItem="S0o-p6-NHo" firstAttribute="top" secondItem="xIH-IU-FPT" secondAttribute="bottom" id="ava-DB-J6P"/>
+                            <constraint firstItem="xIH-IU-FPT" firstAttribute="top" secondItem="viD-AN-Kvb" secondAttribute="bottom" id="vW4-mz-Lnm"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="128"/>
+                    <connections>
+                        <outlet property="closeButton" destination="7rB-PI-HHV" id="TxW-cC-jP6"/>
+                        <outlet property="gotoTrackButton" destination="bYb-zQ-mck" id="huB-eQ-ui9"/>
+                        <outlet property="trackAddressButton" destination="ke7-SS-VZT" id="aWa-yq-Ssx"/>
+                        <outlet property="trackIntroButton" destination="edl-NQ-GZI" id="jZk-hq-c7k"/>
+                        <outlet property="trackTitleLabel" destination="PIQ-0t-1BF" id="IVC-7o-mLR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rW-bf-0PL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1486.5" y="225"/>
+        </scene>
         <!--G-BOX-->
         <scene sceneID="h8Z-mJ-d5C">
             <objects>
@@ -850,7 +879,5 @@
         <image name="tab_gkbox" width="23" height="23"/>
         <image name="timer_bg" width="375" height="243"/>
         <image name="track_title_bg" width="375" height="30"/>
-        <image name="上海国际赛车场" width="375" height="186"/>
-        <image name="上海国际赛车场 赛道" width="345" height="200"/>
     </resources>
 </document>

@@ -9,11 +9,11 @@
 import Foundation
 
 extension UIViewController {
-    func dismissPopupViewController() {
+    func dismissPopupViewController(animated animated: Bool = false, completion: (() -> Void)? = nil) {
         if let parent = self.parentViewController where parent.isKindOfClass(PopupViewController) {
-            parent.dismissViewControllerAnimated(false, completion: nil)
+            parent.dismissViewControllerAnimated(animated, completion: completion)
         } else if self.isKindOfClass(PopupViewController) {
-            self.dismissViewControllerAnimated(false, completion: nil)
+            self.dismissViewControllerAnimated(animated, completion: completion)
         }
     }
 }
