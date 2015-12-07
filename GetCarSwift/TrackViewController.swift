@@ -63,11 +63,9 @@ class TrackViewController: UITableViewController {
         if self.items[indexPath.row].isDeveloped {
             cell!.mask.backgroundColor = UIColor.clearColor()
             cell!.selectionStyle = .Default
-            cell!.loveButton.enabled = true
         } else {
             cell!.mask.backgroundColor = UIColor(white: 0, alpha: 0.8)
             cell!.selectionStyle = .None
-            cell!.loveButton.enabled = false
         }
 
         cell!.delegate = self
