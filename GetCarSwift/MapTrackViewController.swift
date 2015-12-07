@@ -25,17 +25,28 @@ class MapTrackViewController: UIViewController {
 
         trackTitleLabel.text = raceTrack?.name ?? ""
         trackAddressButton.setTitle(raceTrack?.address ?? "", forState: .Normal)
-        gotoTrackButton.enabled = raceTrack?.isDeveloped ?? false
         closeButton.rx_tap.subscribeNext {
-            self.dismissPopupViewController()
+            self.dismissPopupViewController(animated: true)
         }.addDisposableTo(disposeBag)
         gotoTrackButton.rx_tap.subscribeNext {
-            let vc = R.storyboard.gkbox.track_timer
-            vc!.raceTrack =? self.raceTrack
-            if let parent = self.parentViewController as? PopupViewController {
-                if let sender = parent.sender as? UIViewController {
-                    self.dismissPopupViewController {
-                        sender.showViewController(vc!)
+            if self.raceTrack?.isDeveloped ?? false {
+                let vc = R.storyboard.gkbox.track_timer
+                vc!.raceTrack =? self.raceTrack
+                if let parent = self.parentViewController as? PopupViewController {
+                    if let sender = parent.sender as? UIViewController {
+                        self.dismissPopupViewController(animated: true) {
+                            sender.showViewController(vc!)
+                        }
+                    }
+                }
+            } else {
+                let alertController = UIAlertController(title: "正在测绘中", message: nil, preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "确定", style: .Cancel, handler: nil))
+                if let parent = self.parentViewController as? PopupViewController {
+                    if let sender = parent.sender as? UIViewController {
+                        self.dismissPopupViewController(animated: true) {
+                            sender.presentViewController(alertController, animated: true, completion: nil)
+                        }
                     }
                 }
             }
@@ -63,7 +74,7 @@ class MapTrackViewController: UIViewController {
             vc!.raceTrack =? self.raceTrack
             if let parent = self.parentViewController as? PopupViewController {
                 if let sender = parent.sender as? UIViewController {
-                    self.dismissPopupViewController {
+                    self.dismissPopupViewController(animated: true) {
                         sender.showViewController(vc!)
                     }
                 }

@@ -27,10 +27,10 @@ class AddPlayerTableViewController: UITableViewController {
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Myself:"我", .Rank:"赛道排名"]
 
     var mode: AddPlayerMode = .Menu
-    var records: Records?
 
     var localNewest: [RmScore] = []
     var localBest: [RmScore] = []
+    var top: [RmScore] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +50,11 @@ class AddPlayerTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         _ = Records.getRecord(sid, count: 10).subscribeNext { res in
             if let data = res.data {
-                self.records = data
+                self.top = data.top.sort { $0.0.score < $0.1.score }
                 if self.localNewest.count == 0 {
                     for s in data.newestRes {
                         try! self.realm.write {
@@ -98,7 +100,7 @@ class AddPlayerTableViewController: UITableViewController {
                 return localBest.count
             }
         case .Rank:
-            return records?.top.count ?? 0
+            return top.count
         }
     }
 
@@ -107,9 +109,9 @@ class AddPlayerTableViewController: UITableViewController {
         switch mode {
         case .Menu:
             if indexPath.row == 0 {
-                cell = tableView.dequeueReusableCellWithIdentifier("player")
+                cell = tableView.dequeueReusableCellWithIdentifier("menu_me")
                 if cell == nil {
-                    cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "player")
+                    cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu_me")
                 }
                 Mine.sharedInstance.setAvatarImage(cell!.imageView!)
                 cell?.textLabel?.text = "我"
@@ -126,17 +128,18 @@ class AddPlayerTableViewController: UITableViewController {
                 cell = UITableViewCell(style: .Default, reuseIdentifier: "menu")
             }
             if indexPath.section == 0 {
-                cell?.textLabel?.text = "\(localNewest[indexPath.row].score)"
+                cell?.textLabel?.text = String(format: "%.2f", localNewest[indexPath.row].score)
             } else {
-                cell?.textLabel?.text = "\(localBest[indexPath.row].score)"
+                cell?.textLabel?.text = String(format: "%.2f", localBest[indexPath.row].score)
             }
         case .Rank:
             cell = tableView.dequeueReusableCellWithIdentifier("player")
             if cell == nil {
-                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "player")
+                cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "player")
             }
-            cell?.imageView?.kf_setImageWithURL(NSURL(string: records?.top[indexPath.row].headUrl ?? "http://www.baidu.com")!, placeholderImage: R.image.avatar)
-            cell?.textLabel?.text = "\(records?.top[indexPath.row].score ?? 0)"
+            cell?.imageView?.kf_setImageWithURL(NSURL(string: top[indexPath.row].headUrl)!, placeholderImage: R.image.avatar)
+            cell?.textLabel?.text = top[indexPath.row].nickname
+            cell?.detailTextLabel?.text = String(format: "%.2f", top[indexPath.row].score)
         }
 
         return cell!
@@ -173,7 +176,7 @@ class AddPlayerTableViewController: UITableViewController {
                     }
                 }
             } else {
-                records!.top[indexPath.row].unarchive { record in
+                top[indexPath.row].unarchive { record in
                     self.delegate?.didPlayerAdded(record, sender: self.sender)
                 }
             }

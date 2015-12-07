@@ -1,5 +1,5 @@
 //
-//  FileUtils.swift
+//  UIImage+GK.swift
 //  GetCarSwift
 //
 //  Created by 周斌佳 on 15/4/18.

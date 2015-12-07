@@ -24,7 +24,7 @@ class TrackViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        items = realm.objects(RmRaceTrack).sorted("id").map { $0 }
+        items = realm.objects(RmRaceTrack).sorted("isDeveloped", ascending: false).map { $0 }
         updatePraises()
     }
 
@@ -91,7 +91,7 @@ class TrackViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
+        if items[indexPath.row].id == 0 {
             showViewController(R.storyboard.track.straightMatch!)
         } else {
             if !items[indexPath.row].isDeveloped {

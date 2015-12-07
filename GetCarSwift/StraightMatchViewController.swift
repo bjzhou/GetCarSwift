@@ -146,7 +146,7 @@ class StraightMatchViewController: UIViewController {
     func startAnim(button: UIButton, score: RmScore?) {
         if let score = score {
             let anim = CAKeyframeAnimation(keyPath: "position.y")
-            anim.duration = score.score
+            anim.duration = score.data.last?.t ?? 0
             anim.keyTimes = score.data.map { $0.t / score.score }
             anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
             anim.calculationMode = kCAAnimationLinear
@@ -156,6 +156,7 @@ class StraightMatchViewController: UIViewController {
             anim.delegate = self
 
             button.superview?.layer.addAnimation(anim, forKey: "race")
+            button.enabled = false
         }
     }
 
@@ -207,6 +208,9 @@ class StraightMatchViewController: UIViewController {
         button1.superview?.layer.removeAllAnimations()
         button2.superview?.layer.removeAllAnimations()
         button3.superview?.layer.removeAllAnimations()
+        button1.enabled = true
+        button2.enabled = true
+        button3.enabled = true
         finishLine.layer.removeAllAnimations()
         raceBg.image = R.image.race_bg
     }
@@ -256,8 +260,8 @@ class StraightMatchViewController: UIViewController {
 
 extension StraightMatchViewController: AddPlayerDelegate {
     func didPlayerAdded(score: RmScore, sender: UIButton?) {
-        var url = score.headUrl
-        var nickname = score.nickname
+        var url = String(score.headUrl)
+        var nickname = String(score.nickname)
         if url == "" {
             url = Mine.sharedInstance.avatarUrl ?? ""
         }

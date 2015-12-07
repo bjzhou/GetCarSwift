@@ -45,6 +45,8 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         Mine.sharedInstance.setAvatarImage(myAvatar)
         sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
         nickname.text = Mine.sharedInstance.nickname

@@ -21,6 +21,8 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         let colorTag = Mine.sharedInstance.carHeadBg
         let iconTag = Mine.sharedInstance.carHeadId
         values[1] = getCarIconName(Mine.sharedInstance.sex, color: colorTag, icon: iconTag)
@@ -84,7 +86,6 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.section == 0 {
             switch indexPath.row {

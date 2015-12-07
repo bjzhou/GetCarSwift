@@ -17,7 +17,6 @@ class HelpTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.row == 0 {
             let now = NSCalendar.currentCalendar().components([.Hour], fromDate: NSDate())

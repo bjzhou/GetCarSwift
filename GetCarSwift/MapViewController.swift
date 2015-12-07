@@ -97,7 +97,7 @@ extension MapViewController: MAMapViewDelegate {
 
     func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
         #if DEBUG
-            print(coordinate)
+            print("[\(coordinate.latitude), \(coordinate.longitude), 0]")
         #endif
     }
 }

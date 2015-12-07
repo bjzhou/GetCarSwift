@@ -103,10 +103,42 @@
                             </constraints>
                         </view>
                         <sections>
+                            <tableViewSection id="G8w-yN-llm">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="nQv-K7-AED" imageView="wyz-3B-1hJ" rowHeight="45" style="IBUITableViewCellStyleDefault" id="Zmk-yT-UmG" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="284" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zmk-yT-UmG" id="TQ0-I4-hbX">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="系统设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nQv-K7-AED">
+                                                    <rect key="frame" x="55" y="0.0" width="285" height="44.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="mine_settings" id="wyz-3B-1hJ">
+                                                    <rect key="frame" x="15" y="9" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <animations/>
+                                                </imageView>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <segue destination="o6E-Vf-XoH" kind="show" id="C4n-6b-XEb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="Jrf-jB-mr1">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="7qA-ti-Od4" imageView="yl9-zM-kc9" rowHeight="45" style="IBUITableViewCellStyleDefault" id="a4y-uo-92L" customClass="CommonTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="284" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="349" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a4y-uo-92L" id="EcK-gR-MhS">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
@@ -143,14 +175,7 @@
                             <outlet property="delegate" destination="ehT-v1-dLi" id="rSV-64-i0h"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="我的" id="nmi-2e-F7i">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="5eN-sY-7TK">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="o6E-Vf-XoH" kind="show" id="abV-RW-sRf"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="我的" id="nmi-2e-F7i"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="homepageBg" destination="COd-2i-5xX" id="LWj-fb-gxG"/>
@@ -442,6 +467,12 @@
                                 <constraint firstItem="XsV-fV-q6Y" firstAttribute="leading" secondItem="Zay-nK-qwY" secondAttribute="leading" id="vKv-lj-HpS"/>
                                 <constraint firstItem="wNf-ay-QFD" firstAttribute="centerX" secondItem="Zay-nK-qwY" secondAttribute="centerX" id="zTa-pC-VWC"/>
                             </constraints>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="8F0-ic-pVM">
+                            <rect key="frame" x="0.0" y="412" width="375" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <sections>
                             <tableViewSection id="99u-eq-O0a">
@@ -1685,7 +1716,7 @@
         <image name="mine_disclaimer" width="22" height="25"/>
         <image name="mine_female" width="8" height="13"/>
         <image name="mine_position" width="8" height="11"/>
-        <image name="settings" width="20" height="20"/>
+        <image name="mine_settings" width="25" height="25"/>
         <image name="tab_mine" width="23" height="23"/>
         <image name="tracking_camera" width="25" height="22"/>
         <image name="tracking_flow" width="22" height="549"/>

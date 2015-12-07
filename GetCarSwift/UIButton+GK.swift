@@ -10,9 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-/** UIButton Extends UIButton
-
-*/
 extension UIButton {
 
     public var rxSelected: AnyObserver<Bool> {

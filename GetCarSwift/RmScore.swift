@@ -57,7 +57,13 @@ class RmScore: Object, JSONable {
                     scoreData.alt = dic["alt"] ?? 0
                     return scoreData
                 }
-                self.data.appendContentsOf(scoreDataArray)
+                if let realm = self.realm {
+                    try! realm.write {
+                        self.data.appendContentsOf(scoreDataArray)
+                    }
+                } else {
+                    self.data.appendContentsOf(scoreDataArray)
+                }
                 succeed(self)
             }
         }
