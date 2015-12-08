@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import RxSwift
 
 class RegisterViewController: UIViewController, CarTableNavigationDelegate {
 
-    var registerViewModel: RegisterViewModel!
-
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var carText: UITextField!
+
+    var registerViewModel: RegisterViewModel!
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +24,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         tapGesture.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGesture)
 
-        registerViewModel = RegisterViewModel(nickname: nickname.rx_text)
+        registerViewModel = RegisterViewModel(nickname: nickname.rx_text, car: carText.rx_text)
         registerViewModel.viewProxy = self
     }
 
@@ -36,7 +38,6 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
 
     func didCarSelected(car: String) {
         carText.text = car
-        registerViewModel.car = car
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

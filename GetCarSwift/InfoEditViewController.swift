@@ -58,6 +58,10 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     func didSave() {
         switch mode {
         case .Nickname:
+            if nickname.trim() == "" {
+                self.view.makeToast(message: "请输入昵称")
+                return
+            }
             Mine.sharedInstance.nickname = nickname
             _ = User.updateInfo(nickname: nickname).subscribeNext { user in
                 if let nickname = user.data?.nickname {
