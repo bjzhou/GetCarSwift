@@ -17,10 +17,10 @@ class HelpTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.row == 0 {
             let now = NSCalendar.currentCalendar().components([.Hour], fromDate: NSDate())
-            print(now.hour)
             if now.hour >= 8 && now.hour <= 22 {
                 let alertController = UIAlertController(title: "联系改客专员", message: nil, preferredStyle: .Alert)
                 alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))

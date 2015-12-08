@@ -61,12 +61,16 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             }
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.info_text, forIndexPath:indexPath)
+            cell?.selectionStyle = .Default
             if indexPath.section == 0 {
                 cell?.title.text = titles[indexPath.row]
                 cell?.value.text = values[indexPath.row]
             } else {
                 cell?.title.text = titles[indexPath.row + 3/*5*/]
                 cell?.value.text = values[indexPath.row + 3/*5*/]
+                if indexPath.row == 1 {
+                    cell?.selectionStyle = .None
+                }
             }
         }
 
@@ -91,19 +95,20 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             switch indexPath.row {
             case 0:
                 showImagePickerAlertView()
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
             case 1:
                 let controller = R.storyboard.mine.car_icon
-                self.navigationController?.showViewController(controller!, sender: self)
+                showViewController(controller!)
             case 2:
                 let vc = InfoEditViewController(mode: .Nickname)
-                self.navigationController?.showViewController(vc, sender: self)
+                showViewController(vc)
             default:
                 break
             }
         } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
-                self.navigationController?.showViewController(InfoEditViewController(mode: .Sex), sender: self)
+                showViewController(InfoEditViewController(mode: .Sex))
             default:
                 break
             }

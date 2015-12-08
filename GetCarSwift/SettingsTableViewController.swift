@@ -39,6 +39,7 @@ class SettingsTableViewController: UITableViewController {
                     })
                 alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
                 presentViewController(alertController, animated: true, completion: nil)
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
 

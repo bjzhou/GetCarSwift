@@ -21,13 +21,6 @@ class PersonInfoCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        accessoryView = UIImageView(image: R.image.arrow)
     }
 
 }
