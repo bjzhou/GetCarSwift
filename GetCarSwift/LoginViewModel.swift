@@ -10,13 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-struct LoginViewModel {
+class LoginViewModel {
     let disposeBag = DisposeBag()
 
     var phoneText: ControlProperty<String>
     var codeText: ControlProperty<String>
 
-    var timer: Disposable?
+    var timerDisposable: Disposable?
 
     var viewProxy: ViewProxy?
 
@@ -26,6 +26,12 @@ struct LoginViewModel {
     init(phoneText: ControlProperty<String>, codeText: ControlProperty<String>) {
         self.phoneText = phoneText
         self.codeText = codeText
+
+        self.phoneText.subscribeNext { _ in
+            if self.codeEnabled.value == false {
+                self.timerReset()
+            }
+        }.addDisposableTo(disposeBag)
     }
 
     func onLoginAction() {
@@ -71,21 +77,21 @@ struct LoginViewModel {
         }.addDisposableTo(disposeBag)
     }
 
-    mutating func onCodeButtonAction() {
+    func onCodeButtonAction() {
+        timerDisposable = timer(0, 1, MainScheduler.sharedInstance).subscribeNext { time in
+            self.codeEnabled.value = false
+            self.codeTitle.value = String(60-time) + "秒后重新发送"
+            if time == 60 {
+                self.timerReset()
+                self.timerDisposable?.dispose()
+            }
+        }
         phoneText
             .take(1)
             .filter { phone in
                 if phone.characters.count < 11 {
                     self.viewProxy?.showToast("手机号格式错误")
                     return false
-                }
-                self.timer = interval(1, MainScheduler.sharedInstance).take(60).subscribeNext { time in
-                    if time == 59 {
-                        self.timerReset()
-                        return
-                    }
-                    self.codeEnabled.value = false
-                    self.codeTitle.value = String(60-time) + "秒后重新发送"
                 }
                 return true
             }
@@ -102,12 +108,8 @@ struct LoginViewModel {
 
     }
 
-    func onTimeUpdate(timer: NSTimer) {
-
-    }
-
     func timerReset() {
-        timer?.dispose()
+        timerDisposable?.dispose()
         codeEnabled.value = true
         codeTitle.value = "发送验证码"
     }
