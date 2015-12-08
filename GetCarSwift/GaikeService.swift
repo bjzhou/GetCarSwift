@@ -60,11 +60,15 @@ class GaikeService {
     func request(urlString: URLStringConvertible) -> Observable<NSData> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
+            #if DEBUG
+                print("REQUEST=========================================>")
+                print(urlString)
+            #endif
             let request = apiManager.request(.GET, urlString).responseData { res in
                 #if DEBUG
                     let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                     print("RESPONSE=========================================>")
-                    print(responseString)
+                    print(responseString, res.result.error)
                 #endif
                 if let err = res.result.error {
                     observer.on(.Error(err))
@@ -74,11 +78,12 @@ class GaikeService {
                     }
                     observer.on(.Completed)
                 }
+
             }
             return AnonymousDisposable {
                 request.cancel()
             }
-            }.observeOn(MainScheduler.sharedInstance).doOn {
+            }.observeOn(MainScheduler.sharedInstance).doOn { _ in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
@@ -106,7 +111,7 @@ class GaikeService {
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance).doOn {
+            }.observeOn(MainScheduler.sharedInstance).doOn { _ in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
@@ -155,7 +160,7 @@ class GaikeService {
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance).doOn {
+            }.observeOn(MainScheduler.sharedInstance).doOn { _ in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }

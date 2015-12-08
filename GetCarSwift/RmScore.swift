@@ -44,6 +44,10 @@ class RmScore: Object, JSONable {
     }
 
     func unarchive(succeed: RmScore -> ()) {
+        if self.data.count != 0 {
+            succeed(self)
+            return
+        }
         _ = GaikeService.sharedInstance.request(url).subscribeNext { data in
             if let recordArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [[String: Double]] {
                 let scoreDataArray: [RmScoreData] = recordArray.map { dic in

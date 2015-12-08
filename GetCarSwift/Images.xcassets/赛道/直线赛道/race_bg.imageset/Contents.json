@@ -5,6 +5,17 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "stretch",
+          "width" : 498
+        },
+        "cap-insets" : {
+          "right" : 126,
+          "left" : 126
+        }
+      },
       "idiom" : "universal",
       "filename" : "赛道静止状态.png",
       "scale" : "2x"

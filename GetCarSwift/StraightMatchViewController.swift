@@ -48,7 +48,7 @@ class StraightMatchViewController: UIViewController {
 
     var timerDisposable: Disposable?
 
-    var ads: [UIImage?] = [R.image.ad_KW, R.image.ad_AFE, R.image.ad_CSB, R.image.ad_MRG, R.image.ad_DMEN, R.image.ad_JBOM, R.image.ad_TEIN, R.image.ad_INJEN, R.image.ad_DHLINS, R.image.ad_DIXCEL, R.image.ad_AP_RACING]
+    var ads: [UIImage?] = [R.image.ad_KW, R.image.ad_AFE, R.image.ad_CSB, R.image.ad_MRG, R.image.ad_DMEN, R.image.ad_JBOM, R.image.ad_TEIN, R.image.ad_INJEN, R.image.ad_ohlins, R.image.ad_DIXCEL, R.image.ad_AP_RACING]
 
     var trackDetailViewModel = TrackDetailViewModel()
     var danmuEffect: DanmuEffect?
@@ -146,7 +146,7 @@ class StraightMatchViewController: UIViewController {
     func startAnim(button: UIButton, score: RmScore?) {
         if let score = score {
             let anim = CAKeyframeAnimation(keyPath: "position.y")
-            anim.duration = score.data.last?.t ?? 0
+            anim.duration = score.score
             anim.keyTimes = score.data.map { $0.t / score.score }
             anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
             anim.calculationMode = kCAAnimationLinear
@@ -182,7 +182,7 @@ class StraightMatchViewController: UIViewController {
     }
 
     func showRandomAd(t: Int64) {
-        let rdm = random() % 1000
+        let rdm = arc4random_uniform(1000)
         if rdm < 5 {
             startAdAnim(leftAdImg)
         } else if rdm < 10 {
@@ -194,12 +194,12 @@ class StraightMatchViewController: UIViewController {
         if let _ = ad.layer.animationForKey("ad") {
             return
         }
-        let img = ads[random() % 11]
+        let img = ads[Int(arc4random_uniform(11))]
         ad.image = img
         let anim = CABasicAnimation(keyPath: "position.y")
-        anim.duration = 2
+        anim.duration = 5
         anim.fromValue = 0
-        anim.toValue = raceBg.frame.height + ad.frame.height + 1
+        anim.toValue = raceBg.frame.height + img!.size.height + 1
         anim.removedOnCompletion = true
         ad.layer.addAnimation(anim, forKey: "ad")
     }

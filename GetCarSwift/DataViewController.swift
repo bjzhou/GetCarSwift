@@ -156,15 +156,26 @@ class DataViewController: UIViewController {
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
 
+    func fixS(fixScore: Double, dataList: List<RmScoreData>, expectV: Double) -> Double {
+        var expectS = dataList.last!.s
+        if dataList.count > 1 {
+            let dt = fixScore - dataList.last!.t
+            if dt != 0 {
+                expectS += (expectV - dataList.last!.v) / 3.6 * dt
+            }
+        }
+        return expectS
+    }
+
     func fixScore(t: Double, dataList: List<RmScoreData>, v: Double, expectV: Double) -> Double {
         var expectT = 0.0
         if dataList.count > 1 {
             expectT = dataList.last!.t + fixStart(dataList)
             let dt = t - dataList.last!.t
             if dt != 0 {
-                let a = (v - dataList.last!.v) / dt
+                let a = (v - dataList.last!.v) / 3.6 / dt
                 if a != 0 {
-                    var expectDt = (expectV - dataList.last!.v) / a
+                    var expectDt = (expectV - dataList.last!.v) / 3.6 / a
                     if expectDt > 1 {
                         expectDt = 1
                     }
@@ -184,7 +195,7 @@ class DataViewController: UIViewController {
             expectT = dataList.last!.t + fixStart(dataList)
             let dt = t - dataList.last!.t
             if dt != 0 {
-                let a = (v - dataList.last!.v) / dt
+                let a = (v - dataList.last!.v) / 3.6 / dt
                 if a != 0 {
                     var expectDt = sqrt(abs((expectS - dataList.last!.s) / a))
                     if expectDt > 1 {
@@ -211,9 +222,9 @@ class DataViewController: UIViewController {
         var expectDt = 0.0
         let dtStart = dataList[i+1].t - dataList[i].t
         if dtStart != 0 {
-            let a = (dataList[i+1].v - dataList[i].v) / dtStart
+            let a = (dataList[i+1].v - dataList[i].v) / 3.6 / dtStart
             if a > 0 {
-                expectDt = dataList[i].v / a - dataList[i].t
+                expectDt = dataList[i].v / 3.6 / a - dataList[i].t
             }
         }
         if expectDt > 1 {
@@ -331,7 +342,7 @@ class DataViewController: UIViewController {
                             self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
                             if self.latestScores[0] == -1 {
                                 self.latestScores[0] = self.keyTime["60"]!
-                                self.data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": s]))
+                                self.data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": self.fixS(self.keyTime["60"]!, dataList: self.data, expectV: 60)]))
                                 self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
                                 self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
                                 let data = List<RmScoreData>()
@@ -357,7 +368,7 @@ class DataViewController: UIViewController {
                             self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
                             if self.latestScores[1] == -1 {
                                 self.latestScores[1] = self.keyTime["100"]!
-                                self.data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": s]))
+                                self.data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": self.fixS(self.keyTime["100"]!, dataList: self.data, expectV: 100)]))
                                 self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
                                 self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
                                 let data = List<RmScoreData>()

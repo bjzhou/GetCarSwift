@@ -24,13 +24,15 @@ class MapViewController: UIViewController {
     var trackAddressAction: Disposable?
     var trackIntroAction: Disposable?
 
+    var zoomLevel: CGFloat = 3
+    var centerCoordinate = CLLocationCoordinate2D(latitude: 35, longitude: 106)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         initMapView()
 
         mapViewModel = MapViewModel()
-        mapView.addAnnotations(mapViewModel.loadTracks())
     }
 
     func initMapView() {
@@ -38,8 +40,13 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
-        mapView.zoomLevel = 3
-        mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 35, longitude: 106), animated: false)
+        mapView.zoomLevel = zoomLevel
+        mapView.setCenterCoordinate(centerCoordinate, animated: false)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations(mapViewModel.loadTracks())
     }
 
     @IBAction func didLayerChanged(sender: UIButton) {
@@ -87,6 +94,9 @@ extension MapViewController: MAMapViewDelegate {
         if let annotation = view.annotation as? RaceTrackAnnotation {
             mapView.deselectAnnotation(annotation, animated: true)
 
+            mapView.centerCoordinate = annotation.coordinate
+            mapView.setZoomLevel(CGFloat(annotation.raceTrack.mapZoom), animated: true)
+
             let mapAlertVC = R.storyboard.gkbox.map_alert
             mapAlertVC?.raceTrack = annotation.raceTrack
             mapAlertVC?.view.frame.size = CGSize(width: self.view.frame.width, height: 128)
@@ -98,6 +108,8 @@ extension MapViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
         #if DEBUG
             print("[\(coordinate.latitude), \(coordinate.longitude), 0]")
+            let circle = MACircle(centerCoordinate: coordinate, radius: 15)
+            mapView.addOverlay(circle)
         #endif
     }
 }

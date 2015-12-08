@@ -78,7 +78,7 @@ class TrackDetailViewController: UIViewController {
         if let raceTrack = trackDetailViewModel.raceTrack {
             if let mapCenter = raceTrack.mapCenter {
                 mapView.zoomLevel = CGFloat(raceTrack.mapZoom)
-                mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: true)
+                mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
             }
         }
 

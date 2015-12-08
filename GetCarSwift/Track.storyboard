@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="LetsgoDigital-Regular.ttf">
@@ -38,11 +39,11 @@
                                 <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ad_AFE" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-6V-eph">
-                                <rect key="frame" x="12" y="32" width="34" height="24"/>
+                                <rect key="frame" x="14.5" y="89" width="35" height="22"/>
                                 <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ad_AP_RACING" translatesAutoresizingMaskIntoConstraints="NO" id="ZMU-PN-92B">
-                                <rect key="frame" x="369" y="32" width="33" height="24"/>
+                                <rect key="frame" x="367" y="89" width="30" height="22"/>
                                 <animations/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4f-kV-i8E">
@@ -276,7 +277,7 @@ km/h</string>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COG-OO-CJc">
-                                                <rect key="frame" x="21.5" y="18" width="69.5" height="20"/>
+                                                <rect key="frame" x="21" y="18" width="69.5" height="20"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -302,7 +303,7 @@ km/h</string>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YzY-dL-k6A">
-                                                <rect key="frame" x="22.5" y="18" width="69.5" height="20"/>
+                                                <rect key="frame" x="22" y="18" width="69.5" height="20"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -328,7 +329,7 @@ km/h</string>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awV-bR-sFk">
-                                                <rect key="frame" x="21.5" y="18" width="69.5" height="20"/>
+                                                <rect key="frame" x="21" y="18" width="69.5" height="20"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -387,7 +388,7 @@ km/h</string>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ynd-GL-mPc">
-                                                <rect key="frame" x="21.5" y="18" width="69.5" height="20"/>
+                                                <rect key="frame" x="21" y="18" width="69.5" height="20"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -413,7 +414,7 @@ km/h</string>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ush-3K-ofi">
-                                                <rect key="frame" x="22.5" y="18" width="69.5" height="20"/>
+                                                <rect key="frame" x="22" y="18" width="69.5" height="20"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -439,7 +440,7 @@ km/h</string>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLK-wO-YOG">
-                                                <rect key="frame" x="21.5" y="18" width="69.5" height="20"/>
+                                                <rect key="frame" x="21" y="18" width="69.5" height="20"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -541,7 +542,6 @@ km/h</string>
                             <constraint firstItem="h7i-yJ-6av" firstAttribute="top" secondItem="fyT-eh-ZVg" secondAttribute="bottom" id="3sB-JM-XIG"/>
                             <constraint firstItem="rMC-N4-9rd" firstAttribute="top" secondItem="9Uo-af-j6e" secondAttribute="bottom" constant="8" id="6I6-ii-IQX"/>
                             <constraint firstItem="X4f-kV-i8E" firstAttribute="top" secondItem="h7i-yJ-6av" secondAttribute="bottom" constant="-2" id="8Ce-KM-VAq"/>
-                            <constraint firstItem="Vje-6V-eph" firstAttribute="leading" secondItem="0vG-9e-bEV" secondAttribute="leading" constant="12" id="9eU-TP-LZM"/>
                             <constraint firstItem="h7i-yJ-6av" firstAttribute="leading" secondItem="0vG-9e-bEV" secondAttribute="leading" id="B3l-N6-sZg"/>
                             <constraint firstItem="fyT-eh-ZVg" firstAttribute="top" secondItem="0v3-gy-Xhc" secondAttribute="bottom" id="CLu-Yt-VXO"/>
                             <constraint firstItem="9Uo-af-j6e" firstAttribute="leading" secondItem="cAE-2O-e9P" secondAttribute="trailing" constant="28" id="CdK-lw-Pug"/>
@@ -550,11 +550,12 @@ km/h</string>
                             <constraint firstItem="gaP-de-aWN" firstAttribute="centerX" secondItem="cAE-2O-e9P" secondAttribute="centerX" id="I5K-Xy-kUb"/>
                             <constraint firstItem="kp4-wX-Emf" firstAttribute="leading" secondItem="9Uo-af-j6e" secondAttribute="trailing" constant="28" id="I7J-zU-4Qa"/>
                             <constraint firstAttribute="trailing" secondItem="xSz-D8-gGh" secondAttribute="trailing" id="Idw-pc-1qf"/>
-                            <constraint firstAttribute="trailing" secondItem="ZMU-PN-92B" secondAttribute="trailing" constant="12" id="KMu-Fi-7mP"/>
+                            <constraint firstAttribute="trailing" secondItem="ZMU-PN-92B" secondAttribute="centerX" constant="32" id="KMu-Fi-7mP"/>
                             <constraint firstItem="yvc-YA-N0s" firstAttribute="leading" secondItem="0vG-9e-bEV" secondAttribute="leading" id="KQz-Du-fK3"/>
                             <constraint firstItem="fyT-eh-ZVg" firstAttribute="leading" secondItem="0vG-9e-bEV" secondAttribute="leading" id="O81-gZ-C9r"/>
+                            <constraint firstItem="Vje-6V-eph" firstAttribute="centerX" secondItem="0vG-9e-bEV" secondAttribute="leading" constant="32" id="SvZ-FI-W1f"/>
                             <constraint firstItem="yvc-YA-N0s" firstAttribute="top" secondItem="X4f-kV-i8E" secondAttribute="bottom" id="USZ-VU-baT"/>
-                            <constraint firstItem="ZMU-PN-92B" firstAttribute="top" secondItem="fyT-eh-ZVg" secondAttribute="bottom" constant="-80" id="VBt-gG-qG1"/>
+                            <constraint firstItem="ZMU-PN-92B" firstAttribute="bottom" secondItem="fyT-eh-ZVg" secondAttribute="bottom" constant="-1" id="VBt-gG-qG1"/>
                             <constraint firstItem="9Uo-af-j6e" firstAttribute="centerX" secondItem="0vG-9e-bEV" secondAttribute="centerX" id="Yhb-p6-4Sa"/>
                             <constraint firstItem="Thq-yu-WlE" firstAttribute="top" secondItem="3H5-TD-e0R" secondAttribute="bottom" constant="-380" id="aF2-KW-46M"/>
                             <constraint firstItem="cAE-2O-e9P" firstAttribute="top" secondItem="h7i-yJ-6av" secondAttribute="bottom" constant="-23" id="bUt-ju-KW3"/>
@@ -565,7 +566,7 @@ km/h</string>
                             <constraint firstItem="X4f-kV-i8E" firstAttribute="leading" secondItem="0vG-9e-bEV" secondAttribute="leading" id="eFg-S5-h56"/>
                             <constraint firstItem="Xcr-bj-X2t" firstAttribute="top" secondItem="xSz-D8-gGh" secondAttribute="bottom" id="iuV-0i-1FL"/>
                             <constraint firstItem="Thq-yu-WlE" firstAttribute="centerX" secondItem="h7i-yJ-6av" secondAttribute="centerX" id="oGp-Nt-DFo"/>
-                            <constraint firstItem="Vje-6V-eph" firstAttribute="top" secondItem="h7i-yJ-6av" secondAttribute="top" constant="-80" id="oym-Co-8RG"/>
+                            <constraint firstItem="Vje-6V-eph" firstAttribute="bottom" secondItem="h7i-yJ-6av" secondAttribute="top" constant="-1" id="oym-Co-8RG"/>
                             <constraint firstAttribute="trailing" secondItem="yvc-YA-N0s" secondAttribute="trailing" id="wfh-qg-7tF"/>
                             <constraint firstAttribute="trailing" secondItem="X4f-kV-i8E" secondAttribute="trailing" id="zIk-KQ-J7d"/>
                         </constraints>
@@ -1203,25 +1204,25 @@ km/h</string>
                         <viewControllerLayoutGuide type="bottom" id="Kwe-IC-BBy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1E2-WQ-m2x">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1oZ-GQ-vhK">
-                                <rect key="frame" x="0.0" y="64" width="375" height="672"/>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1oZ-GQ-vhK">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="R0X-K7-BIg">
-                                    <rect key="frame" x="0.0" y="88" width="375" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="152" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="comment" id="D9F-HL-TIE">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="92" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9F-HL-TIE" id="25v-Ej-3Zj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="310" contentMode="scaleToFill" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="fTz-Fi-1gd">
@@ -1244,7 +1245,7 @@ km/h</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="313" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="内容内容内容内容内容内" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-YU-WD3">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="313" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容内容内容内容内容内" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-YU-WD3">
                                                     <rect key="frame" x="24" y="24" width="386" height="31"/>
                                                     <animations/>
                                                     <constraints>
@@ -1254,7 +1255,7 @@ km/h</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="312" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-08-27 15:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-oz-3rB">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="312" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-08-27 15:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-oz-3rB">
                                                     <rect key="frame" x="322" y="7" width="88" height="12"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -1280,11 +1281,11 @@ km/h</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M0r-UI-E0E">
-                                <rect key="frame" x="0.0" y="64" width="375" height="672"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0r-UI-E0E">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="暂无跟帖" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N80-cC-kd9">
-                                        <rect key="frame" x="163" y="329" width="48" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无跟帖" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N80-cC-kd9">
+                                        <rect key="frame" x="183" y="329" width="48" height="14.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1470,8 +1471,8 @@ km/h</string>
         </scene>
     </scenes>
     <resources>
-        <image name="ad_AFE" width="34" height="24"/>
-        <image name="ad_AP_RACING" width="33" height="24"/>
+        <image name="ad_AFE" width="35" height="22"/>
+        <image name="ad_AP_RACING" width="30" height="22"/>
         <image name="avatar" width="87" height="87"/>
         <image name="btn_add_player" width="47" height="47"/>
         <image name="btn_playback" width="27" height="27"/>
@@ -1493,6 +1494,6 @@ km/h</string>
         <image name="上海国际赛车场" width="375" height="186"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="N7T-e4-BOs"/>
+        <segue reference="SOV-J0-oR9"/>
     </inferredMetricsTieBreakers>
 </document>

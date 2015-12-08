@@ -27,6 +27,12 @@ class MapTrackViewController: UIViewController {
         trackAddressButton.setTitle(raceTrack?.address ?? "", forState: .Normal)
         closeButton.rx_tap.subscribeNext {
             self.dismissPopupViewController(animated: true)
+            if let parent = self.parentViewController as? PopupViewController {
+                if let sender = parent.sender as? MapViewController {
+                    sender.mapView.centerCoordinate = sender.centerCoordinate
+                    sender.mapView.setZoomLevel(sender.zoomLevel, animated: true)
+                }
+            }
         }.addDisposableTo(disposeBag)
         gotoTrackButton.rx_tap.subscribeNext {
             if self.raceTrack?.isDeveloped ?? false {
