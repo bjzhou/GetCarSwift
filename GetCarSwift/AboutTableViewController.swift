@@ -28,8 +28,6 @@ class AboutTableViewController: UITableViewController {
         }
         let y = self.tableView.contentOffset.y
         self.tableView.backgroundView?.frame = CGRect(x: 0, y: backgroundViewY! + y, width: self.view.frame.width, height: self.view.frame.height - backgroundViewY!)
-
-        print(self.tableView.backgroundView?.frame)
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -40,6 +38,7 @@ class AboutTableViewController: UITableViewController {
 
         if indexPath.row == 1 {
             UIApplication.sharedApplication().openURL(NSURL(string: appStoreUrl)!)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
 }

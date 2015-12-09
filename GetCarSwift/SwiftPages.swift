@@ -58,8 +58,13 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     public func enableBarShadow(boolValue: Bool) { barShadow = boolValue}
     public func getPageViewController(index: Int) -> UIViewController? { return pageViews[index] }
 
-    override public func drawRect(rect: CGRect) {
-        containerView?.removeFromSuperview()
+    public override func drawRect(rect: CGRect) {
+        if containerView == nil {
+            initSubViews()
+        }
+    }
+
+    func initSubViews() {
 
         //Size Of The Container View
         let pagesContainerHeight = self.frame.height - yOrigin - distanceToBottom
