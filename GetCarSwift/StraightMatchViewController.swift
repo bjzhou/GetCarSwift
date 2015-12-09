@@ -179,49 +179,34 @@ class StraightMatchViewController: UIViewController {
         } else {
             if !sender.selected {
                 // pause
-                pauseLayer(button1.superview!.layer)
-                pauseLayer(button2.superview!.layer)
-                pauseLayer(button3.superview!.layer)
-                pauseLayer(finishLine.layer)
+                button1.superview!.layer.pauseAnimation()
+                button2.superview!.layer.pauseAnimation()
+                button3.superview!.layer.pauseAnimation()
+                finishLine.layer.pauseAnimation()
 
                 if let _ = leftAdImg.layer.animationForKey("ad") {
-                    pauseLayer(leftAdImg.layer)
+                    leftAdImg.layer.pauseAnimation()
                 }
 
                 if let _ = rightAdImg.layer.animationForKey("ad") {
-                    pauseLayer(rightAdImg.layer)
+                    rightAdImg.layer.pauseAnimation()
                 }
             } else {
                 // resume
-                resumeLayer(button1.superview!.layer)
-                resumeLayer(button2.superview!.layer)
-                resumeLayer(button3.superview!.layer)
-                resumeLayer(finishLine.layer)
+                button1.superview!.layer.resumeAnimation()
+                button2.superview!.layer.resumeAnimation()
+                button3.superview!.layer.resumeAnimation()
+                finishLine.layer.resumeAnimation()
 
                 if let _ = leftAdImg.layer.animationForKey("ad") where leftAdImg.layer.speed == 0 {
-                    resumeLayer(leftAdImg.layer)
+                    leftAdImg.layer.resumeAnimation()
                 }
 
                 if let _ = rightAdImg.layer.animationForKey("ad") where rightAdImg.layer.speed == 0 {
-                    resumeLayer(rightAdImg.layer)
+                    rightAdImg.layer.resumeAnimation()
                 }
             }
         }
-    }
-
-    func pauseLayer(layer: CALayer) {
-        let pausedTime = layer.convertTime(CACurrentMediaTime(), fromLayer: nil)
-        layer.speed = 0
-        layer.timeOffset = pausedTime
-    }
-
-    func resumeLayer(layer: CALayer) {
-        let pausedTime = layer.timeOffset
-        layer.speed = 1
-        layer.timeOffset = 0
-        layer.beginTime = 0
-        let timeSincePause = layer.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTime
-        layer.beginTime = timeSincePause
     }
 
     func startAnim(button: UIButton, score: RmScore?) {
@@ -341,7 +326,6 @@ class StraightMatchViewController: UIViewController {
 
 extension StraightMatchViewController: AddPlayerDelegate {
     func didPlayerAdded(score: RmScore, sender: UIButton?) {
-
         vTitleLabel.text = "0~60\nkm/h"
         aTitleLabel.text = "0~100\nkm/h"
 

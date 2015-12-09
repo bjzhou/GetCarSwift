@@ -13,8 +13,9 @@ class RmRaceTrack: Object {
     dynamic var id = 0
     dynamic var name = ""
     dynamic var mapCenter: RmLocation?
-    dynamic var mapZoom = 0.0
+    dynamic var mapZoom: CGFloat = 0.0
     dynamic var address = ""
+    dynamic var mapDegree: CGFloat = 0.0
     dynamic var introduce = ""
     dynamic var star = "star3"
     dynamic var sightView = ""

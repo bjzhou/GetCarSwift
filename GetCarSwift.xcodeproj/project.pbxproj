@@ -15,6 +15,7 @@
 		8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEBDB2B8219B464510356E /* ModViewController.swift */; };
 		8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */; };
 		98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA7E7F32B82B982261BC1FB /* Pods.framework */; };
+		C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C803EE3C1C18299C00425E04 /* CALayer+GK.swift */; };
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
 		C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B361BB672780017D7E3 /* gkbox.storyboard */; };
@@ -132,6 +133,7 @@
 		8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModDoctorViewController.swift; sourceTree = "<group>"; };
 		8BDEBDB2B8219B464510356E /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
 		AF89B3959372DB5712543292 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C803EE3C1C18299C00425E04 /* CALayer+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+GK.swift"; sourceTree = "<group>"; };
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
 		C80B6B361BB672780017D7E3 /* gkbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = gkbox.storyboard; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				C8D6CAE51B8F511700A417CF /* UIViewController+GK.swift */,
 				C8D88FEB1BF5B67800792F3E /* Realm+GK.swift */,
 				C8A6B4A11C1580D700D2B217 /* UITableViewController+GK.swift */,
+				C803EE3C1C18299C00425E04 /* CALayer+GK.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C8AEC2131B996F41002F39EB /* NSAttributedString+GK.swift in Sources */,
+				C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */,
 				C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */,
 				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
 				C8F2BD801BE074CB00424EEA /* ENSideMenuNavigationController.swift in Sources */,

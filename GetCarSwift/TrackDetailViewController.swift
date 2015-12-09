@@ -50,6 +50,7 @@ class TrackDetailViewController: UIViewController {
     var annotation3: MAPointAnnotation?
 
     var timerDisposable: Disposable?
+    var timerOffset: Int64 = 0
 
     var danmuEffect: DanmuEffect?
 
@@ -72,12 +73,15 @@ class TrackDetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, forBarMetrics: .Default)
 
         mapView.showsCompass = false
-        mapView.zoomEnabled = false
+        mapView.zoomEnabled = true
         mapView.scrollEnabled = false
+        mapView.showsLabels = false
+        mapView.skyModelEnable = false
         mapView.delegate = self
         if let raceTrack = trackDetailViewModel.raceTrack {
             if let mapCenter = raceTrack.mapCenter {
-                mapView.zoomLevel = CGFloat(raceTrack.mapZoom)
+                mapView.zoomLevel = raceTrack.mapZoom
+                //mapView.rotationDegree = raceTrack.mapDegree
                 mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
             }
         }
@@ -133,15 +137,23 @@ class TrackDetailViewController: UIViewController {
 
     @IBAction func didStart(sender: UIButton) {
         sender.selected = !sender.selected
-        timerDisposable?.dispose()
-        if sender.selected {
+        if self.timerOffset == 0 {
+            timerDisposable?.dispose()
             let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
-            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
-                let curTs = self.time2String(Double(t)/100)
+            mapView.zoomEnabled = false
+            mapView.rotateEnabled = false
+            mapView.rotateCameraEnabled = false
+            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { _ in
+                if !sender.selected {
+                    return
+                }
+
+                self.timerOffset++
+                let curTs = self.time2String(Double(self.timerOffset)/100)
                 self.timeLabel.text = curTs
 
                 if let score = self.score1 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.data.filter { $0.t == Double(self.timerOffset)/100 }
                     if let data = datas.first {
                         self.vLabel1.text = String(format: "%05.1f", data.v)
                         self.aLabel1.text = String(format: "%.1f", data.a)
@@ -149,7 +161,7 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if let score = self.score2 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.data.filter { $0.t == Double(self.timerOffset)/100 }
                     if let data = datas.first {
                         self.vLabel2.text = String(format: "%05.1f", data.v)
                         self.aLabel2.text = String(format: "%.1f", data.a)
@@ -157,21 +169,37 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 if let score = self.score3 {
-                    let datas = score.data.filter { $0.t == Double(t)/100 }
+                    let datas = score.data.filter { $0.t == Double(self.timerOffset)/100 }
                     if let data = datas.first {
                         self.vLabel3.text = String(format: "%05.1f", data.v)
                         self.aLabel3.text = String(format: "%.1f", data.a)
                     }
                 }
 
-                if Double(t)/100 >= stopTime {
+                if Double(self.timerOffset)/100 >= stopTime {
                     self.timerDisposable?.dispose()
                     sender.selected = !sender.selected
+                    self.timerOffset = 0
+                    self.mapView.zoomEnabled = true
+                    self.mapView.rotateEnabled = true
+                    self.mapView.rotateCameraEnabled = true
                 }
             }
             startAnim(annotation1, score: score1)
             startAnim(annotation2, score: score2)
             startAnim(annotation3, score: score3)
+        } else {
+            if !sender.selected {
+                // pause
+                mapView.viewForAnnotation(annotation1).layer.pauseAnimation()
+                mapView.viewForAnnotation(annotation2).layer.pauseAnimation()
+                mapView.viewForAnnotation(annotation3).layer.pauseAnimation()
+            } else {
+                // resume
+                mapView.viewForAnnotation(annotation1).layer.resumeAnimation()
+                mapView.viewForAnnotation(annotation2).layer.resumeAnimation()
+                mapView.viewForAnnotation(annotation3).layer.resumeAnimation()
+            }
         }
     }
 
@@ -289,5 +317,17 @@ extension TrackDetailViewController: AddPlayerDelegate {
 extension TrackDetailViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
         self.view.endEditing(true)
+    }
+
+    func mapView(mapView: MAMapView!, regionDidChangeAnimated animated: Bool) {
+        delay(0.1) { // avoid crash when double tap mapview
+            if mapView.zoomLevel < 16 {
+                mapView.zoomLevel = 16
+            }
+
+            if mapView.zoomLevel > 17 {
+                mapView.zoomLevel = 17
+            }
+        }
     }
 }

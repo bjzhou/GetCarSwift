@@ -95,7 +95,7 @@ extension MapViewController: MAMapViewDelegate {
             mapView.deselectAnnotation(annotation, animated: true)
 
             mapView.centerCoordinate = annotation.coordinate
-            mapView.setZoomLevel(CGFloat(annotation.raceTrack.mapZoom), animated: true)
+            mapView.setZoomLevel(annotation.raceTrack.mapZoom, animated: true)
 
             let mapAlertVC = R.storyboard.gkbox.map_alert
             mapAlertVC?.raceTrack = annotation.raceTrack

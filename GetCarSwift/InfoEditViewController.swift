@@ -63,9 +63,9 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
                 return
             }
             Mine.sharedInstance.nickname = nickname
-            _ = User.updateInfo(nickname: nickname).subscribeNext { user in
-                if let nickname = user.data?.nickname {
-                    Mine.sharedInstance.nickname = nickname
+            _ = User.updateInfo(nickname: nickname).subscribeNext { res in
+                if let user = res.data {
+                    Mine.sharedInstance.updateLogin(user)
                 }
             }
         default:
@@ -124,9 +124,9 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         switch mode {
         case .Sex:
             Mine.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
-            _ = User.updateInfo(sex: indexPath.row == 1 ? 0 : 1).subscribeNext { user in
-                if let sex = user.data?.sex {
-                    Mine.sharedInstance.sex = sex
+            _ = User.updateInfo(sex: indexPath.row == 1 ? 0 : 1).subscribeNext { res in
+                if let user = res.data {
+                    Mine.sharedInstance.updateLogin(user)
                 }
             }
             tableView.reloadData()

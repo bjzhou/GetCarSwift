@@ -36,3 +36,8 @@ func async(bgThread: () -> Void) {
 func mainThread(main: () -> Void) {
     dispatch_async(dispatch_get_main_queue(), main)
 }
+
+func delay(timeInterval: NSTimeInterval, block: dispatch_block_t) {
+    let when = dispatch_time(DISPATCH_TIME_NOW, Int64(timeInterval * Double(NSEC_PER_SEC)))
+    dispatch_after(when, dispatch_get_main_queue(), block)
+}

@@ -89,7 +89,7 @@ class DataViewController: UIViewController {
             if let loc = DeviceDataService.sharedInstance.rxLocation.value {
                 let a = acces.averageA()
                 self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
-                if self.ready && (loc.speed > 0 || a >= 0.3) {
+                if self.ready && (loc.speed > 0 || a >= 0.3) && loc.horizontalAccuracy < 65 {
                     self.startLoc = loc
                     self.startTimer()
                 }
