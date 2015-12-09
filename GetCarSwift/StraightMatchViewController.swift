@@ -22,6 +22,9 @@ class StraightMatchViewController: UIViewController {
     @IBOutlet weak var titleLabel2: UILabel!
     @IBOutlet weak var titleLabel3: UILabel!
 
+    @IBOutlet weak var vTitleLabel: UILabel!
+    @IBOutlet weak var aTitleLabel: UILabel!
+
     @IBOutlet weak var vLabel1: UILabel!
     @IBOutlet weak var vLabel2: UILabel!
     @IBOutlet weak var vLabel3: UILabel!
@@ -52,6 +55,8 @@ class StraightMatchViewController: UIViewController {
 
     var trackDetailViewModel = TrackDetailViewModel()
     var danmuEffect: DanmuEffect?
+
+    var timerOffset: Int64 = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,20 +124,51 @@ class StraightMatchViewController: UIViewController {
 
     @IBAction func didStart(sender: UIButton) {
         sender.selected = !sender.selected
-        timerDisposable?.dispose()
-        stopAnim()
-        if sender.selected {
-            let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
-            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { (t: Int64) in
-                let curTs = self.time2String(Double(t)/100)
+        let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
+
+        if timerOffset == 0 {
+            self.timerDisposable?.dispose()
+            self.stopAnim()
+            vTitleLabel.text = "速度\nkm/h"
+            aTitleLabel.text = "加速度\nm/s^2"
+            vLabel1.text = "--"
+            vLabel2.text = "--"
+            vLabel3.text = "--"
+            aLabel1.text = "--"
+            aLabel2.text = "--"
+            aLabel3.text = "--"
+
+            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { _ in
+                if !sender.selected {
+                    return
+                }
+
+                self.timerOffset++
+                let curTs = self.time2String(Double(self.timerOffset)/100)
                 self.timeLabel.text = curTs
 
-                self.showRandomAd(t)
+                if let data = (self.score1?.data.filter { $0.t == Double(self.timerOffset)/100 })?.first {
+                    self.vLabel1.text = String(format: "%05.1f", data.v)
+                    self.aLabel1.text = String(format: "%.1f", data.a)
+                }
 
-                if Double(t)/100 >= stopTime {
+                if let data = (self.score2?.data.filter { $0.t == Double(self.timerOffset)/100 })?.first {
+                    self.vLabel2.text = String(format: "%05.1f", data.v)
+                    self.aLabel2.text = String(format: "%.1f", data.a)
+                }
+
+                if let data = (self.score3?.data.filter { $0.t == Double(self.timerOffset)/100 })?.first {
+                    self.vLabel3.text = String(format: "%05.1f", data.v)
+                    self.aLabel3.text = String(format: "%.1f", data.a)
+                }
+
+                self.showRandomAd(self.timerOffset)
+
+                if Double(self.timerOffset)/100 >= stopTime {
                     self.timerDisposable?.dispose()
                     sender.selected = !sender.selected
                     self.stopAnim()
+                    self.timerOffset = 0
                 }
             }
             raceBg.image = R.image.race_bg_starting
@@ -140,7 +176,52 @@ class StraightMatchViewController: UIViewController {
             startAnim(button2, score: score2)
             startAnim(button3, score: score3)
             startFinishLineAnim()
+        } else {
+            if !sender.selected {
+                // pause
+                pauseLayer(button1.superview!.layer)
+                pauseLayer(button2.superview!.layer)
+                pauseLayer(button3.superview!.layer)
+                pauseLayer(finishLine.layer)
+
+                if let _ = leftAdImg.layer.animationForKey("ad") {
+                    pauseLayer(leftAdImg.layer)
+                }
+
+                if let _ = rightAdImg.layer.animationForKey("ad") {
+                    pauseLayer(rightAdImg.layer)
+                }
+            } else {
+                // resume
+                resumeLayer(button1.superview!.layer)
+                resumeLayer(button2.superview!.layer)
+                resumeLayer(button3.superview!.layer)
+                resumeLayer(finishLine.layer)
+
+                if let _ = leftAdImg.layer.animationForKey("ad") where leftAdImg.layer.speed == 0 {
+                    resumeLayer(leftAdImg.layer)
+                }
+
+                if let _ = rightAdImg.layer.animationForKey("ad") where rightAdImg.layer.speed == 0 {
+                    resumeLayer(rightAdImg.layer)
+                }
+            }
         }
+    }
+
+    func pauseLayer(layer: CALayer) {
+        let pausedTime = layer.convertTime(CACurrentMediaTime(), fromLayer: nil)
+        layer.speed = 0
+        layer.timeOffset = pausedTime
+    }
+
+    func resumeLayer(layer: CALayer) {
+        let pausedTime = layer.timeOffset
+        layer.speed = 1
+        layer.timeOffset = 0
+        layer.beginTime = 0
+        let timeSincePause = layer.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTime
+        layer.beginTime = timeSincePause
     }
 
     func startAnim(button: UIButton, score: RmScore?) {
@@ -260,6 +341,10 @@ class StraightMatchViewController: UIViewController {
 
 extension StraightMatchViewController: AddPlayerDelegate {
     func didPlayerAdded(score: RmScore, sender: UIButton?) {
+
+        vTitleLabel.text = "0~60\nkm/h"
+        aTitleLabel.text = "0~100\nkm/h"
+
         var url = String(score.headUrl)
         var nickname = String(score.nickname)
         if url == "" {

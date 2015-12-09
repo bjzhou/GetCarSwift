@@ -586,6 +586,7 @@ km/h</string>
                         <outlet property="aLabel1" destination="Ynd-GL-mPc" id="jbG-ll-WRy"/>
                         <outlet property="aLabel2" destination="Ush-3K-ofi" id="ga9-8M-lUl"/>
                         <outlet property="aLabel3" destination="aLK-wO-YOG" id="Dpp-dM-5bd"/>
+                        <outlet property="aTitleLabel" destination="Aee-TT-i5B" id="Fgd-Cq-bwf"/>
                         <outlet property="button1" destination="zHf-QN-DkW" id="y4Q-si-DHs"/>
                         <outlet property="button2" destination="KiI-od-lIf" id="m8D-ft-NHo"/>
                         <outlet property="button3" destination="QsA-se-F1F" id="IMR-ue-AOS"/>
@@ -604,6 +605,7 @@ km/h</string>
                         <outlet property="vLabel1" destination="COG-OO-CJc" id="Eek-O0-fsq"/>
                         <outlet property="vLabel2" destination="YzY-dL-k6A" id="kQs-5F-Yee"/>
                         <outlet property="vLabel3" destination="awV-bR-sFk" id="l0X-Fj-xrq"/>
+                        <outlet property="vTitleLabel" destination="5gZ-3h-5Yz" id="bT2-Cc-nI4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ws-4f-G1D" userLabel="First Responder" sceneMemberID="firstResponder"/>
