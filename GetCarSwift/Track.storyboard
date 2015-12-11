@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zLr-g8-HS4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zLr-g8-HS4">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -32,50 +32,41 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" image="race_bg" translatesAutoresizingMaskIntoConstraints="NO" id="h7i-yJ-6av">
                                 <rect key="frame" x="0.0" y="112" width="414" height="410"/>
-                                <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="finish_line" translatesAutoresizingMaskIntoConstraints="NO" id="Thq-yu-WlE">
                                 <rect key="frame" x="99" y="-268" width="216" height="10"/>
-                                <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ad_AFE" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-6V-eph">
                                 <rect key="frame" x="14.5" y="89" width="35" height="22"/>
-                                <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ad_AP_RACING" translatesAutoresizingMaskIntoConstraints="NO" id="ZMU-PN-92B">
                                 <rect key="frame" x="367" y="89" width="30" height="22"/>
-                                <animations/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4f-kV-i8E">
                                 <rect key="frame" x="0.0" y="520" width="414" height="54"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="time_mask" translatesAutoresizingMaskIntoConstraints="NO" id="x4M-rZ-YGy">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
-                                        <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaP-de-aWN">
                                         <rect key="frame" x="117" y="34" width="30" height="12"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMC-N4-9rd">
                                         <rect key="frame" x="192" y="34" width="30" height="12"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izR-8w-aVi">
                                         <rect key="frame" x="267" y="34" width="30" height="12"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="x4M-rZ-YGy" firstAttribute="top" secondItem="X4f-kV-i8E" secondAttribute="top" id="HqZ-sg-Chs"/>
@@ -93,7 +84,6 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHf-QN-DkW">
                                         <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="2jH-EF-D9d"/>
                                             <constraint firstAttribute="width" constant="47" id="hQE-29-fR8"/>
@@ -104,7 +94,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="zHf-QN-DkW" secondAttribute="bottom" id="8y9-KN-fjE"/>
@@ -129,7 +118,6 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiI-od-lIf">
                                         <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="XtM-SH-Un8"/>
                                             <constraint firstAttribute="width" constant="47" id="vEa-GU-yDz"/>
@@ -140,7 +128,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="KiI-od-lIf" firstAttribute="leading" secondItem="9Uo-af-j6e" secondAttribute="leading" id="MSj-G5-ixb"/>
@@ -165,7 +152,6 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QsA-se-F1F">
                                         <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="FOw-6t-sP5"/>
                                             <constraint firstAttribute="width" constant="47" id="prr-om-aSO"/>
@@ -176,7 +162,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QsA-se-F1F" firstAttribute="top" secondItem="kp4-wX-Emf" secondAttribute="top" id="9L5-qI-Wog"/>
@@ -201,18 +186,15 @@
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="time_bg" translatesAutoresizingMaskIntoConstraints="NO" id="3H5-TD-e0R">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                                        <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkD-sK-PlG">
                                         <rect key="frame" x="144" y="6" width="124.5" height="36"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="36"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mpi-Ak-HFs">
                                         <rect key="frame" x="285" y="11" width="27" height="27"/>
-                                        <animations/>
                                         <state key="normal" backgroundImage="btn_playback"/>
                                         <state key="selected" backgroundImage="btn_stop"/>
                                         <connections>
@@ -220,7 +202,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Mpi-Ak-HFs" firstAttribute="leading" secondItem="GkD-sK-PlG" secondAttribute="trailing" constant="16" id="1fI-5M-62a"/>
@@ -241,11 +222,9 @@
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="data_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="qPT-sI-Eox">
                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gZ-3h-5Yz">
                                                 <rect key="frame" x="8" y="7" width="40" height="40"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Oln-5Y-HEM"/>
                                                     <constraint firstAttribute="width" constant="40" id="ejO-iv-zcB"/>
@@ -257,7 +236,6 @@ km/h</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="5gZ-3h-5Yz" firstAttribute="centerX" secondItem="szA-Vf-Kmq" secondAttribute="centerX" id="7d7-uA-ZUZ"/>
@@ -274,17 +252,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="UuR-0F-AZN">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COG-OO-CJc">
                                                 <rect key="frame" x="21" y="18" width="69.5" height="20"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="UuR-0F-AZN" secondAttribute="bottom" id="4Zh-fm-YFZ"/>
@@ -300,17 +275,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="HN7-gq-ezl">
                                                 <rect key="frame" x="0.0" y="0.0" width="113" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YzY-dL-k6A">
                                                 <rect key="frame" x="22" y="18" width="69.5" height="20"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="HN7-gq-ezl" secondAttribute="trailing" id="8MV-FG-0Q4"/>
@@ -326,17 +298,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="h8o-W6-M1I">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awV-bR-sFk">
                                                 <rect key="frame" x="21" y="18" width="69.5" height="20"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="h8o-W6-M1I" secondAttribute="trailing" id="Q8P-jj-ELh"/>
@@ -352,11 +321,9 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="data_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-tj-TWw">
                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aee-TT-i5B">
                                                 <rect key="frame" x="8" y="7" width="40" height="40"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="hkI-2C-AdT"/>
                                                     <constraint firstAttribute="height" constant="40" id="und-LL-wmB"/>
@@ -368,7 +335,6 @@ km/h</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="56" id="BjT-kn-xig"/>
@@ -385,17 +351,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="cYG-md-77b">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ynd-GL-mPc">
                                                 <rect key="frame" x="21" y="18" width="69.5" height="20"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Ynd-GL-mPc" firstAttribute="centerX" secondItem="39V-Ij-33x" secondAttribute="centerX" id="AkN-q8-khH"/>
@@ -411,17 +374,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="55S-QN-eQt">
                                                 <rect key="frame" x="0.0" y="0.0" width="113" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ush-3K-ofi">
                                                 <rect key="frame" x="22" y="18" width="69.5" height="20"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="55S-QN-eQt" secondAttribute="bottom" id="Mxv-Me-uvr"/>
@@ -437,17 +397,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-iV-Rg7">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLK-wO-YOG">
                                                 <rect key="frame" x="21" y="18" width="69.5" height="20"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="KaS-iV-Rg7" firstAttribute="leading" secondItem="eHP-EZ-WxU" secondAttribute="leading" id="2xj-Ya-gZN"/>
@@ -459,7 +416,6 @@ km/h</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="05Q-Of-tR0" firstAttribute="centerY" secondItem="UuR-0F-AZN" secondAttribute="centerY" id="2VQ-lG-HC7"/>
@@ -500,11 +456,9 @@ km/h</string>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="comment_area" translatesAutoresizingMaskIntoConstraints="NO" id="vDK-qt-tYK">
                                         <rect key="frame" x="8" y="9" width="333" height="27"/>
-                                        <animations/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t70-A0-LrA">
                                         <rect key="frame" x="349" y="9" width="57" height="27"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="发表" backgroundImage="btn_post"/>
                                         <state key="highlighted" backgroundImage="btn_post_pressed"/>
@@ -514,12 +468,10 @@ km/h</string>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入评论内容" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xAa-rg-K36">
                                         <rect key="frame" x="10" y="8" width="329" height="28"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="t70-A0-LrA" secondAttribute="trailing" constant="8" id="5GQ-z0-w4D"/>
@@ -535,7 +487,6 @@ km/h</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fyT-eh-ZVg" secondAttribute="trailing" id="3mC-Zq-A2f"/>
@@ -626,47 +577,39 @@ km/h</string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgJ-DC-2rV" customClass="MAMapView">
                                 <rect key="frame" x="0.0" y="48" width="375" height="339"/>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="translucent_line" translatesAutoresizingMaskIntoConstraints="NO" id="u7a-e6-odl">
                                 <rect key="frame" x="0.0" y="48" width="375" height="4"/>
-                                <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="translucent_line" translatesAutoresizingMaskIntoConstraints="NO" id="ksY-7N-GA4">
                                 <rect key="frame" x="0.0" y="383" width="375" height="4"/>
-                                <animations/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sW3-jV-y9H">
                                 <rect key="frame" x="0.0" y="387" width="375" height="54"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="time_mask" translatesAutoresizingMaskIntoConstraints="NO" id="VQ0-qN-D8y">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
-                                        <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2y4-as-Bm1">
                                         <rect key="frame" x="97" y="34" width="30" height="12"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sI-vh-Zuk">
                                         <rect key="frame" x="172" y="34" width="30" height="12"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UN-J9-JC1">
                                         <rect key="frame" x="247" y="34" width="30" height="12"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="VQ0-qN-D8y" firstAttribute="leading" secondItem="sW3-jV-y9H" secondAttribute="leading" id="GJP-Yg-SKx"/>
@@ -684,7 +627,6 @@ km/h</string>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1jG-xF-CZ9">
                                         <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="47" id="I9E-ra-ugq"/>
                                             <constraint firstAttribute="height" constant="47" id="VDO-wk-Qmv"/>
@@ -696,7 +638,6 @@ km/h</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="1jG-xF-CZ9" secondAttribute="trailing" id="1kP-Bt-eu6"/>
@@ -724,11 +665,9 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="data_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="gEC-KT-1nf">
                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="速度(km/h)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8x-OU-nac">
                                                 <rect key="frame" x="8" y="7" width="40" height="40"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="W9h-Af-aP1"/>
                                                     <constraint firstAttribute="width" constant="40" id="hkB-nc-lsc"/>
@@ -738,7 +677,6 @@ km/h</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="t8x-OU-nac" firstAttribute="centerY" secondItem="SzR-6T-12F" secondAttribute="centerY" id="8BY-QX-xYE"/>
@@ -755,17 +693,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="Ldn-ch-bKw">
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSB-Je-pcP">
                                                 <rect key="frame" x="35" y="16" width="30.5" height="24"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Ldn-ch-bKw" firstAttribute="leading" secondItem="7I6-Fk-EYw" secondAttribute="leading" id="XFF-rn-aRh"/>
@@ -781,17 +716,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="50N-f9-aZe">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHX-ce-lXw">
                                                 <rect key="frame" x="35.5" y="16" width="30.5" height="24"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="WHX-ce-lXw" firstAttribute="centerY" secondItem="AsD-7r-fio" secondAttribute="centerY" id="6hs-Cm-WQr"/>
@@ -807,17 +739,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="Kge-6L-rXM">
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqh-jF-JD2">
                                                 <rect key="frame" x="35" y="16" width="30.5" height="24"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="vqh-jF-JD2" firstAttribute="centerY" secondItem="d9R-VS-exv" secondAttribute="centerY" id="Le0-hH-xky"/>
@@ -833,11 +762,9 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="data_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="k2G-g5-IiC">
                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加速度(N/kg)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbY-ER-kTw">
                                                 <rect key="frame" x="8" y="7" width="40" height="40"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="37U-WL-Fbw"/>
                                                     <constraint firstAttribute="height" constant="40" id="94O-Mz-uIp"/>
@@ -847,7 +774,6 @@ km/h</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="k2G-g5-IiC" secondAttribute="trailing" id="6db-Jg-hGh"/>
@@ -864,17 +790,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="Mh1-MU-jzG">
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVa-sy-Q5k">
                                                 <rect key="frame" x="35" y="16" width="30.5" height="24"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="oVa-sy-Q5k" firstAttribute="centerX" secondItem="xoT-P1-efh" secondAttribute="centerX" id="7j7-7F-1E4"/>
@@ -890,17 +813,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="oaG-TS-v7R">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad9-SR-atN">
                                                 <rect key="frame" x="35.5" y="16" width="30.5" height="24"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="ad9-SR-atN" firstAttribute="centerY" secondItem="nmU-IU-4Os" secondAttribute="centerY" id="0Mr-rG-15K"/>
@@ -916,17 +836,14 @@ km/h</string>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="data_area_black" translatesAutoresizingMaskIntoConstraints="NO" id="s7n-mQ-dQY">
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="55"/>
-                                                <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-67-IxN">
                                                 <rect key="frame" x="35" y="16" width="30.5" height="24"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="xvo-67-IxN" firstAttribute="centerX" secondItem="qT0-Gj-Sic" secondAttribute="centerX" id="Cca-Dc-d0h"/>
@@ -938,7 +855,6 @@ km/h</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="AsD-7r-fio" firstAttribute="height" secondItem="7I6-Fk-EYw" secondAttribute="height" id="0Gc-md-WkR"/>
@@ -979,7 +895,6 @@ km/h</string>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-y4-tPR">
                                         <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="47" id="7Hi-vV-V6E"/>
                                             <constraint firstAttribute="height" constant="47" id="RwV-un-ggp"/>
@@ -991,7 +906,6 @@ km/h</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="9lc-y4-tPR" firstAttribute="leading" secondItem="5Pn-P9-isG" secondAttribute="leading" id="Ep5-y1-M6A"/>
@@ -1016,7 +930,6 @@ km/h</string>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZe-qv-zy0">
                                         <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="4JQ-9W-dZn"/>
                                             <constraint firstAttribute="width" constant="47" id="jSE-Qt-yeq"/>
@@ -1028,7 +941,6 @@ km/h</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="DZe-qv-zy0" firstAttribute="leading" secondItem="JBw-i8-Pgn" secondAttribute="leading" id="3Gb-b7-LDc"/>
@@ -1053,18 +965,15 @@ km/h</string>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="time_bg" translatesAutoresizingMaskIntoConstraints="NO" id="h4O-zI-a7z">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
-                                        <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWy-iy-9F4">
                                         <rect key="frame" x="125.5" y="6" width="124.5" height="36"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" name="LetsgoDigital-Regular" family="Let's go Digital" pointSize="36"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sF-TP-qOR">
                                         <rect key="frame" x="266" y="11" width="27" height="27"/>
-                                        <animations/>
                                         <state key="normal" backgroundImage="btn_playback"/>
                                         <state key="selected" backgroundImage="btn_stop"/>
                                         <connections>
@@ -1072,7 +981,6 @@ km/h</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="h4O-zI-a7z" secondAttribute="trailing" id="14c-Ag-sUc"/>
@@ -1090,17 +998,14 @@ km/h</string>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="comment_area" translatesAutoresizingMaskIntoConstraints="NO" id="CQn-VX-UOo">
                                         <rect key="frame" x="8" y="9" width="294" height="27"/>
-                                        <animations/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入评论内容" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-b7-dNV">
                                         <rect key="frame" x="10" y="8" width="290" height="28"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lb8-bq-E5H">
                                         <rect key="frame" x="310" y="9" width="57" height="27"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="发表" backgroundImage="btn_post"/>
                                         <state key="highlighted" backgroundImage="btn_post_pressed"/>
@@ -1109,7 +1014,6 @@ km/h</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Lb8-bq-E5H" firstAttribute="leading" secondItem="fKp-b7-dNV" secondAttribute="trailing" constant="10" id="77Q-7v-uqB"/>
@@ -1125,7 +1029,6 @@ km/h</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sW3-jV-y9H" firstAttribute="top" secondItem="ksY-7N-GA4" secondAttribute="bottom" id="4Ap-8A-Pf7"/>
@@ -1211,12 +1114,10 @@ km/h</string>
                         <subviews>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1oZ-GQ-vhK">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="R0X-K7-BIg">
                                     <rect key="frame" x="0.0" y="152" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
@@ -1229,7 +1130,6 @@ km/h</string>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="310" contentMode="scaleToFill" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="fTz-Fi-1gd">
                                                     <rect key="frame" x="4" y="4" width="16" height="16"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="cfS-dm-txf"/>
                                                         <constraint firstAttribute="height" constant="16" id="nka-ts-oQm"/>
@@ -1242,14 +1142,12 @@ km/h</string>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="311" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahs-4L-Ar1">
                                                     <rect key="frame" x="24" y="5" width="36" height="14.5"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="313" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容内容内容内容内容内" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-YU-WD3">
                                                     <rect key="frame" x="24" y="24" width="386" height="31"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="LVo-hP-gG1"/>
                                                     </constraints>
@@ -1259,13 +1157,11 @@ km/h</string>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="312" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-08-27 15:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-oz-3rB">
                                                     <rect key="frame" x="322" y="7" width="88" height="12"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="ahs-4L-Ar1" firstAttribute="centerY" secondItem="fTz-Fi-1gd" secondAttribute="centerY" id="2vI-7v-0l4"/>
                                                 <constraint firstAttribute="trailing" secondItem="p8t-oz-3rB" secondAttribute="trailing" constant="4" id="37l-7p-nf2"/>
@@ -1279,7 +1175,6 @@ km/h</string>
                                                 <constraint firstItem="fTz-Fi-1gd" firstAttribute="top" secondItem="25v-Ej-3Zj" secondAttribute="top" constant="4" id="mXl-ga-7RR"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -1288,13 +1183,11 @@ km/h</string>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无跟帖" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N80-cC-kd9">
                                         <rect key="frame" x="183" y="329" width="48" height="14.5"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="N80-cC-kd9" firstAttribute="centerY" secondItem="M0r-UI-E0E" secondAttribute="centerY" id="7Q1-rJ-2IQ"/>
@@ -1302,7 +1195,6 @@ km/h</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1oZ-GQ-vhK" firstAttribute="top" secondItem="63g-rg-XsM" secondAttribute="bottom" id="0IF-bU-NVi"/>
@@ -1336,7 +1228,6 @@ km/h</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6U6-ws-rcc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1354,7 +1245,6 @@ km/h</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" id="9j8-kn-VUg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1368,27 +1258,22 @@ km/h</string>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="301" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="上海国际赛车场" translatesAutoresizingMaskIntoConstraints="NO" id="Usp-Xe-VVj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
-                                            <animations/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg9-LA-1f5">
                                             <rect key="frame" x="0.0" y="0.5" width="375" height="179.5"/>
-                                            <animations/>
                                             <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.6960650802752294" colorSpace="calibratedRGB"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="挑战指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G63-jB-0Ds">
                                             <rect key="frame" x="8" y="154" width="40" height="12"/>
-                                            <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="star3" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-hz-Xau">
                                             <rect key="frame" x="56" y="156" width="54" height="7"/>
-                                            <animations/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="302" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="安吉天荒坪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yX-UZ-Wpv">
                                             <rect key="frame" x="145" y="80" width="85" height="20.5"/>
-                                            <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -1398,7 +1283,6 @@ km/h</string>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP5-49-icf">
                                                     <rect key="frame" x="0.0" y="0.0" width="69.5" height="22"/>
-                                                    <animations/>
                                                     <state key="normal" image="love"/>
                                                     <connections>
                                                         <action selector="didTapLove:" destination="53J-5N-tQn" eventType="touchUpInside" id="AQ4-oH-1eF"/>
@@ -1406,13 +1290,11 @@ km/h</string>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="想去(999+)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzZ-yw-JRg">
                                                     <rect key="frame" x="16" y="0.0" width="53.5" height="22"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="vzZ-yw-JRg" secondAttribute="bottom" id="1JO-OE-QiZ"/>
@@ -1426,7 +1308,6 @@ km/h</string>
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Usp-Xe-VVj" secondAttribute="trailing" id="0MV-BR-umb"/>
                                         <constraint firstItem="mYe-hz-Xau" firstAttribute="centerY" secondItem="G63-jB-0Ds" secondAttribute="centerY" id="1n7-Hi-N6O"/>
@@ -1446,7 +1327,6 @@ km/h</string>
                                         <constraint firstAttribute="bottom" secondItem="Usp-Xe-VVj" secondAttribute="bottom" id="u2z-CQ-BFX"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <animations/>
                                 <connections>
                                     <outlet property="loveButton" destination="uP5-49-icf" id="sRo-5U-owf"/>
                                     <outlet property="loveLabel" destination="vzZ-yw-JRg" id="K5N-lJ-zAj"/>

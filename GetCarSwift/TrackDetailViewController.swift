@@ -136,10 +136,12 @@ class TrackDetailViewController: UIViewController {
     }
 
     @IBAction func didStart(sender: UIButton) {
+        let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
+        if stopTime == 0 { return }
+
         sender.selected = !sender.selected
         if self.timerOffset == 0 {
             timerDisposable?.dispose()
-            let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
             mapView.zoomEnabled = false
             mapView.rotateEnabled = false
             mapView.rotateCameraEnabled = false

@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class CarTableViewController: UITableViewController {
 
+    var indicator: UIActivityIndicatorView?
     var carTableViewModel: CarTableViewModel!
 
     var categeries: [String] = []
@@ -22,12 +23,21 @@ class CarTableViewController: UITableViewController {
 
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
+        self.sideMenuController()?.sideMenu?.delegate = self
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        indicator?.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 64)
+        indicator?.hidesWhenStopped = true
+        self.view.addSubview(indicator!)
+
+        indicator?.startAnimating()
+
         carTableViewModel = CarTableViewModel()
         carTableViewModel.fetchCarInfos() { (c, b, m) in
             self.categeries = c
             self.brands = b
             self.models = m
             self.tableView.reloadData()
+            self.indicator?.stopAnimating()
         }
     }
 
@@ -40,7 +50,6 @@ class CarTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return brands[categeries[section]]?.count ?? 0
     }
-
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath)
@@ -77,4 +86,12 @@ class CarTableViewController: UITableViewController {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
+}
+
+extension CarTableViewController: ENSideMenuDelegate {
+    func sideMenuWillClose() {
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(index, animated: true)
+        }
+    }
 }

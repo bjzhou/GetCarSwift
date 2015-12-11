@@ -166,7 +166,7 @@ class GaikeService {
     }
 
     private func parseJSON<T>(data: NSData) -> GKResult<T> {
-        let gkResult = GKResult<T>(json: SwiftyJSON.JSON(data: data))
+        let gkResult = GKResult<T>(json: JSON(data: data))
         if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
             Mine.sharedInstance.logout()
         }
@@ -180,7 +180,7 @@ struct GKResult<U: JSONable> {
     var code: Int = -1
     var msg: String = "json parse error"
 
-    init(json: SwiftyJSON.JSON) {
+    init(json: JSON) {
         code =? json["code"].int
         msg =? json["msg"].string
         if let raw = json["data"].rawString() where raw != "null" {
@@ -197,5 +197,5 @@ struct GKResult<U: JSONable> {
 }
 
 protocol JSONable {
-    init(json: SwiftyJSON.JSON)
+    init(json: JSON)
 }

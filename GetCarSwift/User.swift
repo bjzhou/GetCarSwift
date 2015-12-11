@@ -22,7 +22,7 @@ struct User: JSONable {
 
     static var rxMine: Variable<Mine> = Variable(Mine.sharedInstance)
 
-    init(json: SwiftyJSON.JSON) {
+    init(json: JSON) {
         phone = json["phone"].string
         id = json["id"].string
         car = json["car"].string

@@ -10,8 +10,13 @@ import UIKit
 
 class PlayerTableViewCell: UITableViewCell {
 
+    var medalImageView: UIImageView
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        medalImageView = UIImageView()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        self.addSubview(medalImageView)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -20,12 +25,12 @@ class PlayerTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         self.imageView?.bounds = CGRect(x: 0, y: 0, width: 44, height: 44)
+        medalImageView.frame = CGRect(x: self.frame.width - 51, y: (self.frame.height - 35) / 2, width: 35, height: 35)
     }
 
 }

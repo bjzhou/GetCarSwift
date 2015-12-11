@@ -23,7 +23,7 @@ struct CarInfo: JSONable {
         modelId = json["id"].stringValue
     }
 
-    static func info() -> Observable<GKResult<CarInfo>> {
+    static func info() -> Observable<GKResult<JSON>> {
         //api("info", body: [:], completion: completion)
         return GaikeService.sharedInstance.api("car/info")
     }

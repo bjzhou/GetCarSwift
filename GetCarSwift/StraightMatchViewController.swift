@@ -123,8 +123,10 @@ class StraightMatchViewController: UIViewController {
     }
 
     @IBAction func didStart(sender: UIButton) {
-        sender.selected = !sender.selected
         let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
+        if stopTime == 0 { return }
+
+        sender.selected = !sender.selected
 
         if timerOffset == 0 {
             self.timerDisposable?.dispose()

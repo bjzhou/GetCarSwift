@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-extension JSON {
+extension JSON: JSONable {
     func sortedDictionaryKeys() -> [String]? {
         if self.type == .Dictionary {
             return Array(self.dictionary!.keys).sort()
@@ -23,5 +23,9 @@ extension JSON {
             }
         }
         return nil
+    }
+
+    init(json: JSON) {
+        self = json
     }
 }

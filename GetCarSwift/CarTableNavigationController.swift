@@ -30,6 +30,7 @@ class CarTableNavigationController: ENSideMenuNavigationController {
         sideMenu?.bouncingEnabled = false
         sideMenu?.allowLeftSwipe = false
     }
+
 }
 
 extension CarTableNavigationController: CarRightDelegate {

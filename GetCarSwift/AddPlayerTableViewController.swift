@@ -52,7 +52,7 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        _ = Records.getRecord(sid, count: 10).subscribeNext { res in
+        _ = Records.getRecord(sid, count: 50).subscribeNext { res in
             if let data = res.data {
                 self.top = data.top.sort { $0.0.score < $0.1.score }
                 if self.localNewest.count == 0 {
@@ -105,27 +105,27 @@ class AddPlayerTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell?
+        var cell: PlayerTableViewCell?
         switch mode {
         case .Menu:
             if indexPath.row == 0 {
-                cell = tableView.dequeueReusableCellWithIdentifier("menu_me")
+                cell = tableView.dequeueReusableCellWithIdentifier("menu_me") as? PlayerTableViewCell
                 if cell == nil {
                     cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu_me")
                 }
                 Mine.sharedInstance.setAvatarImage(cell!.imageView!)
                 cell?.textLabel?.text = "我"
             } else {
-                cell = tableView.dequeueReusableCellWithIdentifier("menu")
+                cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
                 if cell == nil {
-                    cell = UITableViewCell(style: .Default, reuseIdentifier: "menu")
+                    cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
                 }
                 cell?.textLabel?.text = titles[.Rank]
             }
         case .Myself:
-            cell = tableView.dequeueReusableCellWithIdentifier("menu")
+            cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
             if cell == nil {
-                cell = UITableViewCell(style: .Default, reuseIdentifier: "menu")
+                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
             }
             if indexPath.section == 0 {
                 cell?.textLabel?.text = String(format: "%.2f", localNewest[indexPath.row].score)
@@ -133,13 +133,24 @@ class AddPlayerTableViewController: UITableViewController {
                 cell?.textLabel?.text = String(format: "%.2f", localBest[indexPath.row].score)
             }
         case .Rank:
-            cell = tableView.dequeueReusableCellWithIdentifier("player")
+            cell = tableView.dequeueReusableCellWithIdentifier("player") as? PlayerTableViewCell
             if cell == nil {
                 cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "player")
             }
             cell?.imageView?.kf_setImageWithURL(NSURL(string: top[indexPath.row].headUrl)!, placeholderImage: R.image.avatar)
             cell?.textLabel?.text = top[indexPath.row].nickname
             cell?.detailTextLabel?.text = String(format: "%.2f", top[indexPath.row].score)
+
+            cell?.medalImageView.hidden = false
+            if indexPath.row == 0 {
+                cell?.medalImageView.image = R.image.gold_medal
+            } else if indexPath.row == 1 {
+                cell?.medalImageView.image = R.image.silver_medal
+            } else if indexPath.row == 2 {
+                cell?.medalImageView.image = R.image.bronze_medal
+            } else {
+                cell?.medalImageView.hidden = true
+            }
         }
 
         return cell!

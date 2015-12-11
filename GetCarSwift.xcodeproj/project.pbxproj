@@ -556,6 +556,7 @@
 				C867FC641AD8FCAF00F99592 /* Resources */,
 				6E6F9C2B6C3314D97F51B147 /* Embed Pods Frameworks */,
 				917907DCB1C3F68F9978D874 /* Copy Pods Resources */,
+				C82746471C1AC55C009844A4 /* Bugly */,
 			);
 			buildRules = (
 			);
@@ -695,6 +696,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		C82746471C1AC55C009844A4 /* Bugly */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Bugly;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/bugly/dSYM_upload.sh\"";
 		};
 		C88D89601BDF75E200AA4425 /* Generate R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
