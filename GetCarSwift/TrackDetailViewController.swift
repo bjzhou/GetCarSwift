@@ -74,15 +74,22 @@ class TrackDetailViewController: UIViewController {
 
         mapView.showsCompass = false
         mapView.zoomEnabled = true
-        mapView.scrollEnabled = false
+        mapView.scrollEnabled = true
         mapView.showsLabels = false
         mapView.skyModelEnable = false
+        mapView.mapType = .Satellite
         mapView.delegate = self
         if let raceTrack = trackDetailViewModel.raceTrack {
             if let mapCenter = raceTrack.mapCenter {
                 mapView.zoomLevel = raceTrack.mapZoom
                 //mapView.rotationDegree = raceTrack.mapDegree
                 mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
+
+                mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0), radius: 10))
+
+                for pass in raceTrack.passLocs {
+                    mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(pass.latitude, pass.longitude), radius: 18))
+                }
             }
         }
 
@@ -319,17 +326,33 @@ extension TrackDetailViewController: AddPlayerDelegate {
 extension TrackDetailViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
         self.view.endEditing(true)
+        print("[\(coordinate.latitude), \(coordinate.longitude), 0]")
     }
 
     func mapView(mapView: MAMapView!, regionDidChangeAnimated animated: Bool) {
-        delay(0.1) { // avoid crash when double tap mapview
-            if mapView.zoomLevel < 16 {
-                mapView.zoomLevel = 16
-            }
+//        delay(0.1) { // avoid crash when double tap mapview
+//            if mapView.zoomLevel < 16 {
+//                mapView.zoomLevel = 16
+//            }
+//
+//            if mapView.zoomLevel > 17 {
+//                mapView.zoomLevel = 17
+//            }
+//        }
+    }
 
-            if mapView.zoomLevel > 17 {
-                mapView.zoomLevel = 17
+    func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
+        if let circle = overlay as? MACircle {
+            let circleView = MACircleView(circle: circle)
+            circleView.strokeColor = UIColor.blackColor()
+            circleView.lineWidth = 1
+            circleView.fillColor = UIColor.yellowColor()
+
+            if circle.coordinate.longitude == 121.121573354806 {
+                circleView.fillColor = UIColor.redColor()
             }
+            return circleView
         }
+        return nil
     }
 }

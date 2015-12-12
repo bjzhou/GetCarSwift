@@ -27,11 +27,12 @@ class TrackTimerViewController: UIViewController {
     var startLoc: CLLocation?
     var data = List<RmScoreData>()
     var inStartCircle = false
-    var passFlag = 0
+    var passFlags: [Bool] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        passFlags = raceTrack.passLocs.map { _ in false }
         updateScore()
 
         DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
@@ -39,9 +40,11 @@ class TrackTimerViewController: UIViewController {
                 let a = acces.averageA()
                 self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
                 if let start = self.raceTrack.startLoc {
-                    if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 15) {
+                    if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 10) {
                         if !self.inStartCircle {
-                            if self.passFlag == self.raceTrack.passLocs.count {
+                            RmLog.d("enter in start circle")
+                            if self.passFlags.reduce(true, combine: { $0 && $1 }) {
+                                RmLog.d("passed all locs")
                                 let data = List<RmScoreData>()
                                 data.appendContentsOf(self.data)
                                 if let score = data.last?.t where score >= 0.5 {
@@ -49,9 +52,13 @@ class TrackTimerViewController: UIViewController {
                                     rmscore.score = score
                                     rmscore.data = data
                                     rmscore.mapType = self.raceTrack.id
+                                    RmLog.d("score: \(score)")
+                                    RmLog.d("score data: \(data)")
+                                    RmLog.d("uploading data to server...")
                                     Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribeNext { res in
-                                        print(res.data)
+                                        RmLog.d("uploading result: \(res.code), \(res.msg)")
                                         }.addDisposableTo(self.disposeBag)
+                                    RmLog.d("saved data to local storage.")
                                     try! self.realm.write {
                                         self.realm.add(rmscore)
                                     }
@@ -65,15 +72,22 @@ class TrackTimerViewController: UIViewController {
                     } else {
                         self.inStartCircle = false
                     }
-                    for rmLoc in self.raceTrack.passLocs {
-                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 15) {
-                            self.passFlag++
+                    for i in 0..<self.raceTrack.passLocs.count {
+                        let rmLoc = self.raceTrack.passLocs[i]
+                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 18) {
+                            if self.passFlags[i] == false {
+                                self.passFlags[i] = true
+                                RmLog.d("passed \(rmLoc)")
+                            }
                         }
                     }
                     if let leaveLoc = self.raceTrack.leaveLoc {
                         if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 10) {
-                            self.stopTimer()
-                            self.data.removeAll()
+                            if self.data.count != 0 {
+                                self.stopTimer()
+                                self.data.removeAll()
+                                RmLog.d("leaving...")
+                            }
                         }
                     }
                 }
@@ -85,6 +99,7 @@ class TrackTimerViewController: UIViewController {
         stopTimer()
         UIApplication.sharedApplication().idleTimerDisabled = true
         self.data.removeAll()
+        RmLog.d("start timer")
         timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
@@ -111,6 +126,8 @@ class TrackTimerViewController: UIViewController {
         UIApplication.sharedApplication().idleTimerDisabled = false
         timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
+        passFlags = raceTrack.passLocs.map { _ in false }
+        RmLog.d("stop timer")
     }
 
     func time2String(t: Double) -> String {
@@ -121,6 +138,7 @@ class TrackTimerViewController: UIViewController {
     }
 
     func updateScore() {
+        RmLog.d("update score")
         let scores = realm.objects(RmScore).filter("mapType = \(raceTrack.id)")
 
         if scores.count == 0 {

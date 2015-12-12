@@ -312,7 +312,7 @@ class DataViewController: UIViewController {
                         if self.data.endIndex > 1 {
                             let prevA = (self.data[self.data.endIndex-1].v - self.data[self.data.endIndex-2].v) / 3.6 / (self.data[self.data.endIndex-1].t - self.data[self.data.endIndex-2].t)
                             let calcV = prevData.v + prevA * (Double(t)/100 - prevData.t) * 3.6
-                            print("理论速度", calcV, "GPS速度", v)
+                            //print("理论速度", calcV, "GPS速度", v)
                             if v == 0 && calcV > 10 {
                                 v = calcV
                             }

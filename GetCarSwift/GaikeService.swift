@@ -36,6 +36,7 @@ class GaikeService {
         #if DEBUG
             print("HEADER=========================================>")
             print(headers)
+            RmLog.i("http header: \(headers)")
         #endif
 
         return headers
@@ -52,6 +53,7 @@ class GaikeService {
         #if DEBUG
             print("REQUEST=========================================>")
             print(mutableURLRequest.URLString, body)
+            RmLog.i("http request: \(mutableURLRequest.URLString) \(body)")
         #endif
 
         return mutableURLRequest
@@ -63,12 +65,14 @@ class GaikeService {
             #if DEBUG
                 print("REQUEST=========================================>")
                 print(urlString)
+                RmLog.i("http request data: \(urlString)")
             #endif
             let request = apiManager.request(.GET, urlString).responseData { res in
                 #if DEBUG
                     let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                     print("RESPONSE=========================================>")
                     print(responseString, res.result.error)
+                    RmLog.i("http response data: \(responseString), error: \(res.result.error)")
                 #endif
                 if let err = res.result.error {
                     observer.on(.Error(err))
@@ -96,6 +100,7 @@ class GaikeService {
                     let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                     print("RESPONSE=========================================>")
                     print(responseString)
+                    RmLog.i("http response: \(responseString)")
                 #endif
                 if let err = res.result.error {
                     observer.on(.Error(err))
@@ -134,12 +139,14 @@ class GaikeService {
                         #if DEBUG
                             print("REQUEST=========================================>")
                             print(req.request?.URLString)
+                            RmLog.i("http request upload: \(req.request?.URLString)")
                         #endif
                         upload = req.responseData { res in
                             #if DEBUG
                                 let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                                 print("RESPONSE=========================================>")
                                 print(responseString)
+                                RmLog.i("http response upload: \(responseString)")
                             #endif
                             if let err = res.result.error {
                                 observer.on(.Error(err))
