@@ -84,16 +84,17 @@ class DataViewController: UIViewController {
         }.addDisposableTo(disposeBag)
 
         DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
-            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
-                let a = acces.averageA()
-                self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
-                if self.ready && (loc.speed > 0 || a >= 0.3) && loc.horizontalAccuracy < 65 {
-                    self.startLoc = loc
-                    self.startTimer()
-                }
-                if loc.speed <= 0.1 && a < 0.3 {
-                    self.ready = true
-                }
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
+                return
+            }
+            let a = acces.averageA()
+            self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
+            if self.ready && (loc.speed > 0 || a >= 0.3) && loc.horizontalAccuracy < 65 {
+                self.startLoc = loc
+                self.startTimer()
+            }
+            if loc.speed <= 0.1 && a < 0.3 {
+                self.ready = true
             }
         }.addDisposableTo(disposeBag)
     }
@@ -272,20 +273,21 @@ class DataViewController: UIViewController {
 
     func updateFromNet(mapType: Int) {
         Records.getRecord(mapType, count: 1).subscribeNext { res in
-            if let r = res.data {
-                if r.newestRes.count != 0 {
-                    for s in r.newestRes {
-                        gRealm?.writeOptional {
-                            gRealm?.add(s, update: true)
-                        }
+            guard let r = res.data else {
+                return
+            }
+            if r.newestRes.count != 0 {
+                for s in r.newestRes {
+                    gRealm?.writeOptional {
+                        gRealm?.add(s, update: true)
                     }
-                    for s in r.bestRes {
-                        gRealm?.writeOptional {
-                            gRealm?.add(s, update: true)
-                        }
-                    }
-                    self.updateScore()
                 }
+                for s in r.bestRes {
+                    gRealm?.writeOptional {
+                        gRealm?.add(s, update: true)
+                    }
+                }
+                self.updateScore()
             }
             }.addDisposableTo(disposeBag)
     }
@@ -301,125 +303,130 @@ class DataViewController: UIViewController {
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
-                if let startLoc = self.startLoc {
-                    var v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
-                    let s = startLoc.distanceFromLocation(loc)
-                    let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, startLoc = self.startLoc else {
+                return
+            }
 
-                    if let prevData = self.data.last {
-                        if self.data.endIndex > 1 {
-                            let prevA = (self.data[self.data.endIndex-1].v - self.data[self.data.endIndex-2].v) / 3.6 / (self.data[self.data.endIndex-1].t - self.data[self.data.endIndex-2].t)
-                            let calcV = prevData.v + prevA * (Double(t)/100 - prevData.t) * 3.6
-                            if v == 0 && calcV > 10 {
-                                v = calcV
-                            }
-                        }
-                        if s >= 400 && prevData.s < 400 && prevData.s > 200 {
-                            if self.latestScores[3] == -1 {
-                                self.latestScores[3] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectS: 400)
-                                self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
-                                self.dataVCs[3].time = self.time2String(self.showBest ? self.bestScores[3] : self.latestScores[3])
-                                let data = List<RmScoreData>()
-                                data.appendContentsOf(self.data)
-                                data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
-                                let score = RmScore()
-                                score.mapType = 0
-                                score.score = self.latestScores[3]
-                                score.data = data
-                                Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                    RmLog.v("upload \(score)")
-                                }.addDisposableTo(self.disposeBag)
-                                gRealm?.writeOptional {
-                                    gRealm?.add(score)
-                                }
-                            }
-                        }
+            var v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
+            let s = startLoc.distanceFromLocation(loc)
+            let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
 
-                        if v >= 60 && prevData.v < 60 && prevData.v >= 0.5 {
-                            self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
-                            if self.latestScores[0] == -1 {
-                                self.latestScores[0] = self.keyTime["60"]!
-                                self.data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": self.fixS(self.keyTime["60"]!, dataList: self.data, expectV: 60)]))
-                                self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
-                                self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
-                                let data = List<RmScoreData>()
-                                data.appendContentsOf(self.data)
-                                let score = RmScore()
-                                score.mapType = 1001
-                                score.score = self.latestScores[0]
-                                score.data = data
-                                Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                    RmLog.v("upload \(score)")
-                                    }.addDisposableTo(self.disposeBag)
-                                gRealm?.writeOptional {
-                                    gRealm?.add(score)
-                                }
-                            }
-                        }
+            guard let prevData = self.data.last else {
+                if v >= 40 {
+                    self.stopTimer()
+                    self.ready = false
+                }
+                self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
+                return
+            }
 
-                        if v <= 60 && prevData.v > 60 {
-                            self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
-                        }
+            if self.data.endIndex > 1 {
+                let prevA = (self.data[self.data.endIndex-1].v - self.data[self.data.endIndex-2].v) / 3.6 / (self.data[self.data.endIndex-1].t - self.data[self.data.endIndex-2].t)
+                let calcV = prevData.v + prevA * (Double(t)/100 - prevData.t) * 3.6
+                if v == 0 && calcV > 10 {
+                    v = calcV
+                }
+            }
 
-                        if v >= 100 && prevData.v < 100 && prevData.v >= 40 {
-                            self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
-                            if self.latestScores[1] == -1 {
-                                self.latestScores[1] = self.keyTime["100"]!
-                                self.data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": self.fixS(self.keyTime["100"]!, dataList: self.data, expectV: 100)]))
-                                self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
-                                self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
-                                let data = List<RmScoreData>()
-                                data.appendContentsOf(self.data)
-                                let score = RmScore()
-                                score.mapType = 1002
-                                score.score = self.latestScores[1]
-                                score.data = data
-                                Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                    RmLog.v("upload \(score)")
-                                    }.addDisposableTo(self.disposeBag)
-                                gRealm?.writeOptional {
-                                    gRealm?.add(score)
-                                }
-                            }
-                        }
-
-                        if v <= 0.1 && a < 0.3 {
-                            if let v60 = self.keyTime["60"] where v60 != 0 && prevData.v > 0.1 {
-                                let dt = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 0) - v60
-                                if self.latestScores[2] == -1 {
-                                    self.latestScores[2] = dt
-                                    self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
-                                    self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
-                                    let data = List<RmScoreData>()
-                                    data.appendContentsOf(self.data)
-                                    data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 0.0, "a": a, "s": s]))
-                                    let score = RmScore()
-                                    score.mapType = 1003
-                                    score.score = self.latestScores[2]
-                                    score.data = data
-                                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                        RmLog.v("upload \(score)")
-                                        }.addDisposableTo(self.disposeBag)
-                                    gRealm?.writeOptional {
-                                        gRealm?.add(score)
-                                    }
-                                }
-                            }
-                            self.stopTimer()
-                        }
-
-                        if s != prevData.s {
-                            self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
-                        }
-                    } else {
-                        if v >= 40 {
-                            self.stopTimer()
-                            self.ready = false
-                        }
-                        self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
+            if s >= 400 && prevData.s < 400 && prevData.s > 200 {
+                if self.latestScores[3] == -1 {
+                    self.latestScores[3] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectS: 400)
+                    self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
+                    self.dataVCs[3].time = self.time2String(self.showBest ? self.bestScores[3] : self.latestScores[3])
+                    let data = List<RmScoreData>()
+                    data.appendContentsOf(self.data)
+                    data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
+                    let score = RmScore()
+                    score.mapType = 0
+                    score.score = self.latestScores[3]
+                    score.data = data
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                        RmLog.v("upload \(score)")
+                        }.addDisposableTo(self.disposeBag)
+                    gRealm?.writeOptional {
+                        gRealm?.add(score)
                     }
                 }
+            }
+
+            if v >= 60 && prevData.v < 60 && prevData.v >= 0.5 {
+                self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
+                if self.latestScores[0] == -1 {
+                    self.latestScores[0] = self.keyTime["60"]!
+                    self.data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": self.fixS(self.keyTime["60"]!, dataList: self.data, expectV: 60)]))
+                    self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
+                    self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
+                    let data = List<RmScoreData>()
+                    data.appendContentsOf(self.data)
+                    let score = RmScore()
+                    score.mapType = 1001
+                    score.score = self.latestScores[0]
+                    score.data = data
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                        RmLog.v("upload \(score)")
+                        }.addDisposableTo(self.disposeBag)
+                    gRealm?.writeOptional {
+                        gRealm?.add(score)
+                    }
+                }
+            }
+
+            if v <= 60 && prevData.v > 60 {
+                self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
+            }
+
+            if v >= 100 && prevData.v < 100 && prevData.v >= 40 {
+                self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
+                if self.latestScores[1] == -1 {
+                    self.latestScores[1] = self.keyTime["100"]!
+                    self.data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": self.fixS(self.keyTime["100"]!, dataList: self.data, expectV: 100)]))
+                    self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
+                    self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
+                    let data = List<RmScoreData>()
+                    data.appendContentsOf(self.data)
+                    let score = RmScore()
+                    score.mapType = 1002
+                    score.score = self.latestScores[1]
+                    score.data = data
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                        RmLog.v("upload \(score)")
+                        }.addDisposableTo(self.disposeBag)
+                    gRealm?.writeOptional {
+                        gRealm?.add(score)
+                    }
+                }
+            }
+
+            if v <= 0.1 && a < 0.3 {
+                guard let v60 = self.keyTime["60"] where v60 != 0 && prevData.v > 0.1 else {
+                    self.stopTimer()
+                    return
+                }
+
+                let dt = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 0) - v60
+                if self.latestScores[2] == -1 {
+                    self.latestScores[2] = dt
+                    self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
+                    self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
+                    let data = List<RmScoreData>()
+                    data.appendContentsOf(self.data)
+                    data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 0.0, "a": a, "s": s]))
+                    let score = RmScore()
+                    score.mapType = 1003
+                    score.score = self.latestScores[2]
+                    score.data = data
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                        RmLog.v("upload \(score)")
+                        }.addDisposableTo(self.disposeBag)
+                    gRealm?.writeOptional {
+                        gRealm?.add(score)
+                    }
+                }
+                self.stopTimer()
+            }
+
+            if s != prevData.s {
+                self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
             }
         }
     }

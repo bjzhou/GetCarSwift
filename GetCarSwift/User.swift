@@ -31,10 +31,8 @@ struct User: JSONable {
         img = json["img"].string
         token = json["token"].string
 
-        if let wrappedImg = img {
-            if !wrappedImg.hasPrefix("http://") {
-                img = "http://pic.gaikit.com/user/head/" + wrappedImg
-            }
+        if let wrappedImg = img where !wrappedImg.hasPrefix("http://") {
+            img = "http://pic.gaikit.com/user/head/" + wrappedImg
         }
     }
 

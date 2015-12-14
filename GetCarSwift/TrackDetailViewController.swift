@@ -79,17 +79,15 @@ class TrackDetailViewController: UIViewController {
         mapView.skyModelEnable = false
         //mapView.mapType = .Satellite
         mapView.delegate = self
-        if let raceTrack = trackDetailViewModel.raceTrack {
-            if let mapCenter = raceTrack.mapCenter {
-                mapView.zoomLevel = raceTrack.mapZoom
-                mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
+        if let raceTrack = trackDetailViewModel.raceTrack, mapCenter = raceTrack.mapCenter {
+            mapView.zoomLevel = raceTrack.mapZoom
+            mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
 
-//                mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0), radius: 10))
+//            mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0), radius: 10))
 //
-//                for pass in raceTrack.passLocs {
-//                    mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(pass.latitude, pass.longitude), radius: 18))
-//                }
-            }
+//            for pass in raceTrack.passLocs {
+//                mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(pass.latitude, pass.longitude), radius: 18))
+//            }
         }
 
         var danmuRect = self.mapView.frame
@@ -112,14 +110,14 @@ class TrackDetailViewController: UIViewController {
     }
 
     func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
-                self.postViewPos.constant = keyboardSize.height
-                UIView.animateWithDuration(0.25, animations: {
-                    self.view.layoutIfNeeded()
-                })
-            }
+        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
+            return
         }
+
+        self.postViewPos.constant = keyboardSize.height
+        UIView.animateWithDuration(0.25, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 
     func keyboardWillHide(notification: NSNotification) {
@@ -160,28 +158,19 @@ class TrackDetailViewController: UIViewController {
                 let curTs = self.time2String(Double(self.timerOffset)/100)
                 self.timeLabel.text = curTs
 
-                if let score = self.score1 {
-                    let datas = score.data.filter { $0.t == Double(self.timerOffset)/100 }
-                    if let data = datas.first {
-                        self.vLabel1.text = String(format: "%05.1f", data.v)
-                        self.aLabel1.text = String(format: "%.1f", data.a)
-                    }
+                if let score = self.score1, data = (score.data.filter { $0.t == Double(self.timerOffset)/100 }).first {
+                    self.vLabel1.text = String(format: "%05.1f", data.v)
+                    self.aLabel1.text = String(format: "%.1f", data.a)
                 }
 
-                if let score = self.score2 {
-                    let datas = score.data.filter { $0.t == Double(self.timerOffset)/100 }
-                    if let data = datas.first {
-                        self.vLabel2.text = String(format: "%05.1f", data.v)
-                        self.aLabel2.text = String(format: "%.1f", data.a)
-                    }
+                if let score = self.score2, data = (score.data.filter { $0.t == Double(self.timerOffset)/100 }).first {
+                    self.vLabel2.text = String(format: "%05.1f", data.v)
+                    self.aLabel2.text = String(format: "%.1f", data.a)
                 }
 
-                if let score = self.score3 {
-                    let datas = score.data.filter { $0.t == Double(self.timerOffset)/100 }
-                    if let data = datas.first {
-                        self.vLabel3.text = String(format: "%05.1f", data.v)
-                        self.aLabel3.text = String(format: "%.1f", data.a)
-                    }
+                if let score = self.score3, data = (score.data.filter { $0.t == Double(self.timerOffset)/100 }).first {
+                    self.vLabel3.text = String(format: "%05.1f", data.v)
+                    self.aLabel3.text = String(format: "%.1f", data.a)
                 }
 
                 if Double(self.timerOffset)/100 >= stopTime {
@@ -212,25 +201,27 @@ class TrackDetailViewController: UIViewController {
     }
 
     func startAnim(annotation: MAPointAnnotation?, score: RmScore?) {
-        if let score = score, annotation = annotation {
-            annotation.coordinate = CLLocationCoordinate2DMake(score.data.first?.lat ?? 0, score.data.first?.long ?? 0)
-            let view = mapView.viewForAnnotation(annotation)
-            let points: [CGPoint] = score.data.map { data in
-                let loc = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
-                return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
-            }
-            let anim = CAKeyframeAnimation(keyPath: "position")
-            anim.duration = score.score
-            anim.keyTimes = score.data.map { $0.t / score.score }
-            anim.values = points.map { NSValue(CGPoint: CGPoint(x: $0.x - points[0].x, y: $0.y - points[0].y)) }
-            anim.calculationMode = kCAAnimationLinear
-            anim.removedOnCompletion = false
-            anim.fillMode = kCAFillModeForwards
-            anim.additive = true
-            anim.delegate = self
-
-            view?.layer.addAnimation(anim, forKey: "race")
+        guard let score = score, annotation = annotation else {
+            return
         }
+
+        annotation.coordinate = CLLocationCoordinate2DMake(score.data.first?.lat ?? 0, score.data.first?.long ?? 0)
+        let view = mapView.viewForAnnotation(annotation)
+        let points: [CGPoint] = score.data.map { data in
+            let loc = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
+            return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
+        }
+        let anim = CAKeyframeAnimation(keyPath: "position")
+        anim.duration = score.score
+        anim.keyTimes = score.data.map { $0.t / score.score }
+        anim.values = points.map { NSValue(CGPoint: CGPoint(x: $0.x - points[0].x, y: $0.y - points[0].y)) }
+        anim.calculationMode = kCAAnimationLinear
+        anim.removedOnCompletion = false
+        anim.fillMode = kCAFillModeForwards
+        anim.additive = true
+        anim.delegate = self
+
+        view?.layer.addAnimation(anim, forKey: "race")
     }
 
     func time2String(t: Double) -> String {
@@ -341,17 +332,18 @@ extension TrackDetailViewController: MAMapViewDelegate {
     }
 
     func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
-        if let circle = overlay as? MACircle {
-            let circleView = MACircleView(circle: circle)
-            circleView.strokeColor = UIColor.blackColor()
-            circleView.lineWidth = 1
-            circleView.fillColor = UIColor.yellowColor()
-
-            if circle.coordinate.longitude == 121.121573354806 {
-                circleView.fillColor = UIColor.redColor()
-            }
-            return circleView
+        guard let circle = overlay as? MACircle else {
+            return nil
         }
-        return nil
+
+        let circleView = MACircleView(circle: circle)
+        circleView.strokeColor = UIColor.blackColor()
+        circleView.lineWidth = 1
+        circleView.fillColor = UIColor.yellowColor()
+
+        if circle.coordinate.longitude == 121.121573354806 {
+            circleView.fillColor = UIColor.redColor()
+        }
+        return circleView
     }
 }

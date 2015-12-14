@@ -26,25 +26,28 @@ struct MapViewModel {
         }
         .concat()
         .map { result in
+            guard let nearbys = result.dataArray else {
+                return ([], [])
+            }
+
             var newAnnotations: [CarIconAnnotation] = []
             var oldAnnotations: [CarIconAnnotation] = []
-            if let nearbys = result.dataArray {
-                let nearbyTitles = nearbys.map { nearby in
-                    return nearby.nickname
-                }
-                oldAnnotations = self.annotations.filter { !nearbyTitles.contains($0.0) }.map { $0.1 }
-                newAnnotations = nearbys.filter { nearby in
-                    if let annotation = self.annotations[nearby.nickname] {
-                        self.updateAnnotation(annotation, nearby: nearby)
-                        return false
-                    }
+            let nearbyTitles = nearbys.map { nearby in
+                return nearby.nickname
+            }
+            oldAnnotations = self.annotations.filter { !nearbyTitles.contains($0.0) }.map { $0.1 }
+            newAnnotations = nearbys.filter { nearby in
+                guard let annotation = self.annotations[nearby.nickname] else {
                     return true
-                    }.map { nearby in
-                        let pointAnnotation = CarIconAnnotation()
-                        self.annotations[nearby.nickname] = pointAnnotation
-                        self.updateAnnotation(pointAnnotation, nearby: nearby)
-                        return pointAnnotation
                 }
+
+                self.updateAnnotation(annotation, nearby: nearby)
+                return false
+                }.map { nearby in
+                    let pointAnnotation = CarIconAnnotation()
+                    self.annotations[nearby.nickname] = pointAnnotation
+                    self.updateAnnotation(pointAnnotation, nearby: nearby)
+                    return pointAnnotation
             }
             return (oldAnnotations, newAnnotations)
         }
@@ -66,14 +69,15 @@ struct MapViewModel {
 
     func loadTracks() -> [RaceTrackAnnotation] {
         return gRealm?.objects(RmRaceTrack).sorted("isDeveloped").flatMap { rt in
-            if let mapCenter = rt.mapCenter {
-                let anno = RaceTrackAnnotation(raceTrack: rt)
-                anno.coordinate = CLLocationCoordinate2D(latitude: mapCenter.latitude, longitude: mapCenter.longitude)
-                anno.title = rt.name
-                anno.subtitle = rt.address
-                return anno
+            guard let mapCenter = rt.mapCenter else {
+                return nil
             }
-            return nil
+
+            let anno = RaceTrackAnnotation(raceTrack: rt)
+            anno.coordinate = CLLocationCoordinate2D(latitude: mapCenter.latitude, longitude: mapCenter.longitude)
+            anno.title = rt.name
+            anno.subtitle = rt.address
+            return anno
         } ?? []
     }
 

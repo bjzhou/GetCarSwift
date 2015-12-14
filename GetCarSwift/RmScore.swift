@@ -49,27 +49,29 @@ class RmScore: Object, JSONable {
             return
         }
         _ = GaikeService.sharedInstance.request(url).subscribeNext { data in
-            if let recordArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [[String: Double]] {
-                let scoreDataArray: [RmScoreData] = recordArray.map { dic in
-                    let scoreData = RmScoreData()
-                    scoreData.t = dic["t"] ?? 0
-                    scoreData.v = dic["v"] ?? 0
-                    scoreData.a = dic["a"] ?? 0
-                    scoreData.s = dic["s"] ?? 0
-                    scoreData.lat = dic["lat"] ?? 0
-                    scoreData.long = dic["long"] ?? 0
-                    scoreData.alt = dic["alt"] ?? 0
-                    return scoreData
-                }
-                if let realm = self.realm {
-                    realm.writeOptional {
-                        self.data.appendContentsOf(scoreDataArray)
-                    }
-                } else {
+            guard let recordArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [[String: Double]] else {
+                return
+            }
+
+            let scoreDataArray: [RmScoreData] = recordArray.map { dic in
+                let scoreData = RmScoreData()
+                scoreData.t = dic["t"] ?? 0
+                scoreData.v = dic["v"] ?? 0
+                scoreData.a = dic["a"] ?? 0
+                scoreData.s = dic["s"] ?? 0
+                scoreData.lat = dic["lat"] ?? 0
+                scoreData.long = dic["long"] ?? 0
+                scoreData.alt = dic["alt"] ?? 0
+                return scoreData
+            }
+            if let realm = self.realm {
+                realm.writeOptional {
                     self.data.appendContentsOf(scoreDataArray)
                 }
-                succeed(self)
+            } else {
+                self.data.appendContentsOf(scoreDataArray)
             }
+            succeed(self)
         }
     }
 }

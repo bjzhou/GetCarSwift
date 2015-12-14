@@ -34,60 +34,64 @@ class TrackTimerViewController: UIViewController {
         updateScore()
 
         DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
-            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
-                let a = acces.averageA()
-                self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
-                if let start = self.raceTrack.startLoc {
-                    if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 10) {
-                        if !self.inStartCircle {
-                            RmLog.d("enter in start circle")
-                            if Double((self.passFlags.filter { $0 }).count) >= Double(self.raceTrack.passLocs.count) * 0.6 {
-                                RmLog.d("passed all locs")
-                                let data = List<RmScoreData>()
-                                data.appendContentsOf(self.data)
-                                if let score = data.last?.t where score >= 0.5 {
-                                    let rmscore = RmScore()
-                                    rmscore.score = score
-                                    rmscore.data = data
-                                    rmscore.mapType = self.raceTrack.id
-                                    RmLog.d("score: \(score)")
-                                    RmLog.d("score data: \(data)")
-                                    RmLog.d("uploading data to server...")
-                                    Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribeNext { res in
-                                        RmLog.d("uploading result: \(res.code), \(res.msg)")
-                                        }.addDisposableTo(self.disposeBag)
-                                    gRealm?.writeOptional {
-                                        gRealm?.add(rmscore)
-                                    }
-                                    RmLog.d("saved data to local storage.")
-                                    self.updateScore()
-                                }
-                            }
-                            self.inStartCircle = true
-                            self.startLoc = loc
-                            self.startTimer()
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
+                return
+            }
+
+            let a = acces.averageA()
+            self.vLabel.text = String(format: "速度：%05.1f km/h    加速度：%.1f kg/N", loc.speed < 0 ? 0 : loc.speed * 3.6, a)
+
+            guard let start = self.raceTrack.startLoc else {
+                return
+            }
+
+            if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 10) {
+                if self.inStartCircle { return }
+                RmLog.d("enter in start circle")
+                if Double((self.passFlags.filter { $0 }).count) >= Double(self.raceTrack.passLocs.count) * 0.6 {
+                    RmLog.d("passed all locs")
+                    let data = List<RmScoreData>()
+                    data.appendContentsOf(self.data)
+                    if let score = data.last?.t where score >= 0.5 {
+                        let rmscore = RmScore()
+                        rmscore.score = score
+                        rmscore.data = data
+                        rmscore.mapType = self.raceTrack.id
+                        RmLog.d("score: \(score)")
+                        RmLog.d("score data: \(data)")
+                        RmLog.d("uploading data to server...")
+                        Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribeNext { res in
+                            RmLog.d("uploading result: \(res.code), \(res.msg)")
+                            }.addDisposableTo(self.disposeBag)
+                        gRealm?.writeOptional {
+                            gRealm?.add(rmscore)
                         }
-                    } else {
-                        self.inStartCircle = false
+                        RmLog.d("saved data to local storage.")
+                        self.updateScore()
                     }
-                    for i in 0..<self.raceTrack.passLocs.count {
-                        let rmLoc = self.raceTrack.passLocs[i]
-                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 15) {
-                            if self.passFlags[i] == false {
-                                self.passFlags[i] = true
-                                RmLog.d("passed \(rmLoc)")
-                            }
-                        }
+                }
+                self.inStartCircle = true
+                self.startLoc = loc
+                self.startTimer()
+            } else {
+                self.inStartCircle = false
+            }
+
+            for i in 0..<self.raceTrack.passLocs.count {
+                let rmLoc = self.raceTrack.passLocs[i]
+                if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 15) {
+                    if self.passFlags[i] == false {
+                        self.passFlags[i] = true
+                        RmLog.d("passed \(rmLoc)")
                     }
-                    if let leaveLoc = self.raceTrack.leaveLoc {
-                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 10) {
-                            if self.data.count != 0 {
-                                self.stopTimer()
-                                self.data.removeAll()
-                                RmLog.d("leaving...")
-                            }
-                        }
-                    }
+                }
+            }
+
+            if let leaveLoc = self.raceTrack.leaveLoc where MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 10) {
+                if self.data.count != 0 {
+                    self.stopTimer()
+                    self.data.removeAll()
+                    RmLog.d("leaving...")
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -102,20 +106,20 @@ class TrackTimerViewController: UIViewController {
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            if let loc = DeviceDataService.sharedInstance.rxLocation.value {
-                if let startLoc = self.startLoc {
-                    let v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
-                    let s = startLoc.distanceFromLocation(loc)
-                    let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, startLoc = self.startLoc else {
+                return
+            }
 
-                    if let prevData = self.data.last {
-                        if s != prevData.s {
-                            self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
-                        }
-                    } else {
-                        self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
-                    }
+            let v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
+            let s = startLoc.distanceFromLocation(loc)
+            let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
+
+            if let prevData = self.data.last {
+                if s != prevData.s {
+                    self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
                 }
+            } else {
+                self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
             }
         }
     }
@@ -141,20 +145,22 @@ class TrackTimerViewController: UIViewController {
 
         if scores?.count == 0 {
             Records.getRecord(raceTrack.id, count: 3).subscribeNext { res in
-                if let r = res.data {
-                    if r.newestRes.count != 0 {
-                        for s in r.newestRes {
-                            gRealm?.writeOptional {
-                                gRealm?.add(s, update: true)
-                            }
+                guard let r = res.data else {
+                    return
+                }
+
+                if r.newestRes.count != 0 {
+                    for s in r.newestRes {
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
                         }
-                        for s in r.bestRes {
-                            gRealm?.writeOptional {
-                                gRealm?.add(s, update: true)
-                            }
-                        }
-                        self.updateScore()
                     }
+                    for s in r.bestRes {
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
+                        }
+                    }
+                    self.updateScore()
                 }
             }.addDisposableTo(disposeBag)
             return

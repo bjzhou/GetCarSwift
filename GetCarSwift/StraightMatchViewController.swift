@@ -102,14 +102,14 @@ class StraightMatchViewController: UIViewController {
     }
 
     func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
-                self.postViewPos.constant = keyboardSize.height
-                UIView.animateWithDuration(0.25, animations: {
-                    self.view.layoutIfNeeded()
-                })
-            }
+        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
+            return
         }
+
+        self.postViewPos.constant = keyboardSize.height
+        UIView.animateWithDuration(0.25, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 
     func keyboardWillHide(notification: NSNotification) {
@@ -212,20 +212,22 @@ class StraightMatchViewController: UIViewController {
     }
 
     func startAnim(button: UIButton, score: RmScore?) {
-        if let score = score {
-            let anim = CAKeyframeAnimation(keyPath: "position.y")
-            anim.duration = score.score
-            anim.keyTimes = score.data.map { $0.t / score.score }
-            anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
-            anim.calculationMode = kCAAnimationLinear
-            anim.removedOnCompletion = false
-            anim.fillMode = kCAFillModeForwards
-            anim.additive = true
-            anim.delegate = self
-
-            button.superview?.layer.addAnimation(anim, forKey: "race")
-            button.enabled = false
+        guard let score = score else {
+            return
         }
+
+        let anim = CAKeyframeAnimation(keyPath: "position.y")
+        anim.duration = score.score
+        anim.keyTimes = score.data.map { $0.t / score.score }
+        anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
+        anim.calculationMode = kCAAnimationLinear
+        anim.removedOnCompletion = false
+        anim.fillMode = kCAFillModeForwards
+        anim.additive = true
+        anim.delegate = self
+
+        button.superview?.layer.addAnimation(anim, forKey: "race")
+        button.enabled = false
     }
 
     func startFinishLineAnim() {

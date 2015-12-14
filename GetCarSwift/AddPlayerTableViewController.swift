@@ -51,23 +51,24 @@ class AddPlayerTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         _ = Records.getRecord(sid, count: 50).subscribeNext { res in
-            if let data = res.data {
-                self.top = data.top.sort { $0.0.score < $0.1.score }
-                if self.localNewest.count == 0 {
-                    for s in data.newestRes {
-                        gRealm?.writeOptional {
-                            gRealm?.add(s, update: true)
-                        }
-                    }
-                    for s in data.bestRes {
-                        gRealm?.writeOptional {
-                            gRealm?.add(s, update: true)
-                        }
-                    }
-                    self.updateScore()
-                }
-                self.tableView.reloadData()
+            guard let data = res.data else {
+                return
             }
+            self.top = data.top.sort { $0.0.score < $0.1.score }
+            if self.localNewest.count == 0 {
+                for s in data.newestRes {
+                    gRealm?.writeOptional {
+                        gRealm?.add(s, update: true)
+                    }
+                }
+                for s in data.bestRes {
+                    gRealm?.writeOptional {
+                        gRealm?.add(s, update: true)
+                    }
+                }
+                self.updateScore()
+            }
+            self.tableView.reloadData()
         }
     }
 

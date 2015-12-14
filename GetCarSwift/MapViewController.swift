@@ -60,49 +60,53 @@ class MapViewController: UIViewController {
 
 extension MapViewController: MAMapViewDelegate {
     func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
-        if let annotation = annotation as? RaceTrackAnnotation {
-            let pointReuseIndetifier = "pointReuseIndetifier"
-            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier)
-            if annotationView == nil {
-                annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
-                annotationView.layer.shadowOffset = CGSize(width: 1, height: 2)
-                annotationView.layer.shadowRadius = 2
-                annotationView.layer.shadowOpacity = 1
-            }
-            annotationView?.canShowCallout = false
-            annotationView?.draggable = false
-
-            annotationView?.image = annotation.raceTrack.isDeveloped ? R.image.red_flag : R.image.gray_flag
-
-            return annotationView
+        guard let annotation = annotation as? RaceTrackAnnotation else {
+            return nil
         }
-        return nil
+
+        let pointReuseIndetifier = "pointReuseIndetifier"
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier)
+        if annotationView == nil {
+            annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
+            annotationView.layer.shadowOffset = CGSize(width: 1, height: 2)
+            annotationView.layer.shadowRadius = 2
+            annotationView.layer.shadowOpacity = 1
+        }
+        annotationView?.canShowCallout = false
+        annotationView?.draggable = false
+
+        annotationView?.image = annotation.raceTrack.isDeveloped ? R.image.red_flag : R.image.gray_flag
+
+        return annotationView
     }
 
     func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
-        if let circle = overlay as? MACircle {
-            let circleView = MACircleView(circle: circle)
-            circleView.strokeColor = UIColor.blackColor()
-            circleView.lineWidth = 1
-            circleView.fillColor = UIColor.yellowColor()
-            return circleView
+        guard let circle = overlay as? MACircle else {
+            return nil
         }
-        return nil
+
+        let circleView = MACircleView(circle: circle)
+        circleView.strokeColor = UIColor.blackColor()
+        circleView.lineWidth = 1
+        circleView.fillColor = UIColor.yellowColor()
+        return circleView
     }
 
     func mapView(mapView: MAMapView!, didSelectAnnotationView view: MAAnnotationView!) {
-        if let annotation = view.annotation as? RaceTrackAnnotation {
-            mapView.deselectAnnotation(annotation, animated: true)
-
-            mapView.centerCoordinate = annotation.coordinate
-            mapView.setZoomLevel(annotation.raceTrack.mapZoom, animated: true)
-
-            let mapAlertVC = R.storyboard.gkbox.map_alert
-            mapAlertVC?.raceTrack = annotation.raceTrack
-            mapAlertVC?.view.frame.size = CGSize(width: self.view.frame.width, height: 128)
-            let popopVC = PopupViewController(rootViewController: mapAlertVC!, popupType: .ActionSheet, sender: self)
-            self.tabBarController?.presentViewController(popopVC, animated: false, completion: nil)
+        guard let annotation = view.annotation as? RaceTrackAnnotation else {
+            return
         }
+
+        mapView.deselectAnnotation(annotation, animated: true)
+
+        mapView.centerCoordinate = annotation.coordinate
+        mapView.setZoomLevel(annotation.raceTrack.mapZoom, animated: true)
+
+        let mapAlertVC = R.storyboard.gkbox.map_alert
+        mapAlertVC?.raceTrack = annotation.raceTrack
+        mapAlertVC?.view.frame.size = CGSize(width: self.view.frame.width, height: 128)
+        let popopVC = PopupViewController(rootViewController: mapAlertVC!, popupType: .ActionSheet, sender: self)
+        self.tabBarController?.presentViewController(popopVC, animated: false, completion: nil)
     }
 
     func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {

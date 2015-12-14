@@ -57,13 +57,13 @@ class CommentsViewController: UIViewController {
     }
 
     func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize =  (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
-                UIView.animateWithDuration(0.3, animations: {
-                    self.view.frame.origin = CGPoint(x: 0, y: -keyboardSize.height)
-                })
-            }
+        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
+            return
         }
+
+        UIView.animateWithDuration(0.3, animations: {
+            self.view.frame.origin = CGPoint(x: 0, y: -keyboardSize.height)
+        })
     }
 
     func keyboardWillHide(notification: NSNotification) {
