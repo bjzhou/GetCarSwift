@@ -219,6 +219,7 @@ class DataViewController: UIViewController {
                 break
             }
         }
+        if i == dataList.count - 1 { return 0 }
         var expectDt = 0.0
         let dtStart = dataList[i+1].t - dataList[i].t
         if dtStart != 0 {
