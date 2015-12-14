@@ -14,8 +14,6 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var closeDanmu: UISwitch!
 
-    let realm = try! Realm()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,8 +30,10 @@ class SettingsTableViewController: UITableViewController {
                 let alertController = UIAlertController(title: "清除缓存", message: nil, preferredStyle: .Alert)
                 alertController.addAction(UIAlertAction(title: "确定", style: .Default) { _ in
                     KingfisherManager.sharedManager.cache.clearDiskCache()
-                    try! self.realm.write {
-                        self.realm.delete(self.realm.objects(RmScore))
+                    gRealm?.writeOptional {
+                        if let objects = gRealm?.objects(RmScore) {
+                            gRealm?.delete(objects)
+                        }
                     }
                     self.view.makeToast(message: "清除成功")
                     })

@@ -22,8 +22,6 @@ class AddPlayerTableViewController: UITableViewController {
     var sender: UIButton?
     var sid = 0
 
-    let realm = try! Realm()
-
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Myself:"我", .Rank:"赛道排名"]
 
     var mode: AddPlayerMode = .Menu
@@ -43,8 +41,8 @@ class AddPlayerTableViewController: UITableViewController {
 
     func updateScore() {
 
-        localBest = realm.objects(RmScore).filter("mapType = \(sid)").sorted("score").map { $0 }
-        localNewest = realm.objects(RmScore).filter("mapType = \(sid)").sorted("createdAt", ascending: false).map { $0 }
+        localBest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("score").map { $0 } ?? []
+        localNewest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("createdAt", ascending: false).map { $0 } ?? []
 
         tableView.reloadData()
     }
@@ -57,13 +55,13 @@ class AddPlayerTableViewController: UITableViewController {
                 self.top = data.top.sort { $0.0.score < $0.1.score }
                 if self.localNewest.count == 0 {
                     for s in data.newestRes {
-                        try! self.realm.write {
-                            self.realm.add(s, update: true)
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
                         }
                     }
                     for s in data.bestRes {
-                        try! self.realm.write {
-                            self.realm.add(s, update: true)
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
                         }
                     }
                     self.updateScore()

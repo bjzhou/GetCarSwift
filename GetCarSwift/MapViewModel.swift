@@ -18,7 +18,6 @@ typealias AnnotationTuple = ([CarIconAnnotation], [CarIconAnnotation])
 
 struct MapViewModel {
 
-    let realm = try! Realm()
     var annotations: [String: CarIconAnnotation] = [:]
 
     mutating func updateNearby() -> Observable<AnnotationTuple> {
@@ -66,7 +65,7 @@ struct MapViewModel {
     }
 
     func loadTracks() -> [RaceTrackAnnotation] {
-        return realm.objects(RmRaceTrack).sorted("isDeveloped").flatMap { rt in
+        return gRealm?.objects(RmRaceTrack).sorted("isDeveloped").flatMap { rt in
             if let mapCenter = rt.mapCenter {
                 let anno = RaceTrackAnnotation(raceTrack: rt)
                 anno.coordinate = CLLocationCoordinate2D(latitude: mapCenter.latitude, longitude: mapCenter.longitude)
@@ -75,7 +74,7 @@ struct MapViewModel {
                 return anno
             }
             return nil
-        }
+        } ?? []
     }
 
 }

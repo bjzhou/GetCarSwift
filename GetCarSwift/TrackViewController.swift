@@ -12,7 +12,6 @@ import RealmSwift
 
 class TrackViewController: UITableViewController {
 
-    let realm = try! Realm()
     let disposeBag = DisposeBag()
     let placeholder = UIImage()
 
@@ -24,7 +23,7 @@ class TrackViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        items = realm.objects(RmRaceTrack).sorted("isDeveloped", ascending: false).map { $0 }
+        items = gRealm?.objects(RmRaceTrack).sorted("isDeveloped", ascending: false).map { $0 } ?? []
         updatePraises()
     }
 

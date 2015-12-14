@@ -54,7 +54,7 @@ class DanmuEffect {
             label.text = text
             let size = label.attributedText?.size() ?? CGSizeZero
             let randomPos = self.generateRandom(size)
-            mainThread {
+            main {
                 label.frame = CGRect(x: self.rect.origin.x + self.rect.width, y: self.rect.origin.y + randomPos, width: size.width, height: size.height)
                 label.tag = Int(NSDate().timeIntervalSince1970 * 1000)
                 self.superView.addSubview(label)

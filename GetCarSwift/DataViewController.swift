@@ -30,8 +30,6 @@ class DataViewController: UIViewController {
     @IBOutlet weak var signalView4: UIImageView!
     @IBOutlet weak var signalView5: UIImageView!
 
-    let realm = try! Realm()
-
     var datas = [UIView]()
     var dataVCs = [DataSubViewController]()
     let dataTitles = ["0~60km/h", "0~100km/h", "60~0km/h", "0~400m"]
@@ -238,32 +236,32 @@ class DataViewController: UIViewController {
     }
 
     func updateScore() {
-        let v60s = self.realm.objects(RmScore).filter("mapType = 1001")
-        let v100s = self.realm.objects(RmScore).filter("mapType = 1002")
-        let s400s = self.realm.objects(RmScore).filter("mapType = 0")
-        let b60s = self.realm.objects(RmScore).filter("mapType = 1003")
-        self.latestScores[0] =? v60s.sorted("createdAt").last?.score
-        self.bestScores[0] =? v60s.sorted("score").first?.score
-        self.latestScores[1] =? v100s.sorted("createdAt").last?.score
-        self.bestScores[1] =? v100s.sorted("score").first?.score
-        self.latestScores[2] =? b60s.sorted("createdAt").last?.score
-        self.bestScores[2] =? b60s.sorted("score").first?.score
-        self.latestScores[3] =? s400s.sorted("createdAt").last?.score
-        self.bestScores[3] =? s400s.sorted("score").first?.score
+        let v60s = gRealm?.objects(RmScore).filter("mapType = 1001")
+        let v100s = gRealm?.objects(RmScore).filter("mapType = 1002")
+        let s400s = gRealm?.objects(RmScore).filter("mapType = 0")
+        let b60s = gRealm?.objects(RmScore).filter("mapType = 1003")
+        self.latestScores[0] =? v60s?.sorted("createdAt").last?.score
+        self.bestScores[0] =? v60s?.sorted("score").first?.score
+        self.latestScores[1] =? v100s?.sorted("createdAt").last?.score
+        self.bestScores[1] =? v100s?.sorted("score").first?.score
+        self.latestScores[2] =? b60s?.sorted("createdAt").last?.score
+        self.bestScores[2] =? b60s?.sorted("score").first?.score
+        self.latestScores[3] =? s400s?.sorted("createdAt").last?.score
+        self.bestScores[3] =? s400s?.sorted("score").first?.score
 
-        if v60s.count == 0 {
+        if v60s?.count == 0 {
             updateFromNet(1001)
         }
 
-        if v100s.count == 0 {
+        if v100s?.count == 0 {
             updateFromNet(1002)
         }
 
-        if s400s.count == 0 {
+        if s400s?.count == 0 {
             updateFromNet(0)
         }
 
-        if b60s.count == 0 {
+        if b60s?.count == 0 {
             updateFromNet(1003)
         }
 
@@ -277,13 +275,13 @@ class DataViewController: UIViewController {
             if let r = res.data {
                 if r.newestRes.count != 0 {
                     for s in r.newestRes {
-                        try! self.realm.write {
-                            self.realm.add(s, update: true)
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
                         }
                     }
                     for s in r.bestRes {
-                        try! self.realm.write {
-                            self.realm.add(s, update: true)
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
                         }
                     }
                     self.updateScore()
@@ -313,7 +311,6 @@ class DataViewController: UIViewController {
                         if self.data.endIndex > 1 {
                             let prevA = (self.data[self.data.endIndex-1].v - self.data[self.data.endIndex-2].v) / 3.6 / (self.data[self.data.endIndex-1].t - self.data[self.data.endIndex-2].t)
                             let calcV = prevData.v + prevA * (Double(t)/100 - prevData.t) * 3.6
-                            //print("理论速度", calcV, "GPS速度", v)
                             if v == 0 && calcV > 10 {
                                 v = calcV
                             }
@@ -331,10 +328,10 @@ class DataViewController: UIViewController {
                                 score.score = self.latestScores[3]
                                 score.data = data
                                 Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                    print(res.data)
+                                    RmLog.v("upload \(score)")
                                 }.addDisposableTo(self.disposeBag)
-                                try! self.realm.write {
-                                    self.realm.add(score)
+                                gRealm?.writeOptional {
+                                    gRealm?.add(score)
                                 }
                             }
                         }
@@ -353,10 +350,10 @@ class DataViewController: UIViewController {
                                 score.score = self.latestScores[0]
                                 score.data = data
                                 Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                    print(res.data)
+                                    RmLog.v("upload \(score)")
                                     }.addDisposableTo(self.disposeBag)
-                                try! self.realm.write {
-                                    self.realm.add(score)
+                                gRealm?.writeOptional {
+                                    gRealm?.add(score)
                                 }
                             }
                         }
@@ -379,10 +376,10 @@ class DataViewController: UIViewController {
                                 score.score = self.latestScores[1]
                                 score.data = data
                                 Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                    print(res.data)
+                                    RmLog.v("upload \(score)")
                                     }.addDisposableTo(self.disposeBag)
-                                try! self.realm.write {
-                                    self.realm.add(score)
+                                gRealm?.writeOptional {
+                                    gRealm?.add(score)
                                 }
                             }
                         }
@@ -402,10 +399,10 @@ class DataViewController: UIViewController {
                                     score.score = self.latestScores[2]
                                     score.data = data
                                     Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                                        print(res.data)
+                                        RmLog.v("upload \(score)")
                                         }.addDisposableTo(self.disposeBag)
-                                    try! self.realm.write {
-                                        self.realm.add(score)
+                                    gRealm?.writeOptional {
+                                        gRealm?.add(score)
                                     }
                                 }
                             }

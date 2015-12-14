@@ -38,9 +38,9 @@ extension UIImage {
     }
 
     class func asyncInit(name: String, closure: UIImage? -> ()) {
-        dispatch_async(serialQueue) {
+        async(serial: true) {
             let img = UIImage(named: name)
-            mainThread {
+            main {
                 closure(img)
             }
         }

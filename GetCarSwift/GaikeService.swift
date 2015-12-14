@@ -33,11 +33,7 @@ class GaikeService {
         headers["Ass-lati"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.latitude ?? 0)
         headers["Ass-longti"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.longitude ?? 0)
 
-        #if DEBUG
-            print("HEADER=========================================>")
-            print(headers)
-            RmLog.i("http header: \(headers)")
-        #endif
+        RmLog.i("http header: \(headers)")
 
         return headers
     }
@@ -50,11 +46,7 @@ class GaikeService {
         }
         mutableURLRequest.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(body, options: [])
 
-        #if DEBUG
-            print("REQUEST=========================================>")
-            print(mutableURLRequest.URLString, body)
-            RmLog.i("http request: \(mutableURLRequest.URLString) \(body)")
-        #endif
+        RmLog.i("http request: \(mutableURLRequest.URLString) \(body)")
 
         return mutableURLRequest
     }
@@ -62,18 +54,10 @@ class GaikeService {
     func request(urlString: URLStringConvertible) -> Observable<NSData> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
-            #if DEBUG
-                print("REQUEST=========================================>")
-                print(urlString)
-                RmLog.i("http request data: \(urlString)")
-            #endif
+            RmLog.i("http request data: \(urlString)")
             let request = apiManager.request(.GET, urlString).responseData { res in
-                #if DEBUG
-                    let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
-                    print("RESPONSE=========================================>")
-                    print(responseString, res.result.error)
-                    RmLog.i("http response data: \(responseString), error: \(res.result.error)")
-                #endif
+                let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                RmLog.i("http response data: \(responseString), error: \(res.result.error)")
                 if let err = res.result.error {
                     observer.on(.Error(err))
                 } else {
@@ -96,12 +80,8 @@ class GaikeService {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
             let request = apiManager.request(self.generateURLRequest(urlString, body: body)).responseData { res in
-                #if DEBUG
-                    let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
-                    print("RESPONSE=========================================>")
-                    print(responseString)
-                    RmLog.i("http response: \(responseString)")
-                #endif
+                let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                RmLog.i("http response: \(responseString)")
                 if let err = res.result.error {
                     observer.on(.Error(err))
                 } else {
@@ -126,8 +106,7 @@ class GaikeService {
         return create { observer in
             var upload: Request?
             Alamofire.upload(.POST, GaikeService.domain + urlString, headers: self.getHeader(), multipartFormData: { data in
-                if let parameters = parameters {
-                    let jsonParams = try! NSJSONSerialization.dataWithJSONObject(parameters, options: [])
+                if let parameters = parameters, jsonParams = try? NSJSONSerialization.dataWithJSONObject(parameters, options: []) {
                     data.appendBodyPart(data: jsonParams, name: "content")
                 }
                 for (key, value) in datas {
@@ -136,18 +115,10 @@ class GaikeService {
                 }) { res in
                     switch res {
                     case .Success(request: let req, streamingFromDisk: _, streamFileURL: _):
-                        #if DEBUG
-                            print("REQUEST=========================================>")
-                            print(req.request?.URLString)
-                            RmLog.i("http request upload: \(req.request?.URLString)")
-                        #endif
+                        RmLog.i("http request upload: \(req.request?.URLString)")
                         upload = req.responseData { res in
-                            #if DEBUG
-                                let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
-                                print("RESPONSE=========================================>")
-                                print(responseString)
-                                RmLog.i("http response upload: \(responseString)")
-                            #endif
+                            let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                            RmLog.i("http response upload: \(responseString)")
                             if let err = res.result.error {
                                 observer.on(.Error(err))
                             } else {

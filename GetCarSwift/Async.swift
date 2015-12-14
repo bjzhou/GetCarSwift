@@ -11,33 +11,16 @@ import Foundation
 
 let serialQueue = dispatch_queue_create("serial-worker", DISPATCH_QUEUE_SERIAL)
 
-infix operator ~> {}
-
-func ~> (bgThread: () -> (), mainThread: () -> ()) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        bgThread()
-        dispatch_async(dispatch_get_main_queue(), mainThread)
-    }
+func async(serial serial: Bool = false, closure: () -> Void) {
+    let queue = serial ? serialQueue : dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+    dispatch_async(queue, closure)
 }
 
-func ~><T> (bgThread: () -> T, mainThread: (result: T) -> ()) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        let result = bgThread()
-        dispatch_async(dispatch_get_main_queue()) {
-            mainThread(result: result)
-        }
-    }
+func main(closure: () -> Void) {
+    dispatch_async(dispatch_get_main_queue(), closure)
 }
 
-func async(bgThread: () -> Void) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), bgThread)
-}
-
-func mainThread(main: () -> Void) {
-    dispatch_async(dispatch_get_main_queue(), main)
-}
-
-func delay(timeInterval: NSTimeInterval, block: dispatch_block_t) {
+func delay(timeInterval: NSTimeInterval, closure: dispatch_block_t) {
     let when = dispatch_time(DISPATCH_TIME_NOW, Int64(timeInterval * Double(NSEC_PER_SEC)))
-    dispatch_after(when, dispatch_get_main_queue(), block)
+    dispatch_after(when, dispatch_get_main_queue(), closure)
 }

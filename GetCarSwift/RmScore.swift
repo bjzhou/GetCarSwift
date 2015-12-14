@@ -62,7 +62,7 @@ class RmScore: Object, JSONable {
                     return scoreData
                 }
                 if let realm = self.realm {
-                    try! realm.write {
+                    realm.writeOptional {
                         self.data.appendContentsOf(scoreDataArray)
                     }
                 } else {

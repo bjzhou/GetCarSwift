@@ -39,7 +39,7 @@ class RmRaceTrack: Object {
                 UIImage.asyncInit(self.name) { img in
                     if let img = img {
                         closure(img)
-                        try! self.realm?.write {
+                        self.realm?.writeOptional {
                             self.sightView = self.name
                         }
                     }
@@ -56,7 +56,7 @@ class RmRaceTrack: Object {
                 UIImage.asyncInit(self.name + " 赛道") { img in
                     if let img = img {
                         closure(img)
-                        try! self.realm?.write {
+                        self.realm?.writeOptional {
                             self.mapImage = self.name + " 赛道"
                         }
                     }

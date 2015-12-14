@@ -49,7 +49,6 @@
 		C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D896A1BDF797700AA4425 /* R.generated.swift */; };
 		C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */; };
 		C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894A3311B7F783D00D853C9 /* CarInfo.swift */; };
-		C894F5FB1BA440B300645DA3 /* UITableView+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894F5FA1BA440B300645DA3 /* UITableView+GK.swift */; };
 		C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* Comment.swift */; };
 		C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89884361B0650F5009634E1 /* BgChoiceViewController.swift */; };
 		C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A05C21B6E058C00620C85 /* GaikeService.swift */; };
@@ -96,6 +95,7 @@
 		C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F333571BB6C32900F4EFB2 /* DeviceDataService.swift */; };
 		C8F333681BB6DA6600F4EFB2 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F333671BB6DA6600F4EFB2 /* Async.swift */; };
 		C8F3336B1BB6DE7F00F4EFB2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F3336A1BB6DE7F00F4EFB2 /* MapViewModel.swift */; };
+		C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F411D31C1EA38D00747678 /* RealmHelper.swift */; };
 		C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* User.swift */; };
 		C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD701B725CDD0003AF1B /* Toast.swift */; };
 /* End PBXBuildFile section */
@@ -173,7 +173,6 @@
 		C88D896A1BDF797700AA4425 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableNavigationController.swift; sourceTree = "<group>"; };
 		C894A3311B7F783D00D853C9 /* CarInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
-		C894F5FA1BA440B300645DA3 /* UITableView+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+GK.swift"; sourceTree = "<group>"; };
 		C89791DC1B9F04280027D6A5 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		C89884361B0650F5009634E1 /* BgChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceViewController.swift; sourceTree = "<group>"; };
 		C89A05C21B6E058C00620C85 /* GaikeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaikeService.swift; sourceTree = "<group>"; };
@@ -222,6 +221,7 @@
 		C8F333571BB6C32900F4EFB2 /* DeviceDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDataService.swift; sourceTree = "<group>"; };
 		C8F333671BB6DA6600F4EFB2 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		C8F3336A1BB6DE7F00F4EFB2 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		C8F411D31C1EA38D00747678 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		C8F9CD6E1B7246BB0003AF1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -460,7 +460,6 @@
 				C85B349C1BB7C5C500435320 /* UIButton+GK.swift */,
 				C8C2C0901B8B5DEE006095DC /* UIColor+GK.swift */,
 				C88D822E1AE27E4900DBC0C1 /* UIImage+GK.swift */,
-				C894F5FA1BA440B300645DA3 /* UITableView+GK.swift */,
 				C8D6CAE51B8F511700A417CF /* UIViewController+GK.swift */,
 				C8D88FEB1BF5B67800792F3E /* Realm+GK.swift */,
 				C8A6B4A11C1580D700D2B217 /* UITableViewController+GK.swift */,
@@ -522,6 +521,7 @@
 				C867FD1D1AD9071900F99592 /* Res.swift */,
 				C844F4001BE73DE1008AFC8B /* File.swift */,
 				C8D88FE51BF343BB00792F3E /* Helper.swift */,
+				C8F411D31C1EA38D00747678 /* RealmHelper.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -809,8 +809,8 @@
 				C8C2C0941B8B5DEE006095DC /* UIColor+GK.swift in Sources */,
 				C8F3336B1BB6DE7F00F4EFB2 /* MapViewModel.swift in Sources */,
 				C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */,
-				C894F5FB1BA440B300645DA3 /* UITableView+GK.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
+				C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */,
 				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
 				C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */,
 				C8A6B4A21C1580D700D2B217 /* UITableViewController+GK.swift in Sources */,

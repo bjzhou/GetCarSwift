@@ -11,8 +11,6 @@ import RealmSwift
 
 class TrackIntroViewController: UIViewController {
 
-    let realm = try! Realm()
-
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var trackView: UIImageView!
     @IBOutlet weak var trackTitleLabel: UILabel!

@@ -74,22 +74,21 @@ class TrackDetailViewController: UIViewController {
 
         mapView.showsCompass = false
         mapView.zoomEnabled = true
-        mapView.scrollEnabled = true
+        mapView.scrollEnabled = false
         mapView.showsLabels = false
         mapView.skyModelEnable = false
-        mapView.mapType = .Satellite
+        //mapView.mapType = .Satellite
         mapView.delegate = self
         if let raceTrack = trackDetailViewModel.raceTrack {
             if let mapCenter = raceTrack.mapCenter {
                 mapView.zoomLevel = raceTrack.mapZoom
-                //mapView.rotationDegree = raceTrack.mapDegree
                 mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
 
-                mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0), radius: 10))
-
-                for pass in raceTrack.passLocs {
-                    mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(pass.latitude, pass.longitude), radius: 18))
-                }
+//                mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0), radius: 10))
+//
+//                for pass in raceTrack.passLocs {
+//                    mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(pass.latitude, pass.longitude), radius: 18))
+//                }
             }
         }
 
@@ -330,15 +329,15 @@ extension TrackDetailViewController: MAMapViewDelegate {
     }
 
     func mapView(mapView: MAMapView!, regionDidChangeAnimated animated: Bool) {
-//        delay(0.1) { // avoid crash when double tap mapview
-//            if mapView.zoomLevel < 16 {
-//                mapView.zoomLevel = 16
-//            }
-//
-//            if mapView.zoomLevel > 17 {
-//                mapView.zoomLevel = 17
-//            }
-//        }
+        delay(0.1) { // avoid crash when double tap mapview
+            if mapView.zoomLevel < 16 {
+                mapView.zoomLevel = 16
+            }
+
+            if mapView.zoomLevel > 17 {
+                mapView.zoomLevel = 17
+            }
+        }
     }
 
     func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {

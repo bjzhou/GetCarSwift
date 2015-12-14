@@ -11,6 +11,7 @@ import XCTest
 import RealmSwift
 @testable import GetCarSwift
 
+// swiftlint:disable force_try
 class GetCarSwiftTests: XCTestCase {
 
     override func setUp() {

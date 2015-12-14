@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let _ = Mine.sharedInstance.token {
             if let nickname = Mine.sharedInstance.nickname where nickname.trim() != "" {} else {
                 let firstController = UINavigationController(rootViewController: R.storyboard.login.register!)
-                firstController.navigationItem.title = "登陆"
+                firstController.navigationItem.title = "登录"
                 window?.rootViewController = firstController
             }
         } else {
@@ -55,34 +55,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 19,
+            schemaVersion: 20,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 18) {
-                    migration.enumerate(RmScore.className()) { oldObject, newObject in
-                        newObject!["id"] = NSUUID().UUIDString
-                        let type = oldObject!["type"] as? String
-                        if type == "s400" {
-                            newObject!["mapType"] = 0
-                            let score = newObject!["score"] as? Double
-                            if score <= 4 {
-                                migration.delete(newObject!)
-                            }
+                if (oldSchemaVersion < 20) {
+                    migration.enumerate(RmLog.className()) { oldObject, newObject in
+                        let timeStr = oldObject!["time"] as? String
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+                        print(timeStr)
+                        print(dateFormatter.dateFromString(timeStr!))
+                        if let date = dateFormatter.dateFromString(timeStr!) {
+                            newObject!["time"] = date
                         }
-                        if type == "v60" {
-                            newObject!["mapType"] = 1001
-                        }
-                        if type == "v100" {
-                            newObject!["mapType"] = 1002
-                        }
-                        if type == "b60" {
-                            newObject!["mapType"] = 1003
-                        }
-                    }
-                    migration.enumerate(RmRaceTrack.className()) { oldObject, newObject in
-                        migration.delete(newObject!)
                     }
                 }
         })
+
+        if let logs = gRealm?.objects(RmLog), firstLog = logs.first {
+            let time = -firstLog.time.timeIntervalSinceNow
+            print(time)
+            if time >= 7 * 24 * 60 * 60 {
+                gRealm?.writeOptional {
+                    gRealm?.delete(logs)
+                }
+            }
+        }
 
         #if ADHOC
             checkNewVersion()

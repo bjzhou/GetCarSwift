@@ -48,7 +48,7 @@ struct File {
         if isDirectory() {
             return
         }
-        try! NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: false, attributes: nil)
+        _ = try? NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: false, attributes: nil)
         fixPathIfNeeded()
     }
 
@@ -56,7 +56,7 @@ struct File {
         if isDirectory() {
             return
         }
-        try! NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: true, attributes: nil)
+        _ = try? NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: true, attributes: nil)
         fixPathIfNeeded()
     }
 
@@ -88,8 +88,8 @@ struct File {
 
     func listFiles() throws -> [File] {
         let files = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.path)
-        return files.map { try! File(dir: self, name: $0 ) }
+        return files.flatMap { try? File(dir: self, name: $0 ) }
     }
 
-    static let docFile = File(path: try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true).path!)
+    static let docFile = File(path: (try? NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true))?.path ?? "")
 }

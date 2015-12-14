@@ -21,7 +21,6 @@ class TrackTimerViewController: UIViewController {
 
     var raceTrack = RmRaceTrack()
 
-    let realm = try! Realm()
     let disposeBag = DisposeBag()
     var timerDisposable: Disposable?
     var startLoc: CLLocation?
@@ -32,7 +31,6 @@ class TrackTimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        passFlags = raceTrack.passLocs.map { _ in false }
         updateScore()
 
         DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
@@ -43,7 +41,7 @@ class TrackTimerViewController: UIViewController {
                     if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 10) {
                         if !self.inStartCircle {
                             RmLog.d("enter in start circle")
-                            if self.passFlags.reduce(true, combine: { $0 && $1 }) {
+                            if Double((self.passFlags.filter { $0 }).count) >= Double(self.raceTrack.passLocs.count) * 0.6 {
                                 RmLog.d("passed all locs")
                                 let data = List<RmScoreData>()
                                 data.appendContentsOf(self.data)
@@ -58,10 +56,10 @@ class TrackTimerViewController: UIViewController {
                                     Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribeNext { res in
                                         RmLog.d("uploading result: \(res.code), \(res.msg)")
                                         }.addDisposableTo(self.disposeBag)
-                                    RmLog.d("saved data to local storage.")
-                                    try! self.realm.write {
-                                        self.realm.add(rmscore)
+                                    gRealm?.writeOptional {
+                                        gRealm?.add(rmscore)
                                     }
+                                    RmLog.d("saved data to local storage.")
                                     self.updateScore()
                                 }
                             }
@@ -74,7 +72,7 @@ class TrackTimerViewController: UIViewController {
                     }
                     for i in 0..<self.raceTrack.passLocs.count {
                         let rmLoc = self.raceTrack.passLocs[i]
-                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 18) {
+                        if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 15) {
                             if self.passFlags[i] == false {
                                 self.passFlags[i] = true
                                 RmLog.d("passed \(rmLoc)")
@@ -139,20 +137,20 @@ class TrackTimerViewController: UIViewController {
 
     func updateScore() {
         RmLog.d("update score")
-        let scores = realm.objects(RmScore).filter("mapType = \(raceTrack.id)")
+        let scores = gRealm?.objects(RmScore).filter("mapType = \(raceTrack.id)")
 
-        if scores.count == 0 {
+        if scores?.count == 0 {
             Records.getRecord(raceTrack.id, count: 3).subscribeNext { res in
                 if let r = res.data {
                     if r.newestRes.count != 0 {
                         for s in r.newestRes {
-                            try! self.realm.write {
-                                self.realm.add(s, update: true)
+                            gRealm?.writeOptional {
+                                gRealm?.add(s, update: true)
                             }
                         }
                         for s in r.bestRes {
-                            try! self.realm.write {
-                                self.realm.add(s, update: true)
+                            gRealm?.writeOptional {
+                                gRealm?.add(s, update: true)
                             }
                         }
                         self.updateScore()
@@ -162,20 +160,20 @@ class TrackTimerViewController: UIViewController {
             return
         }
 
-        let latests = scores.sorted("createdAt", ascending: false)
-        if latests.count > 0 {
-            scoreLastest1Label.text = time2String(latests[0].score)
+        let latests = scores?.sorted("createdAt", ascending: false)
+        if latests?.count > 0 {
+            scoreLastest1Label.text = time2String(latests![0].score)
         }
-        if latests.count > 1 {
-            scoreLastest2Label.text = time2String(latests[1].score)
+        if latests?.count > 1 {
+            scoreLastest2Label.text = time2String(latests![1].score)
         }
-        if latests.count > 2 {
-            scoreLastest3Label.text = time2String(latests[2].score)
+        if latests?.count > 2 {
+            scoreLastest3Label.text = time2String(latests![2].score)
         }
 
-        let best = scores.sorted("score")
-        if best.count > 0 {
-            scoreBestLabel.text = time2String(best[0].score)
+        let best = scores?.sorted("score")
+        if best?.count > 0 {
+            scoreBestLabel.text = time2String(best![0].score)
         }
     }
 
