@@ -312,6 +312,10 @@ class StraightMatchViewController: UIViewController {
     }
 
     @IBAction func didPostComment(sender: UIButton) {
+        if commentTextField.text!.trim() == "" {
+            self.view.makeToast(message: "评论不能为空")
+            return
+        }
         _ = trackDetailViewModel.postComment(commentTextField.text!).subscribeNext {
             self.danmuEffect?.send(self.commentTextField.text!, highlight: true, highPriority: true)
             self.commentTextField.text = ""

@@ -95,6 +95,7 @@ class DataViewController: UIViewController {
             }
             if loc.speed <= 0.1 && a < 0.3 {
                 self.ready = true
+                self.timeLabel.text = "00:00.00"
             }
         }.addDisposableTo(disposeBag)
     }
@@ -303,7 +304,10 @@ class DataViewController: UIViewController {
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, startLoc = self.startLoc else {
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, startLoc = self.startLoc where loc.horizontalAccuracy < 65 else {
+                self.stopTimer()
+                self.timeLabel.text = "  信号丢失  "
+                self.ready = false
                 return
             }
 
