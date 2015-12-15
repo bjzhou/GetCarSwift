@@ -29,7 +29,7 @@ class CommentsViewController: UIViewController {
         commentTableView.delegate = self
         commentTableView.dataSource = self
         commentTableView.rowHeight = UITableViewAutomaticDimension
-        commentTableView.estimatedRowHeight = 60
+        commentTableView.estimatedRowHeight = 72
 
         initCommentsData()
     }
