@@ -199,12 +199,12 @@ struct Mine {
     mutating func logout(expired expired: Bool = true) {
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
         KingfisherManager.sharedManager.cache.clearDiskCache()
-        gRealm?.writeOptional {
-            if let objects = gRealm?.objects(RmScore) {
-                gRealm?.delete(objects)
-            }
-        }
         main {
+            gRealm?.writeOptional {
+                if let objects = gRealm?.objects(RmScore) {
+                    gRealm?.delete(objects)
+                }
+            }
             let firstController = R.storyboard.login.login!
             let window = UIApplication.sharedApplication().keyWindow
             window?.rootViewController = firstController
