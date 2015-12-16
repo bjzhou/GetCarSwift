@@ -56,12 +56,13 @@ class LoginViewModel {
             .concat()
             .subscribeNext { res in
                 guard let user = res.data, let token = user.token else {
-                    self.viewProxy?.showToast("登陆失败")
-                    return
-                }
-
-                if res.code < 0 {
-                    self.viewProxy?.showToast("验证码错误")
+                    if res.code == -25 {
+                        self.viewProxy?.showToast("验证码错误")
+                    } else if res.code == -26 {
+                        self.viewProxy?.showToast("验证码已过期")
+                    } else {
+                        self.viewProxy?.showToast("登陆失败")
+                    }
                     return
                 }
 
@@ -78,14 +79,6 @@ class LoginViewModel {
     }
 
     func onCodeButtonAction() {
-        timerDisposable = timer(0, 1, MainScheduler.sharedInstance).subscribeNext { time in
-            self.codeEnabled.value = false
-            self.codeTitle.value = String(60-time) + "秒后重新发送"
-            if time == 60 {
-                self.timerReset()
-                self.timerDisposable?.dispose()
-            }
-        }
         phoneText
             .take(1)
             .filter { phone in
@@ -93,19 +86,32 @@ class LoginViewModel {
                     self.viewProxy?.showToast("手机号格式错误")
                     return false
                 }
+
+                self.timerDisposable = timer(0, 1, MainScheduler.sharedInstance).subscribeNext { time in
+                    self.codeEnabled.value = false
+                    self.codeTitle.value = String(60-time) + "秒后重新发送"
+                    if time == 60 {
+                        self.timerReset()
+                    }
+                }
                 return true
             }
             .map { phone in
                 return User.getCodeMsg(phone)
             }
             .concat()
-            .subscribe(onError: { _ in
-                self.viewProxy?.showToast("验证码发送失败")
-                }, onCompleted: {
+            .subscribe(onNext: { res in
+                if res.code == 0 {
                     self.viewProxy?.showToast("验证码发送成功")
-            })
+                } else {
+                    self.viewProxy?.showToast("验证码发送失败")
+                    self.timerReset()
+                }
+                }, onError: { _ in
+                    self.viewProxy?.showToast("验证码发送失败")
+                    self.timerReset()
+                })
             .addDisposableTo(disposeBag)
-
     }
 
     func timerReset() {

@@ -44,7 +44,7 @@ class SettingsTableViewController: UITableViewController {
         }
 
         if indexPath.section == 2 {
-            Mine.sharedInstance.logout()
+            Mine.sharedInstance.logout(expired: false)
         }
     }
 

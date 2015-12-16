@@ -22,33 +22,20 @@ class GaikeService {
     func getHeader(upload: Bool = false) -> [String:String] {
         var headers: [String:String] = [:]
 
-        headers["Ass-apiver"] = "1.0"
-        headers["Ass-appver"] = versionShort
-        headers["Ass-accesskey"] = ""
-        headers["Ass-contentmd5"] = ""
-        headers["Ass-signature"] = ""
-        headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
+//        headers["Ass-apiver"] = "1.0"
+//        headers["Ass-appver"] = versionShort
+//        headers["Ass-accesskey"] = ""
+//        headers["Ass-contentmd5"] = ""
+//        headers["Ass-signature"] = ""
+//        headers["Ass-time"] = String(NSDate().timeIntervalSince1970)
+//        headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
         headers["Ass-token"] = Mine.sharedInstance.token ?? ""
-        headers["Ass-packagename"] = NSBundle.mainBundle().bundleIdentifier
         headers["Ass-lati"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.latitude ?? 0)
         headers["Ass-longti"] = String(DeviceDataService.sharedInstance.rxLocation.value?.coordinate.longitude ?? 0)
 
         RmLog.i("http header: \(headers)")
 
         return headers
-    }
-
-    func generateURLRequest(urlString: String, body: [String:AnyObject]) -> NSMutableURLRequest {
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: GaikeService.domain + urlString)!)
-        mutableURLRequest.HTTPMethod = "POST"
-        for (headerField, headerValue) in self.getHeader() {
-            mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
-        }
-        mutableURLRequest.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(body, options: [])
-
-        RmLog.i("http request: \(mutableURLRequest.URLString) \(body)")
-
-        return mutableURLRequest
     }
 
     func request(urlString: URLStringConvertible) -> Observable<NSData> {
@@ -79,7 +66,7 @@ class GaikeService {
     func api<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         return create { observer in
-            let request = apiManager.request(self.generateURLRequest(urlString, body: body)).responseData { res in
+            let request = apiManager.request(.POST, GaikeService.domain + urlString, parameters: body, encoding: .JSON, headers: self.getHeader()).responseData { res in
                 let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                 RmLog.i("http response: \(responseString)")
                 if let err = res.result.error {
@@ -91,6 +78,7 @@ class GaikeService {
                     observer.on(.Completed)
                 }
             }
+            RmLog.i("http request: \(request.request?.URLString) \(body)")
             return AnonymousDisposable {
                 request.cancel()
             }

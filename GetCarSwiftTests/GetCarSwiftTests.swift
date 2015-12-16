@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import RealmSwift
+import Alamofire
 @testable import GetCarSwift
 
 // swiftlint:disable force_try
@@ -42,11 +43,58 @@ class GetCarSwiftTests: XCTestCase {
         }
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    func testGetCodeMsg() {
+        let expect = expectationWithDescription("req")
+        let params = "{\"phone\": 18657901235}"
+        Manager.sharedInstance.request(.GET, "http://api.gaikit.com/user/getCodeMsg?content=\(params.encodedUrlString)").responseString { (res) -> Void in
+            print(res.result.value, res.result.error)
+            expect.fulfill()
         }
+        waitForExpectationsWithTimeout(2, handler: nil)
+    }
+
+    func testGetCodeMsg2() {
+        let expect = expectationWithDescription("req")
+        let headers = [
+            "content-type": "application/json",
+            "cache-control": "no-cache",
+            "postman-token": "4fd6e64b-8c30-9bfb-ce6b-1ee390540497"
+        ]
+        let parameters = [
+            "phone": 18657904839,
+            "code": 4287
+        ]
+
+        let postData = try! NSJSONSerialization.dataWithJSONObject(parameters, options: [])
+
+        let request = NSMutableURLRequest(URL: NSURL(string: "http://api.gaikit.com/user/login")!,
+            cachePolicy: .UseProtocolCachePolicy,
+            timeoutInterval: 10.0)
+        request.HTTPMethod = "POST"
+        request.allHTTPHeaderFields = headers
+        request.HTTPBody = postData
+
+        let session = NSURLSession.sharedSession()
+        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+                print(String(data: data!, encoding: NSUTF8StringEncoding))
+            }
+            expect.fulfill()
+        })
+
+        dataTask.resume()
+        waitForExpectationsWithTimeout(2, handler: nil)
+    }
+
+    func testGetCodeMsg3() {
+        let expect = expectationWithDescription("req")
+        Manager.sharedInstance.request(.POST, "http://api.gaikit.com/user/login", parameters: ["phone": 18657904839, "code": 4287], encoding: .JSON, headers: nil).responseString { (res) -> Void in
+            print(res.result.value, res.result.error)
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(2, handler: nil)
     }
 
 }

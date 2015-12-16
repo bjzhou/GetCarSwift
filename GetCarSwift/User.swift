@@ -196,16 +196,22 @@ struct Mine {
         }
     }
 
-    mutating func logout() {
-        self.token = nil
-        MainScheduler.sharedInstance.schedule("", action: { _ in
+    mutating func logout(expired expired: Bool = true) {
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
+        KingfisherManager.sharedManager.cache.clearDiskCache()
+        gRealm?.writeOptional {
+            if let objects = gRealm?.objects(RmScore) {
+                gRealm?.delete(objects)
+            }
+        }
+        main {
             let firstController = R.storyboard.login.login!
             let window = UIApplication.sharedApplication().keyWindow
             window?.rootViewController = firstController
 
-            firstController.view.makeToast(message: "登录信息已过期，请重新登录")
-
-            return AnonymousDisposable {}
-        })
+            if expired {
+                firstController.view.makeToast(message: "登录信息已过期，请重新登录")
+            }
+        }
     }
 }
