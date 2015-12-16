@@ -62,6 +62,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.info_text, forIndexPath:indexPath)
             cell?.selectionStyle = .Default
+            cell?.accessoryType = .DisclosureIndicator
             if indexPath.section == 0 {
                 cell?.title.text = titles[indexPath.row]
                 cell?.value.text = values[indexPath.row]
@@ -70,6 +71,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 cell?.value.text = values[indexPath.row + 3/*5*/]
                 if indexPath.row == 1 {
                     cell?.selectionStyle = .None
+                    cell?.accessoryType = .None
                 }
             }
         }
