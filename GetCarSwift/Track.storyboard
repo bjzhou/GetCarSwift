@@ -631,7 +631,7 @@ km/h</string>
                                             <constraint firstAttribute="width" constant="47" id="I9E-ra-ugq"/>
                                             <constraint firstAttribute="height" constant="47" id="VDO-wk-Qmv"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="btn_add_player"/>
+                                        <state key="normal" backgroundImage="btn_add_player_blue"/>
                                         <connections>
                                             <action selector="didAddPlayer:" destination="yfQ-vs-aq2" eventType="touchUpInside" id="8DL-3q-LU7"/>
                                             <action selector="didAddPlayer:" destination="CUZ-Dw-Ccj" eventType="touchUpInside" id="99x-If-SYK"/>
@@ -899,7 +899,7 @@ km/h</string>
                                             <constraint firstAttribute="width" constant="47" id="7Hi-vV-V6E"/>
                                             <constraint firstAttribute="height" constant="47" id="RwV-un-ggp"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="btn_add_player"/>
+                                        <state key="normal" backgroundImage="btn_add_player_red"/>
                                         <connections>
                                             <action selector="didAddPlayer:" destination="yfQ-vs-aq2" eventType="touchUpInside" id="2Uz-ss-nyC"/>
                                             <action selector="didAddPlayer:" destination="CUZ-Dw-Ccj" eventType="touchUpInside" id="N6Z-is-mIg"/>
@@ -934,7 +934,7 @@ km/h</string>
                                             <constraint firstAttribute="height" constant="47" id="4JQ-9W-dZn"/>
                                             <constraint firstAttribute="width" constant="47" id="jSE-Qt-yeq"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="btn_add_player"/>
+                                        <state key="normal" backgroundImage="btn_add_player_green"/>
                                         <connections>
                                             <action selector="didAddPlayer:" destination="yfQ-vs-aq2" eventType="touchUpInside" id="aCH-6J-J2T"/>
                                             <action selector="didAddPlayer:" destination="CUZ-Dw-Ccj" eventType="touchUpInside" id="h6y-ju-cn1"/>
@@ -1109,23 +1109,23 @@ km/h</string>
                         <viewControllerLayoutGuide type="bottom" id="Kwe-IC-BBy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1E2-WQ-m2x">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1oZ-GQ-vhK">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1oZ-GQ-vhK">
+                                <rect key="frame" x="0.0" y="64" width="375" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="R0X-K7-BIg">
-                                    <rect key="frame" x="0.0" y="164" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="100" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="comment" id="D9F-HL-TIE">
-                                        <rect key="frame" x="0.0" y="92" width="414" height="72"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9F-HL-TIE" id="25v-Ej-3Zj">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="71.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="310" contentMode="scaleToFill" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="fTz-Fi-1gd">
@@ -1149,7 +1149,7 @@ km/h</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="313" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容内容内容内容内容内" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-YU-WD3">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="313" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="内容内容内容内容内容内" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-YU-WD3">
                                                     <rect key="frame" x="48" y="28" width="358" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="enz-7l-oEV"/>
@@ -1158,7 +1158,7 @@ km/h</string>
                                                     <color key="textColor" red="0.40784313729999999" green="0.40784313729999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="312" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-08-27 15:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-oz-3rB">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="312" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-08-27 15:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-oz-3rB">
                                                     <rect key="frame" x="302" y="9" width="103.5" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
@@ -1181,11 +1181,11 @@ km/h</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0r-UI-E0E">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M0r-UI-E0E">
+                                <rect key="frame" x="0.0" y="64" width="375" height="672"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无跟帖" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N80-cC-kd9">
-                                        <rect key="frame" x="183" y="329" width="48" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="暂无跟帖" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N80-cC-kd9">
+                                        <rect key="frame" x="182" y="329" width="48" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1360,6 +1360,9 @@ km/h</string>
         <image name="ad_AP_RACING" width="30" height="22"/>
         <image name="avatar" width="87" height="87"/>
         <image name="btn_add_player" width="47" height="47"/>
+        <image name="btn_add_player_blue" width="47" height="47"/>
+        <image name="btn_add_player_green" width="47" height="47"/>
+        <image name="btn_add_player_red" width="47" height="47"/>
         <image name="btn_playback" width="27" height="27"/>
         <image name="btn_post" width="57" height="27"/>
         <image name="btn_post_pressed" width="57" height="27"/>
@@ -1379,6 +1382,6 @@ km/h</string>
         <image name="上海国际赛车场" width="375" height="186"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SOV-J0-oR9"/>
+        <segue reference="N7T-e4-BOs"/>
     </inferredMetricsTieBreakers>
 </document>

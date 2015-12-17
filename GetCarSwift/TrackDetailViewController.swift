@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RealmSwift
 
 class TrackDetailViewController: UIViewController {
 
@@ -88,6 +89,45 @@ class TrackDetailViewController: UIViewController {
 //            for pass in raceTrack.passLocs {
 //                mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(pass.latitude, pass.longitude), radius: 18))
 //            }
+
+//            annotation1 = MAPointAnnotation()
+//            annotation1!.coordinate = CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0)
+//            mapView.addAnnotation(annotation1)
+//            score1 = RmScore()
+//            score1?.score = 5
+//            let datas = List<RmScoreData>()
+//            datas.append(RmScoreData(value: ["t": 0, "v": 0, "a": 1, "lat": annotation1!.coordinate.latitude, "long": annotation1!.coordinate.longitude]))
+//            for i in 0...3 {
+//                datas.append(RmScoreData(value: ["t": i+1, "v": 60, "a": 1, "lat": raceTrack.passLocs[i].latitude, "long": raceTrack.passLocs[i].longitude]))
+//            }
+//            datas.append(RmScoreData(value: ["t": 5, "v": 30, "a": 1, "lat": annotation1!.coordinate.latitude, "long": annotation1!.coordinate.longitude]))
+//            score1?.data = datas
+//
+//            annotation2 = MAPointAnnotation()
+//            annotation2!.coordinate = CLLocationCoordinate2DMake((raceTrack.startLoc?.latitude ?? 0), raceTrack.startLoc?.longitude ?? 0)
+//            mapView.addAnnotation(annotation2)
+//            score2 = RmScore()
+//            score2?.score = 8
+//            let datas2 = List<RmScoreData>()
+//            datas2.append(RmScoreData(value: ["t": 0, "v": 0, "a": 1, "lat": annotation2!.coordinate.latitude, "long": annotation2!.coordinate.longitude]))
+//            for i in 0...3 {
+//                datas2.append(RmScoreData(value: ["t": i+2, "v": 50, "a": 0.8, "lat": raceTrack.passLocs[i].latitude, "long": raceTrack.passLocs[i].longitude]))
+//            }
+//            datas2.append(RmScoreData(value: ["t": 8, "v": 30, "a": 1, "lat": annotation2!.coordinate.latitude, "long": annotation2!.coordinate.longitude]))
+//            score2?.data = datas2
+//
+//            annotation3 = MAPointAnnotation()
+//            annotation3!.coordinate = CLLocationCoordinate2DMake((raceTrack.startLoc?.latitude ?? 0), raceTrack.startLoc?.longitude ?? 0)
+//            mapView.addAnnotation(annotation3)
+//            score3 = RmScore()
+//            score3?.score = 6
+//            let datas3 = List<RmScoreData>()
+//            datas3.append(RmScoreData(value: ["t": 0, "v": 0, "a": 1, "lat": annotation3!.coordinate.latitude, "long": annotation3!.coordinate.longitude]))
+//            for i in 0...3 {
+//                datas3.append(RmScoreData(value: ["t": Double(i)+1.5, "v": 50, "a": 0.8, "lat": raceTrack.passLocs[i].latitude, "long": raceTrack.passLocs[i].longitude]))
+//            }
+//            datas3.append(RmScoreData(value: ["t": 6, "v": 30, "a": 1, "lat": annotation3!.coordinate.latitude, "long": annotation3!.coordinate.longitude]))
+//            score3?.data = datas3
         }
 
         var danmuRect = self.mapView.frame
@@ -277,11 +317,11 @@ extension TrackDetailViewController: AddPlayerDelegate {
             nickname = Mine.sharedInstance.nickname ?? ""
         }
         sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal, placeholderImage: R.image.avatar)
-        sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
         sender?.layer.borderWidth = 2
 
         switch sender {
         case .Some(button1):
+            sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
             titleLabel1.text = nickname
             score1 = score
             if annotation1 == nil {
@@ -292,6 +332,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
                 annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         case .Some(button2):
+            sender?.layer.borderColor = UIColor(rgbValue: 0x13931B).CGColor
             titleLabel2.text = nickname
             score2 = score
             if annotation2 == nil {
@@ -302,6 +343,7 @@ extension TrackDetailViewController: AddPlayerDelegate {
                 annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
             }
         case .Some(button3):
+            sender?.layer.borderColor = UIColor(rgbValue: 0x007AFF).CGColor
             titleLabel3.text = nickname
             score3 = score
             if annotation3 == nil {
@@ -349,5 +391,28 @@ extension TrackDetailViewController: MAMapViewDelegate {
             circleView.fillColor = UIColor.redColor()
         }
         return circleView
+    }
+
+    func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
+        guard let annotation = annotation as? MAPointAnnotation else {
+            return nil
+        }
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation") as? MAPinAnnotationView
+        if annotationView == nil {
+            annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
+            if annotation == annotation1 {
+                annotationView?.image = R.image.red_helmet
+            }
+            if annotation == annotation2 {
+                annotationView?.image = R.image.green_helmet
+            }
+            if annotation == annotation3 {
+                annotationView?.image = R.image.blue_helmet
+            }
+            annotationView?.layer.shadowOffset = CGSize(width: 1, height: 2)
+            annotationView?.layer.shadowRadius = 1
+            annotationView?.layer.shadowOpacity = 1
+        }
+        return annotationView
     }
 }
