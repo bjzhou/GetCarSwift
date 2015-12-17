@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class CarTableViewController: UITableViewController {
 
-    var indicator: UIActivityIndicatorView?
+    var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     var carTableViewModel: CarTableViewModel!
 
     var categeries: [String] = []
@@ -24,12 +24,11 @@ class CarTableViewController: UITableViewController {
         self.tableView.sectionIndexColor = UIColor.blackColor()
 
         self.sideMenuController()?.sideMenu?.delegate = self
-        indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        indicator?.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 64)
-        indicator?.hidesWhenStopped = true
-        self.view.addSubview(indicator!)
+        indicator.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 64)
+        indicator.hidesWhenStopped = true
+        self.view.addSubview(indicator)
 
-        indicator?.startAnimating()
+        indicator.startAnimating()
 
         carTableViewModel = CarTableViewModel()
         carTableViewModel.fetchCarInfos() { (c, b, m) in
@@ -37,7 +36,7 @@ class CarTableViewController: UITableViewController {
             self.brands = b
             self.models = m
             self.tableView.reloadData()
-            self.indicator?.stopAnimating()
+            self.indicator.stopAnimating()
         }
     }
 

@@ -22,6 +22,8 @@ class AddPlayerTableViewController: UITableViewController {
     var sender: UIButton?
     var sid = 0
 
+    var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+
     let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Myself:"我", .Rank:"赛道排名"]
 
     var mode: AddPlayerMode = .Menu
@@ -29,12 +31,13 @@ class AddPlayerTableViewController: UITableViewController {
     var localNewest: [RmScore] = []
     var localBest: [RmScore] = []
     var top: [RmScore] = []
+    var loaded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.frame.size = CGSize(width: 275, height: 200)
-        addHeader()
+        addSubViews()
 
         updateScore()
     }
@@ -50,7 +53,9 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        _ = Records.getRecord(sid, count: 50).subscribeNext { res in
+        loaded = false
+        _ = Records.getRecord(self.sid, count: 50).subscribeNext { res in
+            self.loaded = true
             guard let data = res.data else {
                 return
             }
@@ -68,6 +73,7 @@ class AddPlayerTableViewController: UITableViewController {
                 }
                 self.updateScore()
             }
+            self.indicator.stopAnimating()
             self.tableView.reloadData()
         }
     }
@@ -166,6 +172,9 @@ class AddPlayerTableViewController: UITableViewController {
             }
             self.view.frame.size = CGSize(width: 275, height: 380)
             self.view.center = self.view.superview!.center
+            if !loaded {
+                indicator.startAnimating()
+            }
         } else {
             if mode == .Myself {
                 if indexPath.section == 0 {
@@ -194,7 +203,7 @@ class AddPlayerTableViewController: UITableViewController {
         }
     }
 
-    func addHeader() {
+    func addSubViews() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 48))
         view.backgroundColor = UIColor.whiteColor()
         let button = UIButton(type: .Custom)
@@ -220,6 +229,12 @@ class AddPlayerTableViewController: UITableViewController {
         view.addConstraint(NSLayoutConstraint(item: line, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0))
 
         tableView.tableHeaderView = view
+
+        indicator.hidesWhenStopped = true
+        self.view.addSubview(indicator)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addConstraint(NSLayoutConstraint(item: indicator, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: indicator, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0))
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
