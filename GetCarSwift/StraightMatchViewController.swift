@@ -349,35 +349,39 @@ extension StraightMatchViewController: AddPlayerDelegate {
         sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
         sender?.layer.borderWidth = 2
 
-        var v60 = "00:00.00"
-        var v100 = "00:00.00"
-        let v60s = score.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t }
-        if let data = v60s.first {
-            v60 = time2String(data.t)
-        }
-        let v100s = score.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t }
-        if let data = v100s.first {
-            v100 = time2String(data.t)
-        }
-
         switch sender {
         case .Some(button1):
             titleLabel1.text = nickname
             score1 = score
-            vLabel1.text = v60
-            aLabel1.text = v100
         case .Some(button2):
             titleLabel2.text = nickname
             score2 = score
-            vLabel2.text = v60
-            aLabel2.text = v100
         case .Some(button3):
             titleLabel3.text = nickname
             score3 = score
-            vLabel3.text = v60
-            aLabel3.text = v100
         default:
             break
+        }
+
+        if let data = (score1?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
+            vLabel1.text = time2String(data.t)
+        }
+        if let data = (score1?.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t })?.first {
+            aLabel1.text = time2String(data.t)
+        }
+
+        if let data = (score2?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
+            vLabel2.text = time2String(data.t)
+        }
+        if let data = (score2?.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t })?.first {
+            aLabel2.text = time2String(data.t)
+        }
+
+        if let data = (score3?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
+            vLabel3.text = time2String(data.t)
+        }
+        if let data = (score3?.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t })?.first {
+            aLabel3.text = time2String(data.t)
         }
     }
 }
