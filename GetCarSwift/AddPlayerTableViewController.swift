@@ -118,6 +118,8 @@ class AddPlayerTableViewController: UITableViewController {
                 if cell == nil {
                     cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu_me")
                 }
+                cell?.imageView?.layer.masksToBounds = true
+                cell?.imageView?.layer.cornerRadius = 8
                 Mine.sharedInstance.setAvatarImage(cell!.imageView!)
                 cell?.textLabel?.text = "我"
             } else {
@@ -142,6 +144,8 @@ class AddPlayerTableViewController: UITableViewController {
             if cell == nil {
                 cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "player")
             }
+            cell?.imageView?.layer.masksToBounds = true
+            cell?.imageView?.layer.cornerRadius = 8
             cell?.imageView?.kf_setImageWithURL(NSURL(string: top[indexPath.row].headUrl)!, placeholderImage: R.image.avatar)
             cell?.textLabel?.text = top[indexPath.row].nickname
             cell?.detailTextLabel?.text = String(format: "%.2f", top[indexPath.row].score)
