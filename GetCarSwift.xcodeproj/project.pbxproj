@@ -206,6 +206,8 @@
 		C8D88FEB1BF5B67800792F3E /* Realm+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Realm+GK.swift"; sourceTree = "<group>"; };
 		C8DDF8BA1C1B03FC008D1443 /* RmLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmLog.swift; sourceTree = "<group>"; };
 		C8DE3B181C117E93009AF56E /* BgChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
+		C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = channel.debug.xcconfig; sourceTree = "<group>"; };
+		C8E0E64B1C23AF4D00BD5EC9 /* channel.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = channel.release.xcconfig; sourceTree = "<group>"; };
 		C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		C8E2B84C1AD95AE8003B07FE /* PersonInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonInfoCell.swift; sourceTree = "<group>"; };
 		C8E2B84E1AD95C5E003B07FE /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +430,8 @@
 				C88D896A1BDF797700AA4425 /* R.generated.swift */,
 				C8C2C09B1B8B5EEE006095DC /* GetCarSwift-Bridging-Header.h */,
 				C867FC6A1AD8FCAF00F99592 /* Info.plist */,
+				C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */,
+				C8E0E64B1C23AF4D00BD5EC9 /* channel.release.xcconfig */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -947,7 +951,7 @@
 		};
 		C867FC881AD8FCB000F99592 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF89B3959372DB5712543292 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -963,9 +967,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"ADHOC\" \"-D\" \"DEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier).test";
-				PRODUCT_DISPLAY_NAME = "改客内测版";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift/GetCarSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -975,7 +976,7 @@
 		};
 		C867FC891AD8FCB000F99592 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 379E7426878B39BF90F73D64 /* Pods.release.xcconfig */;
+			baseConfigurationReference = C8E0E64B1C23AF4D00BD5EC9 /* channel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -991,9 +992,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"ADHOC\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier).test";
-				PRODUCT_DISPLAY_NAME = "改客内测版";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift/GetCarSwift-Bridging-Header.h";

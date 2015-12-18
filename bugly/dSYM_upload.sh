@@ -6,9 +6,13 @@
 ################################################################################
 # 注意: 请配置下面的信息
 ################################################################################
-BUGLY_APP_ID="900011518"
-BUGLY_APP_KEY="ReMUJrRI1isUhRmW"
-BUNDLE_IDENTIFIER="com.gaike.GetCarSwift.test"
+BUGLY_APP_ID="900007462"
+BUGLY_APP_KEY="CW0OcXMl7HbajZ4B"
+BUNDLE_IDENTIFIER=${PRODUCT_BUNDLE_IDENTIFIER}
+if [[ ${BUNDLE_IDENTIFIER} == "com.gaike.GetCarSwift.test" ]]; then
+    BUGLY_APP_ID="900011518"
+    BUGLY_APP_KEY="ReMUJrRI1isUhRmW"
+fi
 ################################################################################
 # 自定义配置
 ################################################################################
@@ -17,6 +21,9 @@ UPLOAD_DEBUG_SYMBOLS=0
 #
 # 模拟器编译是否上传，1=上传 0=不上传，默认不上传
 UPLOAD_SIMULATOR_SYMBOLS=0
+#
+# buglySymboliOS.jar路径
+BUGLY_SYMBOL_JAR_PATH="${SRCROOT}/bugly/buglySymboliOS.jar"
 #
 # # 脚本默认配置的版本格式为CFBundleShortVersionString(CFBundleVersion),  如果你修改默认的版本格式, 请设置此变量, 如果不想修改, 请忽略此设置
 # CUSTOMIZED_APP_VERSION=""
@@ -41,8 +48,6 @@ UPLOAD_SIMULATOR_SYMBOLS=0
 #
 # --- END OF SCRIPT ---
 
-set -e
-
 
 ################################################################################
 # 注意: 如果你不知道此脚本的执行流程和用法，请不要随便修改！
@@ -50,12 +55,12 @@ set -e
 
 # 退出执行并打印提示信息
 exitWithMessage() {
-echo "--------------------------------"
-echo -e "${1}"
-echo "--------------------------------"
-echo "No upload and exit."
-echo "----------------------------------------------------------------"
-exit ${2}
+    echo "--------------------------------"
+    echo -e "${1}"
+    echo "--------------------------------"
+    echo "No upload and exit."
+    echo "----------------------------------------------------------------"
+    exit ${2}
 }
 
 echo "----------------------------------------------------------------"
@@ -83,8 +88,6 @@ BUGLY_APP_VERSION="${BUNDLE_SHORT_VERSION}(${BUNDLE_VERSION})"
 else
 BUGLY_APP_VERSION="${CUSTOMIZED_APP_VERSION}"
 fi
-
-BUGLY_SYMBOL_JAR_PATH="${SRCROOT}/buglySymboliOS.jar"
 
 echo "--------------------------------"
 echo "Step 1: Prepare application information."
@@ -129,108 +132,108 @@ exitWithMessage "Error: Bundle Identifier not defined." 1
 fi
 
 function uploadDSYM {
-DSYM_SRC="$1"
-echo ".dSYM file: ${DSYM_SRC}"
-if [ ! -d "$DSYM_SRC" ]; then
-exitWithMessage "dSYM source not found: ${DSYM_SRC}" 1
-fi
-DSYM_FILE_NAME=${DSYM_SRC##*/}
-DSYM_SYMBOL_OUT_ZIP_NAME="${DSYM_FILE_NAME}.bSymbol.zip"
-# 替换空格
-DSYM_SYMBOL_OUT_ZIP_NAME="${DSYM_SYMBOL_OUT_ZIP_NAME// /_}"
-DSYM_ZIP_FPATH="${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}"
-
-DSYM_SYMBOL_BACKUP_DIR=${BUILD_DIR}/Symbols
-
-if [ ! -e "${DSYM_SYMBOL_BACKUP_DIR}" ]; then
-mkdir ${DSYM_SYMBOL_BACKUP_DIR}
-fi
-
-# 备份并清理
-find ${BUILT_PRODUCTS_DIR} -name "*.zip" -print0 | xargs -0 -I {} mv {} ${DSYM_SYMBOL_BACKUP_DIR}
-/bin/rm -rf "${BUILT_PRODUCTS_DIR}/*.zip"
-
-echo "Extract symbols from dSYM to ${DSYM_ZIP_FPATH}."
-
-echo "--------------------------------"
-(/usr/bin/java -jar "${BUGLY_SYMBOL_JAR_PATH}" -i "${DSYM_SRC}" -o "${DSYM_ZIP_FPATH}" ) #|| exitWithMessage "Error: Failed to extract symbols." 1
-echo "--------------------------------"
-
-if [ ! -e "${DSYM_ZIP_FPATH}" ]; then
-DSYM_SYMBOL_OUT_ZIP_NAME=$(ls ${BUILT_PRODUCTS_DIR} | grep ".zip")
-DSYM_ZIP_FPATH="${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}"
-DSYM_SYMBOL_OUT_ZIP_NAME=${DSYM_SYMBOL_OUT_ZIP_NAME//&/_}
-fi
-
-if [ ! -e "${DSYM_ZIP_FPATH}" ] ; then
-exitWithMessage "no symbol file zip archive generated: ${DSYM_ZIP_FPATH}" 1
-fi
-
-# 提取符号信息
-echo "--------------------------------"
-echo "Step 3: Extract symbol info from .dSYM file."
-
-if [ ! -e "$BUGLY_SYMBOL_JAR_PATH" ]; then
-exitWithMessage "Error: Jar file '${BUGLY_SYMBOL_JAR_PATH}' was not found. \nPlease copy the jar file into ~/bin folder." 1
-fi
-
-echo "Step 4: Upload the symbols of dSYM."
-echo "--------------------------------"
-echo "zip : ${DSYM_SYMBOL_OUT_ZIP_NAME}"
-echo "dir : ${DSYM_ZIP_FPATH}"
-
-echo "dSYM upload domain: ${DSYM_UPLOAD_DOMAIN}"
-DSYM_UPLOAD_URL="http://${DSYM_UPLOAD_DOMAIN}/upload/dsym?app=${BUGLY_APP_ID}&pid=2&ver=${BUGLY_APP_VERSION}&n=${DSYM_SYMBOL_OUT_ZIP_NAME}&key=${BUGLY_APP_KEY}&bid=${BUNDLE_IDENTIFIER}"
-echo "dSYM upload url: ${DSYM_UPLOAD_URL}"
-
-# Upload dSYM to Bugly
-echo "curl --header "Content-Type:application/zip" --data-binary "@${DSYM_ZIP_FPATH}" "${DSYM_UPLOAD_URL}" --verbose"
-
-echo "--------------------------------"
-STATUS=$(/usr/bin/curl --header "Content-Type:application/zip" --data-binary "@${DSYM_ZIP_FPATH}" "${DSYM_UPLOAD_URL}" --verbose)
-echo "--------------------------------"
-
-UPLOAD_RESULT="FAILTURE"
-echo "Bugly server response: ${STATUS}"
-if [ ! "${STATUS}" ]; then
-echo "Error: Failed to upload the zip archive file."
-elif [[ "${STATUS}" == *":true"* ]]; then
-echo "Success to upload the dSYM for the app [${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION}]"
-UPLOAD_RESULT="SUCCESS"
-else
-echo "Error: Failed to upload the zip archive file to Bugly."
-fi
-
-#Remove temp dSYM archive
-echo "Remove temporary zip archive: ${DSYM_ZIP_FPATH}"
-#/bin/rm -f "${DSYM_ZIP_FPATH}"
-
-if [ "$?" -ne 0 ]; then
-exitWithMessage "Error: Failed to remove temporary zip archive." 1
-fi
-
-echo "--------------------------------"
-echo "${UPLOAD_RESULT} - dSYM upload complete."
-
-if [[ "${UPLOAD_RESULT}" == "FAILTURE" ]]; then
-echo "--------------------------------"
-echo "Failed to upload the dSYM"
-echo "Please check the script and try it again."
-fi
-
-echo "----------------------------------------------------------------"
+    DSYM_SRC="$1"
+    echo ".dSYM file: ${DSYM_SRC}"
+    if [ ! -d "$DSYM_SRC" ]; then
+    exitWithMessage "dSYM source not found: ${DSYM_SRC}" 1
+    fi
+    DSYM_FILE_NAME=${DSYM_SRC##*/}
+    DSYM_SYMBOL_OUT_ZIP_NAME="${DSYM_FILE_NAME}.bSymbol.zip"
+    # 替换空格
+    DSYM_SYMBOL_OUT_ZIP_NAME="${DSYM_SYMBOL_OUT_ZIP_NAME// /_}"
+    DSYM_ZIP_FPATH="${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}"
+        
+    DSYM_SYMBOL_BACKUP_DIR=${BUILD_DIR}/Symbols
+        
+    if [ ! -e "${DSYM_SYMBOL_BACKUP_DIR}" ]; then
+        mkdir ${DSYM_SYMBOL_BACKUP_DIR}
+    fi
+        
+    # 备份并清理
+    find ${BUILT_PRODUCTS_DIR} -name "*.zip" -print0 | xargs -0 -I {} mv {} ${DSYM_SYMBOL_BACKUP_DIR}
+        /bin/rm -rf "${BUILT_PRODUCTS_DIR}/*.zip"
+        
+    echo "Extract symbols from dSYM to ${DSYM_ZIP_FPATH}."
+        
+    echo "--------------------------------"
+        (/usr/bin/java -jar "${BUGLY_SYMBOL_JAR_PATH}" -i "${DSYM_SRC}" -o "${DSYM_ZIP_FPATH}" ) || exitWithMessage "Error: Failed to extract symbols." 1
+    echo "--------------------------------"
+        
+    if [ ! -e "${DSYM_ZIP_FPATH}" ]; then
+        DSYM_SYMBOL_OUT_ZIP_NAME=$(ls ${BUILT_PRODUCTS_DIR} | grep ".zip")
+        DSYM_ZIP_FPATH="${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}"
+        DSYM_SYMBOL_OUT_ZIP_NAME=${DSYM_SYMBOL_OUT_ZIP_NAME//&/_}
+    fi
+            
+    if [ ! -e "${DSYM_ZIP_FPATH}" ] ; then
+        exitWithMessage "no symbol file zip archive generated: ${DSYM_ZIP_FPATH}" 1
+    fi
+            
+    # 提取符号信息
+    echo "--------------------------------"
+    echo "Step 3: Extract symbol info from .dSYM file."
+            
+    if [ ! -e "$BUGLY_SYMBOL_JAR_PATH" ]; then
+        exitWithMessage "Error: Jar file '${BUGLY_SYMBOL_JAR_PATH}' was not found. \nPlease copy the jar file into ~/bin folder." 1
+    fi
+            
+    echo "Step 4: Upload the symbols of dSYM."
+    echo "--------------------------------"
+    echo "zip : ${DSYM_SYMBOL_OUT_ZIP_NAME}"
+    echo "dir : ${DSYM_ZIP_FPATH}"
+            
+    echo "dSYM upload domain: ${DSYM_UPLOAD_DOMAIN}"
+    DSYM_UPLOAD_URL="http://${DSYM_UPLOAD_DOMAIN}/upload/dsym?app=${BUGLY_APP_ID}&pid=2&ver=${BUGLY_APP_VERSION}&n=${DSYM_SYMBOL_OUT_ZIP_NAME}&key=${BUGLY_APP_KEY}&bid=${BUNDLE_IDENTIFIER}"
+    echo "dSYM upload url: ${DSYM_UPLOAD_URL}"
+            
+    # Upload dSYM to Bugly
+    echo "curl --header "Content-Type:application/zip" --data-binary "@${DSYM_ZIP_FPATH}" "${DSYM_UPLOAD_URL}" --verbose"
+            
+    echo "--------------------------------"
+    STATUS=$(/usr/bin/curl --header "Content-Type:application/zip" --data-binary "@${DSYM_ZIP_FPATH}" "${DSYM_UPLOAD_URL}" --verbose)
+    echo "--------------------------------"
+            
+    UPLOAD_RESULT="FAILTURE"
+    echo "Bugly server response: ${STATUS}"
+    if [ ! "${STATUS}" ]; then
+        echo "Error: Failed to upload the zip archive file."
+    elif [[ "${STATUS}" == *":true"* ]]; then
+        echo "Success to upload the dSYM for the app [${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION}]"
+        UPLOAD_RESULT="SUCCESS"
+    else
+        echo "Error: Failed to upload the zip archive file to Bugly."
+    fi
+            
+    #Remove temp dSYM archive
+    echo "Remove temporary zip archive: ${DSYM_ZIP_FPATH}"
+            #/bin/rm -f "${DSYM_ZIP_FPATH}"
+            
+    if [ "$?" -ne 0 ]; then
+        exitWithMessage "Error: Failed to remove temporary zip archive." 1
+    fi
+            
+    echo "--------------------------------"
+    echo "${UPLOAD_RESULT} - dSYM upload complete."
+            
+    if [[ "${UPLOAD_RESULT}" == "FAILTURE" ]]; then
+        echo "--------------------------------"
+        echo "Failed to upload the dSYM"
+        echo "Please check the script and try it again."
+    fi
+            
+    echo "----------------------------------------------------------------"
 }
-
+        
 # .dSYM文件信息
-
+        
 echo "DSYM FOLDER ${DWARF_DSYM_FOLDER_PATH}"
-
+        
 DSYM_FOLDER="${DWARF_DSYM_FOLDER_PATH}"
-
+        
 IFS=$'\n'
-
+        
 for dsymFile in $(find "$DSYM_FOLDER" -name '*.dSYM'); do
-echo "Found dSYM file: $dsymFile"
-uploadDSYM $dsymFile
+    echo "Found dSYM file: $dsymFile"
+    uploadDSYM $dsymFile
 done
-
+        

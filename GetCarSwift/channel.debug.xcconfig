@@ -1,0 +1,13 @@
+//
+//  channel.debug.xcconfig
+//  GetCarSwift
+//
+//  Created by 周斌佳 on 15/12/18.
+//  Copyright © 2015年 周斌佳. All rights reserved.
+//
+
+#include "Pods/Target Support Files/Pods/Pods.debug.xcconfig"
+
+PRODUCT_DISPLAY_NAME = 改客内测版
+PRODUCT_BUNDLE_IDENTIFIER = com.gaike.$(PRODUCT_NAME:rfc1034identifier).test
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS" "-D" "ADHOC" "-D" "DEBUG"
