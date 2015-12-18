@@ -363,6 +363,13 @@ extension StraightMatchViewController: AddPlayerDelegate {
             break
         }
 
+        vLabel1.text = "--:--.--"
+        aLabel1.text = "--:--.--"
+        vLabel2.text = "--:--.--"
+        aLabel2.text = "--:--.--"
+        vLabel3.text = "--:--.--"
+        aLabel3.text = "--:--.--"
+
         if let data = (score1?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
             vLabel1.text = time2String(data.t)
         }
