@@ -16,9 +16,11 @@ let productName = NSBundle.mainBundle().infoDictionary?["CFBundleName"] as? Stri
 #if ADHOC
     let amapKey = "5f7efffc934719c87faca88c9cea88ec"
     let buglyAppid = "900011518"
+    let rongAppKey = "x18ywvqf8mkdc"
 #else
     let amapKey = "751ca4d9d8c3a9bd8ef2e2b64a8e7cb4"
     let buglyAppid = "900007462"
+    let rongAppKey = "x18ywvqf8mkdc"
 #endif
 
 let alertStr = NSAttributedString.loadHTMLString("<font size=4>在通过设定的起点和终点时将会自动启动与结束码表，不用手动启动与结束。<br/><br/>进入计时前，请仔细阅读<b>《使用条款以及免责声明》</b>。进入计时，即视为认同我司的<b>《使用条款以及免责声明》</b></font>")

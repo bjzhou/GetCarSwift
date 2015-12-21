@@ -54,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
 
+        RCIM.sharedRCIM().initWithAppKey(rongAppKey)
+
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 20,
             migrationBlock: { migration, oldSchemaVersion in

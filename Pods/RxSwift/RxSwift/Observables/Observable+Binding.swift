@@ -73,7 +73,7 @@ extension ObservableType {
     
     /**
     Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize elements.
-    
+
     This operator is a specialization of `multicast` using a `ReplaySubject`.
     
     - parameter bufferSize: Maximum element count of the replay buffer.
@@ -84,6 +84,19 @@ extension ObservableType {
         -> ConnectableObservable<ReplaySubject<E>> {
         return self.multicast(ReplaySubject.create(bufferSize: bufferSize))
     }
+	
+	/**
+	Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying all elements.
+	
+	This operator is a specialization of `multicast` using a `ReplaySubject`.
+	
+	- returns: A connectable observable sequence that shares a single subscription to the underlying sequence.
+	*/
+	@warn_unused_result(message="http://git.io/rxs.uo")
+	public func replayAll()
+		-> ConnectableObservable<ReplaySubject<E>> {
+			return self.multicast(ReplaySubject.createUnbounded())
+	}
 }
 
 // MARK: refcount
@@ -123,7 +136,7 @@ extension ObservableType {
 extension ObservableType {
     
     /**
-    Returns an observable sequence that shares a single subscription to the underlying sequence replaying notifications subject to a maximum time length for the replay buffer.
+    Returns an observable sequence that shares a single subscription to the underlying sequence, and immediately upon subscription replays maximum number of elements in buffer.
     
     This operator is a specialization of replay which creates a subscription when the number of observers goes from zero to one, then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
     
@@ -139,5 +152,21 @@ extension ObservableType {
         else {
             return self.replay(bufferSize).refCount()
         }
+    }
+
+    /**
+    Returns an observable sequence that shares a single subscription to the underlying sequence, and immediately upon subscription replays latest element in buffer.
+
+    This operator is a specialization of replay which creates a subscription when the number of observers goes from zero to one, then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
+     
+    Unlike `shareReplay(bufferSize: Int)`, this operator will clear latest element from replay buffer in case number of subscribers drops from one to zero. In case sequence
+    completes or errors out replay buffer is also cleared.
+    
+    - returns: An observable sequence that contains the elements of a sequence produced by multicasting the source sequence.
+    */
+    @warn_unused_result(message="http://git.io/rxs.uo")
+    public func shareReplayLatestWhileConnected()
+        -> Observable<E> {
+        return ShareReplay1WhileConnected(source: self.asObservable())
     }
 }

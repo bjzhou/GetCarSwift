@@ -27,6 +27,7 @@
 		C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */; };
 		C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */; };
 		C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */; };
+		C82AF13F1C27CC8700B261AE /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF13E1C27CC8700B261AE /* Share.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
 		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; };
 		C844F4011BE73DE1008AFC8B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C844F4001BE73DE1008AFC8B /* File.swift */; };
@@ -146,6 +147,7 @@
 		C81655851BF1DE9A004E17AE /* StraightMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StraightMatchViewController.swift; sourceTree = "<group>"; };
 		C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LetsgoDigital-Regular.ttf"; sourceTree = "<group>"; };
+		C82AF13E1C27CC8700B261AE /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C844F4001BE73DE1008AFC8B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				C8F9CD6E1B7246BB0003AF1B /* User.swift */,
 				C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */,
 				C8DDF8BA1C1B03FC008D1443 /* RmLog.swift */,
+				C82AF13E1C27CC8700B261AE /* Share.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */,
 				C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */,
 				C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */,
+				C82AF13F1C27CC8700B261AE /* Share.swift in Sources */,
 				C8E2B84D1AD95AE8003B07FE /* PersonInfoCell.swift in Sources */,
 				C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */,
 				C8F333681BB6DA6600F4EFB2 /* Async.swift in Sources */,

@@ -17,7 +17,12 @@ let operationScheduler = OperationQueueScheduler(operationQueue: operationQueue)
 
 class GaikeService {
     static let sharedInstance = GaikeService()
+
+#if DEBUG
+    static let domain = "http://api.gaikit.com:8911/"
+#else
     static let domain = "http://api.gaikit.com/"
+#endif
 
     func getHeader(upload: Bool = false) -> [String:String] {
         var headers: [String:String] = [:]

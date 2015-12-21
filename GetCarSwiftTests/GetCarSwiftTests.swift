@@ -10,6 +10,7 @@ import UIKit
 import XCTest
 import RealmSwift
 import Alamofire
+import RxSwift
 @testable import GetCarSwift
 
 // swiftlint:disable force_try
@@ -95,6 +96,50 @@ class GetCarSwiftTests: XCTestCase {
             expect.fulfill()
         }
         waitForExpectationsWithTimeout(2, handler: nil)
+    }
+
+    func testUploadScore() {
+        let expect = expectationWithDescription("req")
+        let score = RmScore(value: ["mapType": 0, "score": 8.9, "data": [["t": 0, "v": 0, "s": 0], ["t": 2, "v": 20, "s": 50], ["t": 4, "v": 40, "s": 100], ["t": 6, "v": 60, "s": 200], ["t": 8, "v": 80, "s": 300], ["t": 8.9, "v": 100, "s": 400]]])
+        _ = Records.uploadRecord(0, duration: 8.9, recordData: score.archive()).subscribeNext { res in
+            if let newScore = res.data {
+                gRealm?.writeOptional {
+                    score.id = newScore.id
+                    score.url = newScore.url
+                }
+                print(score)
+            }
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(10, handler: nil)
+    }
+
+    func testUploadShare() {
+        let expect = expectationWithDescription("req")
+        _ = Share.uploadShare("191", title: "这是什么", carId: "111", carDesc: "好车", partDescs: ["配件1", "配件2", "配件3", "配件4"], partImages: [R.image.ad_AFE!, R.image.ad_KW!, R.image.ad_MRG!, R.image.ad_CSB!]).subscribeNext { res in
+            if let share = res.data where share.id != "" {
+                UIApplication.sharedApplication().openURL(share.getShareUrl())
+            } else {
+                XCTAssert(false, "response error")
+            }
+            print(res)
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(10, handler: nil)
+    }
+
+    func testRongIMClient() {
+        let expect = expectationWithDescription("req")
+        let token = "DNxvK68aAlxkfimLWQ5t4fU2FYEUPo/JCfkeXaxWG4EO2EPlJV+HuXLLvABQq7YIdnl7NWqhWKOpH9Pdqh1Ewg=="
+        RCIM.sharedRCIM().connectWithToken(token, success: { str in
+            print(str)
+            expect.fulfill()
+            }, error: { err in
+                XCTAssert(false, "error: \(err)")
+            }, tokenIncorrect: {
+                XCTAssert(false, "token incorrect")
+        })
+        waitForExpectationsWithTimeout(10, handler: nil)
     }
 
 }
