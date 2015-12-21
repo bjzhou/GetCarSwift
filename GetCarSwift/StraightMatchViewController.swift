@@ -65,9 +65,6 @@ class StraightMatchViewController: UIViewController {
         tapRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapRecognizer)
 
-        var danmuRect = raceBg.frame
-        danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 2)
-        danmuEffect = DanmuEffect(superView: raceBg, rect: danmuRect)
         trackDetailViewModel.sid = 1000 //FIXME: should be 0
 
         for button in [button1, button2, button3] {
@@ -82,7 +79,13 @@ class StraightMatchViewController: UIViewController {
             for comment in cs {
                 self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
+    }
+
+    override func viewDidLayoutSubviews() {
+        var danmuRect = raceBg.frame
+        danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 2)
+        danmuEffect = DanmuEffect(superView: raceBg, rect: danmuRect)
     }
 
     override func viewDidAppear(animated: Bool) {

@@ -115,6 +115,7 @@ class DataViewController: UIViewController {
             titleLabel.font = UIFont.systemFontOfSize(14*scale)
             titleLabel.text = dataTitles[i]
             let subVc = DataSubViewController()
+            subVc.scale = scale
             subVc.view.frame = CGRect(x: 0, y: 0, width: datas[i].frame.width, height: datas[i].frame.height)
             self.addChildViewController(subVc)
             subVc.didMoveToParentViewController(self)
@@ -447,6 +448,7 @@ class DataViewController: UIViewController {
 class DataSubViewController: UIViewController {
 
     let label = UILabel()
+    var scale: CGFloat = 1
     var time = "--:--.--" {
         didSet {
             label.text = time
@@ -460,7 +462,7 @@ class DataSubViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.whiteColor()
-        label.font = UIFont.systemFontOfSize(30)
+        label.font = UIFont.systemFontOfSize(30 * scale)
         label.text = time
         self.view.addSubview(label)
 

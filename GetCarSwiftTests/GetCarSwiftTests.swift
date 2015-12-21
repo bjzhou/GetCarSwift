@@ -61,8 +61,8 @@ class GetCarSwiftTests: XCTestCase {
             "postman-token": "4fd6e64b-8c30-9bfb-ce6b-1ee390540497"
         ]
         let parameters = [
-            "phone": 18657904839,
-            "code": 4287
+            "phone": "18657904839",
+            "code": "4287"
         ]
 
         let postData = try! NSJSONSerialization.dataWithJSONObject(parameters, options: [])
@@ -90,7 +90,7 @@ class GetCarSwiftTests: XCTestCase {
 
     func testGetCodeMsg3() {
         let expect = expectationWithDescription("req")
-        Manager.sharedInstance.request(.POST, "http://api.gaikit.com/user/login", parameters: ["phone": 18657904839, "code": 4287], encoding: .JSON, headers: nil).responseString { (res) -> Void in
+        Manager.sharedInstance.request(.POST, "http://api.gaikit.com/user/login", parameters: ["phone": "18657904839", "code": "4287"], encoding: .JSON, headers: nil).responseString { (res) -> Void in
             print(res.result.value, res.result.error)
             expect.fulfill()
         }
