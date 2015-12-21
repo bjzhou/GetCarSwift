@@ -56,7 +56,7 @@ class DanmuEffect {
             let randomPos = self.generateRandom(size)
             main {
                 label.frame = CGRect(x: self.rect.origin.x + self.rect.width, y: self.rect.origin.y + randomPos, width: size.width, height: size.height)
-                label.tag = Int(NSDate().timeIntervalSince1970 * 1000)
+                //label.tag = Int(NSDate().timeIntervalSince1970 * 1000)
                 self.superView.addSubview(label)
                 UIView.animateWithDuration(self.animDuration, delay: 0, options: .CurveLinear, animations: {
                     label.transform = CGAffineTransformMakeTranslation(-self.rect.width-size.width, 0)

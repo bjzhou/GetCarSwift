@@ -129,11 +129,12 @@ class TrackDetailViewController: UIViewController {
 //            datas3.append(RmScoreData(value: ["t": 6, "v": 30, "a": 1, "lat": annotation3!.coordinate.latitude, "long": annotation3!.coordinate.longitude]))
 //            score3?.data = datas3
         }
+    }
 
+    override func viewDidLayoutSubviews() {
         var danmuRect = self.mapView.frame
         danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 3 * 2)
         danmuEffect = DanmuEffect(superView: self.view, rect: danmuRect)
-
     }
 
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
