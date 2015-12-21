@@ -27,7 +27,7 @@ struct User: JSONable {
         id = json["id"].string
         car = json["car"].string
         nickname = json["nickname"].string
-        sex = json["sex"].int
+        sex = json["sex"].intValue
         img = json["img"].string
         token = json["token"].string
 
