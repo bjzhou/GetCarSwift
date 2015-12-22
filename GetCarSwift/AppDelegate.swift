@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if let _ = Mine.sharedInstance.token {
-            if let nickname = Mine.sharedInstance.nickname where nickname.trim() != "" {} else {
+            if Mine.sharedInstance.nickname.trim() == "" {
                 let firstController = UINavigationController(rootViewController: R.storyboard.login.register!)
                 firstController.navigationItem.title = "登录"
                 window?.rootViewController = firstController

@@ -22,10 +22,6 @@ class CommentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
-        tapRecognizer.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapRecognizer)
-
         commentTableView.delegate = self
         commentTableView.dataSource = self
         commentTableView.rowHeight = UITableViewAutomaticDimension
@@ -45,10 +41,6 @@ class CommentsViewController: UIViewController {
                 self.emptyView.hidden = true
             }
             }.addDisposableTo(disposeBag)
-    }
-
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -94,15 +86,13 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         let time = cell.viewWithTag(312) as? UILabel
         let content = cell.viewWithTag(313) as? UILabel
 
-        if let url = NSURL(string: trackDetailViewModel?.rxComments.value[indexPath.row].head ?? "") {
-            avatarView?.kf_setImageWithURL(url, placeholderImage: R.image.avatar)
-        } else {
-            avatarView?.image = R.image.avatar
-        }
+        let comment = trackDetailViewModel?.rxComments.value[indexPath.row]
 
-        nickname?.text = trackDetailViewModel?.rxComments.value[indexPath.row].nickname
-        time?.text = trackDetailViewModel?.rxComments.value[indexPath.row].createTime
-        content?.text = trackDetailViewModel?.rxComments.value[indexPath.row].content
+        avatarView?.updateAvatar(comment?.uid ?? "", url: comment?.head ?? "", nickname: comment?.nickname ?? "", inVC: self)
+
+        nickname?.text = comment?.nickname
+        time?.text = comment?.createTime
+        content?.text = comment?.content
         return cell
     }
 

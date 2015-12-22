@@ -27,21 +27,20 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         myAvatar.layer.cornerRadius = 10
         myAvatar.layer.borderColor = UIColor.whiteColor().CGColor
         myAvatar.layer.borderWidth = 2
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "didTapHomepageBg")
-        tapRecognizer.numberOfTapsRequired = 1
-        homepageBg.addGestureRecognizer(tapRecognizer)
 
-        let tapRecognizer2 = UITapGestureRecognizer(target: self, action: "didTapAvatar")
-        tapRecognizer2.numberOfTapsRequired = 1
-        myAvatar.addGestureRecognizer(tapRecognizer2)
-    }
+        let tapRecgnizer = UITapGestureRecognizer()
+        tapRecgnizer.numberOfTapsRequired = 1
+        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
+            self.showViewController(R.storyboard.mine.bg_choice!)
+            }.addDisposableTo(disposeBag)
+        homepageBg.addGestureRecognizer(tapRecgnizer)
 
-    func didTapHomepageBg() {
-        showViewController(R.storyboard.mine.bg_choice!)
-    }
-
-    func didTapAvatar() {
-        showImagePickerAlertView()
+        let tapRecgnizer2 = UITapGestureRecognizer()
+        tapRecgnizer2.numberOfTapsRequired = 1
+        tapRecgnizer2.rx_event.subscribeNext { (gr) -> Void in
+            self.showImagePickerAlertView()
+            }.addDisposableTo(disposeBag)
+        myAvatar.addGestureRecognizer(tapRecgnizer2)
     }
 
     override func viewWillAppear(animated: Bool) {

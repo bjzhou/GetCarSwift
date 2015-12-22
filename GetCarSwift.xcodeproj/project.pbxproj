@@ -28,6 +28,9 @@
 		C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */; };
 		C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */; };
 		C82AF13F1C27CC8700B261AE /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF13E1C27CC8700B261AE /* Share.swift */; };
+		C82AF1471C28FDB400B261AE /* UIImageView+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */; };
+		C82AF14B1C29250600B261AE /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C82AF14A1C29250600B261AE /* Friend.storyboard */; };
+		C82AF14E1C2925BA00B261AE /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
 		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; };
 		C844F4011BE73DE1008AFC8B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C844F4001BE73DE1008AFC8B /* File.swift */; };
@@ -148,6 +151,9 @@
 		C8272BCD1BFB240300CC9318 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LetsgoDigital-Regular.ttf"; sourceTree = "<group>"; };
 		C82AF13E1C27CC8700B261AE /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
+		C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+GK.swift"; sourceTree = "<group>"; };
+		C82AF14A1C29250600B261AE /* Friend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friend.storyboard; sourceTree = "<group>"; };
+		C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C844F4001BE73DE1008AFC8B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -313,6 +319,14 @@
 			name = gkbox;
 			sourceTree = "<group>";
 		};
+		C82AF14C1C29259000B261AE /* friend */ = {
+			isa = PBXGroup;
+			children = (
+				C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */,
+			);
+			name = friend;
+			sourceTree = "<group>";
+		};
 		C842765F1BB188D60041C3F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +359,7 @@
 		C84408F91BB43D2B0088D046 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C82AF14C1C29259000B261AE /* friend */,
 				C860F3FE1BE882FF00B17004 /* storyboard */,
 				8BDEB006326E9E3DED7B8762 /* track */,
 				C8D1C5011BB64F4100F131BC /* login */,
@@ -385,6 +400,7 @@
 				8BDEB3E592343A2B219B8F2F /* Mod.storyboard */,
 				C80B6B361BB672780017D7E3 /* gkbox.storyboard */,
 				C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */,
+				C82AF14A1C29250600B261AE /* Friend.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -418,7 +434,7 @@
 				C842765F1BB188D60041C3F9 /* Model */,
 				C80881E01B6D2171002A1CE9 /* servicce */,
 				C867FC691AD8FCAF00F99592 /* Supporting Files */,
-				C8F333661BB6DA1B00F4EFB2 /* Utils */,
+				C8F333661BB6DA1B00F4EFB2 /* helper */,
 				C84408F91BB43D2B0088D046 /* View */,
 				C84408E91BB43C590088D046 /* ViewModel */,
 			);
@@ -471,6 +487,7 @@
 				C8D88FEB1BF5B67800792F3E /* Realm+GK.swift */,
 				C8A6B4A11C1580D700D2B217 /* UITableViewController+GK.swift */,
 				C803EE3C1C18299C00425E04 /* CALayer+GK.swift */,
+				C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -521,7 +538,7 @@
 			name = Widget;
 			sourceTree = "<group>";
 		};
-		C8F333661BB6DA1B00F4EFB2 /* Utils */ = {
+		C8F333661BB6DA1B00F4EFB2 /* helper */ = {
 			isa = PBXGroup;
 			children = (
 				C8F333671BB6DA6600F4EFB2 /* Async.swift */,
@@ -530,7 +547,7 @@
 				C8D88FE51BF343BB00792F3E /* Helper.swift */,
 				C8F411D31C1EA38D00747678 /* RealmHelper.swift */,
 			);
-			name = Utils;
+			name = helper;
 			sourceTree = "<group>";
 		};
 		C8F333691BB6DDB900F4EFB2 /* gkbox */ = {
@@ -642,6 +659,7 @@
 			files = (
 				C81655841BF05CCF004E17AE /* Images.xcassets in Resources */,
 				C82821F21BECD7D100FC5E95 /* LetsgoDigital-Regular.ttf in Resources */,
+				C82AF14B1C29250600B261AE /* Friend.storyboard in Resources */,
 				C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */,
 				C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */,
 				C80B6B421BB679150017D7E3 /* Mine.storyboard in Resources */,
@@ -797,6 +815,8 @@
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C8AEC2131B996F41002F39EB /* NSAttributedString+GK.swift in Sources */,
 				C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */,
+				C82AF14E1C2925BA00B261AE /* FriendProfileViewController.swift in Sources */,
+				C82AF1471C28FDB400B261AE /* UIImageView+GK.swift in Sources */,
 				C81655861BF1DE9A004E17AE /* StraightMatchViewController.swift in Sources */,
 				C89A05CC1B6E195600620C85 /* DataViewController.swift in Sources */,
 				C8F2BD801BE074CB00424EEA /* ENSideMenuNavigationController.swift in Sources */,

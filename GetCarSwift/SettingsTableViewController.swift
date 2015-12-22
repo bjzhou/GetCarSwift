@@ -18,7 +18,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         closeDanmu.setOn(NSUserDefaults.standardUserDefaults().boolForKey("closeDanmu"), animated: false)
-        _ = closeDanmu.rx_value.subscribeNext { on in
+        _ = closeDanmu.rx_value.takeUntil(self.rx_deallocated).subscribeNext { on in
             NSUserDefaults.standardUserDefaults().setBool(on, forKey: "closeDanmu")
         }
     }

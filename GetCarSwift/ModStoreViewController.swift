@@ -18,9 +18,13 @@ class ModStoreViewController: UIViewController {
 
         storeButton.setAttributedTitle(NSAttributedString(string: "进入商城", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, NSForegroundColorAttributeName: UIColor.whiteColor()]), forState: .Normal)
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "didTapStoreBg")
-        tapRecognizer.numberOfTapsRequired = 1
-        storeBg.addGestureRecognizer(tapRecognizer)
+        let tapRecgnizer = UITapGestureRecognizer()
+        tapRecgnizer.numberOfTapsRequired = 1
+        _ = tapRecgnizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
+            self.didTapStoreBg()
+            }
+        storeBg.addGestureRecognizer(tapRecgnizer)
+
     }
 
     func didTapStoreBg() {

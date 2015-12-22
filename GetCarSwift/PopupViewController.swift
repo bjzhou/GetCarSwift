@@ -52,16 +52,15 @@ public class PopupViewController: UIViewController {
         self.addChildViewController(rootViewController)
         rootViewController.didMoveToParentViewController(self)
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.delegate = self
-        self.view.addGestureRecognizer(tapRecognizer)
-    }
-
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        if cancelable {
-            dismissPopupViewController(animated: popupType == .ActionSheet)
+        _ = tapRecognizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
+            if self.cancelable {
+                self.dismissPopupViewController(animated: self.popupType == .ActionSheet)
+            }
         }
+        self.view.addGestureRecognizer(tapRecognizer)
     }
 
     public override func viewWillAppear(animated: Bool) {

@@ -20,16 +20,15 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: "didSingleTap")
-        tapGesture.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapGesture)
+        let tapRecgnizer = UITapGestureRecognizer()
+        tapRecgnizer.numberOfTapsRequired = 1
+        _ = tapRecgnizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
+            self.view.endEditing(true)
+        }
+        self.view.addGestureRecognizer(tapRecgnizer)
 
         registerViewModel = RegisterViewModel(nickname: nickname.rx_text, car: carText.rx_text)
         registerViewModel.viewProxy = self
-    }
-
-    func didSingleTap() {
-        self.view.endEditing(true)
     }
 
     @IBAction func onRegister(sender: UIButton) {

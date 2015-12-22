@@ -61,9 +61,12 @@ class TrackDetailViewController: UIViewController {
         trackDetailViewModel.viewProxy = self
         initTrackData()
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
-        tapRecognizer.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapRecognizer)
+        let tapRecgnizer = UITapGestureRecognizer()
+        tapRecgnizer.numberOfTapsRequired = 1
+        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
+            self.view.endEditing(true)
+            }.addDisposableTo(disposeBag)
+        self.view.addGestureRecognizer(tapRecgnizer)
 
         for button in [button1, button2, button3] {
             button.layer.masksToBounds = true
@@ -135,10 +138,6 @@ class TrackDetailViewController: UIViewController {
         var danmuRect = self.mapView.frame
         danmuRect.size = CGSize(width: danmuRect.width, height: danmuRect.height / 3 * 2)
         danmuEffect = DanmuEffect(superView: self.view, rect: danmuRect)
-    }
-
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
     }
 
     override func viewWillAppear(animated: Bool) {

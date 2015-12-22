@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxCocoa
 import RxSwift
 
 class LoginViewController: UIViewController {
@@ -23,9 +22,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
-        tapRecognizer.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapRecognizer)
+        let tapRecgnizer = UITapGestureRecognizer()
+        tapRecgnizer.numberOfTapsRequired = 1
+        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
+            self.view.endEditing(true)
+        }.addDisposableTo(disposeBag)
+        self.view.addGestureRecognizer(tapRecgnizer)
 
         phoneText.becomeFirstResponder()
 
@@ -36,10 +38,6 @@ class LoginViewController: UIViewController {
         loginViewModel.codeTitle.subscribeNext { title in
             self.vcodeButton.setTitle(title, forState: .Normal)
         }.addDisposableTo(disposeBag)
-    }
-
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
     }
 
     // MARK: IBOutlet Actions

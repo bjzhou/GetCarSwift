@@ -11,6 +11,7 @@ import XCTest
 import RealmSwift
 import Alamofire
 import RxSwift
+import SwiftyJSON
 @testable import GetCarSwift
 
 // swiftlint:disable force_try
@@ -141,5 +142,12 @@ class GetCarSwiftTests: XCTestCase {
         })
         waitForExpectationsWithTimeout(10, handler: nil)
     }
+
+//    func testSwiftyJSONInt() {
+//        let jsonStr = "{\"sex\": \"1\"}".dataUsingEncoding(NSUTF8StringEncoding)
+//        let json = JSON(data: jsonStr!)
+//        XCTAssertEqual(json["sex"].intValue, 1)
+//        XCTAssertEqual(json["sex"].int, .Some(1))
+//    }
 
 }

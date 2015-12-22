@@ -61,9 +61,12 @@ class StraightMatchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
-        tapRecognizer.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapRecognizer)
+        let tapRecgnizer = UITapGestureRecognizer()
+        tapRecgnizer.numberOfTapsRequired = 1
+        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
+            self.view.endEditing(true)
+        }.addDisposableTo(disposeBag)
+        self.view.addGestureRecognizer(tapRecgnizer)
 
         trackDetailViewModel.sid = 1000 //FIXME: should be 0
 
@@ -93,10 +96,6 @@ class StraightMatchViewController: UIViewController {
 
     override func viewDidDisappear(animated: Bool) {
         timerDisposable?.dispose()
-    }
-
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
     }
 
     override func viewWillAppear(animated: Bool) {

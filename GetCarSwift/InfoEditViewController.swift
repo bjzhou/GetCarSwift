@@ -106,7 +106,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             textField.text = Mine.sharedInstance.nickname
             textField.clearButtonMode = .WhileEditing
             textField.becomeFirstResponder()
-            _ = textField.rx_text.subscribeNext { text in
+            _ = textField.rx_text.takeUntil(self.rx_deallocated).subscribeNext { text in
                 if text.characters.count > 15 {
                     textField.text = text.substringToIndex(text.startIndex.advancedBy(15))
                 }

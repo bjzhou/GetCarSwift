@@ -81,9 +81,9 @@ struct Mine {
         }
     }
 
-    var id: String? {
+    var id: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("id")
+            return NSUserDefaults.standardUserDefaults().stringForKey("id") ?? ""
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "id")
@@ -91,9 +91,9 @@ struct Mine {
         }
     }
 
-    var phone: String? {
+    var phone: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("phone")
+            return NSUserDefaults.standardUserDefaults().stringForKey("phone") ?? ""
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "phone")
@@ -111,9 +111,9 @@ struct Mine {
         }
     }
 
-    var nickname: String? {
+    var nickname: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("nickname")
+            return NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? ""
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "nickname")
@@ -131,9 +131,9 @@ struct Mine {
         }
     }
 
-    var avatarUrl: String? {
+    var avatarUrl: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("avatar")
+            return NSUserDefaults.standardUserDefaults().stringForKey("avatar") ?? ""
         }
         set {
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "avatar")
@@ -164,11 +164,7 @@ struct Mine {
     }
 
     func setAvatarImage(imageView: UIImageView) {
-        if let avatarUrl = Mine.sharedInstance.avatarUrl {
-            imageView.kf_setImageWithURL(NSURL(string: avatarUrl)!, placeholderImage: R.image.avatar)
-        } else {
-            imageView.image = Mine.sharedInstance.sex == 1 ? R.image.avatar : R.image.avatar_female
-        }
+        imageView.updateAvatar(Mine.sharedInstance.id, url: Mine.sharedInstance.avatarUrl, nickname: Mine.sharedInstance.nickname, sex: Mine.sharedInstance.sex, tappable: false, inVC: nil)
     }
 
     mutating func updateLogin(user: User) {
