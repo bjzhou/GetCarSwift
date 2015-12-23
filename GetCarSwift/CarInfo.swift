@@ -9,22 +9,40 @@
 import Foundation
 import SwiftyJSON
 import RxSwift
+import RealmSwift
 
-struct CarInfo: JSONable {
-    var category = "#"
-    var brand = ""
-    var model = ""
-    var modelId = ""
+class CarInfo: Object, JSONable {
+    dynamic var category = "#"
+    dynamic var brand = ""
+    dynamic var model = ""
+    dynamic var modelId = ""
 
-    init(json: JSON) {
+    dynamic var id = 0
+    dynamic var imageUrl = ""
+    dynamic var year = ""
+    dynamic var detail = ""
+    dynamic var lisence = ""
+    dynamic var name = ""
+    var parts = List<CarPart>()
+
+    convenience required init(json: JSON) {
+        self.init()
         category = json["categery"].stringValue
         brand = json["brand"].stringValue
         model = json["model"].stringValue
         modelId = json["id"].stringValue
     }
 
+    override class func primaryKey() -> String? { return "id" }
+
     static func info() -> Observable<GKResult<JSON>> {
         //api("info", body: [:], completion: completion)
         return GaikeService.sharedInstance.api("car/info")
     }
+}
+
+class CarPart: Object {
+    dynamic var imageKey = NSUUID().UUIDString
+    dynamic var title = ""
+    dynamic var detail = ""
 }

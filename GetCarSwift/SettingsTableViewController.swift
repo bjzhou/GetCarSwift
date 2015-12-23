@@ -34,6 +34,9 @@ class SettingsTableViewController: UITableViewController {
                         if let objects = gRealm?.objects(RmScore) {
                             gRealm?.delete(objects)
                         }
+                        if let objects = gRealm?.objects(CarInfo) {
+                            gRealm?.delete(objects)
+                        }
                     }
                     self.view.makeToast(message: "清除成功")
                     })

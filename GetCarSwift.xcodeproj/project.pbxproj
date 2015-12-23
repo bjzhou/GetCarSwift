@@ -31,6 +31,10 @@
 		C82AF1471C28FDB400B261AE /* UIImageView+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */; };
 		C82AF14B1C29250600B261AE /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C82AF14A1C29250600B261AE /* Friend.storyboard */; };
 		C82AF14E1C2925BA00B261AE /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */; };
+		C82AF1501C2A430C00B261AE /* CarInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF14F1C2A430C00B261AE /* CarInfoView.swift */; };
+		C82AF1521C2A4B7800B261AE /* CarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1511C2A4B7800B261AE /* CarListViewController.swift */; };
+		C82AF1541C2A74E400B261AE /* CarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1531C2A74E400B261AE /* CarDetailViewController.swift */; };
+		C82AF1561C2A755A00B261AE /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1551C2A755A00B261AE /* AddCarViewController.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
 		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; };
 		C844F4011BE73DE1008AFC8B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C844F4001BE73DE1008AFC8B /* File.swift */; };
@@ -65,6 +69,9 @@
 		C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B6F1C0C739600002BB9 /* RmScore.swift */; };
 		C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */; };
 		C8A6B4A21C1580D700D2B217 /* UITableViewController+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B4A11C1580D700D2B217 /* UITableViewController+GK.swift */; };
+		C8AB57121C2A92DC0087898C /* AddPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57111C2A92DC0087898C /* AddPartTableViewCell.swift */; };
+		C8AB57141C2A939F0087898C /* CarPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57131C2A939F0087898C /* CarPartTableViewCell.swift */; };
+		C8AB57161C2AAE800087898C /* AddPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57151C2AAE800087898C /* AddPartViewController.swift */; };
 		C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
 		C8AEC2041B985B5C002F39EB /* NSDate+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate+GK.swift */; };
@@ -154,6 +161,10 @@
 		C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+GK.swift"; sourceTree = "<group>"; };
 		C82AF14A1C29250600B261AE /* Friend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friend.storyboard; sourceTree = "<group>"; };
 		C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
+		C82AF14F1C2A430C00B261AE /* CarInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoView.swift; sourceTree = "<group>"; };
+		C82AF1511C2A4B7800B261AE /* CarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarListViewController.swift; sourceTree = "<group>"; };
+		C82AF1531C2A74E400B261AE /* CarDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarDetailViewController.swift; sourceTree = "<group>"; };
+		C82AF1551C2A755A00B261AE /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C844F4001BE73DE1008AFC8B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -193,6 +204,9 @@
 		C89E7B6F1C0C739600002BB9 /* RmScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmScore.swift; sourceTree = "<group>"; };
 		C89E7B711C0C7FF300002BB9 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		C8A6B4A11C1580D700D2B217 /* UITableViewController+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+GK.swift"; sourceTree = "<group>"; };
+		C8AB57111C2A92DC0087898C /* AddPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartTableViewCell.swift; sourceTree = "<group>"; };
+		C8AB57131C2A939F0087898C /* CarPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarPartTableViewCell.swift; sourceTree = "<group>"; };
+		C8AB57151C2AAE800087898C /* AddPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartViewController.swift; sourceTree = "<group>"; };
 		C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTrackViewController.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+GK.swift"; sourceTree = "<group>"; };
@@ -386,6 +400,13 @@
 				C89C49291C0D6F2500A1E2E1 /* AboutTableViewController.swift */,
 				C89C492B1C0D6F6500A1E2E1 /* HelpTableViewController.swift */,
 				C8DE3B181C117E93009AF56E /* BgChoiceCollectionViewCell.swift */,
+				C82AF14F1C2A430C00B261AE /* CarInfoView.swift */,
+				C82AF1511C2A4B7800B261AE /* CarListViewController.swift */,
+				C82AF1531C2A74E400B261AE /* CarDetailViewController.swift */,
+				C82AF1551C2A755A00B261AE /* AddCarViewController.swift */,
+				C8AB57111C2A92DC0087898C /* AddPartTableViewCell.swift */,
+				C8AB57131C2A939F0087898C /* CarPartTableViewCell.swift */,
+				C8AB57151C2AAE800087898C /* AddPartViewController.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -780,6 +801,7 @@
 				C89E7B701C0C739600002BB9 /* RmScore.swift in Sources */,
 				C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */,
 				C8D88FEA1BF4482D00792F3E /* RmRaceTrack.swift in Sources */,
+				C82AF1561C2A755A00B261AE /* AddCarViewController.swift in Sources */,
 				C8EC0DF41C04727500A619DC /* TrackTimerViewController.swift in Sources */,
 				C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */,
 				C8C2C0911B8B5DEE006095DC /* CLLocationCoordinate2D+GK.swift in Sources */,
@@ -795,6 +817,8 @@
 				C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton+GK.swift in Sources */,
 				C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */,
+				C82AF1501C2A430C00B261AE /* CarInfoView.swift in Sources */,
+				C82AF1521C2A4B7800B261AE /* CarListViewController.swift in Sources */,
 				C8D88FEC1BF5B67800792F3E /* Realm+GK.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
 				C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */,
@@ -814,6 +838,7 @@
 				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,
 				C8AEC2131B996F41002F39EB /* NSAttributedString+GK.swift in Sources */,
+				C8AB57161C2AAE800087898C /* AddPartViewController.swift in Sources */,
 				C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */,
 				C82AF14E1C2925BA00B261AE /* FriendProfileViewController.swift in Sources */,
 				C82AF1471C28FDB400B261AE /* UIImageView+GK.swift in Sources */,
@@ -838,6 +863,7 @@
 				C8F3336B1BB6DE7F00F4EFB2 /* MapViewModel.swift in Sources */,
 				C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */,
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
+				C8AB57141C2A939F0087898C /* CarPartTableViewCell.swift in Sources */,
 				C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */,
 				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
 				C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */,
@@ -851,9 +877,11 @@
 				C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */,
 				C8DE3B191C117E93009AF56E /* BgChoiceCollectionViewCell.swift in Sources */,
 				8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */,
+				C8AB57121C2A92DC0087898C /* AddPartTableViewCell.swift in Sources */,
 				8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */,
 				8BDEB72CC5630B87A9209A2C /* ModIntroTableViewCell.swift in Sources */,
 				8BDEB0BF1D070B851F236536 /* ModStoreViewController.swift in Sources */,
+				C82AF1541C2A74E400B261AE /* CarDetailViewController.swift in Sources */,
 				8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */,
 				8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */,
 				C856C8C21BFED13E0066D313 /* TrackTableViewCell.swift in Sources */,

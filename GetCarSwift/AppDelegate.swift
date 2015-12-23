@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
 
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 20,
+            schemaVersion: 23,
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 20) {
                     migration.enumerate(RmLog.className()) { oldObject, newObject in

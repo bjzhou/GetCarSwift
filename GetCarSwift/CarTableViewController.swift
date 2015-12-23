@@ -53,12 +53,9 @@ class CarTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath)
 
-        let icon = cell.viewWithTag(501) as? UIImageView
-        let title = cell.viewWithTag(502) as? UILabel
-
         let titleText = brands[categeries[indexPath.section]]?[indexPath.row] ?? ""
-        icon?.image = UIImage(named: titleText+"logo")
-        title?.text = titleText
+        cell.imageView?.image = UIImage(named: titleText+"logo")
+        cell.textLabel?.text = titleText
 
         return cell
     }
