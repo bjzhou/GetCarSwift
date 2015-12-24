@@ -330,7 +330,10 @@ class StraightMatchViewController: UIViewController {
 }
 
 extension StraightMatchViewController: AddPlayerDelegate {
-    func didPlayerAdded(score: RmScore, sender: UIButton?) {
+    func didPlayerAdded(score: AnyObject, sender: UIButton?) {
+        guard let score = score as? RmScore else {
+            return
+        }
         vTitleLabel.text = "0~60\nkm/h"
         aTitleLabel.text = "0~100\nkm/h"
 

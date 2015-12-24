@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
 class AddPartTableViewCell: UITableViewCell {
 
     @IBOutlet weak var button: UIButton!
+
+    var addDisposable: Disposable?
 
     override func awakeFromNib() {
         super.awakeFromNib()

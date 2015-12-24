@@ -14,6 +14,7 @@ enum AddPlayerMode {
     case Menu
     case Myself
     case Rank
+    case Car
 }
 
 class AddPlayerTableViewController: UITableViewController {
@@ -24,13 +25,14 @@ class AddPlayerTableViewController: UITableViewController {
 
     var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
-    let titles: [AddPlayerMode:String] = [.Menu:"添加赛车手", .Myself:"我", .Rank:"赛道排名"]
+    let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Rank: "赛道排名", .Car: "我的车"]
 
     var mode: AddPlayerMode = .Menu
 
     var localNewest: [RmScore] = []
     var localBest: [RmScore] = []
     var top: [RmScore] = []
+    var cars: [CarInfo] = []
     var loaded = false
 
     override func viewDidLoad() {
@@ -46,6 +48,7 @@ class AddPlayerTableViewController: UITableViewController {
 
         localBest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("score").map { $0 } ?? []
         localNewest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("createdAt", ascending: false).map { $0 } ?? []
+        cars = gRealm?.objects(CarInfo).map { $0 } ?? []
 
         tableView.reloadData()
     }
@@ -106,6 +109,8 @@ class AddPlayerTableViewController: UITableViewController {
             }
         case .Rank:
             return top.count
+        case .Car:
+            return cars.count
         }
     }
 
@@ -156,6 +161,12 @@ class AddPlayerTableViewController: UITableViewController {
             } else {
                 cell?.medalImageView.hidden = true
             }
+        case .Car:
+            cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
+            if cell == nil {
+                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
+            }
+            cell?.textLabel?.text = cars[indexPath.row].model
         }
 
         return cell!
@@ -194,10 +205,12 @@ class AddPlayerTableViewController: UITableViewController {
                         }
                     }
                 }
-            } else {
+            } else if mode == .Rank {
                 top[indexPath.row].unarchive { record in
                     self.delegate?.didPlayerAdded(record, sender: self.sender)
                 }
+            } else if mode == .Car {
+                self.delegate?.didPlayerAdded(cars[indexPath.row], sender: self.sender)
             }
             dismissPopupViewController()
         }
@@ -253,7 +266,7 @@ class AddPlayerTableViewController: UITableViewController {
     }
 
     func didBackAction() {
-        if mode == .Menu {
+        if mode == .Menu || mode == .Car {
             dismissPopupViewController()
         } else {
             mode = .Menu
@@ -266,5 +279,5 @@ class AddPlayerTableViewController: UITableViewController {
 }
 
 protocol AddPlayerDelegate {
-    func didPlayerAdded(record: RmScore, sender: UIButton?)
+    func didPlayerAdded(record: AnyObject, sender: UIButton?)
 }

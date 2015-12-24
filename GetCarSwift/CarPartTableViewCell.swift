@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class CarPartTableViewCell: UITableViewCell {
 
@@ -14,6 +15,8 @@ class CarPartTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var delButton: UIButton!
+
+    var delDisposable: Disposable?
 
     override func awakeFromNib() {
         super.awakeFromNib()

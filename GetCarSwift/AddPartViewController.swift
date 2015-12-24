@@ -96,7 +96,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
-        KingfisherManager.sharedManager.cache.storeImage(image, forKey: carPart.imageKey)
+        KingfisherManager.sharedManager.cache.storeImage(image.scaleImage(size: CGSize(width: 300, height: 200)), forKey: carPart.imageKey)
         dismissViewControllerAnimated(true, completion: nil)
     }
 

@@ -302,7 +302,10 @@ class TrackDetailViewController: UIViewController {
 }
 
 extension TrackDetailViewController: AddPlayerDelegate {
-    func didPlayerAdded(score: RmScore, sender: UIButton?) {
+    func didPlayerAdded(score: AnyObject, sender: UIButton?) {
+        guard let score = score as? RmScore else {
+            return
+        }
         var url = score.headUrl
         var nickname = score.nickname
         if url == "" {

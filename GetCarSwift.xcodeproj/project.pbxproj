@@ -72,6 +72,9 @@
 		C8AB57121C2A92DC0087898C /* AddPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57111C2A92DC0087898C /* AddPartTableViewCell.swift */; };
 		C8AB57141C2A939F0087898C /* CarPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57131C2A939F0087898C /* CarPartTableViewCell.swift */; };
 		C8AB57161C2AAE800087898C /* AddPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57151C2AAE800087898C /* AddPartViewController.swift */; };
+		C8AB571A1C2BAC980087898C /* ShareScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB57191C2BAC980087898C /* ShareScoreViewController.swift */; };
+		C8AB571C1C2BBED10087898C /* ShareScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB571B1C2BBED10087898C /* ShareScoreTableViewCell.swift */; };
+		C8AB571E1C2BBF230087898C /* SharePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB571D1C2BBF230087898C /* SharePartTableViewCell.swift */; };
 		C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */; };
 		C8AEC1F71B982D2C002F39EB /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */; };
 		C8AEC2041B985B5C002F39EB /* NSDate+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AEC2031B985B5C002F39EB /* NSDate+GK.swift */; };
@@ -207,6 +210,9 @@
 		C8AB57111C2A92DC0087898C /* AddPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartTableViewCell.swift; sourceTree = "<group>"; };
 		C8AB57131C2A939F0087898C /* CarPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarPartTableViewCell.swift; sourceTree = "<group>"; };
 		C8AB57151C2AAE800087898C /* AddPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartViewController.swift; sourceTree = "<group>"; };
+		C8AB57191C2BAC980087898C /* ShareScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareScoreViewController.swift; sourceTree = "<group>"; };
+		C8AB571B1C2BBED10087898C /* ShareScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareScoreTableViewCell.swift; sourceTree = "<group>"; };
+		C8AB571D1C2BBF230087898C /* SharePartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePartTableViewCell.swift; sourceTree = "<group>"; };
 		C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTrackViewController.swift; sourceTree = "<group>"; };
 		C8AEC1F61B982D2C002F39EB /* TrackDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		C8AEC2031B985B5C002F39EB /* NSDate+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+GK.swift"; sourceTree = "<group>"; };
@@ -329,6 +335,9 @@
 				C8EC0DF31C04727500A619DC /* TrackTimerViewController.swift */,
 				C8BD47C61C0834C200AAC029 /* TrackIntroViewController.swift */,
 				C8AE55471C11930500C99AC6 /* MapTrackViewController.swift */,
+				C8AB57191C2BAC980087898C /* ShareScoreViewController.swift */,
+				C8AB571B1C2BBED10087898C /* ShareScoreTableViewCell.swift */,
+				C8AB571D1C2BBF230087898C /* SharePartTableViewCell.swift */,
 			);
 			name = gkbox;
 			sourceTree = "<group>";
@@ -857,6 +866,7 @@
 				C8C2C0931B8B5DEE006095DC /* String+GK.swift in Sources */,
 				C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */,
 				C8B01E9D1C05BDEE00A85612 /* SettingsTableViewController.swift in Sources */,
+				C8AB571E1C2BBF230087898C /* SharePartTableViewCell.swift in Sources */,
 				C8DDF8BB1C1B03FC008D1443 /* RmLog.swift in Sources */,
 				C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */,
 				C8C2C0941B8B5DEE006095DC /* UIColor+GK.swift in Sources */,
@@ -865,6 +875,7 @@
 				C8E2B8561AD96F31003B07FE /* MapViewController.swift in Sources */,
 				C8AB57141C2A939F0087898C /* CarPartTableViewCell.swift in Sources */,
 				C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */,
+				C8AB571C1C2BBED10087898C /* ShareScoreTableViewCell.swift in Sources */,
 				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
 				C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */,
 				C8A6B4A21C1580D700D2B217 /* UITableViewController+GK.swift in Sources */,
@@ -875,6 +886,7 @@
 				C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */,
 				C8C2C0921B8B5DEE006095DC /* JSON+GK.swift in Sources */,
 				C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */,
+				C8AB571A1C2BAC980087898C /* ShareScoreViewController.swift in Sources */,
 				C8DE3B191C117E93009AF56E /* BgChoiceCollectionViewCell.swift in Sources */,
 				8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */,
 				C8AB57121C2A92DC0087898C /* AddPartTableViewCell.swift in Sources */,

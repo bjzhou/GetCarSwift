@@ -17,6 +17,8 @@ struct Share: JSONable {
         id = json["id"].stringValue
     }
 
+    init() {}
+
     static func uploadShare(recordId: String, title: String, carId: String, carDesc: String, partDescs: [String], partImages: [UIImage]) -> Observable<GKResult<Share>> {
         var params: [String: AnyObject] = ["record_id": recordId, "title": title, "car_id": carId, "car_desc": carDesc, "count": partDescs.count]
         for i in 0..<partDescs.count {
