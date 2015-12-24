@@ -61,12 +61,7 @@ class TrackDetailViewController: UIViewController {
         trackDetailViewModel.viewProxy = self
         initTrackData()
 
-        let tapRecgnizer = UITapGestureRecognizer()
-        tapRecgnizer.numberOfTapsRequired = 1
-        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
-            self.view.endEditing(true)
-            }.addDisposableTo(disposeBag)
-        self.view.addGestureRecognizer(tapRecgnizer)
+        addEndEditingGesture(self.view)
 
         for button in [button1, button2, button3] {
             button.layer.masksToBounds = true

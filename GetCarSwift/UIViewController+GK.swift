@@ -16,4 +16,13 @@ extension UIViewController {
             self.dismissViewControllerAnimated(animated, completion: completion)
         }
     }
+
+    func addEndEditingGesture(view: UIView) {
+        let gestureRecgnizer = UITapGestureRecognizer()
+        gestureRecgnizer.numberOfTapsRequired = 1
+        _ = gestureRecgnizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
+            self.view.endEditing(true)
+        }
+        view.addGestureRecognizer(gestureRecgnizer)
+    }
 }

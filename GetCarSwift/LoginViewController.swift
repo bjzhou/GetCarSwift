@@ -22,12 +22,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapRecgnizer = UITapGestureRecognizer()
-        tapRecgnizer.numberOfTapsRequired = 1
-        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
-            self.view.endEditing(true)
-        }.addDisposableTo(disposeBag)
-        self.view.addGestureRecognizer(tapRecgnizer)
+        addEndEditingGesture(self.view)
 
         phoneText.becomeFirstResponder()
 

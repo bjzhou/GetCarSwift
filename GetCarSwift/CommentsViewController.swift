@@ -42,32 +42,6 @@ class CommentsViewController: UIViewController {
             }
             }.addDisposableTo(disposeBag)
     }
-
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-    }
-
-    func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
-            return
-        }
-
-        UIView.animateWithDuration(0.3, animations: {
-            self.view.frame.origin = CGPoint(x: 0, y: -keyboardSize.height)
-        })
-    }
-
-    func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.3, animations: {
-            self.view.frame.origin = CGPoint(x: 0, y: 0)
-        })
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
 }
 
 extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
