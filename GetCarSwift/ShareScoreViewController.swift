@@ -50,7 +50,31 @@ class ShareScoreViewController: UIViewController {
     @IBAction func didShareAction(sender: UIButton) {
         uploadShare {
             // share to wechat
+            let actionSheet = UIAlertController(title: "分享", message: nil, preferredStyle: .ActionSheet)
+            actionSheet.addAction(UIAlertAction(title: "分享给微信好友", style: .Default, handler: { _ in
+                self.shareToWechat(Int32(WXSceneSession.rawValue))
+            }))
+            actionSheet.addAction(UIAlertAction(title: "分享到朋友圈", style: .Default, handler: { _ in
+                self.shareToWechat(Int32(WXSceneTimeline.rawValue))
+            }))
+            actionSheet.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+            self.presentViewController(actionSheet, animated: true, completion: nil)
         }
+    }
+
+    func shareToWechat(scene: Int32) {
+        let req = SendMessageToWXReq()
+        let msg = WXMediaMessage()
+        msg.title = "测试分享标题..."
+        msg.description = "测试分享描述..."
+        msg.setThumbImage(R.image.app_icon!)
+        let mediaObject = WXWebpageObject()
+        mediaObject.webpageUrl = self.share.getShareUrl().URLString
+        msg.mediaObject = mediaObject
+        req.message = msg
+        req.bText = false
+        req.scene = scene
+        WXApi.sendReq(req)
     }
 
     func uploadShare(succeed: () -> Void) {

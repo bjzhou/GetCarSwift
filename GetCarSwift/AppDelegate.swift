@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     static let debugLogin = false
     static let debugRegister = false
@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReporter.sharedInstance().enableBlockMonitor(true)
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
+        WXApi.registerApp("wx9cd191a47cee9ac6")
 
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
 
@@ -123,5 +124,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return WXApi.handleOpenURL(url, delegate: self)
+    }
+
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return WXApi.handleOpenURL(url, delegate: self)
+    }
+
+    func onReq(req: BaseReq!) {
+        print(req.type, req.openID)
+    }
+
+    func onResp(resp: BaseResp!) {
+        print(resp.errCode, resp.errStr, resp.type)
     }
 }
