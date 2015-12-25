@@ -129,19 +129,19 @@ class GetCarSwiftTests: XCTestCase {
         waitForExpectationsWithTimeout(10, handler: nil)
     }
 
-    func testRongIMClient() {
-        let expect = expectationWithDescription("req")
-        let token = "DNxvK68aAlxkfimLWQ5t4fU2FYEUPo/JCfkeXaxWG4EO2EPlJV+HuXLLvABQq7YIdnl7NWqhWKOpH9Pdqh1Ewg=="
-        RCIM.sharedRCIM().connectWithToken(token, success: { str in
-            print(str)
-            expect.fulfill()
-            }, error: { err in
-                XCTAssert(false, "error: \(err)")
-            }, tokenIncorrect: {
-                XCTAssert(false, "token incorrect")
-        })
-        waitForExpectationsWithTimeout(10, handler: nil)
-    }
+//    func testRongIMClient() {
+//        let expect = expectationWithDescription("req")
+//        let token = "DNxvK68aAlxkfimLWQ5t4fU2FYEUPo/JCfkeXaxWG4EO2EPlJV+HuXLLvABQq7YIdnl7NWqhWKOpH9Pdqh1Ewg=="
+//        RCIM.sharedRCIM().connectWithToken(token, success: { str in
+//            print(str)
+//            expect.fulfill()
+//            }, error: { err in
+//                XCTAssert(false, "error: \(err)")
+//            }, tokenIncorrect: {
+//                XCTAssert(false, "token incorrect")
+//        })
+//        waitForExpectationsWithTimeout(10, handler: nil)
+//    }
 
 //    func testSwiftyJSONInt() {
 //        let jsonStr = "{\"sex\": \"1\"}".dataUsingEncoding(NSUTF8StringEncoding)

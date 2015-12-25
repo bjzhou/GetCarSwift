@@ -57,6 +57,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
 
+//        let token = "/cIYbX2Ood5fv6reYRm+M8vmAP5/+CoshqsQUzYxvxx5BkGYFvfbn37r7xMoGGbZoAkjlh6bTeXfKGQMXme24A=="
+//        RCIM.sharedRCIM().connectWithToken(token, success: { str in
+//            print(str)
+//            }, error: { err in
+//                print("error: \(err)")
+//            }, tokenIncorrect: {
+//                print("token incorrect")
+//        })
+
+        let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        application.registerUserNotificationSettings(settings)
+
+        RCIMClient.sharedRCIMClient().recordLaunchOptionsEvent(launchOptions)
+        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromLaunchOptions(launchOptions)
+        if (pushServiceData != nil) {
+            print("launch from push service")
+            print(pushServiceData)
+        }
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
+
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 23,
             migrationBlock: { migration, oldSchemaVersion in
@@ -110,8 +131,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let count = Int(RCIMClient.sharedRCIMClient().getTotalUnreadCount())
+        application.applicationIconBadgeNumber = count
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -124,6 +145,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        application.registerForRemoteNotifications()
+    }
+
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let token = deviceToken.description.stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+        RCIMClient.sharedRCIMClient().setDeviceToken(token)
+    }
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        RCIMClient.sharedRCIMClient().recordRemoteNotificationEvent(userInfo)
+        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromRemoteNotification(userInfo)
+        if pushServiceData != nil {
+            print("received remote notification")
+            print(pushServiceData)
+        }
+    }
+
+    func didReceiveMessageNotification(notification: NSNotification) {
+
     }
 
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
@@ -140,5 +183,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     func onResp(resp: BaseResp!) {
         print(resp.errCode, resp.errStr, resp.type)
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: RCKitDispatchMessageNotification, object: nil)
     }
 }

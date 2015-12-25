@@ -694,6 +694,11 @@
 					C867FC651AD8FCAF00F99592 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = H4MJ558LMP;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					C867FC7C1AD8FCB000F99592 = {
 						CreatedOnToolsVersion = 6.2;
