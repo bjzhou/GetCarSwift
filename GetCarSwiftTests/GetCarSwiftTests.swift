@@ -101,12 +101,13 @@ class GetCarSwiftTests: XCTestCase {
 
     func testUploadScore() {
         let expect = expectationWithDescription("req")
-        let score = RmScore(value: ["mapType": 0, "score": 8.9, "data": [["t": 0, "v": 0, "s": 0], ["t": 2, "v": 20, "s": 50], ["t": 4, "v": 40, "s": 100], ["t": 6, "v": 60, "s": 200], ["t": 8, "v": 80, "s": 300], ["t": 8.9, "v": 100, "s": 400]]])
-        _ = Records.uploadRecord(0, duration: 8.9, recordData: score.archive()).subscribeNext { res in
+        let score = RmScore(value: ["mapType": 0, "score": 8.9, "data": [["t": 0, "v": 0, "s": 0], ["t": 2, "v": 20, "s": 50], ["t": 4, "v": 40, "s": 100], ["t": 6, "v": 60, "s": 200], ["t": 8, "v": 80, "s": 300], ["t": 11.1, "v": 100, "s": 400]]])
+        _ = Records.uploadRecord(0, duration: 11.1, recordData: score.archive()).subscribeNext { res in
             if let newScore = res.data {
                 gRealm?.writeOptional {
                     score.id = newScore.id
                     score.url = newScore.url
+                    gRealm?.add(score, update: true)
                 }
                 print(score)
             }
@@ -117,7 +118,7 @@ class GetCarSwiftTests: XCTestCase {
 
     func testUploadShare() {
         let expect = expectationWithDescription("req")
-        _ = Share.uploadShare("191", title: "这是什么", carId: "111", carDesc: "好车", partDescs: ["配件1", "配件2", "配件3", "配件4"], partImages: [R.image.ad_AFE!, R.image.ad_KW!, R.image.ad_MRG!, R.image.ad_CSB!]).subscribeNext { res in
+        _ = Share.uploadShare("11.21", liushikm: "3.12", yibaikm: "7.81", maxa: "5", maxv: "121", title: "这是什么", carId: "111", carDesc: "好车", partDescs: ["配件1", "配件2", "配件3", "配件4"], partImages: [R.image.ad_AFE!, R.image.ad_KW!, R.image.ad_MRG!, R.image.ad_CSB!]).subscribeNext { res in
             if let share = res.data where share.id != "" {
                 UIApplication.sharedApplication().openURL(share.getShareUrl())
             } else {

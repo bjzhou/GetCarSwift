@@ -1759,7 +1759,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="car_detail_part" rowHeight="120" id="qIU-yE-kvL" customClass="CarPartTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="car_detail_part" rowHeight="120" id="qIU-yE-kvL" customClass="CarPartTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="216.5" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qIU-yE-kvL" id="iF5-5x-iYi">

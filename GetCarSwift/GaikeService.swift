@@ -108,7 +108,7 @@ class GaikeService {
                 }) { res in
                     switch res {
                     case .Success(request: let req, streamingFromDisk: _, streamFileURL: _):
-                        RmLog.i("http request upload: \(req.request?.URLString)")
+                        RmLog.i("http request upload: \(req.request?.URLString), \(parameters), data keys: \(datas.keys.joinWithSeparator(","))")
                         upload = req.responseData { res in
                             let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                             RmLog.i("http response upload: \(responseString)")

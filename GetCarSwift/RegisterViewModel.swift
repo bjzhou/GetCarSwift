@@ -39,7 +39,7 @@ struct RegisterViewModel {
                 return true
             }
             .map { (nick, car) in
-                User.updateInfo(nickname: nick, sex: self.sex, car: car)
+                User.updateInfo(nickname: nick, sex: self.sex, carInfos: [CarInfo(value: ["model": car])])
             }
             .concat()
             .subscribeNext { res in

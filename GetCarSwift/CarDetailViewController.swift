@@ -69,6 +69,9 @@ class CarDetailViewController: UITableViewController {
                     gRealm?.delete(part!)
                 }
                 tableView.reloadData()
+                _ = User.updateInfo(carInfos: gRealm?.objects(CarInfo).map { $0 }).subscribeNext { res in
+                    // bypass
+                }
             }))
             self.presentViewController(alertVC, animated: true, completion: nil)
         }
@@ -92,6 +95,12 @@ class CarDetailViewController: UITableViewController {
             let vc = R.storyboard.mine.add_car
             vc?.id = id
             showViewController(vc!)
+        } else if indexPath.row != tableView.numberOfRowsInSection(0) - 1 {
+            if let part = carInfo?.parts[indexPath.row-1] {
+                let vc = R.storyboard.mine.add_part
+                vc?.carPart = part
+                showViewController(vc!)
+            }
         }
     }
 

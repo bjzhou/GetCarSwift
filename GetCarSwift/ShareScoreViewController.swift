@@ -21,6 +21,7 @@ class ShareScoreViewController: UIViewController {
 
     var carInfo = CarInfo()
     var share = Share()
+    var score = RmScore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,7 @@ class ShareScoreViewController: UIViewController {
             async {
                 let images = imageKeys.map { KingfisherManager.sharedManager.cache.retrieveImageInDiskCacheForKey($0) ?? UIImage()}
                 main {
-                    _ = Share.uploadShare("", title: "0~400m直线赛道", carId: self.carInfo.model, carDesc: self.carInfo.detail, partDescs: self.carInfo.parts.map { $0.detail }, partImages: images).subscribeNext { (res) -> Void in
+                    _ = Share.uploadShare(self.scoreValues[0], liushikm: String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0), yibaikm: String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0), maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: "0~400m直线赛道", carId: self.carInfo.model, carDesc: self.carInfo.detail, partDescs: self.carInfo.parts.map { $0.detail }, partImages: images).subscribeNext { (res) -> Void in
                         if let share = res.data {
                             self.view.hideToastActivity()
                             self.share = share
@@ -156,6 +157,7 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
         }
 
         if let score = record as? RmScore {
+            self.score = score
             scoreValues[0] = String(format: "%.2f", score.score)
         }
 

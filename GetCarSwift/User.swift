@@ -44,7 +44,7 @@ struct User: JSONable {
         return GaikeService.sharedInstance.api("user/login", body: ["phone":phone, "code":code])
     }
 
-    static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, car: String? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
+    static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, carInfos: [CarInfo]? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
         var body: [String:AnyObject] = [:]
         if let a = nickname {
             body["nickname"] = a
@@ -52,8 +52,10 @@ struct User: JSONable {
         if let a = sex {
             body["sex"] = a
         }
-        if let a = car {
-            body["car"] = a
+        if let a = carInfos {
+            body["car_info"] = a.map({ b in
+                return ["car_id": b.id, "car_num": b.lisence, "own_name": b.name, "car_year": b.year, "car_version": b.detail]
+            })
         }
         if let a = color {
             body["color"] = a

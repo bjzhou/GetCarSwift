@@ -18,7 +18,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     var id = 0
 
     let imagePicker = UIImagePickerController()
-    let carPart = CarPart()
+    var carPart = CarPart()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,8 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 
+        titleTextField.text = carPart.title
+        detailTextView.text = carPart.detail
         cameraButton.setImage(R.image.camera, forState: .Normal)
         KingfisherManager.sharedManager.cache.retrieveImageForKey(carPart.imageKey, options: KingfisherManager.OptionsNone) { image, _ in
             if let image = image {
@@ -67,12 +69,21 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func didSaveAction(sender: AnyObject) {
-        carPart.title = titleTextField.text!
-        carPart.detail = detailTextView.text!
-        gRealm?.writeOptional {
-            gRealm?.objects(CarInfo).filter("id = \(self.id)").first?.parts.append(self.carPart)
+        if let realm = carPart.realm {
+            _ = try? realm.write {
+                carPart.title = titleTextField.text!
+                carPart.detail = detailTextView.text!
+            }
+        } else {
+            carPart.title = titleTextField.text!
+            carPart.detail = detailTextView.text!
+            gRealm?.writeOptional {
+                gRealm?.objects(CarInfo).filter("id = \(self.id)").first?.parts.append(self.carPart)
+            }
         }
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = User.updateInfo(carInfos: gRealm?.objects(CarInfo).map { $0 }).subscribeNext { res in
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
 
     func showImagePickerAlertView() {

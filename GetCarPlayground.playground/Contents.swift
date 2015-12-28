@@ -42,6 +42,6 @@ import XCPlayground
 //
 //XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-var passFlags = [true, true, true, false]
-let a = passFlags.reduce(true, combine: { $0 && $1 })
-print(a)
+//var passFlags = [true, true, true, false]
+//let a = passFlags.reduce(true, combine: { $0 && $1 })
+//print(a)

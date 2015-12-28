@@ -47,11 +47,19 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
             self.view.makeToast(message: "请选择车辆品牌")
             return
         }
-        let carInfo = CarInfo(value: ["id": id, "model": modelLabel.text!, "lisence": lisenceTextField.text!, "name": nameTextField.text!, "year": yearTextField.text!, "detail": versionTextField.text!])
+        let newCar = CarInfo(value: ["id": id])
+        let carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first ?? newCar
         gRealm?.writeOptional {
+            carInfo.model = self.modelLabel.text!
+            carInfo.lisence = self.lisenceTextField.text!
+            carInfo.name = self.nameTextField.text!
+            carInfo.year = self.yearTextField.text!
+            carInfo.detail = self.versionTextField.text!
             gRealm?.add(carInfo, update: true)
         }
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = User.updateInfo(carInfos: gRealm?.objects(CarInfo).map { $0 }).subscribeNext { res in
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
 
 }
