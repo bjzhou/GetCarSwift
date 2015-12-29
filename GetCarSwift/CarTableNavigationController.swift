@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CarTableNavigationDelegate {
-    func didCarSelected(car: String)
+    func didCarSelected(car: CarInfo)
 }
 
 class CarTableNavigationController: ENSideMenuNavigationController {
@@ -34,7 +34,7 @@ class CarTableNavigationController: ENSideMenuNavigationController {
 }
 
 extension CarTableNavigationController: CarRightDelegate {
-    func didCarSelected(car: String) {
+    func didCarSelected(car: CarInfo) {
         carDelegate?.didCarSelected(car)
     }
 

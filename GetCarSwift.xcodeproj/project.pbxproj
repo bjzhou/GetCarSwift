@@ -93,7 +93,6 @@
 		C8C2C0941B8B5DEE006095DC /* UIColor+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C0901B8B5DEE006095DC /* UIColor+GK.swift */; };
 		C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */; };
 		C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */; };
-		C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */; };
 		C8D6CAE61B8F511700A417CF /* UIViewController+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController+GK.swift */; };
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
 		C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE51BF343BB00792F3E /* Helper.swift */; };
@@ -241,7 +240,6 @@
 		C8C2C09B1B8B5EEE006095DC /* GetCarSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetCarSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoEditViewController.swift; sourceTree = "<group>"; };
 		C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
-		C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewModel.swift; sourceTree = "<group>"; };
 		C8D6CAE51B8F511700A417CF /* UIViewController+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+GK.swift"; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		C8D88FE51BF343BB00792F3E /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -584,7 +582,6 @@
 		C8D1C5021BB64F5D00F131BC /* login */ = {
 			isa = PBXGroup;
 			children = (
-				C8D1C4FF1BB6413300F131BC /* CarTableViewModel.swift */,
 				C84408F71BB43C720088D046 /* LoginViewModel.swift */,
 				C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */,
 			);
@@ -885,7 +882,6 @@
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage+GK.swift in Sources */,
 				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
-				C8D1C5001BB6413300F131BC /* CarTableViewModel.swift in Sources */,
 				C844F4011BE73DE1008AFC8B /* File.swift in Sources */,
 				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,

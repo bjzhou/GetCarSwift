@@ -22,7 +22,7 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
 
         addEndEditingGesture(self.view)
 
-        registerViewModel = RegisterViewModel(nickname: nickname.rx_text, car: carText.rx_text)
+        registerViewModel = RegisterViewModel(nickname: nickname.rx_text)
         registerViewModel.viewProxy = self
     }
 
@@ -30,8 +30,9 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         registerViewModel.didRegister()
     }
 
-    func didCarSelected(car: String) {
-        carText.text = car
+    func didCarSelected(car: CarInfo) {
+        registerViewModel.car = car
+        carText.text = car.model
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

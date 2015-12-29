@@ -17,6 +17,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
     @IBOutlet weak var versionTextField: UITextField!
 
     var id = 0
+    var carInfo = CarInfo()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,12 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         }
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let newCar = CarInfo(value: ["id": id])
+        carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first ?? newCar
+    }
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
             let carChoose = R.storyboard.login.car_choose
@@ -38,8 +45,12 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         }
     }
 
-    func didCarSelected(car: String) {
-        modelLabel.text = car
+    func didCarSelected(car: CarInfo) {
+        gRealm?.writeOptional {
+            self.carInfo.model = car.model
+            self.carInfo.modelId = car.modelId
+        }
+        modelLabel.text = car.model
     }
 
     @IBAction func didSaveAction(sender: AnyObject) {
@@ -47,15 +58,13 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
             self.view.makeToast(message: "请选择车辆品牌")
             return
         }
-        let newCar = CarInfo(value: ["id": id])
-        let carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first ?? newCar
         gRealm?.writeOptional {
-            carInfo.model = self.modelLabel.text!
-            carInfo.lisence = self.lisenceTextField.text!
-            carInfo.name = self.nameTextField.text!
-            carInfo.year = self.yearTextField.text!
-            carInfo.detail = self.versionTextField.text!
-            gRealm?.add(carInfo, update: true)
+            self.carInfo.model = self.modelLabel.text!
+            self.carInfo.lisence = self.lisenceTextField.text!
+            self.carInfo.name = self.nameTextField.text!
+            self.carInfo.year = self.yearTextField.text!
+            self.carInfo.detail = self.versionTextField.text!
+            gRealm?.add(self.carInfo, update: true)
         }
         _ = User.updateInfo(carInfos: gRealm?.objects(CarInfo).map { $0 }).subscribeNext { res in
             self.navigationController?.popViewControllerAnimated(true)

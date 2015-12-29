@@ -12,11 +12,10 @@ import SwiftyJSON
 class CarTableViewController: UITableViewController {
 
     var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    var carTableViewModel: CarTableViewModel!
 
     var categeries: [String] = []
     var brands: [String: [String]] = [:]
-    var models: [String: [String]] = [:]
+    var models: [String: [CarInfo]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +29,7 @@ class CarTableViewController: UITableViewController {
 
         indicator.startAnimating()
 
-        carTableViewModel = CarTableViewModel()
-        carTableViewModel.fetchCarInfos() { (c, b, m) in
+        _ = CarInfo.info().subscribeNext { (c, b, m) in
             self.categeries = c
             self.brands = b
             self.models = m

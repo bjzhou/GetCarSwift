@@ -45,25 +45,32 @@ struct User: JSONable {
     }
 
     static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, carInfos: [CarInfo]? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
-        var body: [String:AnyObject] = [:]
+        var params: [String:AnyObject] = [:]
+        let datas: [String:NSData] = [:]
         if let a = nickname {
-            body["nickname"] = a
+            params["nickname"] = a
         }
         if let a = sex {
-            body["sex"] = a
+            params["sex"] = a
         }
         if let a = carInfos {
-            body["car_info"] = a.map({ b in
-                return ["car_id": b.id, "car_num": b.lisence, "own_name": b.name, "car_year": b.year, "car_version": b.detail]
-            })
+            params["car_info"] = (a.map { b in
+                var carInfo: [String:AnyObject] = ["car_id": b.id, "car_num": b.lisence, "own_name": b.name, "car_year": b.year, "car_version": b.detail]
+                for i in 0..<b.parts.count {
+                    let part = b.parts[i]
+                    carInfo["desc\(i)"] = part.title
+                    // TODO: pic
+                }
+                return carInfo
+            }) as [AnyObject]
         }
         if let a = color {
-            body["color"] = a
+            params["color"] = a
         }
         if let a = icon {
-            body["icon"] = a
+            params["icon"] = a
         }
-        return GaikeService.sharedInstance.api("user/updateInfo", body: body)
+        return GaikeService.sharedInstance.upload("user/updateInfo", parameters: params, datas: datas)
     }
 
     static func uploadHeader(image: UIImage) -> Observable<GKResult<User>> {

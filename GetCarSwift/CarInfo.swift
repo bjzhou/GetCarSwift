@@ -11,9 +11,7 @@ import SwiftyJSON
 import RxSwift
 import RealmSwift
 
-class CarInfo: Object, JSONable {
-    dynamic var category = "#"
-    dynamic var brand = ""
+class CarInfo: Object {
     dynamic var model = ""
     dynamic var modelId = ""
 
@@ -25,19 +23,39 @@ class CarInfo: Object, JSONable {
     dynamic var name = ""
     var parts = List<CarPart>()
 
-    convenience required init(json: JSON) {
-        self.init()
-        category = json["categery"].stringValue
-        brand = json["brand"].stringValue
-        model = json["model"].stringValue
-        modelId = json["id"].stringValue
-    }
-
     override class func primaryKey() -> String? { return "id" }
 
-    static func info() -> Observable<GKResult<JSON>> {
+    static func info() -> Observable<([String], [String: [String]], [String: [CarInfo]])> {
         //api("info", body: [:], completion: completion)
-        return GaikeService.sharedInstance.api("car/info")
+        return GaikeService.sharedInstance.api("car/info").observeOn(operationScheduler).map { (result: GKResult<JSON>) in
+            var categeries: [String] = []
+            var brands: [String: [String]] = [:]
+            var models: [String: [CarInfo]] = [:]
+            guard let json = result.data else {
+                return (categeries, brands, models)
+            }
+
+            categeries = json.sortedDictionaryKeys() ?? []
+            for categery in categeries {
+                brands[categery] = json[categery].sortedDictionaryKeys() ?? []
+                for brand in brands[categery]! {
+                    if let strs = json[categery, brand].arrayObject as? [String] {
+                        var cars = [CarInfo]()
+                        for i in 0..<strs.count {
+                            if i % 2 == 0 {
+                                cars.append(CarInfo())
+                                cars[i/2].modelId = strs[i]
+                            } else {
+                                cars[i/2].model = strs[i]
+                            }
+                        }
+                        models[brand] = cars
+                    }
+                }
+            }
+
+            return (categeries, brands, models)
+            }.observeOn(MainScheduler.sharedInstance)
     }
 }
 

@@ -16,30 +16,29 @@ struct RegisterViewModel {
 
     var sex = 0
     var nickname: ControlProperty<String>
-    var car: ControlProperty<String>
+    var car = CarInfo()
 
     var viewProxy: ViewProxy?
 
-    init(nickname: ControlProperty<String>, car: ControlProperty<String>) {
+    init(nickname: ControlProperty<String>) {
         self.nickname = nickname
-        self.car = car
     }
 
     func didRegister() {
-        combineLatest(nickname, car) { ($0, $1) }.take(1)
-            .filter { (nick, car) in
+        nickname.take(1)
+            .filter { nick in
                 if nick.trim() == "" {
                     self.viewProxy?.showToast("请输入用户昵称")
                     return false
                 }
-                if car.trim() == "" {
+                if self.car.model.trim() == "" {
                     self.viewProxy?.showToast("请选择或输入车型")
                     return false
                 }
                 return true
             }
-            .map { (nick, car) in
-                User.updateInfo(nickname: nick, sex: self.sex, carInfos: [CarInfo(value: ["model": car])])
+            .map { nick in
+                User.updateInfo(nickname: nick, sex: self.sex, carInfos: [self.car])
             }
             .concat()
             .subscribeNext { res in

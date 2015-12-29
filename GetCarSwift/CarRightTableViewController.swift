@@ -15,7 +15,7 @@ protocol CarRightDelegate: CarTableNavigationDelegate {
 class CarRightTableViewController: UITableViewController {
 
     var delegate: CarRightDelegate?
-    var data: [String] = [] {
+    var data: [CarInfo] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -45,7 +45,7 @@ class CarRightTableViewController: UITableViewController {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
         }
 
-        cell?.textLabel?.text = data[indexPath.row]
+        cell?.textLabel?.text = data[indexPath.row].model
 
         return cell!
     }
