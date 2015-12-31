@@ -44,7 +44,7 @@ struct User: JSONable {
         return GaikeService.sharedInstance.api("user/login", body: ["phone":phone, "code":code])
     }
 
-    static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, carInfos: [CarInfo]? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
+    static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
         var params: [String:AnyObject] = [:]
         let datas: [String:NSData] = [:]
         if let a = nickname {
@@ -52,17 +52,6 @@ struct User: JSONable {
         }
         if let a = sex {
             params["sex"] = a
-        }
-        if let a = carInfos {
-            params["car_info"] = (a.map { b in
-                var carInfo: [String:AnyObject] = ["car_id": b.id, "car_num": b.lisence, "own_name": b.name, "car_year": b.year, "car_version": b.detail]
-                for i in 0..<b.parts.count {
-                    let part = b.parts[i]
-                    carInfo["desc\(i)"] = part.title
-                    // TODO: pic
-                }
-                return carInfo
-            }) as [AnyObject]
         }
         if let a = color {
             params["color"] = a
@@ -215,7 +204,7 @@ struct Mine {
             window?.rootViewController = firstController
 
             if expired {
-                firstController.view.makeToast(message: "登录信息已过期，请重新登录")
+                Toast.makeToast(message: "登录信息已过期，请重新登录")
             }
         }
     }

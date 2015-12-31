@@ -59,7 +59,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         switch mode {
         case .Nickname:
             if nickname.trim() == "" {
-                self.view.makeToast(message: "请输入昵称")
+                Toast.makeToast(message: "请输入昵称")
                 return
             }
             Mine.sharedInstance.nickname = nickname

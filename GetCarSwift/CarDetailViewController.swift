@@ -25,9 +25,22 @@ class CarDetailViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first
-        if let _ = carInfo {
+        if let carInfo = carInfo {
             tableView.reloadData()
+
+            _ = CarInfo.getUserCarPart(carInfo.carUserId).subscribeNext { res in
+                guard let parts = res.dataArray else {
+                    return
+                }
+
+                gRealm?.writeOptional {
+                    carInfo.parts.removeAll()
+                    carInfo.parts.appendContentsOf(parts)
+                }
+                self.tableView.reloadData()
+            }
         }
+
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,9 +68,7 @@ class CarDetailViewController: UITableViewController {
 
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_detail_part, forIndexPath: indexPath)
         let part = carInfo?.parts[indexPath.row-1]
-        KingfisherManager.sharedManager.cache.retrieveImageForKey(part?.imageKey ?? "", options: KingfisherManager.OptionsNone) { (image, type) -> () in
-            cell?.partImageView.image = image
-        }
+        cell?.partImageView.kf_setImageWithURL(NSURL(string: part?.imageUrl ?? "")!)
         cell?.titleLabel.text = part?.title ?? ""
         cell?.detailLabel.text = part?.detail ?? ""
         cell?.delDisposable?.dispose()
@@ -65,13 +76,13 @@ class CarDetailViewController: UITableViewController {
             let alertVC = UIAlertController(title: "确定要删除该配件吗", message: nil, preferredStyle: .Alert)
             alertVC.addAction(UIAlertAction(title: "否", style: .Cancel, handler: nil))
             alertVC.addAction(UIAlertAction(title: "是", style: .Default, handler: { _ in
+                if let id = part?.id {
+                    _ = CarInfo.deleteUserCarPart(id).subscribe()
+                }
                 gRealm?.writeOptional {
                     gRealm?.delete(part!)
                 }
                 tableView.reloadData()
-                _ = User.updateInfo(carInfos: gRealm?.objects(CarInfo).map { $0 }).subscribeNext { res in
-                    // bypass
-                }
             }))
             self.presentViewController(alertVC, animated: true, completion: nil)
         }

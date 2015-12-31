@@ -80,18 +80,12 @@ class ShareScoreViewController: UIViewController {
 
     func uploadShare(succeed: () -> Void) {
         if share.id == "" {
-            self.view.makeToastActivity()
-            let imageKeys = self.carInfo.parts.map { $0.imageKey }
-            async {
-                let images = imageKeys.map { KingfisherManager.sharedManager.cache.retrieveImageInDiskCacheForKey($0) ?? UIImage()}
-                main {
-                    _ = Share.uploadShare(self.scoreValues[0], liushikm: String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0), yibaikm: String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0), maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: "0~400m直线赛道", carId: self.carInfo.modelId, carDesc: self.carInfo.detail, partDescs: self.carInfo.parts.map { $0.detail }, partImages: images).subscribeNext { (res) -> Void in
-                        if let share = res.data {
-                            self.view.hideToastActivity()
-                            self.share = share
-                            succeed()
-                        }
-                    }
+            Toast.makeToastActivity()
+            _ = Share.uploadShare(self.scoreValues[0], liushikm: String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0), yibaikm: String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0), maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: "0~400m直线赛道", carId: self.carInfo.modelId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
+                if let share = res.data {
+                    Toast.hideToastActivity()
+                    self.share = share
+                    succeed()
                 }
             }
         } else {
@@ -126,10 +120,7 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
         let part = carInfo.parts[indexPath.row - 2]
         cell?.partTitleLabel.text = part.title
         cell?.partDetailLabel.text = part.detail
-        cell?.partImageView.image = nil
-        KingfisherManager.sharedManager.cache.retrieveImageForKey(part.imageKey, options: KingfisherManager.OptionsNone) { image, _ in
-            cell?.partImageView.image = image
-        }
+        cell?.partImageView.kf_setImageWithURL(NSURL(string: part.imageUrl)!)
         return cell!
     }
 

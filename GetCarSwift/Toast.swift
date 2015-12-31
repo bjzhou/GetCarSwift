@@ -53,54 +53,52 @@ let toastShadowOffset: CGSize       = CGSize(width: CGFloat(4.0), height: CGFloa
 let toastOpacity: CGFloat           = 0.8
 let toastCornerRadius: CGFloat      = 10.0
 
-var toastActivityView: UnsafePointer<UIView>    =   nil
-var toastTimer: UnsafePointer<NSTimer>          =   nil
-var toastView: UnsafePointer<UIView>            =   nil
-
 /*
 *  Custom Config
 */
 let toastHidesOnTap       =   true
 let toastDisplayShadow    =   true
 
-//HRToast (UIView + Toast using Swift)
+class Toast: NSObject {
 
-extension UIView {
+    private static var toastView: UIView?
+    private static var toastActivity: UIView?
+    private static var toastTimer: NSTimer?
 
     /*
     *  public methods
     */
-    func makeToast(message msg: String) {
+    class func makeToast(message msg: String) {
         self.makeToast(message: msg, duration: toastDefaultDuration, position: toastPositionDefault)
     }
 
-    func makeToast(message msg: String, duration: Double, position: AnyObject) {
+    class func makeToast(message msg: String, duration: Double, position: AnyObject) {
         let toast = self.viewForMessage(msg, title: nil, image: nil)
         self.showToast(toast: toast!, duration: duration, position: position)
     }
 
-    func makeToast(message msg: String, duration: Double, position: AnyObject, title: String) {
+    class func makeToast(message msg: String, duration: Double, position: AnyObject, title: String) {
         let toast = self.viewForMessage(msg, title: title, image: nil)
         self.showToast(toast: toast!, duration: duration, position: position)
     }
 
-    func makeToast(message msg: String, duration: Double, position: AnyObject, image: UIImage) {
+    class func makeToast(message msg: String, duration: Double, position: AnyObject, image: UIImage) {
         let toast = self.viewForMessage(msg, title: nil, image: image)
         self.showToast(toast: toast!, duration: duration, position: position)
     }
 
-    func makeToast(message msg: String, duration: Double, position: AnyObject, title: String, image: UIImage) {
+    class func makeToast(message msg: String, duration: Double, position: AnyObject, title: String, image: UIImage) {
         let toast = self.viewForMessage(msg, title: title, image: image)
         self.showToast(toast: toast!, duration: duration, position: position)
     }
 
-    func showToast(toast: UIView) {
+    class func showToast(toast: UIView) {
         self.showToast(toast: toast, duration: toastDefaultDuration, position: toastPositionDefault)
     }
 
-    func showToast(toast toast: UIView, duration: Double, position: AnyObject) {
-        if let existToast = objc_getAssociatedObject(self, &toastView) as? UIView {
-            if let timer: NSTimer = objc_getAssociatedObject(existToast, &toastTimer) as? NSTimer {
+    class func showToast(toast toast: UIView, duration: Double, position: AnyObject) {
+        if let existToast = toastView {
+            if let timer = toastTimer {
                 timer.invalidate()
             }
             self.hideToast(toast: existToast, force: false)
@@ -116,8 +114,8 @@ extension UIView {
             toast.exclusiveTouch = true
         }
 
-        self.addSubview(toast)
-        objc_setAssociatedObject(self, &toastView, toast, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        sharedWindow.rootViewController?.view.addSubview(toast)
+        toastView = toast
 
         UIView.animateWithDuration(toastFadeDuration,
             delay: 0.0, options: [.CurveEaseOut, .AllowUserInteraction],
@@ -125,22 +123,20 @@ extension UIView {
                 toast.alpha = 1.0
             },
             completion: { (finished: Bool) in
-                let timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
-                objc_setAssociatedObject(toast, &toastTimer, timer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                toastTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
         })
     }
 
-    func makeToastActivity() {
+    class func makeToastActivity() {
         self.makeToastActivity(position: toastActivityPositionDefault)
     }
 
-    func makeToastActivityWithMessage(message msg: String) {
+    class func makeToastActivityWithMessage(message msg: String) {
         self.makeToastActivity(position: toastActivityPositionDefault, message: msg)
     }
 
-    func makeToastActivity(position pos: AnyObject, message msg: String = "") {
-        let existingActivityView: UIView? = objc_getAssociatedObject(self, &toastActivityView) as? UIView
-        if existingActivityView != nil { return }
+    class func makeToastActivity(position pos: AnyObject, message msg: String = "") {
+        if toastActivity != nil { return }
 
         let activityView = UIView(frame: CGRect(x: 0, y: 0, width: toastActivityWidth, height: toastActivityHeight))
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
@@ -171,10 +167,9 @@ extension UIView {
             activityView.addSubview(activityMessageLabel)
         }
 
-        self.addSubview(activityView)
+        sharedWindow.rootViewController?.view.addSubview(activityView)
 
-        // associate activity view with self
-        objc_setAssociatedObject(self, &toastActivityView, activityView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        toastActivity = activityView
 
         UIView.animateWithDuration(toastFadeDuration,
             delay: 0.0,
@@ -185,8 +180,8 @@ extension UIView {
             completion: nil)
     }
 
-    func hideToastActivity() {
-        if let existingActivityView = objc_getAssociatedObject(self, &toastActivityView) as? UIView {
+    class func hideToastActivity() {
+        if let existingActivityView = toastActivity {
             UIView.animateWithDuration(toastFadeDuration,
                 delay: 0.0,
                 options: UIViewAnimationOptions.CurveEaseOut,
@@ -195,7 +190,7 @@ extension UIView {
                 },
                 completion: { (finished: Bool) in
                     existingActivityView.removeFromSuperview()
-                    objc_setAssociatedObject(self, &toastActivityView, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    toastActivity = nil
             })
         }
     }
@@ -203,14 +198,14 @@ extension UIView {
     /*
     *  private methods (helper)
     */
-    func hideToast(toast toast: UIView) {
+    class func hideToast(toast toast: UIView) {
         self.hideToast(toast: toast, force: false)
     }
 
-    func hideToast(toast toast: UIView, force: Bool) {
+    class func hideToast(toast toast: UIView, force: Bool) {
         let completeClosure = { (finish: Bool) -> () in
             toast.removeFromSuperview()
-            objc_setAssociatedObject(self, &toastTimer, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            toastTimer = nil
         }
 
         if force {
@@ -226,22 +221,20 @@ extension UIView {
         }
     }
 
-    func toastTimerDidFinish(timer: NSTimer) {
+    class func toastTimerDidFinish(timer: NSTimer) {
         self.hideToast(toast: timer.userInfo as? UIView ?? UIView())
     }
 
-    func handleToastTapped(recognizer: UITapGestureRecognizer) {
-        let timer = objc_getAssociatedObject(self, &toastTimer) as? NSTimer
-        timer?.invalidate()
+    class func handleToastTapped(recognizer: UITapGestureRecognizer) {
+        toastTimer?.invalidate()
 
         self.hideToast(toast: recognizer.view!)
     }
 
-    func centerPointForPosition(position: AnyObject, toast: UIView) -> CGPoint {
+    private class func centerPointForPosition(position: AnyObject, toast: UIView) -> CGPoint {
         if position is String {
             let toastSize = toast.bounds.size
-            let
-            viewSize  = self.bounds.size
+            let viewSize = UIScreen.mainScreen().bounds.size
             if position.lowercaseString == toastPositionTop {
                 return CGPoint(x: viewSize.width/2, y: toastSize.height/2 + toastVerticalMargin)
             } else if position.lowercaseString == toastPositionBottom {
@@ -257,7 +250,7 @@ extension UIView {
         return self.centerPointForPosition(toastPositionDefault, toast: toast)
     }
 
-    func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
+    private class func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
         if msg == nil && title == nil && image == nil { return nil }
 
         var msgLabel: UILabel?
@@ -303,7 +296,7 @@ extension UIView {
             titleLabel!.text = title
 
             // size the title label according to the length of the text
-            let maxSizeTitle = CGSize(width: (self.bounds.size.width * toastMaxWidth) - imageWidth, height: self.bounds.size.height * toastMaxHeight)
+            let maxSizeTitle = CGSize(width: (UIScreen.mainScreen().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.mainScreen().bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeTitle.width, title!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = title!.stringHeight(toastFontSize, width: maxSizeTitle.width)
             titleLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
@@ -320,7 +313,7 @@ extension UIView {
             msgLabel!.alpha = 1.0
             msgLabel!.text = msg
 
-            let maxSizeMessage = CGSize(width: (self.bounds.size.width * toastMaxWidth) - imageWidth, height: self.bounds.size.height * toastMaxHeight)
+            let maxSizeMessage = CGSize(width: (UIScreen.mainScreen().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.mainScreen().bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeMessage.width, msg!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = msg!.stringHeight(toastFontSize, width: maxSizeMessage.width)
             msgLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
@@ -368,6 +361,31 @@ extension UIView {
         }
 
         return wrapperView
+    }
+
+    private static var sharedWindow: UIWindow = {
+        let window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window.userInteractionEnabled = false
+        window.windowLevel = CGFloat.max
+        window.rootViewController = ToastViewController()
+        window.hidden = false
+        return window
+    }()
+
+}
+
+class ToastViewController: UIViewController {
+
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIApplication.sharedApplication().statusBarStyle
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .All
     }
 
 }

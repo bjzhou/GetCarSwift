@@ -31,14 +31,10 @@ struct RegisterViewModel {
                     self.viewProxy?.showToast("请输入用户昵称")
                     return false
                 }
-                if self.car.model.trim() == "" {
-                    self.viewProxy?.showToast("请选择或输入车型")
-                    return false
-                }
                 return true
             }
             .map { nick in
-                User.updateInfo(nickname: nick, sex: self.sex, carInfos: [self.car])
+                User.updateInfo(nickname: nick, sex: self.sex)
             }
             .concat()
             .subscribeNext { res in
@@ -49,6 +45,9 @@ struct RegisterViewModel {
 
                 if res.code >= 0 {
                     Mine.sharedInstance.updateLogin(user)
+                    if self.car.modelId != 0 {
+                        _ = CarInfo.addUserCar(self.car.modelId).subscribe()
+                    }
                     self.viewProxy?.setRootViewController()
                 }
             }.addDisposableTo(disposeBag)

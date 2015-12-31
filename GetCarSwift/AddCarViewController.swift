@@ -55,7 +55,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
 
     @IBAction func didSaveAction(sender: AnyObject) {
         if modelLabel.text == "" {
-            self.view.makeToast(message: "请选择车辆品牌")
+            Toast.makeToast(message: "请选择车辆品牌")
             return
         }
         gRealm?.writeOptional {
@@ -66,7 +66,12 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
             self.carInfo.detail = self.versionTextField.text!
             gRealm?.add(self.carInfo, update: true)
         }
-        _ = User.updateInfo(carInfos: gRealm?.objects(CarInfo).map { $0 }).subscribeNext { res in
+        _ = CarInfo.addUserCar(self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
+            if let json = res.data {
+                gRealm?.writeOptional {
+                    self.carInfo.carUserId = json["user_car_id"].intValue
+                }
+            }
             self.navigationController?.popViewControllerAnimated(true)
         }
     }

@@ -19,16 +19,8 @@ struct Share: JSONable {
 
     init() {}
 
-    static func uploadShare(sibaim: String, liushikm: String = "", yibaikm: String = "", maxa: String, maxv: String, title: String, carId: String, carDesc: String, partDescs: [String], partImages: [UIImage]) -> Observable<GKResult<Share>> {
-        var params: [String: AnyObject] = ["sibaim": sibaim, "liushikm": liushikm, "yibaikm": yibaikm, "maxa": maxa, "maxv": maxv, "title": title, "car_id": carId, "car_desc": carDesc, "count": partDescs.count]
-        for i in 0..<partDescs.count {
-            params["desc\(i)"] = partDescs[i]
-        }
-        var datas = [String:NSData]()
-        for i in 0..<partImages.count {
-            datas["part\(i)"] = UIImagePNGRepresentation(partImages[i])
-        }
-        return GaikeService.sharedInstance.upload("upload/uploadShare", parameters: params, datas: datas)
+    static func uploadShare(sibaim: String, liushikm: String = "", yibaikm: String = "", maxa: String, maxv: String, title: String, carId: Int, carDesc: String) -> Observable<GKResult<Share>> {
+        return GaikeService.sharedInstance.api("upload/uploadShare", body: ["sibaim": sibaim, "liushikm": liushikm, "yibaikm": yibaikm, "maxa": maxa, "maxv": maxv, "title": title, "car_id": carId, "car_desc": carDesc])
     }
 
     func getShareUrl() -> NSURL {

@@ -23,15 +23,25 @@ class CarListViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        if let car = Mine.sharedInstance.car where car.trim() != "" && gRealm?.objects(CarInfo).count == 0 {
-            gRealm?.writeOptional {
-                let carInfo = CarInfo()
-                carInfo.model = car
-                carInfo.id = 0
-                gRealm?.add(carInfo)
+        if gRealm?.objects(CarInfo).count == 0 {
+            _ = CarInfo.getUserCar().subscribeNext { res in
+                guard let cars = res.dataArray else {
+                    return
+                }
+
+                for i in 0..<cars.count {
+                    cars[i].id = i
+                }
+                gRealm?.writeOptional {
+                    gRealm?.add(cars)
+                }
+                self.updateCars()
             }
         }
+        updateCars()
+    }
 
+    func updateCars() {
         if let car1 = gRealm?.objects(CarInfo).filter("id = 0").first {
             carInfoView1.updateLogo(car1.imageUrl)
             carInfoView1.didButtonTapped = showDetailView(0)

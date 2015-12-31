@@ -22,7 +22,7 @@ extension ViewProxy {
 extension UIViewController: ViewProxy {
 
     func showToast(toast: String) {
-        self.view.makeToast(message: toast)
+        Toast.makeToast(message: toast)
     }
 
     func showViewController(vc: UIViewController) {

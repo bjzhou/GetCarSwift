@@ -310,7 +310,7 @@ class StraightMatchViewController: UIViewController {
 
     @IBAction func didPostComment(sender: UIButton) {
         if commentTextField.text!.trim() == "" {
-            self.view.makeToast(message: "评论不能为空")
+            Toast.makeToast(message: "评论不能为空")
             return
         }
         _ = trackDetailViewModel.postComment(commentTextField.text!).subscribeNext {

@@ -118,7 +118,7 @@ class GetCarSwiftTests: XCTestCase {
 
     func testUploadShare() {
         let expect = expectationWithDescription("req")
-        _ = Share.uploadShare("11.21", liushikm: "3.12", yibaikm: "7.81", maxa: "5", maxv: "121", title: "这是什么", carId: "111", carDesc: "好车", partDescs: ["配件1", "配件2", "配件3", "配件4"], partImages: [R.image.ad_AFE!, R.image.ad_KW!, R.image.ad_MRG!, R.image.ad_CSB!]).subscribeNext { res in
+        _ = Share.uploadShare("11.21", liushikm: "3.12", yibaikm: "7.81", maxa: "5", maxv: "121", title: "这是什么", carId: 111, carDesc: "好车").subscribeNext { res in
             if let share = res.data where share.id != "" {
                 UIApplication.sharedApplication().openURL(share.getShareUrl())
             } else {
@@ -150,5 +150,59 @@ class GetCarSwiftTests: XCTestCase {
 //        XCTAssertEqual(json["sex"].intValue, 1)
 //        XCTAssertEqual(json["sex"].int, .Some(1))
 //    }
+
+    func testAddUserCar() {
+        let expect = expectationWithDescription("req")
+        _ = CarInfo.addUserCar(15, number: "", username: "周斌佳", year: "2016", version: "高配版").subscribeNext { res in
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
+
+    func testGetUserCar() {
+        let expect = expectationWithDescription("req")
+        _ = CarInfo.getUserCar().subscribeNext { res in
+            if let cars = res.dataArray {
+                print(cars)
+            }
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
+
+    func testDeleteUserCar() {
+        let expect = expectationWithDescription("req")
+        _ = CarInfo.deleteUserCar(5).subscribeNext { res in
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
+
+    func testAddUserCarPart() {
+        let expect = expectationWithDescription("req")
+        _ = CarInfo.addUserCarPart(4, name: "配件", desc: "配件详情", img: R.image.about_bg!).subscribeNext { res in
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
+
+    func testGetUserCarPart() {
+        let expect = expectationWithDescription("req")
+        _ = CarInfo.getUserCarPart(4).subscribeNext { res in
+            if let parts = res.dataArray {
+                print(parts)
+            }
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
+
+    func testDeleteUserCarPart() {
+        let expect = expectationWithDescription("req")
+        _ = CarInfo.deleteUserCarPart(4).subscribeNext { res in
+            expect.fulfill()
+        }
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
 
 }

@@ -38,7 +38,7 @@ class SettingsTableViewController: UITableViewController {
                             gRealm?.delete(objects)
                         }
                     }
-                    self.view.makeToast(message: "清除成功")
+                    Toast.makeToast(message: "清除成功")
                     })
                 alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
                 presentViewController(alertController, animated: true, completion: nil)
