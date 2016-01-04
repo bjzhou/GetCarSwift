@@ -28,13 +28,11 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
             nameTextField.text = carInfo.name
             yearTextField.text = carInfo.year
             versionTextField.text = carInfo.detail
-        }
-    }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        let newCar = CarInfo(value: ["id": id])
-        carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first ?? newCar
+            self.carInfo = carInfo
+        } else {
+            carInfo = CarInfo(value: ["id": id])
+        }
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -66,13 +64,19 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
             self.carInfo.detail = self.versionTextField.text!
             gRealm?.add(self.carInfo, update: true)
         }
-        _ = CarInfo.addUserCar(self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
-            if let json = res.data {
-                gRealm?.writeOptional {
-                    self.carInfo.carUserId = json["user_car_id"].intValue
-                }
+        if let _ = carInfo.realm {
+            _ = CarInfo.updateUserCar(carInfo.carUserId, carId: self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
+                self.navigationController?.popViewControllerAnimated(true)
             }
-            self.navigationController?.popViewControllerAnimated(true)
+        } else {
+            _ = CarInfo.addUserCar(self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
+                if let json = res.data {
+                    gRealm?.writeOptional {
+                        self.carInfo.carUserId = json["user_car_id"].intValue
+                    }
+                }
+                self.navigationController?.popViewControllerAnimated(true)
+            }
         }
     }
 

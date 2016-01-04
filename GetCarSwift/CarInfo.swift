@@ -27,7 +27,8 @@ class CarInfo: Object, JSONable {
     convenience required init(json: JSON) {
         self.init()
         self.carUserId = json["id"].intValue
-        self.modelId = json["car_id"].intValue
+        self.modelId = json["car_id", 0, "id"].intValue
+        self.model = json["car_id", 0, "model"].stringValue
         self.year = json["car_year"].stringValue
         self.lisence = json["car_number"].stringValue
         self.name = json["car_username"].stringValue
@@ -69,8 +70,8 @@ class CarInfo: Object, JSONable {
             }.observeOn(MainScheduler.sharedInstance)
     }
 
-    static func addUserCar(id: Int, number: String = "", username: String = "", year: String = "", version: String = "") -> Observable<GKResult<JSON>> {
-        return GaikeService.sharedInstance.api("car/addUserCar", body: ["car_id": id, "car_number": number, "car_username": username, "car_year": year, "car_version": version])
+    static func addUserCar(carId: Int, number: String = "", username: String = "", year: String = "", version: String = "") -> Observable<GKResult<JSON>> {
+        return GaikeService.sharedInstance.api("car/addUserCar", body: ["car_id": carId, "car_number": number, "car_username": username, "car_year": year, "car_version": version])
     }
 
     static func deleteUserCar(userCarId: Int) -> Observable<GKResult<String>> {
@@ -79,6 +80,10 @@ class CarInfo: Object, JSONable {
 
     static func getUserCar() -> Observable<GKResult<CarInfo>> {
         return GaikeService.sharedInstance.api("car/getUserCar")
+    }
+
+    static func updateUserCar(userCarId: Int, carId: Int, number: String, username: String, year: String, version: String) -> Observable<GKResult<JSON>> {
+        return GaikeService.sharedInstance.api("car/updateUserCar", body: ["user_car_id": userCarId, "car_id": carId, "car_number": number, "car_username": username, "car_year": year, "car_version": version])
     }
 
     static func addUserCarPart(userCarId: Int, name: String, desc: String, img: UIImage) -> Observable<GKResult<JSON>> {
@@ -91,6 +96,10 @@ class CarInfo: Object, JSONable {
 
     static func getUserCarPart(userCarId: Int) -> Observable<GKResult<CarPart>> {
         return GaikeService.sharedInstance.api("car/getUserCarPart", body: ["user_car_id": userCarId])
+    }
+
+    static func updateUserCarPart(userCarPartId: Int, userCarId: Int, name: String, desc: String, img: UIImage) -> Observable<GKResult<JSON>> {
+        return GaikeService.sharedInstance.upload("car/updateUserCarPart", parameters: ["user_car_part_id": userCarPartId, "user_car_id": userCarId, "name": name, "desc": desc], datas: ["img": UIImagePNGRepresentation(img)!])
     }
 }
 
