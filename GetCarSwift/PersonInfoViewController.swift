@@ -150,8 +150,4 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             self.tableView.reloadData()
         })
     }
-
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-    }
 }

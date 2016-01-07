@@ -57,14 +57,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
 
-//        let token = "/cIYbX2Ood5fv6reYRm+M8vmAP5/+CoshqsQUzYxvxx5BkGYFvfbn37r7xMoGGbZoAkjlh6bTeXfKGQMXme24A=="
-//        RCIM.sharedRCIM().connectWithToken(token, success: { str in
-//            print(str)
-//            }, error: { err in
-//                print("error: \(err)")
-//            }, tokenIncorrect: {
-//                print("token incorrect")
-//        })
+        let token = "/cIYbX2Ood5fv6reYRm+M8vmAP5/+CoshqsQUzYxvxx5BkGYFvfbn37r7xMoGGbZoAkjlh6bTeXfKGQMXme24A=="
+        RCIM.sharedRCIM().connectWithToken(token, success: { str in
+            print(str)
+            }, error: { err in
+                print("error: \(err)")
+            }, tokenIncorrect: {
+                print("token incorrect")
+        })
 
         let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
         application.registerUserNotificationSettings(settings)

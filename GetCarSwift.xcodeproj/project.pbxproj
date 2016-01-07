@@ -98,6 +98,12 @@
 		C8D88FE61BF343BB00792F3E /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE51BF343BB00792F3E /* Helper.swift */; };
 		C8D88FEA1BF4482D00792F3E /* RmRaceTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */; };
 		C8D88FEC1BF5B67800792F3E /* Realm+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D88FEB1BF5B67800792F3E /* Realm+GK.swift */; };
+		C8DAF8EA1C3A444300110C27 /* UIView+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF8E91C3A444300110C27 /* UIView+GK.swift */; };
+		C8DAF8EE1C3A4F7A00110C27 /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF8ED1C3A4F7A00110C27 /* ConversationListViewController.swift */; };
+		C8DAF8F01C3A527D00110C27 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF8EF1C3A527D00110C27 /* FriendsTableViewController.swift */; };
+		C8DAF8F21C3A588000110C27 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF8F11C3A588000110C27 /* FriendTableViewCell.swift */; };
+		C8DAF8F41C3A6AAE00110C27 /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF8F31C3A6AAE00110C27 /* SearchResultTableViewController.swift */; };
+		C8DAF8F61C3E25CF00110C27 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF8F51C3E25CF00110C27 /* ConversationViewController.swift */; };
 		C8DDF8BB1C1B03FC008D1443 /* RmLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DDF8BA1C1B03FC008D1443 /* RmLog.swift */; };
 		C8DE3B191C117E93009AF56E /* BgChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DE3B181C117E93009AF56E /* BgChoiceCollectionViewCell.swift */; };
 		C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E2B8371AD92727003B07FE /* CommonTableViewCell.swift */; };
@@ -245,6 +251,12 @@
 		C8D88FE51BF343BB00792F3E /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmRaceTrack.swift; sourceTree = "<group>"; };
 		C8D88FEB1BF5B67800792F3E /* Realm+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Realm+GK.swift"; sourceTree = "<group>"; };
+		C8DAF8E91C3A444300110C27 /* UIView+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+GK.swift"; sourceTree = "<group>"; };
+		C8DAF8ED1C3A4F7A00110C27 /* ConversationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
+		C8DAF8EF1C3A527D00110C27 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		C8DAF8F11C3A588000110C27 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		C8DAF8F31C3A6AAE00110C27 /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
+		C8DAF8F51C3E25CF00110C27 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		C8DDF8BA1C1B03FC008D1443 /* RmLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RmLog.swift; sourceTree = "<group>"; };
 		C8DE3B181C117E93009AF56E /* BgChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = channel.debug.xcconfig; sourceTree = "<group>"; };
@@ -370,6 +382,11 @@
 			isa = PBXGroup;
 			children = (
 				C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */,
+				C8DAF8ED1C3A4F7A00110C27 /* ConversationListViewController.swift */,
+				C8DAF8EF1C3A527D00110C27 /* FriendsTableViewController.swift */,
+				C8DAF8F11C3A588000110C27 /* FriendTableViewCell.swift */,
+				C8DAF8F31C3A6AAE00110C27 /* SearchResultTableViewController.swift */,
+				C8DAF8F51C3E25CF00110C27 /* ConversationViewController.swift */,
 			);
 			name = friend;
 			sourceTree = "<group>";
@@ -554,6 +571,7 @@
 				C8A6B4A11C1580D700D2B217 /* UITableViewController+GK.swift */,
 				C803EE3C1C18299C00425E04 /* CALayer+GK.swift */,
 				C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */,
+				C8DAF8E91C3A444300110C27 /* UIView+GK.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -844,6 +862,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8DAF8F61C3E25CF00110C27 /* ConversationViewController.swift in Sources */,
 				C8F2BD7F1BE074CB00424EEA /* ENSideMenu.swift in Sources */,
 				C8E2B8381AD92727003B07FE /* CommonTableViewCell.swift in Sources */,
 				C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */,
@@ -859,6 +878,7 @@
 				C848F1B71B778626008DAC69 /* TrackingViewController.swift in Sources */,
 				C89A05C31B6E058C00620C85 /* GaikeService.swift in Sources */,
 				C8D6CAE61B8F511700A417CF /* UIViewController+GK.swift in Sources */,
+				C8DAF8F21C3A588000110C27 /* FriendTableViewCell.swift in Sources */,
 				C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */,
 				C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */,
 				C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */,
@@ -877,6 +897,7 @@
 				C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */,
 				C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */,
 				C80FCD1E1B8CC3FC001F5A93 /* AddPlayerTableViewController.swift in Sources */,
+				C8DAF8EA1C3A444300110C27 /* UIView+GK.swift in Sources */,
 				C89A05CA1B6E166400620C85 /* SwiftPages.swift in Sources */,
 				C89C492A1C0D6F2500A1E2E1 /* AboutTableViewController.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
@@ -924,6 +945,7 @@
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */,
 				C8C2C0921B8B5DEE006095DC /* JSON+GK.swift in Sources */,
+				C8DAF8F41C3A6AAE00110C27 /* SearchResultTableViewController.swift in Sources */,
 				C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */,
 				C8AB571A1C2BAC980087898C /* ShareScoreViewController.swift in Sources */,
 				C8DE3B191C117E93009AF56E /* BgChoiceCollectionViewCell.swift in Sources */,
@@ -932,6 +954,8 @@
 				8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */,
 				8BDEB72CC5630B87A9209A2C /* ModIntroTableViewCell.swift in Sources */,
 				8BDEB0BF1D070B851F236536 /* ModStoreViewController.swift in Sources */,
+				C8DAF8F01C3A527D00110C27 /* FriendsTableViewController.swift in Sources */,
+				C8DAF8EE1C3A4F7A00110C27 /* ConversationListViewController.swift in Sources */,
 				C82AF1541C2A74E400B261AE /* CarDetailViewController.swift in Sources */,
 				8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */,
 				8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */,

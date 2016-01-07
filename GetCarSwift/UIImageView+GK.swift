@@ -20,7 +20,7 @@ extension UIImageView {
                 let vc = R.storyboard.friend.friend_profile
                 vc?.uid = uid
                 vc?.avatarUrl = url
-                vc?.nickname = nickname
+                vc?.nicknameText = nickname
                 vc?.sex = sex
                 if let nav = inVC?.navigationController {
                     nav.showViewController(vc!)

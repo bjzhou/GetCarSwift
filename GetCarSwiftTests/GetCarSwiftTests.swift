@@ -118,7 +118,7 @@ class GetCarSwiftTests: XCTestCase {
 
     func testUploadShare() {
         let expect = expectationWithDescription("req")
-        _ = Share.uploadShare("11.21", liushikm: "3.12", yibaikm: "7.81", maxa: "5", maxv: "121", title: "这是什么", carId: 111, carDesc: "好车").subscribeNext { res in
+        _ = Share.uploadShare("11.21", liushikm: "3.12", yibaikm: "7.81", maxa: "5", maxv: "121", title: "这是什么", userCarId: 111, carDesc: "好车").subscribeNext { res in
             if let share = res.data where share.id != "" {
                 UIApplication.sharedApplication().openURL(share.getShareUrl())
             } else {

@@ -130,8 +130,4 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-    }
-
 }

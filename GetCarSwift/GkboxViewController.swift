@@ -10,6 +10,9 @@ import UIKit
 
 class GkboxViewController: UIViewController {
     @IBOutlet weak var swiftPagesView: SwiftPages!
+    @IBOutlet weak var messageDialog: UIView!
+    @IBOutlet weak var friendButton: UIButton!
+    @IBOutlet weak var msgButton: UIButton!
 
     let buttonTitles = ["直线加速", "全球赛事"]
 
@@ -17,10 +20,37 @@ class GkboxViewController: UIViewController {
         super.viewDidLoad()
 
         swiftPagesView.initializeWithVCsArrayAndButtonTitlesArray([R.storyboard.gkbox.data!, R.storyboard.gkbox.map!], buttonTitlesArray: buttonTitles, sender: self)
+
+        self.navigationController?.view.addTapGesture { _ in
+            if self.messageDialog.hidden == false {
+                self.messageDialog.hidden = true
+            }
+        }
+
+        _ = msgButton.rx_tap.takeUntil(msgButton.rx_deallocated).subscribeNext {
+            let vc = ConversationListViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self.showViewController(vc)
+        }
+
+        _ = friendButton.rx_tap.takeUntil(friendButton.rx_deallocated).subscribeNext {
+            let vc = R.storyboard.friend.friend_list
+            self.showViewController(vc!)
+        }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         showDisclaimerIfNeeded()
+        messageDialog.hidden = true
+    }
+
+    @IBAction func showMessageDialog(sender: AnyObject) {
+        if messageDialog.hidden == true {
+            swiftPagesView.bringSubviewToFront(messageDialog)
+            messageDialog.hidden = false
+        } else {
+            self.messageDialog.hidden = true
+        }
     }
 
     func showDisclaimerIfNeeded() {

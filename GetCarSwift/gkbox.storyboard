@@ -927,9 +927,54 @@
                     <view key="view" contentMode="scaleToFill" id="5wc-IL-CHb" customClass="SwiftPages" customModule="GetCarSwift" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jM1-M0-QwW">
+                                <rect key="frame" x="15" y="64" width="90" height="90"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="message_bg" translatesAutoresizingMaskIntoConstraints="NO" id="hWs-54-YQq">
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSl-5l-lFs">
+                                        <rect key="frame" x="0.0" y="0.0" width="44.5" height="44.5"/>
+                                        <state key="normal" image="friend"/>
+                                        <state key="highlighted" image="friend_pressed"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcf-hL-fg5">
+                                        <rect key="frame" x="44.5" y="44.5" width="44.5" height="44.5"/>
+                                        <state key="normal" image="message"/>
+                                        <state key="highlighted" image="message_pressed"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="uSl-5l-lFs" firstAttribute="height" secondItem="Xcf-hL-fg5" secondAttribute="height" id="5Bc-UB-kuG"/>
+                                    <constraint firstItem="uSl-5l-lFs" firstAttribute="top" secondItem="jM1-M0-QwW" secondAttribute="top" id="8jH-v5-J3I"/>
+                                    <constraint firstAttribute="trailing" secondItem="Xcf-hL-fg5" secondAttribute="trailing" constant="1" id="AOR-V7-aXI"/>
+                                    <constraint firstItem="Xcf-hL-fg5" firstAttribute="top" secondItem="uSl-5l-lFs" secondAttribute="bottom" id="DXR-hl-rEI"/>
+                                    <constraint firstItem="hWs-54-YQq" firstAttribute="leading" secondItem="jM1-M0-QwW" secondAttribute="leading" id="FVH-gf-Nnk"/>
+                                    <constraint firstItem="uSl-5l-lFs" firstAttribute="width" secondItem="Xcf-hL-fg5" secondAttribute="width" id="QzK-iP-sVM"/>
+                                    <constraint firstAttribute="bottom" secondItem="hWs-54-YQq" secondAttribute="bottom" id="Ssa-1z-jUh"/>
+                                    <constraint firstItem="Xcf-hL-fg5" firstAttribute="leading" secondItem="uSl-5l-lFs" secondAttribute="trailing" id="Tdn-Sw-uUg"/>
+                                    <constraint firstAttribute="trailing" secondItem="hWs-54-YQq" secondAttribute="trailing" id="dvU-0F-rSn"/>
+                                    <constraint firstItem="hWs-54-YQq" firstAttribute="top" secondItem="jM1-M0-QwW" secondAttribute="top" id="dy5-Al-NSL"/>
+                                    <constraint firstItem="uSl-5l-lFs" firstAttribute="leading" secondItem="jM1-M0-QwW" secondAttribute="leading" id="oFv-FY-g1P"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xcf-hL-fg5" secondAttribute="bottom" constant="1" id="ogW-uk-rdd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jM1-M0-QwW" firstAttribute="leading" secondItem="5wc-IL-CHb" secondAttribute="leading" constant="15" id="aZx-i2-MRa"/>
+                            <constraint firstItem="jM1-M0-QwW" firstAttribute="top" secondItem="OsK-bA-hcp" secondAttribute="bottom" id="ojO-nf-xLV"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="G-BOX" id="HGE-nd-nm0">
+                        <barButtonItem key="leftBarButtonItem" image="nav_message" id="bX6-sY-aUf">
+                            <color key="tintColor" red="0.80000000000000004" green="0.0" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="showMessageDialog:" destination="2cr-TT-juz" id="IAC-U0-nbu"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="share" id="XtF-dc-lbW">
                             <color key="tintColor" red="0.80000000000000004" green="0.0" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -938,12 +983,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="friendButton" destination="uSl-5l-lFs" id="1j5-Um-PHc"/>
+                        <outlet property="messageDialog" destination="jM1-M0-QwW" id="hOl-OE-BZN"/>
+                        <outlet property="msgButton" destination="Xcf-hL-fg5" id="3ZL-79-j11"/>
                         <outlet property="swiftPagesView" destination="5wc-IL-CHb" id="8tN-15-VCI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oti-A7-NwQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2123" y="740"/>
+            <point key="canvasLocation" x="-2123.5" y="739.5"/>
         </scene>
         <!--G-BOX-->
         <scene sceneID="fDW-1d-XCh">
@@ -974,6 +1022,8 @@
         <image name="btn_data_area_selected" width="185" height="44"/>
         <image name="btn_go_to_track_bg" width="374" height="48"/>
         <image name="data_area" width="184" height="130"/>
+        <image name="friend" width="22" height="16"/>
+        <image name="friend_pressed" width="22" height="16"/>
         <image name="layer" width="28" height="28"/>
         <image name="layer_bg" width="28" height="28"/>
         <image name="map_address" width="11" height="13"/>
@@ -981,6 +1031,10 @@
         <image name="map_score_bg" width="270" height="86"/>
         <image name="map_score_label_bg" width="96" height="86"/>
         <image name="map_time_bg" width="375" height="203"/>
+        <image name="message" width="20" height="14"/>
+        <image name="message_bg" width="90" height="90"/>
+        <image name="message_pressed" width="20" height="14"/>
+        <image name="nav_message" width="24" height="22"/>
         <image name="no_signal_1" width="3" height="4"/>
         <image name="no_signal_2" width="3" height="7"/>
         <image name="no_signal_3" width="3" height="11"/>

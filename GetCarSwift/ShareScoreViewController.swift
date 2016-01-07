@@ -10,7 +10,6 @@ import UIKit
 import RealmSwift
 import RxSwift
 import Kingfisher
-import SafariServices
 
 class ShareScoreViewController: UIViewController {
 
@@ -37,14 +36,9 @@ class ShareScoreViewController: UIViewController {
 
     @IBAction func didPreviewAction(sender: UIButton) {
         uploadShare {
-            if #available(iOS 9, *) {
-                let vc = SFSafariViewController(URL: self.share.getShareUrl())
-                self.presentViewController(vc, animated: true, completion: nil)
-            } else {
-                let webBrowser = WebViewController()
-                webBrowser.loadURL(self.share.getShareUrl())
-                self.showViewController(webBrowser, sender: self)
-            }
+            let webBrowser = WebViewController()
+            webBrowser.loadURL(self.share.getShareUrl())
+            self.showViewController(webBrowser, sender: self)
         }
     }
 
@@ -81,7 +75,7 @@ class ShareScoreViewController: UIViewController {
     func uploadShare(succeed: () -> Void) {
         if share.id == "" {
             Toast.makeToastActivity()
-            _ = Share.uploadShare(self.scoreValues[0], liushikm: String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0), yibaikm: String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0), maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: "0~400m直线赛道", carId: self.carInfo.modelId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
+            _ = Share.uploadShare(self.scoreValues[0], liushikm: String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0), yibaikm: String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0), maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: "0~400m直线赛道", userCarId: self.carInfo.carUserId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
                 if let share = res.data {
                     Toast.hideToastActivity()
                     self.share = share

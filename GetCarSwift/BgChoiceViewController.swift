@@ -63,8 +63,4 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
         dismissViewControllerAnimated(true, completion: nil)
         navigationController?.popViewControllerAnimated(true)
     }
-
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-    }
 }

@@ -19,8 +19,8 @@ struct Share: JSONable {
 
     init() {}
 
-    static func uploadShare(sibaim: String, liushikm: String = "", yibaikm: String = "", maxa: String, maxv: String, title: String, carId: Int, carDesc: String) -> Observable<GKResult<Share>> {
-        return GaikeService.sharedInstance.api("upload/uploadShare", body: ["sibaim": sibaim, "liushikm": liushikm, "yibaikm": yibaikm, "maxa": maxa, "maxv": maxv, "title": title, "car_id": carId, "car_desc": carDesc])
+    static func uploadShare(sibaim: String, liushikm: String = "", yibaikm: String = "", maxa: String, maxv: String, title: String, userCarId: Int, carDesc: String) -> Observable<GKResult<Share>> {
+        return GaikeService.sharedInstance.api("upload/uploadShare", body: ["sibaim": sibaim, "liushikm": liushikm, "yibaikm": yibaikm, "maxa": maxa, "maxv": maxv, "title": title, "user_car_id": userCarId])
     }
 
     func getShareUrl() -> NSURL {
