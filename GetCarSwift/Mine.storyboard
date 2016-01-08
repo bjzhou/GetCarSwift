@@ -1633,14 +1633,14 @@
                         <viewControllerLayoutGuide type="bottom" id="jhL-l4-g7V"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7Og-Fr-H7A">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKc-tN-Tbc">
-                                <rect key="frame" x="0.0" y="84" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="44"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="配件名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7A-Vb-WfD">
-                                        <rect key="frame" x="15" y="12" width="570" height="20"/>
+                                        <rect key="frame" x="15" y="12" width="345" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -1654,13 +1654,16 @@
                                     <constraint firstItem="p7A-Vb-WfD" firstAttribute="centerX" secondItem="VKc-tN-Tbc" secondAttribute="centerX" id="vxy-AM-FaR"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWJ-jG-Ps3">
-                                <rect key="frame" x="20" y="148" width="560" height="373.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="eDg-gy-9ae">
+                                <rect key="frame" x="20" y="148.5" width="335" height="223.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWJ-jG-Ps3">
+                                <rect key="frame" x="20" y="148" width="335" height="223.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="LWJ-jG-Ps3" secondAttribute="height" multiplier="3:2" id="vNr-Kt-3Vk"/>
                                 </constraints>
-                                <state key="normal" image="camera"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1669,10 +1672,10 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="stf-kY-3QU">
-                                <rect key="frame" x="0.0" y="541" width="600" height="58.5"/>
+                                <rect key="frame" x="0.0" y="391" width="375" height="275.5"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h6p-Rp-Zdd" customClass="KMPlaceholderTextView" customModule="GetCarSwift" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="8" width="584" height="42.5"/>
+                                        <rect key="frame" x="8" y="8" width="359" height="259.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1692,12 +1695,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="eDg-gy-9ae" firstAttribute="leading" secondItem="LWJ-jG-Ps3" secondAttribute="leading" id="5bA-xb-ATE"/>
                             <constraint firstItem="LWJ-jG-Ps3" firstAttribute="top" secondItem="VKc-tN-Tbc" secondAttribute="bottom" constant="20" id="8Hw-do-C8g"/>
+                            <constraint firstItem="eDg-gy-9ae" firstAttribute="top" secondItem="LWJ-jG-Ps3" secondAttribute="top" id="Eiy-dz-gad"/>
+                            <constraint firstItem="eDg-gy-9ae" firstAttribute="bottom" secondItem="LWJ-jG-Ps3" secondAttribute="bottom" id="Hco-IO-PHY"/>
                             <constraint firstItem="stf-kY-3QU" firstAttribute="top" secondItem="LWJ-jG-Ps3" secondAttribute="bottom" constant="20" id="OOg-Kf-xRu"/>
                             <constraint firstItem="LWJ-jG-Ps3" firstAttribute="leading" secondItem="7Og-Fr-H7A" secondAttribute="leading" constant="20" id="SDs-Uu-xu3"/>
                             <constraint firstItem="stf-kY-3QU" firstAttribute="leading" secondItem="7Og-Fr-H7A" secondAttribute="leading" id="THo-Kh-odH"/>
                             <constraint firstAttribute="trailing" secondItem="VKc-tN-Tbc" secondAttribute="trailing" id="bFh-fB-3JF"/>
                             <constraint firstAttribute="trailing" secondItem="stf-kY-3QU" secondAttribute="trailing" id="bOP-24-Zqg"/>
+                            <constraint firstItem="eDg-gy-9ae" firstAttribute="trailing" secondItem="LWJ-jG-Ps3" secondAttribute="trailing" id="gOS-uz-APU"/>
                             <constraint firstItem="LWJ-jG-Ps3" firstAttribute="centerX" secondItem="7Og-Fr-H7A" secondAttribute="centerX" id="ifL-c4-WA7"/>
                             <constraint firstItem="VKc-tN-Tbc" firstAttribute="leading" secondItem="7Og-Fr-H7A" secondAttribute="leading" id="lxC-ox-RyV"/>
                             <constraint firstAttribute="trailing" secondItem="LWJ-jG-Ps3" secondAttribute="trailing" constant="20" id="q2q-pk-y2Q"/>
@@ -1718,15 +1725,17 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="cameraButton" destination="LWJ-jG-Ps3" id="J22-jC-FKV"/>
+                        <outlet property="cameraButtonImageView" destination="eDg-gy-9ae" id="Agx-xy-VuG"/>
                         <outlet property="detailTextView" destination="h6p-Rp-Zdd" id="pKd-Jd-FZX"/>
                         <outlet property="titleTextField" destination="p7A-Vb-WfD" id="Ycb-2G-Zdc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dtK-ia-3YT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-834" y="1613"/>
+            <point key="canvasLocation" x="-834.5" y="1612.5"/>
         </scene>
         <!--Car Detail View Controller-->
         <scene sceneID="oWk-PY-uSm">
@@ -1766,7 +1775,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vwt-5I-9M2">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vwt-5I-9M2">
                                             <rect key="frame" x="15" y="10" width="150" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="150" id="RRP-4k-uhh"/>

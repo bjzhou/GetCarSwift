@@ -13,6 +13,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var cameraButtonImageView: UIImageView!
     @IBOutlet weak var detailTextView: KMPlaceholderTextView!
 
     var id = 0
@@ -73,7 +74,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
 
         Toast.makeToastActivity()
         async {
-            let image = self.cameraButton.imageForState(.Normal)?.scaleImage(size: CGSize(width: 600, height: 400))
+            let image = self.cameraButtonImageView.image?.scaleImage(scale: 0.3)
             main {
                 if let carInfo = gRealm?.objects(CarInfo).filter("id = \(self.id)").first, image = image {
                     gRealm?.writeOptional {
@@ -126,7 +127,9 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
-        self.cameraButton.setImage(image, forState: .Normal)
+        self.cameraButtonImageView.contentMode = .ScaleAspectFill
+        self.cameraButtonImageView.image = image
+        self.cameraButtonImageView.clipsToBounds = true
         dismissViewControllerAnimated(true, completion: nil)
     }
 
