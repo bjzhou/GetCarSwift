@@ -310,6 +310,82 @@
             </objects>
             <point key="canvasLocation" x="1217" y="437"/>
         </scene>
+        <!--Search Result Table View Controller-->
+        <scene sceneID="n9s-uK-jAF">
+            <objects>
+                <tableViewController storyboardIdentifier="friend_search" id="rPa-5S-xHr" customClass="SearchResultTableViewController" customModule="GetCarSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dyd-YV-QNu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="search" id="USs-Yg-5C4" customClass="FriendTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="USs-Yg-5C4" id="HxP-RF-oy8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="odf-17-GCp">
+                                            <rect key="frame" x="15" y="10" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="ABo-I6-LvA"/>
+                                                <constraint firstAttribute="width" constant="60" id="EMv-5n-fUA"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_male" translatesAutoresizingMaskIntoConstraints="NO" id="sF8-Oj-WHj">
+                                            <rect key="frame" x="90" y="23" width="8" height="13"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33G-HZ-2Cl">
+                                            <rect key="frame" x="106" y="20.5" width="37.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8M-Qg-vA8">
+                                            <rect key="frame" x="106" y="44" width="35.5" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.39871903149999999" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOJ-g9-Mh9">
+                                            <rect key="frame" x="525" y="29" width="60" height="22"/>
+                                            <state key="normal" image="follow_button"/>
+                                            <state key="selected" image="friend_button"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="kOJ-g9-Mh9" secondAttribute="trailing" constant="15" id="4w0-PP-XPn"/>
+                                        <constraint firstItem="odf-17-GCp" firstAttribute="leading" secondItem="HxP-RF-oy8" secondAttribute="leading" constant="15" id="XBN-Mb-f2H"/>
+                                        <constraint firstAttribute="centerY" secondItem="sF8-Oj-WHj" secondAttribute="bottom" constant="4" id="ZIE-PY-e5Q"/>
+                                        <constraint firstItem="odf-17-GCp" firstAttribute="centerY" secondItem="HxP-RF-oy8" secondAttribute="centerY" id="fwt-fW-RUf"/>
+                                        <constraint firstItem="kOJ-g9-Mh9" firstAttribute="centerY" secondItem="HxP-RF-oy8" secondAttribute="centerY" id="kdM-Lf-xhr"/>
+                                        <constraint firstItem="J8M-Qg-vA8" firstAttribute="leading" secondItem="33G-HZ-2Cl" secondAttribute="leading" id="lOr-Rv-km4"/>
+                                        <constraint firstItem="J8M-Qg-vA8" firstAttribute="top" secondItem="HxP-RF-oy8" secondAttribute="centerY" constant="4" id="ofu-gN-HR9"/>
+                                        <constraint firstItem="33G-HZ-2Cl" firstAttribute="leading" secondItem="sF8-Oj-WHj" secondAttribute="trailing" constant="8" id="wKe-Tx-BZN"/>
+                                        <constraint firstItem="sF8-Oj-WHj" firstAttribute="leading" secondItem="odf-17-GCp" secondAttribute="trailing" constant="15" id="xP7-qW-3Cv"/>
+                                        <constraint firstItem="33G-HZ-2Cl" firstAttribute="centerY" secondItem="sF8-Oj-WHj" secondAttribute="centerY" id="yrZ-fc-YoU"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descLabel" destination="J8M-Qg-vA8" id="djW-lv-uiD"/>
+                                    <outlet property="followButton" destination="kOJ-g9-Mh9" id="YSw-OU-HxS"/>
+                                    <outlet property="headerImageView" destination="odf-17-GCp" id="brD-HP-M5t"/>
+                                    <outlet property="nicknameLabel" destination="33G-HZ-2Cl" id="tOl-Uc-vPo"/>
+                                    <outlet property="sexImageView" destination="sF8-Oj-WHj" id="MO3-1T-jZh"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rPa-5S-xHr" id="3gO-2M-uWJ"/>
+                            <outlet property="delegate" destination="rPa-5S-xHr" id="Pdk-uz-Ytf"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0np-Jn-RKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1861" y="440"/>
+        </scene>
     </scenes>
     <resources>
         <image name="avatar" width="87" height="87"/>

@@ -16,7 +16,7 @@ class FriendsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchResultController = SearchResultTableViewController()
+        searchResultController = R.storyboard.friend.friend_search
 
         searchController = UISearchController(searchResultsController: searchResultController)
         searchController.searchResultsUpdater = self
