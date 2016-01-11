@@ -77,6 +77,7 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
     func showImagePickerAlertView() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         alertController.addAction(UIAlertAction(title: "拍照", style: .Default, handler: {(action) in
             imagePicker.sourceType = UIImagePickerControllerSourceType.Camera

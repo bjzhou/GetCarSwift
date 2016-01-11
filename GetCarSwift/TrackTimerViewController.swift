@@ -26,13 +26,14 @@ class TrackTimerViewController: UIViewController {
     var startLoc: CLLocation?
     var data = List<RmScoreData>()
     var inStartCircle = false
-    var passFlags: [Bool] = []
+    var passFlag = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         updateScore()
 
+        passFlag = false
         DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
             guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
                 return
@@ -45,10 +46,11 @@ class TrackTimerViewController: UIViewController {
                 return
             }
 
-            if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 10) {
+            if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 13) {
+                RmLog.d("is in start circle \(self.inStartCircle)")
                 if self.inStartCircle { return }
-                RmLog.d("enter in start circle")
-                if Double((self.passFlags.filter { $0 }).count) >= Double(self.raceTrack.passLocs.count) * 0.6 {
+                RmLog.d("enter in start circle: \(self.passFlag)")
+                if self.passFlag {
                     RmLog.d("passed all locs")
                     let data = List<RmScoreData>()
                     data.appendContentsOf(self.data)
@@ -80,14 +82,14 @@ class TrackTimerViewController: UIViewController {
             for i in 0..<self.raceTrack.passLocs.count {
                 let rmLoc = self.raceTrack.passLocs[i]
                 if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(rmLoc.latitude, rmLoc.longitude), 15) {
-                    if self.passFlags[i] == false {
-                        self.passFlags[i] = true
+                    if !self.passFlag {
+                        self.passFlag = true
                         RmLog.d("passed \(rmLoc)")
                     }
                 }
             }
 
-            if let leaveLoc = self.raceTrack.leaveLoc where MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 10) {
+            if let leaveLoc = self.raceTrack.leaveLoc where MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 15) {
                 if self.data.count != 0 {
                     self.stopTimer()
                     self.data.removeAll()
@@ -116,10 +118,10 @@ class TrackTimerViewController: UIViewController {
 
             if let prevData = self.data.last {
                 if s != prevData.s {
-                    self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
+                    self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s, "lat": loc.coordinate.latitude, "long": loc.coordinate.longitude]))
                 }
             } else {
-                self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
+                self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s, "lat": loc.coordinate.latitude, "long": loc.coordinate.longitude]))
             }
         }
     }
@@ -128,7 +130,7 @@ class TrackTimerViewController: UIViewController {
         UIApplication.sharedApplication().idleTimerDisabled = false
         timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
-        passFlags = raceTrack.passLocs.map { _ in false }
+        passFlag = false
         RmLog.d("stop timer")
     }
 

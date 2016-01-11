@@ -196,25 +196,26 @@ class TrackDetailViewController: UIViewController {
                 }
 
                 self.timerOffset++
-                let curTs = self.time2String(Double(self.timerOffset)/100)
+                let t = Double(self.timerOffset)/100
+                let curTs = self.time2String(t)
                 self.timeLabel.text = curTs
 
-                if let score = self.score1, data = (score.data.filter { $0.t == Double(self.timerOffset)/100 }).first {
-                    self.vLabel1.text = String(format: "%05.1f", data.v)
-                    self.aLabel1.text = String(format: "%.1f", data.a)
+                if let lt = (self.score1?.data.filter { $0.t <= t })?.last, gt = (self.score1?.data.filter { $0.t >= t })?.first {
+                    self.vLabel1.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
+                    self.aLabel1.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let score = self.score2, data = (score.data.filter { $0.t == Double(self.timerOffset)/100 }).first {
-                    self.vLabel2.text = String(format: "%05.1f", data.v)
-                    self.aLabel2.text = String(format: "%.1f", data.a)
+                if let lt = (self.score2?.data.filter { $0.t <= t })?.last, gt = (self.score2?.data.filter { $0.t >= t })?.first {
+                    self.vLabel2.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
+                    self.aLabel2.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let score = self.score3, data = (score.data.filter { $0.t == Double(self.timerOffset)/100 }).first {
-                    self.vLabel3.text = String(format: "%05.1f", data.v)
-                    self.aLabel3.text = String(format: "%.1f", data.a)
+                if let lt = (self.score3?.data.filter { $0.t <= t })?.last, gt = (self.score3?.data.filter { $0.t >= t })?.first {
+                    self.vLabel3.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
+                    self.aLabel3.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if Double(self.timerOffset)/100 >= stopTime {
+                if t >= stopTime {
                     self.timerDisposable?.dispose()
                     sender.selected = !sender.selected
                     self.timerOffset = 0
@@ -229,14 +230,14 @@ class TrackDetailViewController: UIViewController {
         } else {
             if !sender.selected {
                 // pause
-                mapView.viewForAnnotation(annotation1).layer.pauseAnimation()
-                mapView.viewForAnnotation(annotation2).layer.pauseAnimation()
-                mapView.viewForAnnotation(annotation3).layer.pauseAnimation()
+                mapView.viewForAnnotation(annotation1)?.layer.pauseAnimation()
+                mapView.viewForAnnotation(annotation2)?.layer.pauseAnimation()
+                mapView.viewForAnnotation(annotation3)?.layer.pauseAnimation()
             } else {
                 // resume
-                mapView.viewForAnnotation(annotation1).layer.resumeAnimation()
-                mapView.viewForAnnotation(annotation2).layer.resumeAnimation()
-                mapView.viewForAnnotation(annotation3).layer.resumeAnimation()
+                mapView.viewForAnnotation(annotation1)?.layer.resumeAnimation()
+                mapView.viewForAnnotation(annotation2)?.layer.resumeAnimation()
+                mapView.viewForAnnotation(annotation3)?.layer.resumeAnimation()
             }
         }
     }
@@ -263,6 +264,15 @@ class TrackDetailViewController: UIViewController {
         anim.delegate = self
 
         view?.layer.addAnimation(anim, forKey: "race")
+    }
+
+    func stopAnim() {
+        mapView.viewForAnnotation(annotation1)?.layer.resumeAnimation()
+        mapView.viewForAnnotation(annotation2)?.layer.resumeAnimation()
+        mapView.viewForAnnotation(annotation3)?.layer.resumeAnimation()
+        mapView.viewForAnnotation(annotation1)?.layer.removeAllAnimations()
+        mapView.viewForAnnotation(annotation2)?.layer.removeAllAnimations()
+        mapView.viewForAnnotation(annotation3)?.layer.removeAllAnimations()
     }
 
     func time2String(t: Double) -> String {
@@ -320,6 +330,14 @@ extension TrackDetailViewController: AddPlayerDelegate {
         sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal, placeholderImage: R.image.avatar)
         sender?.layer.borderWidth = 2
 
+        timerDisposable?.dispose()
+        startButton.selected = false
+        timerOffset = 0
+        stopAnim()
+        mapView.zoomEnabled = true
+        mapView.rotateEnabled = true
+        mapView.rotateCameraEnabled = true
+
         switch sender {
         case .Some(button1):
             sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
@@ -327,10 +345,14 @@ extension TrackDetailViewController: AddPlayerDelegate {
             score1 = score
             if annotation1 == nil {
                 annotation1 = MAPointAnnotation()
+                if let first = score.data.first {
+                    annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+                }
                 mapView.addAnnotation(annotation1!)
-            }
-            if let first = score.data.first {
-                annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+            } else {
+                if let first = score.data.first {
+                    annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+                }
             }
         case .Some(button2):
             sender?.layer.borderColor = UIColor(rgbValue: 0x13931B).CGColor
@@ -338,10 +360,14 @@ extension TrackDetailViewController: AddPlayerDelegate {
             score2 = score
             if annotation2 == nil {
                 annotation2 = MAPointAnnotation()
+                if let first = score.data.first {
+                    annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+                }
                 mapView.addAnnotation(annotation2!)
-            }
-            if let first = score.data.first {
-                annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+            } else {
+                if let first = score.data.first {
+                    annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+                }
             }
         case .Some(button3):
             sender?.layer.borderColor = UIColor(rgbValue: 0x007AFF).CGColor
@@ -349,10 +375,14 @@ extension TrackDetailViewController: AddPlayerDelegate {
             score3 = score
             if annotation3 == nil {
                 annotation3 = MAPointAnnotation()
+                if let first = score.data.first {
+                    annotation3?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+                }
                 mapView.addAnnotation(annotation3!)
-            }
-            if let first = score.data.first {
-                annotation3?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+            } else {
+                if let first = score.data.first {
+                    annotation3?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
+                }
             }
         default:
             break
@@ -398,9 +428,9 @@ extension TrackDetailViewController: MAMapViewDelegate {
         guard let annotation = annotation as? MAPointAnnotation else {
             return nil
         }
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation") as? MAPinAnnotationView
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation")
         if annotationView == nil {
-            annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
+            annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
             if annotation == annotation1 {
                 annotationView?.image = R.image.red_helmet
             }
@@ -414,6 +444,6 @@ extension TrackDetailViewController: MAMapViewDelegate {
             annotationView?.layer.shadowRadius = 1
             annotationView?.layer.shadowOpacity = 1
         }
-        return annotationView
+        return annotationView!
     }
 }

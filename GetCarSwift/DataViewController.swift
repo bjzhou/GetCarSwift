@@ -42,6 +42,7 @@ class DataViewController: UIViewController {
 
     var data = List<RmScoreData>()
     var keyTime = [String:Double]()
+    var wrongScore = false
 
     var showBest = false {
         didSet {
@@ -299,6 +300,7 @@ class DataViewController: UIViewController {
         self.data.removeAll()
         self.keyTime.removeAll()
         self.ready = false
+        self.wrongScore = false
         self.latestScores = [-1.0, -1.0, -1.0, -1.0]
         timerDisposable?.dispose()
         timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
@@ -333,7 +335,7 @@ class DataViewController: UIViewController {
                 }
             }
 
-            if s >= 400 && prevData.s < 400 && prevData.s > 200 {
+            if s >= 400 && prevData.s < 400 && prevData.s > 200 && !self.wrongScore {
                 if self.latestScores[3] == -1 {
                     self.latestScores[3] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectS: 400)
                     self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
@@ -354,8 +356,11 @@ class DataViewController: UIViewController {
                 }
             }
 
-            if v >= 60 && prevData.v < 60 && prevData.v >= 0.5 {
+            if v >= 60 && prevData.v < 60 && prevData.v >= 0.5 && !self.wrongScore {
                 self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
+                if self.keyTime["60"] < 1.2 {
+                    self.wrongScore = true
+                }
                 if self.latestScores[0] == -1 {
                     self.latestScores[0] = self.keyTime["60"]!
                     self.data.append(RmScoreData(value: ["t": self.latestScores[0], "v": 60, "a": a, "s": self.fixS(self.keyTime["60"]!, dataList: self.data, expectV: 60)]))
@@ -380,8 +385,11 @@ class DataViewController: UIViewController {
                 self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
             }
 
-            if v >= 100 && prevData.v < 100 && prevData.v >= 40 {
+            if v >= 100 && prevData.v < 100 && prevData.v >= 40 && !self.wrongScore {
                 self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
+                if self.keyTime["100"] < 2.5 {
+                    self.wrongScore = true
+                }
                 if self.latestScores[1] == -1 {
                     self.latestScores[1] = self.keyTime["100"]!
                     self.data.append(RmScoreData(value: ["t": self.latestScores[1], "v": 100, "a": a, "s": self.fixS(self.keyTime["100"]!, dataList: self.data, expectV: 100)]))
@@ -409,7 +417,7 @@ class DataViewController: UIViewController {
                 }
 
                 let dt = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 0) - v60
-                if self.latestScores[2] == -1 {
+                if self.latestScores[2] == -1 && !self.wrongScore {
                     self.latestScores[2] = dt
                     self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
                     self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
