@@ -47,7 +47,6 @@ class TrackTimerViewController: UIViewController {
             }
 
             if MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(start.latitude, start.longitude), 13) {
-                RmLog.d("is in start circle \(self.inStartCircle)")
                 if self.inStartCircle { return }
                 RmLog.d("enter in start circle: \(self.passFlag)")
                 if self.passFlag {
