@@ -14,7 +14,7 @@ struct RegisterViewModel {
 
     let disposeBag = DisposeBag()
 
-    var sex = 0
+    var sex = 1
     var nickname: ControlProperty<String>
     var car = CarInfo()
 

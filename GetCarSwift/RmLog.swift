@@ -15,11 +15,9 @@ class RmLog: Object {
     dynamic var message = ""
 
     private static func log(level: String, message: String) {
-        #if ADHOC
-            gRealm?.writeOptional {
-                gRealm?.add(RmLog(value: ["level": level, "message": message]))
-            }
-        #endif
+        gRealm?.writeOptional {
+            gRealm?.add(RmLog(value: ["level": level, "message": message]))
+        }
     }
 
     class func d(message: String) {

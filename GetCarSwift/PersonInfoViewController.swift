@@ -120,6 +120,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     func showImagePickerAlertView() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alertController.addAction(UIAlertAction(title: "拍照", style: UIAlertActionStyle.Default, handler: {(action) in
             imagePicker.sourceType = UIImagePickerControllerSourceType.Camera

@@ -143,27 +143,28 @@ class StraightMatchViewController: UIViewController {
                 }
 
                 self.timerOffset++
-                let curTs = self.time2String(Double(self.timerOffset)/100)
+                let t = Double(self.timerOffset)/100
+                let curTs = self.time2String(t)
                 self.timeLabel.text = curTs
 
-                if let data = (self.score1?.data.filter { $0.t == Double(self.timerOffset)/100 })?.first {
-                    self.vLabel1.text = String(format: "%05.1f", data.v)
-                    self.aLabel1.text = String(format: "%.1f", data.a)
+                if let lt = (self.score1?.data.filter { $0.t <= t })?.last, gt = (self.score1?.data.filter { $0.t >= t })?.first {
+                    self.vLabel1.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
+                    self.aLabel1.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let data = (self.score2?.data.filter { $0.t == Double(self.timerOffset)/100 })?.first {
-                    self.vLabel2.text = String(format: "%05.1f", data.v)
-                    self.aLabel2.text = String(format: "%.1f", data.a)
+                if let lt = (self.score2?.data.filter { $0.t <= t })?.last, gt = (self.score2?.data.filter { $0.t >= t })?.first {
+                    self.vLabel2.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
+                    self.aLabel2.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let data = (self.score3?.data.filter { $0.t == Double(self.timerOffset)/100 })?.first {
-                    self.vLabel3.text = String(format: "%05.1f", data.v)
-                    self.aLabel3.text = String(format: "%.1f", data.a)
+                if let lt = (self.score3?.data.filter { $0.t <= t })?.last, gt = (self.score3?.data.filter { $0.t >= t })?.first {
+                    self.vLabel3.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
+                    self.aLabel3.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
                 self.showRandomAd(self.timerOffset)
 
-                if Double(self.timerOffset)/100 >= stopTime {
+                if t >= stopTime {
                     self.timerDisposable?.dispose()
                     sender.selected = !sender.selected
                     self.stopAnim()
@@ -178,33 +179,41 @@ class StraightMatchViewController: UIViewController {
         } else {
             if !sender.selected {
                 // pause
-                button1.superview!.layer.pauseAnimation()
-                button2.superview!.layer.pauseAnimation()
-                button3.superview!.layer.pauseAnimation()
-                finishLine.layer.pauseAnimation()
-
-                if let _ = leftAdImg.layer.animationForKey("ad") {
-                    leftAdImg.layer.pauseAnimation()
-                }
-
-                if let _ = rightAdImg.layer.animationForKey("ad") {
-                    rightAdImg.layer.pauseAnimation()
-                }
+                pauseAnim()
             } else {
                 // resume
-                button1.superview!.layer.resumeAnimation()
-                button2.superview!.layer.resumeAnimation()
-                button3.superview!.layer.resumeAnimation()
-                finishLine.layer.resumeAnimation()
-
-                if let _ = leftAdImg.layer.animationForKey("ad") where leftAdImg.layer.speed == 0 {
-                    leftAdImg.layer.resumeAnimation()
-                }
-
-                if let _ = rightAdImg.layer.animationForKey("ad") where rightAdImg.layer.speed == 0 {
-                    rightAdImg.layer.resumeAnimation()
-                }
+                resumeAnim()
             }
+        }
+    }
+
+    func pauseAnim() {
+        button1.superview!.layer.pauseAnimation()
+        button2.superview!.layer.pauseAnimation()
+        button3.superview!.layer.pauseAnimation()
+        finishLine.layer.pauseAnimation()
+
+        if let _ = leftAdImg.layer.animationForKey("ad") {
+            leftAdImg.layer.pauseAnimation()
+        }
+
+        if let _ = rightAdImg.layer.animationForKey("ad") {
+            rightAdImg.layer.pauseAnimation()
+        }
+    }
+
+    func resumeAnim() {
+        button1.superview!.layer.resumeAnimation()
+        button2.superview!.layer.resumeAnimation()
+        button3.superview!.layer.resumeAnimation()
+        finishLine.layer.resumeAnimation()
+
+        if let _ = leftAdImg.layer.animationForKey("ad") where leftAdImg.layer.speed == 0 {
+            leftAdImg.layer.resumeAnimation()
+        }
+
+        if let _ = rightAdImg.layer.animationForKey("ad") where rightAdImg.layer.speed == 0 {
+            rightAdImg.layer.resumeAnimation()
         }
     }
 
@@ -213,10 +222,11 @@ class StraightMatchViewController: UIViewController {
             return
         }
 
+        let data = score.data.filter { $0.v != 60 && $0.v != 100 }
         let anim = CAKeyframeAnimation(keyPath: "position.y")
         anim.duration = score.score
-        anim.keyTimes = score.data.map { $0.t / score.score }
-        anim.values = score.data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
+        anim.keyTimes = data.map { $0.t / score.score }
+        anim.values = data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
         anim.calculationMode = kCAAnimationLinear
         anim.removedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
@@ -235,10 +245,11 @@ class StraightMatchViewController: UIViewController {
                 bestScore = score
             }
         }
+        let data = bestScore.data.filter { $0.v != 60 && $0.v != 100 }
         let anim = CAKeyframeAnimation(keyPath: "position.y")
         anim.duration = bestScore.score
-        anim.keyTimes = bestScore.data.map { $0.t / bestScore.score }
-        anim.values = bestScore.data.map { $0.s }
+        anim.keyTimes = data.map { $0.t / bestScore.score }
+        anim.values = data.map { $0.s }
         anim.calculationMode = kCAAnimationLinear
         anim.removedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
@@ -272,6 +283,7 @@ class StraightMatchViewController: UIViewController {
     }
 
     func stopAnim() {
+        resumeAnim()
         button1.superview?.layer.removeAllAnimations()
         button2.superview?.layer.removeAllAnimations()
         button3.superview?.layer.removeAllAnimations()
@@ -336,6 +348,11 @@ extension StraightMatchViewController: AddPlayerDelegate {
         }
         vTitleLabel.text = "0~60\nkm/h"
         aTitleLabel.text = "0~100\nkm/h"
+
+        timerDisposable?.dispose()
+        startButton.selected = false
+        stopAnim()
+        timerOffset = 0
 
         var url = String(score.headUrl)
         var nickname = String(score.nickname)

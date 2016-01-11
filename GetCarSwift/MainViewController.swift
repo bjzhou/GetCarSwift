@@ -14,6 +14,7 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let trackDebug = RmRaceTrack(value: ["id": -1, "name": "上海浦东软件园测试", "address": "上海浦东软件园", "introduce": "上海浦东软件园测试赛道", "isDeveloped": true, "mapCenter": [31.2017262600878, 121.605268722627, 0], "mapZoom": 16.8, "mapDegree": 90, "startLoc": [31.2032691130294, 121.60730317813, 0], "leaveLoc": [31.2034572361278, 121.608260726732, 0], "passLocs": [[31.2021403665821, 121.608368015091, 0], [31.2005997894822, 121.606680905649, 0], [31.2033264676722, 121.604006743307, 0], [31.2014520999432, 121.602447038792, 0]], "cycle": true])
         let track0 = RmRaceTrack(value: ["id": 0, "name": "直线赛道", "sightView": "straight_race", "isDeveloped": true])
         let track1 = RmRaceTrack(value: ["id": 1, "name": "上海天马赛车场", "address": "上海市松江区沈砖公路3000号", "introduce": "上海天马赛车场（STC）位于上海松江，自2004年9月26日正式投入运营，是长江三角地区仅有的两家专业赛车场之一。经权威机构——国际汽车运动联合会（FIA）验收合格认证的F3赛道已达到国际安全标准，为体验试车、日常练车以及赛车运动提供专业、安全、差异化服务。", "isDeveloped": true, "mapCenter": [31.075861269594, 121.120193376859, 0], "mapZoom": 16.8, "mapDegree": 90, "startLoc": [31.076939297388, 121.119700386341, 0], "leaveLoc": [31.076772747002, 121.12084837178, 0], "passLocs": [[31.0766900460122, 121.118470593529, 0], [31.0745420923298, 121.121049537452, 0], [31.0764235645559, 121.119796945864, 0], [31.0759193152733, 121.121233268767, 0]], "cycle": true])
         let track2 = RmRaceTrack(value: ["id": 2, "name": "鄂尔多斯国际赛车场", "address": "中国内蒙古鄂尔多斯市康巴什新区", "introduce": "位于中国内蒙古鄂尔多斯占地106公顷，赛道全长3.751公里，路面宽度12至15米，最大落差32米，被称为中国第一条国际山地赛道，是西北地区第一座国际赛车场，面积仅次于上海国际赛车场，赛道落差巨大，富有挑战性。赛道共18个弯，设计最高时速达296公里/小时。2010年9月这里被国际汽联认证为国际二级赛道，是第一条由中国人独立设计、施工并可升级为F1赛道的国际二级赛道，是世界上第一条以动物形态构筑整体线形的赛道。", "isDeveloped": false, "mapCenter": [39.6241296116, 109.8749789485, 0], "mapZoom": 16.5])
@@ -82,6 +83,13 @@ class MainViewController: UITabBarController {
             gRealm?.add(track115, update: true)
             gRealm?.add(track116, update: true)
             gRealm?.add(track117, update: true)
+            #if DEBUG
+                gRealm?.add(trackDebug, update: true)
+            #else
+                if let object = gRealm?.objects(RmRaceTrack).filter("id = -1").first {
+                    gRealm?.delete(object)
+                }
+            #endif
         }
 
         self.addChildViewController(R.storyboard.gkbox.initialViewController!)
