@@ -35,7 +35,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         titleTextField.text = carPart.title
         detailTextView.text = carPart.detail
         if !carPart.imageUrl.trim().isEmpty {
-            cameraButton.kf_setImageWithURL(NSURL(string: carPart.imageUrl)!, forState: .Normal, placeholderImage: R.image.camera)
+            cameraButtonImageView.kf_setImageWithURL(NSURL(string: carPart.imageUrl)!, placeholderImage: R.image.camera)
         }
     }
 

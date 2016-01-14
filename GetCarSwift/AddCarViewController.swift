@@ -18,6 +18,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
 
     var id = 0
     var carInfo = CarInfo()
+    var selectedModelId = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         } else {
             carInfo = CarInfo(value: ["id": id])
         }
+        selectedModelId = carInfo.modelId
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -44,10 +46,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
     }
 
     func didCarSelected(car: CarInfo) {
-        gRealm?.writeOptional {
-            self.carInfo.model = car.model
-            self.carInfo.modelId = car.modelId
-        }
+        selectedModelId = car.modelId
         modelLabel.text = car.model
     }
 
@@ -58,11 +57,11 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         }
         gRealm?.writeOptional {
             self.carInfo.model = self.modelLabel.text!
+            self.carInfo.modelId = self.selectedModelId
             self.carInfo.lisence = self.lisenceTextField.text!
             self.carInfo.name = self.nameTextField.text!
             self.carInfo.year = self.yearTextField.text!
             self.carInfo.detail = self.versionTextField.text!
-            gRealm?.add(self.carInfo, update: true)
         }
         if let _ = carInfo.realm {
             _ = CarInfo.updateUserCar(carInfo.carUserId, carId: self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
@@ -76,6 +75,9 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
                     }
                 }
                 self.navigationController?.popViewControllerAnimated(true)
+            }
+            gRealm?.writeOptional {
+                gRealm?.add(self.carInfo, update: true)
             }
         }
     }

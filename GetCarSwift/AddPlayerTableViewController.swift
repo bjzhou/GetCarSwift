@@ -56,29 +56,49 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        loaded = false
-        _ = Records.getRecord(self.sid, count: 50).subscribeNext { res in
-            self.loaded = true
-            guard let data = res.data else {
-                return
-            }
-            self.top = data.top.sort { $0.0.score < $0.1.score }
-            if self.localNewest.count == 0 {
-                for s in data.newestRes {
-                    gRealm?.writeOptional {
-                        gRealm?.add(s, update: true)
+        if mode == .Car {
+            if cars.count == 0 {
+                loaded = false
+                _ = CarInfo.getUserCar().subscribeNext { res in
+                    guard let cars = res.dataArray else {
+                        return
                     }
-                }
-                for s in data.bestRes {
-                    gRealm?.writeOptional {
-                        gRealm?.add(s, update: true)
+
+                    for i in 0..<cars.count {
+                        cars[i].id = i
                     }
+                    gRealm?.writeOptional {
+                        gRealm?.add(cars)
+                    }
+                    self.updateScore()
                 }
-                self.updateScore()
             }
-            self.indicator.stopAnimating()
-            self.tableView.reloadData()
+        } else {
+            loaded = false
+            _ = Records.getRecord(self.sid, count: 50).subscribeNext { res in
+                self.loaded = true
+                guard let data = res.data else {
+                    return
+                }
+                self.top = data.top.sort { $0.0.score < $0.1.score }
+                if self.localNewest.count == 0 {
+                    for s in data.newestRes {
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
+                        }
+                    }
+                    for s in data.bestRes {
+                        gRealm?.writeOptional {
+                            gRealm?.add(s, update: true)
+                        }
+                    }
+                    self.updateScore()
+                }
+                self.indicator.stopAnimating()
+                self.tableView.reloadData()
+            }
         }
+
     }
 
     // MARK: - Table view data source
