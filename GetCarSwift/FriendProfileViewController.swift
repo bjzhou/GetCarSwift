@@ -42,6 +42,12 @@ class FriendProfileViewController: UIViewController {
             chat.fromProfile = true
             self.showViewController(chat)
         }
+
+        _ = followButton.rx_tap.takeUntil(followButton.rx_deallocated).subscribeNext {
+            _ = User.requestFriend(self.uid, message: "我是asdad").subscribeNext { res in
+
+            }
+        }
     }
 
     override func viewWillAppear(animated: Bool) {

@@ -12,6 +12,8 @@ import Kingfisher
 
 class CarDetailViewController: UITableViewController {
 
+    let defaultImage = UIImage().scaleImage(size: CGSize(width: 41, height: 41))
+
     var id = 0
     var carInfo: CarInfo?
 
@@ -50,8 +52,8 @@ class CarDetailViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_detail_model, forIndexPath: indexPath)
-            cell?.imageView?.image = R.image.example_car_logo_small
-            cell?.textLabel?.text = carInfo?.model ?? "填写车辆信息"
+            cell?.logoView.kf_setImageWithURL(NSURL(string: carInfo?.imageUrl ?? "")!, placeholderImage: defaultImage)
+            cell?.titleLabel.text = carInfo?.model ?? "填写车辆信息"
             return cell!
         }
 

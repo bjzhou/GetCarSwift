@@ -65,6 +65,18 @@ struct User: JSONable {
     static func uploadHeader(image: UIImage) -> Observable<GKResult<User>> {
         return GaikeService.sharedInstance.upload("upload/uploadHeader", datas: ["pictures":UIImagePNGRepresentation(image)!])
     }
+
+    static func getFriend() -> Observable<GKResult<User>> {
+        return GaikeService.sharedInstance.api("user/get_friend")
+    }
+
+    static func requestFriend(uid: String, message: String) -> Observable<GKResult<String>> {
+        return GaikeService.sharedInstance.api("user/request_friend", body: ["id": uid, "message": message])
+    }
+
+    static func processRequestFriend(uid: String, isAccess: Bool) -> Observable<GKResult<String>> {
+        return GaikeService.sharedInstance.api("user/process_request_friend", body: ["id": uid, "is_access": isAccess])
+    }
 }
 
 struct Mine {

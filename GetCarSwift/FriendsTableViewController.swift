@@ -30,6 +30,14 @@ class FriendsTableViewController: UITableViewController {
         definesPresentationContext = true
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        _ = User.getFriend().subscribeNext { res in
+            print(res)
+        }
+    }
+
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

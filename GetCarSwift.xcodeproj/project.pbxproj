@@ -31,10 +31,10 @@
 		C82AF1471C28FDB400B261AE /* UIImageView+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */; };
 		C82AF14B1C29250600B261AE /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C82AF14A1C29250600B261AE /* Friend.storyboard */; };
 		C82AF14E1C2925BA00B261AE /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */; };
-		C82AF1501C2A430C00B261AE /* CarInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF14F1C2A430C00B261AE /* CarInfoView.swift */; };
 		C82AF1521C2A4B7800B261AE /* CarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1511C2A4B7800B261AE /* CarListViewController.swift */; };
 		C82AF1541C2A74E400B261AE /* CarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1531C2A74E400B261AE /* CarDetailViewController.swift */; };
 		C82AF1561C2A755A00B261AE /* AddCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82AF1551C2A755A00B261AE /* AddCarViewController.swift */; };
+		C833788B1C4C94A60047A4AE /* CarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C833788A1C4C94A60047A4AE /* CarCell.swift */; };
 		C84408F81BB43C720088D046 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84408F71BB43C720088D046 /* LoginViewModel.swift */; };
 		C84408FB1BB43D410088D046 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84408FA1BB43D410088D046 /* Login.storyboard */; };
 		C844F4011BE73DE1008AFC8B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C844F4001BE73DE1008AFC8B /* File.swift */; };
@@ -175,10 +175,10 @@
 		C82AF1461C28FDB400B261AE /* UIImageView+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+GK.swift"; sourceTree = "<group>"; };
 		C82AF14A1C29250600B261AE /* Friend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friend.storyboard; sourceTree = "<group>"; };
 		C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
-		C82AF14F1C2A430C00B261AE /* CarInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfoView.swift; sourceTree = "<group>"; };
 		C82AF1511C2A4B7800B261AE /* CarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarListViewController.swift; sourceTree = "<group>"; };
 		C82AF1531C2A74E400B261AE /* CarDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarDetailViewController.swift; sourceTree = "<group>"; };
 		C82AF1551C2A755A00B261AE /* AddCarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCarViewController.swift; sourceTree = "<group>"; };
+		C833788A1C4C94A60047A4AE /* CarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarCell.swift; sourceTree = "<group>"; };
 		C84408F71BB43C720088D046 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C84408FA1BB43D410088D046 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C844F4001BE73DE1008AFC8B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -450,7 +450,6 @@
 				C89C49291C0D6F2500A1E2E1 /* AboutTableViewController.swift */,
 				C89C492B1C0D6F6500A1E2E1 /* HelpTableViewController.swift */,
 				C8DE3B181C117E93009AF56E /* BgChoiceCollectionViewCell.swift */,
-				C82AF14F1C2A430C00B261AE /* CarInfoView.swift */,
 				C82AF1511C2A4B7800B261AE /* CarListViewController.swift */,
 				C82AF1531C2A74E400B261AE /* CarDetailViewController.swift */,
 				C82AF1551C2A755A00B261AE /* AddCarViewController.swift */,
@@ -593,6 +592,7 @@
 				C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */,
 				C867FD201AD909E400F99592 /* LoginViewController.swift */,
 				C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */,
+				C833788A1C4C94A60047A4AE /* CarCell.swift */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -886,7 +886,6 @@
 				C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton+GK.swift in Sources */,
 				C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */,
-				C82AF1501C2A430C00B261AE /* CarInfoView.swift in Sources */,
 				C82AF1521C2A4B7800B261AE /* CarListViewController.swift in Sources */,
 				C8D88FEC1BF5B67800792F3E /* Realm+GK.swift in Sources */,
 				C867FD211AD909E400F99592 /* LoginViewController.swift in Sources */,
@@ -903,6 +902,7 @@
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage+GK.swift in Sources */,
 				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
+				C833788B1C4C94A60047A4AE /* CarCell.swift in Sources */,
 				C844F4011BE73DE1008AFC8B /* File.swift in Sources */,
 				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,
 				C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */,

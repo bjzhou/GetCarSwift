@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -208,33 +207,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="add_car_bg" translatesAutoresizingMaskIntoConstraints="NO" id="C4N-Q5-niV">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQD-Mv-81L">
-                                <rect key="frame" x="20" y="84" width="335" height="174.5"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="201"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y7R-Qu-O8a">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="174.5"/>
-                                        <state key="normal" image="add_car">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
+                                        <state key="normal">
                                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="mqT-bZ-fmZ" kind="show" identifier="add_car0" id="EpD-hR-2NI"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_car" translatesAutoresizingMaskIntoConstraints="NO" id="DGI-Rd-p9l">
+                                        <rect key="frame" x="155" y="68" width="65" height="65"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="2dR-ai-LrC"/>
+                                            <constraint firstAttribute="width" constant="65" id="jZ7-Jp-6EI"/>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加车辆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZp-uZ-oPP">
-                                        <rect key="frame" x="138" y="124.5" width="60" height="18"/>
+                                        <rect key="frame" x="158" y="141" width="60" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="y7R-Qu-O8a" secondAttribute="trailing" id="4Zd-i7-mzw"/>
                                     <constraint firstAttribute="bottom" secondItem="y7R-Qu-O8a" secondAttribute="bottom" id="7A0-uU-2EN"/>
                                     <constraint firstItem="LZp-uZ-oPP" firstAttribute="centerX" secondItem="y7R-Qu-O8a" secondAttribute="centerX" id="7im-8d-5Kd"/>
                                     <constraint firstItem="y7R-Qu-O8a" firstAttribute="leading" secondItem="lQD-Mv-81L" secondAttribute="leading" id="8f6-dA-f3R"/>
-                                    <constraint firstItem="LZp-uZ-oPP" firstAttribute="top" secondItem="y7R-Qu-O8a" secondAttribute="baseline" constant="8" id="Jy2-MC-2nd"/>
+                                    <constraint firstItem="LZp-uZ-oPP" firstAttribute="top" secondItem="DGI-Rd-p9l" secondAttribute="bottom" constant="8" id="9Po-iq-yDS"/>
                                     <constraint firstItem="y7R-Qu-O8a" firstAttribute="top" secondItem="lQD-Mv-81L" secondAttribute="top" id="Np1-DY-JnL"/>
+                                    <constraint firstItem="DGI-Rd-p9l" firstAttribute="centerX" secondItem="lQD-Mv-81L" secondAttribute="centerX" id="eZH-kR-O7b"/>
+                                    <constraint firstItem="DGI-Rd-p9l" firstAttribute="centerY" secondItem="lQD-Mv-81L" secondAttribute="centerY" id="fQN-wS-e6n"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
@@ -244,32 +255,41 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUv-65-li1">
-                                <rect key="frame" x="20" y="278" width="335" height="174"/>
+                                <rect key="frame" x="0.0" y="265" width="375" height="201"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGz-iH-LD1">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="175"/>
-                                        <state key="normal" image="add_car">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="202"/>
+                                        <state key="normal">
                                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="mqT-bZ-fmZ" kind="show" identifier="add_car1" id="oPe-RV-4m4"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_car" translatesAutoresizingMaskIntoConstraints="NO" id="hUC-kT-uVy">
+                                        <rect key="frame" x="155" y="68" width="65" height="65"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="65" id="OE1-tQ-grl"/>
+                                            <constraint firstAttribute="height" constant="65" id="n1k-h7-mzW"/>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加车辆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gv8-FG-0MB">
-                                        <rect key="frame" x="137" y="124" width="60" height="18"/>
+                                        <rect key="frame" x="157" y="141" width="60" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Gv8-FG-0MB" firstAttribute="top" secondItem="hUC-kT-uVy" secondAttribute="bottom" constant="8" id="2pX-LG-7Q7"/>
                                     <constraint firstAttribute="trailing" secondItem="EGz-iH-LD1" secondAttribute="trailing" id="Atr-Iu-2oh"/>
                                     <constraint firstItem="EGz-iH-LD1" firstAttribute="centerX" secondItem="Gv8-FG-0MB" secondAttribute="centerX" id="BAt-qg-YZ3"/>
                                     <constraint firstItem="EGz-iH-LD1" firstAttribute="top" secondItem="xUv-65-li1" secondAttribute="top" id="UeW-ug-y8S"/>
+                                    <constraint firstItem="hUC-kT-uVy" firstAttribute="centerX" secondItem="xUv-65-li1" secondAttribute="centerX" id="YDu-Ms-uTs"/>
                                     <constraint firstItem="EGz-iH-LD1" firstAttribute="centerY" secondItem="xUv-65-li1" secondAttribute="centerY" id="afl-C0-8md"/>
-                                    <constraint firstItem="Gv8-FG-0MB" firstAttribute="top" secondItem="EGz-iH-LD1" secondAttribute="baseline" constant="8" id="bee-Ib-vTx"/>
                                     <constraint firstItem="EGz-iH-LD1" firstAttribute="leading" secondItem="xUv-65-li1" secondAttribute="leading" id="iKq-LN-1Rb"/>
+                                    <constraint firstItem="hUC-kT-uVy" firstAttribute="centerY" secondItem="xUv-65-li1" secondAttribute="centerY" id="iV3-pz-HCL"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
@@ -279,30 +299,39 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PG-hC-IL4">
-                                <rect key="frame" x="20" y="472" width="335" height="174.5"/>
+                                <rect key="frame" x="0.0" y="466" width="375" height="201"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dw5-hJ-pqu">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="174.5"/>
-                                        <state key="normal" image="add_car">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
+                                        <state key="normal">
                                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="mqT-bZ-fmZ" kind="show" identifier="add_car2" id="BHL-28-C8l"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_car" translatesAutoresizingMaskIntoConstraints="NO" id="OWA-QC-Doh">
+                                        <rect key="frame" x="155" y="68" width="65" height="65"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="65" id="0U3-ae-40Y"/>
+                                            <constraint firstAttribute="height" constant="65" id="f8e-6y-6Ij"/>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加车辆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSn-4a-5J0">
-                                        <rect key="frame" x="137" y="124.5" width="60" height="18"/>
+                                        <rect key="frame" x="157" y="141" width="60" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Dw5-hJ-pqu" secondAttribute="trailing" id="47n-23-Lgc"/>
-                                    <constraint firstItem="QSn-4a-5J0" firstAttribute="top" secondItem="Dw5-hJ-pqu" secondAttribute="baseline" constant="8" id="GC4-2S-J7x"/>
+                                    <constraint firstItem="OWA-QC-Doh" firstAttribute="centerX" secondItem="7PG-hC-IL4" secondAttribute="centerX" id="4gd-cf-PfZ"/>
                                     <constraint firstItem="Dw5-hJ-pqu" firstAttribute="leading" secondItem="7PG-hC-IL4" secondAttribute="leading" id="UMl-HN-tTp"/>
+                                    <constraint firstItem="QSn-4a-5J0" firstAttribute="top" secondItem="OWA-QC-Doh" secondAttribute="bottom" constant="8" id="VPr-L9-xII"/>
                                     <constraint firstItem="Dw5-hJ-pqu" firstAttribute="top" secondItem="7PG-hC-IL4" secondAttribute="top" id="iyU-6Z-6QV"/>
+                                    <constraint firstItem="OWA-QC-Doh" firstAttribute="centerY" secondItem="7PG-hC-IL4" secondAttribute="centerY" id="jDL-bE-9md"/>
                                     <constraint firstAttribute="bottom" secondItem="Dw5-hJ-pqu" secondAttribute="bottom" id="mD3-fh-gab"/>
                                     <constraint firstItem="Dw5-hJ-pqu" firstAttribute="centerX" secondItem="QSn-4a-5J0" secondAttribute="centerX" id="uIR-OV-GBX"/>
                                 </constraints>
@@ -313,63 +342,25 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fyl-EE-sdz" customClass="CarInfoView" customModule="GetCarSwift" customModuleProvider="target">
-                                <rect key="frame" x="20" y="84" width="335" height="174.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogW-tY-VWM" customClass="CarInfoView" customModule="GetCarSwift" customModuleProvider="target">
-                                <rect key="frame" x="20" y="278" width="335" height="174"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqa-mS-jDr" customClass="CarInfoView" customModule="GetCarSwift" customModuleProvider="target">
-                                <rect key="frame" x="20" y="472" width="335" height="174.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lQD-Mv-81L" secondAttribute="trailing" constant="20" id="1h1-4m-VTC"/>
-                            <constraint firstItem="aqa-mS-jDr" firstAttribute="leading" secondItem="7PG-hC-IL4" secondAttribute="leading" id="1oD-sS-lEJ"/>
-                            <constraint firstItem="ogW-tY-VWM" firstAttribute="trailing" secondItem="xUv-65-li1" secondAttribute="trailing" id="5mo-4c-PPD"/>
-                            <constraint firstItem="fyl-EE-sdz" firstAttribute="trailing" secondItem="lQD-Mv-81L" secondAttribute="trailing" id="6yU-pa-L0y"/>
-                            <constraint firstItem="VW1-SO-ZRR" firstAttribute="top" secondItem="7PG-hC-IL4" secondAttribute="bottom" constant="20" id="AVK-cK-Kmp"/>
+                            <constraint firstAttribute="trailing" secondItem="lQD-Mv-81L" secondAttribute="trailing" id="1h1-4m-VTC"/>
+                            <constraint firstItem="VW1-SO-ZRR" firstAttribute="top" secondItem="7PG-hC-IL4" secondAttribute="bottom" id="AVK-cK-Kmp"/>
+                            <constraint firstAttribute="bottom" secondItem="C4N-Q5-niV" secondAttribute="bottom" id="HvK-UW-HZ2"/>
                             <constraint firstItem="xUv-65-li1" firstAttribute="leading" secondItem="lQD-Mv-81L" secondAttribute="leading" id="PZF-UQ-hmD"/>
-                            <constraint firstItem="fyl-EE-sdz" firstAttribute="leading" secondItem="lQD-Mv-81L" secondAttribute="leading" id="RPI-eq-TkU"/>
-                            <constraint firstItem="lQD-Mv-81L" firstAttribute="leading" secondItem="gAa-ab-OC4" secondAttribute="leading" constant="20" id="RfG-zP-OVa"/>
-                            <constraint firstItem="aqa-mS-jDr" firstAttribute="bottom" secondItem="7PG-hC-IL4" secondAttribute="bottom" id="S5S-Ur-SR9"/>
-                            <constraint firstItem="ogW-tY-VWM" firstAttribute="leading" secondItem="xUv-65-li1" secondAttribute="leading" id="TO8-N7-ykg"/>
-                            <constraint firstItem="ogW-tY-VWM" firstAttribute="bottom" secondItem="xUv-65-li1" secondAttribute="bottom" id="WMZ-mE-vjt"/>
+                            <constraint firstItem="lQD-Mv-81L" firstAttribute="leading" secondItem="gAa-ab-OC4" secondAttribute="leading" id="RfG-zP-OVa"/>
                             <constraint firstItem="xUv-65-li1" firstAttribute="trailing" secondItem="lQD-Mv-81L" secondAttribute="trailing" id="X30-Ax-e9h"/>
-                            <constraint firstItem="lQD-Mv-81L" firstAttribute="top" secondItem="nNe-PN-eAx" secondAttribute="bottom" constant="20" id="cb9-4P-teF"/>
+                            <constraint firstItem="lQD-Mv-81L" firstAttribute="top" secondItem="nNe-PN-eAx" secondAttribute="bottom" id="cb9-4P-teF"/>
                             <constraint firstItem="lQD-Mv-81L" firstAttribute="height" secondItem="xUv-65-li1" secondAttribute="height" id="dqG-25-8rA"/>
-                            <constraint firstItem="aqa-mS-jDr" firstAttribute="top" secondItem="7PG-hC-IL4" secondAttribute="top" id="gpZ-g0-iBh"/>
-                            <constraint firstItem="fyl-EE-sdz" firstAttribute="bottom" secondItem="lQD-Mv-81L" secondAttribute="bottom" id="h8U-Zb-QBa"/>
+                            <constraint firstItem="C4N-Q5-niV" firstAttribute="top" secondItem="nNe-PN-eAx" secondAttribute="bottom" id="fF1-Wj-DHA"/>
+                            <constraint firstAttribute="trailing" secondItem="C4N-Q5-niV" secondAttribute="trailing" id="fQC-5z-TrB"/>
                             <constraint firstItem="xUv-65-li1" firstAttribute="height" secondItem="7PG-hC-IL4" secondAttribute="height" id="p96-vo-3el"/>
-                            <constraint firstItem="ogW-tY-VWM" firstAttribute="top" secondItem="xUv-65-li1" secondAttribute="top" id="pl4-oN-dXe"/>
-                            <constraint firstItem="aqa-mS-jDr" firstAttribute="trailing" secondItem="7PG-hC-IL4" secondAttribute="trailing" id="qp2-l5-Fpy"/>
-                            <constraint firstItem="xUv-65-li1" firstAttribute="top" secondItem="lQD-Mv-81L" secondAttribute="bottom" constant="20" id="rpc-Yz-jUN"/>
+                            <constraint firstItem="xUv-65-li1" firstAttribute="top" secondItem="lQD-Mv-81L" secondAttribute="bottom" id="rpc-Yz-jUN"/>
                             <constraint firstItem="7PG-hC-IL4" firstAttribute="leading" secondItem="xUv-65-li1" secondAttribute="leading" id="ti6-1L-aVe"/>
-                            <constraint firstItem="7PG-hC-IL4" firstAttribute="top" secondItem="xUv-65-li1" secondAttribute="bottom" constant="20" id="wfU-cP-ijU"/>
+                            <constraint firstItem="7PG-hC-IL4" firstAttribute="top" secondItem="xUv-65-li1" secondAttribute="bottom" id="wfU-cP-ijU"/>
                             <constraint firstItem="7PG-hC-IL4" firstAttribute="trailing" secondItem="xUv-65-li1" secondAttribute="trailing" id="xUr-uE-Qo3"/>
-                            <constraint firstItem="fyl-EE-sdz" firstAttribute="top" secondItem="lQD-Mv-81L" secondAttribute="top" id="yaz-cF-Pff"/>
+                            <constraint firstItem="C4N-Q5-niV" firstAttribute="leading" secondItem="gAa-ab-OC4" secondAttribute="leading" id="zsA-rD-K2t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="车辆信息" id="Uwf-eu-vpX"/>
@@ -378,9 +369,12 @@
                         <outlet property="addButton1" destination="y7R-Qu-O8a" id="1vo-tM-qDw"/>
                         <outlet property="addButton2" destination="EGz-iH-LD1" id="xYl-aH-dkE"/>
                         <outlet property="addButton3" destination="Dw5-hJ-pqu" id="gkV-MM-gm9"/>
-                        <outlet property="carInfoView1" destination="fyl-EE-sdz" id="tVQ-DJ-POh"/>
-                        <outlet property="carInfoView2" destination="ogW-tY-VWM" id="Rjc-L5-h63"/>
-                        <outlet property="carInfoView3" destination="aqa-mS-jDr" id="MPX-p0-oZs"/>
+                        <outlet property="buttonImageView1" destination="DGI-Rd-p9l" id="p8w-M3-SY7"/>
+                        <outlet property="buttonImageView2" destination="hUC-kT-uVy" id="nS2-2F-aBF"/>
+                        <outlet property="buttonImageView3" destination="OWA-QC-Doh" id="yb7-Io-egk"/>
+                        <outlet property="carLabel1" destination="LZp-uZ-oPP" id="hFi-ZA-tdq"/>
+                        <outlet property="carLabel2" destination="Gv8-FG-0MB" id="CRE-no-cxW"/>
+                        <outlet property="carLabel3" destination="QSn-4a-5J0" id="FLh-cH-Bj2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s1y-bq-GPT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1758,25 +1752,41 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="car_detail_model" textLabel="CJ8-Yh-6Rw" rowHeight="85" style="IBUITableViewCellStyleDefault" id="lGC-gQ-9j5">
-                                <rect key="frame" x="0.0" y="131.5" width="375" height="85"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="car_detail_model" rowHeight="49" id="lGC-gQ-9j5" customClass="CarCell" customModule="GetCarSwift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="131.5" width="375" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lGC-gQ-9j5" id="0m1-ug-5d0">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="84.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="48.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CJ8-Yh-6Rw">
-                                            <rect key="frame" x="15" y="0.0" width="325" height="84.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O8e-il-avg">
+                                            <rect key="frame" x="15" y="3" width="41" height="41"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="41" id="UOb-e7-rwC"/>
+                                                <constraint firstAttribute="width" constant="41" id="VBs-0d-tLc"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leb-kI-yHS">
+                                            <rect key="frame" x="71" y="14" width="39.5" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="leb-kI-yHS" firstAttribute="centerY" secondItem="0m1-ug-5d0" secondAttribute="centerY" id="G9N-jS-PbR"/>
+                                        <constraint firstItem="O8e-il-avg" firstAttribute="leading" secondItem="0m1-ug-5d0" secondAttribute="leading" constant="15" id="NWo-JR-jg2"/>
+                                        <constraint firstItem="O8e-il-avg" firstAttribute="centerY" secondItem="0m1-ug-5d0" secondAttribute="centerY" id="TRt-lc-RPw"/>
+                                        <constraint firstItem="leb-kI-yHS" firstAttribute="leading" secondItem="O8e-il-avg" secondAttribute="trailing" constant="15" id="p6l-UY-sYt"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="logoView" destination="O8e-il-avg" id="cqj-sE-skS"/>
+                                    <outlet property="titleLabel" destination="leb-kI-yHS" id="kMg-cK-vHB"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="car_detail_part" rowHeight="120" id="qIU-yE-kvL" customClass="CarPartTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="216.5" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="180.5" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qIU-yE-kvL" id="iF5-5x-iYi">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
@@ -1828,7 +1838,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="car_detail_add" rowHeight="52" id="VFs-GP-IKQ" customClass="AddPartTableViewCell" customModule="GetCarSwift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="336.5" width="375" height="52"/>
+                                <rect key="frame" x="0.0" y="300.5" width="375" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VFs-GP-IKQ" id="2L5-rr-x0J">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
@@ -2208,6 +2218,7 @@
     </scenes>
     <resources>
         <image name="add_car" width="57" height="57"/>
+        <image name="add_car_bg" width="375" height="609"/>
         <image name="add_part" width="32" height="32"/>
         <image name="arrow" width="13" height="20"/>
         <image name="camera" width="31" height="27"/>

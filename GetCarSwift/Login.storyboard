@@ -152,22 +152,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="car_no" textLabel="9oE-bk-LT3" style="IBUITableViewCellStyleDefault" id="Krq-yc-8sp">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="car_no" id="Krq-yc-8sp" customClass="CarCell" customModule="GetCarSwift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Krq-yc-8sp" id="XEc-8T-Oct">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="48.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="宝马" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9oE-bk-LT3">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="48.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aCP-9k-VYg">
+                                            <rect key="frame" x="15" y="4" width="41" height="41"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="41" id="5JG-Ow-cKP"/>
+                                                <constraint firstAttribute="height" constant="41" id="iNi-rw-WCy"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfT-9q-znp">
+                                            <rect key="frame" x="71" y="15" width="39.5" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kfT-9q-znp" firstAttribute="centerY" secondItem="XEc-8T-Oct" secondAttribute="centerY" id="Dv9-k4-KH4"/>
+                                        <constraint firstItem="aCP-9k-VYg" firstAttribute="leading" secondItem="XEc-8T-Oct" secondAttribute="leading" constant="15" id="gs0-to-yVQ"/>
+                                        <constraint firstItem="aCP-9k-VYg" firstAttribute="centerY" secondItem="XEc-8T-Oct" secondAttribute="centerY" id="hzM-gD-60y"/>
+                                        <constraint firstItem="kfT-9q-znp" firstAttribute="leading" secondItem="aCP-9k-VYg" secondAttribute="trailing" constant="15" id="zEB-u1-Fmu"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="logoView" destination="aCP-9k-VYg" id="M2i-BJ-NIY"/>
+                                    <outlet property="titleLabel" destination="kfT-9q-znp" id="Sbc-aY-ZuY"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

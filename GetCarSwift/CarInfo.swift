@@ -29,6 +29,7 @@ class CarInfo: Object, JSONable {
         self.carUserId = json["id"].intValue
         self.modelId = json["car_id", 0, "id"].intValue
         self.model = json["car_id", 0, "model"].stringValue
+        self.imageUrl = json["car_id", 0, "logo"].stringValue
         self.year = json["car_year"].stringValue
         self.lisence = json["car_number"].stringValue
         self.name = json["car_username"].stringValue
@@ -37,9 +38,9 @@ class CarInfo: Object, JSONable {
 
     override class func primaryKey() -> String? { return "id" }
 
-    static func info() -> Observable<([String], [String: [String]], [String: [CarInfo]])> {
+    static func infoLogo() -> Observable<([String], [String: [String]], [String: [CarInfo]])> {
         //api("info", body: [:], completion: completion)
-        return GaikeService.sharedInstance.api("car/info").observeOn(operationScheduler).map { (result: GKResult<JSON>) in
+        return GaikeService.sharedInstance.api("car/infoLogo").observeOn(operationScheduler).map { (result: GKResult<JSON>) in
             var categeries: [String] = []
             var brands: [String: [String]] = [:]
             var models: [String: [CarInfo]] = [:]
@@ -54,11 +55,13 @@ class CarInfo: Object, JSONable {
                     if let strs = json[categery, brand].arrayObject as? [String] {
                         var cars = [CarInfo]()
                         for i in 0..<strs.count {
-                            if i % 2 == 0 {
+                            if i % 3 == 0 {
                                 cars.append(CarInfo())
-                                cars[i/2].modelId = Int(strs[i]) ?? 0
+                                cars[i/3].modelId = Int(strs[i]) ?? 0
+                            } else if i % 3 == 1 {
+                                cars[i/3].model = strs[i]
                             } else {
-                                cars[i/2].model = strs[i]
+                                cars[i/3].imageUrl = strs[i]
                             }
                         }
                         models[brand] = cars

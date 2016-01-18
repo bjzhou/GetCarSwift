@@ -10,13 +10,19 @@ import UIKit
 
 class CarListViewController: UIViewController {
 
+    let defaultImage = UIImage().scaleImage(size: CGSize(width: 65, height: 65))
+
     @IBOutlet weak var addButton1: UIButton!
     @IBOutlet weak var addButton2: UIButton!
     @IBOutlet weak var addButton3: UIButton!
 
-    @IBOutlet weak var carInfoView1: CarInfoView!
-    @IBOutlet weak var carInfoView2: CarInfoView!
-    @IBOutlet weak var carInfoView3: CarInfoView!
+    @IBOutlet weak var carLabel1: UILabel!
+    @IBOutlet weak var carLabel2: UILabel!
+    @IBOutlet weak var carLabel3: UILabel!
+
+    @IBOutlet weak var buttonImageView1: UIImageView!
+    @IBOutlet weak var buttonImageView2: UIImageView!
+    @IBOutlet weak var buttonImageView3: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,24 +49,18 @@ class CarListViewController: UIViewController {
 
     func updateCars() {
         if let car1 = gRealm?.objects(CarInfo).filter("id = 0").first {
-            carInfoView1.updateLogo(car1.imageUrl)
-            carInfoView1.didButtonTapped = showDetailView(0)
-            carInfoView1.updateText(car1.model, year: car1.year, detail: car1.detail, license: car1.lisence)
-            carInfoView1.hidden = false
+            buttonImageView1.kf_setImageWithURL(NSURL(string: car1.imageUrl)!, placeholderImage: defaultImage)
+            carLabel1.text = car1.model + car1.detail
         }
 
         if let car2 = gRealm?.objects(CarInfo).filter("id = 1").first {
-            carInfoView2.updateLogo(car2.imageUrl)
-            carInfoView2.didButtonTapped = showDetailView(1)
-            carInfoView2.updateText(car2.model, year: car2.year, detail: car2.detail, license: car2.lisence)
-            carInfoView2.hidden = false
+            buttonImageView2.kf_setImageWithURL(NSURL(string: car2.imageUrl)!, placeholderImage: defaultImage)
+            carLabel2.text = car2.model + car2.detail
         }
 
         if let car3 = gRealm?.objects(CarInfo).filter("id = 2").first {
-            carInfoView3.updateLogo(car3.imageUrl)
-            carInfoView3.didButtonTapped = showDetailView(2)
-            carInfoView3.updateText(car3.model, year: car3.year, detail: car3.detail, license: car3.lisence)
-            carInfoView3.hidden = false
+            buttonImageView3.kf_setImageWithURL(NSURL(string: car3.imageUrl)!, placeholderImage: defaultImage)
+            carLabel3.text = car3.model + car3.detail
         }
     }
 

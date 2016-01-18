@@ -19,6 +19,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
     var id = 0
     var carInfo = CarInfo()
     var selectedModelId = 0
+    var selectedImageUrl = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,8 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
     func didCarSelected(car: CarInfo) {
         selectedModelId = car.modelId
         modelLabel.text = car.model
+        selectedImageUrl = car.imageUrl
+
     }
 
     @IBAction func didSaveAction(sender: AnyObject) {
@@ -58,6 +61,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         gRealm?.writeOptional {
             self.carInfo.model = self.modelLabel.text!
             self.carInfo.modelId = self.selectedModelId
+            self.carInfo.imageUrl = self.selectedImageUrl
             self.carInfo.lisence = self.lisenceTextField.text!
             self.carInfo.name = self.nameTextField.text!
             self.carInfo.year = self.yearTextField.text!

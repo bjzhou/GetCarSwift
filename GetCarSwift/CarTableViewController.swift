@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class CarTableViewController: UITableViewController {
 
+    let defaultImage = UIImage().scaleImage(size: CGSize(width: 41, height: 41))
+
     var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
     var categeries: [String] = []
@@ -29,7 +31,7 @@ class CarTableViewController: UITableViewController {
 
         indicator.startAnimating()
 
-        _ = CarInfo.info().subscribeNext { (c, b, m) in
+        _ = CarInfo.infoLogo().subscribeNext { (c, b, m) in
             self.categeries = c
             self.brands = b
             self.models = m
@@ -49,13 +51,14 @@ class CarTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("car_no", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_no, forIndexPath: indexPath)
 
         let titleText = brands[categeries[indexPath.section]]?[indexPath.row] ?? ""
-        cell.imageView?.image = UIImage(named: titleText+"logo")
-        cell.textLabel?.text = titleText
+        let imageUrl = models[titleText]?[0].imageUrl ?? ""
+        cell?.logoView?.kf_setImageWithURL(NSURL(string: imageUrl)!, placeholderImage: defaultImage)
+        cell?.titleLabel?.text = titleText
 
-        return cell
+        return cell!
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
