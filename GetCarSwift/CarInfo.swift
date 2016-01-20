@@ -22,7 +22,7 @@ class CarInfo: Object, JSONable {
     dynamic var detail = ""
     dynamic var lisence = ""
     dynamic var name = ""
-    var parts = List<CarPart>()
+    var parts = [CarPart]()
 
     convenience required init(json: JSON) {
         self.init()
@@ -34,6 +34,17 @@ class CarInfo: Object, JSONable {
         self.lisence = json["car_number"].stringValue
         self.name = json["car_username"].stringValue
         self.detail = json["car_version"].stringValue
+    }
+
+    func fetchParts(closure: () -> Void) {
+        _ = CarInfo.getUserCarPart(carUserId).subscribeNext { res in
+            guard let parts = res.dataArray else {
+                return
+            }
+
+            self.parts = parts
+            closure()
+        }
     }
 
     override class func primaryKey() -> String? { return "id" }
@@ -106,15 +117,16 @@ class CarInfo: Object, JSONable {
     }
 }
 
-class CarPart: Object, JSONable {
-    dynamic var id = 0
-    dynamic var userCarId = 0
-    dynamic var imageUrl = ""
-    dynamic var title = ""
-    dynamic var detail = ""
+struct CarPart: JSONable {
+    var id = 0
+    var userCarId = 0
+    var imageUrl = ""
+    var title = ""
+    var detail = ""
 
-    convenience required init(json: JSON) {
-        self.init()
+    init() {}
+
+    init(json: JSON) {
         self.id = json["id"].intValue
         self.userCarId = json["user_car_id"].intValue
         self.title = json["name"].stringValue

@@ -138,6 +138,9 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
     func didPlayerAdded(record: AnyObject, sender: UIButton?) {
         if let carInfo = record as? CarInfo {
             self.carInfo = carInfo
+            carInfo.fetchParts {
+                self.tableView.reloadData()
+            }
             scoreValues[1] = carInfo.model
         }
 

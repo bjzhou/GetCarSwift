@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
 
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 27,
+            schemaVersion: 28,
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 20) {
                     migration.enumerate(RmLog.className()) { oldObject, newObject in

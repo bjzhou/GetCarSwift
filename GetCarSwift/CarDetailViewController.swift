@@ -29,16 +29,7 @@ class CarDetailViewController: UITableViewController {
         carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first
         if let carInfo = carInfo {
             tableView.reloadData()
-
-            _ = CarInfo.getUserCarPart(carInfo.carUserId).subscribeNext { res in
-                guard let parts = res.dataArray else {
-                    return
-                }
-
-                gRealm?.writeOptional {
-                    carInfo.parts.removeAll()
-                    carInfo.parts.appendContentsOf(parts)
-                }
+            carInfo.fetchParts {
                 self.tableView.reloadData()
             }
         }
@@ -81,9 +72,7 @@ class CarDetailViewController: UITableViewController {
                 if let id = part?.id {
                     _ = CarInfo.deleteUserCarPart(id).subscribe()
                 }
-                gRealm?.writeOptional {
-                    gRealm?.delete(part!)
-                }
+                self.carInfo?.parts.removeAtIndex(indexPath.row-1)
                 tableView.reloadData()
             }))
             self.presentViewController(alertVC, animated: true, completion: nil)
@@ -112,6 +101,7 @@ class CarDetailViewController: UITableViewController {
             if let part = carInfo?.parts[indexPath.row-1] {
                 let vc = R.storyboard.mine.add_part
                 vc?.carPart = part
+                vc?.isNewPart = false
                 showViewController(vc!)
             }
         }

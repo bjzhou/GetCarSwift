@@ -20,6 +20,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     let imagePicker = UIImagePickerController()
     var carPart = CarPart()
+    var isNewPart = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,22 +82,18 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
                         self.carPart.title = self.titleTextField.text!
                         self.carPart.detail = self.detailTextView.text!
                     }
-                    if let _ = self.carPart.realm {
-                        _ = CarInfo.updateUserCarPart(self.carPart.id, userCarId: carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribeNext { res in
-                            Toast.hideToastActivity()
-                            self.navigationController?.popViewControllerAnimated(true)
-                        }
-                    } else {
-                        gRealm?.writeOptional {
-                            carInfo.parts.append(self.carPart)
-                        }
-
+                    if self.isNewPart {
                         _ = CarInfo.addUserCarPart(carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribeNext { res in
                             if let json = res.data {
                                 gRealm?.writeOptional {
                                     self.carPart.id = json["user_car_part_id"].intValue
                                 }
                             }
+                            Toast.hideToastActivity()
+                            self.navigationController?.popViewControllerAnimated(true)
+                        }
+                    } else {
+                        _ = CarInfo.updateUserCarPart(self.carPart.id, userCarId: carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribeNext { res in
                             Toast.hideToastActivity()
                             self.navigationController?.popViewControllerAnimated(true)
                         }
