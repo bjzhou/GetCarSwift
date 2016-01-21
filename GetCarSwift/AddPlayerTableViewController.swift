@@ -15,6 +15,7 @@ enum AddPlayerMode {
     case Myself
     case Rank
     case Car
+    case Track
 }
 
 class AddPlayerTableViewController: UITableViewController {
@@ -22,10 +23,11 @@ class AddPlayerTableViewController: UITableViewController {
     var delegate: AddPlayerDelegate?
     var sender: UIButton?
     var sid = 0
+    var needBack = false
 
     var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
-    let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Rank: "赛道排名", .Car: "我的车"]
+    let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Rank: "赛道排名", .Car: "我的车", .Track: "赛道"]
 
     var mode: AddPlayerMode = .Menu
 
@@ -33,6 +35,7 @@ class AddPlayerTableViewController: UITableViewController {
     var localBest: [RmScore] = []
     var top: [RmScore] = []
     var cars: [CarInfo] = []
+    var tracks: [RmRaceTrack] = []
     var loaded = false
 
     override func viewDidLoad() {
@@ -49,6 +52,7 @@ class AddPlayerTableViewController: UITableViewController {
         localBest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("score").map { $0 } ?? []
         localNewest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("createdAt", ascending: false).map { $0 } ?? []
         cars = gRealm?.objects(CarInfo).map { $0 } ?? []
+        tracks = gRealm?.objects(RmRaceTrack).filter { $0.isDeveloped } ?? []
 
         tableView.reloadData()
     }
@@ -131,6 +135,8 @@ class AddPlayerTableViewController: UITableViewController {
             return top.count
         case .Car:
             return cars.count
+        case .Track:
+            return tracks.count
         }
     }
 
@@ -187,6 +193,12 @@ class AddPlayerTableViewController: UITableViewController {
                 cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
             }
             cell?.textLabel?.text = cars[indexPath.row].model
+        case .Track:
+            cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
+            if cell == nil {
+                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
+            }
+            cell?.textLabel?.text = tracks[indexPath.row].name
         }
 
         return cell!
@@ -206,6 +218,7 @@ class AddPlayerTableViewController: UITableViewController {
             if !loaded {
                 indicator.startAnimating()
             }
+            needBack = true
         } else {
             if mode == .Myself {
                 if indexPath.section == 0 {
@@ -231,6 +244,8 @@ class AddPlayerTableViewController: UITableViewController {
                 }
             } else if mode == .Car {
                 self.delegate?.didPlayerAdded(cars[indexPath.row], sender: self.sender)
+            } else if mode == .Track {
+                self.delegate?.didPlayerAdded(tracks[indexPath.row], sender: self.sender)
             }
             dismissPopupViewController()
         }
@@ -286,13 +301,14 @@ class AddPlayerTableViewController: UITableViewController {
     }
 
     func didBackAction() {
-        if mode == .Menu || mode == .Car {
-            dismissPopupViewController()
-        } else {
+        if needBack {
             mode = .Menu
             tableView.reloadData()
             self.view.frame.size = CGSize(width: 275, height: 200)
             self.view.center = self.view.superview!.center
+            needBack = false
+        } else {
+            dismissPopupViewController()
         }
     }
 

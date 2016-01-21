@@ -81,6 +81,13 @@
 
 #pragma mark - POI
 
+@interface AMapIndoorData : AMapSearchObject
+
+@property (nonatomic, assign) NSInteger floor; // !< 楼层，为0时为POI本身。
+@property (nonatomic, copy)   NSString *pid; // !< 父ID
+
+@end
+
 /// POI
 @interface AMapPOI : AMapSearchObject
 
@@ -91,7 +98,8 @@
 @property (nonatomic, copy)   AMapGeoPoint *location; //!< 经纬度
 @property (nonatomic, copy)   NSString     *address;  //!< 地址
 @property (nonatomic, copy)   NSString     *tel;  //!< 电话
-@property (nonatomic, assign) NSInteger     distance; //!< 距中心点距离
+@property (nonatomic, assign) NSInteger     distance; //!< 距中心点距离，仅在周边搜索时有效
+@property (nonatomic, copy)   NSString     *parkingType; // !< 停车场类型，地上、地下、路边
 
 // 扩展信息
 @property (nonatomic, copy)   NSString     *postcode; //!< 邮编
@@ -109,6 +117,21 @@
 @property (nonatomic, copy)   NSString     *direction; //!< 方向
 @property (nonatomic, assign) BOOL          hasIndoorMap; //!< 是否有室内地图
 @property (nonatomic, copy)   NSString     *businessArea; //!< 所在商圈
+@property (nonatomic, strong) AMapIndoorData *indoorData; // !< 室内信息
+@property (nonatomic, strong) NSArray      *subPOIs; // !< 子POI列表 AMapSubPOI 数组
+
+@end
+
+/// 子POI
+@interface AMapSubPOI : AMapSearchObject
+
+@property (nonatomic, copy)   NSString     *uid; //!< POI全局唯一ID
+@property (nonatomic, copy)   NSString     *name; //!< 名称
+@property (nonatomic, copy)   NSString     *sname; //!< 名称简写
+@property (nonatomic, copy)   AMapGeoPoint *location; //!< 经纬度
+@property (nonatomic, copy)   NSString     *address;  //!< 地址
+@property (nonatomic, assign) NSInteger     distance; //!< 距中心点距离
+@property (nonatomic, copy)   NSString     *subtype; // !< 子POI类型
 
 @end
 
@@ -341,6 +364,7 @@
 @property (nonatomic, assign) BOOL       nightflag; //!< 是否是夜班车
 @property (nonatomic, assign) NSInteger  walkingDistance; //!< 此方案总步行距离（单位：米）
 @property (nonatomic, strong) NSArray   *segments; //!< 换乘路段 AMapSegment 数组
+@property (nonatomic, assign) NSInteger  distance; // !< 当前方案的总距离
 
 @end
 

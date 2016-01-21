@@ -681,6 +681,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="关于改客改装" id="bmJ-KR-iNE"/>
+                    <connections>
+                        <outlet property="versionLabel" destination="wNf-ay-QFD" id="lJw-rN-WYt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OY0-Bd-Gag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

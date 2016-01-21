@@ -22,10 +22,12 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        webView.frame = self.view.bounds
+        self.view.backgroundColor = UIColor.blackColor()
         webView.navigationDelegate = self
         webView.multipleTouchEnabled = true
         webView.scrollView.alwaysBounceVertical = true
+        webView.backgroundColor = UIColor.blackColor()
+        webView.scrollView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(webView)
 
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
@@ -45,6 +47,10 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         forwardBarButton.width = 44
 
         updateToolBar()
+    }
+
+    override func viewDidLayoutSubviews() {
+        webView.frame = self.view.frame
     }
 
     override func viewWillAppear(animated: Bool) {

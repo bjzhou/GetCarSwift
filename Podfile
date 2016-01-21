@@ -14,3 +14,4 @@ pod 'AMapSearch'
 pod 'AMapLocation'
 pod 'Bugly'
 pod 'RealmSwift'
+pod 'Reveal-iOS-SDK', :configurations => ['Debug']

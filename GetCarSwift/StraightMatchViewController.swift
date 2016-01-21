@@ -137,7 +137,7 @@ class StraightMatchViewController: UIViewController {
             aLabel2.text = "--"
             aLabel3.text = "--"
 
-            timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { _ in
+            timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { _ in
                 if !sender.selected {
                     return
                 }

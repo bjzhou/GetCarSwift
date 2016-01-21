@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, AMapSearchErrorCode)
     AMapSearchErrorBadURL                   = 102, //!< URL异常
     AMapSearchErrorNotConnectedToInternet   = 103, //!< 连接异常
     AMapSearchErrorCannotConnectToHost      = 104, //!< 服务器连接失败
+    AMapSearchErrorCancelled                = 105, //!< 连接取消
 };
 
 #endif

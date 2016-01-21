@@ -6,15 +6,19 @@
 	<dict>
 		<key>Headers/AMapLocationCommonObj.h</key>
 		<data>
-		rGhMlu/VN3QA6+rr1Sf/53RT9VQ=
+		IxvXMIJ1+D3fc7zvH82ODvuigP0=
 		</data>
 		<key>Headers/AMapLocationKit.h</key>
 		<data>
-		6J2I/RPA3gWUbYVkhKmCb42Ja/g=
+		OOduMEJ6CpDUWtobK88OvsZMGqM=
 		</data>
 		<key>Headers/AMapLocationManager.h</key>
 		<data>
-		/LuEi+XsinYmG5VEgPGoazqcY3E=
+		wVT1DwJev6rU5Ma1UXzCdq/0O8Q=
+		</data>
+		<key>Headers/AMapLocationRegionObj.h</key>
+		<data>
+		I8h8HlTpmlPFUKZpqn4Cz7M1eW0=
 		</data>
 		<key>Headers/AMapLocationServices.h</key>
 		<data>
@@ -25,15 +29,19 @@
 	<dict>
 		<key>Headers/AMapLocationCommonObj.h</key>
 		<data>
-		rGhMlu/VN3QA6+rr1Sf/53RT9VQ=
+		IxvXMIJ1+D3fc7zvH82ODvuigP0=
 		</data>
 		<key>Headers/AMapLocationKit.h</key>
 		<data>
-		6J2I/RPA3gWUbYVkhKmCb42Ja/g=
+		OOduMEJ6CpDUWtobK88OvsZMGqM=
 		</data>
 		<key>Headers/AMapLocationManager.h</key>
 		<data>
-		/LuEi+XsinYmG5VEgPGoazqcY3E=
+		wVT1DwJev6rU5Ma1UXzCdq/0O8Q=
+		</data>
+		<key>Headers/AMapLocationRegionObj.h</key>
+		<data>
+		I8h8HlTpmlPFUKZpqn4Cz7M1eW0=
 		</data>
 		<key>Headers/AMapLocationServices.h</key>
 		<data>

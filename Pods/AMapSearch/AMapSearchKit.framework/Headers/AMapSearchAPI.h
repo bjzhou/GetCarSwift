@@ -10,7 +10,6 @@
 #import "AMapSearchObj.h"
 #import "AMapCommonObj.h"
 
-
 @protocol AMapSearchDelegate;
 
 /// 搜索结果语言
@@ -40,6 +39,11 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
  *  @return AMapSearch类对象实例
  */
 - (instancetype)init;
+
+/**
+ *  取消所有未回调的请求，触发错误回调。
+ */
+- (void)cancelAllRequests;
 
 #pragma mark - 搜索服务接口
 

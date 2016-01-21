@@ -72,8 +72,8 @@ class DeviceDataService: NSObject {
             })
         }
 
-        timer(0, 60, MainScheduler.sharedInstance).subscribeNext { _ in
-            self.districtService = self.rxLocation.subscribeNext { location in
+        Observable<Int>.timer(0, period: 60, scheduler: MainScheduler.instance).subscribeNext { _ in
+            self.districtService = self.rxLocation.asObservable().subscribeNext { location in
                 guard let location = location else {
                     return
                 }

@@ -34,7 +34,7 @@ class TrackTimerViewController: UIViewController {
         updateScore()
 
         passFlag = false
-        DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
+        DeviceDataService.sharedInstance.rxAcceleration.asObservable().subscribeNext { acces in
             guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
                 return
             }
@@ -104,7 +104,7 @@ class TrackTimerViewController: UIViewController {
         UIApplication.sharedApplication().idleTimerDisabled = true
         self.data.removeAll()
         RmLog.d("start timer")
-        timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
+        timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 

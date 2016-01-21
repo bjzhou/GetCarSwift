@@ -29,8 +29,8 @@ class LoginViewController: UIViewController {
         loginViewModel = LoginViewModel(phoneText: phoneText.rx_text, codeText: vcodeText.rx_text)
         loginViewModel.viewProxy = self
 
-        loginViewModel.codeEnabled.bindTo(vcodeButton.rx_enabled).addDisposableTo(disposeBag)
-        loginViewModel.codeTitle.subscribeNext { title in
+        loginViewModel.codeEnabled.asObservable().bindTo(vcodeButton.rx_enabled).addDisposableTo(disposeBag)
+        loginViewModel.codeTitle.asObservable().subscribeNext { title in
             self.vcodeButton.setTitle(title, forState: .Normal)
         }.addDisposableTo(disposeBag)
     }

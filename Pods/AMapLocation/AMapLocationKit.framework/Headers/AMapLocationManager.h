@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 #import "AMapLocationCommonObj.h"
+#import "AMapLocationRegionObj.h"
 
 /**
  *  AMapLocatingCompletionBlock 单次定位返回Block
@@ -31,29 +31,29 @@ typedef void (^AMapLocatingCompletionBlock)(CLLocation *location, AMapLocationRe
 @interface AMapLocationManager : NSObject
 
 /**
- * 实现了 AMapLocationManagerDelegate 协议的类指针。
+ *  实现了 AMapLocationManagerDelegate 协议的类指针。
  */
 @property (nonatomic, weak) id<AMapLocationManagerDelegate> delegate;
 
 /**
- * 设定定位的最小更新距离。默认为 kCLDistanceFilterNone 。
+ *  设定定位的最小更新距离。默认为 kCLDistanceFilterNone 。
  */
 @property(nonatomic, assign) CLLocationDistance distanceFilter;
 
 /**
- * 设定定位精度。默认为 kCLLocationAccuracyBest 。
+ *  设定定位精度。默认为 kCLLocationAccuracyBest 。
  */
 @property(nonatomic, assign) CLLocationAccuracy desiredAccuracy;
 
 /**
- * 指定定位是否会被系统自动暂停。默认为YES。
+ *  指定定位是否会被系统自动暂停。默认为YES。
  */
 @property(nonatomic, assign) BOOL pausesLocationUpdatesAutomatically;
 
 /**
- * 是否允许后台定位。默认为NO。只在iOS 9.0及之后起作用。
+ *  是否允许后台定位。默认为NO。只在iOS 9.0及之后起作用。
  *
- * 设置为YES的时候必须保证 Background Modes 中的 Location updates 处于选中状态，否则会抛出异常。
+ *  设置为YES的时候必须保证 Background Modes 中的 Location updates 处于选中状态，否则会抛出异常。
  */
 @property(nonatomic, assign) BOOL allowsBackgroundLocationUpdates;
 
@@ -76,7 +76,7 @@ typedef void (^AMapLocatingCompletionBlock)(CLLocation *location, AMapLocationRe
 /**
  *  开始连续定位
  *
- *  调用此方法会cancel掉所有的单次定位请求
+ *  调用此方法会cancel掉所有的单次定位请求。
  */
 - (void)startUpdatingLocation;
 
@@ -86,6 +86,37 @@ typedef void (^AMapLocatingCompletionBlock)(CLLocation *location, AMapLocationRe
  *  调用此方法会cancel掉所有的单次定位请求，可以用来取消单次定位。
  */
 - (void)stopUpdatingLocation;
+
+/**
+ *  获取被监控的region集合
+ */
+@property (nonatomic, readonly, copy) NSSet *monitoredRegions;
+
+/**
+ *  开始监控指定的region
+ *
+ *  如果已经存在相同identifier的region，则之前的region将会被移除。
+ *  对 AMapLocationCircleRegion 类实例，将会优先监控radius小的region。
+ *
+ *  @param region 要被监控的范围
+ */
+- (void)startMonitoringForRegion:(AMapLocationRegion *)region;
+
+/**
+ *  停止监控指定的region
+ *
+ *  @param region 要停止监控的范围
+ */
+- (void)stopMonitoringForRegion:(AMapLocationRegion *)region;
+
+/**
+ *  查询一个region的当前状态
+ *
+ *  查询结果通过amapLocationManager:didDetermineState:forRegion:回调返回
+ *
+ *  @param region 要查询的region
+ */
+- (void)requestStateForRegion:(AMapLocationRegion *)region;
 
 @end
 
@@ -114,5 +145,55 @@ typedef void (^AMapLocatingCompletionBlock)(CLLocation *location, AMapLocationRe
  *  @param location 定位结果。
  */
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location;
+
+/**
+ *  定位权限状态改变时回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param status 定位权限状态。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+
+/**
+ *  开始监控region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 开始监控的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didStartMonitoringForRegion:(AMapLocationRegion *)region;
+
+/**
+ *  进入region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 进入的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didEnterRegion:(AMapLocationRegion *)region;
+
+/**
+ *  离开region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 离开的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didExitRegion:(AMapLocationRegion *)region;
+
+/**
+ *  查询region状态回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param state 查询的region的状态。
+ *  @param region 查询的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didDetermineState:(AMapLocationRegionState)state forRegion:(AMapLocationRegion *)region;
+
+/**
+ *  监控region失败回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 失败的region。
+ *  @param error 错误信息，参考 AMapLocationErrorCode 。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager monitoringDidFailForRegion:(AMapLocationRegion *)region withError:(NSError *)error;
 
 @end

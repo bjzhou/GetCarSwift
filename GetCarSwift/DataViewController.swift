@@ -60,7 +60,7 @@ class DataViewController: UIViewController {
         let signalViews = [signalView1, signalView2, signalView3, signalView4, signalView5]
         let noSignalImages = [R.image.no_signal_1, R.image.no_signal_2, R.image.no_signal_3, R.image.no_signal_4, R.image.no_signal_5]
         let signalImages = [R.image.signal_1, R.image.signal_2, R.image.signal_3, R.image.signal_4, R.image.signal_5]
-        DeviceDataService.sharedInstance.rxLocation.subscribeNext { loc in
+        DeviceDataService.sharedInstance.rxLocation.asObservable().subscribeNext { loc in
             if let loc = loc {
                 for i in 0...4 {
                     signalViews[i].image = signalImages[i]
@@ -84,7 +84,7 @@ class DataViewController: UIViewController {
             }
         }.addDisposableTo(disposeBag)
 
-        DeviceDataService.sharedInstance.rxAcceleration.subscribeNext { acces in
+        DeviceDataService.sharedInstance.rxAcceleration.asObservable().subscribeNext { acces in
             guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
                 return
             }
@@ -303,7 +303,7 @@ class DataViewController: UIViewController {
         self.wrongScore = false
         self.latestScores = [-1.0, -1.0, -1.0, -1.0]
         timerDisposable?.dispose()
-        timerDisposable = timer(0, 0.01, MainScheduler.sharedInstance).subscribeNext { t in
+        timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 

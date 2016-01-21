@@ -31,7 +31,7 @@ class CommentsViewController: UIViewController {
     }
 
     func initCommentsData() {
-        trackDetailViewModel?.rxComments.subscribeNext { comments in
+        trackDetailViewModel?.rxComments.asObservable().subscribeNext { comments in
             self.commentTableView.reloadData()
             if comments.count == 0 {
                 self.commentTableView.hidden = true

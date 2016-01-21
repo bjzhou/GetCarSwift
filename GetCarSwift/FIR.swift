@@ -31,7 +31,7 @@ struct FIR: JSONable {
     }
 
     static func checkUpdate() -> Observable<FIR> {
-        return create { observer in
+        return Observable.create { observer in
             let request = apiManager.request(.GET, firVersionCheckUrl).responseData { res in
                 if let err = res.result.error {
                     observer.on(.Error(err))

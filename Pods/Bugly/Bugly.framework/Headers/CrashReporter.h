@@ -1,6 +1,6 @@
 //
 //  CrashReporter.h
-//  Bugly Version: 1.4.3
+//  Version: 1.4.6(1)
 //
 //  Copyright (c) 2015年 Tencent. All rights reserved.
 //
@@ -41,7 +41,7 @@ extern exp_callback exp_call_back_func;
 /**
  *    @brief  设置卡顿场景判断的Runloop超时阀值，Runloop超时 > 阀值判定为卡顿场景
  *
- *    @param aRunloopTimeout 卡顿阀值，单位毫秒(ms)，默认值 3000 ms，可以在 1000 ms < X < 15000 ms 之间设置
+ *    @param aRunloopTimeout 卡顿阀值，单位毫秒(ms)，默认值 3000 ms，可以在 500 ms <= X < 15000 ms 之间设置
  */
 - (void)setBlockMonitorJudgementLoopTimeout:(NSTimeInterval) aRunloopTimeout;
 
@@ -136,14 +136,6 @@ extern exp_callback exp_call_back_func;
 - (NSDictionary *)allSceneValues;
 
 /**
- *    @brief  为一个会话周期(应用启动到进程退出)添加关键事件流程, 以记录关键场景数据
- *    一个会话记录最近20条记录, 单条记录限定最大长度为200字符
- *
- *    @param event
- */
-- (void)sessionEvent:(NSString *)event;
-
-/**
  *    @brief  上报已捕获的异常信息
  *
  *    @param anException 异常对象
@@ -214,6 +206,8 @@ extern exp_callback exp_call_back_func;
  *    @brief  当卡顿功能开启时，可调用此接口在运行时停止卡顿监控线程
  */
 - (void)stopBlockMonitor;
+
+- (BOOL)checkBlockDataExistAndReport;
 
 /**
  *    @brief  获取SDK记录保存的设备标识
@@ -294,39 +288,12 @@ extern exp_callback exp_call_back_func;
 - (NSString *)getCrashType;
 
 /**
- *    @brief  获取SDK生成的崩溃日志
- *
- *    @return 返回崩溃日志文件
- */
-- (NSString *)getCrashLog;
-
-/**
  *  是否开启ATS，默认值YES.
  *  如果你确定不需要此功能，你可以在初始化sdk之前调用此接口禁用功能.
  *
  *  @param enable
  */
 - (void)enableAppTransportSecurity:(BOOL)enable;
-
-/**
- *    @brief  检查是否存在崩溃信息并执行异步上报
- *
- *    @return 是否触发异步上报任务
- */
-- (BOOL)checkAndUpload;
-
-/**
- *  检查本地是否有卡顿数据并执行上报
- *
- *  @return YES if start the reporter
- */
-- (BOOL)checkBlockDataExistAndReport;
-
-
-- (void)enableBlockMonitor:(BOOL) monitor autoReport:(BOOL) reporter __deprecated_msg("Replace by enableBlockMonitor:");
-
-//设置异常合并上报，当天同一个异常只会上报第一次，后续合并保存并在第二天才会上报
-- (void)setExpMergeUpload:(BOOL)isMerge;
 
 //设置进程内进行地址还原, 默认开启
 //注意：当Xcode的编译设置Strip Style为ALL Symbols时，该设置会导致还原出的应用堆栈出现错误，如果您的应用设置这个选项请不要调用这个接口，请调用此接口关闭进程内还原
@@ -349,5 +316,12 @@ extern exp_callback exp_call_back_func;
 // [... installWithAppId:BUGLY_APP_ID];
 // exp_call_back_func=&exception_callback_handler;
 //
+
+/**
+ *    @brief  设置是否 开启/关闭 非正常闪退异常捕获
+ *
+ *    @param  enable 开启/关闭 (默认开启)
+ */
+- (void)enableUnexpectedTerminatingDetection:(BOOL)enable;
 
 @end

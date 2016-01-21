@@ -10,12 +10,16 @@ import UIKit
 
 class AboutTableViewController: UITableViewController {
 
+    @IBOutlet weak var versionLabel: UILabel!
+
     let appStoreUrl = "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1038915609&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
     var backgroundViewY: CGFloat?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        versionLabel.text = "V " + versionShort!
 
         let imageView = UIImageView(image: R.image.about_bg)
         imageView.contentMode = .Center

@@ -81,7 +81,7 @@ class CarInfo: Object, JSONable {
             }
 
             return (categeries, brands, models)
-            }.observeOn(MainScheduler.sharedInstance)
+            }.observeOn(MainScheduler.instance)
     }
 
     static func addUserCar(carId: Int, number: String = "", username: String = "", year: String = "", version: String = "") -> Observable<GKResult<JSON>> {

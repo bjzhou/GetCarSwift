@@ -35,7 +35,7 @@ class LoginViewModel {
     }
 
     func onLoginAction() {
-        zip(phoneText, codeText) { phone, code in
+        Observable.zip(phoneText, codeText) { phone, code in
             return (phone, code)
             }
             .take(1)
@@ -87,7 +87,7 @@ class LoginViewModel {
                     return false
                 }
 
-                self.timerDisposable = timer(0, 1, MainScheduler.sharedInstance).subscribeNext { time in
+                self.timerDisposable = Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance).subscribeNext { time in
                     self.codeEnabled.value = false
                     self.codeTitle.value = String(60-time) + "秒后重新发送"
                     if time == 60 {

@@ -21,7 +21,7 @@ struct MapViewModel {
     var annotations: [String: CarIconAnnotation] = [:]
 
     mutating func updateNearby() -> Observable<AnnotationTuple> {
-        return timer(0, 10, MainScheduler.sharedInstance).map { _ in
+        return Observable<Int>.timer(0, period: 10, scheduler: MainScheduler.instance).map { _ in
             Nearby.map(accelerate: DeviceDataService.sharedInstance.rxAcceleration.value.averageA(), speed: DeviceDataService.sharedInstance.rxLocation.value?.speed ?? 0)
         }
         .concat()

@@ -49,7 +49,7 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         Mine.sharedInstance.setAvatarImage(myAvatar)
         sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
         nickname.text = Mine.sharedInstance.nickname
-        DeviceDataService.sharedInstance.rxDistrict.bindTo(position.rx_text).addDisposableTo(disposeBag)
+        DeviceDataService.sharedInstance.rxDistrict.asObservable().bindTo(position.rx_text).addDisposableTo(disposeBag)
 
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let index = userDefaults.integerForKey("homepage_bg")

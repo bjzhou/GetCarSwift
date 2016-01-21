@@ -45,7 +45,7 @@ class GaikeService {
 
     func request(urlString: URLStringConvertible) -> Observable<NSData> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        return create { observer in
+        return Observable.create { observer in
             RmLog.i("http request data: \(urlString)")
             let request = apiManager.request(.GET, urlString).responseData { res in
                 let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
@@ -63,14 +63,14 @@ class GaikeService {
             return AnonymousDisposable {
                 request.cancel()
             }
-            }.observeOn(MainScheduler.sharedInstance).doOn { _ in
+            }.observeOn(MainScheduler.instance).doOn { _ in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
 
     func api<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        return create { observer in
+        return Observable.create { observer in
             let request = apiManager.request(.POST, GaikeService.domain + urlString, parameters: body, encoding: .JSON, headers: self.getHeader()).responseData { res in
                 let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
                 RmLog.i("http response: \(responseString)")
@@ -89,14 +89,14 @@ class GaikeService {
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance).doOn { _ in
+            }.observeOn(MainScheduler.instance).doOn { _ in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
 
     func upload<T>(urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: NSData], mimeType: String = "image/png") -> Observable<GKResult<T>> {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        return create { observer in
+        return Observable.create { observer in
             var upload: Request?
             Alamofire.upload(.POST, GaikeService.domain + urlString, headers: self.getHeader(), multipartFormData: { data in
                 if let parameters = parameters, jsonParams = try? NSJSONSerialization.dataWithJSONObject(parameters, options: []) {
@@ -131,7 +131,7 @@ class GaikeService {
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
                 return self.parseJSON(data)
-            }.observeOn(MainScheduler.sharedInstance).doOn { _ in
+            }.observeOn(MainScheduler.instance).doOn { _ in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }

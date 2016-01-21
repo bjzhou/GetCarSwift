@@ -10,3 +10,4 @@
 
 #import "AMapLocationManager.h"
 #import "AMapLocationCommonObj.h"
+#import "AMapLocationRegionObj.h"
