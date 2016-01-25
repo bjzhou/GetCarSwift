@@ -8,17 +8,17 @@
 
 import UIKit
 
-class FriendTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var headerImageView: UIImageView!
-    @IBOutlet weak var nicknameLabel: UILabel!
-    @IBOutlet weak var sexImageView: UIImageView!
-    @IBOutlet weak var descLabel: UILabel!
-    @IBOutlet weak var followButton: UIButton!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-}
+//class FriendTableViewCell: UITableViewCell {
+//
+//    @IBOutlet weak var headerImageView: UIImageView!
+//    @IBOutlet weak var nicknameLabel: UILabel!
+//    @IBOutlet weak var sexImageView: UIImageView!
+//    @IBOutlet weak var descLabel: UILabel!
+//    @IBOutlet weak var followButton: UIButton!
+//
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        // Initialization code
+//    }
+//
+//}

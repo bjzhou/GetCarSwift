@@ -14,7 +14,7 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <Bugly/CrashReporter.h>
 #import <Bugly/BuglyLog.h>
-#import <RongIMKit/RongIMKit.h>
+//#import <RongIMKit/RongIMKit.h>
 #import "WXApi.h"
 
 #endif

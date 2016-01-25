@@ -8,17 +8,17 @@
 
 import Foundation
 
-class ConversationViewController: RCConversationViewController {
-
-    var fromProfile = false
-
-    override func didTapCellPortrait(userId: String!) {
-        if fromProfile {
-            self.navigationController?.popViewControllerAnimated(true)
-        } else {
-            let vc = R.storyboard.friend.friend_profile
-            vc?.uid = userId
-            showViewController(vc!)
-        }
-    }
-}
+//class ConversationViewController: RCConversationViewController {
+//
+//    var fromProfile = false
+//
+//    override func didTapCellPortrait(userId: String!) {
+//        if fromProfile {
+//            self.navigationController?.popViewControllerAnimated(true)
+//        } else {
+//            let vc = R.storyboard.friend.friend_profile
+//            vc?.uid = userId
+//            showViewController(vc!)
+//        }
+//    }
+//}

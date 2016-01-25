@@ -10,9 +10,9 @@ import UIKit
 
 class GkboxViewController: UIViewController {
     @IBOutlet weak var swiftPagesView: SwiftPages!
-    @IBOutlet weak var messageDialog: UIView!
-    @IBOutlet weak var friendButton: UIButton!
-    @IBOutlet weak var msgButton: UIButton!
+//    @IBOutlet weak var messageDialog: UIView!
+//    @IBOutlet weak var friendButton: UIButton!
+//    @IBOutlet weak var msgButton: UIButton!
 
     let buttonTitles = ["直线加速", "全球赛事"]
 
@@ -21,37 +21,37 @@ class GkboxViewController: UIViewController {
 
         swiftPagesView.initializeWithVCsArrayAndButtonTitlesArray([R.storyboard.gkbox.data!, R.storyboard.gkbox.map!], buttonTitlesArray: buttonTitles, sender: self)
 
-        self.navigationController?.view.addTapGesture { _ in
-            if self.messageDialog.hidden == false {
-                self.messageDialog.hidden = true
-            }
-        }
-
-        _ = msgButton.rx_tap.takeUntil(msgButton.rx_deallocated).subscribeNext {
-            let vc = ConversationListViewController()
-            vc.hidesBottomBarWhenPushed = true
-            self.showViewController(vc)
-        }
-
-        _ = friendButton.rx_tap.takeUntil(friendButton.rx_deallocated).subscribeNext {
-            let vc = R.storyboard.friend.friend_list
-            self.showViewController(vc!)
-        }
+//        self.navigationController?.view.addTapGesture { _ in
+//            if self.messageDialog.hidden == false {
+//                self.messageDialog.hidden = true
+//            }
+//        }
+//
+//        _ = msgButton.rx_tap.takeUntil(msgButton.rx_deallocated).subscribeNext {
+//            let vc = ConversationListViewController()
+//            vc.hidesBottomBarWhenPushed = true
+//            self.showViewController(vc)
+//        }
+//
+//        _ = friendButton.rx_tap.takeUntil(friendButton.rx_deallocated).subscribeNext {
+//            let vc = R.storyboard.friend.friend_list
+//            self.showViewController(vc!)
+//        }
     }
 
     override func viewWillAppear(animated: Bool) {
         showDisclaimerIfNeeded()
-        messageDialog.hidden = true
+//        messageDialog.hidden = true
     }
 
-    @IBAction func showMessageDialog(sender: AnyObject) {
-        if messageDialog.hidden == true {
-            swiftPagesView.bringSubviewToFront(messageDialog)
-            messageDialog.hidden = false
-        } else {
-            self.messageDialog.hidden = true
-        }
-    }
+//    @IBAction func showMessageDialog(sender: AnyObject) {
+//        if messageDialog.hidden == true {
+//            swiftPagesView.bringSubviewToFront(messageDialog)
+//            messageDialog.hidden = false
+//        } else {
+//            self.messageDialog.hidden = true
+//        }
+//    }
 
     func showDisclaimerIfNeeded() {
         let disclaimer = NSUserDefaults.standardUserDefaults().boolForKey("isDisclaimerShowed")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uwa-hJ-3GR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uwa-hJ-3GR">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -967,14 +967,13 @@
                             <constraint firstItem="jM1-M0-QwW" firstAttribute="leading" secondItem="5wc-IL-CHb" secondAttribute="leading" constant="15" id="aZx-i2-MRa"/>
                             <constraint firstItem="jM1-M0-QwW" firstAttribute="top" secondItem="OsK-bA-hcp" secondAttribute="bottom" id="ojO-nf-xLV"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="jM1-M0-QwW"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="G-BOX" id="HGE-nd-nm0">
-                        <barButtonItem key="leftBarButtonItem" image="nav_message" id="bX6-sY-aUf">
-                            <color key="tintColor" red="0.80000000000000004" green="0.0" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="showMessageDialog:" destination="2cr-TT-juz" id="IAC-U0-nbu"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="share" id="XtF-dc-lbW">
                             <color key="tintColor" red="0.80000000000000004" green="0.0" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -983,9 +982,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="friendButton" destination="uSl-5l-lFs" id="1j5-Um-PHc"/>
-                        <outlet property="messageDialog" destination="jM1-M0-QwW" id="hOl-OE-BZN"/>
-                        <outlet property="msgButton" destination="Xcf-hL-fg5" id="3ZL-79-j11"/>
                         <outlet property="swiftPagesView" destination="5wc-IL-CHb" id="8tN-15-VCI"/>
                     </connections>
                 </viewController>
@@ -1034,7 +1030,6 @@
         <image name="message" width="20" height="14"/>
         <image name="message_bg" width="90" height="90"/>
         <image name="message_pressed" width="20" height="14"/>
-        <image name="nav_message" width="24" height="22"/>
         <image name="no_signal_1" width="3" height="4"/>
         <image name="no_signal_2" width="3" height="7"/>
         <image name="no_signal_3" width="3" height="11"/>

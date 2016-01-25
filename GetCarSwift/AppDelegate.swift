@@ -55,28 +55,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
         WXApi.registerApp(wechatKey)
 
-        RCIM.sharedRCIM().initWithAppKey(rongAppKey)
-
-        let token = "/cIYbX2Ood5fv6reYRm+M8vmAP5/+CoshqsQUzYxvxx5BkGYFvfbn37r7xMoGGbZoAkjlh6bTeXfKGQMXme24A=="
-        RCIM.sharedRCIM().connectWithToken(token, success: { str in
-            print(str)
-            }, error: { err in
-                print("error: \(err)")
-            }, tokenIncorrect: {
-                print("token incorrect")
-        })
-
-        let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
-        application.registerUserNotificationSettings(settings)
-
-        RCIMClient.sharedRCIMClient().recordLaunchOptionsEvent(launchOptions)
-        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromLaunchOptions(launchOptions)
-        if (pushServiceData != nil) {
-            print("launch from push service")
-            print(pushServiceData)
-        }
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
+//        RCIM.sharedRCIM().initWithAppKey(rongAppKey)
+//
+//        let token = "/cIYbX2Ood5fv6reYRm+M8vmAP5/+CoshqsQUzYxvxx5BkGYFvfbn37r7xMoGGbZoAkjlh6bTeXfKGQMXme24A=="
+//        RCIM.sharedRCIM().connectWithToken(token, success: { str in
+//            print(str)
+//            }, error: { err in
+//                print("error: \(err)")
+//            }, tokenIncorrect: {
+//                print("token incorrect")
+//        })
+//
+//        let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
+//        application.registerUserNotificationSettings(settings)
+//
+//        RCIMClient.sharedRCIMClient().recordLaunchOptionsEvent(launchOptions)
+//        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromLaunchOptions(launchOptions)
+//        if (pushServiceData != nil) {
+//            print("launch from push service")
+//            print(pushServiceData)
+//        }
+//
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
 
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 28,
@@ -115,8 +115,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        let count = Int(RCIMClient.sharedRCIMClient().getTotalUnreadCount())
-        application.applicationIconBadgeNumber = count
+//        let count = Int(RCIMClient.sharedRCIMClient().getTotalUnreadCount())
+//        application.applicationIconBadgeNumber = count
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -132,21 +132,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
 
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        application.registerForRemoteNotifications()
+//        application.registerForRemoteNotifications()
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let token = deviceToken.description.stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
-        RCIMClient.sharedRCIMClient().setDeviceToken(token)
+//        let token = deviceToken.description.stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+//        RCIMClient.sharedRCIMClient().setDeviceToken(token)
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        RCIMClient.sharedRCIMClient().recordRemoteNotificationEvent(userInfo)
-        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromRemoteNotification(userInfo)
-        if pushServiceData != nil {
-            print("received remote notification")
-            print(pushServiceData)
-        }
+//        RCIMClient.sharedRCIMClient().recordRemoteNotificationEvent(userInfo)
+//        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromRemoteNotification(userInfo)
+//        if pushServiceData != nil {
+//            print("received remote notification")
+//            print(pushServiceData)
+//        }
     }
 
     func didReceiveMessageNotification(notification: NSNotification) {
@@ -169,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         print(resp.errCode, resp.errStr, resp.type)
     }
 
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: RCKitDispatchMessageNotification, object: nil)
-    }
+//    deinit {
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: RCKitDispatchMessageNotification, object: nil)
+//    }
 }
