@@ -12,9 +12,13 @@ import SwiftyJSON
 
 struct Share: JSONable {
     var id = ""
+    var title = ""
+    var desc = ""
 
     init(json: JSON) {
         id = json["id"].stringValue
+        title = json["title"].stringValue
+        desc = json["desc"].stringValue
     }
 
     init() {}
@@ -25,6 +29,10 @@ struct Share: JSONable {
         } else {
             return GaikeService.sharedInstance.api("upload/uploadShare", body: ["sibaim": sibaim, "maxa": maxa, "maxv": maxv, "title": title, "user_car_id": userCarId])
         }
+    }
+
+    static func getShareTitle() -> Observable<GKResult<Share>> {
+        return GaikeService.sharedInstance.api("upload/getShareTitle")
     }
 
     func getShareUrl() -> NSURL {

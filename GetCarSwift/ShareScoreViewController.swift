@@ -77,18 +77,23 @@ class ShareScoreViewController: UIViewController {
     }
 
     func shareToWechat(scene: Int32) {
-        let req = SendMessageToWXReq()
-        let msg = WXMediaMessage()
-        msg.title = "测试分享标题..."
-        msg.description = "测试分享描述..."
-        msg.setThumbImage(R.image.app_icon!)
-        let mediaObject = WXWebpageObject()
-        mediaObject.webpageUrl = self.share.getShareUrl().URLString
-        msg.mediaObject = mediaObject
-        req.message = msg
-        req.bText = false
-        req.scene = scene
-        WXApi.sendReq(req)
+        _ = Share.getShareTitle().subscribeNext { res in
+            guard let share = res.data else {
+                return
+            }
+            let req = SendMessageToWXReq()
+            let msg = WXMediaMessage()
+            msg.title = share.title
+            msg.description = share.desc
+            msg.setThumbImage(R.image.app_icon!)
+            let mediaObject = WXWebpageObject()
+            mediaObject.webpageUrl = self.share.getShareUrl().URLString
+            msg.mediaObject = mediaObject
+            req.message = msg
+            req.bText = false
+            req.scene = scene
+            WXApi.sendReq(req)
+        }
     }
 
     func uploadShare(succeed: () -> Void) {

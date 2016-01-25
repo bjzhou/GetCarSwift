@@ -27,7 +27,8 @@ class AddPlayerTableViewController: UITableViewController {
 
     var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
-    let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Rank: "赛道排名", .Car: "我的车", .Track: "赛道"]
+    let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Car: "我的车", .Track: "赛道"]
+    let menuTitles = ["我", "赛道总排名", "赛道月排名", "赛道周排名"]
 
     var mode: AddPlayerMode = .Menu
 
@@ -36,12 +37,12 @@ class AddPlayerTableViewController: UITableViewController {
     var top: [RmScore] = []
     var cars: [CarInfo] = []
     var tracks: [RmRaceTrack] = []
-    var loaded = false
+    var loaded = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.frame.size = CGSize(width: 275, height: 200)
+        self.view.frame.size = CGSize(width: 275, height: 300)
         addSubViews()
 
         updateScore()
@@ -60,49 +61,74 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if mode == .Car {
-            if cars.count == 0 {
-                loaded = false
-                _ = CarInfo.getUserCar().subscribeNext { res in
-                    guard let cars = res.dataArray else {
-                        return
-                    }
-
-                    for i in 0..<cars.count {
-                        cars[i].id = i
-                    }
-                    gRealm?.writeOptional {
-                        gRealm?.add(cars)
-                    }
-                    self.updateScore()
-                }
-            }
-        } else {
+        if mode == .Car && cars.count == 0 {
             loaded = false
-            _ = Records.getRecord(self.sid, count: 50).subscribeNext { res in
-                self.loaded = true
-                guard let data = res.data else {
+            _ = CarInfo.getUserCar().subscribeNext { res in
+                guard let cars = res.dataArray else {
                     return
                 }
-                self.top = data.top.sort { $0.0.score < $0.1.score }
-                if self.localNewest.count == 0 {
-                    for s in data.newestRes {
-                        gRealm?.writeOptional {
-                            gRealm?.add(s, update: true)
-                        }
-                    }
-                    for s in data.bestRes {
-                        gRealm?.writeOptional {
-                            gRealm?.add(s, update: true)
-                        }
-                    }
-                    self.updateScore()
+
+                for i in 0..<cars.count {
+                    cars[i].id = i
                 }
-                self.indicator.stopAnimating()
-                self.tableView.reloadData()
+                gRealm?.writeOptional {
+                    gRealm?.add(cars)
+                }
+                self.updateScore()
             }
+        } else if mode == .Myself && localNewest.count == 0 {
+            loaded = false
+            getTotalRecord()
         }
 
+    }
+
+    func getTotalRecord() {
+        _ = Records.getRecord(self.sid, count: 50).subscribeNext { res in
+            self.loaded = true
+            guard let data = res.data else {
+                return
+            }
+            self.top = data.top.sort { $0.0.score < $0.1.score }
+            if self.localNewest.count == 0 {
+                for s in data.newestRes {
+                    gRealm?.writeOptional {
+                        gRealm?.add(s, update: true)
+                    }
+                }
+                for s in data.bestRes {
+                    gRealm?.writeOptional {
+                        gRealm?.add(s, update: true)
+                    }
+                }
+                self.updateScore()
+            }
+            self.indicator.stopAnimating()
+            self.tableView.reloadData()
+        }
+    }
+
+    func getWeekRecord() {
+        _ = Records.getTimeRecord(self.sid, time: "week", count: 50).subscribeNext { res in
+            self.loaded = true
+            guard let data = res.data else {
+                return
+            }
+            self.top = data.top.sort { $0.0.score < $0.1.score }
+            self.indicator.stopAnimating()
+            self.tableView.reloadData()
+        }
+    }
+    func getMonthRecord() {
+        _ = Records.getTimeRecord(self.sid, time: "month", count: 50).subscribeNext { res in
+            self.loaded = true
+            guard let data = res.data else {
+                return
+            }
+            self.top = data.top.sort { $0.0.score < $0.1.score }
+            self.indicator.stopAnimating()
+            self.tableView.reloadData()
+        }
     }
 
     // MARK: - Table view data source
@@ -118,7 +144,7 @@ class AddPlayerTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch mode {
         case .Menu:
-            return 2
+            return 4
         case .Myself:
             if section == 0 {
                 if localNewest.count >= 3 {
@@ -150,13 +176,13 @@ class AddPlayerTableViewController: UITableViewController {
                     cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu_me")
                 }
                 Mine.sharedInstance.setAvatarImage(cell!.imageView!)
-                cell?.textLabel?.text = "我"
+                cell?.textLabel?.text = menuTitles[0]
             } else {
                 cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
                 if cell == nil {
                     cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
                 }
-                cell?.textLabel?.text = titles[.Rank]
+                cell?.textLabel?.text = menuTitles[indexPath.row]
             }
         case .Myself:
             cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
@@ -209,9 +235,22 @@ class AddPlayerTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 mode = .Myself
                 tableView.reloadData()
-            } else if indexPath.row == 1 {
+                if localNewest.count == 0 {
+                    loaded = false
+                    getTotalRecord()
+                }
+            } else {
                 mode = .Rank
+                top = []
                 tableView.reloadData()
+                loaded = false
+                if indexPath.row == 1 {
+                    getTotalRecord()
+                } else if indexPath.row == 2 {
+                    getMonthRecord()
+                } else if indexPath.row == 3 {
+                    getWeekRecord()
+                }
             }
             self.view.frame.size = CGSize(width: 275, height: 380)
             self.view.center = self.view.superview!.center
@@ -304,7 +343,7 @@ class AddPlayerTableViewController: UITableViewController {
         if needBack {
             mode = .Menu
             tableView.reloadData()
-            self.view.frame.size = CGSize(width: 275, height: 200)
+            self.view.frame.size = CGSize(width: 275, height: 300)
             self.view.center = self.view.superview!.center
             needBack = false
         } else {
