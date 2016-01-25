@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         CrashReporter.sharedInstance().enableBlockMonitor(true)
         CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
         CrashReporter.sharedInstance().installWithAppId(buglyAppid)
-        WXApi.registerApp("wx9cd191a47cee9ac6")
+        WXApi.registerApp(wechatKey)
 
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
 
