@@ -81,27 +81,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 28,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 20) {
-                    migration.enumerate(RmLog.className()) { oldObject, newObject in
-                        let timeStr = oldObject!["time"] as? String
-                        let dateFormatter = NSDateFormatter()
-                        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-                        print(timeStr)
-                        print(dateFormatter.dateFromString(timeStr!))
-                        if let date = dateFormatter.dateFromString(timeStr!) {
-                            newObject!["time"] = date
-                        }
-                    }
-                }
         })
 
-        if let logs = gRealm?.objects(RmLog), firstLog = logs.first {
-            let time = -firstLog.time.timeIntervalSinceNow
-            print(time)
-            if time >= 7 * 24 * 60 * 60 {
-                gRealm?.writeOptional {
-                    gRealm?.delete(logs)
-                }
+        if let logs = gRealm?.objects(RmLog) {
+            gRealm?.writeOptional {
+                gRealm?.delete(logs)
             }
         }
 

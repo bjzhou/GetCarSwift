@@ -54,7 +54,7 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let index = userDefaults.integerForKey("homepage_bg")
         if index == 1000 {
-            KingfisherManager.sharedManager.cache.retrieveImageForKey("homepage_bg", options: KingfisherManager.OptionsNone) { image, _ in
+            KingfisherManager.sharedManager.cache.retrieveImageForKey("homepage_bg", options: []) { image, _ in
                 self.homepageBg.image = image
             }
         } else {
