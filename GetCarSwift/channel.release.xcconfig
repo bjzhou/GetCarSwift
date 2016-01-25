@@ -8,6 +8,10 @@
 
 #include "Pods/Target Support Files/Pods/Pods.release.xcconfig"
 
-PRODUCT_DISPLAY_NAME = 改客内测版
-PRODUCT_BUNDLE_IDENTIFIER = com.gaike.$(PRODUCT_NAME:rfc1034identifier).test
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS" "-D" "ADHOC"
+//PRODUCT_DISPLAY_NAME = 改客内测版
+//PRODUCT_BUNDLE_IDENTIFIER = com.gaike.$(PRODUCT_NAME:rfc1034identifier).test
+//OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS" "-D" "ADHOC"
+
+PRODUCT_DISPLAY_NAME = 改客
+PRODUCT_BUNDLE_IDENTIFIER = com.gaike.$(PRODUCT_NAME:rfc1034identifier)
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
