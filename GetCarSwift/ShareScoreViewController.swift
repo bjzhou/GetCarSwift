@@ -105,7 +105,7 @@ class ShareScoreViewController: UIViewController {
                 liushikm = String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0)
                 yibaikm = String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0)
             }
-            _ = Share.uploadShare(self.scoreValues[0], liushikm: liushikm, yibaikm: yibaikm, maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: selectedTrack.name, userCarId: self.carInfo.carUserId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
+            _ = Share.uploadShare(self.scoreValues[1], liushikm: liushikm, yibaikm: yibaikm, maxa: String(((self.score.data.map { $0 }).maxElement { $0.0.a > $0.1.a }) ?? 0), maxv: String(((self.score.data.map { $0 }).maxElement { $0.0.v > $0.1.v }) ?? 0), title: selectedTrack.name, userCarId: self.carInfo.carUserId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
                 if let share = res.data {
                     Toast.hideToastActivity()
                     self.share = share
