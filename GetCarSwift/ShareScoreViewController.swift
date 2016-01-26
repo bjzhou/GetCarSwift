@@ -77,7 +77,7 @@ class ShareScoreViewController: UIViewController {
     }
 
     func shareToWechat(scene: Int32) {
-        _ = Share.getShareTitle().subscribeNext { res in
+        _ = Share.getShareTitle(self.scoreValues[1], userCarId: self.carInfo.carUserId).subscribeNext { res in
             guard let share = res.data else {
                 return
             }
