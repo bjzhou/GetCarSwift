@@ -50,17 +50,17 @@ class CarListViewController: UIViewController {
     func updateCars() {
         if let car1 = gRealm?.objects(CarInfo).filter("id = 0").first {
             buttonImageView1.kf_setImageWithURL(NSURL(string: car1.imageUrl)!, placeholderImage: defaultImage)
-            carLabel1.text = car1.model + car1.detail
+            carLabel1.text = car1.model + " " + car1.detail
         }
 
         if let car2 = gRealm?.objects(CarInfo).filter("id = 1").first {
             buttonImageView2.kf_setImageWithURL(NSURL(string: car2.imageUrl)!, placeholderImage: defaultImage)
-            carLabel2.text = car2.model + car2.detail
+            carLabel2.text = car2.model + " " + car2.detail
         }
 
         if let car3 = gRealm?.objects(CarInfo).filter("id = 2").first {
             buttonImageView3.kf_setImageWithURL(NSURL(string: car3.imageUrl)!, placeholderImage: defaultImage)
-            carLabel3.text = car3.model + car3.detail
+            carLabel3.text = car3.model + " " + car3.detail
         }
     }
 
