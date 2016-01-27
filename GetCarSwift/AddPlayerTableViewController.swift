@@ -29,6 +29,7 @@ class AddPlayerTableViewController: UITableViewController {
 
     let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Car: "我的车", .Track: "赛道"]
     let menuTitles = ["我", "赛道总排名", "赛道月排名", "赛道周排名"]
+    let menuSubTitles = ["", "", "", "每周三凌晨05:00点更新"]
 
     var mode: AddPlayerMode = .Menu
 
@@ -180,9 +181,10 @@ class AddPlayerTableViewController: UITableViewController {
             } else {
                 cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
                 if cell == nil {
-                    cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
+                    cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "menu")
                 }
                 cell?.textLabel?.text = menuTitles[indexPath.row]
+                cell?.detailTextLabel?.text = menuSubTitles[indexPath.row]
             }
         case .Myself:
             cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
