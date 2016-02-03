@@ -18,6 +18,7 @@ extension UIImageView {
             tapRecgnizer.numberOfTapsRequired = 1
             _ = tapRecgnizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
                 let vc = R.storyboard.friend.friend_profile
+                vc?.hidesBottomBarWhenPushed = true
                 vc?.uid = uid
                 vc?.avatarUrl = url
                 vc?.nicknameText = nickname
@@ -28,7 +29,7 @@ extension UIImageView {
                     let nav = UINavigationController(rootViewController: vc!)
                     inVC?.showViewController(nav)
                 }
-                }
+            }
             self.addGestureRecognizer(tapRecgnizer)
             self.userInteractionEnabled = true
         }

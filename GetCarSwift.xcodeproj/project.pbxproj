@@ -7,17 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8BDEB0BF1D070B851F236536 /* ModStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB55F0179E0E5E7C46AE9 /* ModStoreViewController.swift */; };
-		8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */; };
 		8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */; };
-		8BDEB72CC5630B87A9209A2C /* ModIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB65E7FBAE27567EAB061 /* ModIntroTableViewCell.swift */; };
-		8BDEBA96983C7719658CADA4 /* Mod.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BDEB3E592343A2B219B8F2F /* Mod.storyboard */; };
-		8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEBDB2B8219B464510356E /* ModViewController.swift */; };
 		8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */; };
 		98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA7E7F32B82B982261BC1FB /* Pods.framework */; };
 		C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C803EE3C1C18299C00425E04 /* CALayer+GK.swift */; };
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
+		C80AEF3C1C5B6365006570C8 /* NearbyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80AEF3B1C5B6365006570C8 /* NearbyTableViewController.swift */; };
 		C80B6B371BB672780017D7E3 /* gkbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B361BB672780017D7E3 /* gkbox.storyboard */; };
 		C80B6B3C1BB674AF0017D7E3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */; };
 		C80B6B401BB6790A0017D7E3 /* Track.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C80B6B3F1BB6790A0017D7E3 /* Track.storyboard */; };
@@ -42,6 +38,7 @@
 		C84FE8CA1B7A360000F8EC74 /* CarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */; };
 		C8516DDE1AE240C500BB0FF4 /* CarIconEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */; };
 		C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */; };
+		C854411F1C60563F00DDE256 /* Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854411E1C60563F00DDE256 /* Nearby.swift */; };
 		C856C8C21BFED13E0066D313 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */; };
 		C85B349D1BB7C5C500435320 /* UIButton+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85B349C1BB7C5C500435320 /* UIButton+GK.swift */; };
 		C867FC6C1AD8FCAF00F99592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867FC6B1AD8FCAF00F99592 /* AppDelegate.swift */; };
@@ -51,7 +48,6 @@
 		C86FE32B1BA3CC130037CD7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C867FC711AD8FCAF00F99592 /* Main.storyboard */; };
 		C87442F21C02B66500D17B92 /* DanmuEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87442F11C02B66500D17B92 /* DanmuEffect.swift */; };
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
-		C880DA771B78D21900F5E24D /* Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA761B78D21900F5E24D /* Nearby.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
 		C88D822F1AE27E4900DBC0C1 /* UIImage+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* UIImage+GK.swift */; };
 		C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D896A1BDF797700AA4425 /* R.generated.swift */; };
@@ -152,16 +148,12 @@
 		0FA7E7F32B82B982261BC1FB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		379E7426878B39BF90F73D64 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
-		8BDEB3E592343A2B219B8F2F /* Mod.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mod.storyboard; sourceTree = "<group>"; };
-		8BDEB55F0179E0E5E7C46AE9 /* ModStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModStoreViewController.swift; sourceTree = "<group>"; };
-		8BDEB65E7FBAE27567EAB061 /* ModIntroTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModIntroTableViewCell.swift; sourceTree = "<group>"; };
 		8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
-		8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModDoctorViewController.swift; sourceTree = "<group>"; };
-		8BDEBDB2B8219B464510356E /* ModViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModViewController.swift; sourceTree = "<group>"; };
 		AF89B3959372DB5712543292 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C803EE3C1C18299C00425E04 /* CALayer+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+GK.swift"; sourceTree = "<group>"; };
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
+		C80AEF3B1C5B6365006570C8 /* NearbyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyTableViewController.swift; sourceTree = "<group>"; };
 		C80B6B361BB672780017D7E3 /* gkbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = gkbox.storyboard; sourceTree = "<group>"; };
 		C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C80B6B3F1BB6790A0017D7E3 /* Track.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Track.storyboard; sourceTree = "<group>"; };
@@ -186,6 +178,7 @@
 		C84FE8C91B7A360000F8EC74 /* CarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewController.swift; sourceTree = "<group>"; };
 		C8516DDD1AE240C500BB0FF4 /* CarIconEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarIconEditViewController.swift; sourceTree = "<group>"; };
 		C85263901B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
+		C854411E1C60563F00DDE256 /* Nearby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nearby.swift; sourceTree = "<group>"; };
 		C856C8C11BFED13E0066D313 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		C85B349C1BB7C5C500435320 /* UIButton+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+GK.swift"; sourceTree = "<group>"; };
 		C867FC661AD8FCAF00F99592 /* GetCarSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCarSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,7 +193,6 @@
 		C86F854F1B8215A100C7DC7C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C87442F11C02B66500D17B92 /* DanmuEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DanmuEffect.swift; sourceTree = "<group>"; };
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
-		C880DA761B78D21900F5E24D /* Nearby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nearby.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* UIImage+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+GK.swift"; sourceTree = "<group>"; };
 		C88D896A1BDF797700AA4425 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
@@ -334,17 +326,6 @@
 			name = track;
 			sourceTree = "<group>";
 		};
-		8BDEBA9465805C8CC88C3130 /* mod */ = {
-			isa = PBXGroup;
-			children = (
-				8BDEB87F625FA83CA0BD8E93 /* ModDoctorViewController.swift */,
-				8BDEB65E7FBAE27567EAB061 /* ModIntroTableViewCell.swift */,
-				8BDEB55F0179E0E5E7C46AE9 /* ModStoreViewController.swift */,
-				8BDEBDB2B8219B464510356E /* ModViewController.swift */,
-			);
-			name = mod;
-			sourceTree = "<group>";
-		};
 		8BDEBDF395FABF0B9500EB3E /* track */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +362,7 @@
 		C82AF14C1C29259000B261AE /* friend */ = {
 			isa = PBXGroup;
 			children = (
+				C80AEF3B1C5B6365006570C8 /* NearbyTableViewController.swift */,
 				C82AF14D1C2925BA00B261AE /* FriendProfileViewController.swift */,
 				C8DAF8ED1C3A4F7A00110C27 /* ConversationListViewController.swift */,
 				C8DAF8EF1C3A527D00110C27 /* FriendsTableViewController.swift */,
@@ -394,12 +376,12 @@
 		C842765F1BB188D60041C3F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C854411E1C60563F00DDE256 /* Nearby.swift */,
 				C89E7B6F1C0C739600002BB9 /* RmScore.swift */,
 				C894A3311B7F783D00D853C9 /* CarInfo.swift */,
 				C89791DC1B9F04280027D6A5 /* Comment.swift */,
 				C8EEB65E1BB2D84D00BB5704 /* Comments.swift */,
 				C80881E11B6D2190002A1CE9 /* FIR.swift */,
-				C880DA761B78D21900F5E24D /* Nearby.swift */,
 				C8EEB65C1BB2D3D300BB5704 /* Praise.swift */,
 				C8F9CD6E1B7246BB0003AF1B /* User.swift */,
 				C8D88FE91BF4482D00792F3E /* RmRaceTrack.swift */,
@@ -428,7 +410,6 @@
 				8BDEB006326E9E3DED7B8762 /* track */,
 				C8D1C5011BB64F4100F131BC /* login */,
 				C85B34AC1BB7DAA400435320 /* mine */,
-				8BDEBA9465805C8CC88C3130 /* mod */,
 				C80B6B281BB672560017D7E3 /* gkbox */,
 				C8E2B8361AD926C7003B07FE /* Widget */,
 				C80B6B3B1BB674AF0017D7E3 /* MainViewController.swift */,
@@ -467,7 +448,6 @@
 				C80B6B3F1BB6790A0017D7E3 /* Track.storyboard */,
 				C84408FA1BB43D410088D046 /* Login.storyboard */,
 				C80B6B411BB679150017D7E3 /* Mine.storyboard */,
-				8BDEB3E592343A2B219B8F2F /* Mod.storyboard */,
 				C80B6B361BB672780017D7E3 /* gkbox.storyboard */,
 				C89C492D1C0D6FE900A1E2E1 /* Launch Screen.storyboard */,
 				C82AF14A1C29250600B261AE /* Friend.storyboard */,
@@ -710,6 +690,9 @@
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = H4MJ558LMP;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -754,7 +737,6 @@
 				C80B6B401BB6790A0017D7E3 /* Track.storyboard in Resources */,
 				C84408FB1BB43D410088D046 /* Login.storyboard in Resources */,
 				C89C492E1C0D6FE900A1E2E1 /* Launch Screen.storyboard in Resources */,
-				8BDEBA96983C7719658CADA4 /* Mod.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +864,7 @@
 				C89E7B721C0C7FF300002BB9 /* PlayerTableViewCell.swift in Sources */,
 				C8EEB65F1BB2D84D00BB5704 /* Comments.swift in Sources */,
 				C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */,
+				C80AEF3C1C5B6365006570C8 /* NearbyTableViewController.swift in Sources */,
 				C85263911B6E2BEF00E43FE0 /* KMPlaceholderTextView.swift in Sources */,
 				C89A05C71B6E125400620C85 /* GkboxViewController.swift in Sources */,
 				C85B349D1BB7C5C500435320 /* UIButton+GK.swift in Sources */,
@@ -901,7 +884,6 @@
 				C89C492A1C0D6F2500A1E2E1 /* AboutTableViewController.swift in Sources */,
 				C89884371B0650F5009634E1 /* BgChoiceViewController.swift in Sources */,
 				C88D822F1AE27E4900DBC0C1 /* UIImage+GK.swift in Sources */,
-				C880DA771B78D21900F5E24D /* Nearby.swift in Sources */,
 				C833788B1C4C94A60047A4AE /* CarCell.swift in Sources */,
 				C844F4011BE73DE1008AFC8B /* File.swift in Sources */,
 				C89C492C1C0D6F6500A1E2E1 /* HelpTableViewController.swift in Sources */,
@@ -949,17 +931,14 @@
 				C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */,
 				C8AB571A1C2BAC980087898C /* ShareScoreViewController.swift in Sources */,
 				C8DE3B191C117E93009AF56E /* BgChoiceCollectionViewCell.swift in Sources */,
-				8BDEBB8B6756B6040FFDF28F /* ModViewController.swift in Sources */,
 				C8AB57121C2A92DC0087898C /* AddPartTableViewCell.swift in Sources */,
-				8BDEB205A577B64759FAFA59 /* ModDoctorViewController.swift in Sources */,
-				8BDEB72CC5630B87A9209A2C /* ModIntroTableViewCell.swift in Sources */,
-				8BDEB0BF1D070B851F236536 /* ModStoreViewController.swift in Sources */,
 				C8DAF8F01C3A527D00110C27 /* FriendsTableViewController.swift in Sources */,
 				C8DAF8EE1C3A4F7A00110C27 /* ConversationListViewController.swift in Sources */,
 				C82AF1541C2A74E400B261AE /* CarDetailViewController.swift in Sources */,
 				8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */,
 				8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */,
 				C856C8C21BFED13E0066D313 /* TrackTableViewCell.swift in Sources */,
+				C854411F1C60563F00DDE256 /* Nearby.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

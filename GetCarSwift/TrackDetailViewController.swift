@@ -284,7 +284,6 @@ class TrackDetailViewController: UIViewController {
         addViewController.delegate = self
         addViewController.sender = sender
         addViewController.sid = trackDetailViewModel.sid
-        addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 300)
         let popupViewController = PopupViewController(rootViewController: addViewController)
         self.presentViewController(popupViewController, animated: false, completion: nil)
     }

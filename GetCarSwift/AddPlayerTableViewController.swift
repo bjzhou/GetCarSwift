@@ -28,8 +28,8 @@ class AddPlayerTableViewController: UITableViewController {
     var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
     let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Car: "我的车", .Track: "赛道"]
-    let menuTitles = ["我", "赛道总排名", "赛道月排名", "赛道周排名"]
-    let menuSubTitles = ["", "", "", "每周三凌晨05:00点更新"]
+    let menuTitles = ["我", "好友排名", "赛道总排名", "赛道月排名", "赛道周排名"]
+    let menuSubTitles = ["", "", "", "", "每周三凌晨05:00点更新"]
 
     var mode: AddPlayerMode = .Menu
 
@@ -43,7 +43,7 @@ class AddPlayerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.frame.size = CGSize(width: 275, height: 300)
+        self.view.frame.size = CGSize(width: 275, height: 380)
         addSubViews()
 
         updateScore()
@@ -109,27 +109,25 @@ class AddPlayerTableViewController: UITableViewController {
         }
     }
 
+    func getFollowRecord() {
+        _ = Records.getFollowRecord(self.sid, count: 50).subscribeNext(doOnGetRecord)
+    }
+
     func getWeekRecord() {
-        _ = Records.getTimeRecord(self.sid, time: "week", count: 50).subscribeNext { res in
-            self.loaded = true
-            guard let data = res.data else {
-                return
-            }
-            self.top = data.top.sort { $0.0.score < $0.1.score }
-            self.indicator.stopAnimating()
-            self.tableView.reloadData()
-        }
+        _ = Records.getTimeRecord(self.sid, time: "week", count: 50).subscribeNext(doOnGetRecord)
     }
     func getMonthRecord() {
-        _ = Records.getTimeRecord(self.sid, time: "month", count: 50).subscribeNext { res in
-            self.loaded = true
-            guard let data = res.data else {
-                return
-            }
-            self.top = data.top.sort { $0.0.score < $0.1.score }
-            self.indicator.stopAnimating()
-            self.tableView.reloadData()
+        _ = Records.getTimeRecord(self.sid, time: "month", count: 50).subscribeNext(doOnGetRecord)
+    }
+
+    func doOnGetRecord(res: GKResult<Records>) {
+        self.loaded = true
+        guard let data = res.data else {
+            return
         }
+        self.top = data.top.sort { $0.0.score < $0.1.score }
+        self.indicator.stopAnimating()
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -145,7 +143,7 @@ class AddPlayerTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch mode {
         case .Menu:
-            return 4
+            return menuTitles.count
         case .Myself:
             if section == 0 {
                 if localNewest.count >= 3 {
@@ -246,16 +244,19 @@ class AddPlayerTableViewController: UITableViewController {
                 top = []
                 tableView.reloadData()
                 loaded = false
-                if indexPath.row == 1 {
+                switch indexPath.row {
+                case 1:
+                    getFollowRecord()
+                case 2:
                     getTotalRecord()
-                } else if indexPath.row == 2 {
+                case 3:
                     getMonthRecord()
-                } else if indexPath.row == 3 {
+                case 4:
                     getWeekRecord()
+                default:
+                    break
                 }
             }
-            self.view.frame.size = CGSize(width: 275, height: 380)
-            self.view.center = self.view.superview!.center
             if !loaded {
                 indicator.startAnimating()
             }
@@ -345,8 +346,6 @@ class AddPlayerTableViewController: UITableViewController {
         if needBack {
             mode = .Menu
             tableView.reloadData()
-            self.view.frame.size = CGSize(width: 275, height: 300)
-            self.view.center = self.view.superview!.center
             needBack = false
         } else {
             dismissPopupViewController()

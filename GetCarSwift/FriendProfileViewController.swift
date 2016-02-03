@@ -44,8 +44,13 @@ class FriendProfileViewController: UIViewController {
         }
 
         _ = followButton.rx_tap.takeUntil(followButton.rx_deallocated).subscribeNext {
-            _ = User.requestFriend(self.uid, message: "我是asdad").subscribeNext { res in
-
+            if self.followButton.currentTitle == "已关注" {
+                return
+            }
+            _ = User.addFriend(self.uid).subscribeNext { res in
+                if res.code == 0 {
+                    self.followButton.setTitle("已关注", forState: .Normal)
+                }
             }
         }
     }

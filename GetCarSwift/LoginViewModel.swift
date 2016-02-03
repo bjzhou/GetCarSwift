@@ -55,7 +55,7 @@ class LoginViewModel {
             }
             .concat()
             .subscribeNext { res in
-                guard let user = res.data, let token = user.token else {
+                guard let user = res.data where user.token.trim() != "" else {
                     if res.code == -25 {
                         self.viewProxy?.showToast("验证码错误")
                     } else if res.code == -26 {
@@ -66,9 +66,9 @@ class LoginViewModel {
                     return
                 }
 
-                Mine.sharedInstance.token = token
+                Mine.sharedInstance.token = user.token
 
-                if let nickname = user.nickname where nickname != "" {
+                if user.nickname != "" {
                     Mine.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 } else {

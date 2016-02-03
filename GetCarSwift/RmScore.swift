@@ -105,6 +105,10 @@ struct Records: JSONable {
         return GaikeService.sharedInstance.api("user/getTimeRecord", body: ["map_type": mapType, "time": time, "count": count])
     }
 
+    static func getFollowRecord(mapType: Int, count: Int) -> Observable<GKResult<Records>> {
+        return GaikeService.sharedInstance.api("user/getFollowRecord", body: ["map_type": mapType, "count": count])
+    }
+
     static func uploadRecord(mapType: Int, duration: Double, recordData: NSData) -> Observable<GKResult<RmScore>> {
         return GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": duration, "map_type": mapType], datas: ["record": recordData])
     }

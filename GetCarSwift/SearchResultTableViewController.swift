@@ -10,7 +10,8 @@ import UIKit
 
 class SearchResultTableViewController: UITableViewController {
 
-    var searchResultCount = 0
+    var sender: FriendsTableViewController?
+    var users: [User] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,17 +20,23 @@ class SearchResultTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResultCount
+        return users.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.search, forIndexPath: indexPath)
-
-        cell?.headerImageView.image = R.image.avatar
-        cell?.sexImageView.image = R.image.mine_male
-        cell?.nicknameLabel.text = "用户名"
-        cell?.descLabel.text = "好友简介"
+        let user = users[indexPath.row]
+        cell?.headerImageView.kf_setImageWithURL(NSURL(string: user.img)!, placeholderImage: R.image.avatar)
+        cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male : R.image.mine_female
+        cell?.nicknameLabel.text = user.nickname
+        cell?.descLabel.text = user.phone
+        cell?.id = user.id
         return cell!
+    }
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let user = users[indexPath.row]
+        sender?.showConversationView(user)
     }
 
 }

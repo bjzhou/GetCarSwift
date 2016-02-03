@@ -12,11 +12,13 @@ class FriendsTableViewController: UITableViewController {
 
     var searchController: UISearchController!
     var searchResultController: SearchResultTableViewController!
+    var users: [User] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchResultController = R.storyboard.friend.friend_search
+        searchResultController.sender = self
 
         searchController = UISearchController(searchResultsController: searchResultController)
         searchController.searchResultsUpdater = self
@@ -25,6 +27,7 @@ class FriendsTableViewController: UITableViewController {
 
         searchController.delegate = self
         searchController.dimsBackgroundDuringPresentation = false // default is YES
+        searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.delegate = self    // so we can monitor text changes + others
 
         definesPresentationContext = true
@@ -33,33 +36,48 @@ class FriendsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        _ = User.getFriend().subscribeNext { res in
-            print(res)
+        getFriend()
+    }
+
+    func getFriend() {
+        _ = User.getFriend(false).subscribeNext { res in
+            guard let users = res.dataArray else {
+                return
+            }
+            self.users = users
+            self.tableView.reloadData()
         }
     }
 
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return users.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.friend, forIndexPath: indexPath)
 
-        cell?.headerImageView.image = R.image.avatar
-        cell?.sexImageView.image = R.image.mine_male
-        cell?.nicknameLabel.text = "用户名"
-        cell?.descLabel.text = "好友简介"
+        let user = users[indexPath.row]
+        cell?.headerImageView.kf_setImageWithURL(NSURL(string: user.img)!, placeholderImage: R.image.avatar)
+        cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male : R.image.mine_female
+        cell?.nicknameLabel.text = user.nickname
+        cell?.descLabel.text = user.phone
+        cell?.id = user.id
 
         return cell!
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let user = users[indexPath.row]
+        showConversationView(user)
+    }
+
+    func showConversationView(user: User) {
         let chat = ConversationViewController()
         chat.conversationType = RCConversationType.ConversationType_PRIVATE
-        chat.targetId = "targetIdYouWillChatIn"
-        chat.title = "想显示的会话标题"
+        chat.targetId = user.id
+        chat.title = user.nickname
         showViewController(chat)
     }
 
@@ -68,8 +86,18 @@ class FriendsTableViewController: UITableViewController {
 extension FriendsTableViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
 
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        searchResultController.searchResultCount = Int(searchController.searchBar.text!) ?? 0
-        searchResultController.tableView.reloadData()
+        if searchController.searchBar.text?.trim() != "" {
+            _ = User.searchNickname(searchController.searchBar.text!).subscribeNext { res in
+                guard let users = res.dataArray else {
+                    return
+                }
+                self.searchResultController.users = users
+                self.searchResultController.tableView.reloadData()
+            }
+        } else {
+            self.searchResultController.users = []
+            self.searchResultController.tableView.reloadData()
+        }
     }
 
     func willPresentSearchController(searchController: UISearchController) {
@@ -78,5 +106,6 @@ extension FriendsTableViewController: UISearchResultsUpdating, UISearchControlle
 
     func willDismissSearchController(searchController: UISearchController) {
         self.navigationController?.navigationBar.translucent = false
+        getFriend()
     }
 }

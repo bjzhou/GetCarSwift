@@ -12,6 +12,10 @@ class ConversationViewController: RCConversationViewController {
 
     var fromProfile = false
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
     override func didTapCellPortrait(userId: String!) {
         if fromProfile {
             self.navigationController?.popViewControllerAnimated(true)

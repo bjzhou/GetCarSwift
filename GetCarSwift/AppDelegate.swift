@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import AudioToolbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -57,15 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
 
-        let token = "/cIYbX2Ood5fv6reYRm+M8vmAP5/+CoshqsQUzYxvxx5BkGYFvfbn37r7xMoGGbZoAkjlh6bTeXfKGQMXme24A=="
-        RCIM.sharedRCIM().connectWithToken(token, success: { str in
-            print(str)
-            }, error: { err in
-                print("error: \(err)")
-            }, tokenIncorrect: {
-                print("token incorrect")
-        })
-
         let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
         application.registerUserNotificationSettings(settings)
 
@@ -77,6 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
+
+        RCIM.sharedRCIM().userInfoDataSource = self
 
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 28,
@@ -147,10 +141,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             print("received remote notification")
             print(pushServiceData)
         }
+        print("didReceiveRemoteNotification")
+    }
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        RCIMClient.sharedRCIMClient().recordLocalNotificationEvent(notification)
+        print("didReceiveLocalNotification")
     }
 
     func didReceiveMessageNotification(notification: NSNotification) {
-
+        if let msg = notification.object as? RCMessage {
+            main {
+                if let mainVc = self.window?.rootViewController as? MainViewController, navVc = mainVc.selectedViewController as? UINavigationController, vc = navVc.visibleViewController {
+                    if UIApplication.sharedApplication().applicationState == .Active {
+                        if let conversationVc = vc as? ConversationViewController where msg.targetId == conversationVc.targetId {
+                            // in chatting, do nothing
+                        } else {
+                            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                        }
+                    } else {
+                        let chat = ConversationViewController()
+                        chat.hidesBottomBarWhenPushed = true
+                        chat.conversationType = msg.conversationType
+                        chat.targetId = msg.targetId
+                        vc.showViewController(chat)
+                    }
+                }
+            }
+        }
     }
 
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
@@ -171,5 +189,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: RCKitDispatchMessageNotification, object: nil)
+    }
+}
+
+extension AppDelegate: RCIMUserInfoDataSource {
+    func getUserInfoWithUserId(userId: String!, completion: ((RCUserInfo!) -> Void)!) {
+        let userInfo = RCUserInfo(userId: userId, name: "test", portrait: "https://www.sogou.com/images/index/wangan.png")
+        completion(userInfo)
     }
 }

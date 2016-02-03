@@ -29,15 +29,15 @@ class ConversationListViewController: RCConversationListViewController {
 
     override func onSelectedTableRow(conversationModelType: RCConversationModelType, conversationModel model: RCConversationModel!, atIndexPath indexPath: NSIndexPath!) {
         let chat = ConversationViewController()
-        chat.conversationType = RCConversationType.ConversationType_PRIVATE
-        chat.targetId = "targetIdYouWillChatIn"
-        chat.title = "想显示的会话标题"
+        chat.conversationType = model.conversationType
+        chat.targetId = model.targetId
+        chat.title = model.conversationTitle
         showViewController(chat)
     }
 
     override func didTapCellPortrait(model: RCConversationModel!) {
         let vc = R.storyboard.friend.friend_profile
-        vc?.uid = model.senderUserId ?? ""
+        vc?.uid = model.targetId
         showViewController(vc!)
     }
 

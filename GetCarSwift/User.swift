@@ -12,27 +12,32 @@ import Kingfisher
 import SwiftyJSON
 
 struct User: JSONable {
-    var phone: String?
-    var id: String?
-    var car: String?
-    var nickname: String?
-    var sex: Int?
-    var img: String?
-    var token: String?
+    var phone = ""
+    var id = ""
+    var car = ""
+    var nickname = ""
+    var sex: Int? = 1
+    var img = ""
+    var token = ""
 
     static var rxMine: Variable<Mine> = Variable(Mine.sharedInstance)
 
     init(json: JSON) {
-        phone = json["phone"].string
-        id = json["id"].string
-        car = json["car"].string
-        nickname = json["nickname"].string
+        phone = json["phone"].stringValue
+        id = json["id"].stringValue
+        car = json["car"].stringValue
+        nickname = json["nickname"].stringValue
         sex = json["sex"].intValue
-        img = json["img"].string
-        token = json["token"].string
+        img = json["img"].stringValue
 
-        if let wrappedImg = img where !wrappedImg.hasPrefix("http://") {
-            img = "http://pic.gaikit.com/user/head/" + wrappedImg
+        token = json["token"].stringValue
+
+        if img == "" {
+            img = json["head_url"].stringValue
+        }
+
+        if img != "" && !img.hasPrefix("http://") {
+            img = "http://pic.gaikit.com/user/head/" + img
         }
     }
 
@@ -66,16 +71,21 @@ struct User: JSONable {
         return GaikeService.sharedInstance.upload("upload/uploadHeader", datas: ["pictures":UIImagePNGRepresentation(image)!])
     }
 
-    static func getFriend() -> Observable<GKResult<User>> {
-        return GaikeService.sharedInstance.api("user/get_friend")
+    static func getIMToken() -> Observable<GKResult<String>> {
+        return GaikeService.sharedInstance.api("user/getIMToken")
     }
 
-    static func requestFriend(uid: String, message: String) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("user/request_friend", body: ["id": uid, "message": message])
+    /* follow: false: 我关注的人， true: 关注我的人 */
+    static func getFriend(follow: Bool) -> Observable<GKResult<User>> {
+        return GaikeService.sharedInstance.api("user/get_friend", body: ["get_followed": follow])
     }
 
-    static func processRequestFriend(uid: String, isAccess: Bool) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("user/process_request_friend", body: ["id": uid, "is_access": isAccess])
+    static func addFriend(uid: String) -> Observable<GKResult<String>> {
+        return GaikeService.sharedInstance.api("user/add_friend", body: ["id": uid])
+    }
+
+    static func searchNickname(nickname: String) -> Observable<GKResult<User>> {
+        return GaikeService.sharedInstance.api("user/search_nickname", body: ["nickname": nickname])
     }
 }
 
@@ -178,31 +188,32 @@ struct Mine {
     }
 
     mutating func updateLogin(user: User) {
-        if let car = user.car where car != "" {
+        if car != "" {
             self.car = car
         }
-        if let phone = user.phone where phone != "" {
+        if phone != "" {
             self.phone = phone
         }
-        if let id = user.id where id != "" {
+        if id != "" {
             self.id = id
         }
 
-        if let token = user.token where token != "" {
+        if token != "" {
             self.token = token
         }
-        if let nickname = user.nickname where nickname != "" {
+        if nickname != "" {
             self.nickname = nickname
         }
         if let sex = user.sex {
             self.sex = sex
         }
-        if let avatarUrl = user.img where avatarUrl != "" {
+        if avatarUrl != "" {
             self.avatarUrl = avatarUrl
         }
     }
 
     mutating func logout(expired expired: Bool = true) {
+        RCIM.sharedRCIM().disconnect(false)
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
         KingfisherManager.sharedManager.cache.clearDiskCache()
         main {

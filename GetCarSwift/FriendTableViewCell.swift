@@ -16,9 +16,25 @@ class FriendTableViewCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
 
+    var id = ""
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
+        _ = followButton.rx_tap.takeUntil(self.rx_deallocated).subscribeNext {
+            if self.followButton.selected {
+                return
+            }
+            Toast.makeToastActivity()
+            _ = User.addFriend(self.id).doOn { event in
+                Toast.hideToastActivity()
+                }.subscribeNext { res in
+                    if res.code == 0 {
+                        self.followButton.selected = true
+                    }
+            }
+        }
     }
 
 }
