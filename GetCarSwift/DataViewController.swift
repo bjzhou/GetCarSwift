@@ -32,7 +32,7 @@ class DataViewController: UIViewController {
 
     var datas = [UIView]()
     var dataVCs = [DataSubViewController]()
-    let dataTitles = ["0~60km/h", "0~100km/h", "60~0km/h", "0~400m"]
+    let dataTitles = ["0~60km/h", "0~100km/h", "100~200km/h", "0~400m"]
 
     var timerDisposable: Disposable?
 
@@ -243,13 +243,13 @@ class DataViewController: UIViewController {
         let v60s = gRealm?.objects(RmScore).filter("mapType = 1001")
         let v100s = gRealm?.objects(RmScore).filter("mapType = 1002")
         let s400s = gRealm?.objects(RmScore).filter("mapType = 0")
-        let b60s = gRealm?.objects(RmScore).filter("mapType = 1003")
+        let v200s = gRealm?.objects(RmScore).filter("mapType = 1004")
         self.latestScores[0] =? v60s?.sorted("createdAt").last?.score
         self.bestScores[0] =? v60s?.sorted("score").first?.score
         self.latestScores[1] =? v100s?.sorted("createdAt").last?.score
         self.bestScores[1] =? v100s?.sorted("score").first?.score
-        self.latestScores[2] =? b60s?.sorted("createdAt").last?.score
-        self.bestScores[2] =? b60s?.sorted("score").first?.score
+        self.latestScores[2] =? v200s?.sorted("createdAt").last?.score
+        self.bestScores[2] =? v200s?.sorted("score").first?.score
         self.latestScores[3] =? s400s?.sorted("createdAt").last?.score
         self.bestScores[3] =? s400s?.sorted("score").first?.score
 
@@ -265,8 +265,8 @@ class DataViewController: UIViewController {
             updateFromNet(0)
         }
 
-        if b60s?.count == 0 {
-            updateFromNet(1003)
+        if v200s?.count == 0 {
+            updateFromNet(1004)
         }
 
         for i in 0...3 {
@@ -381,10 +381,6 @@ class DataViewController: UIViewController {
                 }
             }
 
-            if v <= 60 && prevData.v > 60 {
-                self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
-            }
-
             if v >= 100 && prevData.v < 100 && prevData.v >= 40 && !self.wrongScore {
                 self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
                 if self.keyTime["100"] < 2.5 {
@@ -410,31 +406,31 @@ class DataViewController: UIViewController {
                 }
             }
 
-            if v <= 0.1 && a < 0.3 {
-                guard let v60 = self.keyTime["60"] where v60 != 0 && prevData.v > 0.1 else {
-                    self.stopTimer()
-                    return
-                }
-
-                let dt = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 0) - v60
-                if self.latestScores[2] == -1 && !self.wrongScore {
-                    self.latestScores[2] = dt
-                    self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
-                    self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
-                    let data = List<RmScoreData>()
-                    data.appendContentsOf(self.data)
-                    data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 0.0, "a": a, "s": s]))
-                    let score = RmScore()
-                    score.mapType = 1003
-                    score.score = self.latestScores[2]
-                    score.data = data
-                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
-                        RmLog.v("upload \(score)")
-                        }.addDisposableTo(self.disposeBag)
-                    gRealm?.writeOptional {
-                        gRealm?.add(score)
+            if v >= 200 && prevData.v < 200 && !self.wrongScore {
+                self.keyTime["200"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 200)
+                if self.latestScores[2] == -1 {
+                    if let keyTime100 = self.keyTime["100"] where self.keyTime["200"]! - keyTime100 > 0 {
+                        self.latestScores[2] = self.keyTime["200"]! - keyTime100
+                        self.data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 200, "a": a, "s": self.fixS(self.keyTime["200"]!, dataList: self.data, expectV: 200)]))
+                        self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
+                        self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
+                        let data = List<RmScoreData>()
+                        data.appendContentsOf(self.data)
+                        let score = RmScore()
+                        score.mapType = 1004
+                        score.score = self.latestScores[2]
+                        score.data = data
+                        Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                            RmLog.v("upload \(score)")
+                            }.addDisposableTo(self.disposeBag)
+                        gRealm?.writeOptional {
+                            gRealm?.add(score)
+                        }
                     }
                 }
+            }
+
+            if v <= 0.1 && a < 0.3 {
                 self.stopTimer()
             }
 

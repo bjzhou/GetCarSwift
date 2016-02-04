@@ -23,16 +23,23 @@ class FriendTableViewCell: UITableViewCell {
         // Initialization code
 
         _ = followButton.rx_tap.takeUntil(self.rx_deallocated).subscribeNext {
-            if self.followButton.selected {
-                return
-            }
             Toast.makeToastActivity()
-            _ = User.addFriend(self.id).doOn { event in
-                Toast.hideToastActivity()
-                }.subscribeNext { res in
-                    if res.code == 0 {
-                        self.followButton.selected = true
-                    }
+            if self.followButton.selected {
+                _ = User.removeFriend(self.id).doOn() { _ in
+                    Toast.hideToastActivity()
+                    }.subscribeNext { res in
+                        if res.code == 0 {
+                            self.followButton.selected = false
+                        }
+                }
+            } else {
+                _ = User.addFriend(self.id).doOn { _ in
+                    Toast.hideToastActivity()
+                    }.subscribeNext { res in
+                        if res.code == 0 {
+                            self.followButton.selected = true
+                        }
+                }
             }
         }
     }

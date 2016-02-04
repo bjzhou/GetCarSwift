@@ -199,7 +199,7 @@ class AddPlayerTableViewController: UITableViewController {
             if cell == nil {
                 cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "player")
             }
-            cell?.imageView?.updateAvatar(top[indexPath.row].uid, url: top[indexPath.row].headUrl, nickname: top[indexPath.row].nickname, inVC: self)
+            cell?.imageView?.updateAvatar(top[indexPath.row].uid, url: top[indexPath.row].headUrl, inVC: self)
             cell?.textLabel?.text = top[indexPath.row].nickname
             cell?.detailTextLabel?.text = String(format: "%.2f", top[indexPath.row].score)
 

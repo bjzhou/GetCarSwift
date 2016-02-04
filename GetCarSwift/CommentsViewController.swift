@@ -62,7 +62,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
 
         let comment = trackDetailViewModel?.rxComments.value[indexPath.row]
 
-        avatarView?.updateAvatar(comment?.uid ?? "", url: comment?.head ?? "", nickname: comment?.nickname ?? "", inVC: self)
+        avatarView?.updateAvatar(comment?.uid ?? "", url: comment?.head ?? "", inVC: self)
 
         nickname?.text = comment?.nickname
         time?.text = comment?.createTime

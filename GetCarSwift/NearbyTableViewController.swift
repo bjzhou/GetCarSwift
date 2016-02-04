@@ -54,7 +54,7 @@ class NearbyTableViewController: UITableViewController {
         let nearby = nearbys[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.nearby, forIndexPath: indexPath)
         cell?.id = nearby.uid
-        cell?.headerImageView.updateAvatar(nearby.uid, url: nearby.headUrl, nickname: nearby.nickname, inVC: self)
+        cell?.headerImageView.updateAvatar(nearby.uid, url: nearby.headUrl, inVC: self)
         cell?.nicknameLabel.text = nearby.nickname
         cell?.sexImageView.image = nearby.sex == 1 ? R.image.mine_male : R.image.mine_female
         let distance = DeviceDataService.sharedInstance.rxLocation.value?.distanceFromLocation(CLLocation(latitude: nearby.lati, longitude: nearby.longt)) ?? 0

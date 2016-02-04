@@ -87,7 +87,7 @@ extension FriendsTableViewController: UISearchResultsUpdating, UISearchControlle
 
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         if searchController.searchBar.text?.trim() != "" {
-            _ = User.searchNickname(searchController.searchBar.text!).subscribeNext { res in
+            _ = User.searchUser(searchController.searchBar.text!).subscribeNext { res in
                 guard let users = res.dataArray else {
                     return
                 }

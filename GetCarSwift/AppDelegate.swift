@@ -194,7 +194,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
 extension AppDelegate: RCIMUserInfoDataSource {
     func getUserInfoWithUserId(userId: String!, completion: ((RCUserInfo!) -> Void)!) {
-        let userInfo = RCUserInfo(userId: userId, name: "test", portrait: "https://www.sogou.com/images/index/wangan.png")
-        completion(userInfo)
+        _ = User.getUserInfo(userId).subscribeNext { res in
+            guard let user = res.data else {
+                return
+            }
+            let userInfo = RCUserInfo(userId: userId, name: user.nickname, portrait: user.img)
+            completion(userInfo)
+        }
     }
 }

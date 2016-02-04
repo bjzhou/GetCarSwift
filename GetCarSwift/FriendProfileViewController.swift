@@ -20,9 +20,7 @@ class FriendProfileViewController: UIViewController {
     @IBOutlet weak var scoreTableView: UITableView!
 
     var uid = ""
-    var sex = 0
-    var nicknameText = ""
-    var avatarUrl = ""
+    var user: User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,31 +32,46 @@ class FriendProfileViewController: UIViewController {
         scoreTableView.delegate = self
         scoreTableView.dataSource = self
 
-        _ = msgButton.rx_tap.takeUntil(msgButton.rx_deallocated).subscribeNext {
-            let chat = ConversationViewController()
-            chat.conversationType = RCConversationType.ConversationType_PRIVATE
-            chat.targetId = self.uid
-            chat.title = self.nicknameText
-            chat.fromProfile = true
-            self.showViewController(chat)
-        }
-
-        _ = followButton.rx_tap.takeUntil(followButton.rx_deallocated).subscribeNext {
-            if self.followButton.currentTitle == "已关注" {
+        _ = User.getUserInfo(uid).subscribeNext { res in
+            guard let user = res.data else {
                 return
             }
-            _ = User.addFriend(self.uid).subscribeNext { res in
-                if res.code == 0 {
-                    self.followButton.setTitle("已关注", forState: .Normal)
+            self.user = user
+
+            _ = self.msgButton.rx_tap.takeUntil(self.msgButton.rx_deallocated).subscribeNext {
+                let chat = ConversationViewController()
+                chat.conversationType = RCConversationType.ConversationType_PRIVATE
+                chat.targetId = self.uid
+                chat.title = self.user?.nickname
+                chat.fromProfile = true
+                self.showViewController(chat)
+            }
+
+            _ = self.followButton.rx_tap.takeUntil(self.followButton.rx_deallocated).subscribeNext {
+                Toast.makeToastActivity()
+                if self.followButton.currentTitle == "已关注" {
+                    _ = User.removeFriend(self.uid).doOn { _ in
+                        Toast.hideToastActivity()
+                        }.subscribeNext { res in
+                            if res.code == 0 {
+                                self.followButton.setTitle("+关注", forState: .Normal)
+                            }
+                    }
+                } else {
+                    _ = User.addFriend(self.uid).doOn { _ in
+                        Toast.hideToastActivity()
+                        }.subscribeNext { res in
+                            if res.code == 0 {
+                                self.followButton.setTitle("已关注", forState: .Normal)
+                            }
+                    }
                 }
             }
+            self.sexImage.image = self.user?.sex == 1 ? R.image.mine_male : R.image.mine_female
+            self.nickname.text = self.user?.nickname
+            self.myAvatar.kf_setImageWithURL(NSURL(string: self.user?.img ?? "")!, placeholderImage: R.image.avatar)
+            self.scoreTableView.reloadData()
         }
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        sexImage.image = sex == 1 ? R.image.mine_male : R.image.mine_female
-        nickname.text = nicknameText
-        myAvatar.kf_setImageWithURL(NSURL(string: avatarUrl)!, placeholderImage: sex == 1 ? R.image.avatar : R.image.avatar_female)
     }
 
     func dismiss() {

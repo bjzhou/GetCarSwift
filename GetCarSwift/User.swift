@@ -84,8 +84,16 @@ struct User: JSONable {
         return GaikeService.sharedInstance.api("user/add_friend", body: ["id": uid])
     }
 
-    static func searchNickname(nickname: String) -> Observable<GKResult<User>> {
-        return GaikeService.sharedInstance.api("user/search_nickname", body: ["nickname": nickname])
+    static func searchUser(nickname: String) -> Observable<GKResult<User>> {
+        return GaikeService.sharedInstance.api("user/search_user", body: ["nickname": nickname])
+    }
+
+    static func removeFriend(uid: String) -> Observable<GKResult<String>> {
+        return GaikeService.sharedInstance.api("user/remove_friend", body: ["id": uid])
+    }
+
+    static func getUserInfo(uid: String) -> Observable<GKResult<User>> {
+        return GaikeService.sharedInstance.api("user/get_user_info", body: ["id": uid])
     }
 }
 
@@ -184,7 +192,7 @@ struct Mine {
     }
 
     func setAvatarImage(imageView: UIImageView) {
-        imageView.updateAvatar(Mine.sharedInstance.id, url: Mine.sharedInstance.avatarUrl, nickname: Mine.sharedInstance.nickname, sex: Mine.sharedInstance.sex, tappable: false, inVC: nil)
+        imageView.updateAvatar(Mine.sharedInstance.id, url: Mine.sharedInstance.avatarUrl, tappable: false, inVC: nil)
     }
 
     mutating func updateLogin(user: User) {
