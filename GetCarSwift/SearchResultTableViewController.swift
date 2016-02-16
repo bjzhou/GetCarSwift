@@ -31,6 +31,7 @@ class SearchResultTableViewController: UITableViewController {
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
+        cell?.followButton.selected = (user.friendStatus == 1 || user.friendStatus == 2)
         return cell!
     }
 

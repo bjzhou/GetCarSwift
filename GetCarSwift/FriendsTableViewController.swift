@@ -40,7 +40,7 @@ class FriendsTableViewController: UITableViewController {
     }
 
     func getFriend() {
-        _ = User.getFriend(false).subscribeNext { res in
+        _ = User.getFriend().subscribeNext { res in
             guard let users = res.dataArray else {
                 return
             }
@@ -64,6 +64,7 @@ class FriendsTableViewController: UITableViewController {
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
+        cell?.followButton.selected = (user.friendStatus == 1 || user.friendStatus == 2)
 
         return cell!
     }

@@ -19,6 +19,7 @@ struct User: JSONable {
     var sex: Int? = 1
     var img = ""
     var token = ""
+    var friendStatus = 0 // 0: 未关注 1: 好友 2: 已关注 3: 被关注
 
     static var rxMine: Variable<Mine> = Variable(Mine.sharedInstance)
 
@@ -29,6 +30,7 @@ struct User: JSONable {
         nickname = json["nickname"].stringValue
         sex = json["sex"].intValue
         img = json["img"].stringValue
+        friendStatus = json["friend_status"].intValue
 
         token = json["token"].stringValue
 
@@ -75,9 +77,8 @@ struct User: JSONable {
         return GaikeService.sharedInstance.api("user/getIMToken")
     }
 
-    /* follow: false: 我关注的人， true: 关注我的人 */
-    static func getFriend(follow: Bool) -> Observable<GKResult<User>> {
-        return GaikeService.sharedInstance.api("user/get_friend", body: ["get_followed": follow])
+    static func getFriend() -> Observable<GKResult<User>> {
+        return GaikeService.sharedInstance.api("user/get_friend")
     }
 
     static func addFriend(uid: String) -> Observable<GKResult<String>> {
@@ -85,7 +86,7 @@ struct User: JSONable {
     }
 
     static func searchUser(nickname: String) -> Observable<GKResult<User>> {
-        return GaikeService.sharedInstance.api("user/search_user", body: ["nickname": nickname])
+        return GaikeService.sharedInstance.api("user/search_user", body: ["param": nickname])
     }
 
     static func removeFriend(uid: String) -> Observable<GKResult<String>> {
@@ -196,27 +197,27 @@ struct Mine {
     }
 
     mutating func updateLogin(user: User) {
-        if car != "" {
-            self.car = car
+        if user.car != "" {
+            self.car = user.car
         }
-        if phone != "" {
-            self.phone = phone
+        if user.phone != "" {
+            self.phone = user.phone
         }
-        if id != "" {
-            self.id = id
+        if user.id != "" {
+            self.id = user.id
         }
 
-        if token != "" {
-            self.token = token
+        if user.token != "" {
+            self.token = user.token
         }
-        if nickname != "" {
-            self.nickname = nickname
+        if user.nickname != "" {
+            self.nickname = user.nickname
         }
         if let sex = user.sex {
             self.sex = sex
         }
-        if avatarUrl != "" {
-            self.avatarUrl = avatarUrl
+        if user.img != "" {
+            self.avatarUrl = user.img
         }
     }
 
