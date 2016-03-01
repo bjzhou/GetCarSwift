@@ -11,9 +11,14 @@ import Foundation
 class ConversationViewController: RCConversationViewController {
 
     var fromProfile = false
+    var fromSearch = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if fromSearch {
+            self.conversationMessageCollectionView.contentInset.top = 44
+        }
     }
 
     override func didTapCellPortrait(userId: String!) {

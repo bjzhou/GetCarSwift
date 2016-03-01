@@ -19,7 +19,7 @@ struct User: JSONable {
     var sex: Int? = 1
     var img = ""
     var token = ""
-    var friendStatus = 0 // 0: 未关注 1: 好友 2: 已关注 3: 被关注
+    var friendStatus = 0 // 0: 好友 1: 已关注 2: 被关注
 
     static var rxMine: Variable<Mine> = Variable(Mine.sharedInstance)
 
@@ -228,6 +228,12 @@ struct Mine {
         main {
             gRealm?.writeOptional {
                 if let objects = gRealm?.objects(RmScore) {
+                    gRealm?.delete(objects)
+                }
+                if let objects = gRealm?.objects(RmScoreData) {
+                    gRealm?.delete(objects)
+                }
+                if let objects = gRealm?.objects(CarInfo) {
                     gRealm?.delete(objects)
                 }
             }

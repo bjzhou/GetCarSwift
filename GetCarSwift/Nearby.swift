@@ -17,7 +17,7 @@ struct Nearby: JSONable {
     var lati = 0.0
     var longt = 0.0
     var headUrl = ""
-    var friendStatus = 0 // 0: 未关注 1: 好友 2: 已关注 3: 被关注
+    var friendStatus = 0 // 0: 好友 1: 已关注 2: 被关注
     var carHeadBg = 0
     var carHeadId = 0
 

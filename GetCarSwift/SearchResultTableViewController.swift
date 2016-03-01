@@ -31,13 +31,18 @@ class SearchResultTableViewController: UITableViewController {
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
-        cell?.followButton.selected = (user.friendStatus == 1 || user.friendStatus == 2)
+        cell?.followButton.selected = (user.friendStatus == 0 || user.friendStatus == 1)
         return cell!
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user = users[indexPath.row]
-        sender?.showConversationView(user)
+        let chat = ConversationViewController()
+        chat.conversationType = RCConversationType.ConversationType_PRIVATE
+        chat.targetId = user.id
+        chat.title = user.nickname
+        chat.fromSearch = true
+        sender?.showViewController(chat)
     }
 
 }

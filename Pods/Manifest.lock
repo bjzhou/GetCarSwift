@@ -1,22 +1,22 @@
 PODS:
-  - Alamofire (3.1.5)
-  - AMap3DMap (3.3.0)
+  - Alamofire (3.2.1)
+  - AMap3DMap (3.3.1)
   - AMapLocation (1.1.1)
   - AMapSearch (3.2.0)
   - Bugly (1.4.7)
-  - Kingfisher (2.0.0)
-  - Realm (0.97.0):
-    - Realm/Headers (= 0.97.0)
-  - Realm/Headers (0.97.0)
-  - RealmSwift (0.97.0):
-    - Realm (= 0.97.0)
+  - Kingfisher (2.0.4)
+  - Realm (0.98.3):
+    - Realm/Headers (= 0.98.3)
+  - Realm/Headers (0.98.3)
+  - RealmSwift (0.98.3):
+    - Realm (= 0.98.3)
   - Reveal-iOS-SDK (1.6.2)
-  - RongCloudIMKit (2.4.5)
-  - RxBlocking (2.1.0):
-    - RxSwift (~> 2.0)
-  - RxCocoa (2.1.0):
-    - RxSwift (~> 2.0)
-  - RxSwift (2.1.0)
+  - RongCloudIMKit (2.4.8)
+  - RxBlocking (2.2.0):
+    - RxSwift (~> 2.2)
+  - RxCocoa (2.2.0):
+    - RxSwift (~> 2.2)
+  - RxSwift (2.2.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -35,19 +35,19 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
-  AMap3DMap: be6d5c4f239b41b7fa3589871779cc5614f4eb27
+  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
+  AMap3DMap: 3962358ac36d17b3aaf03975ab534690f8af066f
   AMapLocation: fc0245146ef90811f9590d428e9035a2a64f4526
   AMapSearch: a885f0702578a441a22cb66fa74f8918c6d19e6f
   Bugly: 363ada47fabfc670a30e4d2a3c147ea2d20bba0e
-  Kingfisher: 67d280b39e878afbd467c80953924a61950c45e4
-  Realm: b498a6fb9d288b171ff98d0e2d4384c295be8990
-  RealmSwift: d014810dec75c9a3f1a33926d2dabfed855c582c
+  Kingfisher: 8f1ec2c067ade2c549a1a594379b69c4b1ff81ab
+  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
+  RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
-  RongCloudIMKit: 2f877b6826c0f98c91a217b4df5f3c0d46987394
-  RxBlocking: fa297def258d85c5beae9ed507f94645260b3747
-  RxCocoa: 79b5feb8378545336e756a0a33fcf5e95050b71c
-  RxSwift: 110fb07f81c17c2c3b3254d168363057b1880d18
+  RongCloudIMKit: 43f367cba48b58238f1ab3b268842e6951231a54
+  RxBlocking: 5bbc826774c4290effa8fe070841e9d45e864639
+  RxCocoa: 42efb7a7145a8d1d5878e94ce48a580d29e0c796
+  RxSwift: b8a749f2204c6c7a5c29b306a9c3bc11d5b87c5b
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

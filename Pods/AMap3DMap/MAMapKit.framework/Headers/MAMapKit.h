@@ -36,6 +36,7 @@
 #import "MATouchPoi.h"
 #import "MAGeodesicPolyline.h"
 #import "MAHeatMapTileOverlay.h"
+#import "MAIndoorBuilding.h"
 
 #import "MAMapURLSearch.h"
 

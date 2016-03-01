@@ -1,1 +1,1 @@
-../../../../RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_5_stable/RongIMLib.framework/Headers/RCSuspendMessage.h
+../../../../RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_4_8_stable/RongIMLib.framework/Headers/RCSuspendMessage.h

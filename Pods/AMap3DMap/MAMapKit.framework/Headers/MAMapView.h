@@ -104,6 +104,7 @@ typedef NS_ENUM(NSInteger, MAUserTrackingMode)
 @class MAUserLocation;
 @class MATouchPoi;
 @class MACircle;
+@class MAIndoorBuilding;
 
 @protocol MAMapViewDelegate;
 
@@ -250,7 +251,7 @@ typedef NS_ENUM(NSInteger, MAUserTrackingMode)
 @property (nonatomic, getter = isShowsIndoorMap) BOOL showsIndoorMap;
 
 /**
- *  标识当前地图中心位置是否在中国范围内。此属性不是精确判断，不能用于边界区域。
+ *  标识当前地图中心位置是否在中国范围外。此属性不是精确判断，不能用于边界区域。
  */
 @property (nonatomic, readonly) BOOL isAbroad;
 
@@ -660,6 +661,13 @@ typedef NS_ENUM(NSInteger, MAOverlayLevel) {
  */
 - (UIImage *)takeSnapshotInRect:(CGRect)rect;
 
+/*!
+ @brief 在指定区域内截图(默认会包含该区域内的annotationView),并且返回截屏是否完整
+ @param rect 指定的区域
+ @param block 回调block(resultImage 是返回的图片,state是返回的状态：0代表截图时地图载入不完整，1代表地图载入完整）
+ */
+- (void)takeSnapshotInRect:(CGRect)rect withCompletionBlock:(void (^)(UIImage *resultImage, NSInteger state))block;
+
 @end
 
 /*!
@@ -953,6 +961,14 @@ fromOldState:(MAAnnotationViewDragState)oldState;
  @param mapView 地图View
  */
 - (void)mapInitComplete:(MAMapView *)mapView;
+
+/**
+ *  室内地图信息发生变化的回调
+ *
+ *  @param mapView        地图View
+ *  @param indoorBuilding 室内地图信息
+ */
+- (void)mapview:(MAMapView *)mapView didIndoorBuildingValueChanged:(MAIndoorBuilding *)indoorBuilding;
 
 #pragma mark - deprecated
 

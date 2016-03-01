@@ -63,7 +63,7 @@ class NearbyTableViewController: UITableViewController {
         } else {
             cell?.descLabel.text = String(format: "%.0fm", distance)
         }
-        cell?.followButton.selected = (nearby.friendStatus == 1 || nearby.friendStatus == 2)
+        cell?.followButton.selected = (nearby.friendStatus == 0 || nearby.friendStatus == 1)
         return cell!
     }
 

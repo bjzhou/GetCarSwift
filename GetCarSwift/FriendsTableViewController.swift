@@ -26,8 +26,6 @@ class FriendsTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController.searchBar
 
         searchController.delegate = self
-        searchController.dimsBackgroundDuringPresentation = false // default is YES
-        searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.delegate = self    // so we can monitor text changes + others
 
         definesPresentationContext = true
@@ -64,7 +62,7 @@ class FriendsTableViewController: UITableViewController {
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
-        cell?.followButton.selected = (user.friendStatus == 1 || user.friendStatus == 2)
+        cell?.followButton.selected = (user.friendStatus == 0 || user.friendStatus == 1)
 
         return cell!
     }

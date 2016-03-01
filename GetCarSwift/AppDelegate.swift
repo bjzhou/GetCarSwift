@@ -68,6 +68,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             print(pushServiceData)
         }
 
+        if let remoteNotificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey], rc = remoteNotificationUserInfo["rc"], targetId = rc?["fId"] as? String {
+            main {
+                if let mainVc = self.window?.rootViewController as? MainViewController, navVc = mainVc.selectedViewController as? UINavigationController, vc = navVc.visibleViewController {
+//                    if UIApplication.sharedApplication().applicationState == .Active {
+//                        if let conversationVc = vc as? ConversationViewController where targetId == conversationVc.targetId {
+//                            // in chatting, do nothing
+//                        } else {
+//                            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+//                        }
+//                    }
+                    let chat = ConversationViewController()
+                    chat.hidesBottomBarWhenPushed = true
+                    chat.conversationType = .ConversationType_PRIVATE
+                    chat.targetId = targetId
+                    vc.showViewController(chat)
+                }
+            }
+        }
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
 
         RCIM.sharedRCIM().userInfoDataSource = self
@@ -141,34 +160,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             print("received remote notification")
             print(pushServiceData)
         }
-        print("didReceiveRemoteNotification")
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         RCIMClient.sharedRCIMClient().recordLocalNotificationEvent(notification)
-        print("didReceiveLocalNotification")
     }
 
     func didReceiveMessageNotification(notification: NSNotification) {
-        if let msg = notification.object as? RCMessage {
-            main {
-                if let mainVc = self.window?.rootViewController as? MainViewController, navVc = mainVc.selectedViewController as? UINavigationController, vc = navVc.visibleViewController {
-                    if UIApplication.sharedApplication().applicationState == .Active {
-                        if let conversationVc = vc as? ConversationViewController where msg.targetId == conversationVc.targetId {
-                            // in chatting, do nothing
-                        } else {
-                            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                        }
-                    } else {
-                        let chat = ConversationViewController()
-                        chat.hidesBottomBarWhenPushed = true
-                        chat.conversationType = msg.conversationType
-                        chat.targetId = msg.targetId
-                        vc.showViewController(chat)
-                    }
-                }
-            }
-        }
+//        if let msg = notification.object as? RCMessage {
+//        }
     }
 
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
