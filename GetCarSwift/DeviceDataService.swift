@@ -15,7 +15,7 @@ struct GKAcceleration {
 
     var last = CMAcceleration()
 
-    mutating func append(value: CMAcceleration) {
+    mutating func append(_ value: CMAcceleration) {
         if latest10.count >= 10 {
             latest10.removeFirst()
         }
@@ -50,14 +50,14 @@ class DeviceDataService: NSObject {
     override init() {
         super.init()
 
-        searchApi.delegate = self
+        searchApi?.delegate = self
 
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
 
-        if motionManager.deviceMotionAvailable {
+        if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 0.01
-            motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: { (data, error) in
+            motionManager.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: { (data, error) in
                 if let validData = data {
                     self.rxAcceleration.value.append(validData.userAcceleration)
                 }
@@ -65,7 +65,7 @@ class DeviceDataService: NSObject {
         }
 
         if CMAltimeter.isRelativeAltitudeAvailable() {
-            altitudeManager.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: { (data, error) in
+            altitudeManager.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler: { (data, error) in
                 if let validData = data {
                     self.rxAltitude.value = validData
                 }
@@ -78,17 +78,17 @@ class DeviceDataService: NSObject {
                     return
                 }
                 let regeoRequest = AMapReGeocodeSearchRequest()
-                regeoRequest.location = AMapGeoPoint.locationWithLatitude(CGFloat(location.coordinate.latitude), longitude: CGFloat(location.coordinate.longitude))
+                regeoRequest.location = AMapGeoPoint.location(withLatitude: CGFloat(location.coordinate.latitude), longitude: CGFloat(location.coordinate.longitude))
                 regeoRequest.requireExtension = true
 
-                self.searchApi.AMapReGoecodeSearch(regeoRequest)
+                self.searchApi?.aMapReGoecodeSearch(regeoRequest)
             }
             }.addDisposableTo(disposeBag)
     }
 }
 
 extension DeviceDataService: AMapSearchDelegate {
-    func onReGeocodeSearchDone(request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
+    func onReGeocodeSearchDone(_ request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
         let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
         self.rxDistrict.value = "\(response.regeocode.addressComponent.province)\(city)"
         districtService?.dispose()
@@ -96,7 +96,7 @@ extension DeviceDataService: AMapSearchDelegate {
 }
 
 extension DeviceDataService: AMapLocationManagerDelegate {
-    func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!) {
         self.rxLocation.value = location
     }
 }

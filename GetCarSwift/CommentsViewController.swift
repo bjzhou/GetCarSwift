@@ -34,27 +34,27 @@ class CommentsViewController: UIViewController {
         trackDetailViewModel?.rxComments.asObservable().subscribeNext { comments in
             self.commentTableView.reloadData()
             if comments.count == 0 {
-                self.commentTableView.hidden = true
-                self.emptyView.hidden = false
-            } else if self.commentTableView.hidden {
-                self.commentTableView.hidden = false
-                self.emptyView.hidden = true
+                self.commentTableView.isHidden = true
+                self.emptyView.isHidden = false
+            } else if self.commentTableView.isHidden {
+                self.commentTableView.isHidden = false
+                self.emptyView.isHidden = true
             }
             }.addDisposableTo(disposeBag)
     }
 }
 
 extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return trackDetailViewModel?.rxComments.value.count ?? 0
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "comment", for: indexPath)
         let avatarView = cell.viewWithTag(310) as? UIImageView
         let nickname = cell.viewWithTag(311) as? UILabel
         let time = cell.viewWithTag(312) as? UILabel
@@ -70,7 +70,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

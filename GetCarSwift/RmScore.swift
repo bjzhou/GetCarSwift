@@ -12,13 +12,13 @@ import SwiftyJSON
 import RxSwift
 
 class RmScore: Object, JSONable {
-    dynamic var id = NSUUID().UUIDString
+    dynamic var id = UUID().uuidString
     dynamic var url = ""
     dynamic var uid = ""
     dynamic var nickname = ""
     dynamic var mapType = 0
     dynamic var headUrl = ""
-    dynamic var createdAt = NSDate().timeIntervalSince1970
+    dynamic var createdAt = Date().timeIntervalSince1970
     dynamic var score = 0.0
     var data = List<RmScoreData>()
 
@@ -36,20 +36,20 @@ class RmScore: Object, JSONable {
 
     override class func primaryKey() -> String? { return "id" }
 
-    func archive() -> NSData {
+    func archive() -> Data {
         let dic = data.map { el in
             return ["t": el.t, "v": el.v, "a": el.a, "s": el.s, "lat": el.lat, "long": el.long, "alt": el.alt]
         }
-        return NSKeyedArchiver.archivedDataWithRootObject(dic)
+        return NSKeyedArchiver.archivedData(withRootObject: dic)
     }
 
-    func unarchive(succeed: RmScore -> ()) {
+    func unarchive(_ succeed: (RmScore) -> ()) {
         if self.data.count != 0 {
             succeed(self)
             return
         }
         _ = GaikeService.sharedInstance.request(url).subscribeNext { data in
-            guard let recordArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [[String: Double]] else {
+            guard let recordArray = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [[String: Double]] else {
                 return
             }
 
@@ -66,10 +66,10 @@ class RmScore: Object, JSONable {
             }
             if let realm = self.realm {
                 realm.writeOptional {
-                    self.data.appendContentsOf(scoreDataArray)
+                    self.data.append(objectsIn: scoreDataArray)
                 }
             } else {
-                self.data.appendContentsOf(scoreDataArray)
+                self.data.append(objectsIn: scoreDataArray)
             }
             succeed(self)
         }
@@ -97,19 +97,19 @@ struct Records: JSONable {
         top = json["top"].arrayValue.map { RmScore(json: $0) }
     }
 
-    static func getRecord(mapType: Int, count: Int) -> Observable<GKResult<Records>> {
+    static func getRecord(_ mapType: Int, count: Int) -> Observable<GKResult<Records>> {
         return GaikeService.sharedInstance.api("user/getRecord", body: ["map_type": mapType, "count": count])
     }
 
-    static func getTimeRecord(mapType: Int, time: String, count: Int) -> Observable<GKResult<Records>> {
+    static func getTimeRecord(_ mapType: Int, time: String, count: Int) -> Observable<GKResult<Records>> {
         return GaikeService.sharedInstance.api("user/getTimeRecord", body: ["map_type": mapType, "time": time, "count": count])
     }
 
-    static func getFollowRecord(mapType: Int, count: Int) -> Observable<GKResult<Records>> {
+    static func getFollowRecord(_ mapType: Int, count: Int) -> Observable<GKResult<Records>> {
         return GaikeService.sharedInstance.api("user/getFollowRecord", body: ["map_type": mapType, "count": count])
     }
 
-    static func uploadRecord(mapType: Int, duration: Double, recordData: NSData) -> Observable<GKResult<RmScore>> {
-        return GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": duration, "map_type": mapType], datas: ["record": recordData])
+    static func uploadRecord(_ mapType: Int, duration: Double, recordData: NSData) -> Observable<GKResult<RmScore>> {
+        return GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": duration, "map_type": mapType], datas: ["record": recordData as Data])
     }
 }

@@ -1,53 +1,96 @@
 PODS:
-  - Alamofire (3.2.1)
-  - AMap3DMap (3.3.1)
-  - AMapLocation (1.1.1)
-  - AMapSearch (3.2.0)
-  - Bugly (1.4.7)
-  - Kingfisher (2.0.4)
-  - Realm (0.98.3):
-    - Realm/Headers (= 0.98.3)
-  - Realm/Headers (0.98.3)
-  - RealmSwift (0.98.3):
-    - Realm (= 0.98.3)
+  - Alamofire (3.4.1)
+  - AMap3DMap (4.0.3):
+    - AMapFoundation (~> 1.0)
+  - AMapFoundation (1.1.0)
+  - AMapLocation (2.1.0):
+    - AMapFoundation (~> 1.1)
+  - AMapSearch (4.1.0):
+    - AMapFoundation (~> 1.0)
+  - Bugly (2.3.1)
+  - Kingfisher (2.4.2)
+  - Realm (1.0.2):
+    - Realm/Headers (= 1.0.2)
+  - Realm/Headers (1.0.2)
+  - RealmSwift (1.0.2):
+    - Realm (= 1.0.2)
   - Reveal-iOS-SDK (1.6.2)
-  - RongCloudIMKit (2.4.8)
-  - RxBlocking (2.2.0):
-    - RxSwift (~> 2.2)
-  - RxCocoa (2.2.0):
-    - RxSwift (~> 2.2)
-  - RxSwift (2.2.0)
+  - RongCloudIMKit (2.6.7)
+  - RxCocoa (2.6.0):
+    - RxSwift (~> 2.5)
+  - RxSwift (2.6.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift3`)
   - AMap3DMap
   - AMapLocation
   - AMapSearch
   - Bugly
-  - Kingfisher
-  - RealmSwift
+  - Kingfisher (from `https://github.com/onevcat/Kingfisher.git`, branch `swift3`)
+  - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
   - Reveal-iOS-SDK
   - RongCloudIMKit
-  - RxBlocking
-  - RxCocoa
-  - RxSwift
-  - SwiftyJSON
+  - RxCocoa (from `https://github.com/ReactiveX/RxSwift.git`, branch `swift-3.0`)
+  - RxSwift (from `https://github.com/ReactiveX/RxSwift.git`, branch `swift-3.0`)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `swift3`)
+
+EXTERNAL SOURCES:
+  Alamofire:
+    :branch: swift3
+    :git: https://github.com/Alamofire/Alamofire.git
+  Kingfisher:
+    :branch: swift3
+    :git: https://github.com/onevcat/Kingfisher.git
+  RealmSwift:
+    :branch: master
+    :git: https://github.com/realm/realm-cocoa.git
+  RxCocoa:
+    :branch: swift-3.0
+    :git: https://github.com/ReactiveX/RxSwift.git
+  RxSwift:
+    :branch: swift-3.0
+    :git: https://github.com/ReactiveX/RxSwift.git
+  SwiftyJSON:
+    :branch: swift3
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: f55bdf7a96fe9a3f30550d79ec972d75f4aa0043
+    :git: https://github.com/Alamofire/Alamofire.git
+  Kingfisher:
+    :commit: aacbf04d29e36ff3bd142dce09a19e74068086b9
+    :git: https://github.com/onevcat/Kingfisher.git
+  RealmSwift:
+    :commit: 9082677e70086460f28310cd93b408a1f39b05bc
+    :git: https://github.com/realm/realm-cocoa.git
+  RxCocoa:
+    :commit: 824f23c94e34577d2259c40a5575f509e24e50cb
+    :git: https://github.com/ReactiveX/RxSwift.git
+  RxSwift:
+    :commit: 824f23c94e34577d2259c40a5575f509e24e50cb
+    :git: https://github.com/ReactiveX/RxSwift.git
+  SwiftyJSON:
+    :commit: 1a9755949a652967dc2986cd7f4653496e556715
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
-  AMap3DMap: 3962358ac36d17b3aaf03975ab534690f8af066f
-  AMapLocation: fc0245146ef90811f9590d428e9035a2a64f4526
-  AMapSearch: a885f0702578a441a22cb66fa74f8918c6d19e6f
-  Bugly: 363ada47fabfc670a30e4d2a3c147ea2d20bba0e
-  Kingfisher: 8f1ec2c067ade2c549a1a594379b69c4b1ff81ab
-  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
-  RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  AMap3DMap: 8619d67fe7b3bbe45abf74b3434eb9ab20220507
+  AMapFoundation: 15db20567e6512422a086a01b42a88b145bc2500
+  AMapLocation: 343abc9ccd971ad27e459f38b5b082eabebf8792
+  AMapSearch: cb4722480d2d4331a032d43bd1070ed0fa55dac9
+  Bugly: c8ece2fa5bdcb404abdd0e07131e8129f580d893
+  Kingfisher: 05bf8d04408aaa70fcd2c8c81b9f1d0f1ad313dd
+  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
+  RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
-  RongCloudIMKit: 43f367cba48b58238f1ab3b268842e6951231a54
-  RxBlocking: 5bbc826774c4290effa8fe070841e9d45e864639
-  RxCocoa: 42efb7a7145a8d1d5878e94ce48a580d29e0c796
-  RxSwift: b8a749f2204c6c7a5c29b306a9c3bc11d5b87c5b
+  RongCloudIMKit: bf5e835bd9a2ecd7c12a64919a0dbf0bb4038755
+  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
+  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 7c1d2b83707665262f709a3aa8ac72a0fcfc392f
+
+COCOAPODS: 1.0.1

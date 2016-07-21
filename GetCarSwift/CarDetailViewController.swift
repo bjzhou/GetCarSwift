@@ -23,10 +23,10 @@ class CarDetailViewController: UITableViewController {
         tableView.estimatedRowHeight = 120
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first
+        carInfo = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = \(id)").first
         if let carInfo = carInfo {
             tableView.reloadData()
             carInfo.fetchParts {
@@ -36,20 +36,20 @@ class CarDetailViewController: UITableViewController {
 
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2 + (carInfo?.parts.count ?? 0)
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_detail_model, forIndexPath: indexPath)
-            cell?.logoView.kf_setImageWithURL(NSURL(string: carInfo?.imageUrl ?? "")!, placeholderImage: defaultImage)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).row == 0 {
+            let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_detail_model, for: indexPath)
+            cell?.logoView.kf_setImageWithURL(URL(string: carInfo?.imageUrl ?? "")!, placeholderImage: defaultImage)
             cell?.titleLabel.text = carInfo?.model ?? "填写车辆信息"
             return cell!
         }
 
-        if indexPath.row == tableView.numberOfRowsInSection(0) - 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_detail_add, forIndexPath: indexPath)
+        if (indexPath as NSIndexPath).row == tableView.numberOfRows(inSection: 0) - 1 {
+            let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_detail_add, for: indexPath)
             cell?.addDisposable?.dispose()
             cell?.addDisposable = cell?.button.rx_tap.subscribeNext {
                 let vc = R.storyboard.mine.add_part
@@ -59,46 +59,46 @@ class CarDetailViewController: UITableViewController {
             return cell!
         }
 
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_detail_part, forIndexPath: indexPath)
-        let part = carInfo?.parts[indexPath.row-1]
-        cell?.partImageView.kf_setImageWithURL(NSURL(string: part?.imageUrl ?? "")!)
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_detail_part, for: indexPath)
+        let part = carInfo?.parts[(indexPath as NSIndexPath).row-1]
+        cell?.partImageView.kf_setImageWithURL(URL(string: part?.imageUrl ?? "")!)
         cell?.titleLabel.text = part?.title ?? ""
         cell?.detailLabel.text = part?.detail ?? ""
         cell?.delDisposable?.dispose()
         cell?.delDisposable = cell?.delButton.rx_tap.subscribeNext {
-            let alertVC = UIAlertController(title: "确定要删除该配件吗", message: nil, preferredStyle: .Alert)
-            alertVC.addAction(UIAlertAction(title: "否", style: .Cancel, handler: nil))
-            alertVC.addAction(UIAlertAction(title: "是", style: .Default, handler: { _ in
+            let alertVC = UIAlertController(title: "确定要删除该配件吗", message: nil, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "否", style: .cancel, handler: nil))
+            alertVC.addAction(UIAlertAction(title: "是", style: .default, handler: { _ in
                 if let id = part?.id {
                     _ = CarInfo.deleteUserCarPart(id).subscribe()
                 }
-                self.carInfo?.parts.removeAtIndex(indexPath.row-1)
+                self.carInfo?.parts.remove(at: indexPath.row-1)
                 tableView.reloadData()
             }))
-            self.presentViewController(alertVC, animated: true, completion: nil)
+            self.present(alertVC, animated: true, completion: nil)
         }
         return cell!
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).row == 0 {
             return 61
         }
 
-        if indexPath.row == tableView.numberOfRowsInSection(0) - 1 {
+        if (indexPath as NSIndexPath).row == tableView.numberOfRows(inSection: 0) - 1 {
             return 52
         }
 
         return UITableViewAutomaticDimension
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row == 0 {
             let vc = R.storyboard.mine.add_car
             vc?.id = id
             showViewController(vc!)
-        } else if indexPath.row != tableView.numberOfRowsInSection(0) - 1 {
-            if let part = carInfo?.parts[indexPath.row-1] {
+        } else if (indexPath as NSIndexPath).row != tableView.numberOfRows(inSection: 0) - 1 {
+            if let part = carInfo?.parts[(indexPath as NSIndexPath).row-1] {
                 let vc = R.storyboard.mine.add_part
                 vc?.carPart = part
                 vc?.isNewPart = false

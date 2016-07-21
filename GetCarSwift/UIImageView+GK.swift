@@ -9,10 +9,10 @@
 import Foundation
 
 extension UIImageView {
-    func updateAvatar(uid: String, url: String, tappable: Bool = true, inVC: UIViewController?) {
+    func updateAvatar(_ uid: String, url: String, tappable: Bool = true, inVC: UIViewController?) {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.frame.width * 0.2
-        self.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: R.image.avatar)
+        self.kf_setImageWithURL(NSURL(string: url)! as URL, placeholderImage: R.image.avatar)
         if tappable {
             let tapRecgnizer = UITapGestureRecognizer()
             tapRecgnizer.numberOfTapsRequired = 1
@@ -28,7 +28,7 @@ extension UIImageView {
                 }
             }
             self.addGestureRecognizer(tapRecgnizer)
-            self.userInteractionEnabled = true
+            self.isUserInteractionEnabled = true
         }
     }
 }

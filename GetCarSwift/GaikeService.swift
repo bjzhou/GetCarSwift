@@ -12,7 +12,7 @@ import RxSwift
 import SwiftyJSON
 
 let apiManager = Manager.sharedInstance
-let operationQueue = NSOperationQueue()
+let operationQueue = OperationQueue()
 let operationScheduler = OperationQueueScheduler(operationQueue: operationQueue)
 
 class GaikeService {
@@ -24,7 +24,7 @@ class GaikeService {
     static let domain = "http://api.gaikit.com/"
 #endif
 
-    func getHeader(upload: Bool = false) -> [String:String] {
+    func getHeader(_ upload: Bool = false) -> [String:String] {
         var headers: [String:String] = [:]
 
 //        headers["Ass-apiver"] = "1.0"
@@ -43,20 +43,20 @@ class GaikeService {
         return headers
     }
 
-    func request(urlString: URLStringConvertible) -> Observable<NSData> {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    func request(_ urlString: URLStringConvertible) -> Observable<NSData> {
+        UIApplication.shared().isNetworkActivityIndicatorVisible = true
         return Observable.create { observer in
             RmLog.i("http request data: \(urlString)")
             let request = apiManager.request(.GET, urlString).responseData { res in
-                let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                let responseString = String(data: res.data!, encoding: String.Encoding.utf8) ?? ""
                 RmLog.i("http response data: \(responseString), error: \(res.result.error)")
                 if let err = res.result.error {
-                    observer.on(.Error(err))
+                    observer.on(.error(err))
                 } else {
                     if let data = res.result.value {
-                        observer.on(.Next(data))
+                        observer.on(.next(data))
                     }
-                    observer.on(.Completed)
+                    observer.on(.completed)
                 }
 
             }
@@ -64,42 +64,42 @@ class GaikeService {
                 request.cancel()
             }
             }.observeOn(MainScheduler.instance).doOn { _ in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                UIApplication.shared().isNetworkActivityIndicatorVisible = false
         }
     }
 
-    func api<T>(urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    func api<T>(_ urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
+        UIApplication.shared().isNetworkActivityIndicatorVisible = true
         return Observable.create { observer in
-            let request = apiManager.request(.POST, GaikeService.domain + urlString, parameters: body, encoding: .JSON, headers: self.getHeader()).responseData { res in
-                let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+            let request = apiManager.request(.POST, GaikeService.domain + urlString, parameters: body, encoding: .json, headers: self.getHeader()).responseData { res in
+                let responseString = String(data: res.data!, encoding: String.Encoding.utf8) ?? ""
                 RmLog.i("http response: \(responseString)")
                 if let err = res.result.error {
-                    observer.on(.Error(err))
+                    observer.on(.error(err))
                 } else {
                     if let data = res.result.value {
-                        observer.on(.Next(data))
+                        observer.on(.next(data))
                     }
-                    observer.on(.Completed)
+                    observer.on(.completed)
                 }
             }
-            RmLog.i("http request: \(request.request?.URLString) \(body)")
+            RmLog.i("http request: \(request.request?.urlString) \(body)")
             return AnonymousDisposable {
                 request.cancel()
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
-                return self.parseJSON(data)
+                return self.parseJSON(data as Data)
             }.observeOn(MainScheduler.instance).doOn { _ in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                UIApplication.shared().isNetworkActivityIndicatorVisible = false
         }
     }
 
-    func upload<T>(urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: NSData], mimeType: String = "image/png") -> Observable<GKResult<T>> {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    func upload<T>(_ urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: Data], mimeType: String = "image/png") -> Observable<GKResult<T>> {
+        UIApplication.shared().isNetworkActivityIndicatorVisible = true
         return Observable.create { observer in
             var upload: Request?
             Alamofire.upload(.POST, GaikeService.domain + urlString, headers: self.getHeader(), multipartFormData: { data in
-                if let parameters = parameters, jsonParams = try? NSJSONSerialization.dataWithJSONObject(parameters, options: []) {
+                if let parameters = parameters, let jsonParams = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
                     data.appendBodyPart(data: jsonParams, name: "content")
                 }
                 for (key, value) in datas {
@@ -107,22 +107,22 @@ class GaikeService {
                 }
                 }) { res in
                     switch res {
-                    case .Success(request: let req, streamingFromDisk: _, streamFileURL: _):
-                        RmLog.i("http request upload: \(req.request?.URLString), \(parameters), data keys: \(datas.keys.joinWithSeparator(","))")
+                    case .success(request: let req, streamingFromDisk: _, streamFileURL: _):
+                        RmLog.i("http request upload: \(req.request?.urlString), \(parameters), data keys: \(datas.keys.joined(separator: ","))")
                         upload = req.responseData { res in
-                            let responseString = String(data: res.data!, encoding: NSUTF8StringEncoding) ?? ""
+                            let responseString = String(data: res.data!, encoding: String.Encoding.utf8) ?? ""
                             RmLog.i("http response upload: \(responseString)")
                             if let err = res.result.error {
-                                observer.on(.Error(err))
+                                observer.on(.error(err))
                             } else {
                                 if let data = res.result.value {
-                                    observer.on(.Next(data))
+                                    observer.on(.next(data))
                                 }
-                                observer.on(.Completed)
+                                observer.on(.completed)
                             }
                         }
-                    case .Failure(let err):
-                        observer.on(.Error(err))
+                    case .failure(let err):
+                        observer.on(.error(err))
                     }
 
             }
@@ -130,13 +130,13 @@ class GaikeService {
                 upload?.cancel()
             }
             }.observeOn(operationScheduler).map { (data: NSData) in
-                return self.parseJSON(data)
+                return self.parseJSON(data as Data)
             }.observeOn(MainScheduler.instance).doOn { _ in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                UIApplication.shared().isNetworkActivityIndicatorVisible = false
         }
     }
 
-    private func parseJSON<T>(data: NSData) -> GKResult<T> {
+    private func parseJSON<T>(_ data: Data) -> GKResult<T> {
         let gkResult = GKResult<T>(json: JSON(data: data))
         if gkResult.msg == "user need login" || gkResult.msg == "token empty" {
             Mine.sharedInstance.logout()
@@ -154,8 +154,8 @@ struct GKResult<U: JSONable> {
     init(json: JSON) {
         code =? json["code"].int
         msg =? json["msg"].string
-        if let raw = json["data"].rawString() where raw != "null" {
-            if json["data"].type == SwiftyJSON.Type.Array {
+        if let raw = json["data"].rawString(), raw != "null" {
+            if json["data"].type == SwiftyJSON.Type.array {
                 dataArray = []
                 for (_, subJson) in json["data"] {
                     dataArray?.append(U(json: subJson))

@@ -9,35 +9,35 @@
 import Foundation
 
 extension UIImage {
-    func scaleImage(scale scale: CGFloat) -> UIImage {
+    func scaleImage(scale: CGFloat) -> UIImage {
         UIGraphicsBeginImageContext(CGSize(width: self.size.width * scale, height: self.size.height * scale))
-        self.drawInRect(CGRect(x: 0, y: 0, width: self.size.width * scale, height: self.size.height * scale))
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width * scale, height: self.size.height * scale))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return newImage
+        return newImage!
     }
 
-    func scaleImage(size size: CGSize) -> UIImage {
+    func scaleImage(size: CGSize) -> UIImage {
         UIGraphicsBeginImageContext(size)
-        self.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return newImage
+        return newImage!
     }
 
-    class func WithColor(color: UIColor) -> UIImage {
+    class func WithColor(_ color: UIColor) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
 
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 
-    class func asyncInit(name: String, closure: UIImage? -> ()) {
+    class func asyncInit(_ name: String, closure: (UIImage?) -> ()) {
         async(serial: true) {
             let img = UIImage(named: name)
             main {

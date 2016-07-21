@@ -31,7 +31,7 @@ class FriendsTableViewController: UITableViewController {
         definesPresentationContext = true
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         getFriend()
@@ -49,30 +49,30 @@ class FriendsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.friend, forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.friend, for: indexPath)
 
-        let user = users[indexPath.row]
-        cell?.headerImageView.kf_setImageWithURL(NSURL(string: user.img)!, placeholderImage: R.image.avatar)
+        let user = users[(indexPath as NSIndexPath).row]
+        cell?.headerImageView.kf_setImageWithURL(URL(string: user.img)!, placeholderImage: R.image.avatar)
         cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male : R.image.mine_female
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
-        cell?.followButton.selected = (user.friendStatus == 0 || user.friendStatus == 1)
+        cell?.followButton.isSelected = (user.friendStatus == 0 || user.friendStatus == 1)
 
         return cell!
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user = users[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[(indexPath as NSIndexPath).row]
         showConversationView(user)
     }
 
-    func showConversationView(user: User) {
+    func showConversationView(_ user: User) {
         let chat = ConversationViewController()
         chat.conversationType = RCConversationType.ConversationType_PRIVATE
         chat.targetId = user.id
@@ -84,7 +84,7 @@ class FriendsTableViewController: UITableViewController {
 
 extension FriendsTableViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
 
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text?.trim() != "" {
             _ = User.searchUser(searchController.searchBar.text!).subscribeNext { res in
                 guard let users = res.dataArray else {
@@ -99,12 +99,12 @@ extension FriendsTableViewController: UISearchResultsUpdating, UISearchControlle
         }
     }
 
-    func willPresentSearchController(searchController: UISearchController) {
-        self.navigationController?.navigationBar.translucent = true
+    func willPresentSearchController(_ searchController: UISearchController) {
+        self.navigationController?.navigationBar.isTranslucent = true
     }
 
-    func willDismissSearchController(searchController: UISearchController) {
-        self.navigationController?.navigationBar.translucent = false
+    func willDismissSearchController(_ searchController: UISearchController) {
+        self.navigationController?.navigationBar.isTranslucent = false
         getFriend()
     }
 }

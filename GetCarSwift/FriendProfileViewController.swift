@@ -26,7 +26,7 @@ class FriendProfileViewController: UIViewController {
         super.viewDidLoad()
 
         if let _ = self.presentingViewController {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: "dismiss")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(FriendProfileViewController.dismiss as (FriendProfileViewController) -> () -> ()))
         }
 
         scoreTableView.delegate = self
@@ -54,7 +54,7 @@ class FriendProfileViewController: UIViewController {
                         Toast.hideToastActivity()
                         }.subscribeNext { res in
                             if res.code == 0 {
-                                self.followButton.setTitle("+关注", forState: .Normal)
+                                self.followButton.setTitle("+关注", for: .normal)
                             }
                     }
                 } else {
@@ -62,31 +62,31 @@ class FriendProfileViewController: UIViewController {
                         Toast.hideToastActivity()
                         }.subscribeNext { res in
                             if res.code == 0 {
-                                self.followButton.setTitle("已关注", forState: .Normal)
+                                self.followButton.setTitle("已关注", for: .normal)
                             }
                     }
                 }
             }
             self.sexImage.image = self.user?.sex == 1 ? R.image.mine_male : R.image.mine_female
             self.nickname.text = self.user?.nickname
-            self.myAvatar.kf_setImageWithURL(NSURL(string: self.user?.img ?? "")!, placeholderImage: R.image.avatar)
+            self.myAvatar.kf_setImageWithURL(NSURL(string: self.user?.img ?? "")! as URL, placeholderImage: R.image.avatar)
             self.scoreTableView.reloadData()
         }
     }
 
     func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }
 
 extension FriendProfileViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.profile_score, forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.profile_score, for: indexPath)
         cell?.textLabel?.text = "直线赛道"
         cell?.detailTextLabel?.text = "00:00.00"
         return cell!

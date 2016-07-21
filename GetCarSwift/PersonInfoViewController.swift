@@ -20,7 +20,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         let colorTag = Mine.sharedInstance.carHeadBg
@@ -34,11 +34,11 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 3
@@ -49,29 +49,29 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: PersonInfoCell?
-        if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1 /*|| indexPath.row == 3*/) {
-            cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.info_icon, forIndexPath:indexPath)
-            cell?.title.text = titles[indexPath.row]
-            if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).section == 0 && ((indexPath as NSIndexPath).row == 0 || (indexPath as NSIndexPath).row == 1 /*|| indexPath.row == 3*/) {
+            cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.info_icon, for:indexPath)
+            cell?.title.text = titles[(indexPath as NSIndexPath).row]
+            if (indexPath as NSIndexPath).row == 0 {
                 Mine.sharedInstance.setAvatarImage(cell!.icon)
             } else {
-                cell?.icon.image = UIImage(named: values[indexPath.row])
+                cell?.icon.image = UIImage(named: values[(indexPath as NSIndexPath).row])
             }
         } else {
-            cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.info_text, forIndexPath:indexPath)
-            cell?.selectionStyle = .Default
-            cell?.accessoryType = .DisclosureIndicator
-            if indexPath.section == 0 {
-                cell?.title.text = titles[indexPath.row]
-                cell?.value.text = values[indexPath.row]
+            cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.info_text, for:indexPath)
+            cell?.selectionStyle = .default
+            cell?.accessoryType = .disclosureIndicator
+            if (indexPath as NSIndexPath).section == 0 {
+                cell?.title.text = titles[(indexPath as NSIndexPath).row]
+                cell?.value.text = values[(indexPath as NSIndexPath).row]
             } else {
-                cell?.title.text = titles[indexPath.row + 3/*5*/]
-                cell?.value.text = values[indexPath.row + 3/*5*/]
-                if indexPath.row == 1 {
-                    cell?.selectionStyle = .None
-                    cell?.accessoryType = .None
+                cell?.title.text = titles[(indexPath as NSIndexPath).row + 3/*5*/]
+                cell?.value.text = values[(indexPath as NSIndexPath).row + 3/*5*/]
+                if (indexPath as NSIndexPath).row == 1 {
+                    cell?.selectionStyle = .none
+                    cell?.accessoryType = .none
                 }
             }
         }
@@ -79,25 +79,25 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         return cell!
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1) {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).section == 0 && ((indexPath as NSIndexPath).row == 0 || (indexPath as NSIndexPath).row == 1) {
             return 80
         } else {
             return 60
         }
     }
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tableView.sectionHeaderHeight
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        if indexPath.section == 0 {
-            switch indexPath.row {
+        if (indexPath as NSIndexPath).section == 0 {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 showImagePickerAlertView()
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
             case 1:
                 let controller = R.storyboard.mine.car_icon
                 showViewController(controller!)
@@ -107,8 +107,8 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
             default:
                 break
             }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
+        } else if (indexPath as NSIndexPath).section == 1 {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 showViewController(InfoEditViewController(mode: .Sex))
             default:
@@ -121,34 +121,37 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        alertController.addAction(UIAlertAction(title: "拍照", style: UIAlertActionStyle.Default, handler: {(action) in
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        alertController.addAction(UIAlertAction(title: "拍照", style: UIAlertActionStyle.default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(imagePicker, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: UIAlertActionStyle.Default, handler: {(action) in
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: UIAlertActionStyle.default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {
-            let sourceView = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+            let sourceView = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
             popoverController.sourceView = sourceView
             popoverController.sourceRect = sourceView!.bounds
         }
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
-        User.uploadHeader(avatarImage).subscribeNext { gkResult in
-            if let user = gkResult.data {
-                Mine.sharedInstance.updateLogin(user)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
+            User.uploadHeader(avatarImage).subscribeNext { gkResult in
+                if let user = gkResult.data {
+                    Mine.sharedInstance.updateLogin(user)
+                    self.tableView.reloadData()
+                }
+                }.addDisposableTo(disposeBag)
+            dismiss(animated: true, completion: {_ in
                 self.tableView.reloadData()
-            }
-            }.addDisposableTo(disposeBag)
-        dismissViewControllerAnimated(true, completion: {_ in
-            self.tableView.reloadData()
-        })
+            })
+        }
     }
+
 }

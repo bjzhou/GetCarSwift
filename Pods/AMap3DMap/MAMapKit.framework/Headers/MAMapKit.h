@@ -1,59 +1,47 @@
 //
 //  MAMapKit.h
-//  MAMapKitDemo
+//  MAMapKit
 //
-//  Created by songjian on 12-12-21.
-//  Copyright (c) 2012年 songjian. All rights reserved.
+//  Created by 翁乐 on 12/2/15.
+//  Copyright © 2015 le.weng. All rights reserved.
 //
 
-#import "MAMapView.h"
-#import "MAMapStatus.h"
-#import "MAGeometry.h"
-#import "MAAnnotation.h"
-#import "MACircle.h"
-#import "MACircleRenderer.h"
-#import "MAMultiPoint.h"
-#import "MAOverlay.h"
-#import "MAOverlayPathRenderer.h"
-#import "MAOverlayRenderer.h"
-#import "MAPolygon.h"
-#import "MAPolygonRenderer.h"
-#import "MAPolyline.h"
-#import "MAPolylineRenderer.h"
-#import "MAMultiPolyline.h"
-#import "MAMultiTexturePolylineRenderer.h"
-#import "MAMultiColoredPolylineRenderer.h"
-#import "MAGroundOverlay.h"
-#import "MAGroundOverlayRenderer.h"
-#import "MATileOverlay.h"
-#import "MATileOverlayRenderer.h"
-#import "MAShape.h"
-#import "MAPinAnnotationView.h"
-#import "MAAnnotationView.h"
-#import "MAPointAnnotation.h"
-#import "MAUserlocation.h"
-#import "MAMapServices.h"
-#import "MATouchPoi.h"
-#import "MAGeodesicPolyline.h"
-#import "MAHeatMapTileOverlay.h"
-#import "MAIndoorBuilding.h"
+#import <MAMapKit/MAMapVersion.h>
+#import <MAMapKit/MAMapView.h>
+#import <MAMapKit/MAMapStatus.h>
+#import <MAMapKit/MAGeometry.h>
+#import <MAMapKit/MAAnnotation.h>
+#import <MAMapKit/MAAnnotationView.h>
+#import <MAMapKit/MAPointAnnotation.h>
+#import <MAMapKit/MAPinAnnotationView.h>
+#import <MAMapKit/MAUserlocation.h>
+#import <MAMapKit/MAOverlay.h>
+#import <MAMapKit/MAOverlayPathRenderer.h>
+#import <MAMapKit/MAOverlayRenderer.h>
+#import <MAMapKit/MAShape.h>
+#import <MAMapKit/MACircle.h>
+#import <MAMapKit/MACircleRenderer.h>
+#import <MAMapKit/MAPolygon.h>
+#import <MAMapKit/MAPolygonRenderer.h>
+#import <MAMapKit/MAPolyline.h>
+#import <MAMapKit/MAPolylineRenderer.h>
+#import <MAMapKit/MAGeodesicPolyline.h>
+#import <MAMapKit/MAMultiPoint.h>
+#import <MAMapKit/MAMultiPolyline.h>
+#import <MAMapKit/MAMultiTexturePolylineRenderer.h>
+#import <MAMapKit/MAMultiColoredPolylineRenderer.h>
+#import <MAMapKit/MAGroundOverlay.h>
+#import <MAMapKit/MAGroundOverlayRenderer.h>
+#import <MAMapKit/MATileOverlay.h>
+#import <MAMapKit/MATileOverlayRenderer.h>
+#import <MAMapKit/MAHeatMapTileOverlay.h>
+#import <MAMapKit/MATouchPoi.h>
+#import <MAMapKit/MAIndoorInfo.h>
+#import <MAMapKit/MAOfflineMap.h>
+#import <MAMapKit/MAOfflineItem.h>
+#import <MAMapKit/MAOfflineCity.h>
+#import <MAMapKit/MAOfflineItemCommonCity.h>
+#import <MAMapKit/MAOfflineItemMunicipality.h>
+#import <MAMapKit/MAOfflineItemNationWide.h>
+#import <MAMapKit/MAOfflineProvince.h>
 
-#import "MAMapURLSearch.h"
-
-#import "MAOfflineMap.h"
-#import "MAOfflineItem.h"
-#import "MAOfflineCity.h"
-#import "MAOfflineItemCommonCity.h"
-#import "MAOfflineItemMunicipality.h"
-#import "MAOfflineItemNationWide.h"
-#import "MAOfflineProvince.h"
-
-#pragma mark - deprecated
-
-#import "MAOverlayView.h"
-#import "MAOverlayPathView.h"
-#import "MACircleView.h"
-#import "MAPolygonView.h"
-#import "MAPolylineView.h"
-#import "MAGroundOverlayView.h"
-#import "MATileOverlayView.h"

@@ -9,7 +9,7 @@
 import Foundation
 
 infix operator =? {}
-func =?<T> (inout left: T, right: T?) {
+func =?<T> (left: inout T, right: T?) {
     if let r = right {
         left = r
     }

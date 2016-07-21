@@ -30,13 +30,13 @@ struct TrackDetailViewModel {
             }
     }
 
-    func postComment(text: String) -> Observable<Void> {
+    func postComment(_ text: String) -> Observable<Void> {
         return Comment.pubComment(sid: sid, content: text).map { gkResult in
             guard let str = gkResult.data else {
                 self.viewProxy?.showToast("发表评论失败！")
                 return
             }
-            self.rxComments.value.insert(Comment(id: str, content: text, createTime: NSDate.nowString, nickname: Mine.sharedInstance.nickname ?? "", head: Mine.sharedInstance.avatarUrl ?? "", uid: Mine.sharedInstance.id ?? ""), atIndex: 0)
+            self.rxComments.value.insert(Comment(id: str, content: text, createTime: Date.nowString, nickname: Mine.sharedInstance.nickname ?? "", head: Mine.sharedInstance.avatarUrl ?? "", uid: Mine.sharedInstance.id ?? ""), at: 0)
         }
     }
 }

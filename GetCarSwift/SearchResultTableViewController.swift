@@ -19,24 +19,24 @@ class SearchResultTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.search, forIndexPath: indexPath)
-        let user = users[indexPath.row]
-        cell?.headerImageView.kf_setImageWithURL(NSURL(string: user.img)!, placeholderImage: R.image.avatar)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.search, for: indexPath)
+        let user = users[(indexPath as NSIndexPath).row]
+        cell?.headerImageView.kf_setImageWithURL(URL(string: user.img)!, placeholderImage: R.image.avatar)
         cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male : R.image.mine_female
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
-        cell?.followButton.selected = (user.friendStatus == 0 || user.friendStatus == 1)
+        cell?.followButton.isSelected = (user.friendStatus == 0 || user.friendStatus == 1)
         return cell!
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user = users[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[(indexPath as NSIndexPath).row]
         let chat = ConversationViewController()
         chat.conversationType = RCConversationType.ConversationType_PRIVATE
         chat.targetId = user.id

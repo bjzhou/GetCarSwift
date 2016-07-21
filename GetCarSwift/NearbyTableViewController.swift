@@ -20,7 +20,7 @@ class NearbyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.refreshControl?.rx_controlEvent(.ValueChanged).subscribeNext {
+        self.refreshControl?.rx_controlEvent(.valueChanged).subscribeNext {
             self.loadData()
         }.addDisposableTo(disposeBag)
 
@@ -33,9 +33,9 @@ class NearbyTableViewController: UITableViewController {
     }
 
     func loadData() {
-        _ = Nearby.map().doOn({ (event) -> Void in
+        _ = Nearby.map().doOn { (event) -> Void in
             self.refreshControl?.endRefreshing()
-        }).subscribeNext { res in
+        }.subscribeNext { res in
             guard let nearbys = res.dataArray else {
                 return
             }
@@ -46,29 +46,29 @@ class NearbyTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nearbys.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let nearby = nearbys[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.nearby, forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let nearby = nearbys[(indexPath as NSIndexPath).row]
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.nearby, for: indexPath)
         cell?.id = nearby.uid
         cell?.headerImageView.updateAvatar(nearby.uid, url: nearby.headUrl, inVC: self)
         cell?.nicknameLabel.text = nearby.nickname
         cell?.sexImageView.image = nearby.sex == 1 ? R.image.mine_male : R.image.mine_female
-        let distance = DeviceDataService.sharedInstance.rxLocation.value?.distanceFromLocation(CLLocation(latitude: nearby.lati, longitude: nearby.longt)) ?? 0
+        let distance = DeviceDataService.sharedInstance.rxLocation.value?.distance(from: CLLocation(latitude: nearby.lati, longitude: nearby.longt)) ?? 0
         if distance >= 1000 {
             cell?.descLabel.text = String(format: "%.0fkm", distance / 1000)
         } else {
             cell?.descLabel.text = String(format: "%.0fm", distance)
         }
-        cell?.followButton.selected = (nearby.friendStatus == 0 || nearby.friendStatus == 1)
+        cell?.followButton.isSelected = (nearby.friendStatus == 0 || nearby.friendStatus == 1)
         return cell!
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let nearby = nearbys[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nearby = nearbys[(indexPath as NSIndexPath).row]
         let chat = ConversationViewController()
         chat.hidesBottomBarWhenPushed = true
         chat.conversationType = RCConversationType.ConversationType_PRIVATE

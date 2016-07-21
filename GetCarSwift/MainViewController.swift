@@ -97,8 +97,8 @@ class MainViewController: UITabBarController {
         self.addChildViewController(R.storyboard.friend.initialViewController!)
         self.addChildViewController(R.storyboard.mine.initialViewController!)
 
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gaikeRedColor()], forState:.Selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white()], for:UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gaikeRedColor()], for:.selected)
 
         //UILabel.appearance().font = UIFont.systemFontOfSize()
         connectToRCIM()
@@ -106,12 +106,12 @@ class MainViewController: UITabBarController {
 
     var connectCount = 0
     func connectToRCIM() {
-        connectCount++
+        connectCount += 1
         _ = User.getIMToken().subscribeNext { res in
             guard let token = res.data else {
                 return
             }
-            RCIM.sharedRCIM().connectWithToken(token, success: { str in
+            RCIM.shared().connect(withToken: token, success: { str in
                 print(str)
                 }, error: { err in
                     print("error: \(err)")
@@ -129,7 +129,7 @@ class MainViewController: UITabBarController {
 
     override func viewDidLayoutSubviews() {
         for item in self.tabBar.items! {
-            item.image = item.image?.imageWithRenderingMode(.AlwaysOriginal)
+            item.image = item.image?.withRenderingMode(.alwaysOriginal)
         }
     }
 }

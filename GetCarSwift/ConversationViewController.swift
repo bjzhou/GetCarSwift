@@ -21,9 +21,9 @@ class ConversationViewController: RCConversationViewController {
         }
     }
 
-    override func didTapCellPortrait(userId: String!) {
+    override func didTapCellPortrait(_ userId: String!) {
         if fromProfile {
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
         } else {
             let vc = R.storyboard.friend.friend_profile
             vc?.uid = userId

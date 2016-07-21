@@ -24,10 +24,10 @@ class MapTrackViewController: UIViewController {
         super.viewDidLoad()
 
         trackTitleLabel.text = raceTrack?.name ?? ""
-        trackAddressButton.setTitle(raceTrack?.address ?? "", forState: .Normal)
+        trackAddressButton.setTitle(raceTrack?.address ?? "", for: UIControlState())
         closeButton.rx_tap.subscribeNext {
             self.dismissPopupViewController(animated: true)
-            if let parent = self.parentViewController as? PopupViewController, sender = parent.sender as? MapViewController {
+            if let parent = self.parent as? PopupViewController, let sender = parent.sender as? MapViewController {
                 sender.mapView.centerCoordinate = sender.centerCoordinate
                 sender.mapView.setZoomLevel(sender.zoomLevel, animated: true)
             }
@@ -36,17 +36,17 @@ class MapTrackViewController: UIViewController {
             if self.raceTrack?.isDeveloped ?? false {
                 let vc = R.storyboard.gkbox.track_timer
                 vc!.raceTrack =? self.raceTrack
-                if let parent = self.parentViewController as? PopupViewController, sender = parent.sender as? UIViewController {
+                if let parent = self.parent as? PopupViewController, let sender = parent.sender as? UIViewController {
                     self.dismissPopupViewController(animated: true) {
                         sender.showViewController(vc!)
                     }
                 }
             } else {
-                let alertController = UIAlertController(title: "正在测绘中", message: nil, preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "确定", style: .Cancel, handler: nil))
-                if let parent = self.parentViewController as? PopupViewController, sender = parent.sender as? UIViewController {
+                let alertController = UIAlertController(title: "正在测绘中", message: nil, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "确定", style: .cancel, handler: nil))
+                if let parent = self.parent as? PopupViewController, let sender = parent.sender as? UIViewController {
                     self.dismissPopupViewController(animated: true) {
-                        sender.presentViewController(alertController, animated: true, completion: nil)
+                        sender.present(alertController, animated: true, completion: nil)
                     }
                 }
             }
@@ -57,22 +57,22 @@ class MapTrackViewController: UIViewController {
             let lat = self.raceTrack?.mapCenter?.latitude ?? 0
             let long = self.raceTrack?.mapCenter?.longitude ?? 0
             let gaodeUrl = "iosamap://viewMap?sourceApplication=\(productName!.encodedUrlString)&poiname=\(name)&lat=\(lat)&lon=\(long)&dev=0"
-            if UIApplication.sharedApplication().canOpenURL(NSURL(string: gaodeUrl)!) {
-                UIApplication.sharedApplication().openURL(NSURL(string: gaodeUrl)!)
+            if UIApplication.shared().canOpenURL(NSURL(string: gaodeUrl)! as URL) {
+                UIApplication.shared().openURL(NSURL(string: gaodeUrl)! as URL)
             } else {
                 let src = "\(bundleId!)|\(productName!)".encodedUrlString
                 let baiduUrl = "baidumap://map/geocoder?address=\(address)&src=\(src)"
-                if UIApplication.sharedApplication().canOpenURL(NSURL(string: baiduUrl)!) {
-                    UIApplication.sharedApplication().openURL(NSURL(string: baiduUrl)!)
+                if UIApplication.shared().canOpenURL(NSURL(string: baiduUrl)! as URL) {
+                    UIApplication.shared().openURL(NSURL(string: baiduUrl)! as URL)
                 } else {
-                    UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?ll=\(lat),\(long)")!)
+                    UIApplication.shared().openURL(NSURL(string: "http://maps.apple.com/?ll=\(lat),\(long)")! as URL)
                 }
             }
         }.addDisposableTo(disposeBag)
         trackIntroButton.rx_tap.subscribeNext {
             let vc = R.storyboard.gkbox.track_intro
             vc!.raceTrack =? self.raceTrack
-            if let parent = self.parentViewController as? PopupViewController, sender = parent.sender as? UIViewController {
+            if let parent = self.parent as? PopupViewController, let sender = parent.sender as? UIViewController {
                 self.dismissPopupViewController(animated: true) {
                     sender.showViewController(vc!)
                 }

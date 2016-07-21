@@ -36,39 +36,39 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         titleTextField.text = carPart.title
         detailTextView.text = carPart.detail
         if !carPart.imageUrl.trim().isEmpty {
-            cameraButtonImageView.kf_setImageWithURL(NSURL(string: carPart.imageUrl)!, placeholderImage: R.image.camera)
+            cameraButtonImageView.kf_setImageWithURL(URL(string: carPart.imageUrl)!, placeholderImage: R.image.camera)
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(AddPartViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddPartViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
-    func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
+    func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
             return
         }
 
         if detailTextView.isFirstResponder() {
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.view.frame.origin = CGPoint(x: 0, y: 64-keyboardSize.height)
             })
         }
     }
 
-    func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.3, animations: {
+    func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin = CGPoint(x: 0, y: 64)
         })
     }
 
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
 
-    @IBAction func didSaveAction(sender: AnyObject) {
-        if self.titleTextField.text?.trim() == "" || self.cameraButton.imageForState(.Normal) == R.image.camera {
+    @IBAction func didSaveAction(_ sender: AnyObject) {
+        if self.titleTextField.text?.trim() == "" || self.cameraButton.image(for: UIControlState()) == R.image.camera {
             Toast.makeToast(message: "请完善配件信息")
             return
         }
@@ -77,7 +77,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         async {
             let image = self.cameraButtonImageView.image?.scaleImage(scale: 0.3)
             main {
-                if let carInfo = gRealm?.objects(CarInfo).filter("id = \(self.id)").first, image = image {
+                if let carInfo = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = \(self.id)").first, let image = image {
                     gRealm?.writeOptional {
                         self.carPart.title = self.titleTextField.text!
                         self.carPart.detail = self.detailTextView.text!
@@ -90,12 +90,12 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
                                 }
                             }
                             Toast.hideToastActivity()
-                            self.navigationController?.popViewControllerAnimated(true)
+                            _ = self.navigationController?.popViewController(animated: true)
                         }
                     } else {
                         _ = CarInfo.updateUserCarPart(self.carPart.id, userCarId: carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribeNext { res in
                             Toast.hideToastActivity()
-                            self.navigationController?.popViewControllerAnimated(true)
+                            _ = self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -106,28 +106,30 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     func showImagePickerAlertView() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "拍照", style: .Default, handler: {(action) in
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "拍照", style: .default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(imagePicker, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: .Default, handler: {(action) in
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: .default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = cameraButton
             popoverController.sourceRect = cameraButton.bounds
         }
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
-        self.cameraButtonImageView.contentMode = .ScaleAspectFill
-        self.cameraButtonImageView.image = image
-        self.cameraButtonImageView.clipsToBounds = true
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.cameraButtonImageView.contentMode = .scaleAspectFill
+            self.cameraButtonImageView.image = image
+            self.cameraButtonImageView.clipsToBounds = true
+            dismiss(animated: true, completion: nil)
+        }
     }
 
 }

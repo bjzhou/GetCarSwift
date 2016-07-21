@@ -27,7 +27,7 @@ struct Comments: JSONable {
         praisesTotal = json["praises", "total"].intValue
     }
 
-    static func getComments(sid sid: Int, page: Int = 0, limit: Int = 10) -> Observable<GKResult<Comments>> {
+    static func getComments(sid: Int, page: Int = 0, limit: Int = 10) -> Observable<GKResult<Comments>> {
         return GaikeService.sharedInstance.api("trace/comments", body: ["sid":sid, "page":page, "limit":limit])
     }
 }

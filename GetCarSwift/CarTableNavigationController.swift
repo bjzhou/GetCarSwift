@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CarTableNavigationDelegate {
-    func didCarSelected(car: CarInfo)
+    func didCarSelected(_ car: CarInfo)
 }
 
 class CarTableNavigationController: ENSideMenuNavigationController {
@@ -24,7 +24,7 @@ class CarTableNavigationController: ENSideMenuNavigationController {
         menuController?.delegate = self
 
         sideMenu = ENSideMenu(sourceView: self.view, menuViewController: menuController!, menuPosition:.Right)
-        view.bringSubviewToFront(navigationBar)
+        view.bringSubview(toFront: navigationBar)
 
         sideMenu?.menuWidth = 250
         sideMenu?.bouncingEnabled = false
@@ -34,11 +34,11 @@ class CarTableNavigationController: ENSideMenuNavigationController {
 }
 
 extension CarTableNavigationController: CarRightDelegate {
-    func didCarSelected(car: CarInfo) {
+    func didCarSelected(_ car: CarInfo) {
         carDelegate?.didCarSelected(car)
     }
 
     func dismissViewController() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

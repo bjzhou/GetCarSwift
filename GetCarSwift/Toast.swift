@@ -63,7 +63,7 @@ class Toast: NSObject {
 
     private static var toastView: UIView?
     private static var toastActivity: UIView?
-    private static var toastTimer: NSTimer?
+    private static var toastTimer: Timer?
 
     /*
     *  public methods
@@ -92,11 +92,11 @@ class Toast: NSObject {
         self.showToast(toast: toast!, duration: duration, position: position)
     }
 
-    class func showToast(toast: UIView) {
+    class func showToast(_ toast: UIView) {
         self.showToast(toast: toast, duration: toastDefaultDuration, position: toastPositionDefault)
     }
 
-    class func showToast(toast toast: UIView, duration: Double, position: AnyObject) {
+    class func showToast(toast: UIView, duration: Double, position: AnyObject) {
         if let existToast = toastView {
             if let timer = toastTimer {
                 timer.invalidate()
@@ -108,22 +108,22 @@ class Toast: NSObject {
         toast.alpha = 0.0
 
         if toastHidesOnTap {
-            let tapRecognizer = UITapGestureRecognizer(target: toast, action: Selector("handleToastTapped:"))
+            let tapRecognizer = UITapGestureRecognizer(target: toast, action: #selector(Toast.handleToastTapped(_:)))
             toast.addGestureRecognizer(tapRecognizer)
-            toast.userInteractionEnabled = true
-            toast.exclusiveTouch = true
+            toast.isUserInteractionEnabled = true
+            toast.isExclusiveTouch = true
         }
 
         sharedWindow.rootViewController?.view.addSubview(toast)
         toastView = toast
 
-        UIView.animateWithDuration(toastFadeDuration,
-            delay: 0.0, options: [.CurveEaseOut, .AllowUserInteraction],
+        UIView.animate(withDuration: toastFadeDuration,
+            delay: 0.0, options: [.curveEaseOut, .allowUserInteraction],
             animations: {
                 toast.alpha = 1.0
             },
             completion: { (finished: Bool) in
-                toastTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
+                toastTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(Toast.toastTimerDidFinish(_:)), userInfo: toast, repeats: false)
         })
     }
 
@@ -140,19 +140,19 @@ class Toast: NSObject {
 
         let activityView = UIView(frame: CGRect(x: 0, y: 0, width: toastActivityWidth, height: toastActivityHeight))
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
-        activityView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(toastOpacity)
+        activityView.backgroundColor = UIColor.black().withAlphaComponent(toastOpacity)
         activityView.alpha = 0.0
-        activityView.autoresizingMask = [.FlexibleLeftMargin, .FlexibleTopMargin, .FlexibleRightMargin, .FlexibleBottomMargin]
+        activityView.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin]
         activityView.layer.cornerRadius = toastCornerRadius
 
         if toastDisplayShadow {
-            activityView.layer.shadowColor = UIColor.blackColor().CGColor
+            activityView.layer.shadowColor = UIColor.black().cgColor
             activityView.layer.shadowOpacity = Float(toastShadowOpacity)
             activityView.layer.shadowRadius = toastShadowRadius
             activityView.layer.shadowOffset = toastShadowOffset
         }
 
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicatorView.center = CGPoint(x: activityView.bounds.size.width / 2, y: activityView.bounds.size.height / 2)
         activityView.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
@@ -160,9 +160,9 @@ class Toast: NSObject {
         if (!msg.isEmpty) {
             activityIndicatorView.frame.origin.y -= 10
             let activityMessageLabel = UILabel(frame: CGRect(x: activityView.bounds.origin.x, y: (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), width: activityView.bounds.size.width, height: 20))
-            activityMessageLabel.textColor = UIColor.whiteColor()
+            activityMessageLabel.textColor = UIColor.white()
             activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
-            activityMessageLabel.textAlignment = .Center
+            activityMessageLabel.textAlignment = .center
             activityMessageLabel.text = msg
             activityView.addSubview(activityMessageLabel)
         }
@@ -171,9 +171,9 @@ class Toast: NSObject {
 
         toastActivity = activityView
 
-        UIView.animateWithDuration(toastFadeDuration,
+        UIView.animate(withDuration: toastFadeDuration,
             delay: 0.0,
-            options: UIViewAnimationOptions.CurveEaseOut,
+            options: UIViewAnimationOptions.curveEaseOut,
             animations: {
                 activityView.alpha = 1.0
             },
@@ -182,9 +182,9 @@ class Toast: NSObject {
 
     class func hideToastActivity() {
         if let existingActivityView = toastActivity {
-            UIView.animateWithDuration(toastFadeDuration,
+            UIView.animate(withDuration: toastFadeDuration,
                 delay: 0.0,
-                options: UIViewAnimationOptions.CurveEaseOut,
+                options: UIViewAnimationOptions.curveEaseOut,
                 animations: {
                     existingActivityView.alpha = 0.0
                 },
@@ -198,11 +198,11 @@ class Toast: NSObject {
     /*
     *  private methods (helper)
     */
-    class func hideToast(toast toast: UIView) {
+    class func hideToast(toast: UIView) {
         self.hideToast(toast: toast, force: false)
     }
 
-    class func hideToast(toast toast: UIView, force: Bool) {
+    class func hideToast(toast: UIView, force: Bool) {
         let completeClosure = { (finish: Bool) -> () in
             toast.removeFromSuperview()
             toastTimer = nil
@@ -211,9 +211,9 @@ class Toast: NSObject {
         if force {
             completeClosure(true)
         } else {
-            UIView.animateWithDuration(toastFadeDuration,
+            UIView.animate(withDuration: toastFadeDuration,
                 delay: 0.0,
-                options: [.CurveEaseIn, .BeginFromCurrentState],
+                options: [.curveEaseIn, .beginFromCurrentState],
                 animations: {
                     toast.alpha = 0.0
                 },
@@ -221,36 +221,36 @@ class Toast: NSObject {
         }
     }
 
-    class func toastTimerDidFinish(timer: NSTimer) {
+    class func toastTimerDidFinish(_ timer: Timer) {
         self.hideToast(toast: timer.userInfo as? UIView ?? UIView())
     }
 
-    class func handleToastTapped(recognizer: UITapGestureRecognizer) {
+    class func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
         toastTimer?.invalidate()
 
         self.hideToast(toast: recognizer.view!)
     }
 
-    private class func centerPointForPosition(position: AnyObject, toast: UIView) -> CGPoint {
+    private class func centerPointForPosition(_ position: AnyObject, toast: UIView) -> CGPoint {
         if position is String {
             let toastSize = toast.bounds.size
-            let viewSize = UIScreen.mainScreen().bounds.size
-            if position.lowercaseString == toastPositionTop {
+            let viewSize = UIScreen.main().bounds.size
+            if position.lowercased == toastPositionTop {
                 return CGPoint(x: viewSize.width/2, y: toastSize.height/2 + toastVerticalMargin)
-            } else if position.lowercaseString == toastPositionBottom {
+            } else if position.lowercased == toastPositionBottom {
                 return CGPoint(x: viewSize.width/2, y: viewSize.height - toastSize.height/2 - toastVerticalMargin)
-            } else if position.lowercaseString == toastPositionCenter {
+            } else if position.lowercased == toastPositionCenter {
                 return CGPoint(x: viewSize.width/2, y: viewSize.height/2)
             }
         } else if position is NSValue {
-            return position.CGPointValue
+            return position.cgPointValue
         }
 
         print("Warning: Invalid position for toast.")
         return self.centerPointForPosition(toastPositionDefault, toast: toast)
     }
 
-    private class func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
+    private class func viewForMessage(_ msg: String?, title: String?, image: UIImage?) -> UIView? {
         if msg == nil && title == nil && image == nil { return nil }
 
         var msgLabel: UILabel?
@@ -258,12 +258,12 @@ class Toast: NSObject {
         var imageView: UIImageView?
 
         let wrapperView = UIView()
-        wrapperView.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        wrapperView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         wrapperView.layer.cornerRadius = toastCornerRadius
-        wrapperView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(toastOpacity)
+        wrapperView.backgroundColor = UIColor.black().withAlphaComponent(toastOpacity)
 
         if toastDisplayShadow {
-            wrapperView.layer.shadowColor = UIColor.blackColor().CGColor
+            wrapperView.layer.shadowColor = UIColor.black().cgColor
             wrapperView.layer.shadowOpacity = Float(toastShadowOpacity)
             wrapperView.layer.shadowRadius = toastShadowRadius
             wrapperView.layer.shadowOffset = toastShadowOffset
@@ -271,7 +271,7 @@ class Toast: NSObject {
 
         if image != nil {
             imageView = UIImageView(image: image)
-            imageView!.contentMode = .ScaleAspectFit
+            imageView!.contentMode = .scaleAspectFit
             imageView!.frame = CGRect(x: toastHorizontalMargin, y: toastVerticalMargin, width: CGFloat(toastImageViewWidth), height: CGFloat(toastImageViewHeight))
         }
 
@@ -287,16 +287,16 @@ class Toast: NSObject {
         if title != nil {
             titleLabel = UILabel()
             titleLabel!.numberOfLines = toastMaxTitleLines
-            titleLabel!.font = UIFont.boldSystemFontOfSize(toastFontSize)
-            titleLabel!.textAlignment = .Center
-            titleLabel!.lineBreakMode = .ByWordWrapping
-            titleLabel!.textColor = UIColor.whiteColor()
-            titleLabel!.backgroundColor = UIColor.clearColor()
+            titleLabel!.font = UIFont.boldSystemFont(ofSize: toastFontSize)
+            titleLabel!.textAlignment = .center
+            titleLabel!.lineBreakMode = .byWordWrapping
+            titleLabel!.textColor = UIColor.white()
+            titleLabel!.backgroundColor = UIColor.clear()
             titleLabel!.alpha = 1.0
             titleLabel!.text = title
 
             // size the title label according to the length of the text
-            let maxSizeTitle = CGSize(width: (UIScreen.mainScreen().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.mainScreen().bounds.size.height * toastMaxHeight)
+            let maxSizeTitle = CGSize(width: (UIScreen.main().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.main().bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeTitle.width, title!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = title!.stringHeight(toastFontSize, width: maxSizeTitle.width)
             titleLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
@@ -305,15 +305,15 @@ class Toast: NSObject {
         if msg != nil {
             msgLabel = UILabel()
             msgLabel!.numberOfLines = toastMaxMessageLines
-            msgLabel!.font = UIFont.systemFontOfSize(toastFontSize)
-            msgLabel!.lineBreakMode = .ByWordWrapping
-            msgLabel!.textAlignment = .Center
-            msgLabel!.textColor = UIColor.whiteColor()
-            msgLabel!.backgroundColor = UIColor.clearColor()
+            msgLabel!.font = UIFont.systemFont(ofSize: toastFontSize)
+            msgLabel!.lineBreakMode = .byWordWrapping
+            msgLabel!.textAlignment = .center
+            msgLabel!.textColor = UIColor.white()
+            msgLabel!.backgroundColor = UIColor.clear()
             msgLabel!.alpha = 1.0
             msgLabel!.text = msg
 
-            let maxSizeMessage = CGSize(width: (UIScreen.mainScreen().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.mainScreen().bounds.size.height * toastMaxHeight)
+            let maxSizeMessage = CGSize(width: (UIScreen.main().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.main().bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeMessage.width, msg!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = msg!.stringHeight(toastFontSize, width: maxSizeMessage.width)
             msgLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
@@ -364,11 +364,11 @@ class Toast: NSObject {
     }
 
     private static var sharedWindow: UIWindow = {
-        let window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window.userInteractionEnabled = false
-        window.windowLevel = CGFloat.max
+        let window = UIWindow(frame: UIScreen.main().bounds)
+        window.isUserInteractionEnabled = false
+        window.windowLevel = CGFloat.greatestFiniteMagnitude
         window.rootViewController = ToastViewController()
-        window.hidden = false
+        window.isHidden = false
         return window
     }()
 
@@ -381,34 +381,34 @@ class ToastViewController: UIViewController {
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIApplication.sharedApplication().statusBarStyle
+        return UIApplication.shared().statusBarStyle
     }
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .All
+        return .all
     }
 
 }
 
 extension String {
 
-    func stringHeight(fontSize: CGFloat, width: CGFloat) -> CGFloat {
-        let font = UIFont.systemFontOfSize(fontSize)
-        let size = CGSize(width: width, height: CGFloat.max)
+    func stringHeight(_ fontSize: CGFloat, width: CGFloat) -> CGFloat {
+        let font = UIFont.systemFont(ofSize: fontSize)
+        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .ByWordWrapping
+        paragraphStyle.lineBreakMode = .byWordWrapping
         let attributes = [NSFontAttributeName:font,
             NSParagraphStyleAttributeName:paragraphStyle.copy()]
 
         let text = self as NSString
-        let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
         return rect.size.height
     }
 
-    func stringWidth(fontSize: CGFloat) -> CGFloat {
-        let font = UIFont.systemFontOfSize(fontSize)
+    func stringWidth(_ fontSize: CGFloat) -> CGFloat {
+        let font = UIFont.systemFont(ofSize: fontSize)
         let text = self as NSString
-        let size = text.sizeWithAttributes([NSFontAttributeName: font])
+        let size = text.size(attributes: [NSFontAttributeName: font])
         return size.width
     }
 

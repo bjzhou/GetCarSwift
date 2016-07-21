@@ -11,13 +11,15 @@ import SwiftyJSON
 
 extension JSON: JSONable {
     func sortedDictionaryKeys() -> [String]? {
-        if self.type == .Dictionary {
-            return Array(self.dictionary!.keys).sort()
+        if self.type == .dictionary {
+            var arr = Array(self.dictionary!.keys)
+            arr.sort()
+            return arr
         }
         return nil
     }
-    func sortedDictionaryValue(withIndex: Int) -> JSON? {
-        if self.type == .Dictionary {
+    func sortedDictionaryValue(_ withIndex: Int) -> JSON? {
+        if self.type == .dictionary {
             if let keys = sortedDictionaryKeys() {
                 return self[keys[withIndex]]
             }

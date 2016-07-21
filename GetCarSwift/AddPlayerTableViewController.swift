@@ -25,7 +25,7 @@ class AddPlayerTableViewController: UITableViewController {
     var sid = 0
     var needBack = false
 
-    var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    var indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     let titles: [AddPlayerMode:String] = [.Menu: "添加赛车手", .Myself: "我的成绩", .Car: "我的车", .Track: "赛道"]
     let menuTitles = ["我", "好友排名", "赛道总排名", "赛道月排名", "赛道周排名"]
@@ -51,15 +51,15 @@ class AddPlayerTableViewController: UITableViewController {
 
     func updateScore() {
 
-        localBest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("score").map { $0 } ?? []
-        localNewest = gRealm?.objects(RmScore).filter("mapType = \(sid)").sorted("createdAt", ascending: false).map { $0 } ?? []
-        cars = gRealm?.objects(CarInfo).map { $0 } ?? []
-        tracks = gRealm?.objects(RmRaceTrack).filter { $0.isDeveloped } ?? []
+        localBest = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = \(sid)").sorted(onProperty: "score").map { $0 } ?? []
+        localNewest = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = \(sid)").sorted(onProperty: "createdAt", ascending: false).map { $0 } ?? []
+        cars = gRealm?.allObjects(ofType: CarInfo.self).map { $0 } ?? []
+        tracks = gRealm?.allObjects(ofType: RmRaceTrack.self).filter { $0.isDeveloped } ?? []
 
         tableView.reloadData()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if mode == .Car && cars.count == 0 {
@@ -90,7 +90,8 @@ class AddPlayerTableViewController: UITableViewController {
             guard let data = res.data else {
                 return
             }
-            self.top = data.top.sort { $0.0.score < $0.1.score }
+            self.top = data.top
+            self.top.sort { $0.score < $1.score }
             if self.localNewest.count == 0 {
                 for s in data.newestRes {
                     gRealm?.writeOptional {
@@ -120,19 +121,19 @@ class AddPlayerTableViewController: UITableViewController {
         _ = Records.getTimeRecord(self.sid, time: "month", count: 50).subscribeNext(doOnGetRecord)
     }
 
-    func doOnGetRecord(res: GKResult<Records>) {
+    func doOnGetRecord(_ res: GKResult<Records>) {
         self.loaded = true
         guard let data = res.data else {
             return
         }
-        self.top = data.top.sort { $0.0.score < $0.1.score }
+        self.top = data.top.sorted { $0.0.score < $0.1.score }
         self.indicator.stopAnimating()
         self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if mode == .Myself {
             return 2
         } else {
@@ -140,7 +141,7 @@ class AddPlayerTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch mode {
         case .Menu:
             return menuTitles.count
@@ -165,74 +166,74 @@ class AddPlayerTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: PlayerTableViewCell?
         switch mode {
         case .Menu:
-            if indexPath.row == 0 {
-                cell = tableView.dequeueReusableCellWithIdentifier("menu_me") as? PlayerTableViewCell
+            if (indexPath as NSIndexPath).row == 0 {
+                cell = tableView.dequeueReusableCell(withIdentifier: "menu_me") as? PlayerTableViewCell
                 if cell == nil {
-                    cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu_me")
+                    cell = PlayerTableViewCell(style: .default, reuseIdentifier: "menu_me")
                 }
                 Mine.sharedInstance.setAvatarImage(cell!.imageView!)
                 cell?.textLabel?.text = menuTitles[0]
             } else {
-                cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
+                cell = tableView.dequeueReusableCell(withIdentifier: "menu") as? PlayerTableViewCell
                 if cell == nil {
-                    cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "menu")
+                    cell = PlayerTableViewCell(style: .subtitle, reuseIdentifier: "menu")
                 }
-                cell?.textLabel?.text = menuTitles[indexPath.row]
-                cell?.detailTextLabel?.text = menuSubTitles[indexPath.row]
+                cell?.textLabel?.text = menuTitles[(indexPath as NSIndexPath).row]
+                cell?.detailTextLabel?.text = menuSubTitles[(indexPath as NSIndexPath).row]
             }
         case .Myself:
-            cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "menu") as? PlayerTableViewCell
             if cell == nil {
-                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
+                cell = PlayerTableViewCell(style: .default, reuseIdentifier: "menu")
             }
-            if indexPath.section == 0 {
-                cell?.textLabel?.text = String(format: "%.2f", localNewest[indexPath.row].score)
+            if (indexPath as NSIndexPath).section == 0 {
+                cell?.textLabel?.text = String(format: "%.2f", localNewest[(indexPath as NSIndexPath).row].score)
             } else {
-                cell?.textLabel?.text = String(format: "%.2f", localBest[indexPath.row].score)
+                cell?.textLabel?.text = String(format: "%.2f", localBest[(indexPath as NSIndexPath).row].score)
             }
         case .Rank:
-            cell = tableView.dequeueReusableCellWithIdentifier("player") as? PlayerTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "player") as? PlayerTableViewCell
             if cell == nil {
-                cell = PlayerTableViewCell(style: .Subtitle, reuseIdentifier: "player")
+                cell = PlayerTableViewCell(style: .subtitle, reuseIdentifier: "player")
             }
             cell?.imageView?.updateAvatar(top[indexPath.row].uid, url: top[indexPath.row].headUrl, inVC: self)
-            cell?.textLabel?.text = top[indexPath.row].nickname
-            cell?.detailTextLabel?.text = String(format: "%.2f", top[indexPath.row].score)
+            cell?.textLabel?.text = top[(indexPath as NSIndexPath).row].nickname
+            cell?.detailTextLabel?.text = String(format: "%.2f", top[(indexPath as NSIndexPath).row].score)
 
-            cell?.medalImageView.hidden = false
-            if indexPath.row == 0 {
+            cell?.medalImageView.isHidden = false
+            if (indexPath as NSIndexPath).row == 0 {
                 cell?.medalImageView.image = R.image.gold_medal
-            } else if indexPath.row == 1 {
+            } else if (indexPath as NSIndexPath).row == 1 {
                 cell?.medalImageView.image = R.image.silver_medal
-            } else if indexPath.row == 2 {
+            } else if (indexPath as NSIndexPath).row == 2 {
                 cell?.medalImageView.image = R.image.bronze_medal
             } else {
-                cell?.medalImageView.hidden = true
+                cell?.medalImageView.isHidden = true
             }
         case .Car:
-            cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "menu") as? PlayerTableViewCell
             if cell == nil {
-                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
+                cell = PlayerTableViewCell(style: .default, reuseIdentifier: "menu")
             }
-            cell?.textLabel?.text = cars[indexPath.row].model
+            cell?.textLabel?.text = cars[(indexPath as NSIndexPath).row].model
         case .Track:
-            cell = tableView.dequeueReusableCellWithIdentifier("menu") as? PlayerTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "menu") as? PlayerTableViewCell
             if cell == nil {
-                cell = PlayerTableViewCell(style: .Default, reuseIdentifier: "menu")
+                cell = PlayerTableViewCell(style: .default, reuseIdentifier: "menu")
             }
-            cell?.textLabel?.text = tracks[indexPath.row].name
+            cell?.textLabel?.text = tracks[(indexPath as NSIndexPath).row].name
         }
 
         return cell!
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if mode == .Menu {
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 mode = .Myself
                 tableView.reloadData()
                 if localNewest.count == 0 {
@@ -244,7 +245,7 @@ class AddPlayerTableViewController: UITableViewController {
                 top = []
                 tableView.reloadData()
                 loaded = false
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 1:
                     getFollowRecord()
                 case 2:
@@ -263,31 +264,31 @@ class AddPlayerTableViewController: UITableViewController {
             needBack = true
         } else {
             if mode == .Myself {
-                if indexPath.section == 0 {
-                    if localNewest[indexPath.row].data.count > 0 {
-                        self.delegate?.didPlayerAdded(localNewest[indexPath.row], sender: self.sender)
+                if (indexPath as NSIndexPath).section == 0 {
+                    if localNewest[(indexPath as NSIndexPath).row].data.count > 0 {
+                        self.delegate?.didPlayerAdded(localNewest[(indexPath as NSIndexPath).row], sender: self.sender)
                     } else {
-                        localNewest[indexPath.row].unarchive { record in
+                        localNewest[(indexPath as NSIndexPath).row].unarchive { record in
                             self.delegate?.didPlayerAdded(record, sender: self.sender)
                         }
                     }
                 } else {
-                    if localBest[indexPath.row].data.count > 0 {
-                        self.delegate?.didPlayerAdded(localBest[indexPath.row], sender: self.sender)
+                    if localBest[(indexPath as NSIndexPath).row].data.count > 0 {
+                        self.delegate?.didPlayerAdded(localBest[(indexPath as NSIndexPath).row], sender: self.sender)
                     } else {
-                        localBest[indexPath.row].unarchive { record in
+                        localBest[(indexPath as NSIndexPath).row].unarchive { record in
                             self.delegate?.didPlayerAdded(record, sender: self.sender)
                         }
                     }
                 }
             } else if mode == .Rank {
-                top[indexPath.row].unarchive { record in
+                top[(indexPath as NSIndexPath).row].unarchive { record in
                     self.delegate?.didPlayerAdded(record, sender: self.sender)
                 }
             } else if mode == .Car {
-                self.delegate?.didPlayerAdded(cars[indexPath.row], sender: self.sender)
+                self.delegate?.didPlayerAdded(cars[(indexPath as NSIndexPath).row], sender: self.sender)
             } else if mode == .Track {
-                self.delegate?.didPlayerAdded(tracks[indexPath.row], sender: self.sender)
+                self.delegate?.didPlayerAdded(tracks[(indexPath as NSIndexPath).row], sender: self.sender)
             }
             dismissPopupViewController()
         }
@@ -295,11 +296,11 @@ class AddPlayerTableViewController: UITableViewController {
 
     func addSubViews() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 48))
-        view.backgroundColor = UIColor.whiteColor()
-        let button = UIButton(type: .Custom)
+        view.backgroundColor = UIColor.white()
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(R.image.backbutton, forState: .Normal)
-        button.addTarget(self, action: Selector("didBackAction"), forControlEvents: .TouchUpInside)
+        button.setBackgroundImage(R.image.backbutton, for: UIControlState())
+        button.addTarget(self, action: #selector(AddPlayerTableViewController.didBackAction), for: .touchUpInside)
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.text = titles[mode]
@@ -310,24 +311,24 @@ class AddPlayerTableViewController: UITableViewController {
         view.addSubview(title)
         view.addSubview(line)
 
-        view.addConstraint(NSLayoutConstraint(item: button, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 8))
-        view.addConstraint(NSLayoutConstraint(item: button, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: title, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: title, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: line, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0.5))
-        view.addConstraint(NSLayoutConstraint(item: line, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: line, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 8))
+        view.addConstraint(NSLayoutConstraint(item: button, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: title, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: title, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: line, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0.5))
+        view.addConstraint(NSLayoutConstraint(item: line, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: line, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
 
         tableView.tableHeaderView = view
 
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
         indicator.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addConstraint(NSLayoutConstraint(item: indicator, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: indicator, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: indicator, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: indicator, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0))
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if mode == .Myself {
             if section == 0 {
                 return "最新"
@@ -338,7 +339,7 @@ class AddPlayerTableViewController: UITableViewController {
         return nil
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 
@@ -355,5 +356,5 @@ class AddPlayerTableViewController: UITableViewController {
 }
 
 protocol AddPlayerDelegate {
-    func didPlayerAdded(record: AnyObject, sender: UIButton?)
+    func didPlayerAdded(_ record: AnyObject, sender: UIButton?)
 }

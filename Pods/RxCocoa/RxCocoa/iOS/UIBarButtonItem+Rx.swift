@@ -17,15 +17,15 @@ var rx_tap_key: UInt8 = 0
 
 extension UIBarButtonItem {
     
-	/**
-	Bindable sink for `enabled` property.
-	*/
-	public var rx_enabled: AnyObserver<Bool> {
+    /**
+    Bindable sink for `enabled` property.
+    */
+    public var rx_enabled: AnyObserver<Bool> {
         return UIBindingObserver(UIElement: self) { UIElement, value in
-            UIElement.enabled = value
-		}.asObserver()
-	}
-	
+            UIElement.isEnabled = value
+        }.asObserver()
+    }
+
     /**
     Reactive wrapper for target action pattern on `self`.
     */
@@ -33,11 +33,11 @@ extension UIBarButtonItem {
         let source = rx_lazyInstanceObservable(&rx_tap_key) { () -> Observable<Void> in
             Observable.create { [weak self] observer in
                 guard let control = self else {
-                    observer.on(.Completed)
+                    observer.on(.completed)
                     return NopDisposable.instance
                 }
                 let target = BarButtonItemTarget(barButtonItem: control) {
-                    observer.on(.Next())
+                    observer.on(.next())
                 }
                 return target
             }
@@ -62,7 +62,7 @@ class BarButtonItemTarget: RxTarget {
         self.callback = callback
         super.init()
         barButtonItem.target = self
-        barButtonItem.action = Selector("action:")
+        barButtonItem.action = #selector(BarButtonItemTarget.action(_:))
     }
     
     override func dispose() {
@@ -77,7 +77,7 @@ class BarButtonItemTarget: RxTarget {
         callback = nil
     }
     
-    func action(sender: AnyObject) {
+    func action(_ sender: AnyObject) {
         callback()
     }
     

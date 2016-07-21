@@ -27,7 +27,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
 
     //Color variables
     private var topBarImage = R.image.pages_bg
-    private var buttonsTextColor = UIColor.whiteColor()
+    private var buttonsTextColor = UIColor.white()
     private var containerViewBackground = UIColor.gaikeBackgroundColor()
 
     //Item size variables
@@ -39,26 +39,26 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     private var aeroEffectInTopBar: Bool = false //This gives the top bap a blurred effect, also overlayes the it over the VC's
     private var buttonsWithImages: Bool = false
     private var barShadow: Bool = false
-    private var buttonsTextFontAndSize: UIFont = UIFont.systemFontOfSize(16)
+    private var buttonsTextFontAndSize: UIFont = UIFont.systemFont(ofSize: 16)
 
     // MARK: - Positions Of The Container View API -
-    public func setOriginX(origin: CGFloat) { xOrigin = origin }
-    public func setOriginY(origin: CGFloat) { yOrigin = origin }
-    public func setDistanceToBottom (distance: CGFloat) { distanceToBottom = distance }
+    public func setOriginX(_ origin: CGFloat) { xOrigin = origin }
+    public func setOriginY(_ origin: CGFloat) { yOrigin = origin }
+    public func setDistanceToBottom (_ distance: CGFloat) { distanceToBottom = distance }
 
     // MARK: - API's -
-    public func setTopBarImage(image: UIImage?) { topBarImage = image }
-    public func setButtonsTextColor(color: UIColor) { buttonsTextColor = color }
-    public func setContainerViewBackground(color: UIColor) { containerViewBackground = color }
-    public func setTopBarHeight(pointSize: CGFloat) { topBarHeight = pointSize}
-    public func setAnimatedBarHeight(pointSize: CGFloat) { animatedBarHeight = pointSize}
-    public func setButtonsTextFontAndSize(fontAndSize: UIFont) { buttonsTextFontAndSize = fontAndSize}
-    public func enableAeroEffectInTopBar(boolValue: Bool) { aeroEffectInTopBar = boolValue}
-    public func enableButtonsWithImages(boolValue: Bool) { buttonsWithImages = boolValue}
-    public func enableBarShadow(boolValue: Bool) { barShadow = boolValue}
-    public func getPageViewController(index: Int) -> UIViewController? { return pageViews[index] }
+    public func setTopBarImage(_ image: UIImage?) { topBarImage = image }
+    public func setButtonsTextColor(_ color: UIColor) { buttonsTextColor = color }
+    public func setContainerViewBackground(_ color: UIColor) { containerViewBackground = color }
+    public func setTopBarHeight(_ pointSize: CGFloat) { topBarHeight = pointSize}
+    public func setAnimatedBarHeight(_ pointSize: CGFloat) { animatedBarHeight = pointSize}
+    public func setButtonsTextFontAndSize(_ fontAndSize: UIFont) { buttonsTextFontAndSize = fontAndSize}
+    public func enableAeroEffectInTopBar(_ boolValue: Bool) { aeroEffectInTopBar = boolValue}
+    public func enableButtonsWithImages(_ boolValue: Bool) { buttonsWithImages = boolValue}
+    public func enableBarShadow(_ boolValue: Bool) { barShadow = boolValue}
+    public func getPageViewController(_ index: Int) -> UIViewController? { return pageViews[index] }
 
-    public override func drawRect(rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         if containerView == nil {
             initSubViews()
         }
@@ -81,12 +81,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         } else {
             scrollView = UIScrollView(frame: CGRect(x: 0, y: topBarHeight, width: containerView.frame.size.width, height: containerView.frame.size.height - topBarHeight))
         }
-        scrollView.pagingEnabled = true
+        scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.delaysContentTouches = false
-        scrollView.backgroundColor = UIColor.clearColor()
+        scrollView.backgroundColor = UIColor.clear()
         scrollView.bounces = false
         containerView.addSubview(scrollView)
 
@@ -98,8 +98,8 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         if (aeroEffectInTopBar) {
             //Create the blurred visual effect
             //You can choose between ExtraLight, Light and Dark
-            topBar.backgroundColor = UIColor.clearColor()
-            let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+            topBar.backgroundColor = UIColor.clear()
+            let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = topBar.bounds
             blurView.translatesAutoresizingMaskIntoConstraints = false
@@ -115,28 +115,28 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             for _ in buttonTitles {
                 var barButton: UIButton!
                 barButton = UIButton(frame: CGRect(x: buttonsXPosition, y: 0, width: containerView.frame.size.width/(CGFloat)(pageViews.count), height: topBarHeight))
-                barButton.backgroundColor = UIColor.clearColor()
+                barButton.backgroundColor = UIColor.clear()
                 barButton.titleLabel!.font = buttonsTextFontAndSize
-                barButton.setTitle(buttonTitles[buttonNumber], forState: UIControlState.Normal)
-                barButton.setTitleColor(buttonsTextColor, forState: UIControlState.Normal)
+                barButton.setTitle(buttonTitles[buttonNumber], for: UIControlState())
+                barButton.setTitleColor(buttonsTextColor, for: UIControlState())
                 barButton.tag = buttonNumber
-                barButton.addTarget(self, action: "barButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+                barButton.addTarget(self, action: #selector(SwiftPages.barButtonAction(_:)), for: UIControlEvents.touchUpInside)
                 topBar.addSubview(barButton)
                 buttonsXPosition = containerView.frame.size.width/(CGFloat)(pageViews.count) + buttonsXPosition
-                buttonNumber++
+                buttonNumber += 1
             }
         } else {
             for item in buttonImages {
                 var barButton: UIButton!
                 barButton = UIButton(frame: CGRect(x: buttonsXPosition, y: 0, width: containerView.frame.size.width/(CGFloat)(pageViews.count), height: topBarHeight))
-                barButton.backgroundColor = UIColor.clearColor()
-                barButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-                barButton.setImage(item, forState: .Normal)
+                barButton.backgroundColor = UIColor.clear()
+                barButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+                barButton.setImage(item, for: UIControlState())
                 barButton.tag = buttonNumber
-                barButton.addTarget(self, action: "barButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+                barButton.addTarget(self, action: #selector(SwiftPages.barButtonAction(_:)), for: UIControlEvents.touchUpInside)
                 topBar.addSubview(barButton)
                 buttonsXPosition = containerView.frame.size.width/(CGFloat)(pageViews.count) + buttonsXPosition
-                buttonNumber++
+                buttonNumber += 1
             }
         }
 
@@ -153,8 +153,8 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             let shadowView = UIView(frame: CGRect(x: 0, y: topBarHeight, width: containerView.frame.size.width, height: 4))
             let gradient: CAGradientLayer = CAGradientLayer()
             gradient.frame = shadowView.bounds
-            gradient.colors = [UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 0.28).CGColor, UIColor.clearColor().CGColor]
-            shadowView.layer.insertSublayer(gradient, atIndex: 0)
+            gradient.colors = [UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 0.28).cgColor, UIColor.clear().cgColor]
+            shadowView.layer.insertSublayer(gradient, at: 0)
             containerView.addSubview(shadowView)
         }
 
@@ -170,12 +170,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     }
 
     // MARK: - Initialization Functions -
-    public func initializeWithVCsArrayAndButtonTitlesArray (vcs: [UIViewController], buttonTitlesArray: [String], sender: UIViewController) {
+    public func initializeWithVCsArrayAndButtonTitlesArray (_ vcs: [UIViewController], buttonTitlesArray: [String], sender: UIViewController) {
         //Important - Titles Array must Have The Same Number Of Items As The viewControllerIDs Array
         if vcs.count == buttonTitlesArray.count {
             for vc in vcs {
                 sender.addChildViewController(vc)
-                vc.didMoveToParentViewController(sender)
+                vc.didMove(toParentViewController: sender)
                 pageViews.append(vc)
             }
             buttonTitles = buttonTitlesArray
@@ -185,12 +185,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         }
     }
 
-    public func initializeWithVCsArrayAndButtonImagesArray (vcs: [UIViewController], buttonImagesArray: [UIImage], sender: UIViewController) {
+    public func initializeWithVCsArrayAndButtonImagesArray (_ vcs: [UIViewController], buttonImagesArray: [UIImage], sender: UIViewController) {
         //Important - Images Array must Have The Same Number Of Items As The viewControllerIDs Array
         if vcs.count == buttonImagesArray.count {
             for vc in vcs {
                 sender.addChildViewController(vc)
-                vc.didMoveToParentViewController(sender)
+                vc.didMove(toParentViewController: sender)
                 pageViews.append(vc)
             }
             buttonImages = buttonImagesArray
@@ -200,7 +200,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         }
     }
 
-    public func loadPage(page: Int) {
+    public func loadPage(_ page: Int) {
         if page < 0 || page >= pageViews.count {
             // If it's outside the range of what you have to display, then do nothing
             return
@@ -230,12 +230,12 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         }
     }
 
-    public func barButtonAction(sender: UIButton?) {
+    public func barButtonAction(_ sender: UIButton?) {
         let index: Int = sender!.tag
         switchPage(index)
     }
 
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Load the pages that are now on screen
         loadVisiblePages()
 
@@ -248,13 +248,13 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     var prevPage = 0
     var currentPage = 0
 
-    public func switchPage(index: Int) {
+    public func switchPage(_ index: Int) {
         guard index < pageViews.count else {
             return
         }
         prevPage = getCurrentPage()
         let pagesScrollViewSize = scrollView.frame.size
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.scrollView.contentOffset = CGPoint(x: pagesScrollViewSize.width * (CGFloat)(index), y: 0)
             }, completion: { _ in
                 self.currentPage = self.getCurrentPage()
@@ -263,11 +263,11 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         })
     }
 
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         prevPage = getCurrentPage()
     }
 
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if currentPage != getCurrentPage() {
             currentPage = getCurrentPage()
 
@@ -280,7 +280,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         return getPage(self.scrollView.contentOffset.x)
     }
 
-    func getPage(byOffset: CGFloat) -> Int {
+    func getPage(_ byOffset: CGFloat) -> Int {
         return Int(byOffset / self.scrollView.frame.size.width)
     }
 

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if let _ = Mine.sharedInstance.token {
             if Mine.sharedInstance.nickname.trim() == "" {
                 let firstController = UINavigationController(rootViewController: R.storyboard.login.register!)
@@ -38,39 +38,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             window?.rootViewController = R.storyboard.login.register
         }
 
-        UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().barTintColor = UIColor.blackColor()
-        UINavigationBar.appearance().barStyle = .Black
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().tintColor = UIColor.white()
+        UINavigationBar.appearance().barTintColor = UIColor.black()
+        UINavigationBar.appearance().barStyle = .black
 
-        UITabBar.appearance().translucent = false
-        UITabBar.appearance().barTintColor = UIColor.blackColor()
+        UITabBar.appearance().isTranslucent = false
+        UITabBar.appearance().barTintColor = UIColor.black()
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
 
-        MAMapServices.sharedServices().apiKey = amapKey
-        AMapSearchServices.sharedServices().apiKey = amapKey
-        AMapLocationServices.sharedServices().apiKey = amapKey
+        AMapServices.shared().apiKey = amapKey
 
-        CrashReporter.sharedInstance().enableBlockMonitor(true)
-        CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
-        CrashReporter.sharedInstance().installWithAppId(buglyAppid)
+        Bugly.setUserIdentifier(Mine.sharedInstance.nickname ?? "10000")
+        Bugly.start(withAppId: buglyAppid)
         WXApi.registerApp(wechatKey)
 
-        RCIM.sharedRCIM().initWithAppKey(rongAppKey)
+        RCIM.shared().initWithAppKey(rongAppKey)
 
-        let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
         application.registerUserNotificationSettings(settings)
 
-        RCIMClient.sharedRCIMClient().recordLaunchOptionsEvent(launchOptions)
-        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromLaunchOptions(launchOptions)
+        RCIMClient.shared().recordLaunchOptionsEvent(launchOptions)
+        let pushServiceData = RCIMClient.shared().getPushExtra(fromLaunchOptions: launchOptions)
         if (pushServiceData != nil) {
             print("launch from push service")
             print(pushServiceData)
         }
 
-        if let remoteNotificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey], rc = remoteNotificationUserInfo["rc"], targetId = rc?["fId"] as? String {
+        if let remoteNotificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey], let rc = remoteNotificationUserInfo["rc"], let targetId = rc?["fId"] as? String {
             main {
-                if let mainVc = self.window?.rootViewController as? MainViewController, navVc = mainVc.selectedViewController as? UINavigationController, vc = navVc.visibleViewController {
+                if let mainVc = self.window?.rootViewController as? MainViewController, let navVc = mainVc.selectedViewController as? UINavigationController, let vc = navVc.visibleViewController {
 //                    if UIApplication.sharedApplication().applicationState == .Active {
 //                        if let conversationVc = vc as? ConversationViewController where targetId == conversationVc.targetId {
 //                            // in chatting, do nothing
@@ -87,16 +84,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RCConversationListViewController.didReceiveMessageNotification(_:)), name: NSNotification.Name.RCKitDispatchMessage, object: nil)
 
-        RCIM.sharedRCIM().userInfoDataSource = self
+        RCIM.shared().userInfoDataSource = self
 
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 28,
             migrationBlock: { migration, oldSchemaVersion in
         })
 
-        if let logs = gRealm?.objects(RmLog) {
+        if let logs = gRealm?.allObjects(ofType: RmLog.self) {
             gRealm?.writeOptional {
                 gRealm?.delete(logs)
             }
@@ -112,88 +109,88 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     func checkNewVersion() {
         _ = FIR.checkUpdate().subscribeNext { fir in
             if version < fir.version {
-                let alert = UIAlertController(title: "更新", message: "当前版本：" + versionShort! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: "安装", style: .Default, handler: { (action) in
-                    UIApplication.sharedApplication().openURL(NSURL(string: fir.updateUrl)!)
+                let alert = UIAlertController(title: "更新", message: "当前版本：" + versionShort! + "\n最新版本：" + fir.versionShort + "\n版本信息：" + fir.changelog + "\n\n是否下载安装最新版本？", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "安装", style: .default, handler: { (action) in
+                    UIApplication.shared().openURL(NSURL(string: fir.updateUrl)! as URL)
                 }))
-                self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
             }
         }
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
-        let count = Int(RCIMClient.sharedRCIMClient().getTotalUnreadCount())
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        let count = Int(RCIMClient.shared().getTotalUnreadCount())
         application.applicationIconBadgeNumber = count
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         application.registerForRemoteNotifications()
     }
 
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let token = deviceToken.description.stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
-        RCIMClient.sharedRCIMClient().setDeviceToken(token)
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let token = deviceToken.description.replacingOccurrences(of: "<", with: "").replacingOccurrences(of: ">", with: "").replacingOccurrences(of: " ", with: "")
+        RCIMClient.shared().setDeviceToken(token)
     }
 
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        RCIMClient.sharedRCIMClient().recordRemoteNotificationEvent(userInfo)
-        let pushServiceData = RCIMClient.sharedRCIMClient().getPushExtraFromRemoteNotification(userInfo)
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        RCIMClient.shared().recordRemoteNotificationEvent(userInfo)
+        let pushServiceData = RCIMClient.shared().getPushExtra(fromRemoteNotification: userInfo)
         if pushServiceData != nil {
             print("received remote notification")
             print(pushServiceData)
         }
     }
 
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        RCIMClient.sharedRCIMClient().recordLocalNotificationEvent(notification)
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        RCIMClient.shared().recordLocalNotificationEvent(notification)
     }
 
-    func didReceiveMessageNotification(notification: NSNotification) {
+    func didReceiveMessageNotification(_ notification: UIKit.Notification) {
 //        if let msg = notification.object as? RCMessage {
 //        }
     }
 
-    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
-        return WXApi.handleOpenURL(url, delegate: self)
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        return WXApi.handleOpen(url, delegate: self)
     }
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        return WXApi.handleOpenURL(url, delegate: self)
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return WXApi.handleOpen(url, delegate: self)
     }
 
-    func onReq(req: BaseReq!) {
+    func onReq(_ req: BaseReq!) {
         print(req.type, req.openID)
     }
 
-    func onResp(resp: BaseResp!) {
+    func onResp(_ resp: BaseResp!) {
         print(resp.errCode, resp.errStr, resp.type)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: RCKitDispatchMessageNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.RCKitDispatchMessage, object: nil)
     }
 }
 
 extension AppDelegate: RCIMUserInfoDataSource {
-    func getUserInfoWithUserId(userId: String!, completion: ((RCUserInfo!) -> Void)!) {
+    func getUserInfo(withUserId userId: String!, completion: ((RCUserInfo?) -> Void)!) {
         _ = User.getUserInfo(userId).subscribeNext { res in
             guard let user = res.data else {
                 return

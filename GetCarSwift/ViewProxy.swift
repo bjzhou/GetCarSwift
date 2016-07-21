@@ -9,24 +9,24 @@
 import Foundation
 
 @objc protocol ViewProxy {
-    func showToast(toast: String)
-    func showViewController(vc: UIViewController)
+    func showToast(_ toast: String)
+    func showViewController(_ vc: UIViewController)
 }
 
 extension ViewProxy {
     func setRootViewController() {
-        UIApplication.sharedApplication().keyWindow?.rootViewController = R.storyboard.main.initialViewController
+        UIApplication.shared().keyWindow?.rootViewController = R.storyboard.main.initialViewController
     }
 }
 
 extension UIViewController: ViewProxy {
 
-    func showToast(toast: String) {
+    func showToast(_ toast: String) {
         Toast.makeToast(message: toast)
     }
 
-    func showViewController(vc: UIViewController) {
-        self.showViewController(vc, sender: self)
+    func showViewController(_ vc: UIViewController) {
+        self.show(vc, sender: self)
     }
 
 }

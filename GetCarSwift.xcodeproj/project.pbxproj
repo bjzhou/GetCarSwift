@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CA9228CC5364B0556FF080F /* Pods_GetCarSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB270C8A0200054FDCADEE3F /* Pods_GetCarSwift.framework */; };
 		8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */; };
 		8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */; };
-		98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA7E7F32B82B982261BC1FB /* Pods.framework */; };
 		C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C803EE3C1C18299C00425E04 /* CALayer+GK.swift */; };
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
@@ -145,11 +145,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0FA7E7F32B82B982261BC1FB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		379E7426878B39BF90F73D64 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
-		AF89B3959372DB5712543292 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C803EE3C1C18299C00425E04 /* CALayer+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+GK.swift"; sourceTree = "<group>"; };
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
@@ -271,6 +268,7 @@
 		C8F411D31C1EA38D00747678 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		C8F9CD6E1B7246BB0003AF1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		DB270C8A0200054FDCADEE3F /* Pods_GetCarSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCarSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,7 +282,7 @@
 				C8AB57301C2BF4EF0087898C /* libz.tbd in Frameworks */,
 				C8AB572E1C2BF4E30087898C /* SystemConfiguration.framework in Frameworks */,
 				C8AB572C1C2BF4800087898C /* libWeChatSDK.a in Frameworks */,
-				98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */,
+				5CA9228CC5364B0556FF080F /* Pods_GetCarSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,9 +305,16 @@
 				C8AB572F1C2BF4EF0087898C /* libz.tbd */,
 				C8AB572D1C2BF4E20087898C /* SystemConfiguration.framework */,
 				C86F854F1B8215A100C7DC7C /* CoreMotion.framework */,
-				0FA7E7F32B82B982261BC1FB /* Pods.framework */,
+				DB270C8A0200054FDCADEE3F /* Pods_GetCarSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5EED5E632F2E587646D96C1E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		8BDEB006326E9E3DED7B8762 /* track */ = {
@@ -464,7 +469,7 @@
 				C8AB57221C2BF3C70087898C /* WeChat */,
 				2C2ECC4D086E66923F2F9980 /* Frameworks */,
 				C867FC671AD8FCAF00F99592 /* Products */,
-				D726EAD8677BF61B80C23841 /* Pods */,
+				5EED5E632F2E587646D96C1E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -621,15 +626,6 @@
 			name = gkbox;
 			sourceTree = "<group>";
 		};
-		D726EAD8677BF61B80C23841 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AF89B3959372DB5712543292 /* Pods.debug.xcconfig */,
-				379E7426878B39BF90F73D64 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -637,16 +633,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C867FC871AD8FCB000F99592 /* Build configuration list for PBXNativeTarget "GetCarSwift" */;
 			buildPhases = (
-				C527E00D7BEFF4362739B28B /* Check Pods Manifest.lock */,
+				7C37E1F22372DA3D7627436D /* [CP] Check Pods Manifest.lock */,
 				C8CD8E0B1B91E85B0050DF90 /* Embed Frameworks */,
-				C88D89601BDF75E200AA4425 /* Generate R.swift */,
 				C8F330031C06AFB200FC5744 /* SwiftLint */,
 				C867FC621AD8FCAF00F99592 /* Sources */,
 				C867FC631AD8FCAF00F99592 /* Frameworks */,
 				C867FC641AD8FCAF00F99592 /* Resources */,
-				6E6F9C2B6C3314D97F51B147 /* Embed Pods Frameworks */,
-				917907DCB1C3F68F9978D874 /* Copy Pods Resources */,
 				C82746471C1AC55C009844A4 /* Bugly */,
+				75FD1CA619FC96DADAB71867 /* [CP] Embed Pods Frameworks */,
+				40D15CD7B12F642D5E1D3568 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -683,12 +678,14 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "周斌佳";
 				TargetAttributes = {
 					C867FC651AD8FCAF00F99592 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = H4MJ558LMP;
+						DevelopmentTeam = TH2Q5PL4G4;
+						DevelopmentTeamName = "binjia zhou (Personal Team)";
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -700,6 +697,7 @@
 					};
 					C867FC7C1AD8FCB000F99592 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = C867FC651AD8FCAF00F99592;
 					};
 				};
@@ -750,44 +748,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6E6F9C2B6C3314D97F51B147 /* Embed Pods Frameworks */ = {
+		40D15CD7B12F642D5E1D3568 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		917907DCB1C3F68F9978D874 /* Copy Pods Resources */ = {
+		75FD1CA619FC96DADAB71867 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C527E00D7BEFF4362739B28B /* Check Pods Manifest.lock */ = {
+		7C37E1F22372DA3D7627436D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,20 +806,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/bugly/dSYM_upload.sh\"";
-		};
-		C88D89601BDF75E200AA4425 /* Generate R.swift */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate R.swift";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/rswift\" \"$SRCROOT\"";
 		};
 		C8F330031C06AFB200FC5744 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -975,6 +959,7 @@
 		C867FC851AD8FCB000F99592 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -991,12 +976,12 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1020,6 +1005,7 @@
 		C867FC861AD8FCB000F99592 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1036,11 +1022,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1059,6 +1045,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1081,6 +1068,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift/GetCarSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1089,6 +1077,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C8E0E64B1C23AF4D00BD5EC9 /* channel.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1112,6 +1101,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift/GetCarSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1129,6 +1119,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
 			};
 			name = Debug;
@@ -1142,6 +1133,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
 			};
 			name = Release;

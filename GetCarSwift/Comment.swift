@@ -36,7 +36,7 @@ struct Comment: JSONable {
         uid = json["uid"].stringValue
     }
 
-    static func pubComment(sid sid: Int, content: String, pid: Int = 0) -> Observable<GKResult<String>> {
+    static func pubComment(sid: Int, content: String, pid: Int = 0) -> Observable<GKResult<String>> {
         return GaikeService.sharedInstance.api("trace/pubComment", body: ["sid":sid, "content":content, "type":1, "pid":pid])
     }
 

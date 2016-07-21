@@ -9,15 +9,15 @@
 import Foundation
 
 extension UIViewController {
-    func dismissPopupViewController(animated animated: Bool = false, completion: (() -> Void)? = nil) {
-        if let parent = self.parentViewController where parent.isKindOfClass(PopupViewController) {
-            parent.dismissViewControllerAnimated(animated, completion: completion)
-        } else if self.isKindOfClass(PopupViewController) {
-            self.dismissViewControllerAnimated(animated, completion: completion)
+    func dismissPopupViewController(animated: Bool = false, completion: (() -> Void)? = nil) {
+        if let parent = self.parent, parent.isKind(of: PopupViewController.self) {
+            parent.dismiss(animated: animated, completion: completion)
+        } else if self.isKind(of: PopupViewController.self) {
+            self.dismiss(animated: animated, completion: completion)
         }
     }
 
-    func addEndEditingGesture(view: UIView) {
+    func addEndEditingGesture(_ view: UIView) {
         let gestureRecgnizer = UITapGestureRecognizer()
         gestureRecgnizer.numberOfTapsRequired = 1
         _ = gestureRecgnizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in

@@ -17,11 +17,11 @@ extension UIButton {
             MainScheduler.ensureExecutingOnScheduler()
 
             switch event {
-            case .Next(let value):
-                self?.selected = value
-            case .Error:
+            case .next(let value):
+                self?.isSelected = value
+            case .error:
                 break
-            case .Completed:
+            case .completed:
                 break
             }
         }

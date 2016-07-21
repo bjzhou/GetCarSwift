@@ -53,8 +53,8 @@ class TrackTimerViewController: UIViewController {
                 if self.passFlag {
                     RmLog.d("passed all locs")
                     let data = List<RmScoreData>()
-                    data.appendContentsOf(self.data)
-                    if let score = data.last?.t where score >= 0.5 {
+                    data.append(objectsIn: self.data)
+                    if let score = data.last?.t, score >= 0.5 {
                         let rmscore = RmScore()
                         rmscore.score = score
                         rmscore.data = data
@@ -89,7 +89,7 @@ class TrackTimerViewController: UIViewController {
                 }
             }
 
-            if let leaveLoc = self.raceTrack.leaveLoc where MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 15) {
+            if let leaveLoc = self.raceTrack.leaveLoc, MACircleContainsCoordinate(loc.coordinate, CLLocationCoordinate2DMake(leaveLoc.latitude, leaveLoc.longitude), 15) {
                 if self.data.count != 0 {
                     self.stopTimer()
                     self.data.removeAll()
@@ -101,19 +101,19 @@ class TrackTimerViewController: UIViewController {
 
     func startTimer() {
         stopTimer()
-        UIApplication.sharedApplication().idleTimerDisabled = true
+        UIApplication.shared().isIdleTimerDisabled = true
         self.data.removeAll()
         RmLog.d("start timer")
         timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, startLoc = self.startLoc else {
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, let startLoc = self.startLoc else {
                 return
             }
 
             let v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
-            let s = startLoc.distanceFromLocation(loc)
+            let s = startLoc.distance(from: loc)
             let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
 
             if let prevData = self.data.last {
@@ -127,15 +127,15 @@ class TrackTimerViewController: UIViewController {
     }
 
     func stopTimer() {
-        UIApplication.sharedApplication().idleTimerDisabled = false
+        UIApplication.shared().isIdleTimerDisabled = false
         timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
         passFlag = false
         RmLog.d("stop timer")
     }
 
-    func time2String(t: Double) -> String {
-        let ms = Int(round(t * 100 % 100))
+    func time2String(_ t: Double) -> String {
+        let ms = Int(round((t * 100).truncatingRemainder(dividingBy: 100)))
         let s = Int(t) % 60
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
@@ -143,7 +143,7 @@ class TrackTimerViewController: UIViewController {
 
     func updateScore() {
         RmLog.d("update score")
-        let scores = gRealm?.objects(RmScore).filter("mapType = \(raceTrack.id)")
+        let scores = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = \(raceTrack.id)")
 
         if scores?.count == 0 {
             Records.getRecord(raceTrack.id, count: 3).subscribeNext { res in
@@ -168,7 +168,7 @@ class TrackTimerViewController: UIViewController {
             return
         }
 
-        let latests = scores?.sorted("createdAt", ascending: false)
+        let latests = scores?.sorted(onProperty: "createdAt", ascending: false)
         if latests?.count > 0 {
             scoreLastest1Label.text = time2String(latests![0].score)
         }
@@ -179,7 +179,7 @@ class TrackTimerViewController: UIViewController {
             scoreLastest3Label.text = time2String(latests![2].score)
         }
 
-        let best = scores?.sorted("score")
+        let best = scores?.sorted(onProperty: "score")
         if best?.count > 0 {
             scoreBestLabel.text = time2String(best![0].score)
         }

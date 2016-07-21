@@ -40,7 +40,7 @@ struct File {
 
     func isDirectory() -> Bool {
         var isDir = ObjCBool(false)
-        NSFileManager.defaultManager().fileExistsAtPath(self.path, isDirectory: &isDir)
+        FileManager.default.fileExists(atPath: self.path, isDirectory: &isDir)
         return isDir.boolValue
     }
 
@@ -48,7 +48,7 @@ struct File {
         if isDirectory() {
             return
         }
-        _ = try? NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: false, attributes: nil)
+        _ = try? FileManager.default.createDirectory(atPath: self.path, withIntermediateDirectories: false, attributes: nil)
         fixPathIfNeeded()
     }
 
@@ -56,21 +56,21 @@ struct File {
         if isDirectory() {
             return
         }
-        _ = try? NSFileManager.defaultManager().createDirectoryAtPath(self.path, withIntermediateDirectories: true, attributes: nil)
+        _ = try? FileManager.default.createDirectory(atPath: self.path, withIntermediateDirectories: true, attributes: nil)
         fixPathIfNeeded()
     }
 
     func getName() -> String {
-        return self.path.characters.split(Character("/")).map { String($0) }.last!
+        return self.path.characters.split(separator: Character("/")).map { String($0) }.last!
     }
 
     func list() throws -> [String] {
-        return try NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.path)
+        return try FileManager.default.contentsOfDirectory(atPath: self.path)
     }
 
-    func move(toFile toFile: File) -> Bool {
+    func move(toFile: File) -> Bool {
         do {
-            try NSFileManager.defaultManager().moveItemAtPath(self.path, toPath: toFile.path)
+            try FileManager.default.moveItem(atPath: self.path, toPath: toFile.path)
         } catch {
             return false
         }
@@ -79,7 +79,7 @@ struct File {
 
     func delete() -> Bool {
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(self.path)
+            try FileManager.default.removeItem(atPath: self.path)
         } catch {
             return false
         }
@@ -87,9 +87,9 @@ struct File {
     }
 
     func listFiles() throws -> [File] {
-        let files = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.path)
+        let files = try FileManager.default.contentsOfDirectory(atPath: self.path)
         return files.flatMap { try? File(dir: self, name: $0 ) }
     }
 
-    static let docFile = File(path: (try? NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true))?.path ?? "")
+    static let docFile = File(path: (try? FileManager.default.urlForDirectory(.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))?.path ?? "")
 }

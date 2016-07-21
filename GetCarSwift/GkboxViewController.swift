@@ -22,8 +22,8 @@ class GkboxViewController: UIViewController {
         swiftPagesView.initializeWithVCsArrayAndButtonTitlesArray([R.storyboard.gkbox.data!, R.storyboard.gkbox.map!], buttonTitlesArray: buttonTitles, sender: self)
 
         self.navigationController?.view.addTapGesture { _ in
-            if self.messageDialog.hidden == false {
-                self.messageDialog.hidden = true
+            if self.messageDialog.isHidden == false {
+                self.messageDialog.isHidden = true
             }
         }
 
@@ -39,30 +39,30 @@ class GkboxViewController: UIViewController {
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         showDisclaimerIfNeeded()
-        messageDialog.hidden = true
+        messageDialog.isHidden = true
     }
 
-    @IBAction func showMessageDialog(sender: AnyObject) {
-        if messageDialog.hidden == true {
-            swiftPagesView.bringSubviewToFront(messageDialog)
-            messageDialog.hidden = false
+    @IBAction func showMessageDialog(_ sender: AnyObject) {
+        if messageDialog.isHidden == true {
+            swiftPagesView.bringSubview(toFront: messageDialog)
+            messageDialog.isHidden = false
         } else {
-            self.messageDialog.hidden = true
+            self.messageDialog.isHidden = true
         }
     }
 
     func showDisclaimerIfNeeded() {
-        let disclaimer = NSUserDefaults.standardUserDefaults().boolForKey("isDisclaimerShowed")
+        let disclaimer = UserDefaults.standard.bool(forKey: "isDisclaimerShowed")
         if !disclaimer {
-            let attributedMessage = NSAttributedString.loadHTMLString("<font size=4>1.使用本应用程序请按照道路交通管理条例安全驾驶，不超速、不逼车、不跨线、拒绝飙车！<br/><br/>2.使用本程序时，视为同意自行承担一切风险，本程序开发者以及公司对于使用本程序时所发生的任何直接或者间接的损失，一概免责。<br/><br/>3.在您使用本应用程序时，将视作您了解并同意本应用程序不能保证GPS位置等所有咨询数据的完全正确性。</font>")
-            let alertController = UIAlertController(title: "使用条款以及免责声明", message: "", preferredStyle: .Alert)
+            let attributedMessage = AttributedString.loadHTMLString("<font size=4>1.使用本应用程序请按照道路交通管理条例安全驾驶，不超速、不逼车、不跨线、拒绝飙车！<br/><br/>2.使用本程序时，视为同意自行承担一切风险，本程序开发者以及公司对于使用本程序时所发生的任何直接或者间接的损失，一概免责。<br/><br/>3.在您使用本应用程序时，将视作您了解并同意本应用程序不能保证GPS位置等所有咨询数据的完全正确性。</font>")
+            let alertController = UIAlertController(title: "使用条款以及免责声明", message: "", preferredStyle: .alert)
             alertController.setValue(attributedMessage, forKey: "attributedMessage")
-            alertController.addAction(UIAlertAction(title: "确定", style: .Default, handler: {_ in
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isDisclaimerShowed")
+            alertController.addAction(UIAlertAction(title: "确定", style: .default, handler: {_ in
+                UserDefaults.standard.set(true, forKey: "isDisclaimerShowed")
             }))
-            presentViewController(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
     }
 

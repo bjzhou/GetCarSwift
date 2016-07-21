@@ -33,7 +33,7 @@ struct Nearby: JSONable {
         carHeadId = json["car_head_id"].intValue
     }
 
-    static func map(maxCount: Int = 25, maxDistance: Int = 5000) -> Observable<GKResult<Nearby>> {
+    static func map(_ maxCount: Int = 25, maxDistance: Int = 5000) -> Observable<GKResult<Nearby>> {
         return GaikeService.sharedInstance.api("geo/map", body: ["max_count":maxCount, "max_distance":maxDistance])
     }
 }

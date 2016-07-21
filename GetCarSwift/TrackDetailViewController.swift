@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RealmSwift
 
-class TrackDetailViewController: UIViewController {
+class TrackDetailViewController: UIViewController, CAAnimationDelegate {
 
     @IBOutlet weak var postView: UIView!
     @IBOutlet weak var postViewPos: NSLayoutConstraint!
@@ -64,23 +64,23 @@ class TrackDetailViewController: UIViewController {
         addEndEditingGesture(self.view)
 
         for button in [button1, button2, button3] {
-            button.layer.masksToBounds = true
-            button.layer.cornerRadius = 23.5
+            button?.layer.masksToBounds = true
+            button?.layer.cornerRadius = 23.5
         }
 
-        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.imageWithRenderingMode(.AlwaysOriginal)
-        self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, forBarMetrics: .Default)
+        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, for: .default)
 
         mapView.showsCompass = false
-        mapView.zoomEnabled = true
-        mapView.scrollEnabled = false
-        mapView.showsLabels = false
-        mapView.skyModelEnable = false
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = false
+        mapView.isShowsLabels = false
+        mapView.isSkyModelEnabled = false
         //mapView.mapType = .Satellite
         mapView.delegate = self
-        if let raceTrack = trackDetailViewModel.raceTrack, mapCenter = raceTrack.mapCenter {
+        if let raceTrack = trackDetailViewModel.raceTrack, let mapCenter = raceTrack.mapCenter {
             mapView.zoomLevel = raceTrack.mapZoom
-            mapView.setCenterCoordinate(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
+            mapView.setCenter(CLLocationCoordinate2DMake(mapCenter.latitude, mapCenter.longitude), animated: false)
 
 //            mapView.addOverlay(MACircle(centerCoordinate: CLLocationCoordinate2DMake(raceTrack.startLoc?.latitude ?? 0, raceTrack.startLoc?.longitude ?? 0), radius: 10))
 //
@@ -135,34 +135,34 @@ class TrackDetailViewController: UIViewController {
         danmuEffect = DanmuEffect(superView: self.view, rect: danmuRect)
     }
 
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(TrackDetailViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TrackDetailViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         timerDisposable?.dispose()
     }
 
-    func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
+    func keyboardWillShow(_ notification: UIKit.Notification) {
+        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
             return
         }
 
         self.postViewPos.constant = keyboardSize.height
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             self.view.layoutIfNeeded()
         })
     }
 
-    func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.25, animations: {
+    func keyboardWillHide(_ notification: UIKit.Notification) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.postViewPos.constant = 0
         })
     }
 
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
 
     func initTrackData() {
@@ -174,121 +174,121 @@ class TrackDetailViewController: UIViewController {
             }.addDisposableTo(disposeBag)
     }
 
-    @IBAction func didStart(sender: UIButton) {
+    @IBAction func didStart(_ sender: UIButton) {
         let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
         if stopTime == 0 { return }
 
-        sender.selected = !sender.selected
+        sender.isSelected = !sender.isSelected
         if self.timerOffset == 0 {
             timerDisposable?.dispose()
-            mapView.zoomEnabled = false
-            mapView.rotateEnabled = false
-            mapView.rotateCameraEnabled = false
+            mapView.isZoomEnabled = false
+            mapView.isRotateEnabled = false
+            mapView.isRotateCameraEnabled = false
             timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { _ in
-                if !sender.selected {
+                if !sender.isSelected {
                     return
                 }
 
-                self.timerOffset++
+                self.timerOffset += 1
                 let t = Double(self.timerOffset)/100
                 let curTs = self.time2String(t)
                 self.timeLabel.text = curTs
 
-                if let lt = (self.score1?.data.filter { $0.t <= t })?.last, gt = (self.score1?.data.filter { $0.t >= t })?.first {
+                if let lt = (self.score1?.data.filter { $0.t <= t })?.last, let gt = (self.score1?.data.filter { $0.t >= t })?.first {
                     self.vLabel1.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
                     self.aLabel1.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let lt = (self.score2?.data.filter { $0.t <= t })?.last, gt = (self.score2?.data.filter { $0.t >= t })?.first {
+                if let lt = (self.score2?.data.filter { $0.t <= t })?.last, let gt = (self.score2?.data.filter { $0.t >= t })?.first {
                     self.vLabel2.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
                     self.aLabel2.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let lt = (self.score3?.data.filter { $0.t <= t })?.last, gt = (self.score3?.data.filter { $0.t >= t })?.first {
+                if let lt = (self.score3?.data.filter { $0.t <= t })?.last, let gt = (self.score3?.data.filter { $0.t >= t })?.first {
                     self.vLabel3.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
                     self.aLabel3.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
                 if t >= stopTime {
                     self.timerDisposable?.dispose()
-                    sender.selected = !sender.selected
+                    sender.isSelected = !sender.isSelected
                     self.timerOffset = 0
-                    self.mapView.zoomEnabled = true
-                    self.mapView.rotateEnabled = true
-                    self.mapView.rotateCameraEnabled = true
+                    self.mapView.isZoomEnabled = true
+                    self.mapView.isRotateEnabled = true
+                    self.mapView.isRotateCameraEnabled = true
                 }
             }
             startAnim(annotation1, score: score1)
             startAnim(annotation2, score: score2)
             startAnim(annotation3, score: score3)
         } else {
-            if !sender.selected {
+            if !sender.isSelected {
                 // pause
-                mapView.viewForAnnotation(annotation1)?.layer.pauseAnimation()
-                mapView.viewForAnnotation(annotation2)?.layer.pauseAnimation()
-                mapView.viewForAnnotation(annotation3)?.layer.pauseAnimation()
+                mapView.view(for: annotation1)?.layer.pauseAnimation()
+                mapView.view(for: annotation2)?.layer.pauseAnimation()
+                mapView.view(for: annotation3)?.layer.pauseAnimation()
             } else {
                 // resume
-                mapView.viewForAnnotation(annotation1)?.layer.resumeAnimation()
-                mapView.viewForAnnotation(annotation2)?.layer.resumeAnimation()
-                mapView.viewForAnnotation(annotation3)?.layer.resumeAnimation()
+                mapView.view(for: annotation1)?.layer.resumeAnimation()
+                mapView.view(for: annotation2)?.layer.resumeAnimation()
+                mapView.view(for: annotation3)?.layer.resumeAnimation()
             }
         }
     }
 
-    func startAnim(annotation: MAPointAnnotation?, score: RmScore?) {
-        guard let score = score, annotation = annotation else {
+    func startAnim(_ annotation: MAPointAnnotation?, score: RmScore?) {
+        guard let score = score, let annotation = annotation else {
             return
         }
 
         annotation.coordinate = CLLocationCoordinate2DMake(score.data.first?.lat ?? 0, score.data.first?.long ?? 0)
-        let view = mapView.viewForAnnotation(annotation)
+        let view = mapView.view(for: annotation)
         let points: [CGPoint] = score.data.map { data in
             let loc = CLLocationCoordinate2D(latitude: data.lat, longitude: data.long)
-            return self.mapView.convertCoordinate(loc, toPointToView: self.mapView)
+            return self.mapView.convert(loc, toPointTo: self.mapView)
         }
         let anim = CAKeyframeAnimation(keyPath: "position")
         anim.duration = score.score
         anim.keyTimes = score.data.map { $0.t / score.score }
-        anim.values = points.map { NSValue(CGPoint: CGPoint(x: $0.x - points[0].x, y: $0.y - points[0].y)) }
+        anim.values = points.map { NSValue(cgPoint: CGPoint(x: $0.x - points[0].x, y: $0.y - points[0].y)) }
         anim.calculationMode = kCAAnimationLinear
-        anim.removedOnCompletion = false
+        anim.isRemovedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
-        anim.additive = true
+        anim.isAdditive = true
         anim.delegate = self
 
-        view?.layer.addAnimation(anim, forKey: "race")
+        view?.layer.add(anim, forKey: "race")
     }
 
     func stopAnim() {
-        mapView.viewForAnnotation(annotation1)?.layer.resumeAnimation()
-        mapView.viewForAnnotation(annotation2)?.layer.resumeAnimation()
-        mapView.viewForAnnotation(annotation3)?.layer.resumeAnimation()
-        mapView.viewForAnnotation(annotation1)?.layer.removeAllAnimations()
-        mapView.viewForAnnotation(annotation2)?.layer.removeAllAnimations()
-        mapView.viewForAnnotation(annotation3)?.layer.removeAllAnimations()
+        mapView.view(for: annotation1)?.layer.resumeAnimation()
+        mapView.view(for: annotation2)?.layer.resumeAnimation()
+        mapView.view(for: annotation3)?.layer.resumeAnimation()
+        mapView.view(for: annotation1)?.layer.removeAllAnimations()
+        mapView.view(for: annotation2)?.layer.removeAllAnimations()
+        mapView.view(for: annotation3)?.layer.removeAllAnimations()
     }
 
-    func time2String(t: Double) -> String {
+    func time2String(_ t: Double) -> String {
         if t < 0 {
             return "--:--.--"
         }
-        let ms = Int(round(t * 100 % 100))
+        let ms = Int(round((t * 100).truncatingRemainder(dividingBy: 100)))
         let s = Int(t) % 60
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
 
-    @IBAction func didAddPlayer(sender: UIButton) {
+    @IBAction func didAddPlayer(_ sender: UIButton) {
         let addViewController = AddPlayerTableViewController()
         addViewController.delegate = self
         addViewController.sender = sender
         addViewController.sid = trackDetailViewModel.sid
         let popupViewController = PopupViewController(rootViewController: addViewController)
-        self.presentViewController(popupViewController, animated: false, completion: nil)
+        self.present(popupViewController, animated: false, completion: nil)
     }
 
-    @IBAction func didPostComment(sender: UIButton) {
+    @IBAction func didPostComment(_ sender: UIButton) {
         if commentTextField.text!.trim() == "" {
             Toast.makeToast(message: "评论不能为空")
             return
@@ -300,7 +300,7 @@ class TrackDetailViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == R.segue.track_comment {
             if let destVc = segue.destinationViewController as? CommentsViewController {
                 destVc.trackDetailViewModel = trackDetailViewModel
@@ -311,7 +311,7 @@ class TrackDetailViewController: UIViewController {
 }
 
 extension TrackDetailViewController: AddPlayerDelegate {
-    func didPlayerAdded(score: AnyObject, sender: UIButton?) {
+    func didPlayerAdded(_ score: AnyObject, sender: UIButton?) {
         guard let score = score as? RmScore else {
             return
         }
@@ -323,20 +323,20 @@ extension TrackDetailViewController: AddPlayerDelegate {
         if nickname == "" {
             nickname = Mine.sharedInstance.nickname ?? ""
         }
-        sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal, placeholderImage: R.image.avatar)
+        sender?.kf_setBackgroundImageWithURL(URL(string: url)!, forState: .normal, placeholderImage: R.image.avatar)
         sender?.layer.borderWidth = 2
 
         timerDisposable?.dispose()
-        startButton.selected = false
+        startButton.isSelected = false
         timerOffset = 0
         stopAnim()
-        mapView.zoomEnabled = true
-        mapView.rotateEnabled = true
-        mapView.rotateCameraEnabled = true
+        mapView.isZoomEnabled = true
+        mapView.isRotateEnabled = true
+        mapView.isRotateCameraEnabled = true
 
         switch sender {
-        case .Some(button1):
-            sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
+        case .some(button1):
+            sender?.layer.borderColor = UIColor.gaikeRedColor().cgColor
             titleLabel1.text = nickname
             score1 = score
             if annotation1 == nil {
@@ -350,8 +350,8 @@ extension TrackDetailViewController: AddPlayerDelegate {
                     annotation1?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
                 }
             }
-        case .Some(button2):
-            sender?.layer.borderColor = UIColor(rgbValue: 0x13931B).CGColor
+        case .some(button2):
+            sender?.layer.borderColor = UIColor(rgbValue: 0x13931B).cgColor
             titleLabel2.text = nickname
             score2 = score
             if annotation2 == nil {
@@ -365,8 +365,8 @@ extension TrackDetailViewController: AddPlayerDelegate {
                     annotation2?.coordinate = CLLocationCoordinate2D(latitude: first.lat, longitude: first.long)
                 }
             }
-        case .Some(button3):
-            sender?.layer.borderColor = UIColor(rgbValue: 0x007AFF).CGColor
+        case .some(button3):
+            sender?.layer.borderColor = UIColor(rgbValue: 0x007AFF).cgColor
             titleLabel3.text = nickname
             score3 = score
             if annotation3 == nil {
@@ -387,12 +387,12 @@ extension TrackDetailViewController: AddPlayerDelegate {
 }
 
 extension TrackDetailViewController: MAMapViewDelegate {
-    func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
+    func mapView(_ mapView: MAMapView!, didSingleTappedAt coordinate: CLLocationCoordinate2D) {
         self.view.endEditing(true)
         print("[\(coordinate.latitude), \(coordinate.longitude), 0]")
     }
 
-    func mapView(mapView: MAMapView!, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MAMapView!, regionDidChangeAnimated animated: Bool) {
         delay(0.1) { // avoid crash when double tap mapview
             if mapView.zoomLevel < 16 {
                 mapView.zoomLevel = 16
@@ -404,27 +404,27 @@ extension TrackDetailViewController: MAMapViewDelegate {
         }
     }
 
-    func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
+    func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay!) -> MAOverlayRenderer! {
         guard let circle = overlay as? MACircle else {
             return nil
         }
 
-        let circleView = MACircleView(circle: circle)
-        circleView.strokeColor = UIColor.blackColor()
-        circleView.lineWidth = 1
-        circleView.fillColor = UIColor.yellowColor()
+        let circleView = MACircleRenderer(circle: circle)
+        circleView?.strokeColor = UIColor.black()
+        circleView?.lineWidth = 1
+        circleView?.fillColor = UIColor.yellow()
 
         if circle.coordinate.longitude == 121.121573354806 {
-            circleView.fillColor = UIColor.redColor()
+            circleView?.fillColor = UIColor.red()
         }
         return circleView
     }
 
-    func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
+    func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
         guard let annotation = annotation as? MAPointAnnotation else {
             return nil
         }
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation")
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotation")
         if annotationView == nil {
             annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
             if annotation == annotation1 {

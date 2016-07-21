@@ -31,17 +31,17 @@ class LoginViewController: UIViewController {
 
         loginViewModel.codeEnabled.asObservable().bindTo(vcodeButton.rx_enabled).addDisposableTo(disposeBag)
         loginViewModel.codeTitle.asObservable().subscribeNext { title in
-            self.vcodeButton.setTitle(title, forState: .Normal)
+            self.vcodeButton.setTitle(title, for: .normal)
         }.addDisposableTo(disposeBag)
     }
 
     // MARK: IBOutlet Actions
 
-    @IBAction func onLoginAction(sender: UIButton) {
+    @IBAction func onLoginAction(_ sender: UIButton) {
         loginViewModel.onLoginAction()
     }
 
-    @IBAction func onVCodeAction(sender: UIButton) {
+    @IBAction func onVCodeAction(_ sender: UIButton) {
         loginViewModel.onCodeButtonAction()
     }
 

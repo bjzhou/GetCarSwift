@@ -10,7 +10,7 @@ import Foundation
 
 extension CALayer {
     func pauseAnimation() {
-        let pausedTime = self.convertTime(CACurrentMediaTime(), fromLayer: nil)
+        let pausedTime = self.convertTime(CACurrentMediaTime(), from: nil)
         self.speed = 0
         self.timeOffset = pausedTime
     }
@@ -20,7 +20,7 @@ extension CALayer {
         self.speed = 1
         self.timeOffset = 0
         self.beginTime = 0
-        let timeSincePause = self.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTime
+        let timeSincePause = self.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         self.beginTime = timeSincePause
     }
 }

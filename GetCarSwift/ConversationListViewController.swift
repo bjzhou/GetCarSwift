@@ -27,7 +27,7 @@ class ConversationListViewController: RCConversationListViewController {
             RCConversationType.ConversationType_GROUP.rawValue])
     }
 
-    override func onSelectedTableRow(conversationModelType: RCConversationModelType, conversationModel model: RCConversationModel!, atIndexPath indexPath: NSIndexPath!) {
+    override func onSelectedTableRow(_ conversationModelType: RCConversationModelType, conversationModel model: RCConversationModel!, at indexPath: IndexPath!) {
         let chat = ConversationViewController()
         chat.conversationType = model.conversationType
         chat.targetId = model.targetId
@@ -35,7 +35,7 @@ class ConversationListViewController: RCConversationListViewController {
         showViewController(chat)
     }
 
-    override func didTapCellPortrait(model: RCConversationModel!) {
+    override func didTapCellPortrait(_ model: RCConversationModel!) {
         let vc = R.storyboard.friend.friend_profile
         vc?.uid = model.targetId
         showViewController(vc!)

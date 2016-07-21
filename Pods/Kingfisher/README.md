@@ -18,7 +18,10 @@
 
 <a href="http://cocoadocs.org/docsets/Kingfisher"><img src="https://img.shields.io/cocoapods/p/Kingfisher.svg?style=flat"></a>
 
+<a href="https://codebeat.co/projects/github-com-onevcat-kingfisher"><img alt="codebeat" src="https://codebeat.co/badges/30b4386d-46e5-46ee-bcc6-251158bb5ef7" /></a>
+
 <img src="https://img.shields.io/badge/made%20with-%3C3-orange.svg">
+
 
 </p>
 
@@ -31,18 +34,25 @@ Kingfisher is a lightweight and pure Swift implemented library for downloading a
 * Cache management. You can set the max duration or size the cache takes. From this, the cache will be cleaned automatically to prevent taking too many resources.
 * Modern framework. Kingfisher uses `NSURLSession` and the latest technology of GCD, which makes it a strong and swift framework. It also provides you easy APIs to use.
 * Cancelable processing task. You can cancel the downloading process if it is not needed anymore.
+* Prefetching. You can prefetch and cache the images which might soon appear in the page. It will bring your users great experience.
 * Independent components. You can use the downloader or caching system separately. Or even create your own cache based on Kingfisher's code.
 * Options to decompress the image in background before rendering it, which could improve the UI performance.
-* Categories over `UIImageView`, `NSImage` and `UIButton` for setting image from an URL directly. Use the same code across all Apple platforms.
-* Support GIF seamlessly. You could just download and set your GIF images as the same as you do for PNG/JPEG format.
+* Categories over `UIImageView`, `NSImage` and `UIButton` for setting image from a URL directly. Use the same code across all Apple platforms.
+* Support GIF seamlessly. You could just download and set your GIF images as the same as you do for PNG/JPEG format using `AnimatedImageView`.
+* You could set `Activity Indicator` for your UIImageView or NSImageView to enable the indicator during loading image from web.
 
 ## Requirements
 
 * iOS 8.0+, tvOS 9.0+, watchOS 2.0+ or OS X 10.10+
-* Xcode 7.0 or above
+* Xcode 7.3 or above
 
-If you upgrades to Kingfiser 2.x, please read the [Kingfisher 2.0 Migration Guide](https://github.com/onevcat/Kingfisher/wiki/Kingfisher-2.0-Migration-Guide) for more information.
+If you are upgrading to Kingfisher 2.x from 1.x, please read the [Kingfisher 2.0 Migration Guide](https://github.com/onevcat/Kingfisher/wiki/Kingfisher-2.0-Migration-Guide) for more information.
 
+Kingfisher is now supporting Swift 2.2. If you need to use Kingfisher in Swift 2.1, you need to pin the version to 2.1.0.
+
+### Swift 3
+
+Kingfisher is now supporting Swift 3 in the [swift3](https://github.com/onevcat/Kingfisher/tree/swift3) branch. It is now under development and not be officially released yet. You could specify to that branch if you are working in a Swift 3 project. However, please reconsider if you want to use it in a releasing orientation product, since more breaking change would be applied later.
 
 ## Installation
 
@@ -61,7 +71,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'Kingfisher', '~> 2.0'
+pod 'Kingfisher', '~> 2.4'
 ```
 
 Then, run the following command:
@@ -86,7 +96,7 @@ $ brew install carthage
 To integrate Kingfisher into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ``` ogdl
-github "onevcat/Kingfisher" ~> 2.0
+github "onevcat/Kingfisher" ~> 2.4
 ```
 
 Then, run the following command to build the Kingfisher framework:
@@ -222,7 +232,7 @@ imageView.kf_setImageWithURL(NSURL(string: "your_image_url")!,
                             progressBlock: { (receivedSize, totalSize) -> () in
                                 print("Download Progress: \(receivedSize)/\(totalSize)")
                             },
-                        completionHandler: { (image, error, imageURL) -> () in
+                        completionHandler: { (image, error, cacheType, imageURL) -> () in
                             print("Downloaded and set!")
                         }
 )
@@ -301,6 +311,42 @@ cache.clearDiskCache()
 // Clean expired or size exceeded disk cache. This is an async operation.
 cache.cleanExpiredDiskCache()
 ```
+
+### Prefetching
+
+You could prefetch some images and cache them before you display them on the screen. This is useful when you know a list of image resources you know they would probably be shown later. Since the prefetched images are already in the cache system, there is no need to request them again when you really need to display them in a image view. It will boost your UI and bring your users great experience.
+
+To prefetch some images, you could use the `ImagePrefetcher`:
+
+```swift
+let urls = ["http://example.com/image1.jpg", "http://example.com/image2.jpg"].map { NSURL(string: $0)! }
+let prefetcher = ImagePrefetcher(urls: urls, optionsInfo: nil, progressBlock: nil, completionHandler: {
+    (skippedResources, failedResources, completedResources) -> () in
+    print("These resources are prefetched: \(completedResources)")
+})
+prefetcher.start()
+```
+
+You can also stop a prefetch whenever you need:
+
+```swift
+prefetcher.stop()
+```
+
+After prefetching, you could retrieve image or set the image view with other Kingfisher's methods, with the same `ImageCache` object you used for the prefetching.
+
+### Animated GIF
+
+You can load animated GIF by replacing `UIImageView` with `AnimatedImageView`, and then using the same API for a regular image view like this:
+
+```swift
+let imageView = AnimatedImageView()
+imageView.kf_setImageWithURL(NSURL(string: "your_animated_gif_image_url")!)
+```
+
+`AnimatedImageView` will only decode some frames of your GIF image to get a smaller memory footprint. You can set the frame count you need to pre-load by setting the `framePreloadCount` property of an `AnimatedImageView` (default is 10).
+
+You can also load a GIF file by a regular `UIImageView`. However, all frames will be loaded and decoded into memory. It is probably not suitable if you are loading a large GIF image. For most cases, you may want to use `AnimatedImageView`. The GIF support in Kingfisher's `UIImageView` only fits the small files, and now is mostly serving for back compatibility.
 
 ## Future of Kingfisher
 

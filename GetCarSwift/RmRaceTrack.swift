@@ -31,7 +31,7 @@ class RmRaceTrack: Object {
         return "id"
     }
 
-    func getSightViewImage(closure: UIImage -> ()) {
+    func getSightViewImage(_ closure: (UIImage) -> ()) {
         UIImage.asyncInit(self.sightView) { img in
             if let img = img {
                 closure(img)
@@ -48,7 +48,7 @@ class RmRaceTrack: Object {
         }
     }
 
-    func getMapImageImage(closure: UIImage -> ()) {
+    func getMapImageImage(_ closure: (UIImage) -> ()) {
         UIImage.asyncInit(self.mapImage) { img in
             if let img = img {
                 closure(img)

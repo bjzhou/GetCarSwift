@@ -8,7 +8,9 @@
 
 #import "MAOfflineCity.h"
 
-/* 全国概要. */
+/**
+ *  全国概要
+ */
 @interface MAOfflineItemNationWide : MAOfflineCity
 
 @end

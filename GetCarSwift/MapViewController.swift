@@ -41,58 +41,58 @@ class MapViewController: UIViewController {
         mapView.showsCompass = false
         mapView.scaleOrigin = CGPoint(x: 8, y: 44)
         mapView.zoomLevel = zoomLevel
-        mapView.setCenterCoordinate(centerCoordinate, animated: false)
+        mapView.setCenter(centerCoordinate, animated: false)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotations(mapViewModel.loadTracks())
     }
 
-    @IBAction func didLayerChanged(sender: UIButton) {
-        if mapView.mapType == MAMapType.Standard {
-            mapView.mapType = MAMapType.Satellite
+    @IBAction func didLayerChanged(_ sender: UIButton) {
+        if mapView.mapType == MAMapType.standard {
+            mapView.mapType = MAMapType.satellite
         } else {
-            mapView.mapType = MAMapType.Standard
+            mapView.mapType = MAMapType.standard
         }
     }
 }
 
 extension MapViewController: MAMapViewDelegate {
-    func mapView(mapView: MAMapView!, viewForAnnotation annotation: MAAnnotation!) -> MAAnnotationView! {
+    func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
         guard let annotation = annotation as? RaceTrackAnnotation else {
             return nil
         }
 
         let pointReuseIndetifier = "pointReuseIndetifier"
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(pointReuseIndetifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: pointReuseIndetifier)
         if annotationView == nil {
             annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
-            annotationView.layer.shadowOffset = CGSize(width: 1, height: 2)
-            annotationView.layer.shadowRadius = 2
-            annotationView.layer.shadowOpacity = 1
+            annotationView?.layer.shadowOffset = CGSize(width: 1, height: 2)
+            annotationView?.layer.shadowRadius = 2
+            annotationView?.layer.shadowOpacity = 1
         }
         annotationView?.canShowCallout = false
-        annotationView?.draggable = false
+        annotationView?.isDraggable = false
 
         annotationView?.image = annotation.raceTrack.isDeveloped ? R.image.red_flag : R.image.gray_flag
 
         return annotationView
     }
 
-    func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
+    func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay!) -> MAOverlayRenderer! {
         guard let circle = overlay as? MACircle else {
             return nil
         }
 
-        let circleView = MACircleView(circle: circle)
-        circleView.strokeColor = UIColor.blackColor()
-        circleView.lineWidth = 1
-        circleView.fillColor = UIColor.yellowColor()
+        let circleView = MACircleRenderer(circle: circle)
+        circleView?.strokeColor = UIColor.black()
+        circleView?.lineWidth = 1
+        circleView?.fillColor = UIColor.yellow()
         return circleView
     }
 
-    func mapView(mapView: MAMapView!, didSelectAnnotationView view: MAAnnotationView!) {
+    func mapView(_ mapView: MAMapView!, didSelect view: MAAnnotationView!) {
         guard let annotation = view.annotation as? RaceTrackAnnotation else {
             return
         }
@@ -106,14 +106,14 @@ extension MapViewController: MAMapViewDelegate {
         mapAlertVC?.raceTrack = annotation.raceTrack
         mapAlertVC?.view.frame.size = CGSize(width: self.view.frame.width, height: 128)
         let popopVC = PopupViewController(rootViewController: mapAlertVC!, popupType: .ActionSheet, sender: self)
-        self.tabBarController?.presentViewController(popopVC, animated: false, completion: nil)
+        self.tabBarController?.present(popopVC, animated: false, completion: nil)
     }
 
-    func mapView(mapView: MAMapView!, didSingleTappedAtCoordinate coordinate: CLLocationCoordinate2D) {
+    func mapView(_ mapView: MAMapView!, didSingleTappedAt coordinate: CLLocationCoordinate2D) {
         #if DEBUG
             print("[\(coordinate.latitude), \(coordinate.longitude), 0]")
-            let circle = MACircle(centerCoordinate: coordinate, radius: 15)
-            mapView.addOverlay(circle)
+            let circle = MACircle(center: coordinate, radius: 15)
+            mapView.add(circle)
         #endif
     }
 }

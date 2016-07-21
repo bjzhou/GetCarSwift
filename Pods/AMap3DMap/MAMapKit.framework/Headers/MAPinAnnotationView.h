@@ -9,9 +9,9 @@
 #import "MAMapKit.h"
 
 typedef NS_ENUM(NSUInteger, MAPinAnnotationColor){
-    MAPinAnnotationColorRed = 0,
-    MAPinAnnotationColorGreen,
-    MAPinAnnotationColorPurple
+    MAPinAnnotationColorRed = 0,    //!< 红色大头针
+    MAPinAnnotationColorGreen,      //!< 绿色大头针
+    MAPinAnnotationColorPurple      //!< 紫色大头针
 };
 //typedef NSUInteger MAPinAnnotationColor;
 

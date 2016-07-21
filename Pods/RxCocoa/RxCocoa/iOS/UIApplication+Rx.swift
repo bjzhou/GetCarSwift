@@ -10,11 +10,11 @@ import Foundation
 
 #if os(iOS)
     import UIKit
-    
+
 #if !RX_NO_MODULE
     import RxSwift
 #endif
-    
+
     extension UIApplication {
         
         /**
@@ -22,8 +22,9 @@ import Foundation
          */
         public var rx_networkActivityIndicatorVisible: AnyObserver<Bool> {
             return UIBindingObserver(UIElement: self) { application, active in
-                application.networkActivityIndicatorVisible = active
+                application.isNetworkActivityIndicatorVisible = active
             }.asObserver()
         }
     }
 #endif
+

@@ -21,7 +21,6 @@ class TrackTableViewCell: UITableViewCell {
     @IBOutlet weak var loveLabel: UILabel!
     @IBOutlet weak var trackStarLabel: UILabel!
     @IBOutlet weak var loveView: UIView!
-    @IBOutlet weak var mask: UIView!
 
     var sid = 0
 
@@ -33,9 +32,9 @@ class TrackTableViewCell: UITableViewCell {
 
     var hideStar = false {
         didSet {
-            trackStar.hidden = hideStar
-            trackStarLabel.hidden = hideStar
-            loveView.hidden = hideStar
+            trackStar.isHidden = hideStar
+            trackStarLabel.isHidden = hideStar
+            loveView.isHidden = hideStar
         }
     }
 
@@ -45,23 +44,23 @@ class TrackTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
 
-        loveButton.setImage(UIImage(), forState: .Selected)
+        loveButton.setImage(UIImage(), for: .selected)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    @IBAction func didTapLove(sender: UIButton) {
-        sender.selected = !sender.selected
-        _ = Praise.praise(sid: sid, status: sender.selected ? 1 : 0).subscribeNext { res in
-            self.lovedCount = self.lovedCount + (sender.selected ? 1 : -1)
+    @IBAction func didTapLove(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        _ = Praise.praise(sid: sid, status: sender.isSelected ? 1 : 0).subscribeNext { res in
+            self.lovedCount = self.lovedCount + (sender.isSelected ? 1 : -1)
             self.delegate?.didTrackChanged()
         }
     }
 
     func updateLoveLabel() {
-        let loveStr = (loveButton.selected ? "已" : "") + "想去"
+        let loveStr = (loveButton.isSelected ? "已" : "") + "想去"
         if lovedCount <= 0 {
             loveLabel.text = loveStr
         } else if lovedCount >= 1000 {

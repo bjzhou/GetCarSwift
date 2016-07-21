@@ -43,17 +43,17 @@ struct User: JSONable {
         }
     }
 
-    static func getCodeMsg(phone: String) -> Observable<GKResult<String>> {
+    static func getCodeMsg(_ phone: String) -> Observable<GKResult<String>> {
         return GaikeService.sharedInstance.api("user/getCodeMsg", body: ["phone":phone])
     }
 
-    static func login(phone phone: String, code: String) -> Observable<GKResult<User>> {
+    static func login(phone: String, code: String) -> Observable<GKResult<User>> {
         return GaikeService.sharedInstance.api("user/login", body: ["phone":phone, "code":code])
     }
 
-    static func updateInfo(nickname nickname: String? = nil, sex: Int? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
+    static func updateInfo(nickname: String? = nil, sex: Int? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
         var params: [String:AnyObject] = [:]
-        let datas: [String:NSData] = [:]
+        let datas: [String:Data] = [:]
         if let a = nickname {
             params["nickname"] = a
         }
@@ -69,7 +69,7 @@ struct User: JSONable {
         return GaikeService.sharedInstance.upload("user/updateInfo", parameters: params, datas: datas)
     }
 
-    static func uploadHeader(image: UIImage) -> Observable<GKResult<User>> {
+    static func uploadHeader(_ image: UIImage) -> Observable<GKResult<User>> {
         return GaikeService.sharedInstance.upload("upload/uploadHeader", datas: ["pictures":UIImagePNGRepresentation(image)!])
     }
 
@@ -81,19 +81,19 @@ struct User: JSONable {
         return GaikeService.sharedInstance.api("user/get_friend")
     }
 
-    static func addFriend(uid: String) -> Observable<GKResult<String>> {
+    static func addFriend(_ uid: String) -> Observable<GKResult<String>> {
         return GaikeService.sharedInstance.api("user/add_friend", body: ["id": uid])
     }
 
-    static func searchUser(nickname: String) -> Observable<GKResult<User>> {
+    static func searchUser(_ nickname: String) -> Observable<GKResult<User>> {
         return GaikeService.sharedInstance.api("user/search_user", body: ["param": nickname])
     }
 
-    static func removeFriend(uid: String) -> Observable<GKResult<String>> {
+    static func removeFriend(_ uid: String) -> Observable<GKResult<String>> {
         return GaikeService.sharedInstance.api("user/remove_friend", body: ["id": uid])
     }
 
-    static func getUserInfo(uid: String) -> Observable<GKResult<User>> {
+    static func getUserInfo(_ uid: String) -> Observable<GKResult<User>> {
         return GaikeService.sharedInstance.api("user/get_user_info", body: ["id": uid])
     }
 }
@@ -102,101 +102,101 @@ struct Mine {
     static var sharedInstance = Mine()
     var token: String? {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("token")
+            return UserDefaults.standard.string(forKey: "token")
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "token")
+            UserDefaults.standard.setValue(newValue, forKey: "token")
             User.rxMine.value = self
         }
     }
 
     var id: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("id") ?? ""
+            return UserDefaults.standard.string(forKey: "id") ?? ""
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "id")
+            UserDefaults.standard.setValue(newValue, forKey: "id")
             User.rxMine.value = self
         }
     }
 
     var phone: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("phone") ?? ""
+            return UserDefaults.standard.string(forKey: "phone") ?? ""
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "phone")
+            UserDefaults.standard.setValue(newValue, forKey: "phone")
             User.rxMine.value = self
         }
     }
 
     var car: String? {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("car")
+            return UserDefaults.standard.string(forKey: "car")
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car")
+            UserDefaults.standard.setValue(newValue, forKey: "car")
             User.rxMine.value = self
         }
     }
 
     var nickname: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("nickname") ?? ""
+            return UserDefaults.standard.string(forKey: "nickname") ?? ""
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "nickname")
+            UserDefaults.standard.setValue(newValue, forKey: "nickname")
             User.rxMine.value = self
         }
     }
 
     var sex: Int {
         get {
-            return NSUserDefaults.standardUserDefaults().integerForKey("sex")
+            return UserDefaults.standard.integer(forKey: "sex")
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "sex")
+            UserDefaults.standard.setValue(newValue, forKey: "sex")
             User.rxMine.value = self
         }
     }
 
     var avatarUrl: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey("avatar") ?? ""
+            return UserDefaults.standard.string(forKey: "avatar") ?? ""
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "avatar")
+            UserDefaults.standard.setValue(newValue, forKey: "avatar")
             User.rxMine.value = self
         }
     }
 
     var carHeadId: Int {
         get {
-            let tmp = NSUserDefaults.standardUserDefaults().integerForKey("car_head_id")
+            let tmp = UserDefaults.standard.integer(forKey: "car_head_id")
             return  tmp == 0 ? 201 : tmp
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_id")
+            UserDefaults.standard.setValue(newValue, forKey: "car_head_id")
             User.rxMine.value = self
         }
     }
 
     var carHeadBg: Int {
         get {
-            let tmp = NSUserDefaults.standardUserDefaults().integerForKey("car_head_bg")
+            let tmp = UserDefaults.standard.integer(forKey: "car_head_bg")
             return tmp == 0 ? 101 : tmp
         }
         set {
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "car_head_bg")
+            UserDefaults.standard.setValue(newValue, forKey: "car_head_bg")
             User.rxMine.value = self
         }
     }
 
-    func setAvatarImage(imageView: UIImageView) {
+    func setAvatarImage(_ imageView: UIImageView) {
         imageView.updateAvatar(Mine.sharedInstance.id, url: Mine.sharedInstance.avatarUrl, tappable: false, inVC: nil)
     }
 
-    mutating func updateLogin(user: User) {
+    mutating func updateLogin(_ user: User) {
         if user.car != "" {
             self.car = user.car
         }
@@ -221,24 +221,24 @@ struct Mine {
         }
     }
 
-    mutating func logout(expired expired: Bool = true) {
-        RCIM.sharedRCIM().disconnect(false)
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
+    mutating func logout(expired: Bool = true) {
+        RCIM.shared().disconnect(false)
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         KingfisherManager.sharedManager.cache.clearDiskCache()
         main {
             gRealm?.writeOptional {
-                if let objects = gRealm?.objects(RmScore) {
+                if let objects = gRealm?.allObjects(ofType: RmScore.self) {
                     gRealm?.delete(objects)
                 }
-                if let objects = gRealm?.objects(RmScoreData) {
+                if let objects = gRealm?.allObjects(ofType: RmScoreData.self) {
                     gRealm?.delete(objects)
                 }
-                if let objects = gRealm?.objects(CarInfo) {
+                if let objects = gRealm?.allObjects(ofType: CarInfo.self) {
                     gRealm?.delete(objects)
                 }
             }
             let firstController = R.storyboard.login.login!
-            let window = UIApplication.sharedApplication().keyWindow
+            let window = UIApplication.shared().keyWindow
             window?.rootViewController = firstController
 
             if expired {

@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIView {
-    func addTapGesture(action: (UIGestureRecognizer) -> Void) {
+    func addTapGesture(_ action: (UIGestureRecognizer) -> Void) {
         let recognizer = UITapGestureRecognizer()
         recognizer.numberOfTapsRequired = 1
         recognizer.cancelsTouchesInView = false

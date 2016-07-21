@@ -27,7 +27,7 @@ public class ENSideMenuNavigationController: UINavigationController, ENSideMenuP
         }
 
         sideMenu = ENSideMenu(sourceView: self.view, menuViewController: menuViewController, menuPosition:.Left)
-        view.bringSubviewToFront(navigationBar)
+        view.bringSubview(toFront: navigationBar)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ public class ENSideMenuNavigationController: UINavigationController, ENSideMenuP
     }
 
     // MARK: - Navigation
-    public func setContentViewController(contentViewController: UIViewController) {
+    public func setContentViewController(_ contentViewController: UIViewController) {
         self.sideMenu?.toggleMenu()
         switch sideMenuAnimationType {
         case .None:

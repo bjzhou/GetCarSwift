@@ -34,12 +34,12 @@ struct FIR: JSONable {
         return Observable.create { observer in
             let request = apiManager.request(.GET, firVersionCheckUrl).responseData { res in
                 if let err = res.result.error {
-                    observer.on(.Error(err))
+                    observer.on(.error(err))
                 } else {
                     if let data = res.result.value {
                         let fir = FIR(json: JSON(data: data))
-                        observer.on(Event.Next(fir))
-                        observer.on(Event.Completed)
+                        observer.on(Event.next(fir))
+                        observer.on(Event.completed)
                     }
                 }
             }

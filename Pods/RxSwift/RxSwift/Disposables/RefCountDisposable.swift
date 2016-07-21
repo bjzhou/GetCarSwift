@@ -21,10 +21,8 @@ public class RefCountDisposable : DisposeBase, Cancelable {
      - returns: Was resource disposed.
      */
     public var disposed: Bool {
-        get {
-            _lock.lock(); defer { _lock.unlock() }
-            return _disposable == nil
-        }
+        _lock.lock(); defer { _lock.unlock() }
+        return _disposable == nil
     }
 
     /**
@@ -45,7 +43,7 @@ public class RefCountDisposable : DisposeBase, Cancelable {
             if let _ = _disposable {
 
                 do {
-                    try incrementChecked(&_count)
+                    let _ = try incrementChecked(&_count)
                 } catch (_) {
                     rxFatalError("RefCountDisposable increment failed")
                 }
@@ -62,7 +60,7 @@ public class RefCountDisposable : DisposeBase, Cancelable {
      */
     public func dispose() {
         let oldDisposable: Disposable? = _lock.calculateLocked {
-            if let oldDisposable = _disposable where !_primaryDisposed
+            if let oldDisposable = _disposable, !_primaryDisposed
             {
                 _primaryDisposed = true
 
@@ -85,7 +83,7 @@ public class RefCountDisposable : DisposeBase, Cancelable {
         let oldDisposable: Disposable? = _lock.calculateLocked {
             if let oldDisposable = _disposable {
                 do {
-                    try decrementChecked(&_count)
+                    let _ = try decrementChecked(&_count)
                 } catch (_) {
                     rxFatalError("RefCountDisposable decrement on release failed")
                 }

@@ -63,23 +63,23 @@ class DataViewController: UIViewController {
         DeviceDataService.sharedInstance.rxLocation.asObservable().subscribeNext { loc in
             if let loc = loc {
                 for i in 0...4 {
-                    signalViews[i].image = signalImages[i]
+                    signalViews[i]?.image = signalImages[i]
                 }
                 if loc.horizontalAccuracy > 5 {
-                    signalViews[4].image = noSignalImages[4]
+                    signalViews[4]?.image = noSignalImages[4]
                 }
                 if loc.horizontalAccuracy > 10 {
-                    signalViews[3].image = noSignalImages[3]
+                    signalViews[3]?.image = noSignalImages[3]
                 }
                 if loc.horizontalAccuracy >= 65 {
-                    signalViews[2].image = noSignalImages[2]
+                    signalViews[2]?.image = noSignalImages[2]
                 }
                 if loc.horizontalAccuracy > 65 {
-                    signalViews[1].image = noSignalImages[1]
+                    signalViews[1]?.image = noSignalImages[1]
                 }
             } else {
                 for i in 0...4 {
-                    signalViews[i].image = noSignalImages[i]
+                    signalViews[i]?.image = noSignalImages[i]
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -104,61 +104,61 @@ class DataViewController: UIViewController {
     func initPages() {
 
         datas = [data0, data1, data2, data3]
-        for var i=0; i<4; i++ {
+        for i in 0 ..< 4 {
 
             datas[i].layoutIfNeeded()
 
             let scale: CGFloat = (self.view.frame.height - 410) / 257
 
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: datas[i].frame.width, height: 21*scale))
-            titleLabel.textAlignment = .Center
+            titleLabel.textAlignment = .center
             titleLabel.textColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1)
-            titleLabel.font = UIFont.systemFontOfSize(14*scale)
+            titleLabel.font = UIFont.systemFont(ofSize: 14*scale)
             titleLabel.text = dataTitles[i]
             let subVc = DataSubViewController()
             subVc.scale = scale
             subVc.view.frame = CGRect(x: 0, y: 0, width: datas[i].frame.width, height: datas[i].frame.height)
             self.addChildViewController(subVc)
-            subVc.didMoveToParentViewController(self)
+            subVc.didMove(toParentViewController: self)
             dataVCs.append(subVc)
             datas[i].addSubview(titleLabel)
             datas[i].addSubview(subVc.view)
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         latestScores = [-1, -1, -1, -1]
         bestScores = [-1, -1, -1, -1]
         updateScore()
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         stopTimer()
     }
 
-    @IBAction func didLatestSelected(sender: UIButton) {
-        sender.selected = true
-        bestButton.selected = false
+    @IBAction func didLatestSelected(_ sender: UIButton) {
+        sender.isSelected = true
+        bestButton.isSelected = false
         showBest = false
     }
 
-    @IBAction func didBestSelected(sender: UIButton) {
-        sender.selected = true
-        latestButton.selected = false
+    @IBAction func didBestSelected(_ sender: UIButton) {
+        sender.isSelected = true
+        latestButton.isSelected = false
         showBest = true
     }
 
-    func time2String(t: Double) -> String {
+    func time2String(_ t: Double) -> String {
         if t < 0 {
             return "--:--.--"
         }
-        let ms = Int(round(t * 100 % 100))
+        let ms = Int(round((t * 100).truncatingRemainder(dividingBy: 100)))
         let s = Int(t) % 60
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
 
-    func fixS(fixScore: Double, dataList: List<RmScoreData>, expectV: Double) -> Double {
+    func fixS(_ fixScore: Double, dataList: List<RmScoreData>, expectV: Double) -> Double {
         var expectS = dataList.last!.s
         if dataList.count > 1 {
             let dt = fixScore - dataList.last!.t
@@ -169,7 +169,7 @@ class DataViewController: UIViewController {
         return expectS
     }
 
-    func fixScore(t: Double, dataList: List<RmScoreData>, v: Double, expectV: Double) -> Double {
+    func fixScore(_ t: Double, dataList: List<RmScoreData>, v: Double, expectV: Double) -> Double {
         var expectT = 0.0
         if dataList.count > 1 {
             expectT = dataList.last!.t + fixStart(dataList)
@@ -191,7 +191,7 @@ class DataViewController: UIViewController {
         return expectT
     }
 
-    func fixScore(t: Double, dataList: List<RmScoreData>, v: Double, expectS: Double) -> Double {
+    func fixScore(_ t: Double, dataList: List<RmScoreData>, v: Double, expectS: Double) -> Double {
         var expectT = 0.0
         if dataList.count > 1 {
             expectT = dataList.last!.t + fixStart(dataList)
@@ -213,7 +213,7 @@ class DataViewController: UIViewController {
         return expectT
     }
 
-    func fixStart(dataList: List<RmScoreData>) -> Double {
+    func fixStart(_ dataList: List<RmScoreData>) -> Double {
         var i = 0
         for j in 0..<dataList.count {
             if dataList[j].v != 0 {
@@ -240,18 +240,18 @@ class DataViewController: UIViewController {
     }
 
     func updateScore() {
-        let v60s = gRealm?.objects(RmScore).filter("mapType = 1001")
-        let v100s = gRealm?.objects(RmScore).filter("mapType = 1002")
-        let s400s = gRealm?.objects(RmScore).filter("mapType = 0")
-        let v200s = gRealm?.objects(RmScore).filter("mapType = 1004")
-        self.latestScores[0] =? v60s?.sorted("createdAt").last?.score
-        self.bestScores[0] =? v60s?.sorted("score").first?.score
-        self.latestScores[1] =? v100s?.sorted("createdAt").last?.score
-        self.bestScores[1] =? v100s?.sorted("score").first?.score
-        self.latestScores[2] =? v200s?.sorted("createdAt").last?.score
-        self.bestScores[2] =? v200s?.sorted("score").first?.score
-        self.latestScores[3] =? s400s?.sorted("createdAt").last?.score
-        self.bestScores[3] =? s400s?.sorted("score").first?.score
+        let v60s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 1001")
+        let v100s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 1002")
+        let s400s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 0")
+        let v200s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 1004")
+        self.latestScores[0] =? v60s?.sorted(onProperty: "createdAt").last?.score
+        self.bestScores[0] =? v60s?.sorted(onProperty: "score").first?.score
+        self.latestScores[1] =? v100s?.sorted(onProperty: "createdAt").last?.score
+        self.bestScores[1] =? v100s?.sorted(onProperty: "score").first?.score
+        self.latestScores[2] =? v200s?.sorted(onProperty: "createdAt").last?.score
+        self.bestScores[2] =? v200s?.sorted(onProperty: "score").first?.score
+        self.latestScores[3] =? s400s?.sorted(onProperty: "createdAt").last?.score
+        self.bestScores[3] =? s400s?.sorted(onProperty: "score").first?.score
 
         if v60s?.count == 0 {
             updateFromNet(1001)
@@ -274,7 +274,7 @@ class DataViewController: UIViewController {
         }
     }
 
-    func updateFromNet(mapType: Int) {
+    func updateFromNet(_ mapType: Int) {
         Records.getRecord(mapType, count: 1).subscribeNext { res in
             guard let r = res.data else {
                 return
@@ -296,7 +296,7 @@ class DataViewController: UIViewController {
     }
 
     func startTimer() {
-        UIApplication.sharedApplication().idleTimerDisabled = true
+        UIApplication.shared().isIdleTimerDisabled = true
         self.data.removeAll()
         self.keyTime.removeAll()
         self.ready = false
@@ -307,7 +307,7 @@ class DataViewController: UIViewController {
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
-            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, startLoc = self.startLoc where loc.horizontalAccuracy < 65 else {
+            guard let loc = DeviceDataService.sharedInstance.rxLocation.value, let startLoc = self.startLoc, loc.horizontalAccuracy < 65 else {
                 self.stopTimer()
                 self.timeLabel.text = "  信号丢失  "
                 self.ready = false
@@ -315,7 +315,7 @@ class DataViewController: UIViewController {
             }
 
             var v = loc.speed <= 0 ? 0 : (loc.speed * 3.6)
-            let s = startLoc.distanceFromLocation(loc)
+            let s = startLoc.distance(from: loc)
             let a = DeviceDataService.sharedInstance.rxAcceleration.value.averageA()
 
             guard let prevData = self.data.last else {
@@ -341,7 +341,7 @@ class DataViewController: UIViewController {
                     self.bestScores[3] = (self.latestScores[3] < self.bestScores[3]) && (self.bestScores[3] != -1) ? self.latestScores[3] : self.bestScores[3]
                     self.dataVCs[3].time = self.time2String(self.showBest ? self.bestScores[3] : self.latestScores[3])
                     let data = List<RmScoreData>()
-                    data.appendContentsOf(self.data)
+                    data.append(objectsIn: self.data)
                     data.append(RmScoreData(value: ["t": self.latestScores[3], "v": v, "a": a, "s": 400.0]))
                     let score = RmScore()
                     score.mapType = 0
@@ -367,7 +367,7 @@ class DataViewController: UIViewController {
                     self.bestScores[0] = (self.latestScores[0] < self.bestScores[0]) && (self.bestScores[0] != -1) ? self.latestScores[0] : self.bestScores[0]
                     self.dataVCs[0].time = self.time2String(self.showBest ? self.bestScores[0] : self.latestScores[0])
                     let data = List<RmScoreData>()
-                    data.appendContentsOf(self.data)
+                    data.append(objectsIn: self.data)
                     let score = RmScore()
                     score.mapType = 1001
                     score.score = self.latestScores[0]
@@ -392,7 +392,7 @@ class DataViewController: UIViewController {
                     self.bestScores[1] = (self.latestScores[1] < self.bestScores[1]) && (self.bestScores[1] != -1) ? self.latestScores[1] : self.bestScores[1]
                     self.dataVCs[1].time = self.time2String(self.showBest ? self.bestScores[1] : self.latestScores[1])
                     let data = List<RmScoreData>()
-                    data.appendContentsOf(self.data)
+                    data.append(objectsIn: self.data)
                     let score = RmScore()
                     score.mapType = 1002
                     score.score = self.latestScores[1]
@@ -409,13 +409,13 @@ class DataViewController: UIViewController {
             if v >= 200 && prevData.v < 200 && !self.wrongScore {
                 self.keyTime["200"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 200)
                 if self.latestScores[2] == -1 {
-                    if let keyTime100 = self.keyTime["100"] where self.keyTime["200"]! - keyTime100 > 0 {
+                    if let keyTime100 = self.keyTime["100"], self.keyTime["200"]! - keyTime100 > 0 {
                         self.latestScores[2] = self.keyTime["200"]! - keyTime100
                         self.data.append(RmScoreData(value: ["t": self.latestScores[2], "v": 200, "a": a, "s": self.fixS(self.keyTime["200"]!, dataList: self.data, expectV: 200)]))
                         self.bestScores[2] = (self.latestScores[2] < self.bestScores[2]) && (self.bestScores[2] != -1) ? self.latestScores[2] : self.bestScores[2]
                         self.dataVCs[2].time = self.time2String(self.showBest ? self.bestScores[2] : self.latestScores[2])
                         let data = List<RmScoreData>()
-                        data.appendContentsOf(self.data)
+                        data.append(objectsIn: self.data)
                         let score = RmScore()
                         score.mapType = 1004
                         score.score = self.latestScores[2]
@@ -441,7 +441,7 @@ class DataViewController: UIViewController {
     }
 
     func stopTimer() {
-        UIApplication.sharedApplication().idleTimerDisabled = false
+        UIApplication.shared().isIdleTimerDisabled = false
         timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
         self.ready = true
@@ -460,17 +460,17 @@ class DataSubViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.clear()
     }
 
     override func viewDidLayoutSubviews() {
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.whiteColor()
-        label.font = UIFont.systemFontOfSize(30 * scale)
+        label.textColor = UIColor.white()
+        label.font = UIFont.systemFont(ofSize: 30 * scale)
         label.text = time
         self.view.addSubview(label)
 
-        self.view.addConstraint(NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: label, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0))
     }
 }

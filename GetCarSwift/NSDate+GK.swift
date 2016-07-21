@@ -8,13 +8,13 @@
 
 import Foundation
 
-extension NSDate {
-    class var nowString: String {
+extension Date {
+    static var nowString: String {
         return "刚刚"
     }
 
     func optimizedString() -> String {
-        let now = NSDate().timeIntervalSince1970
+        let now = Date().timeIntervalSince1970
         let time = self.timeIntervalSince1970
         switch (now - time) {
         case let x where x <= 60:
@@ -26,9 +26,9 @@ extension NSDate {
         case let x where x <= 60 * 60 * 24 * 2:
             return "昨天"
         default:
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-DD HH:mm:ss"
-            return dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: time))
+            return dateFormatter.string(from: Date(timeIntervalSince1970: time))
         }
     }
 }

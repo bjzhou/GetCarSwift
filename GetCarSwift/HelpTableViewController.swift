@@ -16,18 +16,18 @@ class HelpTableViewController: UITableViewController {
         super.viewDidLoad()
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-        if indexPath.row == 0 {
-            let now = NSCalendar.currentCalendar().components([.Hour], fromDate: NSDate())
+        if (indexPath as NSIndexPath).row == 0 {
+            let now = Calendar.current.components([.hour], from: Date())
             if now.hour >= 8 && now.hour < 22 {
-                let alertController = UIAlertController(title: "联系改客专员", message: nil, preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
-                alertController.addAction(UIAlertAction(title: "呼叫", style: .Default, handler: { _ in
-                    UIApplication.sharedApplication().openURL(NSURL(string: self.telUrl)!)
+                let alertController = UIAlertController(title: "联系改客专员", message: nil, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "呼叫", style: .default, handler: { _ in
+                    UIApplication.shared().openURL(URL(string: self.telUrl)!)
                 }))
-                presentViewController(alertController, animated: true, completion: nil)
+                present(alertController, animated: true, completion: nil)
             }
         }
     }

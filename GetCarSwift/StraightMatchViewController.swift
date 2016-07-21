@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 
-class StraightMatchViewController: UIViewController {
+class StraightMatchViewController: UIViewController, CAAnimationDelegate {
 
     let disposeBag = DisposeBag()
 
@@ -66,12 +66,12 @@ class StraightMatchViewController: UIViewController {
         trackDetailViewModel.sid = 1000 //FIXME: should be 0
 
         for button in [button1, button2, button3] {
-            button.layer.masksToBounds = true
-            button.layer.cornerRadius = 23.5
+            button?.layer.masksToBounds = true
+            button?.layer.cornerRadius = 23.5
         }
 
-        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.imageWithRenderingMode(.AlwaysOriginal)
-        self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, forBarMetrics: .Default)
+        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, for: .default)
 
         trackDetailViewModel.getComments().subscribeNext { cs in
             for comment in cs {
@@ -86,44 +86,44 @@ class StraightMatchViewController: UIViewController {
         danmuEffect = DanmuEffect(superView: raceBg, rect: danmuRect)
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         timerDisposable?.dispose()
     }
 
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(StraightMatchViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StraightMatchViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
-    func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo, keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else {
+    func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
             return
         }
 
         self.postViewPos.constant = keyboardSize.height
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             self.view.layoutIfNeeded()
         })
     }
 
-    func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.25, animations: {
+    func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.postViewPos.constant = 0
         })
     }
 
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
 
-    @IBAction func didStart(sender: UIButton) {
+    @IBAction func didStart(_ sender: UIButton) {
         let stopTime = max(max(score1?.score ?? 0, score2?.score ?? 0), score3?.score ?? 0)
         if stopTime == 0 { return }
 
-        sender.selected = !sender.selected
+        sender.isSelected = !sender.isSelected
 
         if timerOffset == 0 {
             self.timerDisposable?.dispose()
@@ -138,26 +138,26 @@ class StraightMatchViewController: UIViewController {
             aLabel3.text = "--"
 
             timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { _ in
-                if !sender.selected {
+                if !sender.isSelected {
                     return
                 }
 
-                self.timerOffset++
+                self.timerOffset += 1
                 let t = Double(self.timerOffset)/100
                 let curTs = self.time2String(t)
                 self.timeLabel.text = curTs
 
-                if let lt = (self.score1?.data.filter { $0.t <= t })?.last, gt = (self.score1?.data.filter { $0.t >= t })?.first {
+                if let lt = (self.score1?.data.filter { $0.t <= t })?.last, let gt = (self.score1?.data.filter { $0.t >= t })?.first {
                     self.vLabel1.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
                     self.aLabel1.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let lt = (self.score2?.data.filter { $0.t <= t })?.last, gt = (self.score2?.data.filter { $0.t >= t })?.first {
+                if let lt = (self.score2?.data.filter { $0.t <= t })?.last, let gt = (self.score2?.data.filter { $0.t >= t })?.first {
                     self.vLabel2.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
                     self.aLabel2.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
 
-                if let lt = (self.score3?.data.filter { $0.t <= t })?.last, gt = (self.score3?.data.filter { $0.t >= t })?.first {
+                if let lt = (self.score3?.data.filter { $0.t <= t })?.last, let gt = (self.score3?.data.filter { $0.t >= t })?.first {
                     self.vLabel3.text = String(format: "%05.1f", lt.t == gt.t ? lt.v : lt.v + (gt.v - lt.v) * (t - lt.t) / (gt.t - lt.t))
                     self.aLabel3.text = String(format: "%.1f", lt.t == gt.t ? lt.a : lt.a + (gt.a - lt.a) * (t - lt.t) / (gt.t - lt.t))
                 }
@@ -166,7 +166,7 @@ class StraightMatchViewController: UIViewController {
 
                 if t >= stopTime {
                     self.timerDisposable?.dispose()
-                    sender.selected = !sender.selected
+                    sender.isSelected = !sender.isSelected
                     self.stopAnim()
                     self.timerOffset = 0
                 }
@@ -177,7 +177,7 @@ class StraightMatchViewController: UIViewController {
             startAnim(button3, score: score3)
             startFinishLineAnim()
         } else {
-            if !sender.selected {
+            if !sender.isSelected {
                 // pause
                 pauseAnim()
             } else {
@@ -193,11 +193,11 @@ class StraightMatchViewController: UIViewController {
         button3.superview!.layer.pauseAnimation()
         finishLine.layer.pauseAnimation()
 
-        if let _ = leftAdImg.layer.animationForKey("ad") {
+        if let _ = leftAdImg.layer.animation(forKey: "ad") {
             leftAdImg.layer.pauseAnimation()
         }
 
-        if let _ = rightAdImg.layer.animationForKey("ad") {
+        if let _ = rightAdImg.layer.animation(forKey: "ad") {
             rightAdImg.layer.pauseAnimation()
         }
     }
@@ -208,16 +208,16 @@ class StraightMatchViewController: UIViewController {
         button3.superview!.layer.resumeAnimation()
         finishLine.layer.resumeAnimation()
 
-        if let _ = leftAdImg.layer.animationForKey("ad") where leftAdImg.layer.speed == 0 {
+        if let _ = leftAdImg.layer.animation(forKey: "ad"), leftAdImg.layer.speed == 0 {
             leftAdImg.layer.resumeAnimation()
         }
 
-        if let _ = rightAdImg.layer.animationForKey("ad") where rightAdImg.layer.speed == 0 {
+        if let _ = rightAdImg.layer.animation(forKey: "ad"), rightAdImg.layer.speed == 0 {
             rightAdImg.layer.resumeAnimation()
         }
     }
 
-    func startAnim(button: UIButton, score: RmScore?) {
+    func startAnim(_ button: UIButton, score: RmScore?) {
         guard let score = score else {
             return
         }
@@ -228,20 +228,20 @@ class StraightMatchViewController: UIViewController {
         anim.keyTimes = data.map { $0.t / score.score }
         anim.values = data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
         anim.calculationMode = kCAAnimationLinear
-        anim.removedOnCompletion = false
+        anim.isRemovedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
-        anim.additive = true
+        anim.isAdditive = true
         anim.delegate = self
 
-        button.superview?.layer.addAnimation(anim, forKey: "race")
-        button.enabled = false
+        button.superview?.layer.add(anim, forKey: "race")
+        button.isEnabled = false
     }
 
     func startFinishLineAnim() {
         var bestScore = RmScore()
         bestScore.score = 99999
         for score in [score1, score2, score3] {
-            if let score = score where score.score < bestScore.score {
+            if let score = score, score.score < bestScore.score {
                 bestScore = score
             }
         }
@@ -251,15 +251,15 @@ class StraightMatchViewController: UIViewController {
         anim.keyTimes = data.map { $0.t / bestScore.score }
         anim.values = data.map { $0.s }
         anim.calculationMode = kCAAnimationLinear
-        anim.removedOnCompletion = false
+        anim.isRemovedOnCompletion = false
         anim.fillMode = kCAFillModeForwards
-        anim.additive = true
+        anim.isAdditive = true
         anim.delegate = self
 
-        finishLine.layer.addAnimation(anim, forKey: "finishLine")
+        finishLine.layer.add(anim, forKey: "finishLine")
     }
 
-    func showRandomAd(t: Int64) {
+    func showRandomAd(_ t: Int64) {
         let rdm = arc4random_uniform(1000)
         if rdm < 5 {
             startAdAnim(leftAdImg)
@@ -268,8 +268,8 @@ class StraightMatchViewController: UIViewController {
         }
     }
 
-    func startAdAnim(ad: UIImageView) {
-        if let _ = ad.layer.animationForKey("ad") {
+    func startAdAnim(_ ad: UIImageView) {
+        if let _ = ad.layer.animation(forKey: "ad") {
             return
         }
         let img = ads[Int(arc4random_uniform(11))]
@@ -278,8 +278,8 @@ class StraightMatchViewController: UIViewController {
         anim.duration = 5
         anim.fromValue = 0
         anim.toValue = raceBg.frame.height + img!.size.height + 1
-        anim.removedOnCompletion = true
-        ad.layer.addAnimation(anim, forKey: "ad")
+        anim.isRemovedOnCompletion = true
+        ad.layer.add(anim, forKey: "ad")
     }
 
     func stopAnim() {
@@ -287,39 +287,39 @@ class StraightMatchViewController: UIViewController {
         button1.superview?.layer.removeAllAnimations()
         button2.superview?.layer.removeAllAnimations()
         button3.superview?.layer.removeAllAnimations()
-        button1.enabled = true
-        button2.enabled = true
-        button3.enabled = true
+        button1.isEnabled = true
+        button2.isEnabled = true
+        button3.isEnabled = true
         finishLine.layer.removeAllAnimations()
         raceBg.image = R.image.race_bg
     }
 
-    func time2String(t: Double) -> String {
+    func time2String(_ t: Double) -> String {
         if t < 0 {
             return "--:--.--"
         }
-        let ms = Int(round(t * 100 % 100))
+        let ms = Int(round((t * 100).truncatingRemainder(dividingBy: 100)))
         let s = Int(t) % 60
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
 
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        if anim == finishLine.layer.animationForKey("finishLine") {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if anim == finishLine.layer.animation(forKey: "finishLine") {
             raceBg.image = R.image.race_bg
         }
     }
 
-    @IBAction func didAddPlayer(sender: UIButton) {
+    @IBAction func didAddPlayer(_ sender: UIButton) {
         let addViewController = AddPlayerTableViewController()
         addViewController.delegate = self
         addViewController.sender = sender
         addViewController.sid = 0
         let popupViewController = PopupViewController(rootViewController: addViewController)
-        self.presentViewController(popupViewController, animated: false, completion: nil)
+        self.present(popupViewController, animated: false, completion: nil)
     }
 
-    @IBAction func didPostComment(sender: UIButton) {
+    @IBAction func didPostComment(_ sender: UIButton) {
         if commentTextField.text!.trim() == "" {
             Toast.makeToast(message: "评论不能为空")
             return
@@ -331,7 +331,7 @@ class StraightMatchViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == R.segue.track_comment {
             if let destVc = segue.destinationViewController as? CommentsViewController {
                 destVc.trackDetailViewModel = trackDetailViewModel
@@ -341,7 +341,7 @@ class StraightMatchViewController: UIViewController {
 }
 
 extension StraightMatchViewController: AddPlayerDelegate {
-    func didPlayerAdded(score: AnyObject, sender: UIButton?) {
+    func didPlayerAdded(_ score: AnyObject, sender: UIButton?) {
         guard let score = score as? RmScore else {
             return
         }
@@ -349,7 +349,7 @@ extension StraightMatchViewController: AddPlayerDelegate {
         aTitleLabel.text = "0~100\nkm/h"
 
         timerDisposable?.dispose()
-        startButton.selected = false
+        startButton.isSelected = false
         stopAnim()
         timerOffset = 0
 
@@ -361,18 +361,18 @@ extension StraightMatchViewController: AddPlayerDelegate {
         if nickname == "" {
             nickname = Mine.sharedInstance.nickname ?? ""
         }
-        sender?.kf_setBackgroundImageWithURL(NSURL(string: url)!, forState: .Normal, placeholderImage: R.image.avatar)
-        sender?.layer.borderColor = UIColor.gaikeRedColor().CGColor
+        sender?.kf_setBackgroundImageWithURL(URL(string: url)!, forState: .normal, placeholderImage: R.image.avatar)
+        sender?.layer.borderColor = UIColor.gaikeRedColor().cgColor
         sender?.layer.borderWidth = 2
 
         switch sender {
-        case .Some(button1):
+        case .some(button1):
             titleLabel1.text = nickname
             score1 = score
-        case .Some(button2):
+        case .some(button2):
             titleLabel2.text = nickname
             score2 = score
-        case .Some(button3):
+        case .some(button3):
             titleLabel3.text = nickname
             score3 = score
         default:
@@ -386,24 +386,36 @@ extension StraightMatchViewController: AddPlayerDelegate {
         vLabel3.text = "--:--.--"
         aLabel3.text = "--:--.--"
 
-        if let data = (score1?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
+        var filterdScore1 = score1?.data.filter { $0.v >= 60 }
+        var filterdScore2 = score1?.data.filter { $0.v >= 100 }
+        var filterdScore3 = score2?.data.filter { $0.v >= 60 }
+        var filterdScore4 = score2?.data.filter { $0.v >= 100 }
+        var filterdScore5 = score3?.data.filter { $0.v >= 60 }
+        var filterdScore6 = score3?.data.filter { $0.v >= 100 }
+        filterdScore1?.sort { $0.t < $1.t }
+        filterdScore2?.sort { $0.t < $1.t }
+        filterdScore3?.sort { $0.t < $1.t }
+        filterdScore4?.sort { $0.t < $1.t }
+        filterdScore5?.sort { $0.t < $1.t }
+        filterdScore6?.sort { $0.t < $1.t }
+        if let data = filterdScore1?.first {
             vLabel1.text = time2String(data.t)
         }
-        if let data = (score1?.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t })?.first {
+        if let data = filterdScore2?.first {
             aLabel1.text = time2String(data.t)
         }
 
-        if let data = (score2?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
+        if let data = filterdScore3?.first {
             vLabel2.text = time2String(data.t)
         }
-        if let data = (score2?.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t })?.first {
+        if let data = filterdScore4?.first {
             aLabel2.text = time2String(data.t)
         }
 
-        if let data = (score3?.data.filter { $0.v >= 60 }.sort { $0.0.t < $0.1.t })?.first {
+        if let data = filterdScore5?.first {
             vLabel3.text = time2String(data.t)
         }
-        if let data = (score3?.data.filter { $0.v >= 100 }.sort { $0.0.t < $0.1.t })?.first {
+        if let data = filterdScore6?.first {
             aLabel3.text = time2String(data.t)
         }
     }

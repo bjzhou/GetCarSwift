@@ -25,7 +25,7 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
 
         myAvatar.layer.masksToBounds = true
         myAvatar.layer.cornerRadius = 10
-        myAvatar.layer.borderColor = UIColor.whiteColor().CGColor
+        myAvatar.layer.borderColor = UIColor.white().cgColor
         myAvatar.layer.borderWidth = 2
 
         let tapRecgnizer = UITapGestureRecognizer()
@@ -43,16 +43,18 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         myAvatar.addGestureRecognizer(tapRecgnizer2)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         Mine.sharedInstance.setAvatarImage(myAvatar)
         sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
         nickname.text = Mine.sharedInstance.nickname
-        DeviceDataService.sharedInstance.rxDistrict.asObservable().bindTo(position.rx_text).addDisposableTo(disposeBag)
+        DeviceDataService.sharedInstance.rxDistrict.asObservable().subscribeNext {str in
+            self.position.text = str
+        }.addDisposableTo(disposeBag)
 
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let index = userDefaults.integerForKey("homepage_bg")
+        let userDefaults = UserDefaults.standard
+        let index = userDefaults.integer(forKey: "homepage_bg")
         if index == 1000 {
             KingfisherManager.sharedManager.cache.retrieveImageForKey("homepage_bg", options: []) { image, _ in
                 self.homepageBg.image = image
@@ -64,12 +66,12 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tableView.sectionHeaderHeight
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as UITableViewCell
         return cell
     }
 
@@ -77,33 +79,35 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "拍照", style: .Default, handler: {(action) in
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "拍照", style: .default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(imagePicker, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: .Default, handler: {(action) in
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "从手机相册选择", style: .default, handler: {(action) in
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = myAvatar
             popoverController.sourceRect = myAvatar.bounds
         }
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
-        User.uploadHeader(avatarImage).subscribeNext { gkResult in
-            if let user = gkResult.data {
-                Mine.sharedInstance.updateLogin(user)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
+            User.uploadHeader(avatarImage).subscribeNext { gkResult in
+                if let user = gkResult.data {
+                    Mine.sharedInstance.updateLogin(user)
+                    Mine.sharedInstance.setAvatarImage(self.myAvatar)
+                }
+                }.addDisposableTo(disposeBag)
+            dismiss(animated: true, completion: {_ in
                 Mine.sharedInstance.setAvatarImage(self.myAvatar)
-            }
-            }.addDisposableTo(disposeBag)
-        dismissViewControllerAnimated(true, completion: {_ in
-            Mine.sharedInstance.setAvatarImage(self.myAvatar)
-        })
+            })
+        }
     }
 }

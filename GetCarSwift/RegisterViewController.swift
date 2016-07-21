@@ -26,25 +26,25 @@ class RegisterViewController: UIViewController, CarTableNavigationDelegate {
         registerViewModel.viewProxy = self
     }
 
-    @IBAction func onRegister(sender: UIButton) {
+    @IBAction func onRegister(_ sender: UIButton) {
         registerViewModel.didRegister()
     }
 
-    func didCarSelected(car: CarInfo) {
+    func didCarSelected(_ car: CarInfo) {
         registerViewModel.car = car
         carText.text = car.model
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == R.segue.choose_car {
             let dest = segue.destinationViewController as? CarTableNavigationController
             dest?.carDelegate = self
         }
     }
-    @IBAction func didSexChange(sender: UIButton) {
-        sender.selected = true
+    @IBAction func didSexChange(_ sender: UIButton) {
+        sender.isSelected = true
         let otherButton = self.view.viewWithTag(sender.tag == 501 ? 502 : 501) as? UIButton
-        otherButton?.selected = false
+        otherButton?.isSelected = false
         registerViewModel.sex = sender.tag == 501 ? 1 : 0
     }
 }

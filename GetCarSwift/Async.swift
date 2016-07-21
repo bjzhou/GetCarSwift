@@ -9,18 +9,18 @@
 import Foundation
 
 
-let serialQueue = dispatch_queue_create("serial-worker", DISPATCH_QUEUE_SERIAL)
+let serialQueue = DispatchQueue(label: "serial-worker", attributes: DispatchQueueAttributes.serial)
 
-func async(serial serial: Bool = false, closure: () -> Void) {
-    let queue = serial ? serialQueue : dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
-    dispatch_async(queue, closure)
+func async(serial: Bool = false, closure: () -> Void) {
+    let queue = serial ? serialQueue : DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosBackground)
+    queue.async(execute: closure)
 }
 
-func main(closure: () -> Void) {
-    dispatch_async(dispatch_get_main_queue(), closure)
+func main(_ closure: () -> Void) {
+    DispatchQueue.main.async(execute: closure)
 }
 
-func delay(timeInterval: NSTimeInterval, closure: dispatch_block_t) {
-    let when = dispatch_time(DISPATCH_TIME_NOW, Int64(timeInterval * Double(NSEC_PER_SEC)))
-    dispatch_after(when, dispatch_get_main_queue(), closure)
+func delay(_ timeInterval: TimeInterval, closure: ()->()) {
+    let when = DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.after(when: when, execute: closure)
 }

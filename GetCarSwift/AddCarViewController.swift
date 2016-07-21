@@ -24,7 +24,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let carInfo = gRealm?.objects(CarInfo).filter("id = \(id)").first {
+        if let carInfo = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = \(id)").first {
             modelLabel.text = carInfo.model
             lisenceTextField.text = carInfo.lisence
             nameTextField.text = carInfo.name
@@ -38,22 +38,22 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         selectedModelId = carInfo.modelId
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 0 {
             let carChoose = R.storyboard.login.car_choose
             carChoose?.carDelegate = self
             showViewController(carChoose!)
         }
     }
 
-    func didCarSelected(car: CarInfo) {
+    func didCarSelected(_ car: CarInfo) {
         selectedModelId = car.modelId
         modelLabel.text = car.model
         selectedImageUrl = car.imageUrl
 
     }
 
-    @IBAction func didSaveAction(sender: AnyObject) {
+    @IBAction func didSaveAction(_ sender: AnyObject) {
         if modelLabel.text == "" {
             Toast.makeToast(message: "请选择车辆品牌")
             return
@@ -69,7 +69,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
         }
         if let _ = carInfo.realm {
             _ = CarInfo.updateUserCar(carInfo.carUserId, carId: self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
-                self.navigationController?.popViewControllerAnimated(true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
         } else {
             _ = CarInfo.addUserCar(self.carInfo.modelId, number: self.carInfo.lisence, username: self.carInfo.name, year: self.carInfo.year, version: self.carInfo.detail).subscribeNext { res in
@@ -78,7 +78,7 @@ class AddCarViewController: UITableViewController, CarTableNavigationDelegate {
                         self.carInfo.carUserId = json["user_car_id"].intValue
                     }
                 }
-                self.navigationController?.popViewControllerAnimated(true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
             gRealm?.writeOptional {
                 gRealm?.add(self.carInfo, update: true)

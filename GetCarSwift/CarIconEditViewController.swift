@@ -29,19 +29,19 @@ class CarIconEditViewController: UIViewController {
         for tag in 101...109 {
             let button = self.view.viewWithTag(tag) as? UIButton
             let image = UIImage(named: getColorIconName(Mine.sharedInstance.sex, color: tag))
-            button?.setImage(image, forState: UIControlState.Highlighted)
-            button?.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
-            button?.setImage(image, forState: UIControlState.Selected)
+            button?.setImage(image, for: UIControlState.highlighted)
+            button?.setImage(image, for: [UIControlState.selected, UIControlState.highlighted])
+            button?.setImage(image, for: UIControlState.selected)
         }
     }
 
     func loadCurrentIcon() {
         let colorButton = self.view.viewWithTag(colorTag) as? UIButton
-        colorButton?.selected = true
+        colorButton?.isSelected = true
 
         if prevColorTag != -1 && prevColorTag != colorTag {
             let prevButton = self.view.viewWithTag(prevColorTag) as? UIButton
-            prevButton?.selected = false
+            prevButton?.isSelected = false
         }
         prevColorTag = colorTag
 
@@ -49,33 +49,33 @@ class CarIconEditViewController: UIViewController {
             let button = self.view.viewWithTag(tag) as? UIButton
             let noSexImage = UIImage(named: getNoSexCarIconName(colorTag, icon: tag))
             let image = UIImage(named: getCarIconName(Mine.sharedInstance.sex, color: colorTag, icon: tag))
-            button?.setImage(noSexImage, forState: UIControlState.Normal)
-            button?.setImage(image, forState: UIControlState.Highlighted)
-            button?.setImage(image, forState: [UIControlState.Selected, UIControlState.Highlighted])
-            button?.setImage(image, forState: UIControlState.Selected)
+            button?.setImage(noSexImage, for: UIControlState())
+            button?.setImage(image, for: UIControlState.highlighted)
+            button?.setImage(image, for: [UIControlState.selected, UIControlState.highlighted])
+            button?.setImage(image, for: UIControlState.selected)
         }
 
         let iconButton = self.view.viewWithTag(iconTag) as? UIButton
-        iconButton?.selected = true
+        iconButton?.isSelected = true
 
         if prevIconTag != -1 && prevIconTag != iconTag {
             let prevButton = self.view.viewWithTag(prevIconTag) as? UIButton
-            prevButton?.selected = false
+            prevButton?.isSelected = false
         }
         prevIconTag = iconTag
     }
 
-    @IBAction func onColorAction(sender: UIButton) {
+    @IBAction func onColorAction(_ sender: UIButton) {
         colorTag = sender.tag
         loadCurrentIcon()
     }
 
-    @IBAction func onIconAction(sender: UIButton) {
+    @IBAction func onIconAction(_ sender: UIButton) {
         iconTag = sender.tag
         loadCurrentIcon()
     }
 
-    @IBAction func onSaveAction(sender: UIButton) {
+    @IBAction func onSaveAction(_ sender: UIButton) {
         Mine.sharedInstance.carHeadBg = colorTag
         Mine.sharedInstance.carHeadId = iconTag
         User.updateInfo(color: String(colorTag), icon: String(iconTag)).subscribeNext { res in
@@ -83,7 +83,7 @@ class CarIconEditViewController: UIViewController {
                 Mine.sharedInstance.updateLogin(user)
             }
         }.addDisposableTo(disposeBag)
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
 }

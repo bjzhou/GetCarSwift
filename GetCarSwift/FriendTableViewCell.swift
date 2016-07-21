@@ -24,12 +24,12 @@ class FriendTableViewCell: UITableViewCell {
 
         _ = followButton.rx_tap.takeUntil(self.rx_deallocated).subscribeNext {
             Toast.makeToastActivity()
-            if self.followButton.selected {
+            if self.followButton.isSelected {
                 _ = User.removeFriend(self.id).doOn() { _ in
                     Toast.hideToastActivity()
                     }.subscribeNext { res in
                         if res.code == 0 {
-                            self.followButton.selected = false
+                            self.followButton.isSelected = false
                         }
                 }
             } else {
@@ -37,7 +37,7 @@ class FriendTableViewCell: UITableViewCell {
                     Toast.hideToastActivity()
                     }.subscribeNext { res in
                         if res.code == 0 {
-                            self.followButton.selected = true
+                            self.followButton.isSelected = true
                         }
                 }
             }

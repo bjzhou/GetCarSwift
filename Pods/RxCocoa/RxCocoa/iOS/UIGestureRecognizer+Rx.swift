@@ -15,29 +15,29 @@ import RxSwift
 
 
 // This should be only used from `MainScheduler`
-class GestureTarget: RxTarget {
-    typealias Callback = (UIGestureRecognizer) -> Void
+class GestureTarget<Recognizer: UIGestureRecognizer>: RxTarget {
+    typealias Callback = (Recognizer) -> Void
     
-    let selector = Selector("eventHandler:")
+    let selector = #selector(ControlTarget.eventHandler(_:))
     
-    weak var gestureRecognizer: UIGestureRecognizer?
+    weak var gestureRecognizer: Recognizer?
     var callback: Callback?
     
-    init(_ gestureRecognizer: UIGestureRecognizer, callback: Callback) {
+    init(_ gestureRecognizer: Recognizer, callback: Callback) {
         self.gestureRecognizer = gestureRecognizer
         self.callback = callback
         
         super.init()
         
         gestureRecognizer.addTarget(self, action: selector)
-        
-        let method = self.methodForSelector(selector)
+
+        let method = self.method(for: selector)
         if method == nil {
             fatalError("Can't find method")
         }
     }
     
-    func eventHandler(sender: UIGestureRecognizer!) {
+    func eventHandler(_ sender: UIGestureRecognizer!) {
         if let callback = self.callback, gestureRecognizer = self.gestureRecognizer {
             callback(gestureRecognizer)
         }
@@ -51,23 +51,25 @@ class GestureTarget: RxTarget {
     }
 }
 
-extension UIGestureRecognizer {
+extension UIGestureRecognizer: Reactive  { }
+
+extension Reactive where Self: UIGestureRecognizer {
     
     /**
     Reactive wrapper for gesture recognizer events.
     */
-    public var rx_event: ControlEvent<UIGestureRecognizer> {
-        let source: Observable<UIGestureRecognizer> = Observable.create { [weak self] observer in
+    public var rx_event: ControlEvent<Self> {
+        let source: Observable<Self> = Observable.create { [weak self] observer in
             MainScheduler.ensureExecutingOnScheduler()
 
             guard let control = self else {
-                observer.on(.Completed)
+                observer.on(.completed)
                 return NopDisposable.instance
             }
             
             let observer = GestureTarget(control) {
                 control in
-                observer.on(.Next(control))
+                observer.on(.next(control))
             }
             
             return observer

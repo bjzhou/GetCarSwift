@@ -22,26 +22,26 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.black()
         webView.navigationDelegate = self
-        webView.multipleTouchEnabled = true
+        webView.isMultipleTouchEnabled = true
         webView.scrollView.alwaysBounceVertical = true
-        webView.backgroundColor = UIColor.blackColor()
-        webView.scrollView.backgroundColor = UIColor.blackColor()
+        webView.backgroundColor = UIColor.black()
+        webView.scrollView.backgroundColor = UIColor.black()
         self.view.addSubview(webView)
 
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
 
-        progressView = UIProgressView(progressViewStyle: .Default)
+        progressView = UIProgressView(progressViewStyle: .default)
         progressView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.progressView.frame.size.height)
         progressView.trackTintColor = UIColor(white: 1, alpha: 0)
         self.view.addSubview(progressView)
 
-        backBarButton = UIBarButtonItem(image: R.image.backbutton, style: .Plain, target: self, action: Selector("didBack"))
-        forwardBarButton = UIBarButtonItem(image: R.image.forwardbutton, style: .Plain, target: self, action: Selector("didForward"))
-        refreshBarButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: Selector("didRefresh"))
-        stopBarButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: Selector("didStop"))
-        flexibleSpaceBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        backBarButton = UIBarButtonItem(image: R.image.backbutton, style: .plain, target: self, action: #selector(WebViewController.didBack))
+        forwardBarButton = UIBarButtonItem(image: R.image.forwardbutton, style: .plain, target: self, action: #selector(WebViewController.didForward))
+        refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(WebViewController.didRefresh))
+        stopBarButton = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(WebViewController.didStop))
+        flexibleSpaceBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         backBarButton.width = 44
         forwardBarButton.width = 44
@@ -53,30 +53,30 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         webView.frame = self.view.frame
     }
 
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController?.toolbarHidden = false
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isToolbarHidden = false
     }
 
-    override func viewWillDisappear(animated: Bool) {
-        self.navigationController?.toolbarHidden = true
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isToolbarHidden = true
     }
 
     func updateToolBar() {
-        backBarButton.enabled = webView.canGoBack
-        forwardBarButton.enabled = webView.canGoForward
-        self.toolbarItems = [backBarButton, forwardBarButton, flexibleSpaceBarButton, webView.loading ? stopBarButton : refreshBarButton]
+        backBarButton.isEnabled = webView.canGoBack
+        forwardBarButton.isEnabled = webView.canGoForward
+        self.toolbarItems = [backBarButton, forwardBarButton, flexibleSpaceBarButton, webView.isLoading ? stopBarButton : refreshBarButton]
         self.navigationItem.title = webView.title
     }
 
-    func loadURL(url: NSURL) {
-        webView.loadRequest(NSURLRequest(URL: url))
+    func loadURL(_ url: URL) {
+        webView.load(URLRequest(url: url))
     }
 
-    func loadURLString(urlString: String) {
-        loadURL(NSURL(string: urlString)!)
+    func loadURLString(_ urlString: String) {
+        loadURL(URL(string: urlString)!)
     }
 
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
         if keyPath == "estimatedProgress" {
             progressView.alpha = 1
             let animated = webView.estimatedProgress > Double(progressView.progress)
@@ -84,7 +84,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
 
             // Once complete, fade out UIProgressView
             if webView.estimatedProgress >= 1.0 {
-                UIView.animateWithDuration(0.3, delay: 0.3, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0.3, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     self.progressView.alpha = 0.0
                     }, completion: { (_) in
                         self.progressView.setProgress(0.0, animated:false)
@@ -93,28 +93,28 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         }
     }
 
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         updateToolBar()
     }
 
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateToolBar()
     }
 
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
         updateToolBar()
     }
 
-    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
         updateToolBar()
     }
 
-    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .LinkActivated {
-            loadURL(navigationAction.request.URL!)
-            decisionHandler(.Cancel)
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated {
+            loadURL(navigationAction.request.url!)
+            decisionHandler(.cancel)
         } else {
-            decisionHandler(.Allow)
+            decisionHandler(.allow)
         }
     }
 

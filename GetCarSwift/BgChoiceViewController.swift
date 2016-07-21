@@ -31,36 +31,38 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLayoutSubviews() {
     }
 
-    @IBAction func onCameraAction(sender: UIButton) {
-        imagePicker.sourceType = .Camera
-        presentViewController(imagePicker, animated: true, completion: nil)
+    @IBAction func onCameraAction(_ sender: UIButton) {
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
     }
-    @IBAction func onGalleryAction(sender: UIButton) {
-        imagePicker.sourceType = .PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+    @IBAction func onGalleryAction(_ sender: UIButton) {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.bg_small, forIndexPath: indexPath)
-        cell?.bgImageView.image = UIImage(named: getSmallHomepageBg(indexPath.row + 1))
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(with: R.reuseIdentifier.bg_small, forIndexPath: indexPath)
+        cell?.bgImageView.image = UIImage(named: getSmallHomepageBg((indexPath as NSIndexPath).row + 1))
         return cell!
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setInteger(indexPath.row + 1, forKey: "homepage_bg")
-        navigationController?.popViewControllerAnimated(true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set((indexPath as NSIndexPath).row + 1, forKey: "homepage_bg")
+        _ = navigationController?.popViewController(animated: true)
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
-        KingfisherManager.sharedManager.cache.storeImage(image, forKey: "homepage_bg")
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setInteger(1000, forKey: "homepage_bg")
-        dismissViewControllerAnimated(true, completion: nil)
-        navigationController?.popViewControllerAnimated(true)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            KingfisherManager.sharedManager.cache.storeImage(image, forKey: "homepage_bg")
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(1000, forKey: "homepage_bg")
+            dismiss(animated: true, completion: nil)
+            _ = navigationController?.popViewController(animated: true)
+        }
     }
 }

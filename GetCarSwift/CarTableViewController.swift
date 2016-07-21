@@ -13,7 +13,7 @@ class CarTableViewController: UITableViewController {
 
     let defaultImage = UIImage().scaleImage(size: CGSize(width: 41, height: 41))
 
-    var indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    var indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     var categeries: [String] = []
     var brands: [String: [String]] = [:]
@@ -22,7 +22,7 @@ class CarTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.sectionIndexColor = UIColor.blackColor()
+        self.tableView.sectionIndexColor = UIColor.black()
 
         self.sideMenuController()?.sideMenu?.delegate = self
         indicator.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 64)
@@ -42,45 +42,45 @@ class CarTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return categeries.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return brands[categeries[section]]?.count ?? 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.car_no, forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_no, for: indexPath)
 
-        let titleText = brands[categeries[indexPath.section]]?[indexPath.row] ?? ""
+        let titleText = brands[categeries[(indexPath as NSIndexPath).section]]?[(indexPath as NSIndexPath).row] ?? ""
         let imageUrl = models[titleText]?[0].imageUrl ?? ""
-        cell?.logoView?.kf_setImageWithURL(NSURL(string: imageUrl)!, placeholderImage: defaultImage)
+        cell?.logoView?.kf_setImageWithURL(URL(string: imageUrl)!, placeholderImage: defaultImage)
         cell?.titleLabel?.text = titleText
 
         return cell!
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return categeries[section]
     }
 
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return categeries
     }
 
-    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return categeries.indexOf(title)!
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return categeries.index(of: title)!
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let navController = self.navigationController as? CarTableNavigationController
-        navController?.menuController!.data = models[(brands[categeries[indexPath.section]]?[indexPath.row]) ?? ""] ?? []
+        navController?.menuController!.data = models[(brands[categeries[(indexPath as NSIndexPath).section]]?[(indexPath as NSIndexPath).row]) ?? ""] ?? []
         showSideMenuView()
     }
 
-    @IBAction func didNavigationItemCancel(sender: UIBarButtonItem) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func didNavigationItemCancel(_ sender: UIBarButtonItem) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
 }
@@ -88,7 +88,7 @@ class CarTableViewController: UITableViewController {
 extension CarTableViewController: ENSideMenuDelegate {
     func sideMenuWillClose() {
         if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRowAtIndexPath(index, animated: true)
+            self.tableView.deselectRow(at: index, animated: true)
         }
     }
 }

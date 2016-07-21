@@ -32,12 +32,12 @@ class ShareScoreViewController: UIViewController {
         tableView.dataSource = self
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         share.id = ""
         tableView.reloadData()
     }
 
-    @IBAction func didPreviewAction(sender: UIButton) {
+    @IBAction func didPreviewAction(_ sender: UIButton) {
         if scoreValues[1] == "选择成绩" {
             Toast.makeToast(message: "请选择成绩")
             return
@@ -49,11 +49,11 @@ class ShareScoreViewController: UIViewController {
         uploadShare {
             let webBrowser = WebViewController()
             webBrowser.loadURL(self.share.getShareUrl())
-            self.showViewController(webBrowser, sender: self)
+            self.show(webBrowser, sender: self)
         }
     }
 
-    @IBAction func didShareAction(sender: UIButton) {
+    @IBAction func didShareAction(_ sender: UIButton) {
         if scoreValues[1] == "选择成绩" {
             Toast.makeToast(message: "请选择成绩")
             return
@@ -64,19 +64,19 @@ class ShareScoreViewController: UIViewController {
         }
         uploadShare {
             // share to wechat
-            let actionSheet = UIAlertController(title: "分享", message: nil, preferredStyle: .ActionSheet)
-            actionSheet.addAction(UIAlertAction(title: "分享给微信好友", style: .Default, handler: { _ in
+            let actionSheet = UIAlertController(title: "分享", message: nil, preferredStyle: .actionSheet)
+            actionSheet.addAction(UIAlertAction(title: "分享给微信好友", style: .default, handler: { _ in
                 self.shareToWechat(Int32(WXSceneSession.rawValue))
             }))
-            actionSheet.addAction(UIAlertAction(title: "分享到朋友圈", style: .Default, handler: { _ in
+            actionSheet.addAction(UIAlertAction(title: "分享到朋友圈", style: .default, handler: { _ in
                 self.shareToWechat(Int32(WXSceneTimeline.rawValue))
             }))
-            actionSheet.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
-            self.presentViewController(actionSheet, animated: true, completion: nil)
+            actionSheet.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            self.present(actionSheet, animated: true, completion: nil)
         }
     }
 
-    func shareToWechat(scene: Int32) {
+    func shareToWechat(_ scene: Int32) {
         _ = Share.getShareTitle(self.scoreValues[1], userCarId: self.carInfo.carUserId).subscribeNext { res in
             guard let share = res.data else {
                 return
@@ -87,16 +87,16 @@ class ShareScoreViewController: UIViewController {
             msg.description = share.desc
             msg.setThumbImage(R.image.app_icon!)
             let mediaObject = WXWebpageObject()
-            mediaObject.webpageUrl = self.share.getShareUrl().URLString
+            mediaObject.webpageUrl = self.share.getShareUrl().urlString
             msg.mediaObject = mediaObject
             req.message = msg
             req.bText = false
             req.scene = scene
-            WXApi.sendReq(req)
+            WXApi.send(req)
         }
     }
 
-    func uploadShare(succeed: () -> Void) {
+    func uploadShare(_ succeed: () -> Void) {
         if share.id == "" {
             Toast.makeToastActivity()
             var liushikm: String? = nil
@@ -105,8 +105,8 @@ class ShareScoreViewController: UIViewController {
                 liushikm = String(self.score.data.filter { $0.v == 60 }.first?.t ?? 0)
                 yibaikm = String(self.score.data.filter { $0.v == 100 }.first?.t ?? 0)
             }
-            let maxa = self.score.data.map { $0 }.sort { $0.0.a > $0.1.a }.first?.a ?? 0
-            let maxv = self.score.data.map { $0 }.sort { $0.0.v > $0.1.v }.first?.v ?? 0
+            let maxa = self.score.data.map { $0 }.sorted { $0.0.a > $0.1.a }.first?.a ?? 0
+            let maxv = self.score.data.map { $0 }.sorted { $0.0.v > $0.1.v }.first?.v ?? 0
             _ = Share.uploadShare(self.scoreValues[1], liushikm: liushikm, yibaikm: yibaikm, maxa: String(maxa), maxv: String(maxv), title: selectedTrack.name, userCarId: self.carInfo.carUserId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
                 if let share = res.data {
                     Toast.hideToastActivity()
@@ -122,15 +122,15 @@ class ShareScoreViewController: UIViewController {
 }
 
 extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, AddPlayerDelegate {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuCount + carInfo.parts.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row <= 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.share_score, forIndexPath: indexPath)
-            cell?.scoreTitleLabel.text = scoreTitles[indexPath.row]
-            cell?.scoreLabel.text = scoreValues[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).row <= 2 {
+            let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.share_score, for: indexPath)
+            cell?.scoreTitleLabel.text = scoreTitles[(indexPath as NSIndexPath).row]
+            cell?.scoreLabel.text = scoreValues[(indexPath as NSIndexPath).row]
             cell?.addDisposable?.dispose()
             cell?.addDisposable = cell?.addButton.rx_tap.subscribeNext {
                 let addViewController = AddPlayerTableViewController()
@@ -148,36 +148,36 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
                 }
                 addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 380)
                 let popupViewController = PopupViewController(rootViewController: addViewController)
-                self.presentViewController(popupViewController, animated: false, completion: nil)
+                self.present(popupViewController, animated: false, completion: nil)
             }
             return cell!
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.share_part, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.share_part, for: indexPath)
         let part = carInfo.parts[indexPath.row - 3]
         cell?.partTitleLabel.text = part.title
         cell?.partDetailLabel.text = part.detail
-        cell?.partImageView.kf_setImageWithURL(NSURL(string: part.imageUrl)!)
+        cell?.partImageView.kf_setImageWithURL(URL(string: part.imageUrl)!)
         return cell!
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row <= 2 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).row <= 2 {
             return 64
         }
         return 120
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-        if indexPath.row > 2 {
+        if (indexPath as NSIndexPath).row > 2 {
             let vc = R.storyboard.mine.car_detail
             vc?.id = carInfo.id
             showViewController(vc!)
         }
     }
 
-    func didPlayerAdded(record: AnyObject, sender: UIButton?) {
+    func didPlayerAdded(_ record: AnyObject, sender: UIButton?) {
         if let carInfo = record as? CarInfo {
             self.carInfo = carInfo
             carInfo.fetchParts {

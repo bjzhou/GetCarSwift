@@ -55,7 +55,7 @@ class LoginViewModel {
             }
             .concat()
             .subscribeNext { res in
-                guard let user = res.data where user.token.trim() != "" else {
+                guard let user = res.data, user.token.trim() != "" else {
                     if res.code == -25 {
                         self.viewProxy?.showToast("验证码错误")
                     } else if res.code == -26 {

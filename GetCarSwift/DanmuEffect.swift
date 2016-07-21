@@ -22,14 +22,14 @@ class DanmuEffect {
     private var _danmuList = [String]()
     private var lastPos: CGFloat = 0.0
 
-    let queue = dispatch_queue_create("serial-worker\(random())", DISPATCH_QUEUE_SERIAL)
+    let queue = DispatchQueue(label: "serial-worker\(arc4random())", attributes: DispatchQueueAttributes.serial)
 
     init(superView: UIView, rect: CGRect? = nil) {
         self.superView = superView
         self.rect = rect == nil ? superView.frame : rect!
     }
 
-    private func generateRandom(size: CGSize) -> CGFloat {
+    private func generateRandom(_ size: CGSize) -> CGFloat {
         let randomPos = CGFloat(arc4random_uniform(UInt32(rect.height - size.height)))
         if abs(lastPos - randomPos) <= size.height {
             return generateRandom(size)
@@ -38,28 +38,28 @@ class DanmuEffect {
         return randomPos
     }
 
-    func send(text: String, delay: UInt32 = 0, highlight: Bool = false, highPriority: Bool = false) {
-        let closeDanmu = NSUserDefaults.standardUserDefaults().boolForKey("closeDanmu")
+    func send(_ text: String, delay: UInt32 = 0, highlight: Bool = false, highPriority: Bool = false) {
+        let closeDanmu = UserDefaults.standard.bool(forKey: "closeDanmu")
         if  closeDanmu {
             return
         }
-        dispatch_async(highPriority ? dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) : queue) {
+        (highPriority ? DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosBackground) : queue).async {
             let label = UILabel()
-            label.font = UIFont.boldSystemFontOfSize(self.textSize)
+            label.font = UIFont.boldSystemFont(ofSize: self.textSize)
             label.textColor = UIColor(rgbValue: UInt(arc4random_uniform(0xffffff+1)))
             if highlight {
-                label.textColor = UIColor.blackColor()
-                label.backgroundColor = UIColor.redColor()
+                label.textColor = UIColor.black()
+                label.backgroundColor = UIColor.red()
             }
             label.text = text
-            let size = label.attributedText?.size() ?? CGSizeZero
+            let size = label.attributedText?.size() ?? CGSize.zero
             let randomPos = self.generateRandom(size)
             main {
                 label.frame = CGRect(x: self.rect.origin.x + self.rect.width, y: self.rect.origin.y + randomPos, width: size.width, height: size.height)
                 //label.tag = Int(NSDate().timeIntervalSince1970 * 1000)
                 self.superView.addSubview(label)
-                UIView.animateWithDuration(self.animDuration, delay: 0, options: .CurveLinear, animations: {
-                    label.transform = CGAffineTransformMakeTranslation(-self.rect.width-size.width, 0)
+                UIView.animate(withDuration: self.animDuration, delay: 0, options: .curveLinear, animations: {
+                    label.transform = CGAffineTransform(translationX: -self.rect.width-size.width, y: 0)
                     }, completion: { _ in
                         label.removeFromSuperview()
                 })

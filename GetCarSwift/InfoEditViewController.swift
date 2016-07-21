@@ -36,10 +36,10 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func initSubView() {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height), style: UITableViewStyle.Grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height), style: UITableViewStyle.grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "infoEdit")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "infoEdit")
         self.view.addSubview(tableView)
 
         switch mode {
@@ -48,8 +48,8 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         case .Nickname:
             self.title = "昵称"
             tableView.allowsSelection = false
-            let saveItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.Done, target: self, action: "didSave")
-            self.navigationItem.setRightBarButtonItem(saveItem, animated: false)
+            let saveItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.done, target: self, action: #selector(InfoEditViewController.didSave))
+            self.navigationItem.setRightBarButton(saveItem, animated: false)
         default:
             break
         }
@@ -72,14 +72,14 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             break
         }
 
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch mode {
         case .Sex:
             return 2
@@ -90,25 +90,25 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("infoEdit", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "infoEdit", for: indexPath)
 
         switch mode {
         case .Sex:
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 cell.textLabel?.text = "男"
             } else {
                 cell.textLabel?.text = "女"
             }
-            cell.accessoryView = UIImageView(image: indexPath.row != Mine.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
+            cell.accessoryView = UIImageView(image: (indexPath as NSIndexPath).row != Mine.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
         case .Nickname:
             let textField = UITextField(frame: CGRect(x: 8, y: 20, width: cell.frame.width - 16, height: cell.frame.height - 40))
             textField.text = Mine.sharedInstance.nickname
-            textField.clearButtonMode = .WhileEditing
+            textField.clearButtonMode = .whileEditing
             textField.becomeFirstResponder()
             _ = textField.rx_text.takeUntil(self.rx_deallocated).subscribeNext { text in
                 if text.characters.count > 15 {
-                    textField.text = text.substringToIndex(text.startIndex.advancedBy(15))
+                    textField.text = text.substring(to: text.characters.index(text.startIndex, offsetBy: 15))
                 }
                 self.nickname = textField.text!
             }
@@ -120,23 +120,23 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch mode {
         case .Sex:
-            Mine.sharedInstance.sex = indexPath.row == 1 ? 0 : 1
+            Mine.sharedInstance.sex = (indexPath as NSIndexPath).row == 1 ? 0 : 1
             _ = User.updateInfo(sex: indexPath.row == 1 ? 0 : 1).subscribeNext { res in
                 if let user = res.data {
                     Mine.sharedInstance.updateLogin(user)
                 }
             }
             tableView.reloadData()
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
         default:
             break
         }
     }
 
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
 }

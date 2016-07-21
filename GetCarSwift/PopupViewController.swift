@@ -25,19 +25,19 @@ public class PopupViewController: UIViewController {
         self.popupType = popupType
         self.sender = sender
         super.init(nibName: nil, bundle: nil)
-        self.modalPresentationStyle = .OverCurrentContext
+        self.modalPresentationStyle = .overCurrentContext
     }
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setTouchCancelable(cancelable: Bool) {
+    public func setTouchCancelable(_ cancelable: Bool) {
         self.cancelable = cancelable
     }
 
     override public func viewDidLoad() {
-        self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        self.view.backgroundColor = UIColor.black().withAlphaComponent(0.6)
         rootViewController.view.layer.cornerRadius = 5
         rootViewController.view.layer.shadowOpacity = 0.8
         rootViewController.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -50,7 +50,7 @@ public class PopupViewController: UIViewController {
         }
         self.view.addSubview(rootViewController.view)
         self.addChildViewController(rootViewController)
-        rootViewController.didMoveToParentViewController(self)
+        rootViewController.didMove(toParentViewController: self)
 
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
@@ -63,58 +63,58 @@ public class PopupViewController: UIViewController {
         self.view.addGestureRecognizer(tapRecognizer)
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         switch popupType {
         case .Alert:
             rootViewController.view.alpha = 0
-            rootViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
-            UIView.animateWithDuration(0.3, animations: {
+            rootViewController.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            UIView.animate(withDuration: 0.3, animations: {
                 self.rootViewController.view.alpha = 1
-                self.rootViewController.view.transform = CGAffineTransformMakeScale(1, 1)
+                self.rootViewController.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             })
         case .ActionSheet:
-            rootViewController.view.transform = CGAffineTransformMakeTranslation(0, rootViewController.view.frame.height)
-            UIView.animateWithDuration(0.3, animations: {
-                self.rootViewController.view.transform = CGAffineTransformMakeTranslation(0, 0)
+            rootViewController.view.transform = CGAffineTransform(translationX: 0, y: rootViewController.view.frame.height)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.rootViewController.view.transform = CGAffineTransform(translationX: 0, y: 0)
             })
         }
 
     }
 
-    public func setPopupViewFrame(frame: CGRect) {
+    public func setPopupViewFrame(_ frame: CGRect) {
         rootViewController.view.frame = frame
         rootViewController.view.center = self.view.center
     }
 
-    public override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
+    public override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
         if flag {
             switch popupType {
             case .Alert:
                 rootViewController.view.alpha = 1
-                rootViewController.view.transform = CGAffineTransformMakeScale(1, 1)
-                UIView.animateWithDuration(0.3, animations: {
+                rootViewController.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                UIView.animate(withDuration: 0.3, animations: {
                     self.rootViewController.view.alpha = 0
-                    self.rootViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                    self.rootViewController.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
                     }) { _ in
-                        super.dismissViewControllerAnimated(false, completion: completion)
+                        super.dismiss(animated: false, completion: completion)
                 }
             case .ActionSheet:
-                rootViewController.view.transform = CGAffineTransformMakeTranslation(0, 0)
-                UIView.animateWithDuration(0.3, animations: {
-                    self.rootViewController.view.transform = CGAffineTransformMakeTranslation(0, self.rootViewController.view.frame.height)
+                rootViewController.view.transform = CGAffineTransform(translationX: 0, y: 0)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.rootViewController.view.transform = CGAffineTransform(translationX: 0, y: self.rootViewController.view.frame.height)
                     }) { _ in
-                        super.dismissViewControllerAnimated(false, completion: completion)
+                        super.dismiss(animated: false, completion: completion)
                 }
             }
 
         } else {
-            super.dismissViewControllerAnimated(flag, completion: completion)
+            super.dismiss(animated: flag, completion: completion)
         }
     }
 }
 
 extension PopupViewController: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view != self.view {
             return false
         }
