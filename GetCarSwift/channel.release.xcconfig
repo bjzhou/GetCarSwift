@@ -6,7 +6,7 @@
 //  Copyright © 2015年 周斌佳. All rights reserved.
 //
 
-#include "Pods/Target Support Files/Pods/Pods.release.xcconfig"
+#include "Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift.release.xcconfig"
 
 PRODUCT_DISPLAY_NAME = 改客内测版
 PRODUCT_BUNDLE_IDENTIFIER = com.gaike.$(PRODUCT_NAME:rfc1034identifier).test

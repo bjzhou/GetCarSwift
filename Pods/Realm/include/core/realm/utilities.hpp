@@ -1,33 +1,32 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
+
 #ifndef REALM_UTILITIES_HPP
 #define REALM_UTILITIES_HPP
 
 #include <stdint.h>
 #include <cstdlib>
 #include <cstdlib> // size_t
-#include <algorithm>
 #include <cstdio>
+#include <algorithm>
+#include <functional>
 
 #ifdef _MSC_VER
-#  include <win32/types.h>
 #  include <intrin.h>
 #endif
 
@@ -48,7 +47,7 @@
 #  define REALM_ARCH_ARM
 #endif
 
-#if defined _LP64 || defined __LP64__ || defined __64BIT__ || _ADDR64 || defined _WIN64 || defined __arch64__ || __WORDSIZE == 64 || (defined __sparc && defined __sparcv9) || defined __x86_64 || defined __amd64 || defined __x86_64__ || defined _M_X64 || defined _M_IA64 || defined __ia64 || defined __IA64__
+#if defined _LP64 || defined __LP64__ || defined __64BIT__ || defined _ADDR64 || defined _WIN64 || defined __arch64__ || (defined(__WORDSIZE) && __WORDSIZE == 64) || (defined __sparc && defined __sparcv9) || defined __x86_64 || defined __amd64 || defined __x86_64__ || defined _M_X64 || defined _M_IA64 || defined __ia64 || defined __IA64__
 #  define REALM_PTR_64
 #endif
 
@@ -60,7 +59,7 @@
 
 namespace realm {
 
-typedef bool(*StringCompareCallback)(const char* string1, const char* string2);
+using StringCompareCallback = std::function<bool(const char* string1, const char* string2)>;
 
 extern signed char sse_support;
 extern signed char avx_support;
@@ -69,7 +68,7 @@ template<int version>
 REALM_FORCEINLINE bool sseavx()
 {
 /*
-    Return wether or not SSE 3.0 (if version = 30) or 4.2 (for version = 42) is supported. Return value
+    Return whether or not SSE 3.0 (if version = 30) or 4.2 (for version = 42) is supported. Return value
     is based on the CPUID instruction.
 
     sse_support = -1: No SSE support
@@ -104,24 +103,16 @@ REALM_FORCEINLINE bool sseavx()
 #endif
 }
 
-typedef struct {
-    unsigned long long remainder;
-    unsigned long long remainder_len;
-    unsigned long long b_val;
-    unsigned long long a_val;
-    unsigned long long result;
-} checksum_t;
-
 void cpuid_init();
-unsigned long long checksum(unsigned char* data, size_t len);
-void checksum_rolling(unsigned char* data, size_t len, checksum_t* t);
 void* round_up(void* p, size_t align);
 void* round_down(void* p, size_t align);
 size_t round_up(size_t p, size_t align);
 size_t round_down(size_t p, size_t align);
-void checksum_init(checksum_t* t);
 void millisleep(size_t milliseconds);
 
+#ifdef REALM_SLAB_ALLOC_TUNE
+    void process_mem_usage(double& vm_usage, double& resident_set);
+#endif
 // popcount
 int fast_popcount32(int32_t x);
 int fast_popcount64(int64_t x);
@@ -189,6 +180,18 @@ enum IndexMethod {
     index_FindAll_nocopy,
     index_Count
 };
+
+
+// realm::is_any<T, U1, U2, U3, ...> ==
+// std::is_same<T, U1>::value || std::is_same<T, U2>::value || std::is_same<T, U3>::value ...
+template<typename... T>
+struct is_any : std::false_type { };
+
+template<typename T, typename... Ts>
+struct is_any<T, T, Ts...> : std::true_type { };
+
+template<typename T, typename U, typename... Ts>
+struct is_any<T, U, Ts...> : is_any<T, Ts...> { };
 
 
 // Use safe_equal() instead of std::equal() when comparing sequences which can have a 0 elements.

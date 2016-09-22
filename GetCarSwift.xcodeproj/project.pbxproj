@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6006B12F74D28C1E76D2AE1F /* Pods_GetCarSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74890F108532067C74FE0F2 /* Pods_GetCarSwift.framework */; };
 		8BDEB3B5FC58B55C2CF87286 /* TrackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */; };
 		8BDEBF70FD74AF40A34401AF /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */; };
-		98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA7E7F32B82B982261BC1FB /* Pods.framework */; };
 		C803EE3D1C18299C00425E04 /* CALayer+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C803EE3C1C18299C00425E04 /* CALayer+GK.swift */; };
 		C804B90C1B80840100AEC003 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804B90B1B80840100AEC003 /* WebViewController.swift */; };
 		C80881E21B6D2190002A1CE9 /* FIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80881E11B6D2190002A1CE9 /* FIR.swift */; };
@@ -119,6 +119,7 @@
 		C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F411D31C1EA38D00747678 /* RealmHelper.swift */; };
 		C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* User.swift */; };
 		C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD701B725CDD0003AF1B /* Toast.swift */; };
+		D40A7D1F5B1293231165CC83 /* Pods_GetCarSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901569F83BA8FBB10B0C5393 /* Pods_GetCarSwiftTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,10 +147,11 @@
 
 /* Begin PBXFileReference section */
 		0FA7E7F32B82B982261BC1FB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		379E7426878B39BF90F73D64 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
-		AF89B3959372DB5712543292 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		901569F83BA8FBB10B0C5393 /* Pods_GetCarSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCarSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FCAC6F3E89D3A16B3943554 /* Pods-GetCarSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCarSwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A74890F108532067C74FE0F2 /* Pods_GetCarSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCarSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C803EE3C1C18299C00425E04 /* CALayer+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+GK.swift"; sourceTree = "<group>"; };
 		C804B90B1B80840100AEC003 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C80881E11B6D2190002A1CE9 /* FIR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIR.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		C8F411D31C1EA38D00747678 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		C8F9CD6E1B7246BB0003AF1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		D6027DB57D90E75669BA4450 /* Pods-GetCarSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCarSwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,7 +287,7 @@
 				C8AB57301C2BF4EF0087898C /* libz.tbd in Frameworks */,
 				C8AB572E1C2BF4E30087898C /* SystemConfiguration.framework in Frameworks */,
 				C8AB572C1C2BF4800087898C /* libWeChatSDK.a in Frameworks */,
-				98795095F455188C9BEBB8DD /* Pods.framework in Frameworks */,
+				6006B12F74D28C1E76D2AE1F /* Pods_GetCarSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +295,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D40A7D1F5B1293231165CC83 /* Pods_GetCarSwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +312,8 @@
 				C8AB572D1C2BF4E20087898C /* SystemConfiguration.framework */,
 				C86F854F1B8215A100C7DC7C /* CoreMotion.framework */,
 				0FA7E7F32B82B982261BC1FB /* Pods.framework */,
+				A74890F108532067C74FE0F2 /* Pods_GetCarSwift.framework */,
+				901569F83BA8FBB10B0C5393 /* Pods_GetCarSwiftTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -464,7 +470,7 @@
 				C8AB57221C2BF3C70087898C /* WeChat */,
 				2C2ECC4D086E66923F2F9980 /* Frameworks */,
 				C867FC671AD8FCAF00F99592 /* Products */,
-				D726EAD8677BF61B80C23841 /* Pods */,
+				E3537C1E787A77C7691D8E38 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -621,11 +627,11 @@
 			name = gkbox;
 			sourceTree = "<group>";
 		};
-		D726EAD8677BF61B80C23841 /* Pods */ = {
+		E3537C1E787A77C7691D8E38 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AF89B3959372DB5712543292 /* Pods.debug.xcconfig */,
-				379E7426878B39BF90F73D64 /* Pods.release.xcconfig */,
+				9FCAC6F3E89D3A16B3943554 /* Pods-GetCarSwiftTests.debug.xcconfig */,
+				D6027DB57D90E75669BA4450 /* Pods-GetCarSwiftTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -637,16 +643,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C867FC871AD8FCB000F99592 /* Build configuration list for PBXNativeTarget "GetCarSwift" */;
 			buildPhases = (
-				C527E00D7BEFF4362739B28B /* Check Pods Manifest.lock */,
+				31ACE997F0DCD5CB8CA6069D /* [CP] Check Pods Manifest.lock */,
 				C8CD8E0B1B91E85B0050DF90 /* Embed Frameworks */,
 				C88D89601BDF75E200AA4425 /* Generate R.swift */,
 				C8F330031C06AFB200FC5744 /* SwiftLint */,
 				C867FC621AD8FCAF00F99592 /* Sources */,
 				C867FC631AD8FCAF00F99592 /* Frameworks */,
 				C867FC641AD8FCAF00F99592 /* Resources */,
-				6E6F9C2B6C3314D97F51B147 /* Embed Pods Frameworks */,
-				917907DCB1C3F68F9978D874 /* Copy Pods Resources */,
 				C82746471C1AC55C009844A4 /* Bugly */,
+				B5CC5F3746325A6EACC623A4 /* [CP] Embed Pods Frameworks */,
+				F4AFEAAE43202C70ABA9FC30 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -661,9 +667,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C867FC8A1AD8FCB000F99592 /* Build configuration list for PBXNativeTarget "GetCarSwiftTests" */;
 			buildPhases = (
+				8D4092B7379F79B54E031D58 /* [CP] Check Pods Manifest.lock */,
 				C867FC791AD8FCB000F99592 /* Sources */,
 				C867FC7A1AD8FCB000F99592 /* Frameworks */,
 				C867FC7B1AD8FCB000F99592 /* Resources */,
+				BB6F7B3B3BE3AEC7F846AEDA /* [CP] Embed Pods Frameworks */,
+				45015749D1A148021124F99F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -683,12 +692,13 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "周斌佳";
 				TargetAttributes = {
 					C867FC651AD8FCAF00F99592 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = H4MJ558LMP;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -700,6 +710,7 @@
 					};
 					C867FC7C1AD8FCB000F99592 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = C867FC651AD8FCAF00F99592;
 					};
 				};
@@ -750,49 +761,79 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6E6F9C2B6C3314D97F51B147 /* Embed Pods Frameworks */ = {
+		31ACE997F0DCD5CB8CA6069D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		917907DCB1C3F68F9978D874 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C527E00D7BEFF4362739B28B /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		45015749D1A148021124F99F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D4092B7379F79B54E031D58 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B5CC5F3746325A6EACC623A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB6F7B3B3BE3AEC7F846AEDA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C82746471C1AC55C009844A4 /* Bugly */ = {
@@ -836,6 +877,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --config $SRCROOT/.swiftlint.yml\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		F4AFEAAE43202C70ABA9FC30 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -975,6 +1031,7 @@
 		C867FC851AD8FCB000F99592 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -985,18 +1042,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1020,6 +1079,7 @@
 		C867FC861AD8FCB000F99592 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1030,17 +1090,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1059,6 +1121,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1081,6 +1144,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift/GetCarSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1089,6 +1153,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C8E0E64B1C23AF4D00BD5EC9 /* channel.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1112,12 +1177,14 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GetCarSwift/GetCarSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		C867FC8B1AD8FCB000F99592 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FCAC6F3E89D3A16B3943554 /* Pods-GetCarSwiftTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1129,12 +1196,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
 			};
 			name = Debug;
 		};
 		C867FC8C1AD8FCB000F99592 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6027DB57D90E75669BA4450 /* Pods-GetCarSwiftTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1142,6 +1211,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gaike.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetCarSwift.app/GetCarSwift";
 			};
 			name = Release;

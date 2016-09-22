@@ -79,13 +79,13 @@ extension MapViewController: MAMapViewDelegate {
 
         return annotationView
     }
-
-    func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
+    
+    func mapView(mapView: MAMapView!, rendererForOverlay overlay: MAOverlay!) -> MAOverlayRenderer! {
         guard let circle = overlay as? MACircle else {
             return nil
         }
-
-        let circleView = MACircleView(circle: circle)
+        
+        let circleView = MACircleRenderer(circle: circle)
         circleView.strokeColor = UIColor.blackColor()
         circleView.lineWidth = 1
         circleView.fillColor = UIColor.yellowColor()

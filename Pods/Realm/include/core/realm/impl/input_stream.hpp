@@ -1,20 +1,18 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
 
@@ -24,6 +22,7 @@
 #include <algorithm>
 
 #include <realm/binary_data.hpp>
+#include <realm/impl/continuous_transactions_history.hpp>
 
 
 namespace realm {
@@ -184,6 +183,55 @@ private:
     const BinaryData* m_logs_end;
     size_t m_curr_buf_remaining_size;
 };
+
+
+class ChangesetInputStream: public NoCopyInputStream {
+public:
+    using version_type = History::version_type;
+    ChangesetInputStream(History&, version_type begin_version, version_type end_version);
+    size_t next_block(const char*& begin, const char*& end) override;
+private:
+    History& m_history;
+    version_type m_begin_version, m_end_version;
+    BinaryData m_changesets[8]; // Buffer
+    BinaryData* m_changesets_begin = 0;
+    BinaryData* m_changesets_end = 0;
+};
+
+
+inline ChangesetInputStream::ChangesetInputStream(History& hist, version_type begin_version,
+                                                  version_type end_version):
+    m_history(hist),
+    m_begin_version(begin_version),
+    m_end_version(end_version)
+{
+}
+
+inline size_t ChangesetInputStream::next_block(const char*& begin, const char*& end)
+{
+    for (;;) {
+        if (REALM_UNLIKELY(m_changesets_begin == m_changesets_end)) {
+            if (m_begin_version == m_end_version)
+                return 0; // End of input
+            version_type n = sizeof m_changesets / sizeof m_changesets[0];
+            version_type avail = m_end_version - m_begin_version;
+            if (n > avail)
+                n = avail;
+            version_type end_version = m_begin_version + n;
+            m_history.get_changesets(m_begin_version, end_version, m_changesets);
+            m_begin_version = end_version;
+            m_changesets_begin = m_changesets;
+            m_changesets_end = m_changesets_begin + n;
+        }
+
+        BinaryData changeset = *m_changesets_begin++;
+        if (changeset.size() > 0) {
+            begin = changeset.data();
+            end   = changeset.data() + changeset.size();
+            return changeset.size();
+        }
+    }
+}
 
 
 } // namespace _impl

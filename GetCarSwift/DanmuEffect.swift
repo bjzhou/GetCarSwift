@@ -22,7 +22,7 @@ class DanmuEffect {
     private var _danmuList = [String]()
     private var lastPos: CGFloat = 0.0
 
-    let queue = dispatch_queue_create("serial-worker\(random())", DISPATCH_QUEUE_SERIAL)
+    let queue = dispatch_queue_create("serial-worker\(arc4random())", DISPATCH_QUEUE_SERIAL)
 
     init(superView: UIView, rect: CGRect? = nil) {
         self.superView = superView

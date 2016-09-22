@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 
-class StraightMatchViewController: UIViewController {
+class StraightMatchViewController: UIViewController, CAAnimationDelegate {
 
     let disposeBag = DisposeBag()
 
@@ -94,8 +94,8 @@ class StraightMatchViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StraightMatchViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StraightMatchViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 
     func keyboardWillShow(notification: NSNotification) {
@@ -142,7 +142,7 @@ class StraightMatchViewController: UIViewController {
                     return
                 }
 
-                self.timerOffset++
+                self.timerOffset += 1
                 let t = Double(self.timerOffset)/100
                 let curTs = self.time2String(t)
                 self.timeLabel.text = curTs
@@ -303,8 +303,8 @@ class StraightMatchViewController: UIViewController {
         let m = Int(t) / 60
         return String(format: "%02d:%02d.%02d", arguments: [m, s, ms])
     }
-
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    
+    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         if anim == finishLine.layer.animationForKey("finishLine") {
             raceBg.image = R.image.race_bg
         }

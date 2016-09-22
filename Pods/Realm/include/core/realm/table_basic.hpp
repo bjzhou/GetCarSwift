@@ -1,22 +1,21 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
+
 #ifndef REALM_TABLE_BASIC_HPP
 #define REALM_TABLE_BASIC_HPP
 
@@ -433,9 +432,9 @@ protected:
     {
     }
 
-    void apply_patch(HandoverPatch& patch, Group& group)
+    void apply_patch(HandoverPatch& patch, Group& dest_group)
     {
-        m_impl.apply_patch(patch, group);
+        m_impl.apply_patch(patch, dest_group);
     }
 
     virtual std::unique_ptr<Query>
@@ -454,9 +453,9 @@ protected:
         return retval;
     }
 
-    virtual void apply_and_consume_patch(std::unique_ptr<HandoverPatch>& patch, Group& group)
+    virtual void apply_and_consume_patch(std::unique_ptr<HandoverPatch>& patch, Group& dest_group)
     {
-        apply_patch(*patch, group);
+        apply_patch(*patch, dest_group);
         patch.reset();
     }
 
@@ -522,16 +521,20 @@ struct GetColumnTypeId<BinaryData>
     static const DataType id = type_Binary;
 };
 template<>
-struct GetColumnTypeId<DateTime>
+struct GetColumnTypeId<OldDateTime>
 {
-    static const DataType id = type_DateTime;
+    static const DataType id = type_OldDateTime;
 };
 template<>
 struct GetColumnTypeId<Mixed>
 {
     static const DataType id = type_Mixed;
 };
-
+template<>
+struct GetColumnTypeId<Timestamp>
+{
+        static const DataType id = type_Timestamp;
+};
 
 template<class Type, int col_idx>
 struct AddCol {
@@ -645,11 +648,21 @@ struct AssignIntoCol<SpecBase::Enum<E>, col_idx> {
 
 // AssignIntoCol specialization for dates
 template<int col_idx>
-struct AssignIntoCol<DateTime, col_idx> {
+struct AssignIntoCol<OldDateTime, col_idx> {
     template<class L>
     static void exec(Table* t, size_t row_idx, util::Tuple<L> tuple)
     {
-        t->set_datetime(col_idx, row_idx, util::at<col_idx>(tuple));
+        t->set_olddatetime(col_idx, row_idx, util::at<col_idx>(tuple));
+    }
+};
+
+// AssignIntoCol specialization for timestamps
+template<int col_idx>
+struct AssignIntoCol<Timestamp, col_idx> {
+    template<class L>
+    static void exec(Table* t, size_t row_idx, util::Tuple<L> tuple)
+    {
+        t->set_timestamp(col_idx, row_idx, util::at<col_idx>(tuple));
     }
 };
 
@@ -693,7 +706,7 @@ inline typename BasicTable<Spec>::Ref BasicTable<Spec>::create(Allocator& alloc)
 {
     TableRef table = Table::create(alloc);
     set_dynamic_type(*table);
-    return unchecked_cast<BasicTable<Spec>>(move(table));
+    return unchecked_cast<BasicTable<Spec>>(std::move(table));
 }
 
 

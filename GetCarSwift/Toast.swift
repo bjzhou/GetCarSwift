@@ -108,7 +108,7 @@ class Toast: NSObject {
         toast.alpha = 0.0
 
         if toastHidesOnTap {
-            let tapRecognizer = UITapGestureRecognizer(target: toast, action: Selector("handleToastTapped:"))
+            let tapRecognizer = UITapGestureRecognizer(target: toast, action: #selector(Toast.handleToastTapped(_:)))
             toast.addGestureRecognizer(tapRecognizer)
             toast.userInteractionEnabled = true
             toast.exclusiveTouch = true
@@ -123,7 +123,7 @@ class Toast: NSObject {
                 toast.alpha = 1.0
             },
             completion: { (finished: Bool) in
-                toastTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
+                toastTimer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: #selector(Toast.toastTimerDidFinish(_:)), userInfo: toast, repeats: false)
         })
     }
 

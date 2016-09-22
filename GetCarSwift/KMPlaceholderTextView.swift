@@ -88,7 +88,7 @@ public class KMPlaceholderTextView: UITextView {
 
     func commonInit() {
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "textDidChange",
+            selector: #selector(KMPlaceholderTextView.textDidChange),
             name: UITextViewTextDidChangeNotification,
             object: nil)
 

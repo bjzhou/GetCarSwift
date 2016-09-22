@@ -10,9 +10,10 @@
 #define GetCarSwift_GetCarSwift_Bridging_Header_h
 
 #import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
-#import <Bugly/CrashReporter.h>
+#import <Bugly/Bugly.h>
 #import <Bugly/BuglyLog.h>
 #import <RongIMKit/RongIMKit.h>
 #import "WXApi.h"

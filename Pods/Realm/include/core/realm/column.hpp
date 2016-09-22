@@ -1,22 +1,21 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
+
 #ifndef REALM_COLUMN_HPP
 #define REALM_COLUMN_HPP
 
@@ -68,39 +67,9 @@ struct ImplicitNull<double> {
 
 // FIXME: Add specialization for ImplicitNull for float, double, StringData, BinaryData.
 
-struct ColumnTemplateBase
-{
-    virtual int compare_values(size_t row1, size_t row2) const = 0;
-};
-
 template<class T, class R, Action action, class Condition, class ColType>
 R aggregate(const ColType& column, T target, size_t start, size_t end,
                 size_t limit, size_t* return_ndx);
-
-template<class T>
-struct ColumnTemplate : public ColumnTemplateBase
-{
-    // Overridden in column_string.* because == operator of StringData isn't yet locale aware; todo
-    virtual int compare_values(size_t row1, size_t row2) const
-    {
-        // we negate nullability such that the two ternary statements in this method can look identical to reduce
-        // risk of bugs
-        bool v1 = !is_null(row1);
-        bool v2 = !is_null(row2);
-
-        if (!v1 || !v2)
-            return v1 == v2 ? 0 : v1 < v2 ? 1 : -1;
-
-        T a = get_val(row1);
-        T b = get_val(row2);
-        return a == b ? 0 : a < b ? 1 : -1;
-    }
-
-    // We cannot use already-existing get() methods because StringEnumColumn and LinkList inherit from
-    // Column and overload get() with different return type than int64_t. Todo, find a way to simplify
-    virtual T get_val(size_t row) const = 0;
-    virtual bool is_null(size_t row) const = 0;
-};
 
 /// Base class for all column types.
 class ColumnBase {
@@ -179,6 +148,7 @@ public:
     virtual StringData get_index_data(size_t, StringIndex::StringConversionBuffer& buffer) const noexcept = 0;
 
     // Search index
+    virtual bool supports_search_index() const noexcept;
     virtual bool has_search_index() const noexcept;
     virtual StringIndex* create_search_index();
     virtual void destroy_search_index() noexcept;
@@ -210,13 +180,20 @@ public:
     virtual ref_type write(size_t slice_offset, size_t slice_size,
                            size_t table_size, _impl::OutputStream&) const = 0;
 
+    /// Get this column's logical index within the containing table, or npos
+    /// for free-standing or non-top-level columns.
+    size_t get_column_index() const noexcept { return m_column_ndx; }
+
     virtual void set_parent(ArrayParent*, size_t ndx_in_parent) noexcept = 0;
     virtual size_t get_ndx_in_parent() const noexcept = 0;
     virtual void set_ndx_in_parent(size_t ndx_in_parent) noexcept = 0;
 
-    /// Called in the context of Group::commit() and
-    /// SharedGroup::commit_and_continue_as_read()() to ensure that attached
-    /// table and link list accessors stay valid across a commit.
+    /// Called to update refs and memory pointers of this column accessor and
+    /// all its nested accessors, but only in cases where the logical contents
+    /// in strictly unchanged. Group::commit(), and
+    /// SharedGroup::commit_and_continue_as_read()() are examples of such
+    /// cases. In both those cases, the purpose is to keep user visible
+    /// accessors in a valid state across a commit.
     virtual void update_from_parent(size_t old_baseline) noexcept = 0;
 
     //@{
@@ -266,6 +243,8 @@ public:
 
     virtual void bump_link_origin_table_version() noexcept;
 
+    virtual int compare_values(size_t row1, size_t row2) const noexcept = 0;
+
     /// Refresh the dirty part of the accessor subtree rooted at this column
     /// accessor.
     ///
@@ -286,10 +265,9 @@ public:
     ///
     ///  - The 'index in parent' property of the cached root array
     ///    (`root->m_ndx_in_parent`) is valid.
-    virtual void refresh_accessor_tree(size_t new_col_ndx, const Spec&) = 0;
+    virtual void refresh_accessor_tree(size_t new_col_ndx, const Spec&);
 
 #ifdef REALM_DEBUG
-    // Must be upper case to avoid conflict with macro in Objective-C
     virtual void verify() const = 0;
     virtual void verify(const Table&, size_t col_ndx) const;
     virtual void to_dot(std::ostream&, StringData title = StringData()) const = 0;
@@ -301,7 +279,7 @@ public:
 protected:
     using SliceHandler = BpTreeBase::SliceHandler;
 
-    ColumnBase() {}
+    ColumnBase(size_t column_ndx=npos) : m_column_ndx(column_ndx) {}
     ColumnBase(ColumnBase&&) = default;
 
     // Must not assume more than minimal consistency (see
@@ -334,8 +312,11 @@ protected:
                              std::ostream&) const = 0;
 #endif
 
+    template<class Column>
+    static int compare_values(const Column* column, size_t row1, size_t row2) noexcept;
+
 private:
-    class WriteSliceHandler;
+    size_t m_column_ndx = npos;
 
     static ref_type build(size_t* rest_size_ptr, size_t fixed_height,
                           Allocator&, CreateHandler&);
@@ -362,12 +343,12 @@ public:
     bool is_attached() const noexcept final { return m_array->is_attached(); }
     void set_parent(ArrayParent* parent, size_t ndx_in_parent) noexcept final { m_array->set_parent(parent, ndx_in_parent); }
     size_t get_ndx_in_parent() const noexcept final { return m_array->get_ndx_in_parent(); }
-    void set_ndx_in_parent(size_t ndx_in_parent) noexcept final { m_array->set_ndx_in_parent(ndx_in_parent); }
+    void set_ndx_in_parent(size_t ndx_in_parent) noexcept override { m_array->set_ndx_in_parent(ndx_in_parent); }
     void update_from_parent(size_t old_baseline) noexcept override { m_array->update_from_parent(old_baseline); }
     MemRef clone_deep(Allocator& alloc) const override { return m_array->clone_deep(alloc); }
 
 protected:
-    ColumnBaseSimple() {}
+    ColumnBaseSimple(size_t column_ndx) : ColumnBase(column_ndx) {}
     ColumnBaseSimple(Array* root) : m_array(root) {}
     std::unique_ptr<Array> m_array;
 
@@ -396,6 +377,7 @@ public:
     void move_assign(ColumnBaseWithIndex& col) noexcept;
     void destroy() noexcept override;
 
+    virtual bool supports_search_index() const noexcept override { return true; }
     bool has_search_index() const noexcept final { return bool(m_search_index); }
     StringIndex* get_search_index() noexcept final { return m_search_index.get(); }
     const StringIndex* get_search_index() const noexcept final { return m_search_index.get(); }
@@ -404,7 +386,7 @@ public:
             size_t ndx_in_parent, bool allow_duplicate_valaues) final;
     StringIndex* create_search_index() override = 0;
 protected:
-    ColumnBaseWithIndex() {}
+    using ColumnBase::ColumnBase;
     ColumnBaseWithIndex(ColumnBaseWithIndex&&) = default;
     std::unique_ptr<StringIndex> m_search_index;
 };
@@ -413,7 +395,7 @@ protected:
 /// A column (Column) is a single B+-tree, and the root of
 /// the column is the root of the B+-tree. All leaf nodes are arrays.
 template<class T>
-class Column : public ColumnBaseWithIndex, public ColumnTemplate<T> {
+class Column : public ColumnBaseWithIndex {
 public:
     using value_type = T;
     using LeafInfo = typename BpTree<T>::LeafInfo;
@@ -423,9 +405,9 @@ public:
 
     struct unattached_root_tag {};
 
-    explicit Column() noexcept : m_tree(Allocator::get_default()) {}
+    explicit Column() noexcept : ColumnBaseWithIndex(npos), m_tree(Allocator::get_default()) {}
     explicit Column(std::unique_ptr<Array> root) noexcept;
-    Column(Allocator&, ref_type);
+    Column(Allocator&, ref_type, size_t column_ndx=npos);
     Column(unattached_root_tag, Allocator&);
     Column(Column&&) noexcept = default;
     ~Column() noexcept override;
@@ -471,7 +453,6 @@ public:
         LeafInfo& inout_leaf) const noexcept;
 
     // Getting and setting values
-    T get_val(size_t ndx) const noexcept final { return get(ndx); }
     T get(size_t ndx) const noexcept;
     bool is_null(size_t ndx) const noexcept override;
     T back() const noexcept;
@@ -522,6 +503,14 @@ public:
 
     void populate_search_index();
     StringIndex* create_search_index() override;
+    inline bool supports_search_index() const noexcept override 
+    { 
+        if (realm::is_any<T, float, double>::value)
+            return false;
+        else
+            return true; 
+    }
+
 
     //@{
     /// Find the lower/upper bound for the specified value assuming
@@ -534,9 +523,10 @@ public:
     size_t find_gte(T target, size_t start) const;
 
     bool compare(const Column&) const noexcept;
+    int compare_values(size_t row1, size_t row2) const noexcept override;
 
     static ref_type create(Allocator&, Array::Type leaf_type = Array::type_Normal,
-                           size_t size = 0, T value = 0);
+                           size_t size = 0, T value = T{});
 
     // Overriding method in ColumnBase
     ref_type write(size_t, size_t, size_t,
@@ -618,6 +608,12 @@ private:
 
 // Implementation:
 
+inline bool ColumnBase::supports_search_index() const noexcept
+{
+    REALM_ASSERT(!has_search_index());
+    return false;
+}
+
 inline bool ColumnBase::has_search_index() const noexcept
 {
     return get_search_index() != nullptr;
@@ -698,6 +694,22 @@ inline void ColumnBase::mark(int) noexcept
 inline void ColumnBase::bump_link_origin_table_version() noexcept
 {
     // Noop
+}
+
+template<class Column>
+int ColumnBase::compare_values(const Column* column, size_t row1, size_t row2) noexcept
+{
+    // we negate nullability such that the two ternary statements in this method can look identical to reduce
+    // risk of bugs
+    bool v1 = !column->is_null(row1);
+    bool v2 = !column->is_null(row2);
+
+    if (!v1 || !v2)
+        return v1 == v2 ? 0 : v1 < v2 ? 1 : -1;
+
+    auto a = column->get(row1);
+    auto b = column->get(row2);
+    return a == b ? 0 : a < b ? 1 : -1;
 }
 
 template<class T>
@@ -828,17 +840,7 @@ template<class T>
 StringData Column<T>::get_index_data(size_t ndx, StringIndex::StringConversionBuffer& buffer) const noexcept
 {
     T x = get(ndx);
-    StringData str = to_str(x); // takes x by reference, returns StringData pointing to memory in
-                                // this stack frame.
-    // Copy bytes into buffer:
-    REALM_ASSERT(str.size() <= StringIndex::string_conversion_buffer_size);
-    if (str.data() != nullptr) {
-        std::copy(str.data(), str.data() + str.size(), buffer.data());
-        return StringData{buffer.data(), str.size()};
-    }
-    else {
-        return str; // "null"
-    }
+    return to_str(x, buffer);
 }
 
 template<class T>
@@ -862,7 +864,11 @@ void Column<T>::populate_search_index()
 template<class T>
 StringIndex* Column<T>::create_search_index()
 {
+    if (realm::is_any<T, float, double>::value)
+        return nullptr;
+
     REALM_ASSERT(!has_search_index());
+    REALM_ASSERT(supports_search_index());
     m_search_index.reset(new StringIndex(this, get_alloc())); // Throws
     populate_search_index();
     return m_search_index.get();
@@ -903,17 +909,17 @@ template<class L, class T>
 size_t ColumnBase::lower_bound(const L& list, T value) const noexcept
 {
     size_t i = 0;
-    size_t size = list.size();
-    while (0 < size) {
-        size_t half = size / 2;
+    size_t list_size = list.size();
+    while (0 < list_size) {
+        size_t half = list_size / 2;
         size_t mid = i + half;
         typename L::value_type probe = list.get(mid);
         if (probe < value) {
             i = mid + 1;
-            size -= half + 1;
+            list_size -= half + 1;
         }
         else {
-            size = half;
+            list_size = half;
         }
     }
     return i;
@@ -923,39 +929,40 @@ template<class L, class T>
 size_t ColumnBase::upper_bound(const L& list, T value) const noexcept
 {
     size_t i = 0;
-    size_t size = list.size();
-    while (0 < size) {
-        size_t half = size / 2;
+    size_t list_size = list.size();
+    while (0 < list_size) {
+        size_t half = list_size / 2;
         size_t mid = i + half;
         typename L::value_type probe = list.get(mid);
         if (!(value < probe)) {
             i = mid + 1;
-            size -= half + 1;
+            list_size -= half + 1;
         }
         else {
-            size = half;
+            list_size = half;
         }
     }
     return i;
 }
 
 
-inline ref_type ColumnBase::create(Allocator& alloc, size_t size, CreateHandler& handler)
+inline ref_type ColumnBase::create(Allocator& alloc, size_t column_size, CreateHandler& handler)
 {
-    size_t rest_size = size;
+    size_t rest_size = column_size;
     size_t fixed_height = 0; // Not fixed
     return build(&rest_size, fixed_height, alloc, handler);
 }
 
 template<class T>
-Column<T>::Column(Allocator& alloc, ref_type ref) : m_tree(BpTreeBase::unattached_tag{})
+Column<T>::Column(Allocator& alloc, ref_type ref, size_t column_ndx)
+: ColumnBaseWithIndex(column_ndx), m_tree(BpTreeBase::unattached_tag{})
 {
     // fixme, must m_search_index be copied here?
     m_tree.init_from_ref(alloc, ref);
 }
 
 template<class T>
-Column<T>::Column(unattached_root_tag, Allocator& alloc) : m_tree(alloc)
+Column<T>::Column(unattached_root_tag, Allocator& alloc) : ColumnBaseWithIndex(npos), m_tree(alloc)
 {
 }
 
@@ -1084,7 +1091,7 @@ T Column<T>::get(size_t ndx) const noexcept
 template<class T>
 bool Column<T>::is_null(size_t ndx) const noexcept
 {
-    return m_tree.is_null(ndx);
+    return nullable && m_tree.is_null(ndx);
 }
 
 template<class T>
@@ -1115,8 +1122,8 @@ void Column<T>::add(T value)
 template<class T>
 void Column<T>::insert_without_updating_index(size_t row_ndx, T value, size_t num_rows)
 {
-    size_t size = this->size(); // Slow
-    bool is_append = row_ndx == size || row_ndx == npos;
+    size_t column_size = this->size(); // Slow
+    bool is_append = row_ndx == column_size || row_ndx == npos;
     size_t ndx_or_npos_if_append = is_append ? npos : row_ndx;
 
     m_tree.insert(ndx_or_npos_if_append, std::move(value), num_rows); // Throws
@@ -1125,14 +1132,14 @@ void Column<T>::insert_without_updating_index(size_t row_ndx, T value, size_t nu
 template<class T>
 void Column<T>::insert(size_t row_ndx, T value, size_t num_rows)
 {
-    size_t size = this->size(); // Slow
-    bool is_append = row_ndx == size || row_ndx == npos;
+    size_t column_size = this->size(); // Slow
+    bool is_append = row_ndx == column_size || row_ndx == npos;
     size_t ndx_or_npos_if_append = is_append ? npos : row_ndx;
 
     m_tree.insert(ndx_or_npos_if_append, value, num_rows); // Throws
 
     if (has_search_index()) {
-        row_ndx = is_append ? size : row_ndx;
+        row_ndx = is_append ? column_size : row_ndx;
         m_search_index->insert(row_ndx, value, num_rows, is_append); // Throws
     }
 }
@@ -1196,9 +1203,9 @@ void Column<T>::swap_rows(size_t row_ndx_1, size_t row_ndx_2)
     if (has_search_index()) {
         T value_1 = get(row_ndx_1);
         T value_2 = get(row_ndx_2);
-        size_t size = this->size();
-        bool row_ndx_1_is_last = row_ndx_1 == size - 1;
-        bool row_ndx_2_is_last = row_ndx_2 == size - 1;
+        size_t column_size = this->size();
+        bool row_ndx_1_is_last = row_ndx_1 == column_size - 1;
+        bool row_ndx_2_is_last = row_ndx_2 == column_size - 1;
         m_search_index->erase<StringData>(row_ndx_1, row_ndx_1_is_last);
         m_search_index->insert(row_ndx_1, value_2, 1, row_ndx_1_is_last);
 
@@ -1261,7 +1268,6 @@ template<class T> struct NullOrDefaultValue<T, typename std::enable_if<!Implicit
     static T null_or_default_value(bool is_null)
     {
         REALM_ASSERT(!is_null);
-        static_cast<void>(is_null);
         return T{};
     }
 };
@@ -1370,6 +1376,12 @@ bool Column<T>::compare(const Column<T>& c) const noexcept
 }
 
 template<class T>
+int Column<T>::compare_values(size_t row1, size_t row2) const noexcept
+{
+    return ColumnBase::compare_values(this, row1, row2);
+}
+
+template<class T>
 class Column<T>::CreateHandler: public ColumnBase::CreateHandler {
 public:
     CreateHandler(Array::Type leaf_type, T value, Allocator& alloc):
@@ -1377,7 +1389,7 @@ public:
     ref_type create_leaf(size_t size) override
     {
         MemRef mem = BpTree<T>::create_leaf(m_leaf_type, size, m_value, m_alloc); // Throws
-        return mem.m_ref;
+        return mem.get_ref();
     }
 private:
     const T m_value;
@@ -1429,6 +1441,7 @@ void Column<T>::verify() const
     m_tree.verify();
 }
 
+
 template<class T>
 void Column<T>::to_dot(std::ostream& out, StringData title) const
 {
@@ -1458,11 +1471,10 @@ void Column<T>::leaf_to_dot(MemRef leaf_mem, ArrayParent* parent, size_t ndx_in_
 template<class T>
 MemStats Column<T>::stats() const
 {
-    MemStats stats;
-    get_root_array()->stats(stats);
-    return stats;
+    MemStats mem_stats;
+    get_root_array()->stats(mem_stats);
+    return mem_stats;
 }
-
 
 namespace _impl {
     void leaf_dumper(MemRef mem, Allocator& alloc, std::ostream& out, int level);

@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RealmSwift
 
-class TrackDetailViewController: UIViewController {
+class TrackDetailViewController: UIViewController, CAAnimationDelegate {
 
     @IBOutlet weak var postView: UIView!
     @IBOutlet weak var postViewPos: NSLayoutConstraint!
@@ -136,8 +136,8 @@ class TrackDetailViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TrackDetailViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TrackDetailViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -189,7 +189,7 @@ class TrackDetailViewController: UIViewController {
                     return
                 }
 
-                self.timerOffset++
+                self.timerOffset += 1
                 let t = Double(self.timerOffset)/100
                 let curTs = self.time2String(t)
                 self.timeLabel.text = curTs
@@ -403,17 +403,17 @@ extension TrackDetailViewController: MAMapViewDelegate {
             }
         }
     }
-
-    func mapView(mapView: MAMapView!, viewForOverlay overlay: MAOverlay!) -> MAOverlayView! {
+    
+    func mapView(mapView: MAMapView!, rendererForOverlay overlay: MAOverlay!) -> MAOverlayRenderer! {
         guard let circle = overlay as? MACircle else {
             return nil
         }
-
-        let circleView = MACircleView(circle: circle)
+        
+        let circleView = MACircleRenderer(circle: circle)
         circleView.strokeColor = UIColor.blackColor()
         circleView.lineWidth = 1
         circleView.fillColor = UIColor.yellowColor()
-
+        
         if circle.coordinate.longitude == 121.121573354806 {
             circleView.fillColor = UIColor.redColor()
         }

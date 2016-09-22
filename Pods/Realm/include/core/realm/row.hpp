@@ -1,22 +1,21 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
+
 #ifndef REALM_ROW_HPP
 #define REALM_ROW_HPP
 
@@ -69,8 +68,8 @@ public:
     typedef BasicTableRef<T> TableRef; // Same as ConstTableRef if `T` is 'const'
 
     typedef typename util::CopyConst<T, LinkView>::type L;
-    typedef util::bind_ptr<const L> ConstLinkViewRef;
-    typedef util::bind_ptr<L> LinkViewRef; // Same as ConstLinkViewRef if `T` is 'const'
+    using ConstLinkViewRef = std::shared_ptr<const L>;
+    using LinkViewRef = std::shared_ptr<L>; // Same as ConstLinkViewRef if `T` is 'const'
 
     int_fast64_t get_int(size_t col_ndx) const noexcept;
     bool get_bool(size_t col_ndx) const noexcept;
@@ -78,7 +77,8 @@ public:
     double get_double(size_t col_ndx) const noexcept;
     StringData get_string(size_t col_ndx) const noexcept;
     BinaryData get_binary(size_t col_ndx) const noexcept;
-    DateTime get_datetime(size_t col_ndx) const noexcept;
+    OldDateTime get_olddatetime(size_t col_ndx) const noexcept;
+    Timestamp get_timestamp(size_t col_ndx) const noexcept;
     ConstTableRef get_subtable(size_t col_ndx) const;
     TableRef get_subtable(size_t col_ndx);
     size_t get_subtable_size(size_t col_ndx) const noexcept;
@@ -91,14 +91,18 @@ public:
     size_t get_link_count(size_t col_ndx) const noexcept;
     Mixed get_mixed(size_t col_ndx) const noexcept;
     DataType get_mixed_type(size_t col_ndx) const noexcept;
+    template<typename U> U get(size_t col_ndx) const noexcept;
 
     void set_int(size_t col_ndx, int_fast64_t value);
+    void set_int_unique(size_t col_ndx, int_fast64_t value);
     void set_bool(size_t col_ndx, bool value);
     void set_float(size_t col_ndx, float value);
     void set_double(size_t col_ndx, double value);
     void set_string(size_t col_ndx, StringData value);
+    void set_string_unique(size_t col_ndx, StringData value);
     void set_binary(size_t col_ndx, BinaryData value);
-    void set_datetime(size_t col_ndx, DateTime value);
+    void set_olddatetime(size_t col_ndx, OldDateTime value);
+    void set_timestamp(size_t col_ndx, Timestamp value);
     void set_subtable(size_t col_ndx, const Table* value);
     void set_link(size_t col_ndx, size_t value);
     void nullify_link(size_t col_ndx);
@@ -191,7 +195,7 @@ private:
     T* m_table; // nullptr if detached.
     size_t m_row_ndx; // Undefined if detached.
 
-    BasicRowExpr(T*, size_t row_ndx) noexcept;
+    BasicRowExpr(T*, size_t init_row_ndx) noexcept;
 
     T* impl_get_table() const noexcept;
     size_t impl_get_row_ndx() const noexcept;
@@ -226,7 +230,7 @@ protected:
     void attach(Table*, size_t row_ndx) noexcept;
     void reattach(Table*, size_t row_ndx) noexcept;
     void impl_detach() noexcept;
-    RowBase() { };
+    RowBase() { }
 
     using HandoverPatch = RowBaseHandoverPatch;
 
@@ -389,9 +393,15 @@ inline BinaryData RowFuncs<T,R>::get_binary(size_t col_ndx) const noexcept
 }
 
 template<class T, class R>
-inline DateTime RowFuncs<T,R>::get_datetime(size_t col_ndx) const noexcept
+inline OldDateTime RowFuncs<T, R>::get_olddatetime(size_t col_ndx) const noexcept
 {
-    return table()->get_datetime(col_ndx, row_ndx());
+    return table()->get_olddatetime(col_ndx, row_ndx());
+}
+
+template<class T, class R>
+inline Timestamp RowFuncs<T, R>::get_timestamp(size_t col_ndx) const noexcept
+{
+    return table()->get_timestamp(col_ndx, row_ndx());
 }
 
 template<class T, class R>
@@ -468,9 +478,22 @@ inline DataType RowFuncs<T,R>::get_mixed_type(size_t col_ndx) const noexcept
 }
 
 template<class T, class R>
+template<class U>
+inline U RowFuncs<T,R>::get(size_t col_ndx) const noexcept
+{
+    return table()->template get<U>(col_ndx, row_ndx());
+}
+
+template<class T, class R>
 inline void RowFuncs<T,R>::set_int(size_t col_ndx, int_fast64_t value)
 {
     table()->set_int(col_ndx, row_ndx(), value); // Throws
+}
+
+template<class T, class R>
+inline void RowFuncs<T,R>::set_int_unique(size_t col_ndx, int_fast64_t value)
+{
+    table()->set_int_unique(col_ndx, row_ndx(), value); // Throws
 }
 
 template<class T, class R>
@@ -498,15 +521,27 @@ inline void RowFuncs<T,R>::set_string(size_t col_ndx, StringData value)
 }
 
 template<class T, class R>
+inline void RowFuncs<T,R>::set_string_unique(size_t col_ndx, StringData value)
+{
+    table()->set_string_unique(col_ndx, row_ndx(), value); // Throws
+}
+
+template<class T, class R>
 inline void RowFuncs<T,R>::set_binary(size_t col_ndx, BinaryData value)
 {
     table()->set_binary(col_ndx, row_ndx(), value); // Throws
 }
 
 template<class T, class R>
-inline void RowFuncs<T,R>::set_datetime(size_t col_ndx, DateTime value)
+inline void RowFuncs<T, R>::set_olddatetime(size_t col_ndx, OldDateTime value)
 {
-    table()->set_datetime(col_ndx, row_ndx(), value); // Throws
+    table()->set_olddatetime(col_ndx, row_ndx(), value); // Throws
+}
+
+template<class T, class R>
+inline void RowFuncs<T, R>::set_timestamp(size_t col_ndx, Timestamp value)
+{
+    table()->set_timestamp(col_ndx, row_ndx(), value); // Throws
 }
 
 template<class T, class R>
@@ -677,9 +712,9 @@ inline BasicRowExpr<T>::BasicRowExpr(const BasicRowExpr<U>& expr) noexcept:
 }
 
 template<class T>
-inline BasicRowExpr<T>::BasicRowExpr(T* table, size_t row_ndx) noexcept:
-    m_table(table),
-    m_row_ndx(row_ndx)
+inline BasicRowExpr<T>::BasicRowExpr(T* init_table, size_t init_row_ndx) noexcept:
+    m_table(init_table),
+    m_row_ndx(init_row_ndx)
 {
 }
 
@@ -718,24 +753,24 @@ template<class T>
 template<class U>
 inline BasicRow<T>::BasicRow(BasicRowExpr<U> expr) noexcept
 {
-    T* table = expr.m_table; // Check that pointer types are compatible
-    attach(const_cast<Table*>(table), expr.m_row_ndx);
+    T* expr_table = expr.m_table; // Check that pointer types are compatible
+    attach(const_cast<Table*>(expr_table), expr.m_row_ndx);
 }
 
 template<class T>
 template<class U>
 inline BasicRow<T>::BasicRow(const BasicRow<U>& row) noexcept
 {
-    T* table = row.m_table.get(); // Check that pointer types are compatible
-    attach(const_cast<Table*>(table), row.m_row_ndx);
+    T* row_table = row.m_table.get(); // Check that pointer types are compatible
+    attach(const_cast<Table*>(row_table), row.m_row_ndx);
 }
 
 template<class T>
 template<class U>
 inline BasicRow<T>& BasicRow<T>::operator=(BasicRowExpr<U> expr) noexcept
 {
-    T* table = expr.m_table; // Check that pointer types are compatible
-    reattach(const_cast<Table*>(table), expr.m_row_ndx);
+    T* expr_table = expr.m_table; // Check that pointer types are compatible
+    reattach(const_cast<Table*>(expr_table), expr.m_row_ndx);
     return *this;
 }
 
@@ -743,8 +778,8 @@ template<class T>
 template<class U>
 inline BasicRow<T>& BasicRow<T>::operator=(BasicRow<U> row) noexcept
 {
-    T* table = row.m_table.get(); // Check that pointer types are compatible
-    reattach(const_cast<Table*>(table), row.m_row_ndx);
+    T* row_table = row.m_table.get(); // Check that pointer types are compatible
+    reattach(const_cast<Table*>(row_table), row.m_row_ndx);
     return *this;
 }
 

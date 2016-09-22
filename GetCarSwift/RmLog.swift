@@ -24,7 +24,7 @@ class RmLog: Object {
         #if DEBUG
             print("💚", message)
         #endif
-        BuglyLog.level(BLYLogLevel.Debug, logs: message)
+        BuglyLog.level(.Debug, logs: message)
         log("D", message: message)
     }
 
@@ -32,7 +32,7 @@ class RmLog: Object {
         #if DEBUG
             print("💜", message)
         #endif
-        BuglyLog.level(BLYLogLevel.Verbose, logs: message)
+        BuglyLog.level(.Verbose, logs: message)
         log("V", message: message)
     }
 
@@ -40,7 +40,7 @@ class RmLog: Object {
         #if DEBUG
             print("💛", message)
         #endif
-        BuglyLog.level(BLYLogLevel.Warn, logs: message)
+        BuglyLog.level(.Warn, logs: message)
         log("W", message: message)
     }
 
@@ -48,7 +48,7 @@ class RmLog: Object {
         #if DEBUG
             print("❤️", message)
         #endif
-        BuglyLog.level(BLYLogLevel.Error, logs: message)
+        BuglyLog.level(.Error, logs: message)
         log("E", message: message)
     }
 
@@ -56,7 +56,7 @@ class RmLog: Object {
         #if DEBUG
             print("💙", message)
         #endif
-        BuglyLog.level(BLYLogLevel.Info, logs: message)
+        BuglyLog.level(.Info, logs: message)
         log("I", message: message)
     }
 }

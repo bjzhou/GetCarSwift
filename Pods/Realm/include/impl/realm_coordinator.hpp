@@ -21,20 +21,18 @@
 
 #include "shared_realm.hpp"
 
-#include <realm/string_data.hpp>
+#include <mutex>
 
 namespace realm {
-class AsyncQueryCallback;
-class ClientHistory;
-class Results;
-class SharedGroup;
+class Replication;
 class Schema;
-struct AsyncQueryCancelationToken;
+class SharedGroup;
+class StringData;
 
 namespace _impl {
-class AsyncQuery;
-class CachedRealm;
+class CollectionNotifier;
 class ExternalCommitHelper;
+class WeakRealmNotifier;
 
 // RealmCoordinator manages the weak cache of Realm instances and communication
 // between per-thread Realm instances for a given file
@@ -51,8 +49,10 @@ public:
     std::shared_ptr<Realm> get_realm(Realm::Config config);
     std::shared_ptr<Realm> get_realm();
 
+    Realm::Config get_config() const { return m_config; }
+
     const Schema* get_schema() const noexcept;
-    uint64_t get_schema_version() const noexcept { return m_config.schema_version; }
+    uint64_t get_schema_version() const noexcept { return m_schema_version; }
     const std::string& get_path() const noexcept { return m_config.path; }
     const std::vector<char>& get_encryption_key() const noexcept { return m_config.encryption_key; }
     bool is_in_memory() const noexcept { return m_config.in_memory; }
@@ -66,6 +66,9 @@ public:
     // cached instances will have odd results
     static void clear_cache();
 
+    // Clears all caches on existing coordinators
+    static void clear_all_caches();
+
     // Explicit constructor/destructor needed for the unique_ptrs to forward-declared types
     RealmCoordinator();
     ~RealmCoordinator();
@@ -77,10 +80,10 @@ public:
     // Called by m_notifier when there's a new commit to send notifications for
     void on_change();
 
-    // Update the schema in the cached config
-    void update_schema(Schema const& new_schema);
+    // Update the cached schema
+    void update_schema(Schema const& new_schema, uint64_t new_schema_version);
 
-    static void register_query(std::shared_ptr<AsyncQuery> query);
+    static void register_notifier(std::shared_ptr<CollectionNotifier> notifier);
 
     // Advance the Realm to the most recent transaction version which all async
     // work is complete for
@@ -89,36 +92,37 @@ public:
 
 private:
     Realm::Config m_config;
+    Schema m_schema;
+    uint64_t m_schema_version = -1;
 
     std::mutex m_realm_mutex;
-    std::vector<CachedRealm> m_cached_realms;
+    std::vector<WeakRealmNotifier> m_weak_realm_notifiers;
 
-    std::mutex m_query_mutex;
-    std::vector<std::shared_ptr<_impl::AsyncQuery>> m_new_queries;
-    std::vector<std::shared_ptr<_impl::AsyncQuery>> m_queries;
+    std::mutex m_notifier_mutex;
+    std::vector<std::shared_ptr<_impl::CollectionNotifier>> m_new_notifiers;
+    std::vector<std::shared_ptr<_impl::CollectionNotifier>> m_notifiers;
 
-    // SharedGroup used for actually running async queries
-    // Will have a read transaction iff m_queries is non-empty
-    std::unique_ptr<ClientHistory> m_query_history;
-    std::unique_ptr<SharedGroup> m_query_sg;
+    // SharedGroup used for actually running async notifiers
+    // Will have a read transaction iff m_notifiers is non-empty
+    std::unique_ptr<Replication> m_notifier_history;
+    std::unique_ptr<SharedGroup> m_notifier_sg;
 
-    // SharedGroup used to advance queries in m_new_queries to the main shared
+    // SharedGroup used to advance notifiers in m_new_notifiers to the main shared
     // group's transaction version
-    // Will have a read transaction iff m_new_queries is non-empty
-    std::unique_ptr<ClientHistory> m_advancer_history;
+    // Will have a read transaction iff m_new_notifiers is non-empty
+    std::unique_ptr<Replication> m_advancer_history;
     std::unique_ptr<SharedGroup> m_advancer_sg;
     std::exception_ptr m_async_error;
 
     std::unique_ptr<_impl::ExternalCommitHelper> m_notifier;
 
-    // must be called with m_query_mutex locked
+    // must be called with m_notifier_mutex locked
     void pin_version(uint_fast64_t version, uint_fast32_t index);
 
-    void run_async_queries();
+    void run_async_notifiers();
     void open_helper_shared_group();
-    void move_new_queries_to_main();
     void advance_helper_shared_group_to_latest();
-    void clean_up_dead_queries();
+    void clean_up_dead_notifiers();
 };
 
 } // namespace _impl

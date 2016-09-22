@@ -299,7 +299,7 @@ class AddPlayerTableViewController: UITableViewController {
         let button = UIButton(type: .Custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(R.image.backbutton, forState: .Normal)
-        button.addTarget(self, action: Selector("didBackAction"), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(AddPlayerTableViewController.didBackAction), forControlEvents: .TouchUpInside)
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.text = titles[mode]

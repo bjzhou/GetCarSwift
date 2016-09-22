@@ -104,7 +104,7 @@ class DataViewController: UIViewController {
     func initPages() {
 
         datas = [data0, data1, data2, data3]
-        for var i=0; i<4; i++ {
+        for i in 0 ..< 4 {
 
             datas[i].layoutIfNeeded()
 

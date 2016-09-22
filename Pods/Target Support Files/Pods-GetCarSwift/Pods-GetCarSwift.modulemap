@@ -1,0 +1,6 @@
+framework module Pods_GetCarSwift {
+  umbrella header "Pods-GetCarSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

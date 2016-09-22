@@ -106,7 +106,7 @@ class MainViewController: UITabBarController {
 
     var connectCount = 0
     func connectToRCIM() {
-        connectCount++
+        connectCount += 1
         _ = User.getIMToken().subscribeNext { res in
             guard let token = res.data else {
                 return

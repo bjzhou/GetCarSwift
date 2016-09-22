@@ -1,22 +1,21 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
+
 #ifndef REALM_UTIL_FILE_HPP
 #define REALM_UTIL_FILE_HPP
 
@@ -49,6 +48,11 @@ class EncryptedFileMapping;
 /// thrown (as long as the underlying system provides the information
 /// to unambiguously distinguish that particular reason).
 void make_dir(const std::string& path);
+
+/// Same as make_dir() except that this one returns false, rather than throwing
+/// an exception, if the specified directory already existed. If the directory
+// did not already exist and was newly created, this returns true.
+bool try_make_dir(const std::string& path);
 
 /// Remove the specified directory path from the file system. If the
 /// specified path is a directory, this function is equivalent to
@@ -107,6 +111,9 @@ public:
     File() noexcept;
 
     ~File() noexcept;
+
+    File(File&&) noexcept;
+    File& operator=(File&&) noexcept;
 
     /// Calling this function on an instance that is already attached
     /// to an open file has undefined behavior.
@@ -346,7 +353,7 @@ public:
                 int map_flags = 0, size_t file_offset = 0) const;
 
 #if REALM_ENABLE_ENCRYPTION
-    void* map(AccessMode, size_t size, EncryptedFileMapping*& mapping, 
+    void* map(AccessMode, size_t size, EncryptedFileMapping*& mapping,
               int map_flags = 0, size_t offset = 0) const;
 #endif
     /// Unmap the specified address range which must have been
@@ -425,16 +432,17 @@ public:
     ///
     /// Examples (assuming POSIX):
     ///
-    ///    resolve("/foo/bar", "../baz") -> "/foo/baz"
-    ///    resolve(".", "foo")           -> "./foo"
-    ///    resolve("/foo/", ".")         -> "/foo"
-    ///    resolve("foo", "..")          -> "."
-    ///    resolve("foo", "../..")       -> ".."
+    ///    resolve("file", "dir")        -> "dir/file"
+    ///    resolve("../baz", "/foo/bar") -> "/foo/baz"
+    ///    resolve("foo", ".")           -> "./foo"
+    ///    resolve(".", "/foo/")         -> "/foo"
+    ///    resolve("..", "foo")          -> "."
+    ///    resolve("../..", "foo")       -> ".."
     ///    resolve("..", "..")           -> "../.."
     ///    resolve("", "")               -> "."
-    ///    resolve("/", "")              -> "/."
-    ///    resolve("/", "..")            -> "/."
-    ///    resolve("foo//bar", "..")     -> "foo"
+    ///    resolve("", "/")              -> "/."
+    ///    resolve("..", "/")            -> "/."
+    ///    resolve("..", "foo//bar")     -> "foo"
     ///
     /// This function does not access the file system.
     ///
@@ -447,6 +455,23 @@ public:
     /// absolute. A final directory separator (`/`) is optional. The empty
     /// string is interpreted as a relative path.
     static std::string resolve(const std::string& path, const std::string& base_dir);
+
+
+    struct UniqueID {
+#ifdef _WIN32 // Windows version
+        // FIXME: This is not implemented for Windows
+#else
+        // NDK r10e has a bug in sys/stat.h dev_t ino_t are 4 bytes,
+        // but stat.st_dev and st_ino are 8 bytes. So we just use uint64 instead.
+        uint_fast64_t device;
+        uint_fast64_t inode;
+#endif
+    };
+    // Return the unique id for the current opened file descriptor.
+    // Same UniqueID means they are the same file.
+    UniqueID get_unique_id() const;
+    // Return false if the file doesn't exist. Otherwise uid will be set.
+    static bool get_unique_id(const std::string& path, UniqueID& uid);
 
     class ExclusiveLock;
     class SharedLock;
@@ -560,7 +585,7 @@ public:
     File::Map<T>& operator=(File::Map<T>&& other)
     {
         if (m_addr) unmap();
-        m_addr = other.m_addr;
+        m_addr = other.get_addr();
         m_size = other.m_size;
         other.m_addr = 0;
         other.m_size = 0;
@@ -673,7 +698,7 @@ private:
 class File::Streambuf: public std::streambuf {
 public:
     explicit Streambuf(File*);
-    ~Streambuf();
+    ~Streambuf() noexcept;
 
 private:
     static const size_t buffer_size = 4096;
@@ -735,7 +760,7 @@ public:
 
 class DirScanner {
 public:
-    DirScanner(const std::string& path);
+    DirScanner(const std::string& path, bool allow_missing=false);
     ~DirScanner() noexcept;
     bool next(std::string& name);
 private:
@@ -773,6 +798,34 @@ inline File::File() noexcept
 inline File::~File() noexcept
 {
     close();
+}
+
+inline File::File(File&& f) noexcept
+{
+#ifdef _WIN32
+    m_handle = f.m_handle;
+    m_have_lock = f.m_have_lock;
+    f.m_handle = nullptr;
+#else
+    m_fd = f.m_fd;
+    f.m_fd = -1;
+#endif
+    m_encryption_key = std::move(f.m_encryption_key);
+}
+
+inline File& File::operator=(File&& f) noexcept
+{
+    close();
+#ifdef _WIN32
+    m_handle = f.m_handle;
+    m_have_lock = f.m_have_lock;
+    f.m_handle = nullptr;
+#else
+    m_fd = f.m_fd;
+    f.m_fd = -1;
+#endif
+    m_encryption_key = std::move(f.m_encryption_key);
+    return *this;
 }
 
 inline void File::open(const std::string& path, Mode m)
@@ -964,7 +1017,7 @@ inline File::Streambuf::Streambuf(File* f): m_file(*f), m_buffer(new char[buffer
     setp(b, b + buffer_size);
 }
 
-inline File::Streambuf::~Streambuf()
+inline File::Streambuf::~Streambuf() noexcept
 {
     try {
         if (m_file.is_attached()) flush();
@@ -1031,6 +1084,47 @@ inline File::NotFound::NotFound(const std::string& msg, const std::string& path)
 inline File::Exists::Exists(const std::string& msg, const std::string& path):
     AccessError(msg, path)
 {
+}
+
+inline bool operator==(const File::UniqueID& lhs, const File::UniqueID& rhs)
+{
+#ifdef _WIN32 // Windows version
+    throw std::runtime_error("Not yet supported");
+#else // POSIX version
+    return lhs.device == rhs.device && lhs.inode == rhs.inode;
+#endif
+}
+
+inline bool operator!=(const File::UniqueID& lhs, const File::UniqueID& rhs)
+{
+    return !(lhs == rhs);
+}
+
+inline bool operator<(const File::UniqueID& lhs, const File::UniqueID& rhs)
+{
+#ifdef _WIN32 // Windows version
+    throw std::runtime_error("Not yet supported");
+#else // POSIX version
+    if (lhs.device < rhs.device) return true;
+    if (lhs.device > rhs.device) return false;
+    if (lhs.inode < rhs.inode) return true;
+    return false;
+#endif
+}
+
+inline bool operator>(const File::UniqueID& lhs, const File::UniqueID& rhs)
+{
+    return rhs < lhs;
+}
+
+inline bool operator<=(const File::UniqueID& lhs, const File::UniqueID& rhs)
+{
+    return !(lhs > rhs);
+}
+
+inline bool operator>=(const File::UniqueID& lhs, const File::UniqueID& rhs)
+{
+    return !(lhs < rhs);
 }
 
 } // namespace util

@@ -64,7 +64,7 @@ class CarListViewController: UIViewController {
         }
     }
 
-    func showDetailView(id: Int)() {
+    func showDetailView(id: Int) {
         let vc = R.storyboard.mine.car_detail
         vc?.id = id
         self.showViewController(vc!)

@@ -46,14 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         UITabBar.appearance().translucent = false
         UITabBar.appearance().barTintColor = UIColor.blackColor()
         UITabBar.appearance().tintColor = UIColor.gaikeRedColor()
-
-        MAMapServices.sharedServices().apiKey = amapKey
-        AMapSearchServices.sharedServices().apiKey = amapKey
-        AMapLocationServices.sharedServices().apiKey = amapKey
-
-        CrashReporter.sharedInstance().enableBlockMonitor(true)
-        CrashReporter.sharedInstance().setUserId(Mine.sharedInstance.nickname ?? "10000")
-        CrashReporter.sharedInstance().installWithAppId(buglyAppid)
+        
+        AMapServices.sharedServices().apiKey = amapKey
+        Bugly.startWithAppId(buglyAppid)
+        Bugly.setUserIdentifier(Mine.sharedInstance.nickname ?? "10000")
+        
         WXApi.registerApp(wechatKey)
 
         RCIM.sharedRCIM().initWithAppKey(rongAppKey)
@@ -68,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             print(pushServiceData)
         }
 
-        if let remoteNotificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey], rc = remoteNotificationUserInfo["rc"], targetId = rc?["fId"] as? String {
+        if let remoteNotificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary, rc = remoteNotificationUserInfo["rc"] as? NSDictionary, targetId = rc["fId"] as? String {
             main {
                 if let mainVc = self.window?.rootViewController as? MainViewController, navVc = mainVc.selectedViewController as? UINavigationController, vc = navVc.visibleViewController {
 //                    if UIApplication.sharedApplication().applicationState == .Active {
@@ -87,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMessageNotification:", name: RCKitDispatchMessageNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.didReceiveMessageNotification(_:)), name: RCKitDispatchMessageNotification, object: nil)
 
         RCIM.sharedRCIM().userInfoDataSource = self
 

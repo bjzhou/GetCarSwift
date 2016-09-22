@@ -120,10 +120,10 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
                 barButton.setTitle(buttonTitles[buttonNumber], forState: UIControlState.Normal)
                 barButton.setTitleColor(buttonsTextColor, forState: UIControlState.Normal)
                 barButton.tag = buttonNumber
-                barButton.addTarget(self, action: "barButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+                barButton.addTarget(self, action: #selector(SwiftPages.barButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 topBar.addSubview(barButton)
                 buttonsXPosition = containerView.frame.size.width/(CGFloat)(pageViews.count) + buttonsXPosition
-                buttonNumber++
+                buttonNumber += 1
             }
         } else {
             for item in buttonImages {
@@ -133,10 +133,10 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
                 barButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
                 barButton.setImage(item, forState: .Normal)
                 barButton.tag = buttonNumber
-                barButton.addTarget(self, action: "barButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+                barButton.addTarget(self, action: #selector(SwiftPages.barButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 topBar.addSubview(barButton)
                 buttonsXPosition = containerView.frame.size.width/(CGFloat)(pageViews.count) + buttonsXPosition
-                buttonNumber++
+                buttonNumber += 1
             }
         }
 

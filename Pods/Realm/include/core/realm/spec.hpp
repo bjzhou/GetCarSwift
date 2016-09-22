@@ -1,22 +1,21 @@
 /*************************************************************************
  *
- * REALM CONFIDENTIAL
- * __________________
+ * Copyright 2016 Realm Inc.
  *
- *  [2011] - [2015] Realm Inc
- *  All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * NOTICE:  All information contained herein is, and remains
- * the property of Realm Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Realm Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Realm Incorporated.
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  **************************************************************************/
+
 #ifndef REALM_SPEC_HPP
 #define REALM_SPEC_HPP
 
@@ -117,7 +116,7 @@ public:
     void set_ndx_in_parent(size_t) noexcept;
 
 #ifdef REALM_DEBUG
-    void verify() const; // Must be upper case to avoid conflict with macro in ObjC
+    void verify() const;
     void to_dot(std::ostream&, StringData title = StringData()) const;
 #endif
 
@@ -175,7 +174,8 @@ private:
 
     ColumnInfo get_column_info(size_t column_ndx) const noexcept;
 
-    size_t get_subspec_ndx_after(size_t column_ndx) const noexcept;
+    size_t get_subspec_ndx_after(size_t column_ndx, size_t skip_column_ndx) const noexcept;
+    bool has_subspec() const noexcept;
 
     // Returns false if the spec has no columns, otherwise it returns
     // true and sets `type` to the type of the first column.
@@ -426,6 +426,15 @@ inline bool Spec::has_backlinks() const noexcept
     // Fixme: It's bad design that backlinks are stored and recognized like this. Backlink columns
     // should be a column type like any other, and we should find another way to hide them away from
     // the user.
+}
+
+// Spec will have a subspec when it contains a column which is one of:
+// link, linklist, backlink, or subtable. It is possible for m_top.size()
+// to contain an entry for m_subspecs (at index 3) but this reference
+// may be empty if the spec contains enumkeys (at index 4) but no subspec types.
+inline bool Spec::has_subspec() const noexcept
+{
+    return (m_top.size() >= 4) && (m_top.get_as_ref(3) != 0);
 }
 
 inline bool Spec::operator!=(const Spec &s) const noexcept

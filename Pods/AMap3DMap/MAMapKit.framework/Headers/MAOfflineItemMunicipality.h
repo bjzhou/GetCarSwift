@@ -8,7 +8,9 @@
 
 #import "MAOfflineCity.h"
 
-/* 直辖市. */
+/**
+ *  直辖市
+ */
 @interface MAOfflineItemMunicipality : MAOfflineCity
 
 @end

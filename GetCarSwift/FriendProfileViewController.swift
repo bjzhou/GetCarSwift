@@ -26,7 +26,7 @@ class FriendProfileViewController: UIViewController {
         super.viewDidLoad()
 
         if let _ = self.presentingViewController {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: "dismiss")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: #selector(FriendProfileViewController.dismiss))
         }
 
         scoreTableView.delegate = self

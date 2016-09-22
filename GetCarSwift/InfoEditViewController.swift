@@ -48,7 +48,7 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         case .Nickname:
             self.title = "昵称"
             tableView.allowsSelection = false
-            let saveItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.Done, target: self, action: "didSave")
+            let saveItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.Done, target: self, action: #selector(InfoEditViewController.didSave))
             self.navigationItem.setRightBarButtonItem(saveItem, animated: false)
         default:
             break
