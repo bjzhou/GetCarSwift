@@ -29,14 +29,14 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
 
         addEndEditingGesture(self.view)
 
-        _ = cameraButton.rx_tap.takeUntil(self.rx_deallocated).subscribeNext {
+        _ = cameraButton.rx.tap.takeUntil(self.rx.deallocated).subscribe(onNext: {
             self.showImagePickerAlertView()
-        }
+        })
 
         titleTextField.text = carPart.title
         detailTextView.text = carPart.detail
         if !carPart.imageUrl.trim().isEmpty {
-            cameraButtonImageView.kf_setImageWithURL(URL(string: carPart.imageUrl)!, placeholderImage: R.image.camera)
+            cameraButtonImageView.kf.setImage(with: URL(string: carPart.imageUrl)!, placeholder: R.image.camera())
         }
     }
 
@@ -46,11 +46,11 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
+        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
 
-        if detailTextView.isFirstResponder() {
+        if detailTextView.isFirstResponder {
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.frame.origin = CGPoint(x: 0, y: 64-keyboardSize.height)
             })
@@ -68,7 +68,7 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func didSaveAction(_ sender: AnyObject) {
-        if self.titleTextField.text?.trim() == "" || self.cameraButton.image(for: UIControlState()) == R.image.camera {
+        if self.titleTextField.text?.trim() == "" || self.cameraButton.image(for: UIControlState()) == R.image.camera() {
             Toast.makeToast(message: "请完善配件信息")
             return
         }
@@ -77,13 +77,13 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         async {
             let image = self.cameraButtonImageView.image?.scaleImage(scale: 0.3)
             main {
-                if let carInfo = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = \(self.id)").first, let image = image {
+                if let carInfo = gRealm?.objects(CarInfo.self).filter("id = \(self.id)").first, let image = image {
                     gRealm?.writeOptional {
                         self.carPart.title = self.titleTextField.text!
                         self.carPart.detail = self.detailTextView.text!
                     }
                     if self.isNewPart {
-                        _ = CarInfo.addUserCarPart(carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribeNext { res in
+                        _ = CarInfo.addUserCarPart(carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribe(onNext: { res in
                             if let json = res.data {
                                 gRealm?.writeOptional {
                                     self.carPart.id = json["user_car_part_id"].intValue
@@ -91,12 +91,12 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
                             }
                             Toast.hideToastActivity()
                             _ = self.navigationController?.popViewController(animated: true)
-                        }
+                        })
                     } else {
-                        _ = CarInfo.updateUserCarPart(self.carPart.id, userCarId: carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribeNext { res in
+                        _ = CarInfo.updateUserCarPart(self.carPart.id, userCarId: carInfo.carUserId, name: self.carPart.title, desc: self.carPart.detail, img: image).subscribe(onNext: { res in
                             Toast.hideToastActivity()
                             _ = self.navigationController?.popViewController(animated: true)
-                        }
+                        })
                     }
                 }
             }
@@ -122,8 +122,8 @@ class AddPartViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         present(alertController, animated: true, completion: nil)
     }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.cameraButtonImageView.contentMode = .scaleAspectFill
             self.cameraButtonImageView.image = image

@@ -37,7 +37,7 @@ public class PopupViewController: UIViewController {
     }
 
     override public func viewDidLoad() {
-        self.view.backgroundColor = UIColor.black().withAlphaComponent(0.6)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         rootViewController.view.layer.cornerRadius = 5
         rootViewController.view.layer.shadowOpacity = 0.8
         rootViewController.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -55,11 +55,11 @@ public class PopupViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.delegate = self
-        _ = tapRecognizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
+        _ = tapRecognizer.rx.event.takeUntil(self.rx.deallocated).subscribe(onNext: { (gr) -> Void in
             if self.cancelable {
                 self.dismissPopupViewController(animated: self.popupType == .ActionSheet)
             }
-        }
+        })
         self.view.addGestureRecognizer(tapRecognizer)
     }
 

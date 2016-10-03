@@ -22,7 +22,7 @@ class DanmuEffect {
     private var _danmuList = [String]()
     private var lastPos: CGFloat = 0.0
 
-    let queue = DispatchQueue(label: "serial-worker\(arc4random())", attributes: DispatchQueueAttributes.serial)
+    let queue = DispatchQueue(label: "serial-worker\(arc4random())")
 
     init(superView: UIView, rect: CGRect? = nil) {
         self.superView = superView
@@ -43,13 +43,13 @@ class DanmuEffect {
         if  closeDanmu {
             return
         }
-        (highPriority ? DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosBackground) : queue).async {
+        (highPriority ? DispatchQueue.global() : queue).async {
             let label = UILabel()
             label.font = UIFont.boldSystemFont(ofSize: self.textSize)
             label.textColor = UIColor(rgbValue: UInt(arc4random_uniform(0xffffff+1)))
             if highlight {
-                label.textColor = UIColor.black()
-                label.backgroundColor = UIColor.red()
+                label.textColor = UIColor.black
+                label.backgroundColor = UIColor.red
             }
             label.text = text
             let size = label.attributedText?.size() ?? CGSize.zero

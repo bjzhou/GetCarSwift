@@ -18,7 +18,7 @@ import RxSwift
 RxCocoa errors.
 */
 public enum RxCocoaError
-    : ErrorProtocol
+    : Swift.Error
     , CustomDebugStringConvertible {
     /**
     Unknown error has occurred.
@@ -69,7 +69,7 @@ public enum RxCocoaInterceptionMechanism {
 RxCocoa ObjC runtime modification errors.
  */
 public enum RxCocoaObjCRuntimeError
-    : ErrorProtocol
+    : Swift.Error
     , CustomDebugStringConvertible {
     /**
     Unknown error has occurred.
@@ -80,9 +80,9 @@ public enum RxCocoaObjCRuntimeError
     If the object is reporting a different class then it's real class, that means that there is probably
     already some interception mechanism in place or something weird is happening.
 
-    The most common case when this would happen is when using a combination of KVO (`rx_observe`) and `rx_sentMessage`.
+    The most common case when this would happen is when using a combination of KVO (`observe`) and `sentMessage`.
 
-    This error is easily resolved by just using `rx_sentMessage` observing before `rx_observe`.
+    This error is easily resolved by just using `sentMessage` observing before `observe`.
 
     The reason why the other way around could create issues is because KVO will unregister it's interceptor
     class and restore original class. Unfortunately that will happen no matter was there another interceptor
@@ -90,7 +90,7 @@ public enum RxCocoaObjCRuntimeError
 
     Failure scenario:
     * KVO sets class to be `__KVO__OriginalClass` (subclass of `OriginalClass`)
-    * `rx_sentMessage` sets object class to be `_RX_namespace___KVO__OriginalClass` (subclass of `__KVO__OriginalClass`)
+    * `sentMessage` sets object class to be `_RX_namespace___KVO__OriginalClass` (subclass of `__KVO__OriginalClass`)
     * then unobserving with KVO will restore class to be `OriginalClass` -> failure point (possibly a bug in KVO)
 
     The reason why changing order of observing works is because any interception method on unregistration 
@@ -193,23 +193,23 @@ public extension RxCocoaObjCRuntimeError {
         switch self {
         case let .unknown(target):
             return "Unknown error occurred.\nTarget: `\(target)`"
-        case let objectMessagesAlreadyBeingIntercepted(target, interceptionMechanism):
+        case let .objectMessagesAlreadyBeingIntercepted(target, interceptionMechanism):
             let interceptionMechanismDescription = interceptionMechanism == .kvo ? "KVO" : "other interception mechanism"
             return "Collision between RxCocoa interception mechanism and \(interceptionMechanismDescription)."
             + " To resolve this conflict please use this interception mechanism first.\nTarget: \(target)"
-        case let selectorNotImplemented(target):
+        case let .selectorNotImplemented(target):
             return "Trying to observe messages for selector that isn't implemented.\nTarget: \(target)"
-        case let cantInterceptCoreFoundationTollFreeBridgedObjects(target):
+        case let .cantInterceptCoreFoundationTollFreeBridgedObjects(target):
             return "Interception of messages sent to Core Foundation isn't supported.\nTarget: \(target)"
-        case let threadingCollisionWithOtherInterceptionMechanism(target):
+        case let .threadingCollisionWithOtherInterceptionMechanism(target):
             return "Detected a conflict while modifying ObjC runtime.\nTarget: \(target)"
-        case let savingOriginalForwardingMethodFailed(target):
+        case let .savingOriginalForwardingMethodFailed(target):
             return "Saving original method implementation failed.\nTarget: \(target)"
-        case let replacingMethodWithForwardingImplementation(target):
+        case let .replacingMethodWithForwardingImplementation(target):
             return "Intercepting a sent message by replacing a method implementation with `_objc_msgForward` failed for some reason.\nTarget: \(target)"
-        case let observingPerformanceSensitiveMessages(target):
+        case let .observingPerformanceSensitiveMessages(target):
             return "Attempt to intercept one of the performance sensitive methods. \nTarget: \(target)"
-        case let observingMessagesWithUnsupportedReturnType(target):
+        case let .observingMessagesWithUnsupportedReturnType(target):
             return "Attempt to intercept a method with unsupported return type. \nTarget: \(target)"
         }
     }
@@ -219,7 +219,7 @@ public extension RxCocoaObjCRuntimeError {
 
 // MARK: Error binding policies
 
-func bindingErrorToInterface(_ error: ErrorProtocol) {
+func bindingErrorToInterface(_ error: Swift.Error) {
     let error = "Binding error to UI: \(error)"
 #if DEBUG
     rxFatalError(error)
@@ -230,11 +230,11 @@ func bindingErrorToInterface(_ error: ErrorProtocol) {
 
 // MARK: Abstract methods
 
-@noreturn func rxAbstractMethodWithMessage(_ message: String) {
+func rxAbstractMethodWithMessage(_ message: String) -> Swift.Never  {
     rxFatalError(message)
 }
 
-@noreturn func rxAbstractMethod() {
+func rxAbstractMethod() -> Swift.Never  {
     rxFatalError("Abstract method")
 }
 
@@ -296,16 +296,18 @@ let delegateNotSet = "Delegate not set"
 
 // MARK: Conversions `NSError` > `RxCocoaObjCRuntimeError`
 
-extension NSError {
+extension Error {
     func rxCocoaErrorForTarget(_ target: AnyObject) -> RxCocoaObjCRuntimeError {
-        if domain == RXObjCRuntimeErrorDomain {
-            let errorCode = RXObjCRuntimeError(rawValue: self.code) ?? .unknown
-
+        let error = self as NSError
+        
+        if error.domain == RXObjCRuntimeErrorDomain {
+            let errorCode = RXObjCRuntimeError(rawValue: error.code) ?? .unknown
+            
             switch errorCode {
             case .unknown:
                 return .unknown(target: target)
             case .objectMessagesAlreadyBeingIntercepted:
-                let isKVO = (self.userInfo[RXObjCRuntimeErrorIsKVOKey] as? NSNumber)?.boolValue ?? false
+                let isKVO = (error.userInfo[RXObjCRuntimeErrorIsKVOKey] as? NSNumber)?.boolValue ?? false
                 return .objectMessagesAlreadyBeingIntercepted(target: target, interceptionMechanism: isKVO ? .kvo : .unknown)
             case .selectorNotImplemented:
                 return .selectorNotImplemented(target: target)
@@ -323,7 +325,7 @@ extension NSError {
                 return .observingMessagesWithUnsupportedReturnType(target: target)
             }
         }
-
+        
         return RxCocoaObjCRuntimeError.unknown(target: target)
     }
 }
@@ -335,7 +337,7 @@ extension NSError {
 
 #if !RX_NO_MODULE
 
-@noreturn func rxFatalError(_ lastMessage: String) {
+func rxFatalError(_ lastMessage: String) -> Never  {
     // The temptation to comment this line is great, but please don't, it's for your own good. The choice is yours.
     fatalError(lastMessage)
 }

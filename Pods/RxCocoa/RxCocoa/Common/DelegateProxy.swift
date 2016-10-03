@@ -19,7 +19,7 @@ Base class for `DelegateProxyType` protocol.
 
 This implementation is not thread safe and can be used only from one thread (Main thread).
 */
-public class DelegateProxy : _RXDelegateProxy {
+open class DelegateProxy : _RXDelegateProxy {
     
     private var subjectsForSelector = [Selector: PublishSubject<[AnyObject]>]()
 
@@ -66,15 +66,15 @@ public class DelegateProxy : _RXDelegateProxy {
          let internalSubject = PublishSubject<CGPoint>
      
          public func requiredDelegateMethod(scrollView: UIScrollView, arg1: CGPoint) -> Bool {
-             internalSubject.on(.Next(arg1))
+             internalSubject.on(.next(arg1))
              return self._forwardToDelegate?.requiredDelegateMethod?(scrollView, arg1: arg1) ?? defaultReturnValue
          }
      
          ....
 
          // reactive property implementation in a real class (`UIScrollView`)
-         public var rx_property: Observable<CGPoint> {
-             let proxy = RxScrollViewDelegateProxy.proxyForObject(self)
+         public var property: Observable<CGPoint> {
+             let proxy = RxScrollViewDelegateProxy.proxyForObject(base)
              return proxy.internalSubject.asObservable()
          }
 
@@ -108,8 +108,8 @@ public class DelegateProxy : _RXDelegateProxy {
     
     // proxy
     
-    public override func interceptedSelector(_ selector: Selector, withArguments arguments: [AnyObject]!) {
-        subjectsForSelector[selector]?.on(.next(arguments))
+    open override func interceptedSelector(_ selector: Selector, withArguments arguments: [Any]) {
+        subjectsForSelector[selector]?.on(.next(arguments as [AnyObject]))
     }
     
     /**
@@ -117,7 +117,7 @@ public class DelegateProxy : _RXDelegateProxy {
     
     - returns: Associated object tag.
     */
-    public class func delegateAssociatedObjectTag() -> UnsafePointer<Void> {
+    public class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
         return _pointer(&delegateAssociatedTag)
     }
     
@@ -137,8 +137,8 @@ public class DelegateProxy : _RXDelegateProxy {
     - returns: Assigned delegate proxy or `nil` if no delegate proxy is assigned.
     */
     public class func assignedProxyFor(_ object: AnyObject) -> AnyObject? {
-        let maybeDelegate: AnyObject? = objc_getAssociatedObject(object, self.delegateAssociatedObjectTag())
-        return castOptionalOrFatalError(maybeDelegate)
+        let maybeDelegate = objc_getAssociatedObject(object, self.delegateAssociatedObjectTag())
+        return castOptionalOrFatalError(maybeDelegate.map { $0 as AnyObject })
     }
     
     /**
@@ -185,7 +185,7 @@ public class DelegateProxy : _RXDelegateProxy {
 
     // MARK: Pointer
 
-    class func _pointer(_ p: UnsafePointer<Void>) -> UnsafePointer<Void> {
+    class func _pointer(_ p: UnsafeRawPointer) -> UnsafeRawPointer {
         return p
     }
 }

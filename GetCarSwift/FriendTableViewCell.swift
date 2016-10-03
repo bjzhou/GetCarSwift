@@ -22,26 +22,26 @@ class FriendTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
 
-        _ = followButton.rx_tap.takeUntil(self.rx_deallocated).subscribeNext {
+        _ = followButton.rx.tap.takeUntil(self.rx.deallocated).subscribe(onNext: {
             Toast.makeToastActivity()
             if self.followButton.isSelected {
-                _ = User.removeFriend(self.id).doOn() { _ in
+                _ = User.removeFriend(self.id).do { _ in
                     Toast.hideToastActivity()
-                    }.subscribeNext { res in
+                    }.subscribe(onNext: { res in
                         if res.code == 0 {
                             self.followButton.isSelected = false
                         }
-                }
+                })
             } else {
-                _ = User.addFriend(self.id).doOn { _ in
+                _ = User.addFriend(self.id).do { _ in
                     Toast.hideToastActivity()
-                    }.subscribeNext { res in
+                    }.subscribe(onNext: { res in
                         if res.code == 0 {
                             self.followButton.isSelected = true
                         }
-                }
+                })
             }
-        }
+        })
     }
 
 }

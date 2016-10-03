@@ -25,7 +25,7 @@ public class Observable<Element> : ObservableType {
 #endif
     }
     
-    public func subscribe<O: ObserverType where O.E == E>(_ observer: O) -> Disposable {
+    public func subscribe<O: ObserverType>(_ observer: O) -> Disposable where O.E == E {
         abstractMethod()
     }
     
@@ -45,7 +45,8 @@ public class Observable<Element> : ObservableType {
     /**
     Optimizations for map operator
     */
-    internal func composeMap<R>(_ selector: (Element) throws -> R) -> Observable<R> {
+    internal func composeMap<R>(_ selector: @escaping (Element) throws -> R) -> Observable<R> {
         return Map(source: self, selector: selector)
     }
 }
+

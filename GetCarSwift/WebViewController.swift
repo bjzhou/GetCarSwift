@@ -22,12 +22,12 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.black()
+        self.view.backgroundColor = UIColor.black
         webView.navigationDelegate = self
         webView.isMultipleTouchEnabled = true
         webView.scrollView.alwaysBounceVertical = true
-        webView.backgroundColor = UIColor.black()
-        webView.scrollView.backgroundColor = UIColor.black()
+        webView.backgroundColor = UIColor.black
+        webView.scrollView.backgroundColor = UIColor.black
         self.view.addSubview(webView)
 
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
@@ -37,8 +37,8 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         progressView.trackTintColor = UIColor(white: 1, alpha: 0)
         self.view.addSubview(progressView)
 
-        backBarButton = UIBarButtonItem(image: R.image.backbutton, style: .plain, target: self, action: #selector(WebViewController.didBack))
-        forwardBarButton = UIBarButtonItem(image: R.image.forwardbutton, style: .plain, target: self, action: #selector(WebViewController.didForward))
+        backBarButton = UIBarButtonItem(image: R.image.backbutton(), style: .plain, target: self, action: #selector(WebViewController.didBack))
+        forwardBarButton = UIBarButtonItem(image: R.image.forwardbutton(), style: .plain, target: self, action: #selector(WebViewController.didForward))
         refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(WebViewController.didRefresh))
         stopBarButton = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(WebViewController.didStop))
         flexibleSpaceBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -75,13 +75,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     func loadURLString(_ urlString: String) {
         loadURL(URL(string: urlString)!)
     }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
+    
+    override func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions = [], context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             progressView.alpha = 1
             let animated = webView.estimatedProgress > Double(progressView.progress)
             progressView.setProgress(Float(webView.estimatedProgress), animated:animated)
-
+            
             // Once complete, fade out UIProgressView
             if webView.estimatedProgress >= 1.0 {
                 UIView.animate(withDuration: 0.3, delay: 0.3, options: UIViewAnimationOptions.curveEaseOut, animations: {
@@ -100,16 +100,16 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateToolBar()
     }
-
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         updateToolBar()
     }
-
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         updateToolBar()
     }
-
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if navigationAction.navigationType == .linkActivated {
             loadURL(navigationAction.request.url!)
             decisionHandler(.cancel)

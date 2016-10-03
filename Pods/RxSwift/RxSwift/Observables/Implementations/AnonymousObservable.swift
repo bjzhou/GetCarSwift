@@ -44,11 +44,11 @@ class AnonymousObservable<Element> : Producer<Element> {
 
     let _subscribeHandler: SubscribeHandler
 
-    init(_ subscribeHandler: SubscribeHandler) {
+    init(_ subscribeHandler: @escaping SubscribeHandler) {
         _subscribeHandler = subscribeHandler
     }
 
-    override func run<O : ObserverType where O.E == Element>(_ observer: O) -> Disposable {
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
         let sink = AnonymousObservableSink(observer: observer)
         sink.disposable = sink.run(self)
         return sink

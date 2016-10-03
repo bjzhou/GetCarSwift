@@ -19,12 +19,9 @@ let tableViewDataSourceNotSet = TableViewDataSourceNotSet()
 class TableViewDataSourceNotSet
     : NSObject
     , UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        rxAbstractMethodWithMessage(dataSourceNotSet)
-    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        rxAbstractMethodWithMessage(dataSourceNotSet)
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,9 +40,9 @@ public class RxTableViewDataSourceProxy
     /**
      Typed parent object.
      */
-    public weak private(set) var tableView: UITableView?
+    public weak fileprivate(set) var tableView: UITableView?
     
-    private weak var _requiredMethodsDataSource: UITableViewDataSource? = tableViewDataSourceNotSet
+    fileprivate weak var _requiredMethodsDataSource: UITableViewDataSource? = tableViewDataSourceNotSet
 
     /**
      Initializes `RxTableViewDataSourceProxy`
@@ -58,13 +55,6 @@ public class RxTableViewDataSourceProxy
     }
 
     // MARK: delegate
-
-    /**
-    Required delegate method implementation.
-    */
-    public func numberOfSections(in tableView: UITableView) -> Int {
-        return (_requiredMethodsDataSource ?? tableViewDataSourceNotSet).numberOfSections?(in: tableView) ?? 1
-    }
 
     /**
     Required delegate method implementation.
@@ -88,13 +78,13 @@ public class RxTableViewDataSourceProxy
     public override class func createProxyForObject(_ object: AnyObject) -> AnyObject {
         let tableView = (object as! UITableView)
 
-        return castOrFatalError(tableView.rx_createDataSourceProxy())
+        return castOrFatalError(tableView.createRxDataSourceProxy())
     }
 
     /**
      For more information take a look at `DelegateProxyType`.
      */
-    public override class func delegateAssociatedObjectTag() -> UnsafePointer<Void> {
+    public override class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
         return _pointer(&dataSourceAssociatedTag)
     }
 

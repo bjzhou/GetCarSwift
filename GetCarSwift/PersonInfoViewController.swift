@@ -26,7 +26,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         let colorTag = Mine.sharedInstance.carHeadBg
         let iconTag = Mine.sharedInstance.carHeadId
         values[1] = getCarIconName(Mine.sharedInstance.sex, color: colorTag, icon: iconTag)
-        values[2] = Mine.sharedInstance.nickname ?? "用户名"
+        values[2] = Mine.sharedInstance.nickname 
         values[3/*5*/] = getSexString(Mine.sharedInstance.sex)
         values[4/*6*/] = DeviceDataService.sharedInstance.rxDistrict.value
         self.tableView.reloadData()
@@ -52,7 +52,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: PersonInfoCell?
         if (indexPath as NSIndexPath).section == 0 && ((indexPath as NSIndexPath).row == 0 || (indexPath as NSIndexPath).row == 1 /*|| indexPath.row == 3*/) {
-            cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.info_icon, for:indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.info_icon, for: indexPath)
             cell?.title.text = titles[(indexPath as NSIndexPath).row]
             if (indexPath as NSIndexPath).row == 0 {
                 Mine.sharedInstance.setAvatarImage(cell!.icon)
@@ -60,7 +60,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 cell?.icon.image = UIImage(named: values[(indexPath as NSIndexPath).row])
             }
         } else {
-            cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.info_text, for:indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.info_text, for:indexPath)
             cell?.selectionStyle = .default
             cell?.accessoryType = .disclosureIndicator
             if (indexPath as NSIndexPath).section == 0 {
@@ -99,7 +99,7 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
                 showImagePickerAlertView()
                 tableView.deselectRow(at: indexPath, animated: true)
             case 1:
-                let controller = R.storyboard.mine.car_icon
+                let controller = R.storyboard.mine.car_icon()
                 showViewController(controller!)
             case 2:
                 let vc = InfoEditViewController(mode: .Nickname)
@@ -138,16 +138,16 @@ class PersonInfoViewController: UITableViewController, UIImagePickerControllerDe
         }
         present(alertController, animated: true, completion: nil)
     }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
-            User.uploadHeader(avatarImage).subscribeNext { gkResult in
+            User.uploadHeader(avatarImage).subscribe(onNext: { gkResult in
                 if let user = gkResult.data {
                     Mine.sharedInstance.updateLogin(user)
                     self.tableView.reloadData()
                 }
-                }.addDisposableTo(disposeBag)
+                }).addDisposableTo(disposeBag)
             dismiss(animated: true, completion: {_ in
                 self.tableView.reloadData()
             })

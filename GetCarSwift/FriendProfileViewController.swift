@@ -32,46 +32,46 @@ class FriendProfileViewController: UIViewController {
         scoreTableView.delegate = self
         scoreTableView.dataSource = self
 
-        _ = User.getUserInfo(uid).subscribeNext { res in
+        _ = User.getUserInfo(uid).subscribe(onNext: { res in
             guard let user = res.data else {
                 return
             }
             self.user = user
 
-            _ = self.msgButton.rx_tap.takeUntil(self.msgButton.rx_deallocated).subscribeNext {
+            _ = self.msgButton.rx.tap.takeUntil(self.msgButton.rx.deallocated).subscribe(onNext: {
                 let chat = ConversationViewController()
                 chat.conversationType = RCConversationType.ConversationType_PRIVATE
                 chat.targetId = self.uid
                 chat.title = self.user?.nickname
                 chat.fromProfile = true
                 self.showViewController(chat)
-            }
+            })
 
-            _ = self.followButton.rx_tap.takeUntil(self.followButton.rx_deallocated).subscribeNext {
+            _ = self.followButton.rx.tap.takeUntil(self.followButton.rx.deallocated).subscribe(onNext: {
                 Toast.makeToastActivity()
                 if self.followButton.currentTitle == "已关注" {
-                    _ = User.removeFriend(self.uid).doOn { _ in
+                    _ = User.removeFriend(self.uid).do { _ in
                         Toast.hideToastActivity()
-                        }.subscribeNext { res in
+                        }.subscribe(onNext: { res in
                             if res.code == 0 {
                                 self.followButton.setTitle("+关注", for: .normal)
                             }
-                    }
+                    })
                 } else {
-                    _ = User.addFriend(self.uid).doOn { _ in
+                    _ = User.addFriend(self.uid).do { _ in
                         Toast.hideToastActivity()
-                        }.subscribeNext { res in
+                        }.subscribe(onNext: { res in
                             if res.code == 0 {
                                 self.followButton.setTitle("已关注", for: .normal)
                             }
-                    }
+                    })
                 }
-            }
-            self.sexImage.image = self.user?.sex == 1 ? R.image.mine_male : R.image.mine_female
+            })
+            self.sexImage.image = self.user?.sex == 1 ? R.image.mine_male() : R.image.mine_female()
             self.nickname.text = self.user?.nickname
-            self.myAvatar.kf_setImageWithURL(NSURL(string: self.user?.img ?? "")! as URL, placeholderImage: R.image.avatar)
+            self.myAvatar.kf.setImage(with: NSURL(string: self.user?.img ?? "")! as URL, placeholder: R.image.avatar())
             self.scoreTableView.reloadData()
-        }
+        })
     }
 
     func dismiss() {
@@ -86,7 +86,7 @@ extension FriendProfileViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.profile_score, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.profile_score, for: indexPath)
         cell?.textLabel?.text = "直线赛道"
         cell?.detailTextLabel?.text = "00:00.00"
         return cell!

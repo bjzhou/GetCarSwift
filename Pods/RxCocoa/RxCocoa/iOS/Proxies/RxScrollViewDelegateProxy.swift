@@ -22,12 +22,12 @@ public class RxScrollViewDelegateProxy
     , UIScrollViewDelegate
     , DelegateProxyType {
 
-    private var _contentOffsetSubject: ReplaySubject<CGPoint>?
+    fileprivate var _contentOffsetSubject: ReplaySubject<CGPoint>?
 
     /**
      Typed parent object.
      */
-    public weak private(set) var scrollView: UIScrollView?
+    public weak fileprivate(set) var scrollView: UIScrollView?
 
     /**
      Optimized version used for observing content offset changes.
@@ -72,7 +72,7 @@ public class RxScrollViewDelegateProxy
     public override class func createProxyForObject(_ object: AnyObject) -> AnyObject {
         let scrollView = (object as! UIScrollView)
         
-        return castOrFatalError(scrollView.rx_createDelegateProxy())
+        return castOrFatalError(scrollView.createRxDelegateProxy())
     }
 
     /**

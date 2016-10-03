@@ -32,7 +32,7 @@ struct FIR: JSONable {
 
     static func checkUpdate() -> Observable<FIR> {
         return Observable.create { observer in
-            let request = apiManager.request(.GET, firVersionCheckUrl).responseData { res in
+            let request = apiManager.request(firVersionCheckUrl).responseData { res in
                 if let err = res.result.error {
                     observer.on(.error(err))
                 } else {
@@ -43,7 +43,7 @@ struct FIR: JSONable {
                     }
                 }
             }
-            return AnonymousDisposable {
+            return Disposables.create {
                 request.cancel()
             }
         }

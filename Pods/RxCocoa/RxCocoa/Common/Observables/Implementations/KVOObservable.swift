@@ -33,7 +33,7 @@ class KVOObservable<Element>
         }
     }
     
-    func subscribe<O : ObserverType where O.E == Element?>(_ observer: O) -> Disposable {
+    func subscribe<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element? {
         let observer = KVOObserver(parent: self) { (value) in
             if value as? NSNull != nil {
                 observer.on(.next(nil))
@@ -42,7 +42,7 @@ class KVOObservable<Element>
             observer.on(.next(value as? Element))
         }
         
-        return AnonymousDisposable(observer.dispose)
+        return Disposables.create(with: observer.dispose)
     }
     
 }
@@ -75,7 +75,7 @@ func isWeakProperty(_ properyRuntimeInfo: String) -> Bool {
 extension ObservableType where E == AnyObject? {
     func finishWithNilWhenDealloc(_ target: NSObject)
         -> Observable<AnyObject?> {
-        let deallocating = target.rx_deallocating
+        let deallocating = target.rx.deallocating
             
         return deallocating
             .map { _ in

@@ -50,7 +50,6 @@
 		C87AAD8E1B7CE3F000084EA0 /* CarRightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */; };
 		C880DA7B1B78E8F500F5E24D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */; };
 		C88D822F1AE27E4900DBC0C1 /* UIImage+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D822E1AE27E4900DBC0C1 /* UIImage+GK.swift */; };
-		C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88D896A1BDF797700AA4425 /* R.generated.swift */; };
 		C89079341B7E161D002D18E0 /* CarTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */; };
 		C894A3321B7F783D00D853C9 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C894A3311B7F783D00D853C9 /* CarInfo.swift */; };
 		C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89791DC1B9F04280027D6A5 /* Comment.swift */; };
@@ -88,6 +87,7 @@
 		C8C2C0931B8B5DEE006095DC /* String+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C08F1B8B5DEE006095DC /* String+GK.swift */; };
 		C8C2C0941B8B5DEE006095DC /* UIColor+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2C0901B8B5DEE006095DC /* UIColor+GK.swift */; };
 		C8C6B4271ADFE6C500059523 /* InfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */; };
+		C8CB65881DA2270D00A0ABAE /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB65871DA2270D00A0ABAE /* R.generated.swift */; };
 		C8D1C4F11BB637A000F131BC /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */; };
 		C8D6CAE61B8F511700A417CF /* UIViewController+GK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6CAE51B8F511700A417CF /* UIViewController+GK.swift */; };
 		C8D6D7091B8E14B5006A068E /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6D7081B8E14B5006A068E /* PopupViewController.swift */; };
@@ -119,6 +119,7 @@
 		C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F411D31C1EA38D00747678 /* RealmHelper.swift */; };
 		C8F9CD6F1B7246BB0003AF1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD6E1B7246BB0003AF1B /* User.swift */; };
 		C8F9CD711B725CDD0003AF1B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9CD701B725CDD0003AF1B /* Toast.swift */; };
+		D0060D228AFAE0EF83BEB87B /* Pods_GetCarSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA5A22FD26B76FC15EDB6F9 /* Pods_GetCarSwiftTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		38022EDA2C923FD6A8D2C637 /* Pods-GetCarSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCarSwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		3C7943B2BA8B21994DF0D6FB /* Pods-GetCarSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCarSwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8BDEB3D1209592E2AE2E6A85 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		8BDEB806B0A1F2B26FCB9098 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
 		C803EE3C1C18299C00425E04 /* CALayer+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+GK.swift"; sourceTree = "<group>"; };
@@ -192,7 +195,6 @@
 		C87AAD8D1B7CE3F000084EA0 /* CarRightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarRightTableViewController.swift; sourceTree = "<group>"; };
 		C880DA7A1B78E8F500F5E24D /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C88D822E1AE27E4900DBC0C1 /* UIImage+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+GK.swift"; sourceTree = "<group>"; };
-		C88D896A1BDF797700AA4425 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		C89079331B7E161D002D18E0 /* CarTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableNavigationController.swift; sourceTree = "<group>"; };
 		C894A3311B7F783D00D853C9 /* CarInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
 		C89791DC1B9F04280027D6A5 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		C8C2C0901B8B5DEE006095DC /* UIColor+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+GK.swift"; sourceTree = "<group>"; };
 		C8C2C09B1B8B5EEE006095DC /* GetCarSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetCarSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		C8C6B4261ADFE6C500059523 /* InfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoEditViewController.swift; sourceTree = "<group>"; };
+		C8CB65871DA2270D00A0ABAE /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		C8D1C4F01BB637A000F131BC /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		C8D6CAE51B8F511700A417CF /* UIViewController+GK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+GK.swift"; sourceTree = "<group>"; };
 		C8D6D7081B8E14B5006A068E /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +272,7 @@
 		C8F9CD6E1B7246BB0003AF1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C8F9CD701B725CDD0003AF1B /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		DB270C8A0200054FDCADEE3F /* Pods_GetCarSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCarSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEA5A22FD26B76FC15EDB6F9 /* Pods_GetCarSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCarSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0060D228AFAE0EF83BEB87B /* Pods_GetCarSwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +311,7 @@
 				C8AB572D1C2BF4E20087898C /* SystemConfiguration.framework */,
 				C86F854F1B8215A100C7DC7C /* CoreMotion.framework */,
 				DB270C8A0200054FDCADEE3F /* Pods_GetCarSwift.framework */,
+				DEA5A22FD26B76FC15EDB6F9 /* Pods_GetCarSwiftTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -313,6 +319,8 @@
 		5EED5E632F2E587646D96C1E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				3C7943B2BA8B21994DF0D6FB /* Pods-GetCarSwiftTests.debug.xcconfig */,
+				38022EDA2C923FD6A8D2C637 /* Pods-GetCarSwiftTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -500,9 +508,9 @@
 		C867FC691AD8FCAF00F99592 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C8CB65871DA2270D00A0ABAE /* R.generated.swift */,
 				C81655831BF05CCF004E17AE /* Images.xcassets */,
 				C82821F01BECD54D00FC5E95 /* LetsgoDigital-Regular.ttf */,
-				C88D896A1BDF797700AA4425 /* R.generated.swift */,
 				C8C2C09B1B8B5EEE006095DC /* GetCarSwift-Bridging-Header.h */,
 				C867FC6A1AD8FCAF00F99592 /* Info.plist */,
 				C8E0E64A1C23ADEF00BD5EC9 /* channel.debug.xcconfig */,
@@ -636,6 +644,7 @@
 				7C37E1F22372DA3D7627436D /* [CP] Check Pods Manifest.lock */,
 				C8CD8E0B1B91E85B0050DF90 /* Embed Frameworks */,
 				C8F330031C06AFB200FC5744 /* SwiftLint */,
+				C8CB65861DA2269A00A0ABAE /* rswift */,
 				C867FC621AD8FCAF00F99592 /* Sources */,
 				C867FC631AD8FCAF00F99592 /* Frameworks */,
 				C867FC641AD8FCAF00F99592 /* Resources */,
@@ -656,9 +665,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C867FC8A1AD8FCB000F99592 /* Build configuration list for PBXNativeTarget "GetCarSwiftTests" */;
 			buildPhases = (
+				7B149331DFBA23A909788FFB /* [CP] Check Pods Manifest.lock */,
 				C867FC791AD8FCB000F99592 /* Sources */,
 				C867FC7A1AD8FCB000F99592 /* Frameworks */,
 				C867FC7B1AD8FCB000F99592 /* Resources */,
+				D5B4F9464B42CD2AB0D20C5F /* [CP] Embed Pods Frameworks */,
+				74D7AFC6B0237C33126220DA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -763,6 +775,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		74D7AFC6B0237C33126220DA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		75FD1CA619FC96DADAB71867 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -776,6 +803,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwift/Pods-GetCarSwift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B149331DFBA23A909788FFB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7C37E1F22372DA3D7627436D /* [CP] Check Pods Manifest.lock */ = {
@@ -807,6 +849,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/bugly/dSYM_upload.sh\"";
 		};
+		C8CB65861DA2269A00A0ABAE /* rswift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = rswift;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rswift \"$SRCROOT\"";
+		};
 		C8F330031C06AFB200FC5744 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -820,6 +876,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --config $SRCROOT/.swiftlint.yml\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		D5B4F9464B42CD2AB0D20C5F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GetCarSwiftTests/Pods-GetCarSwiftTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -903,7 +974,6 @@
 				C8F411D41C1EA38D00747678 /* RealmHelper.swift in Sources */,
 				C8AB571C1C2BBED10087898C /* ShareScoreTableViewCell.swift in Sources */,
 				C89791DD1B9F04280027D6A5 /* Comment.swift in Sources */,
-				C88D896B1BDF797700AA4425 /* R.generated.swift in Sources */,
 				C8A6B4A21C1580D700D2B217 /* UITableViewController+GK.swift in Sources */,
 				C8E335531BB44910005449B2 /* ViewProxy.swift in Sources */,
 				C8272BCE1BFB240300CC9318 /* CommentsViewController.swift in Sources */,
@@ -911,6 +981,7 @@
 				C8E2B84F1AD95C5E003B07FE /* MineViewController.swift in Sources */,
 				C8F333581BB6C32900F4EFB2 /* DeviceDataService.swift in Sources */,
 				C8C2C0921B8B5DEE006095DC /* JSON+GK.swift in Sources */,
+				C8CB65881DA2270D00A0ABAE /* R.generated.swift in Sources */,
 				C8DAF8F41C3A6AAE00110C27 /* SearchResultTableViewController.swift in Sources */,
 				C8AE55481C11930500C99AC6 /* MapTrackViewController.swift in Sources */,
 				C8AB571A1C2BAC980087898C /* ShareScoreViewController.swift in Sources */,
@@ -970,8 +1041,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -994,7 +1067,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1016,8 +1089,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1033,7 +1108,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1057,7 +1132,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1089,7 +1164,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = GetCarSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1108,7 +1183,9 @@
 		};
 		C867FC8B1AD8FCB000F99592 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C7943B2BA8B21994DF0D6FB /* Pods-GetCarSwiftTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1126,7 +1203,9 @@
 		};
 		C867FC8C1AD8FCB000F99592 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38022EDA2C923FD6A8D2C637 /* Pods-GetCarSwiftTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GetCarSwiftTests/Info.plist;

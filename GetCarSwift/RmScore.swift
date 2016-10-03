@@ -43,12 +43,12 @@ class RmScore: Object, JSONable {
         return NSKeyedArchiver.archivedData(withRootObject: dic)
     }
 
-    func unarchive(_ succeed: (RmScore) -> ()) {
+    func unarchive(_ succeed: @escaping (RmScore) -> ()) {
         if self.data.count != 0 {
             succeed(self)
             return
         }
-        _ = GaikeService.sharedInstance.request(url).subscribeNext { data in
+        _ = GaikeService.sharedInstance.request(url).subscribe(onNext: { data in
             guard let recordArray = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [[String: Double]] else {
                 return
             }
@@ -72,7 +72,7 @@ class RmScore: Object, JSONable {
                 self.data.append(objectsIn: scoreDataArray)
             }
             succeed(self)
-        }
+        })
     }
 }
 
@@ -98,18 +98,18 @@ struct Records: JSONable {
     }
 
     static func getRecord(_ mapType: Int, count: Int) -> Observable<GKResult<Records>> {
-        return GaikeService.sharedInstance.api("user/getRecord", body: ["map_type": mapType, "count": count])
+        return GaikeService.sharedInstance.api("user/getRecord", body: ["map_type": String(mapType), "count": String(count)])
     }
 
     static func getTimeRecord(_ mapType: Int, time: String, count: Int) -> Observable<GKResult<Records>> {
-        return GaikeService.sharedInstance.api("user/getTimeRecord", body: ["map_type": mapType, "time": time, "count": count])
+        return GaikeService.sharedInstance.api("user/getTimeRecord", body: ["map_type": String(mapType), "time": time, "count": String(count)])
     }
 
     static func getFollowRecord(_ mapType: Int, count: Int) -> Observable<GKResult<Records>> {
-        return GaikeService.sharedInstance.api("user/getFollowRecord", body: ["map_type": mapType, "count": count])
+        return GaikeService.sharedInstance.api("user/getFollowRecord", body: ["map_type": String(mapType), "count": String(count)])
     }
 
-    static func uploadRecord(_ mapType: Int, duration: Double, recordData: NSData) -> Observable<GKResult<RmScore>> {
-        return GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": duration, "map_type": mapType], datas: ["record": recordData as Data])
+    static func uploadRecord(_ mapType: Int, duration: Double, recordData: Data) -> Observable<GKResult<RmScore>> {
+        return GaikeService.sharedInstance.upload("upload/uploadRecord", parameters: ["duration": String(duration), "map_type": String(mapType)], datas: ["record": recordData as Data])
     }
 }

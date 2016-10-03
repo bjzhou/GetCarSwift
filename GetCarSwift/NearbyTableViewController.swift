@@ -20,9 +20,9 @@ class NearbyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.refreshControl?.rx_controlEvent(.valueChanged).subscribeNext {
+        self.refreshControl?.rx.controlEvent(.valueChanged).subscribe(onNext: {
             self.loadData()
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
 
         loadData()
 
@@ -33,15 +33,15 @@ class NearbyTableViewController: UITableViewController {
     }
 
     func loadData() {
-        _ = Nearby.map().doOn { (event) -> Void in
+        _ = Nearby.map().do { (event) -> Void in
             self.refreshControl?.endRefreshing()
-        }.subscribeNext { res in
+        }.subscribe(onNext: { res in
             guard let nearbys = res.dataArray else {
                 return
             }
             self.nearbys = nearbys
             self.tableView.reloadData()
-        }
+        })
     }
 
     // MARK: - Table view data source
@@ -51,12 +51,12 @@ class NearbyTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let nearby = nearbys[(indexPath as NSIndexPath).row]
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.nearby, for: indexPath)
+        let nearby = nearbys[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nearby", for: indexPath) as? FriendTableViewCell
         cell?.id = nearby.uid
         cell?.headerImageView.updateAvatar(nearby.uid, url: nearby.headUrl, inVC: self)
         cell?.nicknameLabel.text = nearby.nickname
-        cell?.sexImageView.image = nearby.sex == 1 ? R.image.mine_male : R.image.mine_female
+        cell?.sexImageView.image = nearby.sex == 1 ? UIImage(named: "mine_male") : UIImage(named: "mine_female")
         let distance = DeviceDataService.sharedInstance.rxLocation.value?.distance(from: CLLocation(latitude: nearby.lati, longitude: nearby.longt)) ?? 0
         if distance >= 1000 {
             cell?.descLabel.text = String(format: "%.0fkm", distance / 1000)

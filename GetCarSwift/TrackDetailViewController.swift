@@ -68,7 +68,7 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
             button?.layer.cornerRadius = 23.5
         }
 
-        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment()?.withRenderingMode(.alwaysOriginal)
         self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, for: .default)
 
         mapView.showsCompass = false
@@ -145,7 +145,7 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
     }
 
     func keyboardWillShow(_ notification: UIKit.Notification) {
-        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
+        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
 
@@ -167,11 +167,11 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
 
     func initTrackData() {
         self.title = trackDetailViewModel.raceTrack?.name ?? ""
-        trackDetailViewModel.getComments().subscribeNext { comments in
+        trackDetailViewModel.getComments().subscribe(onNext: { comments in
             for comment in comments {
                 self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
             }
-            }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     @IBAction func didStart(_ sender: UIButton) {
@@ -184,7 +184,7 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
             mapView.isZoomEnabled = false
             mapView.isRotateEnabled = false
             mapView.isRotateCameraEnabled = false
-            timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { _ in
+            timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribe(onNext: { _ in
                 if !sender.isSelected {
                     return
                 }
@@ -217,7 +217,7 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
                     self.mapView.isRotateEnabled = true
                     self.mapView.isRotateCameraEnabled = true
                 }
-            }
+            })
             startAnim(annotation1, score: score1)
             startAnim(annotation2, score: score2)
             startAnim(annotation3, score: score3)
@@ -249,7 +249,7 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
         }
         let anim = CAKeyframeAnimation(keyPath: "position")
         anim.duration = score.score
-        anim.keyTimes = score.data.map { $0.t / score.score }
+        anim.keyTimes = score.data.map { ($0.t / score.score) as NSNumber }
         anim.values = points.map { NSValue(cgPoint: CGPoint(x: $0.x - points[0].x, y: $0.y - points[0].y)) }
         anim.calculationMode = kCAAnimationLinear
         anim.isRemovedOnCompletion = false
@@ -293,16 +293,16 @@ class TrackDetailViewController: UIViewController, CAAnimationDelegate {
             Toast.makeToast(message: "评论不能为空")
             return
         }
-        trackDetailViewModel?.postComment(commentTextField.text!).subscribeNext {
+        trackDetailViewModel?.postComment(commentTextField.text!).subscribe(onNext: {
             self.danmuEffect?.send(self.commentTextField.text!, highlight: true, highPriority: true)
             self.commentTextField.text = ""
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         self.view.endEditing(true)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == R.segue.track_comment {
-            if let destVc = segue.destinationViewController as? CommentsViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == R.segue.trackDetailViewController.track_comment.identifier {
+            if let destVc = segue.destination as? CommentsViewController {
                 destVc.trackDetailViewModel = trackDetailViewModel
             }
         }
@@ -318,12 +318,12 @@ extension TrackDetailViewController: AddPlayerDelegate {
         var url = score.headUrl
         var nickname = score.nickname
         if url == "" {
-            url = Mine.sharedInstance.avatarUrl ?? ""
+            url = Mine.sharedInstance.avatarUrl
         }
         if nickname == "" {
-            nickname = Mine.sharedInstance.nickname ?? ""
+            nickname = Mine.sharedInstance.nickname
         }
-        sender?.kf_setBackgroundImageWithURL(URL(string: url)!, forState: .normal, placeholderImage: R.image.avatar)
+        sender?.kf.setBackgroundImage(with: URL(string: url)!, for: .normal, placeholder: R.image.avatar())
         sender?.layer.borderWidth = 2
 
         timerDisposable?.dispose()
@@ -410,12 +410,12 @@ extension TrackDetailViewController: MAMapViewDelegate {
         }
 
         let circleView = MACircleRenderer(circle: circle)
-        circleView?.strokeColor = UIColor.black()
+        circleView?.strokeColor = UIColor.black
         circleView?.lineWidth = 1
-        circleView?.fillColor = UIColor.yellow()
+        circleView?.fillColor = UIColor.yellow
 
         if circle.coordinate.longitude == 121.121573354806 {
-            circleView?.fillColor = UIColor.red()
+            circleView?.fillColor = UIColor.red
         }
         return circleView
     }
@@ -428,13 +428,13 @@ extension TrackDetailViewController: MAMapViewDelegate {
         if annotationView == nil {
             annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
             if annotation == annotation1 {
-                annotationView?.image = R.image.red_helmet
+                annotationView?.image = R.image.red_helmet()
             }
             if annotation == annotation2 {
-                annotationView?.image = R.image.green_helmet
+                annotationView?.image = R.image.green_helmet()
             }
             if annotation == annotation3 {
-                annotationView?.image = R.image.blue_helmet
+                annotationView?.image = R.image.blue_helmet()
             }
             annotationView?.layer.shadowOffset = CGSize(width: 1, height: 2)
             annotationView?.layer.shadowRadius = 1

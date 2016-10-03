@@ -15,7 +15,7 @@ import RxSwift
 RxCocoa URL errors.
 */
 public enum RxCocoaURLError
-    : ErrorProtocol
+    : Swift.Error
     , CustomDebugStringConvertible {
     /**
     Unknown error occurred.
@@ -32,7 +32,7 @@ public enum RxCocoaURLError
     /**
     Deserialization error.
     */
-    case deserializationError(error: ErrorProtocol)
+    case deserializationError(error: Swift.Error)
 }
 
 public extension RxCocoaURLError {
@@ -69,8 +69,8 @@ func convertURLRequestToCurlCommand(_ request: URLRequest) -> String {
     }
 
     for (key, value) in request.allHTTPHeaderFields ?? [:] {
-        let escapedKey = escapeTerminalString((key as String) ?? "")
-        let escapedValue = escapeTerminalString((value as String) ?? "")
+        let escapedKey = escapeTerminalString(key as String)
+        let escapedValue = escapeTerminalString(value as String)
         returnValue += "\n    -H \"\(escapedKey): \(escapedValue)\" "
     }
 
@@ -105,7 +105,7 @@ func convertResponseToString(_ data: Data!, _ response: URLResponse!, _ error: N
     return "<Unhandled response from server>"
 }
 
-extension URLSession {
+extension Reactive where Base: URLSession {
     /**
     Observable sequence of responses for URL request.
     
@@ -119,7 +119,7 @@ extension URLSession {
     - returns: Observable sequence of URL responses.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func rx_response(_ request: URLRequest) -> Observable<(Data, HTTPURLResponse)> {
+    public func response(_ request: URLRequest) -> Observable<(Data, HTTPURLResponse)> {
         return Observable.create { observer in
 
             // smart compiler should be able to optimize this out
@@ -129,15 +129,15 @@ extension URLSession {
                 d = Date()
             }
 
-            let task = self.dataTask(with: request) { (data, response, error) in
+            let task = self.base.dataTask(with: request) { (data, response, error) in
 
                 if Logging.URLRequests(request) {
                     let interval = Date().timeIntervalSince(d ?? Date())
                     print(convertURLRequestToCurlCommand(request))
-                    print(convertResponseToString(data, response, error, interval))
+                    print(convertResponseToString(data, response, error as NSError!, interval))
                 }
                 
-                guard let response = response, data = data else {
+                guard let response = response, let data = data else {
                     observer.on(.error(error ?? RxCocoaURLError.unknown))
                     return
                 }
@@ -155,7 +155,7 @@ extension URLSession {
             let t = task
             t.resume()
 
-            return AnonymousDisposable(task.cancel)
+            return Disposables.create(with: task.cancel)
         }
     }
 
@@ -175,8 +175,8 @@ extension URLSession {
     - returns: Observable sequence of response data.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func rx_data(_ request: URLRequest) -> Observable<Data> {
-        return rx_response(request).map { (data, response) -> Data in
+    public func data(_ request: URLRequest) -> Observable<Data> {
+        return response(request).map { (data, response) -> Data in
             if 200 ..< 300 ~= response.statusCode {
                 return data
             }
@@ -204,10 +204,10 @@ extension URLSession {
     - returns: Observable sequence of response JSON.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func rx_JSON(_ request: URLRequest) -> Observable<AnyObject> {
-        return rx_data(request).map { (data) -> AnyObject in
+    public func JSON(_ request: URLRequest) -> Observable<AnyObject> {
+        return data(request).map { (data) -> AnyObject in
             do {
-                return try JSONSerialization.jsonObject(with: data, options: [])
+                return try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
             } catch let error {
                 throw RxCocoaURLError.deserializationError(error: error)
             }
@@ -232,7 +232,7 @@ extension URLSession {
     - returns: Observable sequence of response JSON.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func rx_JSON(_ URL: Foundation.URL) -> Observable<AnyObject> {
-        return rx_JSON(URLRequest(url: URL))
+    public func JSON(_ URL: Foundation.URL) -> Observable<AnyObject> {
+        return JSON(URLRequest(url: URL))
     }
 }

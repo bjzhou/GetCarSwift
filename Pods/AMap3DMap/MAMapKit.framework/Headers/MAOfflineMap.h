@@ -9,6 +9,7 @@
 #import "MAOfflineItemNationWide.h"
 #import "MAOfflineItemMunicipality.h"
 
+
 typedef NS_ENUM(NSInteger, MAOfflineMapDownloadStatus)
 {
     MAOfflineMapDownloadStatusWaiting,       //!< 以插入队列，等待中
@@ -84,6 +85,14 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
 @property (nonatomic, readonly) NSString *version;
 
 /**
+ *  初始化离线地图数据，如果第一次运行且offlinePackage.plist文件不存在，则需要首先执行此方法。
+    否则MAOfflineMap中的省、市、版本号等数据都为空。
+ *
+ *  @param block 初始化完成回调
+ */
+- (void)setupWithCompletionBlock:(void(^)(BOOL setupSuccess))block;
+
+/**
  *  启动下载
  *
  *  @param item                                  数据
@@ -124,11 +133,6 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
  *  清除所有在磁盘上的离线地图数据, 之后调用[mapView reloadMap]会使其立即生效
  */
 - (void)clearDisk;
-
-/*!
- @brief 监测新版本
- @param newestVersionBlock 回调block
- */
 
 /**
  *  监测新版本

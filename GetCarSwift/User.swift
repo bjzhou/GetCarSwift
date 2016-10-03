@@ -52,13 +52,13 @@ struct User: JSONable {
     }
 
     static func updateInfo(nickname: String? = nil, sex: Int? = nil, color: String? = nil, icon: String? = nil) -> Observable<GKResult<User>> {
-        var params: [String:AnyObject] = [:]
+        var params: [String:String] = [:]
         let datas: [String:Data] = [:]
         if let a = nickname {
             params["nickname"] = a
         }
         if let a = sex {
-            params["sex"] = a
+            params["sex"] = String(a)
         }
         if let a = color {
             params["color"] = a
@@ -224,21 +224,21 @@ struct Mine {
     mutating func logout(expired: Bool = true) {
         RCIM.shared().disconnect(false)
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        KingfisherManager.sharedManager.cache.clearDiskCache()
+        KingfisherManager.shared.cache.clearDiskCache()
         main {
             gRealm?.writeOptional {
-                if let objects = gRealm?.allObjects(ofType: RmScore.self) {
+                if let objects = gRealm?.objects(RmScore.self) {
                     gRealm?.delete(objects)
                 }
-                if let objects = gRealm?.allObjects(ofType: RmScoreData.self) {
+                if let objects = gRealm?.objects(RmScoreData.self) {
                     gRealm?.delete(objects)
                 }
-                if let objects = gRealm?.allObjects(ofType: CarInfo.self) {
+                if let objects = gRealm?.objects(CarInfo.self) {
                     gRealm?.delete(objects)
                 }
             }
-            let firstController = R.storyboard.login.login!
-            let window = UIApplication.shared().keyWindow
+            let firstController = R.storyboard.login.login()
+            let window = UIApplication.shared.keyWindow
             window?.rootViewController = firstController
 
             if expired {

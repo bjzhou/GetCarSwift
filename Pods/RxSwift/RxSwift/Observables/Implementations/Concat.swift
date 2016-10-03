@@ -9,9 +9,9 @@
 import Foundation
 
 
-class ConcatSink<S: Sequence, O: ObserverType where S.Iterator.Element : ObservableConvertibleType, S.Iterator.Element.E == O.E>
+class ConcatSink<S: Sequence, O: ObserverType>
     : TailRecursiveSink<S, O>
-    , ObserverType {
+    , ObserverType where S.Iterator.Element : ObservableConvertibleType, S.Iterator.Element.E == O.E {
     typealias Element = O.E
     
     override init(observer: O) {
@@ -44,18 +44,18 @@ class ConcatSink<S: Sequence, O: ObserverType where S.Iterator.Element : Observa
     }
 }
 
-class Concat<S: Sequence where S.Iterator.Element : ObservableConvertibleType> : Producer<S.Iterator.Element.E> {
+class Concat<S: Sequence> : Producer<S.Iterator.Element.E> where S.Iterator.Element : ObservableConvertibleType {
     typealias Element = S.Iterator.Element.E
     
-    private let _sources: S
-    private let _count: IntMax?
+    fileprivate let _sources: S
+    fileprivate let _count: IntMax?
 
     init(sources: S, count: IntMax?) {
         _sources = sources
         _count = count
     }
     
-    override func run<O: ObserverType where O.E == Element>(_ observer: O) -> Disposable {
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
         let sink = ConcatSink<S, O>(observer: observer)
         sink.disposable = sink.run((_sources.makeIterator(), _count))
         return sink

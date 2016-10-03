@@ -8,17 +8,17 @@
 
 import Foundation
 
-class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Element>>
+class WindowTimeCountSink<Element, O: ObserverType>
     : Sink<O>
     , ObserverType
     , LockOwnerType
-    , SynchronizedOnType {
+    , SynchronizedOnType where O.E == Observable<Element> {
     typealias Parent = WindowTimeCount<Element>
     typealias E = Element
     
     private let _parent: Parent
     
-    let _lock = RecursiveLock()
+    let _lock = NSRecursiveLock()
     
     private var _subject = PublishSubject<Element>()
     private var _count = 0
@@ -31,7 +31,7 @@ class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Eleme
     init(parent: Parent, observer: O) {
         _parent = parent
         
-        let _ = _groupDisposable.addDisposable(_timerD)
+        let _ = _groupDisposable.insert(_timerD)
         
         _refCountDisposable = RefCountDisposable(disposable: _groupDisposable)
         super.init(observer: observer)
@@ -42,7 +42,7 @@ class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Eleme
         forwardOn(.next(AddRef(source: _subject, refCount: _refCountDisposable).asObservable()))
         createTimer(_windowId)
         
-        let _ = _groupDisposable.addDisposable(_parent._source.subscribeSafe(self))
+        let _ = _groupDisposable.insert(_parent._source.subscribeSafe(self))
         return _refCountDisposable
     }
     
@@ -68,7 +68,7 @@ class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Eleme
             do {
                 let _ = try incrementChecked(&_count)
             } catch (let e) {
-                _subject.on(.error(e as ErrorProtocol))
+                _subject.on(.error(e as Swift.Error))
                 dispose()
             }
             
@@ -96,7 +96,7 @@ class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Eleme
     }
     
     func createTimer(_ windowId: Int) {
-        if _timerD.disposed {
+        if _timerD.isDisposed {
             return
         }
         
@@ -125,17 +125,17 @@ class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Eleme
             
             self.createTimer(newId)
             
-            return NopDisposable.instance
+            return Disposables.create()
         }
     }
 }
 
 class WindowTimeCount<Element> : Producer<Observable<Element>> {
     
-    private let _timeSpan: RxTimeInterval
-    private let _count: Int
-    private let _scheduler: SchedulerType
-    private let _source: Observable<Element>
+    fileprivate let _timeSpan: RxTimeInterval
+    fileprivate let _count: Int
+    fileprivate let _scheduler: SchedulerType
+    fileprivate let _source: Observable<Element>
     
     init(source: Observable<Element>, timeSpan: RxTimeInterval, count: Int, scheduler: SchedulerType) {
         _source = source
@@ -144,7 +144,7 @@ class WindowTimeCount<Element> : Producer<Observable<Element>> {
         _scheduler = scheduler
     }
     
-    override func run<O : ObserverType where O.E == Observable<Element>>(_ observer: O) -> Disposable {
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Observable<Element> {
         let sink = WindowTimeCountSink(parent: self, observer: observer)
         sink.disposable = sink.run()
         return sink

@@ -31,6 +31,6 @@ extension String {
 
 extension String: JSONable {
     init(json: JSON) {
-        self.init(json.stringValue)
+        self.init(json.stringValue)!
     }
 }

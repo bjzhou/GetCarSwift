@@ -11,7 +11,7 @@ import Alamofire
 import RxSwift
 import SwiftyJSON
 
-let apiManager = Manager.sharedInstance
+let apiManager = Alamofire.SessionManager.default
 let operationQueue = OperationQueue()
 let operationScheduler = OperationQueueScheduler(operationQueue: operationQueue)
 
@@ -43,72 +43,72 @@ class GaikeService {
         return headers
     }
 
-    func request(_ urlString: URLStringConvertible) -> Observable<NSData> {
-        UIApplication.shared().isNetworkActivityIndicatorVisible = true
+    func request(_ urlString: URLConvertible) -> Observable<Data> {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         return Observable.create { observer in
             RmLog.i("http request data: \(urlString)")
-            let request = apiManager.request(.GET, urlString).responseData { res in
+            let request = apiManager.request(urlString).responseData { res in
                 let responseString = String(data: res.data!, encoding: String.Encoding.utf8) ?? ""
                 RmLog.i("http response data: \(responseString), error: \(res.result.error)")
                 if let err = res.result.error {
                     observer.on(.error(err))
                 } else {
                     if let data = res.result.value {
-                        observer.on(.next(data))
+                        observer.onNext(data)
                     }
                     observer.on(.completed)
                 }
 
             }
-            return AnonymousDisposable {
+            return Disposables.create {
                 request.cancel()
             }
-            }.observeOn(MainScheduler.instance).doOn { _ in
-                UIApplication.shared().isNetworkActivityIndicatorVisible = false
+            }.observeOn(MainScheduler.instance).do { _ in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
 
-    func api<T>(_ urlString: String, body: [String:AnyObject] = [:]) -> Observable<GKResult<T>> {
-        UIApplication.shared().isNetworkActivityIndicatorVisible = true
+    func api<T>(_ urlString: String, body: [String:String] = [:]) -> Observable<GKResult<T>> {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         return Observable.create { observer in
-            let request = apiManager.request(.POST, GaikeService.domain + urlString, parameters: body, encoding: .json, headers: self.getHeader()).responseData { res in
+            let request = apiManager.request(GaikeService.domain + urlString, method: .post, parameters: body, encoding: JSONEncoding.default, headers: self.getHeader()).responseData { res in
                 let responseString = String(data: res.data!, encoding: String.Encoding.utf8) ?? ""
                 RmLog.i("http response: \(responseString)")
                 if let err = res.result.error {
                     observer.on(.error(err))
                 } else {
                     if let data = res.result.value {
-                        observer.on(.next(data))
+                        observer.onNext(data)
                     }
                     observer.on(.completed)
                 }
             }
-            RmLog.i("http request: \(request.request?.urlString) \(body)")
-            return AnonymousDisposable {
+            RmLog.i("http request: \(request.request?.url?.absoluteString) \(body)")
+            return Disposables.create {
                 request.cancel()
             }
-            }.observeOn(operationScheduler).map { (data: NSData) in
-                return self.parseJSON(data as Data)
-            }.observeOn(MainScheduler.instance).doOn { _ in
-                UIApplication.shared().isNetworkActivityIndicatorVisible = false
+            }.observeOn(operationScheduler).map { (data: Data) in
+                return self.parseJSON(data)
+            }.observeOn(MainScheduler.instance).do { _ in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
 
-    func upload<T>(_ urlString: String, parameters: [String: AnyObject]? = nil, datas: [String: Data], mimeType: String = "image/png") -> Observable<GKResult<T>> {
-        UIApplication.shared().isNetworkActivityIndicatorVisible = true
+    func upload<T>(_ urlString: String, parameters: [String: String]? = nil, datas: [String: Data], mimeType: String = "image/png") -> Observable<GKResult<T>> {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         return Observable.create { observer in
             var upload: Request?
-            Alamofire.upload(.POST, GaikeService.domain + urlString, headers: self.getHeader(), multipartFormData: { data in
+            Alamofire.upload(multipartFormData: { data in
                 if let parameters = parameters, let jsonParams = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
-                    data.appendBodyPart(data: jsonParams, name: "content")
+                    data.append(jsonParams, withName: "content")
                 }
                 for (key, value) in datas {
-                    data.appendBodyPart(data: value, name: key, fileName: key+".png", mimeType: mimeType)
+                    data.append(value, withName: key, fileName: key+".png", mimeType: mimeType)
                 }
-                }) { res in
+                }, to: GaikeService.domain + urlString, method: .post, headers: self.getHeader()) { res in
                     switch res {
                     case .success(request: let req, streamingFromDisk: _, streamFileURL: _):
-                        RmLog.i("http request upload: \(req.request?.urlString), \(parameters), data keys: \(datas.keys.joined(separator: ","))")
+                        RmLog.i("http request upload: \(req.request?.url?.absoluteString), \(parameters), data keys: \(datas.keys.joined(separator: ","))")
                         upload = req.responseData { res in
                             let responseString = String(data: res.data!, encoding: String.Encoding.utf8) ?? ""
                             RmLog.i("http response upload: \(responseString)")
@@ -126,13 +126,13 @@ class GaikeService {
                     }
 
             }
-            return AnonymousDisposable {
+            return Disposables.create {
                 upload?.cancel()
             }
-            }.observeOn(operationScheduler).map { (data: NSData) in
+            }.observeOn(operationScheduler).map { (data: Data) in
                 return self.parseJSON(data as Data)
-            }.observeOn(MainScheduler.instance).doOn { _ in
-                UIApplication.shared().isNetworkActivityIndicatorVisible = false
+            }.observeOn(MainScheduler.instance).do { _ in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
 

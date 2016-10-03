@@ -37,7 +37,7 @@ struct RegisterViewModel {
                 User.updateInfo(nickname: nick, sex: self.sex)
             }
             .concat()
-            .subscribeNext { res in
+            .subscribe(onNext: { res in
                 guard let user = res.data else {
                     self.viewProxy?.showToast("注册失败")
                     return
@@ -50,6 +50,6 @@ struct RegisterViewModel {
                     }
                     self.viewProxy?.setRootViewController()
                 }
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
 }

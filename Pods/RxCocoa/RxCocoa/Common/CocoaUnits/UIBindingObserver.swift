@@ -18,7 +18,7 @@ Observer that enforces interface binding rules:
  
 `UIBindingObserver` doesn't retain target interface and in case owned interface element is released, element isn't bound.
 */
-public class UIBindingObserver<UIElementType, Value where UIElementType: AnyObject> : ObserverType {
+public class UIBindingObserver<UIElementType, Value> : ObserverType where UIElementType: AnyObject {
     public typealias E = Value
 
     weak var UIElement: UIElementType?
@@ -28,7 +28,7 @@ public class UIBindingObserver<UIElementType, Value where UIElementType: AnyObje
     /**
      Initializes `ViewBindingObserver` using
     */
-    public init(UIElement: UIElementType, binding: (UIElementType, Value) -> Void) {
+    public init(UIElement: UIElementType, binding: @escaping (UIElementType, Value) -> Void) {
         self.UIElement = UIElement
         self.binding = binding
     }

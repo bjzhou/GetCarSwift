@@ -84,7 +84,7 @@ public class CurrentThreadScheduler : ImmediateSchedulerType {
     /**
     Gets a value that indicates whether the caller must call a `schedule` method.
     */
-    public static private(set) var isScheduleRequired: Bool {
+    public static fileprivate(set) var isScheduleRequired: Bool {
         get {
             let value: CurrentThreadSchedulerValue? = Thread.getThreadLocalStorageValueForKey(CurrentThreadSchedulerKeyInstance as NSString)
             return value == nil
@@ -104,7 +104,7 @@ public class CurrentThreadScheduler : ImmediateSchedulerType {
     - parameter action: Action to be executed.
     - returns: The disposable object used to cancel the scheduled action (best effort).
     */
-    public func schedule<StateType>(_ state: StateType, action: (StateType) -> Disposable) -> Disposable {
+    public func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
         if CurrentThreadScheduler.isScheduleRequired {
             CurrentThreadScheduler.isScheduleRequired = false
 
@@ -120,7 +120,7 @@ public class CurrentThreadScheduler : ImmediateSchedulerType {
             }
 
             while let latest = queue.value.dequeue() {
-                if latest.disposed {
+                if latest.isDisposed {
                     continue
                 }
                 latest.invoke()
@@ -145,6 +145,6 @@ public class CurrentThreadScheduler : ImmediateSchedulerType {
         
         // In Xcode 7.3, `return scheduledItem` causes segmentation fault 11 on release build.
         // To workaround this compiler issue, returns AnonymousDisposable that disposes scheduledItem.
-        return AnonymousDisposable(scheduledItem.dispose)
+        return Disposables.create(with: scheduledItem.dispose)
     }
 }

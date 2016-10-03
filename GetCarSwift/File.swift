@@ -91,5 +91,5 @@ struct File {
         return files.flatMap { try? File(dir: self, name: $0 ) }
     }
 
-    static let docFile = File(path: (try? FileManager.default.urlForDirectory(.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))?.path ?? "")
+    static let docFile = File(path: (try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))?.path ?? "")
 }

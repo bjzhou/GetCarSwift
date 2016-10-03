@@ -26,13 +26,13 @@ class LoginViewController: UIViewController {
 
         phoneText.becomeFirstResponder()
 
-        loginViewModel = LoginViewModel(phoneText: phoneText.rx_text, codeText: vcodeText.rx_text)
+        loginViewModel = LoginViewModel(phoneText: phoneText.rx.textInput.text, codeText: vcodeText.rx.textInput.text)
         loginViewModel.viewProxy = self
 
-        loginViewModel.codeEnabled.asObservable().bindTo(vcodeButton.rx_enabled).addDisposableTo(disposeBag)
-        loginViewModel.codeTitle.asObservable().subscribeNext { title in
+        loginViewModel.codeEnabled.asObservable().bindTo(vcodeButton.rx.enabled).addDisposableTo(disposeBag)
+        loginViewModel.codeTitle.asObservable().subscribe(onNext: { title in
             self.vcodeButton.setTitle(title, for: .normal)
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     // MARK: IBOutlet Actions

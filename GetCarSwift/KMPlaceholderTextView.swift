@@ -61,8 +61,8 @@ public class KMPlaceholderTextView: UITextView {
             textDidChange()
         }
     }
-
-    override public var attributedText: AttributedString! {
+    
+    public override var attributedText: NSAttributedString! {
         didSet {
             textDidChange()
         }
@@ -97,7 +97,7 @@ public class KMPlaceholderTextView: UITextView {
         placeholderLabel.textAlignment = textAlignment
         placeholderLabel.text = placeholder
         placeholderLabel.numberOfLines = 0
-        placeholderLabel.backgroundColor = UIColor.clear()
+        placeholderLabel.backgroundColor = UIColor.clear
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(placeholderLabel)
 

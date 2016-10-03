@@ -69,8 +69,8 @@ every view has a corresponding delegate virtual factory method.
 In case of UITableView / UIScrollView, there is
 
     extension UIScrollView {
-        public func rx_createDelegateProxy() -> RxScrollViewDelegateProxy {
-            return RxScrollViewDelegateProxy(parentObject: self)
+        public func createRxDelegateProxy() -> RxScrollViewDelegateProxy {
+            return RxScrollViewDelegateProxy(parentObject: base)
         }
     ....
 
@@ -78,7 +78,7 @@ In case of UITableView / UIScrollView, there is
 and override in UITableView
 
     extension UITableView {
-        public override func rx_createDelegateProxy() -> RxScrollViewDelegateProxy {
+        public override func createRxDelegateProxy() -> RxScrollViewDelegateProxy {
         ....
 
 
@@ -160,14 +160,14 @@ extension DelegateProxyType {
      - returns: Installed instance of delegate proxy.
 
 
-         extension UISearchBar {
+         extension Reactive where Base: UISearchBar {
 
-             public var rx_delegate: DelegateProxy {
-                return RxSearchBarDelegateProxy.proxyForObject(self)
+             public var delegate: DelegateProxy {
+                return RxSearchBarDelegateProxy.proxyForObject(base)
              }
 
-             public var rx_text: ControlProperty<String> {
-                 let source: Observable<String> = self.rx_delegate.observe(#selector(UISearchBarDelegate.searchBar(_:textDidChange:)))
+             public var text: ControlProperty<String> {
+                 let source: Observable<String> = self.delegate.observe(#selector(UISearchBarDelegate.searchBar(_:textDidChange:)))
                  ...
              }
          }
@@ -178,19 +178,20 @@ extension DelegateProxyType {
         let maybeProxy = Self.assignedProxyFor(object) as? Self
 
         let proxy: Self
-        if maybeProxy == nil {
+        if let existingProxy = maybeProxy {
+            proxy = existingProxy
+        }
+        else {
             proxy = Self.createProxyForObject(object) as! Self
             Self.assignProxy(proxy, toObject: object)
             assert(Self.assignedProxyFor(object) === proxy)
-        }
-        else {
-            proxy = maybeProxy!
         }
 
         let currentDelegate: AnyObject? = Self.currentDelegateFor(object)
 
         if currentDelegate !== proxy {
             proxy.setForwardToDelegate(currentDelegate, retainDelegate: false)
+            assert(proxy.forwardToDelegate() === currentDelegate)
             Self.setCurrentDelegate(proxy, toObject: object)
             assert(Self.currentDelegateFor(object) === proxy)
             assert(proxy.forwardToDelegate() === currentDelegate)
@@ -226,9 +227,9 @@ extension DelegateProxyType {
         Self.setCurrentDelegate(nil, toObject: object)
         Self.setCurrentDelegate(proxy, toObject: object)
         
-        assert(proxy.forwardToDelegate() === forwardDelegate, "Setting of delegate failed")
+        assert(proxy.forwardToDelegate() === forwardDelegate, "Setting of delegate failed:\ncurrent:\n\(proxy.forwardToDelegate())\nexpected:\n\(forwardDelegate)")
         
-        return AnonymousDisposable {
+        return Disposables.create {
             MainScheduler.ensureExecutingOnScheduler()
             
             let delegate: AnyObject? = weakForwardDelegate
@@ -241,7 +242,7 @@ extension DelegateProxyType {
 }
 
 extension ObservableType {
-    func subscribeProxyDataSourceForObject<P: DelegateProxyType>(_ object: AnyObject, dataSource: AnyObject, retainDataSource: Bool, binding: (P, Event<E>) -> Void)
+    func subscribeProxyDataSource<P: DelegateProxyType>(ofObject object: AnyObject, dataSource: AnyObject, retainDataSource: Bool, binding: @escaping (P, Event<E>) -> Void)
         -> Disposable {
         let proxy = P.proxyForObject(object)
         let disposable = P.installForwardDelegate(dataSource, retainDelegate: retainDataSource, onProxyForObject: object)
@@ -273,6 +274,6 @@ extension ObservableType {
                 }
             }
             
-        return CompositeDisposable(subscription, disposable)
+        return Disposables.create(subscription, disposable)
     }
 }

@@ -23,7 +23,7 @@ class GestureTarget<Recognizer: UIGestureRecognizer>: RxTarget {
     weak var gestureRecognizer: Recognizer?
     var callback: Callback?
     
-    init(_ gestureRecognizer: Recognizer, callback: Callback) {
+    init(_ gestureRecognizer: Recognizer, callback: @escaping Callback) {
         self.gestureRecognizer = gestureRecognizer
         self.callback = callback
         
@@ -38,7 +38,7 @@ class GestureTarget<Recognizer: UIGestureRecognizer>: RxTarget {
     }
     
     func eventHandler(_ sender: UIGestureRecognizer!) {
-        if let callback = self.callback, gestureRecognizer = self.gestureRecognizer {
+        if let callback = self.callback, let gestureRecognizer = self.gestureRecognizer {
             callback(gestureRecognizer)
         }
     }
@@ -51,20 +51,18 @@ class GestureTarget<Recognizer: UIGestureRecognizer>: RxTarget {
     }
 }
 
-extension UIGestureRecognizer: Reactive  { }
-
-extension Reactive where Self: UIGestureRecognizer {
+extension Reactive where Base: UIGestureRecognizer {
     
     /**
     Reactive wrapper for gesture recognizer events.
     */
-    public var rx_event: ControlEvent<Self> {
-        let source: Observable<Self> = Observable.create { [weak self] observer in
+    public var event: ControlEvent<Base> {
+        let source: Observable<Base> = Observable.create { [weak control = self.base] observer in
             MainScheduler.ensureExecutingOnScheduler()
 
-            guard let control = self else {
+            guard let control = control else {
                 observer.on(.completed)
-                return NopDisposable.instance
+                return Disposables.create()
             }
             
             let observer = GestureTarget(control) {
@@ -73,7 +71,7 @@ extension Reactive where Self: UIGestureRecognizer {
             }
             
             return observer
-        }.takeUntil(rx_deallocated)
+        }.takeUntil(deallocated)
         
         return ControlEvent(events: source)
     }

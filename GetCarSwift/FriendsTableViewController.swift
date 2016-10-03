@@ -17,7 +17,7 @@ class FriendsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchResultController = R.storyboard.friend.friend_search
+        searchResultController = R.storyboard.friend.friend_search()
         searchResultController.sender = self
 
         searchController = UISearchController(searchResultsController: searchResultController)
@@ -38,13 +38,13 @@ class FriendsTableViewController: UITableViewController {
     }
 
     func getFriend() {
-        _ = User.getFriend().subscribeNext { res in
+        _ = User.getFriend().subscribe(onNext: { res in
             guard let users = res.dataArray else {
                 return
             }
             self.users = users
             self.tableView.reloadData()
-        }
+        })
     }
 
     // MARK: - Table view data source
@@ -54,11 +54,11 @@ class FriendsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.friend, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.friend, for: indexPath)
 
         let user = users[(indexPath as NSIndexPath).row]
-        cell?.headerImageView.kf_setImageWithURL(URL(string: user.img)!, placeholderImage: R.image.avatar)
-        cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male : R.image.mine_female
+        cell?.headerImageView.kf.setImage(with: URL(string: user.img)!, placeholder: R.image.avatar())
+        cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male() : R.image.mine_female()
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id
@@ -86,13 +86,13 @@ extension FriendsTableViewController: UISearchResultsUpdating, UISearchControlle
 
     func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text?.trim() != "" {
-            _ = User.searchUser(searchController.searchBar.text!).subscribeNext { res in
+            _ = User.searchUser(searchController.searchBar.text!).subscribe(onNext: { res in
                 guard let users = res.dataArray else {
                     return
                 }
                 self.searchResultController.users = users
                 self.searchResultController.tableView.reloadData()
-            }
+            })
         } else {
             self.searchResultController.users = []
             self.searchResultController.tableView.reloadData()

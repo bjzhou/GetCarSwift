@@ -15,7 +15,7 @@ extension Disposable {
     - parameter bag: `DisposeBag` to add `self` to.
     */
     public func addDisposableTo(_ bag: DisposeBag) {
-        bag.addDisposable(self)
+        bag.insert(self)
     }
 }
 
@@ -31,13 +31,13 @@ or create a new one in its place.
 
 In case explicit disposal is necessary, there is also `CompositeDisposable`.
 */
-public class DisposeBag: DisposeBase {
+public final class DisposeBag: DisposeBase {
     
     private var _lock = SpinLock()
     
     // state
     private var _disposables = [Disposable]()
-    private var _disposed = false
+    private var _isDisposed = false
     
     /**
     Constructs new empty dispose bag.
@@ -51,13 +51,23 @@ public class DisposeBag: DisposeBase {
     
     - parameter disposable: Disposable to add.
     */
+    @available(*, deprecated, renamed: "insert(_:)")
     public func addDisposable(_ disposable: Disposable) {
-        _addDisposable(disposable)?.dispose()
+        insert(disposable)
     }
-
-    private func _addDisposable(_ disposable: Disposable) -> Disposable? {
+    
+    /**
+     Adds `disposable` to be disposed when dispose bag is being deinited.
+     
+     - parameter disposable: Disposable to add.
+     */
+    public func insert(_ disposable: Disposable) {
+        _insert(disposable)?.dispose()
+    }
+    
+    private func _insert(_ disposable: Disposable) -> Disposable? {
         _lock.lock(); defer { _lock.unlock() }
-        if _disposed {
+        if _isDisposed {
             return disposable
         }
 
@@ -83,7 +93,7 @@ public class DisposeBag: DisposeBase {
         let disposables = _disposables
         
         _disposables.removeAll(keepingCapacity: false)
-        _disposed = true
+        _isDisposed = true
         
         return disposables
     }

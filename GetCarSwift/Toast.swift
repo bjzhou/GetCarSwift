@@ -69,7 +69,7 @@ class Toast: NSObject {
     *  public methods
     */
     class func makeToast(message msg: String) {
-        self.makeToast(message: msg, duration: toastDefaultDuration, position: toastPositionDefault)
+        self.makeToast(message: msg, duration: toastDefaultDuration, position: toastPositionDefault as AnyObject)
     }
 
     class func makeToast(message msg: String, duration: Double, position: AnyObject) {
@@ -93,7 +93,7 @@ class Toast: NSObject {
     }
 
     class func showToast(_ toast: UIView) {
-        self.showToast(toast: toast, duration: toastDefaultDuration, position: toastPositionDefault)
+        self.showToast(toast: toast, duration: toastDefaultDuration, position: toastPositionDefault as AnyObject)
     }
 
     class func showToast(toast: UIView, duration: Double, position: AnyObject) {
@@ -135,18 +135,18 @@ class Toast: NSObject {
         self.makeToastActivity(position: toastActivityPositionDefault, message: msg)
     }
 
-    class func makeToastActivity(position pos: AnyObject, message msg: String = "") {
+    class func makeToastActivity(position pos: String, message msg: String = "") {
         if toastActivity != nil { return }
 
         let activityView = UIView(frame: CGRect(x: 0, y: 0, width: toastActivityWidth, height: toastActivityHeight))
-        activityView.center = self.centerPointForPosition(pos, toast: activityView)
-        activityView.backgroundColor = UIColor.black().withAlphaComponent(toastOpacity)
+        activityView.center = self.centerPointForPosition(pos as AnyObject, toast: activityView)
+        activityView.backgroundColor = UIColor.black.withAlphaComponent(toastOpacity)
         activityView.alpha = 0.0
         activityView.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin]
         activityView.layer.cornerRadius = toastCornerRadius
 
         if toastDisplayShadow {
-            activityView.layer.shadowColor = UIColor.black().cgColor
+            activityView.layer.shadowColor = UIColor.black.cgColor
             activityView.layer.shadowOpacity = Float(toastShadowOpacity)
             activityView.layer.shadowRadius = toastShadowRadius
             activityView.layer.shadowOffset = toastShadowOffset
@@ -160,7 +160,7 @@ class Toast: NSObject {
         if (!msg.isEmpty) {
             activityIndicatorView.frame.origin.y -= 10
             let activityMessageLabel = UILabel(frame: CGRect(x: activityView.bounds.origin.x, y: (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), width: activityView.bounds.size.width, height: 20))
-            activityMessageLabel.textColor = UIColor.white()
+            activityMessageLabel.textColor = UIColor.white
             activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
             activityMessageLabel.textAlignment = .center
             activityMessageLabel.text = msg
@@ -234,7 +234,7 @@ class Toast: NSObject {
     private class func centerPointForPosition(_ position: AnyObject, toast: UIView) -> CGPoint {
         if position is String {
             let toastSize = toast.bounds.size
-            let viewSize = UIScreen.main().bounds.size
+            let viewSize = UIScreen.main.bounds.size
             if position.lowercased == toastPositionTop {
                 return CGPoint(x: viewSize.width/2, y: toastSize.height/2 + toastVerticalMargin)
             } else if position.lowercased == toastPositionBottom {
@@ -247,7 +247,7 @@ class Toast: NSObject {
         }
 
         print("Warning: Invalid position for toast.")
-        return self.centerPointForPosition(toastPositionDefault, toast: toast)
+        return self.centerPointForPosition(toastPositionDefault as AnyObject, toast: toast)
     }
 
     private class func viewForMessage(_ msg: String?, title: String?, image: UIImage?) -> UIView? {
@@ -260,10 +260,10 @@ class Toast: NSObject {
         let wrapperView = UIView()
         wrapperView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         wrapperView.layer.cornerRadius = toastCornerRadius
-        wrapperView.backgroundColor = UIColor.black().withAlphaComponent(toastOpacity)
+        wrapperView.backgroundColor = UIColor.black.withAlphaComponent(toastOpacity)
 
         if toastDisplayShadow {
-            wrapperView.layer.shadowColor = UIColor.black().cgColor
+            wrapperView.layer.shadowColor = UIColor.black.cgColor
             wrapperView.layer.shadowOpacity = Float(toastShadowOpacity)
             wrapperView.layer.shadowRadius = toastShadowRadius
             wrapperView.layer.shadowOffset = toastShadowOffset
@@ -290,13 +290,13 @@ class Toast: NSObject {
             titleLabel!.font = UIFont.boldSystemFont(ofSize: toastFontSize)
             titleLabel!.textAlignment = .center
             titleLabel!.lineBreakMode = .byWordWrapping
-            titleLabel!.textColor = UIColor.white()
-            titleLabel!.backgroundColor = UIColor.clear()
+            titleLabel!.textColor = UIColor.white
+            titleLabel!.backgroundColor = UIColor.clear
             titleLabel!.alpha = 1.0
             titleLabel!.text = title
 
             // size the title label according to the length of the text
-            let maxSizeTitle = CGSize(width: (UIScreen.main().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.main().bounds.size.height * toastMaxHeight)
+            let maxSizeTitle = CGSize(width: (UIScreen.main.bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.main.bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeTitle.width, title!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = title!.stringHeight(toastFontSize, width: maxSizeTitle.width)
             titleLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
@@ -308,12 +308,12 @@ class Toast: NSObject {
             msgLabel!.font = UIFont.systemFont(ofSize: toastFontSize)
             msgLabel!.lineBreakMode = .byWordWrapping
             msgLabel!.textAlignment = .center
-            msgLabel!.textColor = UIColor.white()
-            msgLabel!.backgroundColor = UIColor.clear()
+            msgLabel!.textColor = UIColor.white
+            msgLabel!.backgroundColor = UIColor.clear
             msgLabel!.alpha = 1.0
             msgLabel!.text = msg
 
-            let maxSizeMessage = CGSize(width: (UIScreen.main().bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.main().bounds.size.height * toastMaxHeight)
+            let maxSizeMessage = CGSize(width: (UIScreen.main.bounds.size.width * toastMaxWidth) - imageWidth, height: UIScreen.main.bounds.size.height * toastMaxHeight)
             let expectedWidth = min(maxSizeMessage.width, msg!.stringWidth(toastFontSize) - imageWidth)
             let expectedHeight = msg!.stringHeight(toastFontSize, width: maxSizeMessage.width)
             msgLabel!.frame = CGRect(x: 0.0, y: 0.0, width: expectedWidth, height: expectedHeight)
@@ -364,7 +364,7 @@ class Toast: NSObject {
     }
 
     private static var sharedWindow: UIWindow = {
-        let window = UIWindow(frame: UIScreen.main().bounds)
+        let window = UIWindow(frame: UIScreen.main.bounds)
         window.isUserInteractionEnabled = false
         window.windowLevel = CGFloat.greatestFiniteMagnitude
         window.rootViewController = ToastViewController()
@@ -378,14 +378,6 @@ class ToastViewController: UIViewController {
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
-    }
-
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIApplication.shared().statusBarStyle
-    }
-
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .all
     }
 
 }

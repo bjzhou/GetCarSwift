@@ -101,7 +101,7 @@ public extension UIViewController {
     }
 
     internal func topMostController () -> ENSideMenuProtocol? {
-        var topController: UIViewController? = UIApplication.shared().keyWindow?.rootViewController
+        var topController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
         if let vc = topController as? UITabBarController {
             topController = vc.selectedViewController
         }
@@ -203,8 +203,8 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
 
     private func adjustFrameDimensions(_ width: CGFloat, height: CGFloat ) -> (CGFloat, CGFloat) {
         if floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1 &&
-            (UIApplication.shared().statusBarOrientation == UIInterfaceOrientation.landscapeRight ||
-                UIApplication.shared().statusBarOrientation == UIInterfaceOrientation.landscapeLeft) {
+            (UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight ||
+                UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft) {
                     // iOS 7.1 or lower and landscape mode -> interchange width and height
                     return (height, width)
         } else {
@@ -218,7 +218,7 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
         // Configure side menu container
         updateFrame()
 
-        sideMenuContainerView.backgroundColor = UIColor.clear()
+        sideMenuContainerView.backgroundColor = UIColor.clear
         sideMenuContainerView.clipsToBounds = false
         sideMenuContainerView.layer.masksToBounds = false
         sideMenuContainerView.layer.shadowOffset = (menuPosition == .Left) ? CGSize(width: 1.0, height: 1.0) : CGSize(width: -1.0, height: -1.0)
@@ -274,7 +274,7 @@ public class ENSideMenu: NSObject, UIGestureRecognizerDelegate {
             animator.addBehavior(gravityBehavior)
 
             let collisionBehavior = UICollisionBehavior(items: [sideMenuContainerView])
-            collisionBehavior.addBoundary(withIdentifier: "menuBoundary", from: CGPoint(x: boundaryPointX, y: boundaryPointY),
+            collisionBehavior.addBoundary(withIdentifier: "menuBoundary" as NSCopying, from: CGPoint(x: boundaryPointX, y: boundaryPointY),
                 to: CGPoint(x: boundaryPointX, y: height))
             animator.addBehavior(collisionBehavior)
 

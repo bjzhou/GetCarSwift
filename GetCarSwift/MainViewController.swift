@@ -92,12 +92,12 @@ class MainViewController: UITabBarController {
             #endif
         }
 
-        self.addChildViewController(R.storyboard.gkbox.initialViewController!)
-        self.addChildViewController(R.storyboard.track.initialViewController!)
-        self.addChildViewController(R.storyboard.friend.initialViewController!)
-        self.addChildViewController(R.storyboard.mine.initialViewController!)
+        self.addChildViewController(R.storyboard.gkbox.instantiateInitialViewController()!)
+        self.addChildViewController(R.storyboard.track.instantiateInitialViewController()!)
+        self.addChildViewController(R.storyboard.friend.instantiateInitialViewController()!)
+        self.addChildViewController(R.storyboard.mine.instantiateInitialViewController()!)
 
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white()], for:UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for:UIControlState())
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gaikeRedColor()], for:.selected)
 
         //UILabel.appearance().font = UIFont.systemFontOfSize()
@@ -107,7 +107,7 @@ class MainViewController: UITabBarController {
     var connectCount = 0
     func connectToRCIM() {
         connectCount += 1
-        _ = User.getIMToken().subscribeNext { res in
+        _ = User.getIMToken().subscribe(onNext: { res in
             guard let token = res.data else {
                 return
             }
@@ -124,7 +124,7 @@ class MainViewController: UITabBarController {
                         self.connectToRCIM()
                     }
             })
-        }
+        })
     }
 
     override func viewDidLayoutSubviews() {

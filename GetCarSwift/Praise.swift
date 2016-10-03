@@ -20,7 +20,7 @@ struct Praise: JSONable {
     // 0: 取消
     // 1: 点赞
     static func praise(sid: Int, status: Int) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("trace/praise", body: ["sid":sid, "status":status])
+        return GaikeService.sharedInstance.api("trace/praise", body: ["sid":String(sid), "status":String(status)])
     }
 
     static func getPraiseList() -> Observable<GKResult<PraiseCount>> {

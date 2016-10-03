@@ -75,7 +75,7 @@ extension MapViewController: MAMapViewDelegate {
         annotationView?.canShowCallout = false
         annotationView?.isDraggable = false
 
-        annotationView?.image = annotation.raceTrack.isDeveloped ? R.image.red_flag : R.image.gray_flag
+        annotationView?.image = annotation.raceTrack.isDeveloped ? R.image.red_flag() : R.image.gray_flag()
 
         return annotationView
     }
@@ -86,9 +86,9 @@ extension MapViewController: MAMapViewDelegate {
         }
 
         let circleView = MACircleRenderer(circle: circle)
-        circleView?.strokeColor = UIColor.black()
+        circleView?.strokeColor = UIColor.black
         circleView?.lineWidth = 1
-        circleView?.fillColor = UIColor.yellow()
+        circleView?.fillColor = UIColor.yellow
         return circleView
     }
 
@@ -102,7 +102,7 @@ extension MapViewController: MAMapViewDelegate {
         mapView.centerCoordinate = annotation.coordinate
         mapView.setZoomLevel(annotation.raceTrack.mapZoom, animated: true)
 
-        let mapAlertVC = R.storyboard.gkbox.map_alert
+        let mapAlertVC = R.storyboard.gkbox.map_alert()
         mapAlertVC?.raceTrack = annotation.raceTrack
         mapAlertVC?.view.frame.size = CGSize(width: self.view.frame.width, height: 128)
         let popopVC = PopupViewController(rootViewController: mapAlertVC!, popupType: .ActionSheet, sender: self)

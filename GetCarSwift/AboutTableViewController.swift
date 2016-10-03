@@ -21,7 +21,7 @@ class AboutTableViewController: UITableViewController {
 
         versionLabel.text = "V " + versionShort!
 
-        let imageView = UIImageView(image: R.image.about_bg)
+        let imageView = UIImageView(image: R.image.about_bg())
         imageView.contentMode = .center
         self.tableView.backgroundView = imageView
     }
@@ -37,11 +37,11 @@ class AboutTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if (indexPath as NSIndexPath).row == 0 {
-            showViewController(R.storyboard.launchScreen.initialViewController!)
+            showViewController(R.storyboard.launchScreen.instantiateInitialViewController()!)
         }
 
         if (indexPath as NSIndexPath).row == 1 {
-            UIApplication.shared().openURL(URL(string: appStoreUrl)!)
+            UIApplication.shared.openURL(URL(string: appStoreUrl)!)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

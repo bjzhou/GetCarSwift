@@ -41,7 +41,7 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(with: R.reuseIdentifier.bg_small, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.bg_small, for: indexPath)
         cell?.bgImageView.image = UIImage(named: getSmallHomepageBg((indexPath as NSIndexPath).row + 1))
         return cell!
     }
@@ -55,10 +55,10 @@ class BgChoiceViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            KingfisherManager.sharedManager.cache.storeImage(image, forKey: "homepage_bg")
+            KingfisherManager.shared.cache.store(image, forKey: "homepage_bg")
             let userDefaults = UserDefaults.standard
             userDefaults.set(1000, forKey: "homepage_bg")
             dismiss(animated: true, completion: nil)

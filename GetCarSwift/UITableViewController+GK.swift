@@ -10,11 +10,11 @@ import Foundation
 
 extension UITableViewController {
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         self.clearsSelectionOnViewWillAppear = false
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: indexPath, animated: true)
         }

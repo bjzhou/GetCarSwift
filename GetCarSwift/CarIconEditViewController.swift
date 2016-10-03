@@ -78,11 +78,11 @@ class CarIconEditViewController: UIViewController {
     @IBAction func onSaveAction(_ sender: UIButton) {
         Mine.sharedInstance.carHeadBg = colorTag
         Mine.sharedInstance.carHeadId = iconTag
-        User.updateInfo(color: String(colorTag), icon: String(iconTag)).subscribeNext { res in
+        User.updateInfo(color: String(colorTag), icon: String(iconTag)).subscribe(onNext: { res in
             if let user = res.data {
                 Mine.sharedInstance.updateLogin(user)
             }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
         _ = self.navigationController?.popViewController(animated: true)
     }
 

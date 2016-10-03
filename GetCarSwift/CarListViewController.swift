@@ -29,8 +29,8 @@ class CarListViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        if gRealm?.allObjects(ofType: CarInfo.self).count == 0 {
-            _ = CarInfo.getUserCar().subscribeNext { res in
+        if gRealm?.objects(CarInfo.self).count == 0 {
+            _ = CarInfo.getUserCar().subscribe(onNext: { res in
                 guard let cars = res.dataArray else {
                     return
                 }
@@ -42,42 +42,42 @@ class CarListViewController: UIViewController {
                     gRealm?.add(cars)
                 }
                 self.updateCars()
-            }
+            })
         }
         updateCars()
     }
 
     func updateCars() {
-        if let car1 = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = 0").first {
-            buttonImageView1.kf_setImageWithURL(URL(string: car1.imageUrl)!, placeholderImage: defaultImage)
+        if let car1 = gRealm?.objects(CarInfo.self).filter("id = 0").first {
+            buttonImageView1.kf.setImage(with: URL(string: car1.imageUrl)!, placeholder: defaultImage)
             carLabel1.text = car1.model + " " + car1.detail
         }
 
-        if let car2 = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = 1").first {
-            buttonImageView2.kf_setImageWithURL(URL(string: car2.imageUrl)!, placeholderImage: defaultImage)
+        if let car2 = gRealm?.objects(CarInfo.self).filter("id = 1").first {
+            buttonImageView2.kf.setImage(with: URL(string: car2.imageUrl)!, placeholder: defaultImage)
             carLabel2.text = car2.model + " " + car2.detail
         }
 
-        if let car3 = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = 2").first {
-            buttonImageView3.kf_setImageWithURL(URL(string: car3.imageUrl)!, placeholderImage: defaultImage)
+        if let car3 = gRealm?.objects(CarInfo.self).filter("id = 2").first {
+            buttonImageView3.kf.setImage(with: URL(string: car3.imageUrl)!, placeholder: defaultImage)
             carLabel3.text = car3.model + " " + car3.detail
         }
     }
 
     func showDetailView(_ id: Int) {
-        let vc = R.storyboard.mine.car_detail
+        let vc = R.storyboard.mine.car_detail()
         vc?.id = id
         self.showViewController(vc!)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? CarDetailViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? CarDetailViewController {
             switch segue.identifier {
-            case R.segue.add_car0?:
+            case R.segue.carListViewController.add_car0.identifier?:
                 vc.id = 0
-            case R.segue.add_car1?:
+            case R.segue.carListViewController.add_car1.identifier?:
                 vc.id = 1
-            case R.segue.add_car2?:
+            case R.segue.carListViewController.add_car2.identifier?:
                 vc.id = 2
             default:
                 break

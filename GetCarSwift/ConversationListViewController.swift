@@ -36,7 +36,7 @@ class ConversationListViewController: RCConversationListViewController {
     }
 
     override func didTapCellPortrait(_ model: RCConversationModel!) {
-        let vc = R.storyboard.friend.friend_profile
+        let vc = R.storyboard.friend.friend_profile()
         vc?.uid = model.targetId
         showViewController(vc!)
     }

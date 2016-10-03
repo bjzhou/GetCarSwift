@@ -24,10 +24,10 @@ class SearchResultTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.search, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.search, for: indexPath)
         let user = users[(indexPath as NSIndexPath).row]
-        cell?.headerImageView.kf_setImageWithURL(URL(string: user.img)!, placeholderImage: R.image.avatar)
-        cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male : R.image.mine_female
+        cell?.headerImageView.kf.setImage(with: URL(string: user.img)!, placeholder: R.image.avatar())
+        cell?.sexImageView.image = user.sex == 1 ? R.image.mine_male() : R.image.mine_female()
         cell?.nicknameLabel.text = user.nickname
         cell?.descLabel.text = user.phone
         cell?.id = user.id

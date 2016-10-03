@@ -41,7 +41,7 @@
  */
 @interface AMapGeoPolygon : AMapSearchObject<NSCopying>
 
-@property (nonatomic, strong) NSArray *points; //!< 坐标集, AMapGeoPoint 数组
+@property (nonatomic, strong) NSArray<AMapGeoPoint *> *points; //!< 坐标集, AMapGeoPoint 数组
 
 + (AMapGeoPolygon *)polygonWithPoints:(NSArray *)points;
 
@@ -254,7 +254,7 @@
 @property (nonatomic, copy)   NSString     *adcode; //!< 区域编码
 @property (nonatomic, copy)   NSString     *name; //!< 公交站名
 @property (nonatomic, copy)   NSString     *citycode; //!< 城市编码
-@property (nonatomic, copy)   AMapGeoPoint *location; //!<经纬度坐标
+@property (nonatomic, copy)   AMapGeoPoint *location; //!< 经纬度坐标
 @property (nonatomic, strong) NSArray<AMapBusLine *> *buslines; //!< 途径此站的公交路线 AMapBusLine 数组
 @property (nonatomic, copy)   NSString *sequence; //!< 查询公交线路时的第几站
 
@@ -361,11 +361,67 @@
 
 @end
 
+/// 出租车信息
+@interface AMapTaxi : AMapSearchObject
+
+@property (nonatomic, copy)   AMapGeoPoint *origin; //!< 起点坐标
+@property (nonatomic, copy)   AMapGeoPoint *destination; //!< 终点坐标
+@property (nonatomic, assign) NSInteger    distance; //!< 距离，单位米
+@property (nonatomic, assign) NSInteger    duration; //!< 耗时，单位秒
+@property (nonatomic, copy)   NSString     *sname; //!< 起点名称
+@property (nonatomic, copy)   NSString     *tname; //!< 终点名称
+
+@end
+
+/// 火车站
+@interface AMapRailwayStation : AMapSearchObject
+
+@property (nonatomic, copy) NSString     *uid; //!< 火车站ID
+@property (nonatomic, copy) NSString     *name; //!< 名称
+@property (nonatomic, copy) AMapGeoPoint *location; //!< 经纬度坐标
+@property (nonatomic, copy) NSString     *adcode; //!< 区域编码
+@property (nonatomic, copy) NSString     *time; //!< 发车、到站时间，途径站时则为进站时间
+@property (nonatomic, assign) NSInteger  wait; //!< 途径站点的停靠时间，单位为分钟
+@property (nonatomic, assign) BOOL       isStart; //!< 是否是始发站，为出发站时有效
+@property (nonatomic, assign) BOOL       isEnd; //!< 是否是终点站，为到达站时有效
+
+@end
+
+/// 火车仓位及价格信息
+@interface AMapRailwaySpace : AMapSearchObject
+
+@property (nonatomic, copy) NSString *code; //!< 类型，硬卧、硬座等
+@property (nonatomic, assign) CGFloat cost; //!< 票价，单位元
+
+@end
+
+/// 火车信息
+@interface AMapRailway : AMapSearchObject
+
+@property (nonatomic, copy) NSString     *uid; //!< 火车线路ID
+@property (nonatomic, copy) NSString     *name; //!< 名称
+@property (nonatomic, copy) NSString     *trip; //!< 车次
+@property (nonatomic, copy) NSString     *type; //!< 类型
+@property (nonatomic, assign) NSInteger  distance; //!< 该换乘段行车总距离，单位为米
+@property (nonatomic, assign) NSInteger  time; //!< 该线路车段耗时，单位为秒
+@property (nonatomic, strong) AMapRailwayStation *departureStation; //!< 出发站
+@property (nonatomic, strong) AMapRailwayStation *arrivalStation; //!< 到达站
+@property (nonatomic, strong) NSArray<AMapRailwaySpace *> *spaces; //!< 仓位及价格信息
+
+// 扩展信息
+@property (nonatomic, strong) NSArray<AMapRailwayStation *> *viaStops; //!< 途径站点信息
+@property (nonatomic, strong) NSArray<AMapRailway *> *alters; //!< 备选路线信息, 目前只有id和name
+
+@end
+
+
 /// 公交换乘路段
 @interface AMapSegment : AMapSearchObject
 
 @property (nonatomic, strong) AMapWalking  *walking; //!< 此路段步行导航信息
 @property (nonatomic, strong) NSArray<AMapBusLine *> *buslines; //!< 此路段可供选择的不同公交线路 AMapBusLine 数组
+@property (nonatomic, strong) AMapTaxi     *taxi; //!< 出租车信息，跨城时有效
+@property (nonatomic, strong) AMapRailway  *railway; //!< 火车信息，跨城时有效
 @property (nonatomic, copy)   NSString     *enterName; //!< 入口名称
 @property (nonatomic, copy)   AMapGeoPoint *enterLocation; //!< 入口经纬度
 @property (nonatomic, copy)   NSString     *exitName; //!< 出口名称

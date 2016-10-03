@@ -70,7 +70,7 @@ struct MapViewModel {
     }
 
     func loadTracks() -> [RaceTrackAnnotation] {
-        return gRealm?.allObjects(ofType: RmRaceTrack.self).sorted(onProperty: "isDeveloped").flatMap { rt in
+        return gRealm?.objects(RmRaceTrack.self).sorted(byProperty: "isDeveloped").flatMap { rt in
             guard let mapCenter = rt.mapCenter else {
                 return nil
             }

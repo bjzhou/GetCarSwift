@@ -23,17 +23,17 @@ class TrackViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        items = gRealm?.allObjects(ofType: RmRaceTrack.self).sorted(onProperty: "isDeveloped", ascending: false).map { $0 } ?? []
+        items = gRealm?.objects(RmRaceTrack.self).sorted(byProperty: "isDeveloped", ascending: false).map { $0 } ?? []
         updatePraises()
     }
 
     func updatePraises() {
-        Praise.getPraiseList().subscribeNext { res in
+        Praise.getPraiseList().subscribe(onNext: { res in
             if let arr = res.dataArray {
                 self.praises = arr
                 self.tableView.reloadData()
             }
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,7 +57,7 @@ class TrackViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.track_item, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.track_item, for: indexPath)
 
         if self.items[(indexPath as NSIndexPath).row].isDeveloped {
 //            cell!.mask?.backgroundColor = UIColor.clear()
@@ -89,12 +89,12 @@ class TrackViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if items[(indexPath as NSIndexPath).row].id == 0 {
-            showViewController(R.storyboard.track.straightMatch!)
+            showViewController(R.storyboard.track.straightMatch()!)
         } else {
             if !items[(indexPath as NSIndexPath).row].isDeveloped {
                 return
             }
-            let vc = R.storyboard.track.track_detail
+            let vc = R.storyboard.track.track_detail()
             var trackDetailViewModel = TrackDetailViewModel()
             trackDetailViewModel.sid = items[(indexPath as NSIndexPath).row].id
             trackDetailViewModel.raceTrack = items[(indexPath as NSIndexPath).row]

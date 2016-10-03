@@ -60,7 +60,7 @@ BLY_START_NONNULL
 /**
  *  设置自定义设备唯一标识
  */
-@property (nonatomic, copy) NSString *deviceId;
+@property (nonatomic, copy) NSString *deviceIdentifier;
 
 /**
  *  卡顿监控开关，默认关闭
@@ -113,6 +113,12 @@ BLY_START_NONNULL
  *  例如，过滤崩溃堆栈中包含搜狗输入法的数据，可以添加过滤器关键字SogouInputIPhone.dylib等
  */
 @property (nonatomic, copy) NSArray * excludeModuleFilter;
+
+/**
+ * 控制台日志上报开关，默认开启
+ */
+@property (nonatomic, assign) BOOL  consolelogEnable;
+
 
 @end
 BLY_END_NONNULL

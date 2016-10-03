@@ -2,7 +2,7 @@
 //  Bugly.h
 //  Bugly
 //
-//  Version: 2.3(1)
+//  Version: 2.4(2)
 //
 //  Copyright (c) 2016年 Bugly. All rights reserved.
 //
@@ -92,7 +92,7 @@ BLY_START_NONNULL
  *
  *  @return 设备ID
  */
-+ (NSString *)deviceId;
++ (NSString *)buglyDeviceId;
 
 /**
  *  上报自定义Objective-C异常

@@ -26,8 +26,8 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
     private var distanceToBottom: CGFloat = 0
 
     //Color variables
-    private var topBarImage = R.image.pages_bg
-    private var buttonsTextColor = UIColor.white()
+    private var topBarImage = R.image.pages_bg()
+    private var buttonsTextColor = UIColor.white
     private var containerViewBackground = UIColor.gaikeBackgroundColor()
 
     //Item size variables
@@ -86,7 +86,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.delaysContentTouches = false
-        scrollView.backgroundColor = UIColor.clear()
+        scrollView.backgroundColor = UIColor.clear
         scrollView.bounces = false
         containerView.addSubview(scrollView)
 
@@ -98,7 +98,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
         if (aeroEffectInTopBar) {
             //Create the blurred visual effect
             //You can choose between ExtraLight, Light and Dark
-            topBar.backgroundColor = UIColor.clear()
+            topBar.backgroundColor = UIColor.clear
             let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = topBar.bounds
@@ -115,7 +115,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             for _ in buttonTitles {
                 var barButton: UIButton!
                 barButton = UIButton(frame: CGRect(x: buttonsXPosition, y: 0, width: containerView.frame.size.width/(CGFloat)(pageViews.count), height: topBarHeight))
-                barButton.backgroundColor = UIColor.clear()
+                barButton.backgroundColor = UIColor.clear
                 barButton.titleLabel!.font = buttonsTextFontAndSize
                 barButton.setTitle(buttonTitles[buttonNumber], for: UIControlState())
                 barButton.setTitleColor(buttonsTextColor, for: UIControlState())
@@ -129,7 +129,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             for item in buttonImages {
                 var barButton: UIButton!
                 barButton = UIButton(frame: CGRect(x: buttonsXPosition, y: 0, width: containerView.frame.size.width/(CGFloat)(pageViews.count), height: topBarHeight))
-                barButton.backgroundColor = UIColor.clear()
+                barButton.backgroundColor = UIColor.clear
                 barButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
                 barButton.setImage(item, for: UIControlState())
                 barButton.tag = buttonNumber
@@ -142,7 +142,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
 
 
         //Set up the animated UIView
-        animatedBar = UIImageView(image: R.image.scroll_bar)
+        animatedBar = UIImageView(image: R.image.scroll_bar())
         animatedBar.frame = CGRect(x: 0, y: topBarHeight - animatedBarHeight + 1, width: (containerView.frame.size.width/(CGFloat)(pageViews.count))*0.8, height: animatedBarHeight)
         animatedBar.center.x = containerView.frame.size.width/(CGFloat)(pageViews.count * 2)
         //animatedBar.backgroundColor = animatedBarColor
@@ -153,7 +153,7 @@ public class SwiftPages: UIView, UIScrollViewDelegate {
             let shadowView = UIView(frame: CGRect(x: 0, y: topBarHeight, width: containerView.frame.size.width, height: 4))
             let gradient: CAGradientLayer = CAGradientLayer()
             gradient.frame = shadowView.bounds
-            gradient.colors = [UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 0.28).cgColor, UIColor.clear().cgColor]
+            gradient.colors = [UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 0.28).cgColor, UIColor.clear.cgColor]
             shadowView.layer.insertSublayer(gradient, at: 0)
             containerView.addSubview(shadowView)
         }

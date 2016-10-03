@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension AttributedString {
-    class func loadHTMLString(_ string: String) -> AttributedString? {
+extension NSAttributedString {
+    class func loadHTMLString(_ string: String) -> NSAttributedString? {
         if let data = string.data(using: String.Encoding.unicode) {
-            return try? AttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+            return try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
         }
         return nil
     }

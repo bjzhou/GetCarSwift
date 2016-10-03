@@ -27,11 +27,11 @@ class LoginViewModel {
         self.phoneText = phoneText
         self.codeText = codeText
 
-        self.phoneText.subscribeNext { _ in
+        self.phoneText.subscribe(onNext: { _ in
             if self.codeEnabled.value == false {
                 self.timerReset()
             }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     func onLoginAction() {
@@ -54,7 +54,7 @@ class LoginViewModel {
                 User.login(phone: phone, code: code)
             }
             .concat()
-            .subscribeNext { res in
+            .subscribe(onNext: { res in
                 guard let user = res.data, user.token.trim() != "" else {
                     if res.code == -25 {
                         self.viewProxy?.showToast("验证码错误")
@@ -72,10 +72,10 @@ class LoginViewModel {
                     Mine.sharedInstance.updateLogin(user)
                     self.viewProxy?.setRootViewController()
                 } else {
-                    let dest = R.storyboard.login.register!
-                    self.viewProxy?.showViewController(dest)
+                    let dest = R.storyboard.login.register()
+                    self.viewProxy?.showViewController(dest!)
                 }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     func onCodeButtonAction() {
@@ -87,13 +87,13 @@ class LoginViewModel {
                     return false
                 }
 
-                self.timerDisposable = Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance).subscribeNext { time in
+                self.timerDisposable = Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance).subscribe(onNext: { time in
                     self.codeEnabled.value = false
                     self.codeTitle.value = String(60-time) + "秒后重新发送"
                     if time == 60 {
                         self.timerReset()
                     }
-                }
+                })
                 return true
             }
             .map { phone in

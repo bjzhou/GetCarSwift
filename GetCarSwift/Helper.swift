@@ -8,7 +8,7 @@
 
 import Foundation
 
-infix operator =? {}
+infix operator =?
 func =?<T> (left: inout T, right: T?) {
     if let r = right {
         left = r

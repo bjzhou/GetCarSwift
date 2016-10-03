@@ -12,12 +12,12 @@ extension UIImageView {
     func updateAvatar(_ uid: String, url: String, tappable: Bool = true, inVC: UIViewController?) {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.frame.width * 0.2
-        self.kf_setImageWithURL(NSURL(string: url)! as URL, placeholderImage: R.image.avatar)
+        self.kf.setImage(with: NSURL(string: url)! as URL, placeholder: R.image.avatar())
         if tappable {
             let tapRecgnizer = UITapGestureRecognizer()
             tapRecgnizer.numberOfTapsRequired = 1
-            _ = tapRecgnizer.rx_event.takeUntil(self.rx_deallocated).subscribeNext { (gr) -> Void in
-                let vc = R.storyboard.friend.friend_profile
+            _ = tapRecgnizer.rx.event.takeUntil(self.rx.deallocated).subscribe(onNext: { (gr) -> Void in
+                let vc = R.storyboard.friend.friend_profile()
                 vc?.hidesBottomBarWhenPushed = true
                 vc?.uid = uid
                 if let nav = inVC?.navigationController {
@@ -26,7 +26,7 @@ extension UIImageView {
                     let nav = UINavigationController(rootViewController: vc!)
                     inVC?.showViewController(nav)
                 }
-            }
+            })
             self.addGestureRecognizer(tapRecgnizer)
             self.isUserInteractionEnabled = true
         }

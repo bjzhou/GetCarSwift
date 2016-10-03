@@ -21,7 +21,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence whose elements are the result of invoking the transform function on each element of source.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func map<R>(_ selector: (E) -> R) -> Driver<R> {
+    public func map<R>(_ selector: @escaping (E) -> R) -> Driver<R> {
         let source = self
             .asObservable()
             .map(selector)
@@ -38,7 +38,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence that contains elements from the input sequence that satisfy the condition.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func filter(_ predicate: (E) -> Bool) -> Driver<E> {
+    public func filter(_ predicate: @escaping (E) -> Bool) -> Driver<E> {
         let source = self
             .asObservable()
             .filter(predicate)
@@ -81,7 +81,7 @@ extension DriverConvertibleType {
      Observable of Observable sequences and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
      */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func flatMapLatest<R>(_ selector: (E) -> Driver<R>)
+    public func flatMapLatest<R>(_ selector: @escaping (E) -> Driver<R>)
         -> Driver<R> {
         let source: Observable<R> = self
             .asObservable()
@@ -101,7 +101,7 @@ extension DriverConvertibleType {
      - returns: An observable sequence whose elements are the result of invoking the one-to-many transform function on each element of the input sequence that was received while no other sequence was being calculated.
      */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func flatMapFirst<R>(_ selector: (E) -> Driver<R>)
+    public func flatMapFirst<R>(_ selector: @escaping (E) -> Driver<R>)
         -> Driver<R> {
         let source: Observable<R> = self
             .asObservable()
@@ -120,10 +120,11 @@ extension DriverConvertibleType {
     - returns: The source sequence with the side-effecting behavior applied.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func doOn(_ eventHandler: (Event<E>) -> Void)
+    @available(*, deprecated, renamed: "do(onNext:onError:onCompleted:)")
+    public func doOn(_ eventHandler: @escaping (Event<E>) -> Void)
         -> Driver<E> {
         let source = self.asObservable()
-            .doOn(eventHandler: eventHandler)
+            .doOn(eventHandler)
         
         return Driver(source)
     }
@@ -137,7 +138,8 @@ extension DriverConvertibleType {
     - returns: The source sequence with the side-effecting behavior applied.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func doOn(_ onNext: ((E) -> Void)? = nil, onError: ((ErrorProtocol) -> Void)? = nil, onCompleted: (() -> Void)? = nil)
+    @available(*, deprecated, renamed: "do(onNext:onError:onCompleted:)")
+    public func doOn(onNext: ((E) -> Void)? = nil, onError: ((Swift.Error) -> Void)? = nil, onCompleted: (() -> Void)? = nil)
         -> Driver<E> {
         let source = self.asObservable()
             .doOn(onNext: onNext, onError: onError, onCompleted: onCompleted)
@@ -152,9 +154,10 @@ extension DriverConvertibleType {
      - returns: The source sequence with the side-effecting behavior applied.
      */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func doOnNext(_ onNext: ((E) -> Void))
+    @available(*, deprecated, renamed: "do(onNext:)")
+    public func doOnNext(_ onNext: @escaping (E) -> Void)
         -> Driver<E> {
-        return self.doOn(onNext)
+            return self.do(onNext: onNext)
     }
 
     /**
@@ -164,9 +167,29 @@ extension DriverConvertibleType {
      - returns: The source sequence with the side-effecting behavior applied.
      */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func doOnCompleted(_ onCompleted: (() -> Void))
+    @available(*, deprecated, renamed: "do(onCompleted:)")
+    public func doOnCompleted(_ onCompleted: @escaping () -> Void)
         -> Driver<E> {
-        return self.doOn(onCompleted: onCompleted)
+            return self.do(onCompleted: onCompleted)
+    }
+
+    /**
+     Invokes an action for each event in the observable sequence, and propagates all observer messages through the result sequence.
+
+     - parameter onNext: Action to invoke for each element in the observable sequence.
+     - parameter onError: Action to invoke upon errored termination of the observable sequence. This callback will never be invoked since driver can't error out.
+     - parameter onCompleted: Action to invoke upon graceful termination of the observable sequence.
+     - parameter onSubscribe: Action to invoke before subscribing to source observable sequence.
+     - parameter onDispose: Action to invoke after subscription to source observable has been disposed for any reason. It can be either because sequence terminates for some reason or observer subscription being disposed.
+     - returns: The source sequence with the side-effecting behavior applied.
+     */
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+    public func `do`(onNext: ((E) -> Void)? = nil, onError: ((Swift.Error) -> Void)? = nil, onCompleted: (() -> Void)? = nil, onSubscribe: (() -> ())? = nil, onDispose: (() -> ())? = nil)
+        -> Driver<E> {
+        let source = self.asObservable()
+            .do(onNext: onNext, onError: onError, onCompleted: onCompleted, onSubscribe: onSubscribe, onDispose: onDispose)
+
+        return Driver(source)
     }
 }
 
@@ -214,7 +237,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence only containing the distinct contiguous elements, based on a computed key value, from the source sequence.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func distinctUntilChanged<K: Equatable>(_ keySelector: (E) -> K) -> Driver<E> {
+    public func distinctUntilChanged<K: Equatable>(_ keySelector: @escaping (E) -> K) -> Driver<E> {
         let source = self.asObservable()
             .distinctUntilChanged(keySelector, comparer: { $0 == $1 })
         return Driver(source)
@@ -227,7 +250,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence only containing the distinct contiguous elements, based on `comparer`, from the source sequence.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func distinctUntilChanged(_ comparer: (lhs: E, rhs: E) -> Bool) -> Driver<E> {
+    public func distinctUntilChanged(_ comparer: @escaping (E, E) -> Bool) -> Driver<E> {
         let source = self.asObservable()
             .distinctUntilChanged({ $0 }, comparer: comparer)
         return Driver(source)
@@ -241,7 +264,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence only containing the distinct contiguous elements, based on a computed key value and the comparer, from the source sequence.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func distinctUntilChanged<K>(_ keySelector: (E) -> K, comparer: (lhs: K, rhs: K) -> Bool) -> Driver<E> {
+    public func distinctUntilChanged<K>(_ keySelector: @escaping (E) -> K, comparer: @escaping (K, K) -> Bool) -> Driver<E> {
         let source = self.asObservable()
             .distinctUntilChanged(keySelector, comparer: comparer)
         return Driver(source)
@@ -259,7 +282,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence whose elements are the result of invoking the one-to-many transform function on each element of the input sequence.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func flatMap<R>(_ selector: (E) -> Driver<R>) -> Driver<R> {
+    public func flatMap<R>(_ selector: @escaping (E) -> Driver<R>) -> Driver<R> {
         let source = self.asObservable()
             .flatMap(selector)
         
@@ -349,7 +372,7 @@ extension DriverConvertibleType {
     - returns: An observable sequence containing the accumulated values.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func scan<A>(_ seed: A, accumulator: (A, E) -> A)
+    public func scan<A>(_ seed: A, accumulator: @escaping (A, E) -> A)
         -> Driver<A> {
         let source = self.asObservable()
             .scan(seed, accumulator: accumulator)
@@ -398,8 +421,8 @@ extension Collection where Iterator.Element : DriverConvertibleType {
     - returns: An observable sequence containing the result of combining elements of the sources using the specified result selector function.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func zip<R>(_ resultSelector: ([Generator.Element.E]) throws -> R) -> Driver<R> {
-        let source = self.map { $0.asDriver().asObservable() }.zip(resultSelector: resultSelector)
+    public func zip<R>(_ resultSelector: @escaping ([Generator.Element.E]) throws -> R) -> Driver<R> {
+        let source = self.map { $0.asDriver().asObservable() }.zip(resultSelector)
         return Driver<R>(source)
     }
 }
@@ -414,8 +437,8 @@ extension Collection where Iterator.Element : DriverConvertibleType {
     - returns: An observable sequence containing the result of combining elements of the sources using the specified result selector function.
     */
     // @warn_unused_result(message:"http://git.io/rxs.uo")
-    public func combineLatest<R>(_ resultSelector: ([Generator.Element.E]) throws -> R) -> Driver<R> {
-        let source = self.map { $0.asDriver().asObservable() }.combineLatest(resultSelector: resultSelector)
+    public func combineLatest<R>(_ resultSelector: @escaping ([Generator.Element.E]) throws -> R) -> Driver<R> {
+        let source = self.map { $0.asDriver().asObservable() }.combineLatest(resultSelector)
         return Driver<R>(source)
     }
 }
@@ -430,7 +453,7 @@ extension DriverConvertibleType {
     - parameter resultSelector: Function to invoke for each element from the self combined with the latest element from the second source, if any.
     - returns: An observable sequence containing the result of combining each element of the self  with the latest element from the second source, if any, using the specified result selector function.
     */
-    public func withLatestFrom<SecondO: DriverConvertibleType, ResultType>(_ second: SecondO, resultSelector: (E, SecondO.E) -> ResultType) -> Driver<ResultType> {
+    public func withLatestFrom<SecondO: DriverConvertibleType, ResultType>(_ second: SecondO, resultSelector: @escaping (E, SecondO.E) -> ResultType) -> Driver<ResultType> {
         let source = self.asObservable()
             .withLatestFrom(second.asDriver(), resultSelector: resultSelector)
 

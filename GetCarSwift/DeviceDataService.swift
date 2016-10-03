@@ -25,7 +25,7 @@ struct GKAcceleration {
 
     func averageA() -> Double {
         let count = Double(latest10.count)
-        let acce = latest10.reduce((0.0, 0.0, 0.0), combine: { ($0.0 + $1.x / count, $0.1 + $1.y / count, $0.2 + $1.z / count) })
+        let acce = latest10.reduce((0.0, 0.0, 0.0), { ($0.0 + $1.x / count, $0.1 + $1.y / count, $0.2 + $1.z / count) })
         return sqrt(acce.0 * acce.0 + acce.1 * acce.1 * acce.2 * acce.2) * 9.81
     }
 }
@@ -72,8 +72,8 @@ class DeviceDataService: NSObject {
             })
         }
 
-        Observable<Int>.timer(0, period: 60, scheduler: MainScheduler.instance).subscribeNext { _ in
-            self.districtService = self.rxLocation.asObservable().subscribeNext { location in
+        Observable<Int>.timer(0, period: 60, scheduler: MainScheduler.instance).subscribe(onNext: { _ in
+            self.districtService = self.rxLocation.asObservable().subscribe(onNext: { location in
                 guard let location = location else {
                     return
                 }
@@ -82,16 +82,18 @@ class DeviceDataService: NSObject {
                 regeoRequest.requireExtension = true
 
                 self.searchApi?.aMapReGoecodeSearch(regeoRequest)
-            }
-            }.addDisposableTo(disposeBag)
+            })
+            }).addDisposableTo(disposeBag)
     }
 }
 
 extension DeviceDataService: AMapSearchDelegate {
     func onReGeocodeSearchDone(_ request: AMapReGeocodeSearchRequest!, response: AMapReGeocodeSearchResponse!) {
-        let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
-        self.rxDistrict.value = "\(response.regeocode.addressComponent.province)\(city)"
-        districtService?.dispose()
+        if let province = response.regeocode.addressComponent.province, province != "" {
+            let city = response.regeocode.addressComponent.city == "" ? response.regeocode.addressComponent.district : response.regeocode.addressComponent.city
+            self.rxDistrict.value = "\(province)\(city)"
+            districtService?.dispose()
+        }
     }
 }
 

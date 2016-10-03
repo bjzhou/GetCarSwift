@@ -36,15 +36,15 @@ class CarInfo: Object, JSONable {
         self.detail = json["car_version"].stringValue
     }
 
-    func fetchParts(_ closure: () -> Void) {
-        _ = CarInfo.getUserCarPart(carUserId).subscribeNext { res in
+    func fetchParts(_ closure: @escaping () -> Void) {
+        _ = CarInfo.getUserCarPart(carUserId).subscribe(onNext: { res in
             guard let parts = res.dataArray else {
                 return
             }
 
             self.parts = parts
             closure()
-        }
+        })
     }
 
     override class func primaryKey() -> String? { return "id" }
@@ -85,11 +85,11 @@ class CarInfo: Object, JSONable {
     }
 
     static func addUserCar(_ carId: Int, number: String = "", username: String = "", year: String = "", version: String = "") -> Observable<GKResult<JSON>> {
-        return GaikeService.sharedInstance.api("car/addUserCar", body: ["car_id": carId, "car_number": number, "car_username": username, "car_year": year, "car_version": version])
+        return GaikeService.sharedInstance.api("car/addUserCar", body: ["car_id": String(carId), "car_number": number, "car_username": username, "car_year": year, "car_version": version])
     }
 
     static func deleteUserCar(_ userCarId: Int) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("car/deleteUserCar", body: ["user_car_id": userCarId])
+        return GaikeService.sharedInstance.api("car/deleteUserCar", body: ["user_car_id": String(userCarId)])
     }
 
     static func getUserCar() -> Observable<GKResult<CarInfo>> {
@@ -97,23 +97,23 @@ class CarInfo: Object, JSONable {
     }
 
     static func updateUserCar(_ userCarId: Int, carId: Int, number: String, username: String, year: String, version: String) -> Observable<GKResult<JSON>> {
-        return GaikeService.sharedInstance.api("car/updateUserCar", body: ["user_car_id": userCarId, "car_id": carId, "car_number": number, "car_username": username, "car_year": year, "car_version": version])
+        return GaikeService.sharedInstance.api("car/updateUserCar", body: ["user_car_id": String(userCarId), "car_id": String(carId), "car_number": String(number), "car_username": username, "car_year": year, "car_version": version])
     }
 
     static func addUserCarPart(_ userCarId: Int, name: String, desc: String, img: UIImage) -> Observable<GKResult<JSON>> {
-        return GaikeService.sharedInstance.upload("car/addUserCarPart", parameters: ["user_car_id": userCarId, "name": name, "desc": desc], datas: ["img": UIImagePNGRepresentation(img)!])
+        return GaikeService.sharedInstance.upload("car/addUserCarPart", parameters: ["user_car_id": String(userCarId), "name": name, "desc": desc], datas: ["img": UIImagePNGRepresentation(img)!])
     }
 
     static func deleteUserCarPart(_ userCarPartId: Int) -> Observable<GKResult<String>> {
-        return GaikeService.sharedInstance.api("car/deleteUserCarPart", body: ["user_car_part_id": userCarPartId])
+        return GaikeService.sharedInstance.api("car/deleteUserCarPart", body: ["user_car_part_id": String(userCarPartId)])
     }
 
     static func getUserCarPart(_ userCarId: Int) -> Observable<GKResult<CarPart>> {
-        return GaikeService.sharedInstance.api("car/getUserCarPart", body: ["user_car_id": userCarId])
+        return GaikeService.sharedInstance.api("car/getUserCarPart", body: ["user_car_id": String(userCarId)])
     }
 
     static func updateUserCarPart(_ userCarPartId: Int, userCarId: Int, name: String, desc: String, img: UIImage) -> Observable<GKResult<JSON>> {
-        return GaikeService.sharedInstance.upload("car/updateUserCarPart", parameters: ["user_car_part_id": userCarPartId, "user_car_id": userCarId, "name": name, "desc": desc], datas: ["img": UIImagePNGRepresentation(img)!])
+        return GaikeService.sharedInstance.upload("car/updateUserCarPart", parameters: ["user_car_part_id": String(userCarPartId), "user_car_id": String(userCarId), "name": name, "desc": desc], datas: ["img": UIImagePNGRepresentation(img)!])
     }
 }
 

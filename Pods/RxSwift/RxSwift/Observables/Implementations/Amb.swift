@@ -14,17 +14,17 @@ enum AmbState {
     case right
 }
 
-class AmbObserver<ElementType, O: ObserverType where O.E == ElementType> : ObserverType {
+class AmbObserver<ElementType, O: ObserverType> : ObserverType where O.E == ElementType {
     typealias Element = ElementType
     typealias Parent = AmbSink<ElementType, O>
     typealias This = AmbObserver<ElementType, O>
     typealias Sink = (This, Event<Element>) -> Void
     
-    private let _parent: Parent
-    private var _sink: Sink
-    private var _cancel: Disposable
+    fileprivate let _parent: Parent
+    fileprivate var _sink: Sink
+    fileprivate var _cancel: Disposable
     
-    init(parent: Parent, cancel: Disposable, sink: Sink) {
+    init(parent: Parent, cancel: Disposable, sink: @escaping Sink) {
 #if TRACE_RESOURCES
         let _ = AtomicIncrement(&resourceCount)
 #endif
@@ -48,13 +48,13 @@ class AmbObserver<ElementType, O: ObserverType where O.E == ElementType> : Obser
     }
 }
 
-class AmbSink<ElementType, O: ObserverType where O.E == ElementType> : Sink<O> {
+class AmbSink<ElementType, O: ObserverType> : Sink<O> where O.E == ElementType {
     typealias Parent = Amb<ElementType>
     typealias AmbObserverType = AmbObserver<ElementType, O>
 
     private let _parent: Parent
     
-    private let _lock = RecursiveLock()
+    private let _lock = NSRecursiveLock()
     // state
     private var _choice = AmbState.neither
     
@@ -66,7 +66,7 @@ class AmbSink<ElementType, O: ObserverType where O.E == ElementType> : Sink<O> {
     func run() -> Disposable {
         let subscription1 = SingleAssignmentDisposable()
         let subscription2 = SingleAssignmentDisposable()
-        let disposeAll = StableCompositeDisposable.create(subscription1, subscription2)
+        let disposeAll = Disposables.create(subscription1, subscription2)
         
         let forwardEvent = { (o: AmbObserverType, event: Event<ElementType>) -> Void in
             self.forwardOn(event)
@@ -106,15 +106,15 @@ class AmbSink<ElementType, O: ObserverType where O.E == ElementType> : Sink<O> {
 }
 
 class Amb<Element>: Producer<Element> {
-    private let _left: Observable<Element>
-    private let _right: Observable<Element>
+    fileprivate let _left: Observable<Element>
+    fileprivate let _right: Observable<Element>
     
     init(left: Observable<Element>, right: Observable<Element>) {
         _left = left
         _right = right
     }
     
-    override func run<O : ObserverType where O.E == Element>(_ observer: O) -> Disposable {
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
         let sink = AmbSink(parent: self, observer: observer)
         sink.disposable = sink.run()
         return sink

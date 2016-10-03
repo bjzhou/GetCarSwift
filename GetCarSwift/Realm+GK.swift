@@ -15,11 +15,11 @@ extension Object {
         var dicProps = [String:AnyObject]()
         for (key, value) in self.dictionaryWithValues(forKeys: properties) {
             if let value = value as? ListBase {
-                dicProps[key] = value.toArray()
+                dicProps[key] = value.toArray() as AnyObject?
             } else if let value = value as? Object {
-                dicProps[key] = value.toDictionary()
+                dicProps[key] = value.toDictionary() as AnyObject?
             } else {
-                dicProps[key] = value
+                dicProps[key] = value as AnyObject?
             }
         }
         return dicProps
@@ -31,7 +31,7 @@ extension ListBase {
         var _toArray = [AnyObject]()
         for i in 0..<self._rlmArray.count {
             let obj = unsafeBitCast(self._rlmArray[i], to: Object.self)
-            _toArray.append(obj.toDictionary())
+            _toArray.append(obj.toDictionary() as AnyObject)
         }
         return _toArray
     }

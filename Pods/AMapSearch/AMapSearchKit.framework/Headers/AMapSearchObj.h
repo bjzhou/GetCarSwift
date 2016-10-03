@@ -246,6 +246,8 @@
 @property (nonatomic, assign) NSInteger strategy;  //!< 公交换乘策略([default = 0])
 
 @property (nonatomic, copy)   NSString *city; //!< 城市, 必填
+@property (nonatomic, copy)   NSString *destinationCity; //!< 目的城市, 跨城时需要填写，否则会出错
+
 @property (nonatomic, assign) BOOL nightflag; //!< 是否包含夜班车，默认为 NO
 @property (nonatomic, assign) BOOL requireExtension; //!< 是否返回扩展信息，默认为 NO
 

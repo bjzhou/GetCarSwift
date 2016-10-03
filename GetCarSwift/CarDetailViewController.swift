@@ -26,7 +26,7 @@ class CarDetailViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        carInfo = gRealm?.allObjects(ofType: CarInfo.self).filter(using: "id = \(id)").first
+        carInfo = gRealm?.objects(CarInfo.self).filter("id = \(id)").first
         if let carInfo = carInfo {
             tableView.reloadData()
             carInfo.fetchParts {
@@ -42,30 +42,30 @@ class CarDetailViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath as NSIndexPath).row == 0 {
-            let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_detail_model, for: indexPath)
-            cell?.logoView.kf_setImageWithURL(URL(string: carInfo?.imageUrl ?? "")!, placeholderImage: defaultImage)
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.car_detail_model, for: indexPath)
+            cell?.logoView.kf.setImage(with: URL(string: carInfo?.imageUrl ?? ""), placeholder: defaultImage)
             cell?.titleLabel.text = carInfo?.model ?? "填写车辆信息"
             return cell!
         }
 
         if (indexPath as NSIndexPath).row == tableView.numberOfRows(inSection: 0) - 1 {
-            let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_detail_add, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.car_detail_add, for: indexPath)
             cell?.addDisposable?.dispose()
-            cell?.addDisposable = cell?.button.rx_tap.subscribeNext {
-                let vc = R.storyboard.mine.add_part
+            cell?.addDisposable = cell?.button.rx.tap.subscribe(onNext: {
+                let vc = R.storyboard.mine.add_part()
                 vc?.id = self.id
                 self.showViewController(vc!)
-            }
+            })
             return cell!
         }
 
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_detail_part, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.car_detail_part, for: indexPath)
         let part = carInfo?.parts[(indexPath as NSIndexPath).row-1]
-        cell?.partImageView.kf_setImageWithURL(URL(string: part?.imageUrl ?? "")!)
+        cell?.partImageView.kf.setImage(with: URL(string: part?.imageUrl ?? "")!)
         cell?.titleLabel.text = part?.title ?? ""
         cell?.detailLabel.text = part?.detail ?? ""
         cell?.delDisposable?.dispose()
-        cell?.delDisposable = cell?.delButton.rx_tap.subscribeNext {
+        cell?.delDisposable = cell?.delButton.rx.tap.subscribe(onNext: {
             let alertVC = UIAlertController(title: "确定要删除该配件吗", message: nil, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "否", style: .cancel, handler: nil))
             alertVC.addAction(UIAlertAction(title: "是", style: .default, handler: { _ in
@@ -76,7 +76,7 @@ class CarDetailViewController: UITableViewController {
                 tableView.reloadData()
             }))
             self.present(alertVC, animated: true, completion: nil)
-        }
+        })
         return cell!
     }
 
@@ -94,12 +94,12 @@ class CarDetailViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath as NSIndexPath).row == 0 {
-            let vc = R.storyboard.mine.add_car
+            let vc = R.storyboard.mine.add_car()
             vc?.id = id
             showViewController(vc!)
         } else if (indexPath as NSIndexPath).row != tableView.numberOfRows(inSection: 0) - 1 {
             if let part = carInfo?.parts[(indexPath as NSIndexPath).row-1] {
-                let vc = R.storyboard.mine.add_part
+                let vc = R.storyboard.mine.add_part()
                 vc?.carPart = part
                 vc?.isNewPart = false
                 showViewController(vc!)

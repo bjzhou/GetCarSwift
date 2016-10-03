@@ -63,11 +63,11 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
                 return
             }
             Mine.sharedInstance.nickname = nickname
-            _ = User.updateInfo(nickname: nickname).subscribeNext { res in
+            _ = User.updateInfo(nickname: nickname).subscribe(onNext: { res in
                 if let user = res.data {
                     Mine.sharedInstance.updateLogin(user)
                 }
-            }
+            })
         default:
             break
         }
@@ -100,18 +100,18 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 cell.textLabel?.text = "女"
             }
-            cell.accessoryView = UIImageView(image: (indexPath as NSIndexPath).row != Mine.sharedInstance.sex ? R.image.accessory_selected : R.image.accessory)
+            cell.accessoryView = UIImageView(image: (indexPath as NSIndexPath).row != Mine.sharedInstance.sex ? R.image.accessory_selected() : R.image.accessory())
         case .Nickname:
             let textField = UITextField(frame: CGRect(x: 8, y: 20, width: cell.frame.width - 16, height: cell.frame.height - 40))
             textField.text = Mine.sharedInstance.nickname
             textField.clearButtonMode = .whileEditing
             textField.becomeFirstResponder()
-            _ = textField.rx_text.takeUntil(self.rx_deallocated).subscribeNext { text in
+            _ = textField.rx.text.takeUntil(self.rx.deallocated).subscribe(onNext: { text in
                 if text.characters.count > 15 {
                     textField.text = text.substring(to: text.characters.index(text.startIndex, offsetBy: 15))
                 }
                 self.nickname = textField.text!
-            }
+            })
             cell.addSubview(textField)
             break
         default:
@@ -124,11 +124,11 @@ class InfoEditViewController: UIViewController, UITableViewDelegate, UITableView
         switch mode {
         case .Sex:
             Mine.sharedInstance.sex = (indexPath as NSIndexPath).row == 1 ? 0 : 1
-            _ = User.updateInfo(sex: indexPath.row == 1 ? 0 : 1).subscribeNext { res in
+            _ = User.updateInfo(sex: indexPath.row == 1 ? 0 : 1).subscribe(onNext: { res in
                 if let user = res.data {
                     Mine.sharedInstance.updateLogin(user)
                 }
-            }
+            })
             tableView.reloadData()
             _ = self.navigationController?.popViewController(animated: true)
         default:

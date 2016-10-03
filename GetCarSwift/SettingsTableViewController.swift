@@ -18,9 +18,9 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         closeDanmu.setOn(UserDefaults.standard.bool(forKey: "closeDanmu"), animated: false)
-        _ = closeDanmu.rx_value.takeUntil(self.rx_deallocated).subscribeNext { on in
+        _ = closeDanmu.rx.value.takeUntil(self.rx.deallocated).subscribe(onNext: { on in
             UserDefaults.standard.set(on, forKey: "closeDanmu")
-        }
+        })
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -29,15 +29,15 @@ class SettingsTableViewController: UITableViewController {
             if (indexPath as NSIndexPath).row == 1 {
                 let alertController = UIAlertController(title: "清除缓存", message: nil, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "确定", style: .default) { _ in
-                    KingfisherManager.sharedManager.cache.clearDiskCache()
+                    KingfisherManager.shared.cache.clearDiskCache()
                     gRealm?.writeOptional {
-                        if let objects = gRealm?.allObjects(ofType: RmScore.self) {
+                        if let objects = gRealm?.objects(RmScore.self) {
                             gRealm?.delete(objects)
                         }
-                        if let objects = gRealm?.allObjects(ofType: RmScoreData.self) {
+                        if let objects = gRealm?.objects(RmScoreData.self) {
                             gRealm?.delete(objects)
                         }
-                        if let objects = gRealm?.allObjects(ofType: CarInfo.self) {
+                        if let objects = gRealm?.objects(CarInfo.self) {
                             gRealm?.delete(objects)
                         }
                     }

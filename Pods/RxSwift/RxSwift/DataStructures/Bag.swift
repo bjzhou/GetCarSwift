@@ -36,7 +36,7 @@ public struct BagKey : Hashable {
 
     public var hashValue: Int {
         if let uniqueIdentity = uniqueIdentity {
-            return hash(key) ^ (unsafeAddress(of: uniqueIdentity).hashValue)
+            return hash(key) ^ (ObjectIdentifier(uniqueIdentity).hashValue)
         }
         else {
             return hash(key)
@@ -66,29 +66,29 @@ public struct Bag<T> : CustomDebugStringConvertible {
     */
     public typealias KeyType = BagKey
     
-    private typealias ScopeUniqueTokenType = Int
+    fileprivate typealias ScopeUniqueTokenType = Int
     
     typealias Entry = (key: BagKey, value: T)
  
-    private var _uniqueIdentity: Identity?
-    private var _nextKey: ScopeUniqueTokenType = 0
+    fileprivate var _uniqueIdentity: Identity?
+    fileprivate var _nextKey: ScopeUniqueTokenType = 0
 
     // data
 
     // first fill inline variables
-    private var _key0: BagKey? = nil
-    private var _value0: T? = nil
+    fileprivate var _key0: BagKey? = nil
+    fileprivate var _value0: T? = nil
 
-    private var _key1: BagKey? = nil
-    private var _value1: T? = nil
+    fileprivate var _key1: BagKey? = nil
+    fileprivate var _value1: T? = nil
 
     // then fill "array dictionary"
-    private var _pairs = ContiguousArray<Entry>()
+    fileprivate var _pairs = ContiguousArray<Entry>()
 
     // last is sparse dictionary
-    private var _dictionary: [BagKey : T]? = nil
+    fileprivate var _dictionary: [BagKey : T]? = nil
 
-    private var _onlyFastPath = true
+    fileprivate var _onlyFastPath = true
 
     /**
     Creates new empty `Bag`.
@@ -224,7 +224,7 @@ extension Bag {
     
     - parameter action: Enumeration closure.
     */
-    public func forEach(_ action: @noescape (T) -> Void) {
+    public func forEach(_ action: (T) -> Void) {
         if _onlyFastPath {
             if let value0 = _value0 {
                 action(value0)
@@ -297,7 +297,15 @@ extension Bag where T: ObserverType {
 /**
 Dispatches `dispose` to all disposables contained inside bag.
 */
+@available(*, deprecated, renamed: "disposeAll(in:)")
 public func disposeAllIn(_ bag: Bag<Disposable>) {
+    disposeAll(in: bag)
+}
+
+/**
+ Dispatches `dispose` to all disposables contained inside bag.
+ */
+public func disposeAll(in bag: Bag<Disposable>) {
     if bag._onlyFastPath {
         bag._value0?.dispose()
         return

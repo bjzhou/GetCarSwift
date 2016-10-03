@@ -34,6 +34,6 @@ struct Nearby: JSONable {
     }
 
     static func map(_ maxCount: Int = 25, maxDistance: Int = 5000) -> Observable<GKResult<Nearby>> {
-        return GaikeService.sharedInstance.api("geo/map", body: ["max_count":maxCount, "max_distance":maxDistance])
+        return GaikeService.sharedInstance.api("geo/map", body: ["max_count":String(maxCount), "max_distance":String(maxDistance)])
     }
 }

@@ -17,22 +17,19 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
     public typealias TimeInterval = Foundation.TimeInterval
     public typealias Time = Date
     
-    private let _queue : DispatchQueue
-    
     public var now : Date {
         return Date()
     }
-    
-    // leeway for scheduling timers
-    private var _leeway: Int64 = 0
+
+    let configuration: DispatchQueueConfiguration
     
     /**
     Constructs new `ConcurrentDispatchQueueScheduler` that wraps `queue`.
     
     - parameter queue: Target dispatch queue.
     */
-    public init(queue: DispatchQueue) {
-        _queue = queue
+    public init(queue: DispatchQueue, leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
+        configuration = DispatchQueueConfiguration(queue: queue, leeway: leeway)
     }
     
     /**
@@ -41,24 +38,17 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
      - parameter globalConcurrentQueueQOS: Target global dispatch queue, by quality of service class.
      */
     @available(iOS 8, OSX 10.10, *)
-    public convenience init(globalConcurrentQueueQOS: DispatchQueueSchedulerQOS) {
-        let priority = globalConcurrentQueueQOS.QOSClass
+    public convenience init(globalConcurrentQueueQOS: DispatchQueueSchedulerQOS, leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
+        let priority = globalConcurrentQueueQOS.qos
         self.init(queue: DispatchQueue(
             label: "rxswift.queue.\(globalConcurrentQueueQOS)",
-            attributes: [priority, DispatchQueueAttributes.concurrent],
-            target: nil)
+            qos: priority,
+            attributes: [DispatchQueue.Attributes.concurrent],
+            target: nil),
+            leeway: leeway
         )
     }
 
-    
-    class func convertTimeIntervalToDispatchInterval(_ timeInterval: Foundation.TimeInterval) -> Int64 {
-        return Int64(timeInterval * Double(NSEC_PER_SEC))
-    }
-    
-    class func convertTimeIntervalToDispatchTime(_ timeInterval: Foundation.TimeInterval) -> DispatchTime {
-        return DispatchTime.now() + Double(convertTimeIntervalToDispatchInterval(timeInterval)) / Double(NSEC_PER_SEC)
-    }
-    
     /**
     Schedules an action to be executed immediatelly.
     
@@ -66,22 +56,8 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
     - parameter action: Action to be executed.
     - returns: The disposable object used to cancel the scheduled action (best effort).
     */
-    public final func schedule<StateType>(_ state: StateType, action: (StateType) -> Disposable) -> Disposable {
-        return self.scheduleInternal(state, action: action)
-    }
-    
-    func scheduleInternal<StateType>(_ state: StateType, action: (StateType) -> Disposable) -> Disposable {
-        let cancel = SingleAssignmentDisposable()
-        
-        _queue.async {
-            if cancel.disposed {
-                return
-            }
-            
-            cancel.disposable = action(state)
-        }
-        
-        return cancel
+    public final func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
+        return self.configuration.schedule(state, action: action)
     }
     
     /**
@@ -92,28 +68,8 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
     - parameter action: Action to be executed.
     - returns: The disposable object used to cancel the scheduled action (best effort).
     */
-    public final func scheduleRelative<StateType>(_ state: StateType, dueTime: Foundation.TimeInterval, action: (StateType) -> Disposable) -> Disposable {
-        
-        let dispatchInterval = MainScheduler.convertTimeIntervalToDispatchTime(dueTime)
-        
-        let compositeDisposable = CompositeDisposable()
-        
-        let timer = DispatchSource.timer(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: _queue)
-        timer.scheduleOneshot(deadline: dispatchInterval, leeway: DispatchTimeInterval.microseconds(0))
-
-        timer.setEventHandler(handler: {
-            if compositeDisposable.disposed {
-                return
-            }
-           let _ = compositeDisposable.addDisposable(action(state))
-        })
-        timer.resume()
-        
-        let _ = compositeDisposable.addDisposable(AnonymousDisposable {
-            timer.cancel()
-            })
-        
-        return compositeDisposable
+    public final func scheduleRelative<StateType>(_ state: StateType, dueTime: Foundation.TimeInterval, action: @escaping (StateType) -> Disposable) -> Disposable {
+        return self.configuration.scheduleRelative(state, dueTime: dueTime, action: action)
     }
     
     /**
@@ -125,29 +81,7 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
     - parameter action: Action to be executed.
     - returns: The disposable object used to cancel the scheduled action (best effort).
     */
-    public func schedulePeriodic<StateType>(_ state: StateType, startAfter: TimeInterval, period: TimeInterval, action: (StateType) -> StateType) -> Disposable {
-        
-    
-        let initial = MainScheduler.convertTimeIntervalToDispatchTime(startAfter)
-        
-        var timerState = state
-        
-        let validDispatchInterval = period < 0.0 ? 0.0 : period
-        
-        let timer = DispatchSource.timer(flags: [], queue: _queue)
-        timer.scheduleRepeating(deadline: initial, interval: validDispatchInterval, leeway: DispatchTimeInterval.microseconds(0))
-        
-        let cancel = AnonymousDisposable {
-            timer.cancel()
-        }
-        timer.setEventHandler(handler: {
-            if cancel.disposed {
-                return
-            }
-            timerState = action(timerState)
-        })
-        timer.resume()
-        
-        return cancel
+    public func schedulePeriodic<StateType>(_ state: StateType, startAfter: TimeInterval, period: TimeInterval, action: @escaping (StateType) -> StateType) -> Disposable {
+        return self.configuration.schedulePeriodic(state, startAfter: startAfter, period: period, action: action)
     }
 }

@@ -25,21 +25,21 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
 
         myAvatar.layer.masksToBounds = true
         myAvatar.layer.cornerRadius = 10
-        myAvatar.layer.borderColor = UIColor.white().cgColor
+        myAvatar.layer.borderColor = UIColor.white.cgColor
         myAvatar.layer.borderWidth = 2
 
         let tapRecgnizer = UITapGestureRecognizer()
         tapRecgnizer.numberOfTapsRequired = 1
-        tapRecgnizer.rx_event.subscribeNext { (gr) -> Void in
-            self.showViewController(R.storyboard.mine.bg_choice!)
-            }.addDisposableTo(disposeBag)
+        tapRecgnizer.rx.event.subscribe(onNext: { (gr) -> Void in
+            self.showViewController(R.storyboard.mine.bg_choice()!)
+            }).addDisposableTo(disposeBag)
         homepageBg.addGestureRecognizer(tapRecgnizer)
 
         let tapRecgnizer2 = UITapGestureRecognizer()
         tapRecgnizer2.numberOfTapsRequired = 1
-        tapRecgnizer2.rx_event.subscribeNext { (gr) -> Void in
+        tapRecgnizer2.rx.event.subscribe(onNext: { (gr) -> Void in
             self.showImagePickerAlertView()
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         myAvatar.addGestureRecognizer(tapRecgnizer2)
     }
 
@@ -47,16 +47,16 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         super.viewWillAppear(animated)
 
         Mine.sharedInstance.setAvatarImage(myAvatar)
-        sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female : R.image.mine_male
+        sexImage.image = Mine.sharedInstance.sex == 0 ? R.image.mine_female() : R.image.mine_male()
         nickname.text = Mine.sharedInstance.nickname
-        DeviceDataService.sharedInstance.rxDistrict.asObservable().subscribeNext {str in
+        DeviceDataService.sharedInstance.rxDistrict.asObservable().subscribe(onNext: {str in
             self.position.text = str
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
 
         let userDefaults = UserDefaults.standard
         let index = userDefaults.integer(forKey: "homepage_bg")
         if index == 1000 {
-            KingfisherManager.sharedManager.cache.retrieveImageForKey("homepage_bg", options: []) { image, _ in
+            KingfisherManager.shared.cache.retrieveImage(forKey: "homepage_bg", options: []) { image, _ in
                 self.homepageBg.image = image
             }
         } else {
@@ -95,16 +95,16 @@ class MineViewController: UITableViewController, UIImagePickerControllerDelegate
         }
         present(alertController, animated: true, completion: nil)
     }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let avatarImage = image.scaleImage(size: CGSize(width: 254, height: 254))
-            User.uploadHeader(avatarImage).subscribeNext { gkResult in
+            User.uploadHeader(avatarImage).subscribe(onNext: { gkResult in
                 if let user = gkResult.data {
                     Mine.sharedInstance.updateLogin(user)
                     Mine.sharedInstance.setAvatarImage(self.myAvatar)
                 }
-                }.addDisposableTo(disposeBag)
+                }).addDisposableTo(disposeBag)
             dismiss(animated: true, completion: {_ in
                 Mine.sharedInstance.setAvatarImage(self.myAvatar)
             })

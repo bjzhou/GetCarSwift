@@ -37,7 +37,7 @@ extension UIImage {
         return image!
     }
 
-    class func asyncInit(_ name: String, closure: (UIImage?) -> ()) {
+    class func asyncInit(_ name: String, closure: @escaping (UIImage?) -> ()) {
         async(serial: true) {
             let img = UIImage(named: name)
             main {

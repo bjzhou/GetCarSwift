@@ -31,19 +31,19 @@ final public class PublishSubject<Element>
         return _observers.count > 0
     }
     
-    private var _lock = RecursiveLock()
+    private var _lock = NSRecursiveLock()
     
     // state
-    private var _disposed = false
+    private var _isDisposed = false
     private var _observers = Bag<AnyObserver<Element>>()
     private var _stopped = false
     private var _stoppedEvent = nil as Event<Element>?
     
     /**
-    Indicates whether the subject has been disposed.
+    Indicates whether the subject has been isDisposed.
     */
-    public var disposed: Bool {
-        return _disposed
+    public var isDisposed: Bool {
+        return _isDisposed
     }
     
     /**
@@ -66,7 +66,7 @@ final public class PublishSubject<Element>
     func _synchronized_on(_ event: Event<E>) {
         switch event {
         case .next(_):
-            if _disposed || _stopped {
+            if _isDisposed || _stopped {
                 return
             }
             
@@ -87,20 +87,20 @@ final public class PublishSubject<Element>
     - parameter observer: Observer to subscribe to the subject.
     - returns: Disposable object that can be used to unsubscribe the observer from the subject.
     */
-    public override func subscribe<O : ObserverType where O.E == Element>(_ observer: O) -> Disposable {
+    public override func subscribe<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
         _lock.lock(); defer { _lock.unlock() }
         return _synchronized_subscribe(observer)
     }
 
-    func _synchronized_subscribe<O : ObserverType where O.E == E>(_ observer: O) -> Disposable {
+    func _synchronized_subscribe<O : ObserverType>(_ observer: O) -> Disposable where O.E == E {
         if let stoppedEvent = _stoppedEvent {
             observer.on(stoppedEvent)
-            return NopDisposable.instance
+            return Disposables.create()
         }
         
-        if _disposed {
+        if _isDisposed {
             observer.on(.error(RxError.disposed(object: self)))
-            return NopDisposable.instance
+            return Disposables.create()
         }
         
         let key = _observers.insert(observer.asObserver())
@@ -132,7 +132,7 @@ final public class PublishSubject<Element>
     }
 
     final func _synchronized_dispose() {
-        _disposed = true
+        _isDisposed = true
         _observers.removeAll()
         _stoppedEvent = nil
     }

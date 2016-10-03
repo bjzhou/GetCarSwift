@@ -21,7 +21,7 @@ let gRealm: Realm? = {
 extension Realm {
     func writeOptional(_ closure: () -> Void) {
         do {
-            try self.write(block: closure)
+            try self.write(closure)
         } catch(let err) {
             RmLog.e("Realm write Error: \(err)")
         }

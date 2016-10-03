@@ -34,7 +34,7 @@ class CommonTableViewCell: UITableViewCell {
     }
 
     func customInit() {
-        accessoryView = UIImageView(image: R.image.arrow)
+        accessoryView = UIImageView(image: UIImage(named: "arrow"))
     }
 
 }

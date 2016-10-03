@@ -25,16 +25,16 @@ class MapTrackViewController: UIViewController {
 
         trackTitleLabel.text = raceTrack?.name ?? ""
         trackAddressButton.setTitle(raceTrack?.address ?? "", for: UIControlState())
-        closeButton.rx_tap.subscribeNext {
+        closeButton.rx.tap.subscribe(onNext: {
             self.dismissPopupViewController(animated: true)
             if let parent = self.parent as? PopupViewController, let sender = parent.sender as? MapViewController {
                 sender.mapView.centerCoordinate = sender.centerCoordinate
                 sender.mapView.setZoomLevel(sender.zoomLevel, animated: true)
             }
-        }.addDisposableTo(disposeBag)
-        gotoTrackButton.rx_tap.subscribeNext {
+        }).addDisposableTo(disposeBag)
+        gotoTrackButton.rx.tap.subscribe(onNext: {
             if self.raceTrack?.isDeveloped ?? false {
-                let vc = R.storyboard.gkbox.track_timer
+                let vc = R.storyboard.gkbox.track_timer()
                 vc!.raceTrack =? self.raceTrack
                 if let parent = self.parent as? PopupViewController, let sender = parent.sender as? UIViewController {
                     self.dismissPopupViewController(animated: true) {
@@ -50,34 +50,34 @@ class MapTrackViewController: UIViewController {
                     }
                 }
             }
-        }.addDisposableTo(disposeBag)
-        trackAddressButton.rx_tap.subscribeNext {
+        }).addDisposableTo(disposeBag)
+        trackAddressButton.rx.tap.subscribe(onNext: {
             let name = self.raceTrack?.name.encodedUrlString ?? ""
             let address = self.raceTrack?.address.encodedUrlString ?? ""
             let lat = self.raceTrack?.mapCenter?.latitude ?? 0
             let long = self.raceTrack?.mapCenter?.longitude ?? 0
             let gaodeUrl = "iosamap://viewMap?sourceApplication=\(productName!.encodedUrlString)&poiname=\(name)&lat=\(lat)&lon=\(long)&dev=0"
-            if UIApplication.shared().canOpenURL(NSURL(string: gaodeUrl)! as URL) {
-                UIApplication.shared().openURL(NSURL(string: gaodeUrl)! as URL)
+            if UIApplication.shared.canOpenURL(NSURL(string: gaodeUrl)! as URL) {
+                UIApplication.shared.openURL(NSURL(string: gaodeUrl)! as URL)
             } else {
                 let src = "\(bundleId!)|\(productName!)".encodedUrlString
                 let baiduUrl = "baidumap://map/geocoder?address=\(address)&src=\(src)"
-                if UIApplication.shared().canOpenURL(NSURL(string: baiduUrl)! as URL) {
-                    UIApplication.shared().openURL(NSURL(string: baiduUrl)! as URL)
+                if UIApplication.shared.canOpenURL(NSURL(string: baiduUrl)! as URL) {
+                    UIApplication.shared.openURL(NSURL(string: baiduUrl)! as URL)
                 } else {
-                    UIApplication.shared().openURL(NSURL(string: "http://maps.apple.com/?ll=\(lat),\(long)")! as URL)
+                    UIApplication.shared.openURL(NSURL(string: "http://maps.apple.com/?ll=\(lat),\(long)")! as URL)
                 }
             }
-        }.addDisposableTo(disposeBag)
-        trackIntroButton.rx_tap.subscribeNext {
-            let vc = R.storyboard.gkbox.track_intro
+        }).addDisposableTo(disposeBag)
+        trackIntroButton.rx.tap.subscribe(onNext: {
+            let vc = R.storyboard.gkbox.track_intro()
             vc!.raceTrack =? self.raceTrack
             if let parent = self.parent as? PopupViewController, let sender = parent.sender as? UIViewController {
                 self.dismissPopupViewController(animated: true) {
                     sender.showViewController(vc!)
                 }
             }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
 }

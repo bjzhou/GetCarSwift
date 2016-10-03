@@ -51,10 +51,10 @@ class AddPlayerTableViewController: UITableViewController {
 
     func updateScore() {
 
-        localBest = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = \(sid)").sorted(onProperty: "score").map { $0 } ?? []
-        localNewest = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = \(sid)").sorted(onProperty: "createdAt", ascending: false).map { $0 } ?? []
-        cars = gRealm?.allObjects(ofType: CarInfo.self).map { $0 } ?? []
-        tracks = gRealm?.allObjects(ofType: RmRaceTrack.self).filter { $0.isDeveloped } ?? []
+        localBest = gRealm?.objects(RmScore.self).filter("mapType = \(sid)").sorted(byProperty: "score").map { $0 } ?? []
+        localNewest = gRealm?.objects(RmScore.self).filter("mapType = \(sid)").sorted(byProperty: "createdAt", ascending: false).map { $0 } ?? []
+        cars = gRealm?.objects(CarInfo.self).map { $0 } ?? []
+        tracks = gRealm?.objects(RmRaceTrack.self).filter { $0.isDeveloped } ?? []
 
         tableView.reloadData()
     }
@@ -64,7 +64,7 @@ class AddPlayerTableViewController: UITableViewController {
 
         if mode == .Car && cars.count == 0 {
             loaded = false
-            _ = CarInfo.getUserCar().subscribeNext { res in
+            _ = CarInfo.getUserCar().subscribe(onNext: { res in
                 guard let cars = res.dataArray else {
                     return
                 }
@@ -76,7 +76,7 @@ class AddPlayerTableViewController: UITableViewController {
                     gRealm?.add(cars)
                 }
                 self.updateScore()
-            }
+            })
         } else if mode == .Myself && localNewest.count == 0 {
             loaded = false
             getTotalRecord()
@@ -85,7 +85,7 @@ class AddPlayerTableViewController: UITableViewController {
     }
 
     func getTotalRecord() {
-        _ = Records.getRecord(self.sid, count: 50).subscribeNext { res in
+        _ = Records.getRecord(self.sid, count: 50).subscribe(onNext: { res in
             self.loaded = true
             guard let data = res.data else {
                 return
@@ -107,18 +107,18 @@ class AddPlayerTableViewController: UITableViewController {
             }
             self.indicator.stopAnimating()
             self.tableView.reloadData()
-        }
+        })
     }
 
     func getFollowRecord() {
-        _ = Records.getFollowRecord(self.sid, count: 50).subscribeNext(doOnGetRecord)
+        _ = Records.getFollowRecord(self.sid, count: 50).subscribe(onNext: doOnGetRecord)
     }
 
     func getWeekRecord() {
-        _ = Records.getTimeRecord(self.sid, time: "week", count: 50).subscribeNext(doOnGetRecord)
+        _ = Records.getTimeRecord(self.sid, time: "week", count: 50).subscribe(onNext: doOnGetRecord)
     }
     func getMonthRecord() {
-        _ = Records.getTimeRecord(self.sid, time: "month", count: 50).subscribeNext(doOnGetRecord)
+        _ = Records.getTimeRecord(self.sid, time: "month", count: 50).subscribe(onNext: doOnGetRecord)
     }
 
     func doOnGetRecord(_ res: GKResult<Records>) {
@@ -206,11 +206,11 @@ class AddPlayerTableViewController: UITableViewController {
 
             cell?.medalImageView.isHidden = false
             if (indexPath as NSIndexPath).row == 0 {
-                cell?.medalImageView.image = R.image.gold_medal
+                cell?.medalImageView.image = R.image.gold_medal()
             } else if (indexPath as NSIndexPath).row == 1 {
-                cell?.medalImageView.image = R.image.silver_medal
+                cell?.medalImageView.image = R.image.silver_medal()
             } else if (indexPath as NSIndexPath).row == 2 {
-                cell?.medalImageView.image = R.image.bronze_medal
+                cell?.medalImageView.image = R.image.bronze_medal()
             } else {
                 cell?.medalImageView.isHidden = true
             }
@@ -296,10 +296,10 @@ class AddPlayerTableViewController: UITableViewController {
 
     func addSubViews() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 48))
-        view.backgroundColor = UIColor.white()
+        view.backgroundColor = UIColor.white
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(R.image.backbutton, for: UIControlState())
+        button.setBackgroundImage(R.image.backbutton(), for: UIControlState())
         button.addTarget(self, action: #selector(AddPlayerTableViewController.didBackAction), for: .touchUpInside)
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false

@@ -34,7 +34,7 @@ class TrackTimerViewController: UIViewController {
         updateScore()
 
         passFlag = false
-        DeviceDataService.sharedInstance.rxAcceleration.asObservable().subscribeNext { acces in
+        DeviceDataService.sharedInstance.rxAcceleration.asObservable().subscribe(onNext: { acces in
             guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
                 return
             }
@@ -62,9 +62,9 @@ class TrackTimerViewController: UIViewController {
                         RmLog.d("score: \(score)")
                         RmLog.d("score data: \(data)")
                         RmLog.d("uploading data to server...")
-                        Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribeNext { res in
+                        Records.uploadRecord(rmscore.mapType, duration: rmscore.score, recordData: rmscore.archive()).subscribe(onNext: { res in
                             RmLog.d("uploading result: \(res.code), \(res.msg)")
-                            }.addDisposableTo(self.disposeBag)
+                            }).addDisposableTo(self.disposeBag)
                         gRealm?.writeOptional {
                             gRealm?.add(rmscore)
                         }
@@ -96,15 +96,15 @@ class TrackTimerViewController: UIViewController {
                     RmLog.d("leaving...")
                 }
             }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     func startTimer() {
         stopTimer()
-        UIApplication.shared().isIdleTimerDisabled = true
+        UIApplication.shared.isIdleTimerDisabled = true
         self.data.removeAll()
         RmLog.d("start timer")
-        timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { t in
+        timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribe(onNext: { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
@@ -123,11 +123,11 @@ class TrackTimerViewController: UIViewController {
             } else {
                 self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s, "lat": loc.coordinate.latitude, "long": loc.coordinate.longitude]))
             }
-        }
+        })
     }
 
     func stopTimer() {
-        UIApplication.shared().isIdleTimerDisabled = false
+        UIApplication.shared.isIdleTimerDisabled = false
         timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
         passFlag = false
@@ -143,10 +143,10 @@ class TrackTimerViewController: UIViewController {
 
     func updateScore() {
         RmLog.d("update score")
-        let scores = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = \(raceTrack.id)")
+        let scores = gRealm?.objects(RmScore.self).filter("mapType = \(raceTrack.id)")
 
         if scores?.count == 0 {
-            Records.getRecord(raceTrack.id, count: 3).subscribeNext { res in
+            Records.getRecord(raceTrack.id, count: 3).subscribe(onNext: { res in
                 guard let r = res.data else {
                     return
                 }
@@ -164,23 +164,23 @@ class TrackTimerViewController: UIViewController {
                     }
                     self.updateScore()
                 }
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
             return
         }
 
-        let latests = scores?.sorted(onProperty: "createdAt", ascending: false)
-        if latests?.count > 0 {
+        let latests = scores?.sorted(byProperty: "createdAt", ascending: false)
+        if latests?.count ?? 0 > 0 {
             scoreLastest1Label.text = time2String(latests![0].score)
         }
-        if latests?.count > 1 {
+        if latests?.count ?? 0 > 1 {
             scoreLastest2Label.text = time2String(latests![1].score)
         }
-        if latests?.count > 2 {
+        if latests?.count ?? 0 > 2 {
             scoreLastest3Label.text = time2String(latests![2].score)
         }
 
-        let best = scores?.sorted(onProperty: "score")
-        if best?.count > 0 {
+        let best = scores?.sorted(byProperty: "score")
+        if best?.count ?? 0 > 0 {
             scoreBestLabel.text = time2String(best![0].score)
         }
     }

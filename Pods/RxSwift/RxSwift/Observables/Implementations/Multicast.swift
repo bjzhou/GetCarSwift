@@ -30,12 +30,12 @@ class MulticastSink<S: SubjectType, O: ObserverType>: Sink<O>, ObserverType {
             let subscription = observable.subscribe(self)
             let connection = connectable.connect()
                 
-            return BinaryDisposable(subscription, connection)
+            return Disposables.create(subscription, connection)
         }
         catch let e {
             forwardOn(.error(e))
             dispose()
-            return NopDisposable.instance
+            return Disposables.create()
         }
     }
     
@@ -53,17 +53,17 @@ class Multicast<S: SubjectType, R>: Producer<R> {
     typealias SubjectSelectorType = () throws -> S
     typealias SelectorType = (Observable<S.E>) throws -> Observable<R>
     
-    private let _source: Observable<S.SubjectObserverType.E>
-    private let _subjectSelector: SubjectSelectorType
-    private let _selector: SelectorType
+    fileprivate let _source: Observable<S.SubjectObserverType.E>
+    fileprivate let _subjectSelector: SubjectSelectorType
+    fileprivate let _selector: SelectorType
     
-    init(source: Observable<S.SubjectObserverType.E>, subjectSelector: SubjectSelectorType, selector: SelectorType) {
+    init(source: Observable<S.SubjectObserverType.E>, subjectSelector: @escaping SubjectSelectorType, selector: @escaping SelectorType) {
         _source = source
         _subjectSelector = subjectSelector
         _selector = selector
     }
     
-    override func run<O: ObserverType where O.E == R>(_ observer: O) -> Disposable {
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == R {
         let sink = MulticastSink(parent: self, observer: observer)
         sink.disposable = sink.run()
         return sink

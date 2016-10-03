@@ -77,7 +77,7 @@ class ShareScoreViewController: UIViewController {
     }
 
     func shareToWechat(_ scene: Int32) {
-        _ = Share.getShareTitle(self.scoreValues[1], userCarId: self.carInfo.carUserId).subscribeNext { res in
+        _ = Share.getShareTitle(self.scoreValues[1], userCarId: self.carInfo.carUserId).subscribe(onNext: { res in
             guard let share = res.data else {
                 return
             }
@@ -85,18 +85,18 @@ class ShareScoreViewController: UIViewController {
             let msg = WXMediaMessage()
             msg.title = share.title
             msg.description = share.desc
-            msg.setThumbImage(R.image.app_icon!)
+            msg.setThumbImage(R.image.app_icon()!)
             let mediaObject = WXWebpageObject()
-            mediaObject.webpageUrl = self.share.getShareUrl().urlString
+            mediaObject.webpageUrl = self.share.getShareUrl().absoluteString
             msg.mediaObject = mediaObject
             req.message = msg
             req.bText = false
             req.scene = scene
             WXApi.send(req)
-        }
+        })
     }
 
-    func uploadShare(_ succeed: () -> Void) {
+    func uploadShare(_ succeed: @escaping () -> Void) {
         if share.id == "" {
             Toast.makeToastActivity()
             var liushikm: String? = nil
@@ -107,13 +107,13 @@ class ShareScoreViewController: UIViewController {
             }
             let maxa = self.score.data.map { $0 }.sorted { $0.0.a > $0.1.a }.first?.a ?? 0
             let maxv = self.score.data.map { $0 }.sorted { $0.0.v > $0.1.v }.first?.v ?? 0
-            _ = Share.uploadShare(self.scoreValues[1], liushikm: liushikm, yibaikm: yibaikm, maxa: String(maxa), maxv: String(maxv), title: selectedTrack.name, userCarId: self.carInfo.carUserId, carDesc: self.carInfo.detail).subscribeNext { (res) -> Void in
+            _ = Share.uploadShare(self.scoreValues[1], liushikm: liushikm, yibaikm: yibaikm, maxa: String(maxa), maxv: String(maxv), title: selectedTrack.name, userCarId: self.carInfo.carUserId, carDesc: self.carInfo.detail).subscribe(onNext: { (res) -> Void in
                 if let share = res.data {
                     Toast.hideToastActivity()
                     self.share = share
                     succeed()
                 }
-            }
+            })
         } else {
             succeed()
         }
@@ -128,11 +128,11 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath as NSIndexPath).row <= 2 {
-            let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.share_score, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.share_score, for: indexPath)
             cell?.scoreTitleLabel.text = scoreTitles[(indexPath as NSIndexPath).row]
             cell?.scoreLabel.text = scoreValues[(indexPath as NSIndexPath).row]
             cell?.addDisposable?.dispose()
-            cell?.addDisposable = cell?.addButton.rx_tap.subscribeNext {
+            cell?.addDisposable = cell?.addButton.rx.tap.subscribe(onNext: {
                 let addViewController = AddPlayerTableViewController()
                 addViewController.delegate = self
                 switch indexPath.row {
@@ -149,14 +149,14 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
                 addViewController.view.frame = CGRect(x: 0, y: 0, width: 275, height: 380)
                 let popupViewController = PopupViewController(rootViewController: addViewController)
                 self.present(popupViewController, animated: false, completion: nil)
-            }
+            })
             return cell!
         }
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.share_part, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.share_part, for: indexPath)
         let part = carInfo.parts[indexPath.row - 3]
         cell?.partTitleLabel.text = part.title
         cell?.partDetailLabel.text = part.detail
-        cell?.partImageView.kf_setImageWithURL(URL(string: part.imageUrl)!)
+        cell?.partImageView.kf.setImage(with: URL(string: part.imageUrl)!)
         return cell!
     }
 
@@ -171,7 +171,7 @@ extension ShareScoreViewController: UITableViewDelegate, UITableViewDataSource, 
         tableView.deselectRow(at: indexPath, animated: true)
 
         if (indexPath as NSIndexPath).row > 2 {
-            let vc = R.storyboard.mine.car_detail
+            let vc = R.storyboard.mine.car_detail()
             vc?.id = carInfo.id
             showViewController(vc!)
         }

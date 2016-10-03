@@ -15,7 +15,7 @@ import Foundation
 
 extension ViewProxy {
     func setRootViewController() {
-        UIApplication.shared().keyWindow?.rootViewController = R.storyboard.main.initialViewController
+        UIApplication.shared.keyWindow?.rootViewController = R.storyboard.main.instantiateInitialViewController()
     }
 }
 

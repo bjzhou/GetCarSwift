@@ -58,9 +58,9 @@ class DataViewController: UIViewController {
         initPages()
 
         let signalViews = [signalView1, signalView2, signalView3, signalView4, signalView5]
-        let noSignalImages = [R.image.no_signal_1, R.image.no_signal_2, R.image.no_signal_3, R.image.no_signal_4, R.image.no_signal_5]
-        let signalImages = [R.image.signal_1, R.image.signal_2, R.image.signal_3, R.image.signal_4, R.image.signal_5]
-        DeviceDataService.sharedInstance.rxLocation.asObservable().subscribeNext { loc in
+        let noSignalImages = [R.image.no_signal_1(), R.image.no_signal_2(), R.image.no_signal_3(), R.image.no_signal_4(), R.image.no_signal_5()]
+        let signalImages = [R.image.signal_1(), R.image.signal_2(), R.image.signal_3(), R.image.signal_4(), R.image.signal_5()]
+        DeviceDataService.sharedInstance.rxLocation.asObservable().subscribe(onNext: { loc in
             if let loc = loc {
                 for i in 0...4 {
                     signalViews[i]?.image = signalImages[i]
@@ -82,9 +82,9 @@ class DataViewController: UIViewController {
                     signalViews[i]?.image = noSignalImages[i]
                 }
             }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
 
-        DeviceDataService.sharedInstance.rxAcceleration.asObservable().subscribeNext { acces in
+        DeviceDataService.sharedInstance.rxAcceleration.asObservable().subscribe(onNext: { acces in
             guard let loc = DeviceDataService.sharedInstance.rxLocation.value else {
                 return
             }
@@ -98,7 +98,7 @@ class DataViewController: UIViewController {
                 self.ready = true
                 self.timeLabel.text = "00:00.00"
             }
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     func initPages() {
@@ -240,18 +240,18 @@ class DataViewController: UIViewController {
     }
 
     func updateScore() {
-        let v60s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 1001")
-        let v100s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 1002")
-        let s400s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 0")
-        let v200s = gRealm?.allObjects(ofType: RmScore.self).filter(using: "mapType = 1004")
-        self.latestScores[0] =? v60s?.sorted(onProperty: "createdAt").last?.score
-        self.bestScores[0] =? v60s?.sorted(onProperty: "score").first?.score
-        self.latestScores[1] =? v100s?.sorted(onProperty: "createdAt").last?.score
-        self.bestScores[1] =? v100s?.sorted(onProperty: "score").first?.score
-        self.latestScores[2] =? v200s?.sorted(onProperty: "createdAt").last?.score
-        self.bestScores[2] =? v200s?.sorted(onProperty: "score").first?.score
-        self.latestScores[3] =? s400s?.sorted(onProperty: "createdAt").last?.score
-        self.bestScores[3] =? s400s?.sorted(onProperty: "score").first?.score
+        let v60s = gRealm?.objects(RmScore.self).filter("mapType = 1001")
+        let v100s = gRealm?.objects(RmScore.self).filter("mapType = 1002")
+        let s400s = gRealm?.objects(RmScore.self).filter("mapType = 0")
+        let v200s = gRealm?.objects(RmScore.self).filter("mapType = 1004")
+        self.latestScores[0] =? v60s?.sorted(byProperty: "createdAt").last?.score
+        self.bestScores[0] =? v60s?.sorted(byProperty: "score").first?.score
+        self.latestScores[1] =? v100s?.sorted(byProperty: "createdAt").last?.score
+        self.bestScores[1] =? v100s?.sorted(byProperty: "score").first?.score
+        self.latestScores[2] =? v200s?.sorted(byProperty: "createdAt").last?.score
+        self.bestScores[2] =? v200s?.sorted(byProperty: "score").first?.score
+        self.latestScores[3] =? s400s?.sorted(byProperty: "createdAt").last?.score
+        self.bestScores[3] =? s400s?.sorted(byProperty: "score").first?.score
 
         if v60s?.count == 0 {
             updateFromNet(1001)
@@ -275,7 +275,7 @@ class DataViewController: UIViewController {
     }
 
     func updateFromNet(_ mapType: Int) {
-        Records.getRecord(mapType, count: 1).subscribeNext { res in
+        Records.getRecord(mapType, count: 1).subscribe(onNext: { res in
             guard let r = res.data else {
                 return
             }
@@ -292,18 +292,18 @@ class DataViewController: UIViewController {
                 }
                 self.updateScore()
             }
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
 
     func startTimer() {
-        UIApplication.shared().isIdleTimerDisabled = true
+        UIApplication.shared.isIdleTimerDisabled = true
         self.data.removeAll()
         self.keyTime.removeAll()
         self.ready = false
         self.wrongScore = false
         self.latestScores = [-1.0, -1.0, -1.0, -1.0]
         timerDisposable?.dispose()
-        timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { t in
+        timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribe(onNext: { t in
             let curTs = self.time2String(Double(t)/100)
             self.timeLabel.text = curTs
 
@@ -347,9 +347,9 @@ class DataViewController: UIViewController {
                     score.mapType = 0
                     score.score = self.latestScores[3]
                     score.data = data
-                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribe(onNext: { res in
                         RmLog.v("upload \(score)")
-                        }.addDisposableTo(self.disposeBag)
+                        }).addDisposableTo(self.disposeBag)
                     gRealm?.writeOptional {
                         gRealm?.add(score)
                     }
@@ -358,7 +358,7 @@ class DataViewController: UIViewController {
 
             if v >= 60 && prevData.v < 60 && prevData.v >= 0.5 && !self.wrongScore {
                 self.keyTime["60"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 60)
-                if self.keyTime["60"] < 1.2 {
+                if self.keyTime["60"] ?? 0 < 1.2 {
                     self.wrongScore = true
                 }
                 if self.latestScores[0] == -1 {
@@ -372,9 +372,9 @@ class DataViewController: UIViewController {
                     score.mapType = 1001
                     score.score = self.latestScores[0]
                     score.data = data
-                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribe(onNext: { res in
                         RmLog.v("upload \(score)")
-                        }.addDisposableTo(self.disposeBag)
+                        }).addDisposableTo(self.disposeBag)
                     gRealm?.writeOptional {
                         gRealm?.add(score)
                     }
@@ -383,7 +383,7 @@ class DataViewController: UIViewController {
 
             if v >= 100 && prevData.v < 100 && prevData.v >= 40 && !self.wrongScore {
                 self.keyTime["100"] = self.fixScore(Double(t)/100, dataList: self.data, v: v, expectV: 100)
-                if self.keyTime["100"] < 2.5 {
+                if self.keyTime["100"] ?? 0 < 2.5 {
                     self.wrongScore = true
                 }
                 if self.latestScores[1] == -1 {
@@ -397,9 +397,9 @@ class DataViewController: UIViewController {
                     score.mapType = 1002
                     score.score = self.latestScores[1]
                     score.data = data
-                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                    Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribe(onNext: { res in
                         RmLog.v("upload \(score)")
-                        }.addDisposableTo(self.disposeBag)
+                        }).addDisposableTo(self.disposeBag)
                     gRealm?.writeOptional {
                         gRealm?.add(score)
                     }
@@ -420,9 +420,9 @@ class DataViewController: UIViewController {
                         score.mapType = 1004
                         score.score = self.latestScores[2]
                         score.data = data
-                        Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribeNext { res in
+                        Records.uploadRecord(score.mapType, duration: score.score, recordData: score.archive()).subscribe(onNext: { res in
                             RmLog.v("upload \(score)")
-                            }.addDisposableTo(self.disposeBag)
+                            }).addDisposableTo(self.disposeBag)
                         gRealm?.writeOptional {
                             gRealm?.add(score)
                         }
@@ -437,11 +437,11 @@ class DataViewController: UIViewController {
             if s != prevData.s {
                 self.data.append(RmScoreData(value: ["t": Double(t)/100, "v": v, "a": a, "s": s]))
             }
-        }
+        })
     }
 
     func stopTimer() {
-        UIApplication.shared().isIdleTimerDisabled = false
+        UIApplication.shared.isIdleTimerDisabled = false
         timerDisposable?.dispose()
         self.timeLabel.text = "00:00.00"
         self.ready = true
@@ -460,12 +460,12 @@ class DataSubViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.clear()
+        self.view.backgroundColor = UIColor.clear
     }
 
     override func viewDidLayoutSubviews() {
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.white()
+        label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 30 * scale)
         label.text = time
         self.view.addSubview(label)

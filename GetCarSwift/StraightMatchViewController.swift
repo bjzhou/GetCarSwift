@@ -51,7 +51,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
 
     var timerDisposable: Disposable?
 
-    var ads: [UIImage?] = [R.image.ad_KW, R.image.ad_AFE, R.image.ad_CSB, R.image.ad_MRG, R.image.ad_DMEN, R.image.ad_JBOM, R.image.ad_TEIN, R.image.ad_INJEN, R.image.ad_ohlins, R.image.ad_DIXCEL, R.image.ad_AP_RACING]
+    var ads: [UIImage?] = [R.image.ad_KW(), R.image.ad_AFE(), R.image.ad_CSB(), R.image.ad_MRG(), R.image.ad_DMEN(), R.image.ad_JBOM(), R.image.ad_TEIN(), R.image.ad_INJEN(), R.image.ad_ohlins(), R.image.ad_DIXCEL(), R.image.ad_AP_RACING()]
 
     var trackDetailViewModel = TrackDetailViewModel()
     var danmuEffect: DanmuEffect?
@@ -70,14 +70,14 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
             button?.layer.cornerRadius = 23.5
         }
 
-        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.rightBarButtonItem?.image = R.image.nav_item_comment()?.withRenderingMode(.alwaysOriginal)
         self.navigationItem.rightBarButtonItem?.setBackgroundVerticalPositionAdjustment(3, for: .default)
 
-        trackDetailViewModel.getComments().subscribeNext { cs in
+        trackDetailViewModel.getComments().subscribe(onNext: { cs in
             for comment in cs {
                 self.danmuEffect?.send(comment.content, delay: 1, highlight: comment.uid == Mine.sharedInstance.id)
             }
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
 
     override func viewDidLayoutSubviews() {
@@ -99,7 +99,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
     }
 
     func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
+        guard let userInfo = (notification as NSNotification).userInfo, let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
 
@@ -137,7 +137,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
             aLabel2.text = "--"
             aLabel3.text = "--"
 
-            timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribeNext { _ in
+            timerDisposable = Observable<Int>.timer(0, period: 0.01, scheduler: MainScheduler.instance).subscribe(onNext: { _ in
                 if !sender.isSelected {
                     return
                 }
@@ -170,8 +170,8 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
                     self.stopAnim()
                     self.timerOffset = 0
                 }
-            }
-            raceBg.image = R.image.race_bg_starting
+            })
+            raceBg.image = R.image.race_bg_starting()
             startAnim(button1, score: score1)
             startAnim(button2, score: score2)
             startAnim(button3, score: score3)
@@ -225,7 +225,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
         let data = score.data.filter { $0.v != 60 && $0.v != 100 }
         let anim = CAKeyframeAnimation(keyPath: "position.y")
         anim.duration = score.score
-        anim.keyTimes = data.map { $0.t / score.score }
+        anim.keyTimes = data.map { ($0.t / score.score) as NSNumber }
         anim.values = data.map { -Double(self.raceBg.frame.height - 23.5) / 400 * $0.s }
         anim.calculationMode = kCAAnimationLinear
         anim.isRemovedOnCompletion = false
@@ -248,7 +248,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
         let data = bestScore.data.filter { $0.v != 60 && $0.v != 100 }
         let anim = CAKeyframeAnimation(keyPath: "position.y")
         anim.duration = bestScore.score
-        anim.keyTimes = data.map { $0.t / bestScore.score }
+        anim.keyTimes = data.map { ($0.t / bestScore.score) as NSNumber }
         anim.values = data.map { $0.s }
         anim.calculationMode = kCAAnimationLinear
         anim.isRemovedOnCompletion = false
@@ -291,7 +291,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
         button2.isEnabled = true
         button3.isEnabled = true
         finishLine.layer.removeAllAnimations()
-        raceBg.image = R.image.race_bg
+        raceBg.image = R.image.race_bg()
     }
 
     func time2String(_ t: Double) -> String {
@@ -306,7 +306,7 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if anim == finishLine.layer.animation(forKey: "finishLine") {
-            raceBg.image = R.image.race_bg
+            raceBg.image = R.image.race_bg()
         }
     }
 
@@ -324,16 +324,16 @@ class StraightMatchViewController: UIViewController, CAAnimationDelegate {
             Toast.makeToast(message: "评论不能为空")
             return
         }
-        _ = trackDetailViewModel.postComment(commentTextField.text!).subscribeNext {
+        _ = trackDetailViewModel.postComment(commentTextField.text!).subscribe(onNext: {
             self.danmuEffect?.send(self.commentTextField.text!, highlight: true, highPriority: true)
             self.commentTextField.text = ""
-            }
+            })
         self.view.endEditing(true)
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == R.segue.track_comment {
-            if let destVc = segue.destinationViewController as? CommentsViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == R.segue.trackDetailViewController.track_comment.identifier {
+            if let destVc = segue.destination as? CommentsViewController {
                 destVc.trackDetailViewModel = trackDetailViewModel
             }
         }
@@ -356,12 +356,12 @@ extension StraightMatchViewController: AddPlayerDelegate {
         var url = String(score.headUrl)
         var nickname = String(score.nickname)
         if url == "" {
-            url = Mine.sharedInstance.avatarUrl ?? ""
+            url = Mine.sharedInstance.avatarUrl 
         }
         if nickname == "" {
-            nickname = Mine.sharedInstance.nickname ?? ""
+            nickname = Mine.sharedInstance.nickname 
         }
-        sender?.kf_setBackgroundImageWithURL(URL(string: url)!, forState: .normal, placeholderImage: R.image.avatar)
+        sender?.kf.setBackgroundImage(with: URL(string: url!)!, for: .normal, placeholder: R.image.avatar())
         sender?.layer.borderColor = UIColor.gaikeRedColor().cgColor
         sender?.layer.borderWidth = 2
 
@@ -386,18 +386,12 @@ extension StraightMatchViewController: AddPlayerDelegate {
         vLabel3.text = "--:--.--"
         aLabel3.text = "--:--.--"
 
-        var filterdScore1 = score1?.data.filter { $0.v >= 60 }
-        var filterdScore2 = score1?.data.filter { $0.v >= 100 }
-        var filterdScore3 = score2?.data.filter { $0.v >= 60 }
-        var filterdScore4 = score2?.data.filter { $0.v >= 100 }
-        var filterdScore5 = score3?.data.filter { $0.v >= 60 }
-        var filterdScore6 = score3?.data.filter { $0.v >= 100 }
-        filterdScore1?.sort { $0.t < $1.t }
-        filterdScore2?.sort { $0.t < $1.t }
-        filterdScore3?.sort { $0.t < $1.t }
-        filterdScore4?.sort { $0.t < $1.t }
-        filterdScore5?.sort { $0.t < $1.t }
-        filterdScore6?.sort { $0.t < $1.t }
+        let filterdScore1 = (score1?.data.filter { $0.v >= 60 })?.sorted { $0.t < $1.t }
+        let filterdScore2 = (score1?.data.filter { $0.v >= 100 })?.sorted { $0.t < $1.t }
+        let filterdScore3 = (score2?.data.filter { $0.v >= 60 })?.sorted { $0.t < $1.t }
+        let filterdScore4 = (score2?.data.filter { $0.v >= 100 })?.sorted { $0.t < $1.t }
+        let filterdScore5 = (score3?.data.filter { $0.v >= 60 })?.sorted { $0.t < $1.t }
+        let filterdScore6 = (score3?.data.filter { $0.v >= 100 })?.sorted { $0.t < $1.t }
         if let data = filterdScore1?.first {
             vLabel1.text = time2String(data.t)
         }

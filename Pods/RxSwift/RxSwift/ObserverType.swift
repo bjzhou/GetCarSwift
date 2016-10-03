@@ -31,7 +31,7 @@ Convenience API extensions to provide alternate next, error, completed events
 public extension ObserverType {
     
     /**
-    Convenience method equivalent to `on(.Next(element: E))`
+    Convenience method equivalent to `on(.next(element: E))`
     
     - parameter element: Next element to send to observer(s)
     */
@@ -40,17 +40,17 @@ public extension ObserverType {
     }
     
     /**
-    Convenience method equivalent to `on(.Completed)`
+    Convenience method equivalent to `on(.completed)`
     */
     final func onCompleted() {
         on(.completed)
     }
     
     /**
-    Convenience method equivalent to `on(.Error(error: ErrorProtocol))`
-    - parameter error: ErrorProtocol to send to observer(s)
+    Convenience method equivalent to `on(.error(Swift.Error))`
+    - parameter error: Swift.Error to send to observer(s)
     */
-    final func onError(_ error: ErrorProtocol) {
+    final func onError(_ error: Swift.Error) {
         on(.error(error))
     }
 }

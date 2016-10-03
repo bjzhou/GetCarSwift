@@ -25,7 +25,7 @@ class ConversationViewController: RCConversationViewController {
         if fromProfile {
             _ = self.navigationController?.popViewController(animated: true)
         } else {
-            let vc = R.storyboard.friend.friend_profile
+            let vc = UIStoryboard(name: "friend", bundle: Bundle.main).instantiateViewController(withIdentifier: "friend_profile") as? FriendProfileViewController
             vc?.uid = userId
             showViewController(vc!)
         }

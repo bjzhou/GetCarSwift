@@ -22,7 +22,7 @@ class CarTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.sectionIndexColor = UIColor.black()
+        self.tableView.sectionIndexColor = UIColor.black
 
         self.sideMenuController()?.sideMenu?.delegate = self
         indicator.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 64)
@@ -31,13 +31,13 @@ class CarTableViewController: UITableViewController {
 
         indicator.startAnimating()
 
-        _ = CarInfo.infoLogo().subscribeNext { (c, b, m) in
+        _ = CarInfo.infoLogo().subscribe(onNext: { (c, b, m) in
             self.categeries = c
             self.brands = b
             self.models = m
             self.tableView.reloadData()
             self.indicator.stopAnimating()
-        }
+        })
     }
 
     // MARK: - Table view data source
@@ -51,11 +51,11 @@ class CarTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: R.reuseIdentifier.car_no, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.car_no, for: indexPath)
 
         let titleText = brands[categeries[(indexPath as NSIndexPath).section]]?[(indexPath as NSIndexPath).row] ?? ""
         let imageUrl = models[titleText]?[0].imageUrl ?? ""
-        cell?.logoView?.kf_setImageWithURL(URL(string: imageUrl)!, placeholderImage: defaultImage)
+        cell?.logoView?.kf.setImage(with: URL(string: imageUrl)!, placeholder: defaultImage)
         cell?.titleLabel?.text = titleText
 
         return cell!

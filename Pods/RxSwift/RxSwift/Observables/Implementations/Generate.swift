@@ -48,13 +48,13 @@ class GenerateSink<S, O: ObserverType> : Sink<O> {
 }
 
 class Generate<S, E> : Producer<E> {
-    private let _initialState: S
-    private let _condition: (S) throws -> Bool
-    private let _iterate: (S) throws -> S
-    private let _resultSelector: (S) throws -> E
-    private let _scheduler: ImmediateSchedulerType
+    fileprivate let _initialState: S
+    fileprivate let _condition: (S) throws -> Bool
+    fileprivate let _iterate: (S) throws -> S
+    fileprivate let _resultSelector: (S) throws -> E
+    fileprivate let _scheduler: ImmediateSchedulerType
     
-    init(initialState: S, condition: (S) throws -> Bool, iterate: (S) throws -> S, resultSelector: (S) throws -> E, scheduler: ImmediateSchedulerType) {
+    init(initialState: S, condition: @escaping (S) throws -> Bool, iterate: @escaping (S) throws -> S, resultSelector: @escaping (S) throws -> E, scheduler: ImmediateSchedulerType) {
         _initialState = initialState
         _condition = condition
         _iterate = iterate
@@ -63,7 +63,7 @@ class Generate<S, E> : Producer<E> {
         super.init()
     }
     
-    override func run<O : ObserverType where O.E == E>(_ observer: O) -> Disposable {
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == E {
         let sink = GenerateSink(parent: self, observer: observer)
         sink.disposable = sink.run()
         return sink
