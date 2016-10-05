@@ -7,8 +7,8 @@ GetCarSwift
 
 要求
 -----
-* iOS8.0及以上的iPhone或iPod
-* Xcode 7.0及以上版本
+* iOS9.0及以上的iPhone或iPod
+* Xcode 8.0及以上版本
 
 使用到的工具
 -----
